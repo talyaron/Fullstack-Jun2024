@@ -1,0 +1,27 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.Box1, .Box2, .Box3 {
+  background-color: red;
+  width: 500px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  margin: 10px 0;
+}
+
+.Box2 {
+  background-color: blue;
+}
+
+.text {
+  flex: 1;
+}
+
+.empty-img {
+  width: 220px;
+  height: auto;
+}/*# sourceMappingURL=styles.css.map */
