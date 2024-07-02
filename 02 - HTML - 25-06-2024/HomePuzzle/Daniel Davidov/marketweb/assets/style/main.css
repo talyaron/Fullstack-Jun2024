@@ -344,7 +344,7 @@ body {
   color: #ADADAD;
 }
 .categories_products a.product:hover .product_img {
-  transform: scale(1.1);
+  transform: scale(2.2);
 }
 
 .products {
