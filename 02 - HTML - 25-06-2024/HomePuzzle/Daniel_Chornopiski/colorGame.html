@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="styles.css">
+	<meta charset="UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<title>color snake</title>
+</head>
+
+	<body>
+	<h1 id="title"> welcome <h1>
+		<canvas width="750" height="585" id="game"> test </canvas>
+		<script>
+			var canvas = document.getElementById('game');
+			var context = canvas.getContext('2d');
+			const size = 15;
+
+			const dot = {
+				x: canvas.width / 2,
+				y: canvas.height / 2
+			};
+			
+			function draw() { 
+				var color = Math.floor(Math.random() * 16777215).toString(16);
+				color = "#" + ("000000" + color).slice(-6);
+				context.beginPath();
+				context.rect(dot.x, dot.y, size, size);
+				context.fillStyle = color;
+				context.fill();
+				document.getElementById("title").innerHTML = "color id: " + color;
+			}
+			draw();
+			document.addEventListener('keydown', function(e) {
+			  // up arrow key
+			  if (e.which === 38 && dot.y - size > 0) {
+				dot.y += -size;
+				draw();
+			  }
+			  // down arrow key
+			  else if (e.which === 40 && dot.y + size * 2 < canvas.height) {
+				dot.y += size;
+				draw();
+			  }
+			  // right arrow key
+			  if (e.which === 37 && dot.x - size > 0) {
+				dot.x += -size;
+				draw();
+			  }
+			  // left arrow key
+			  else if (e.which === 39 && dot.x + size < canvas.width) {
+				dot.x += size;
+				draw();
+			  }
+			  });
+		</script>
+	</body>
+	<footer><button type="button" onclick=location.replace("main.html")> menu </button></footer>
+</html>
