@@ -1,0 +1,42 @@
+body{
+direction: rtl;
+}
+h1{
+    color:red;
+}
+p{
+    font-style: italic;
+}
+// class selector
+.big{
+    font-size: 1.3rem;
+}
+
+.colored{
+    color: rgb(62, 62, 192);
+}
+.baldText{
+    font-weight: bold;
+}
+
+#first-paragraph{
+    color: green;
+    background-color: tomato;
+    text-align: center;
+}
+#my-div{
+    transform: rotate((4deg));
+}
+
+.round-box{
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+}
+
+div{
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid black;
+}
