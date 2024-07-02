@@ -1,0 +1,177 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+
+
+header {
+    display: flex;
+justify-content: space-between;
+    align-items: center; 
+    padding: 10px 20px;
+    background-color: rgb(7, 154, 152);
+    border-radius: 10px;
+    height: 100px;
+    text-decoration: none;
+
+}
+
+ul {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    
+}
+ul a{
+    text-decoration: none;
+    color: white;
+    transition: all ;
+    font-weight: bold;
+    justify-content: space-between;
+    margin-right: 70px;
+
+}
+ul a :hover{
+    color: rgb(0, 0, 0);
+    transition: all 0.25s;
+
+}
+
+li {
+    margin-right: 20px; 
+
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+button:hover{
+    background-color: #000000;
+    color: white;
+}
+
+
+
+
+img{
+    width: 520px;
+    justify-content: space-between;
+    align-items: center; 
+    padding: 10px 20px;
+    margin-bottom: 100px;
+    margin-top: 1px;
+    transition: opacity 0.3s ease;
+
+}
+
+img:hover{
+    opacity: 0.5;
+}
+
+.logo{
+    width: 150px;
+    margin-top: 120px;
+  
+}
+
+footer{
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #064d58;
+    margin: 0;
+    height: 300px;
+    }
+    
+    
+    
+    .divfut1{
+        order: 3;
+        text-align: center;
+        width:150px ;
+        margin-right: 100px;
+    }
+    
+    .divfut1 img{
+    width: 30px;
+    margin: 0;
+    }
+    .divfut1 button{
+    
+    margin-bottom: 30px;
+    }
+    
+    .divfut2{
+    order: 1;
+    text-align: center;
+    }
+    
+    .divfut2 ul{
+        display: inline-block;
+        margin-left: 100px;
+    }
+    
+    .divfut2 li{
+        text-decoration: none;
+            border-bottom: 1px solid white; 
+            padding-bottom: 2px; 
+    }
+    
+    
+    
+    .divfut3{
+    order: 2;
+    text-align: center;
+    margin-top: 100px;
+    }
+    
+    
+    
+    .divfut3 img{
+        width: 180px;
+        margin-right: 20;
+    
+    
+        
+    }
+    .divfut4{
+        text-align: center;
+        background-color: #064d58a9;
+        color: white;
+        padding: 5px 0; 
+        margin: 0; 
+        line-height: 1.2;
+        margin-top: -15px;
+    }
+    
+    
+    h1,h2,h3,h4,h5{
+        text-align: center;
+    }
+
+
+    .bt2{
+        margin-left: 47%;
+        margin-bottom: 30px;
+    }
+
+
+
+
+    figcaption{
+        text-align: center;
+    }
+   
