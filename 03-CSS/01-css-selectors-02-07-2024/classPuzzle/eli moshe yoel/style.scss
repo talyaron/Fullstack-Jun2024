@@ -1,10 +1,15 @@
 .R{  border: 2px solid red;
-    padding: 12px 12px ;
+ 
 background-color: red;}
 
 .B{border: 2px solid blue;
-    padding: 12px 12px ;
+    padding: 12px 6px ;
 background-color: blue;}
 
+.S{border: 2px solid rgb(0, 0, 74);
+    padding: 12px 6px ;
+background-color: rgb(0, 0, 103) ;
 
-.W{color: white;}
+}
+
+.W{color: white;display: inline-block; }
