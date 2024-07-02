@@ -1,0 +1,21 @@
+.R {
+  border: 2px solid red;
+  background-color: red;
+}
+
+.B {
+  border: 2px solid blue;
+  padding: 12px 6px;
+  background-color: blue;
+}
+
+.S {
+  border: 2px solid #00004a;
+  padding: 12px 6px;
+  background-color: #000067;
+}
+
+.W {
+  color: white;
+  display: inline-block;
+}
