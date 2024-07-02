@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="styles.css">
+	<meta charset="UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<title>FIGHT!</title>
+</head>
+
+	<body>
+	<button type="button" onclick=attack()> Attack </button>
+	<progress id="battle" max=100 value=50> </progress>
+	
+	<script>
+	var speed = 1;
+	var max = 100;
+	var time = 0;
+	setInterval(move, 1000);
+	function move() {
+		document.getElementById("battle").value -= speed;
+		if (document.getElementById("battle").value <= 1) {
+			window.location.replace("DeathScreen.html")
+		}
+		if (time % 5 == 0) {
+			speed *= 2;
+		}
+		document.getElementById("counter").innerHTML = " seconds survived: " + time;
+		time+=1;
+	}
+	function attack() {
+		document.getElementById("battle").value += 1;
+	}
+	
+	</script>
+	
+	</body>
+	<footer> <button type="button" onclick=location.replace("main.html")> menu </button> </footer>
+</html>
