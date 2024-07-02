@@ -1,0 +1,171 @@
+* {    
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #eaeaea;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 8%;
+    background: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 25px;
+    color: #222;
+    text-decoration: none;
+    font-weight: 600; 
+}
+
+.navbar a {
+    font-size: 18px;
+    color: #222;
+    text-decoration: none;
+    font-weight: 500;
+    margin: 0 20px;
+    transition: .3s;
+}
+
+.navbar a:hover,
+.navbar a.active {
+    color: #1743e3;
+}
+
+.social-media {
+    display: flex;
+    justify-content: space-between;
+    width: 150px;
+    height: 40px;
+}
+
+.social-media a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 2px solid transparent;
+    text-decoration: none;
+    transform: rotate(45deg);
+    transition: .5s;
+    
+}
+
+.social-media a:hover {
+    border-color: #f2f2f3;
+}
+
+.social-media a i {
+    font-size: 24px;
+    color: #eaeaea;
+    transform: rotate(-45deg);
+
+}
+
+.home {
+    position: relative;
+   width: 100%; 
+   height: 100vh;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 50px 8% 0;
+   overflow: hidden;
+}
+
+.home-conect {
+    max-width: 630px;
+}
+
+.home-conect h1 {
+    font-size: 50px;
+    line-height: 1.2;
+}
+
+.home-conect h3 {
+    font-size: 40px;
+    color: blue
+}
+
+.home-conect p {
+    font-size: 16px;
+    margin: 15px 0 30px;
+
+
+}
+
+.btn {
+display: inline-block;
+padding: 10px 28px;
+background: #0050fd;
+border: 2px solid #0050fd;
+border-radius: 6px;
+box-shadow: 0 0 10px rgba(rgb(0, 201, 252), rgb(4, 108, 226), blue, alpha);
+font-size: 16px;
+color: #eaeaea;
+letter-spacing: 1px;
+text-decoration: none;
+font-weight: 600;
+transition: .5s;
+
+}
+
+.btn:hover {
+    background: transparent;
+    color: #0050fd;
+}
+
+.home-img {
+ position: relative;
+ width: 450px;
+ height: 450px;
+ transform: rotate(45deg);
+}
+    
+.home-img .rhombus {
+    position: absolute;
+    right:-7%;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    border: 25px solid #1743e3;
+}
+
+.home-img .rhombus img {
+    position: absolute;
+    top: 110px;
+    left: -250px;
+    transform: rotate(-45deg);
+    max-width: 750px;
+    
+
+}
+
+.home .rhombus2 {
+    position: absolute;
+    top: -25%;
+    right: -25%;
+    width: 700px;
+    height: 700px;
+    background: #0050fd;
+    transform: rotate(45deg);
+    z-index: -1;
+}
+
+
+
+
+
