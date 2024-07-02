@@ -1,0 +1,40 @@
+body {
+  direction: rtl;
+}
+
+.articelwhite {
+  background-color: white;
+  width: 60%;
+}
+
+.articelred1 {
+  background-color: red;
+  color: white;
+  font-style: italic;
+  border: 1px solid black;
+}
+
+.articleblue {
+  background-color: blue;
+  color: white;
+  font-style: italic;
+  margin: 0%;
+  font-family: "Courier New", Courier, monospace;
+  border: 1px solid black;
+
+}
+
+.articlered2 {
+  background-color: red;
+  color: white;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  border: 1px solid black;
+}
+
+.articleblack {
+  background-color: #15113d;
+  color: white;
+  font-style: italic;
+  border: 1px solid black;
+
+}
