@@ -1,0 +1,103 @@
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header-ynet_logo_israel_flag {
+    width: auto;   
+    width: 140px;
+    display: block;
+    margin-left: 165px;
+    margin-right: 155px;
+    margin-top: 20px;
+    width: 50%;
+    justify-content: center; 
+    align-items: center;
+  }
+  
+  .main-menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: black;
+    font-size: 20px;
+    margin: 22px;
+    max-width: 320px; 
+  }
+.main-menu h4 {
+    margin: 0;
+    white-space: nowrap; 
+    word-spacing: 20px;
+    font-weight: 300;
+}
+
+.main-menu h4 span {
+    font-weight: bold; 
+}
+
+.three-lines {
+    width: 30px;
+    height: auto;
+    margin-left: 10px;
+}
+
+
+.weather-login {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+.weather-login h5 {
+    margin: 0;
+    white-space: nowrap;
+    word-spacing: 0px;
+    font-weight: 300;
+    font-size: 16px;
+}
+
+.img-weather {
+    width: 30px;
+    margin-left: -200px;
+}
+
+  .article {
+    background-color: red;
+    width: 500px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    margin: 10px 0;
+    color: white;
+    width: 100%;
+
+  }
+  .red-article{
+    background-color: red;
+    color: white;
+
+  }
+  .blue-article {
+    background-color: blue;
+    color: white;
+
+  }
+
+  .black-article{
+    background-color: rgb(0, 12, 77);
+    color: white;
+
+  }
+  
+  .text {
+    flex: 1;
+  }
+  
+  .empty-img {
+    width: 150px;
+    height: auto;
+  }
+  
