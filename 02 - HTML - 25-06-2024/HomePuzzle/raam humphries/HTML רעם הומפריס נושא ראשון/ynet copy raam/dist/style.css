@@ -1,10 +1,204 @@
 @charset "UTF-8";
 .text-container {
-  /* הפונקציה יוצאת מרווחים שווים הין המילים*/
+  /* הפונקציה יוצאת מרווחים שווים בין המילים*/
   display: flex;
   justify-content: space-between;
   direction: rtl;
 }
 .text-container span {
   display: inline-block;
+}
+
+.senterpage {
+  /*ממרכזת למרכז השורה*/
+  text-align: center;
+}
+
+.blackandwhite {
+  /* הפונקציה מגרילה בין סוגי סטייל שונים של צבע רקעים, צבע מילים וסגנון מילים*/
+  background-color: white;
+  color: black;
+}
+
+.grayline {
+  /*הפונקציה יוצרת חייץ בצבע אפור שתוחם את המלל מלמטה*/
+  border-bottom: 2px solid #e3e1e1;
+}
+
+.linkliketext {
+  /*הפונקציה מורידה את הסגנון הכחול של הלינק ומישרת לימין*/
+  text-decoration: none;
+  color: inherit;
+  text-align: right;
+}
+
+.blockneerimg {
+  /*הפונקציה מאפרשרת לשים באותה שורה תמונה ליד מלל*/
+  display: flex;
+  flex: 1;
+  margin-right: 5px;
+  /* מוסיף מרווח בין התיאור לתמונה */
+  position: relative;
+  border: white solid;
+}
+
+.redbox {
+  /*הפונקציה מתארת מאפיינים רצויים לבלוק שיושב לצד תמונה*/
+  background-color: red;
+  color: white;
+  padding: 10px;
+  text-align: right;
+  width: 800px;
+  height: 80px;
+  font-size: large;
+  font-style: normal;
+  border: red solid;
+}
+
+.bluebox {
+  /*הפונקציה מתארת מאפיינים רצויים לבלוק שיושב לצד תמונה*/
+  background-color: blue;
+  color: white;
+  padding: 10px;
+  text-align: right;
+  width: 800px;
+  height: 80px;
+  font-size: large;
+  font-style: normal;
+  border: blue solid;
+}
+
+.greenbox {
+  /*הפונקציה מתארת מאפיינים רצויים לבלוק שיושב לצד תמונה*/
+  background-color: green;
+  color: white;
+  padding: 10px;
+  text-align: right;
+  width: 800px;
+  height: 80px;
+  font-size: large;
+  font-style: normal;
+  border: green solid;
+}
+
+.blackbox {
+  /*הפונקציה מתארת מאפיינים רצויים לבלוק שיושב לצד תמונה*/
+  background-color: black;
+  color: white;
+  padding: 10px;
+  text-align: right;
+  width: 800px;
+  height: 80px;
+  font-size: large;
+  font-style: normal;
+  border: black solid;
+}
+
+.author {
+  /*הפונקציה מתארת מאפיינים רצויים להוספת מחבר לבלוק שיושב לצד תמונה*/
+  font-style: italic;
+  font-size: 14px;
+  position: relative;
+  right: 5px;
+  border: 10px;
+}
+
+.greybox {
+  /*הפונקציה מתארת מאפיינים רצויים לבלוק שיושב לצד תמונה*/
+  background-color: #3c3c3c;
+  color: white;
+  padding: 10px;
+  text-align: right;
+  width: 800px;
+  height: 80px;
+  font-size: large;
+  font-style: normal;
+  border: #3c3c3c;
+  font-style: oblique;
+}
+
+.smalllightgraybox {
+  /*הפונקציה מתארת מאפיינים רצויים לבלוק אפור קטן ליד בלוק נוסף*/
+  background-color: #3c3c3c;
+  color: white;
+  padding: 10px;
+  text-align: right;
+  width: 400px;
+  height: 20px;
+  font-size: large;
+  font-style: normal;
+  border: #3c3c3c;
+  font-style: oblique;
+  text-align: center;
+}
+
+.smallgraybox {
+  /*הפונקציה מתארת מאפיינים רצויים לבלוק אפור כהה קטן ליד בלוק נוסף*/
+  background-color: #2a2a2a;
+  color: white;
+  padding: 10px;
+  text-align: right;
+  width: 400px;
+  height: 20px;
+  font-size: large;
+  font-style: normal;
+  border: #3c3c3c;
+  font-style: oblique;
+  text-align: center;
+}
+
+.blockneeblock {
+  /*הפונקציה מאפרשרת לשים באותה שורה שני בלוקים זה לצד זה - שים לב שאין בורדר למטה*/
+  display: flex;
+  flex: 1;
+  margin-right: 5px;
+  /* מוסיף מרווח בין התיאור לתמונה */
+  position: relative;
+}
+
+/*----------מכאן להמשיך מחר , עריכה של בלוק אקורדיאון , לא לשכוח לרשום תיאורים של מה כל פעולה עושה-----------*/
+.accordion {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.accordion-item {
+  background-color: #f1f1f1;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.accordion-toggle:checked ~ .accordion-content {
+  max-height: 500px;
+}
+.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  cursor: pointer;
+}
+.accordion-header .time {
+  font-size: 0.8em;
+  color: #888;
+}
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+.accordion-content p {
+  padding: 0 15px;
+}
+.accordion-content .action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 15px;
+}
+.accordion-content .action-buttons button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
 }

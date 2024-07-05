@@ -1,12 +1,202 @@
 
 
-.text-container {/* הפונקציה יוצאת מרווחים שווים הין המילים*/
+.text-container {/* הפונקציה יוצאת מרווחים שווים בין המילים*/
     display: flex;
     justify-content: space-between;
     direction: rtl;
+   
     
     span {
       display: inline-block;
     }
-  }
+}
+
+.senterpage{ /*ממרכזת למרכז השורה*/
+    text-align: center;
+
+}
   
+.blackandwhite { /* הפונקציה מגרילה בין סוגי סטייל שונים של צבע רקעים, צבע מילים וסגנון מילים*/
+    background-color:white;
+    color: black;
+}
+
+.grayline{ /*הפונקציה יוצרת חייץ בצבע אפור שתוחם את המלל מלמטה*/
+    border-bottom: 2px solid rgb(227, 225, 225);
+}
+
+.linkliketext{/*הפונקציה מורידה את הסגנון הכחול של הלינק ומישרת לימין*/
+    text-decoration: none;
+    color: inherit;
+    text-align: right;
+}
+.blockneerimg{/*הפונקציה מאפרשרת לשים באותה שורה תמונה ליד מלל*/
+   display: flex;
+   flex:1;
+   margin-right: 5px; /* מוסיף מרווח בין התיאור לתמונה */
+   position: relative;
+   border: white solid;
+   
+}.redbox{   /*הפונקציה מתארת מאפיינים רצויים לבלוק שיושב לצד תמונה*/
+    background-color: red;
+    color: white;
+    padding: 10px;
+    text-align: right;
+    width: 800px; // רוחב קבוע
+    height: 80px; // גובה קבוע
+    font-size: large;
+    font-style: normal;
+    border: red solid;
+    
+}
+.bluebox{  /*הפונקציה מתארת מאפיינים רצויים לבלוק שיושב לצד תמונה*/
+    background-color: blue;
+    color: white;
+    padding: 10px;
+    text-align: right;
+    width: 800px; // רוחב קבוע
+    height: 80px; // גובה קבוע
+    font-size: large;
+    font-style: normal;
+    border: blue solid;
+
+}
+.greenbox{  /*הפונקציה מתארת מאפיינים רצויים לבלוק שיושב לצד תמונה*/
+    background-color: green;
+    color: white;
+    padding: 10px;
+    text-align: right;
+    width: 800px; // רוחב קבוע
+    height: 80px; // גובה קבוע
+    font-size: large;
+    font-style: normal;
+    border: green solid;
+
+}
+.blackbox{  /*הפונקציה מתארת מאפיינים רצויים לבלוק שיושב לצד תמונה*/
+    background-color: black;
+    color: white;
+    padding: 10px;
+    text-align: right;
+    width: 800px; // רוחב קבוע
+    height: 80px; // גובה קבוע
+    font-size: large;
+    font-style: normal;
+    border: black solid;
+
+}
+.author { /*הפונקציה מתארת מאפיינים רצויים להוספת מחבר לבלוק שיושב לצד תמונה*/
+        font-style: italic;
+        font-size: 14px;
+        position: relative;
+        right: 5px;
+        border: 10px;
+}
+
+
+.greybox{  /*הפונקציה מתארת מאפיינים רצויים לבלוק שיושב לצד תמונה*/
+    background-color: rgb(60, 60, 60);
+    color: white;
+    padding: 10px;
+    text-align: right;
+    width: 800px; // רוחב קבוע
+    height: 80px; // גובה קבוע
+    font-size: large;
+    font-style: normal;
+    border:rgb(60, 60, 60);
+    font-style: oblique;
+}
+.smalllightgraybox{  /*הפונקציה מתארת מאפיינים רצויים לבלוק אפור קטן ליד בלוק נוסף*/
+    background-color: rgb(60, 60, 60);
+    color: white;
+    padding: 10px;
+    text-align: right;
+    width: 400px; // רוחב קבוע
+    height: 20px; // גובה קבוע
+    font-size: large;
+    font-style: normal;
+    border:rgb(60, 60, 60);
+    font-style: oblique;
+    text-align: center;
+}
+.smallgraybox{  /*הפונקציה מתארת מאפיינים רצויים לבלוק אפור כהה קטן ליד בלוק נוסף*/
+        background-color: rgb(42, 42, 42);
+        color: white;
+        padding: 10px;
+        text-align: right;
+        width: 400px; // רוחב קבוע
+        height: 20px; // גובה קבוע
+        font-size: large;
+        font-style: normal;
+        border:rgb(60, 60, 60);
+        font-style: oblique;
+        text-align: center;
+}
+.blockneeblock{/*הפונקציה מאפרשרת לשים באותה שורה שני בלוקים זה לצד זה - שים לב שאין בורדר למטה*/
+            display: flex;
+            flex:1;
+            margin-right: 5px; /* מוסיף מרווח בין התיאור לתמונה */
+            position: relative;
+            
+}
+
+
+/*----------מכאן להמשיך מחר , עריכה של בלוק אקורדיאון , לא לשכוח לרשום תיאורים של מה כל פעולה עושה-----------*/
+
+.accordion {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  
+    &-item {
+      background-color: #f1f1f1;
+      margin-bottom: 5px;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+  
+    &-toggle {
+      &:checked {
+        ~ .accordion-content {
+          max-height: 500px; // או ערך גבוה מספיק
+        }
+      }
+    }
+  
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      cursor: pointer;
+  
+      .time {
+        font-size: 0.8em;
+        color: #888;
+      }
+    }
+  
+    &-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+  
+      p {
+        padding: 0 15px;
+      }
+  
+      .action-buttons {
+        display: flex;
+        justify-content: flex-end;
+        padding: 10px 15px;
+  
+        button {
+          margin-left: 10px;
+          padding: 5px 10px;
+          border: none;
+          border-radius: 3px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
