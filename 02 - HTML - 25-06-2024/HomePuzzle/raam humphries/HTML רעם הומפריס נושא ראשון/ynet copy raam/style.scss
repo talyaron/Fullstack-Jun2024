@@ -1,0 +1,12 @@
+
+
+.text-container {/* הפונקציה יוצאת מרווחים שווים הין המילים*/
+    display: flex;
+    justify-content: space-between;
+    direction: rtl;
+    
+    span {
+      display: inline-block;
+    }
+  }
+  

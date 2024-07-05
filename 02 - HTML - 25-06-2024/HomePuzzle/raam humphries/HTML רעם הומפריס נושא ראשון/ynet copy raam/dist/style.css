@@ -1,0 +1,10 @@
+@charset "UTF-8";
+.text-container {
+  /* הפונקציה יוצאת מרווחים שווים הין המילים*/
+  display: flex;
+  justify-content: space-between;
+  direction: rtl;
+}
+.text-container span {
+  display: inline-block;
+}
