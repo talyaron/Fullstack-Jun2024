@@ -1,0 +1,119 @@
+h1 {
+  color: 0;
+}
+
+.test {
+  background-color: red;
+  width: 500px;
+  height: 150px;
+  position: absolute;
+  top: 20%;
+  left: 35%;
+}
+
+.title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  top: 20%;
+  left: 41%;
+}
+
+.info {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  top: 30%;
+  left: 38%;
+}
+
+.info2 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  top: 28%;
+  left: 45%;
+}
+
+.test1 {
+  background-color: blue;
+  width: 500px;
+  height: 150px;
+  position: absolute;
+  top: 40%;
+  left: 35%;
+}
+
+.info3 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  top: 40%;
+  left: 38%;
+}
+
+.info7 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 42%;
+}
+
+.info4 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  top: 60%;
+  left: 38%;
+}
+
+.test2 {
+  background-color: red;
+  width: 500px;
+  height: 150px;
+  position: absolute;
+  top: 60%;
+  left: 35%;
+}
+
+.info5 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  top: 70%;
+  left: 42%;
+}
+
+.info10 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  top: 80%;
+  left: 42%;
+}
+
+.test3 {
+  background-color: rgb(0, 0, 0);
+  width: 500px;
+  height: 150px;
+  position: absolute;
+  top: 80%;
+  left: 35%;
+}/*# sourceMappingURL=style.css.map */
