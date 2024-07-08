@@ -1,0 +1,470 @@
+@charset "UTF-8";
+.logo {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: 10%;
+  left: 40%;
+}
+
+.toolbar-color {
+  background-color: red;
+  width: 1280px;
+  height: 30px;
+  position: absolute;
+  top: 30%;
+  left: 15%;
+}
+
+.toolbar-pages {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-style: bold;
+  color: white;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: flex-start;
+  /* מיישר את הפריטים לתחילת השורה */
+  position: absolute;
+  top: 30.5%;
+  left: 30%;
+}
+
+.toolbar-pages li {
+  margin-right: 20px;
+}
+
+.notifications1 {
+  background-color: #f8eeee;
+  width: 300px;
+  height: 100px;
+  position: absolute;
+  top: 35%;
+  left: 15%;
+  border-radius: 15px;
+}
+
+.nt-text1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  color: black;
+  position: absolute;
+  top: 35%;
+  left: 16%;
+}
+
+.notifications2 {
+  background-color: #f8eeee;
+  width: 300px;
+  height: 100px;
+  position: absolute;
+  top: 35%;
+  left: 32%;
+  border-radius: 15px;
+}
+
+.nt-text2 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  color: black;
+  position: absolute;
+  top: 8%;
+  left: 3%;
+}
+
+.notifications3 {
+  background-color: #f8eeee;
+  width: 300px;
+  height: 100px;
+  position: absolute;
+  top: 35%;
+  left: 49%;
+  border-radius: 15px;
+}
+
+.nt-text3 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  color: black;
+  position: absolute;
+  top: 5%;
+  left: 3%;
+}
+
+.notifications4 {
+  background-color: #f8eeee;
+  width: 300px;
+  height: 100px;
+  position: absolute;
+  top: 35%;
+  left: 66%;
+  border-radius: 15px;
+}
+
+.nt-text4 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  color: red;
+  position: absolute;
+  top: 7%;
+  left: 2%;
+}
+
+.newsphoto1 {
+  position: absolute;
+  top: 50%;
+  left: 15%;
+}
+
+.head-news1 {
+  font-family: Arial, Helvetica, sans-serif;
+  position: absolute;
+  font-weight: bold;
+  top: 55%;
+  left: 67%;
+  direction: rtl;
+  text-align: center;
+}
+
+.text-news1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+  font-weight: bold;
+  position: absolute;
+  top: 70%;
+  left: 60%;
+  direction: rtl;
+  padding-bottom: 300px;
+}
+
+.small-news1 {
+  background-color: red;
+  width: 550px;
+  height: 133px;
+  position: absolute;
+  top: 110%;
+  left: 15%;
+  box-sizing: border-box;
+}
+
+.title1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+  position: absolute;
+  top: 110%;
+  left: 20%;
+}
+
+.info1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  color: white;
+  position: absolute;
+  top: 118%;
+  left: 17%;
+}
+
+.info1-m {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  color: white;
+  position: absolute;
+  top: 178%;
+  left: 7%;
+  visibility: hidden;
+}
+
+.small-photo1 {
+  position: absolute;
+  top: 110%;
+  left: 43.9%;
+}
+
+.small-news2 {
+  background-color: #0004ff;
+  width: 550px;
+  height: 133px;
+  position: absolute;
+  top: 130%;
+  left: 15%;
+  box-sizing: border-box;
+}
+
+.title2 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 25px;
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  top: 130%;
+  left: 17.5%;
+}
+
+.info2 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  color: white;
+  position: absolute;
+  top: 137%;
+  left: 20%;
+  text-align: center;
+}
+
+.small-photo2 {
+  position: absolute;
+  top: 130%;
+  left: 43.9%;
+}
+
+@media screen and (max-width: 481px) {
+  html, body {
+    overflow-x: hidden;
+  }
+
+  .logo {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 5%;
+    left: 30%;
+  }
+
+  .toolbar-color {
+    background-color: red;
+    width: 542px;
+    height: 30px;
+    position: absolute;
+    top: 30%;
+    left: 15%;
+    overflow: hidden;
+  }
+
+  .toolbar-pages {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-style: bold;
+    color: white;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-start;
+    /* מיישר את הפריטים לתחילת השורה */
+    position: absolute;
+    top: 30.5%;
+    left: 20%;
+    overflow: hidden;
+  }
+
+  .notifications1 {
+    background-color: #f8eeee;
+    width: 250px;
+    height: 100px;
+    position: absolute;
+    top: 35%;
+    left: 40%;
+    border-radius: 15px;
+  }
+
+  .nt-text1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+    color: black;
+    position: absolute;
+    top: 37%;
+    left: 42%;
+  }
+
+  .notifications2 {
+    background-color: #f8eeee;
+    width: 250px;
+    height: 100px;
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    border-radius: 15px;
+  }
+
+  .nt-text2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+    color: black;
+    position: absolute;
+    top: 17%;
+    left: 1%;
+  }
+
+  .notifications3 {
+    background-color: #f8eeee;
+    width: 250px;
+    height: 100px;
+    position: absolute;
+    top: 65%;
+    left: 40%;
+    border-radius: 15px;
+  }
+
+  .nt-text3 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+    color: black;
+    position: absolute;
+    top: 17%;
+    left: 1%;
+  }
+
+  .notifications4 {
+    background-color: #f86060;
+    width: 250px;
+    height: 100px;
+    position: absolute;
+    top: 80%;
+    left: 40%;
+    border-radius: 15px;
+  }
+
+  .nt-text4 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    position: absolute;
+    top: 17%;
+    left: 1%;
+  }
+
+  .head-news1 {
+    font-family: Arial, Helvetica, sans-serif;
+    position: absolute;
+    font-weight: bold;
+    color: red;
+    font-size: 20px;
+    top: 100%;
+    left: 40%;
+    direction: rtl;
+    text-align: center;
+  }
+
+  .newsphoto1 {
+    height: 222px;
+    width: 397.5px;
+    position: absolute;
+    top: 88%;
+    left: 14%;
+  }
+
+  .text-news1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    position: absolute;
+    top: 135%;
+    left: 33%;
+    direction: rtl;
+    padding-bottom: 300px;
+    text-align: center;
+  }
+
+  .small-news1 {
+    background-color: red;
+    width: 481px;
+    height: 133px;
+    position: absolute;
+    top: 170%;
+    left: 15%;
+    box-sizing: border-box;
+  }
+
+  .title1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    top: 170%;
+    left: 16%;
+  }
+
+  .info1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: white;
+    position: absolute;
+    top: 178%;
+    left: 7%;
+    visibility: hidden;
+  }
+
+  .info1-m {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    top: 178%;
+    left: 17%;
+    text-align: center;
+    visibility: visible;
+  }
+
+  .small-photo1 {
+    position: absolute;
+    top: 170%;
+    left: 66%;
+  }
+
+  .small-news2 {
+    background-color: #0004ff;
+    width: 481px;
+    height: 133px;
+    position: absolute;
+    top: 190%;
+    left: 15%;
+    box-sizing: border-box;
+  }
+
+  .title2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    top: 190%;
+    left: 16%;
+  }
+
+  .info2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: white;
+    position: absolute;
+    top: 197%;
+    left: 20%;
+    text-align: center;
+  }
+
+  .small-photo2 {
+    position: absolute;
+    top: 190%;
+    left: 66%;
+  }
+}
