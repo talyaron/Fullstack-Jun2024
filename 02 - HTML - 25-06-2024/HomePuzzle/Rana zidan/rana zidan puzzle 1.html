@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>שלום עולם</title>
+    <style>
+        body {
+            background-color: beige;
+        }
+
+        h1 {
+            color: #e45252;
+            background-color: rgb(234, 240, 153);
+            padding: 4px;
+       
+        }
+
+        p  {
+            text-decoration: underline;
+            text-decoration-color: #000;
+            text-underline-offset: 4px;
+        }
+
+        h4 {
+             font-size: 20px ;
+             font-style: david ;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; 
+            justify-content: center;
+        }
+            
+        .bordered-image {
+            border: 5px solid #d8eb84; 
+            padding: 2px; 
+            border-radius: 10px; 
+        }
+
+        .round-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+        }
+
+        .figure {
+            text-align: center;
+            margin: 20px;
+        }
+
+        figcaption {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: #020202;
+        }
+
+        .button {
+            background-color: #b8db67; 
+            border: none; 
+            color: rgb(37, 31, 31); 
+            text-align: center; 
+            text-decoration: none; 
+            display: inline-block; 
+            font-size: 16px; 
+            padding: 10px 20px; 
+            margin: 10px; 
+            cursor: pointer; 
+            border-radius: 5px; 
+            transition: background-color 0.3s ease; 
+        }
+
+        .button:hover {
+            background-color: #ccec16; 
+        }
+
+
+    </style>
+</head>
+<body>
+    <div style="text-align: center;">
+        <h1>התחביב שלי</h1>
+        <p style="font-size: 45px;">טיולים בחו"ל</p>
+        <img src="OIP.jfif" alt="מסביב לעולם" class="bordered-image">
+        <h4>חובבי טיולים הם אנשים שאוהבים לחקור מקומות חדשים, לטייל בטבע ולחוות תרבויות שונות</h4>
+        <h4>הם נהנים מההרפתקה והאתגר שבגילוי מסלולים לא מוכרים, נופים עוצרי נשימה ופעילויות מחוץ לשגרה</h4>
+        <h4>עבורם, כל טיול הוא הזדמנות ללמוד ולהעשיר את עצמם, להכיר אנשים חדשים ולהתחבר לסביבה בדרכים ייחודיות ומרתקות</h4>
+        <h4>תחושת החופש, הריגוש והסיפוק שמגיעים עם הטיול הם אלו שמניעים אותם להמשיך ולחפש את היעד הבא</h4>
+        <p style="font-size: 40px;">היעדים שביקרתי</p>
+
+        <div class="gallery">
+        <figure class="figure">
+            
+            <img src="https://www.lametayel.co.il/limages/5898ea2bd21b06adc6b1f4afbe1caa48.jpg?size=720x600" alt="זדאר" class="round-image">
+            <figcaption>זדאר</figcaption>
+        </figure>
+        <figure class="figure">
+            <img src="https://www.budapest4travelers.com/uploads/3/2/8/3/3283474/money-new-01_orig.jpg" alt="בודפשט" class="round-image">
+            <figcaption>בודפשט</figcaption>
+        </figure>
+        <figure class="figure">
+            <img src="https://img.mako.co.il/2014/12/03/Ten12_i.jpg" alt="רומא" class="round-image">
+            <figcaption>רומא</figcaption>
+        </figure>
+        <figure class="figure">
+            <img src="https://www.elal.com/magazine/wp-content/uploads/2017/01/shutterstock_81648268.jpg" alt="וינה" class="round-image">
+            <figcaption>וינה</figcaption>
+        </figure>
+        <figure class="figure">
+            <img src="https://www.masa.co.il/wp-content/uploads/2017/07/iasi_open.jpg" alt="רומניה" class="round-image">
+            <figcaption>רומניה</figcaption>
+        </figure>
+        <figure class="figure">
+            <img src="https://image.content.travelyo-cdn.site/custom/destinations/Headers/Rhodes-headers.webp" alt="רודוס" class="round-image">
+            <figcaption>רודוס</figcaption>
+        </figure>
+        <figure class="figure">
+            <img src="https://www.greece-islands.co.il/upload1/creterealestate.jpg" alt="כרתים" class="round-image">
+            <figcaption>כרתים</figcaption>
+        </figure>
+    </div>
+    <button class="button">ליעדי ההמשך לחץ כאן</button>
+        
+    
+</body>
+</html>
