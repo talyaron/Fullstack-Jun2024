@@ -1,0 +1,291 @@
+body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+// class selector
+
+.big {
+  font-size: 1.3rem;
+}
+
+.baldText {
+  font-weight: bold;
+}
+
+.round-box {
+  border-radius: 10px;
+  border: 1px solid black;
+  padding: 20px;
+  margin: 10px;
+  width: 200px;
+  height: auto;
+  box-sizing: border-box;
+  
+}
+
+.box-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 0%;
+  gap: 10px;
+  
+}
+
+.content-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 280px;
+
+}
+  
+
+.box-img {
+  width: 100px;
+  height: 90px;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+  
+
+.container {
+  text-align: center;
+}
+
+.headerpnglogo {
+  position: absolute;
+  top: 21%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px;
+  height: auto;
+}
+
+.yentheaderpng {
+  position: absolute;
+  top: 6%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1000px;
+  height: auto;
+}
+
+.headbox {
+  background-color: #de1a1a;
+  padding: 20px;
+  position: absolute;
+  width: 65%;
+  height: 10px;
+  top: 30%;
+}
+
+.p1{
+  color: #ffffff;
+}
+
+.buttonbox {
+  position: absolute;
+  top: 220px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.buttonbox1 {
+  left: 80%;
+}
+
+.buttonbox2 {
+  left: 70%;
+}
+
+.buttonbox3 {
+  left: 60%;
+}
+
+.buttonbox4 {
+  left: 50%;
+}
+
+.resized-imagelogo {
+  width: 150px;
+  height: auto;
+}
+
+.resized-imagebig {
+  width: 1000px;
+  height: auto;
+}
+
+p2 {
+  color: #000;
+  font-size: 15px;
+  margin: 0;
+  direction: rtl;
+  font-weight: bold
+
+  
+}
+
+h3 {
+  color: #817d7d;
+  font-size: small;
+  margin: 0pc;
+  direction: rtl;
+  
+}
+
+.main-img {
+  position: absolute;
+  top: 60.5%;
+  left: 16%;
+  width: 40%;
+}
+
+.main-img-date {
+  position: absolute;
+  color: #000000;
+  direction: rtl;
+  top: 57%;
+  left: 83%;
+}
+
+.main-img-header {
+  position: absolute;
+  top: 60%;
+  left: 60%;
+  color: #000;
+  line-height: 50px;
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+.main-img-second {
+  position: absolute;
+  color: #000;
+  top: 75%;
+  left: 60%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size:22px;
+  font-weight: 300;
+}
+
+.main-img-footer {
+  position: absolute;
+  color: #78787b;
+  top: 90%;
+  left: 94%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 19px;
+  font-weight: 300;
+}
+
+.article-box1{
+  /* border: 1px solid black; */
+  background-color: #de1a1a;
+  padding: 25px;
+  position: absolute;
+  width: 620px;
+  direction: rtl;
+  height: 62.8px;
+  top: 115%;
+  left: 16%;
+  cursor: pointer;
+}
+
+.article-box2{
+  /* border: 1px solid black; */
+  background-color: #1a2ede;
+  padding: 25px;
+  position: absolute;
+  width: 620px;
+  direction: rtl;
+  height: 62.8px;
+  top: 132%;
+  left: 16%;
+  cursor: pointer;
+}
+
+
+.article-box3{
+  /* border: 1px solid black; */
+  background-color: #de1a1a;
+  padding: 25px;
+  position: absolute;
+  width: 620px;
+  direction: rtl;
+  height: 62.8px;
+  top: 149%;
+  left: 16%;
+  cursor: pointer;
+}
+
+.article-box4{
+  /* border: 1px solid black; */
+  background-color: #10073b;
+  padding: 25px;
+  position: absolute;
+  width: 620px;
+  direction: rtl;
+  height: 62.8px;
+  top: 166%;
+  left: 16%;
+  cursor: pointer;
+}
+
+.imgbox-roundimg {
+  position: absolute;
+  top: 0.2%;
+  left: 70.3%;
+  width: 200px;
+}
+
+.text-img2{
+  color: #ffffff;
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: left;
+  margin-top: 0%;
+
+}
+
+.text-img3 {
+  color: #ffffff;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: left;
+  margin-top: 0%;
+}
+
+.text-img4 {
+  color: #ffffff;
+  font-size: 8px;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: left;
+  margin-top: 2%;
+}
+
+
+.red-article{
+    background-color: red;
+}
+.blue-article{
+    background-color: blue;
+}
+.black-article{
+    background-color: black;
+}

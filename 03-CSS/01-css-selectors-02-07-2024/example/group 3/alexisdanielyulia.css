@@ -20,13 +20,13 @@ body {
 
 img {
   border-radius: 25px;
-  border: 5px solid #a23ec9;
+  border: 5px solid rgb(162, 62, 201);
 }
 
 .box2 {
   max-width: 1140px;
-  color: #720f20;
-  background-color: #28d019;
+  color: rgb(114, 15, 32);
+  background-color: rgb(40, 208, 25);
   padding: 15px;
   margin: 5%;
   border-radius: 25px;
@@ -37,4 +37,4 @@ img {
 .box_content2 {
   display: flex;
   gap: 10px;
-}
+}/*# sourceMappingURL=alexisdanielyulia.css.map */

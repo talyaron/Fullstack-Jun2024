@@ -1,0 +1,49 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  background-color: black;
+}
+
+.p_footer {
+  font-size: x-small;
+}
+
+.color_article {
+  flex: 1;
+}
+
+.flash {
+  border-radius: 10px;
+  background-color: lightgray;
+  padding: 10px;
+  margin: 10px;
+  color: black;
+}
+
+.red {
+  background-color: red;
+  height: auto;
+  display: flex;
+  align-items: center;
+}
+
+.teal {
+  background-color: teal;
+  height: auto;
+  display: flex;
+  align-items: center;
+}
+
+.blue {
+  background-color: blue;
+  height: auto;
+  display: flex;
+  align-items: center;
+}
+
+.gray {
+  background-color: gray;
+  height: auto;
+  display: flex;
+  align-items: center;
+}/*# sourceMappingURL=style.css.map */

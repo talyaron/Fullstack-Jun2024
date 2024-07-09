@@ -1,0 +1,23 @@
+.R {
+  border: 2px solid red;
+  background-color: red;
+}
+
+.B {
+  border: 2px solid blue;
+  background-color: blue;
+}
+
+.S {
+  border: 2px solid rgb(0, 0, 74);
+  background-color: rgb(0, 0, 103);
+}
+
+.W {
+  color: white;
+  display: inline-flex;
+}
+
+body {
+  text-align: center;
+}/*# sourceMappingURL=style.css.map */
