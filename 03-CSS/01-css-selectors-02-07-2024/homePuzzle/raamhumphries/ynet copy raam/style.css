@@ -1,6 +1,5 @@
 @charset "UTF-8";
-.text-container {
-  /* הפונקציה יוצאת מרווחים שווים בין המילים*/
+.text-container { /* הפונקציה יוצאת מרווחים שווים בין המילים*/
   display: flex;
   justify-content: space-between;
   direction: rtl;
@@ -9,42 +8,35 @@
   display: inline-block;
 }
 
-.senterpage {
-  /*ממרכזת למרכז השורה*/
+.senterpage { /*ממרכזת למרכז השורה*/
   text-align: center;
 }
 
-.blackandwhite {
-  /* הפונקציה יוצרת רקע לבן וכתב שחור*/
+.blackandwhite { /* הפונקציה יוצרת רקע לבן וכתב שחור*/
   background-color: white;
   color: black;
 }
 
-.grayline {
-  /*הפונקציה יוצרת חייץ בצבע אפור שתוחם את המלל מלמטה*/
-  border-bottom: 2px solid #e3e1e1;
+.grayline { /*הפונקציה יוצרת חייץ בצבע אפור שתוחם את המלל מלמטה*/
+  border-bottom: 2px solid rgb(227, 225, 225);
 }
 
-.linkliketext {
-  /*הפונקציה מורידה את הסגנון הכחול של הלינק ומישרת לימין*/
+.linkliketext { /*הפונקציה מורידה את הסגנון הכחול של הלינק ומישרת לימין*/
   text-decoration: none;
   color: inherit;
   text-align: right;
 }
 
-.blockneerimg {
-  /*הפונקציה מאפרשרת לשים באותה שורה תמונה ליד מלל*/
+.blockneerimg { /*הפונקציה מאפרשרת לשים באותה שורה תמונה ליד מלל*/
   display: flex;
   flex: 1;
-  margin-right: 5px;
-  /* מוסיף מרווח בין התיאור לתמונה */
+  margin-right: 5px; /* מוסיף מרווח בין התיאור לתמונה */
   position: relative;
   border: white solid;
-  border-bottom: 15px solid #e3e1e1;
+  border-bottom: 15px solid rgb(227, 225, 225);
 }
 
-.redbox {
-  /*הפונקציה מתארת מאפיינים רצויים לבלוק שיושב לצד תמונה*/
+.redbox { /*הפונקציה מתארת מאפיינים רצויים לבלוק שיושב לצד תמונה*/
   background-color: red;
   color: white;
   padding: 10px;
@@ -56,8 +48,7 @@
   border: red solid;
 }
 
-.bluebox {
-  /*הפונקציה מתארת מאפיינים רצויים לבלוק שיושב לצד תמונה*/
+.bluebox { /*הפונקציה מתארת מאפיינים רצויים לבלוק שיושב לצד תמונה*/
   background-color: blue;
   color: white;
   padding: 10px;
@@ -69,8 +60,7 @@
   border: blue solid;
 }
 
-.greenbox {
-  /*הפונקציה מתארת מאפיינים רצויים לבלוק שיושב לצד תמונה*/
+.greenbox { /*הפונקציה מתארת מאפיינים רצויים לבלוק שיושב לצד תמונה*/
   background-color: green;
   color: white;
   padding: 10px;
@@ -82,8 +72,7 @@
   border: green solid;
 }
 
-.blackbox {
-  /*הפונקציה מתארת מאפיינים רצויים לבלוק שיושב לצד תמונה*/
+.blackbox { /*הפונקציה מתארת מאפיינים רצויים לבלוק שיושב לצד תמונה*/
   background-color: black;
   color: white;
   padding: 10px;
@@ -95,8 +84,7 @@
   border: black solid;
 }
 
-.author {
-  /*הפונקציה מתארת מאפיינים רצויים להוספת מחבר לבלוק שיושב לצד תמונה*/
+.author { /*הפונקציה מתארת מאפיינים רצויים להוספת מחבר לבלוק שיושב לצד תמונה*/
   font-style: italic;
   font-size: 14px;
   position: relative;
@@ -104,8 +92,7 @@
   border: 10px;
 }
 
-.greybox {
-  /*הפונקציה מתארת מאפיינים רצויים לבלוק שיושב לצד תמונה*/
+.greybox { /*הפונקציה מתארת מאפיינים רצויים לבלוק שיושב לצד תמונה*/
   background-color: grey;
   color: white;
   padding: 10px;
@@ -118,9 +105,8 @@
   font-style: oblique;
 }
 
-.smalllightgraybox {
-  /*הפונקציה מתארת מאפיינים רצויים לבלוק אפור קטן ליד בלוק נוסף*/
-  background-color: #3c3c3c;
+.smalllightgraybox { /*הפונקציה מתארת מאפיינים רצויים לבלוק אפור קטן ליד בלוק נוסף*/
+  background-color: rgb(60, 60, 60);
   color: white;
   padding: 10px;
   text-align: right;
@@ -128,14 +114,13 @@
   height: 100%;
   font-size: large;
   font-style: normal;
-  border: #3c3c3c;
+  border: rgb(60, 60, 60);
   font-style: oblique;
   text-align: center;
 }
 
-.smallgraybox {
-  /*הפונקציה מתארת מאפיינים רצויים לבלוק אפור כהה קטן ליד בלוק נוסף*/
-  background-color: #2a2a2a;
+.smallgraybox { /*הפונקציה מתארת מאפיינים רצויים לבלוק אפור כהה קטן ליד בלוק נוסף*/
+  background-color: rgb(42, 42, 42);
   color: white;
   padding: 10px;
   text-align: right;
@@ -143,17 +128,15 @@
   height: 20px;
   font-size: large;
   font-style: normal;
-  border: #2a2a2a;
+  border: rgb(42, 42, 42);
   font-style: oblique;
   text-align: center;
 }
 
-.blockneeblock {
-  /*הפונקציה מאפרשרת לשים באותה שורה שני בלוקים זה לצד זה - שים לב שאין בורדר למטה*/
+.blockneeblock { /*הפונקציה מאפרשרת לשים באותה שורה שני בלוקים זה לצד זה - שים לב שאין בורדר למטה*/
   display: flex;
   flex: 1;
-  margin-right: 5px;
-  /* מוסיף מרווח בין התיאור לתמונה */
+  margin-right: 5px; /* מוסיף מרווח בין התיאור לתמונה */
   position: relative;
 }
 
@@ -205,4 +188,4 @@
   cursor: pointer;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------*//*# sourceMappingURL=style.css.map */

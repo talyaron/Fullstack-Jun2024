@@ -1,0 +1,70 @@
+body {
+  color: black;
+  text-align: center;
+}
+
+.article {
+  color: white;
+  display: inline-block;
+}
+
+.text {
+  flex: 1;
+}
+
+.red {
+  background-color: red;
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  margin: 10px 0;
+}
+
+.blue {
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  margin: 10px 0;
+  background-color: blue;
+}
+
+.black {
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  margin: 10px 0;
+  background-color: darkblue;
+}
+
+.rednavmenu {
+  display: flexbox;
+  background-color: red;
+}
+
+.headlinebox {
+  padding: 5px 5px;
+  border-block: 2px solid black;
+}
+
+.headline {
+  display: inline-block;
+  text-align: center;
+  padding: 12px 6px;
+  vertical-align: top;
+  color: black;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  padding: 10px 16px;
+  text-decoration: none;
+  cursor: pointer;
+}/*# sourceMappingURL=style.css.map */

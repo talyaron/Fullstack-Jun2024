@@ -1,0 +1,14 @@
+body {direction: rtl;color: white;}
+.frame
+{ height: auto; max-width: 350px; padding: 20px; margin: 10px;background-color: red;align-items: center;
+}
+
+.blue-frame {background-color: blue;}
+.green-frame {background-color: green;}
+
+
+.outerframe {height: 400px; width: 500px; padding: 20px; color: white; border: 2px solid black;overflow: auto;}
+.shape {border: 2px solid black; background-color:red; height:  250px; width: 400px; padding: 10px; margin-bottom: 10px;overflow: auto;}
+.color-green {background-color: green;}
+.color-black{background-color: black;}
+.color-blue {background-color: blue;}

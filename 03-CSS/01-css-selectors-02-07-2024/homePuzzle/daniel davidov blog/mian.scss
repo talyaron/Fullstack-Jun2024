@@ -32,15 +32,24 @@ body {
         display: flex;
         justify-content: space-between;
         color: #fff;
+        align-items: center;
+        padding: 50px;
 
-        & h1{
-            padding: 0 30% ;
+        &--title{
+            display: block;
             text-align: center;
-            font-size: 6vh;
-        }
-        & a {
-            color: #fff;
-            text-align: center;
+
+            & h1{
+                padding: 0 30% ;
+                text-align: center;
+                font-size: 6vh;
+                margin-bottom: 24px;
+            }
+            & a {
+                color: #fff;
+                text-align: center;
+                font-size: 24px;
+            }
         }
     }
 }
