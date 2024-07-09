@@ -1,0 +1,519 @@
+body {
+  height: 200vh;
+}
+
+p {
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 19px;
+  direction: rtl;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.ynetpng {
+  position: absolute;
+  top: 1%;
+  left: 18%;
+  border-radius: 2px;
+  width: 65%;
+}
+
+.ynetheaderpng {
+  position: absolute;
+  top: 20%;
+  left: 45%;
+  width: 11%;
+}
+
+.background {
+  position: absolute;
+  top: 50%;
+  left: 19%;
+  width: 40%;
+}
+
+.navbarbox {
+  /* border: 1px solid black; */
+  justify-content: space-between;
+  background-color: #de1a1a;
+  padding: 25px;
+  position: absolute;
+  margin-bottom: 13px;
+  width: 1240px;
+  direction: rtl;
+  top: 32%;
+  left: 19%;
+  cursor: pointer;
+}
+
+.navbar1 {
+  position: absolute;
+  top: 31.5%;
+  left: 83%;
+  transition: 0.2s;
+}
+
+.navbar2 {
+  position: absolute;
+  top: 31.5%;
+  left: 79%;
+  transition: 0.2s;
+}
+
+.navbar3 {
+  position: absolute;
+  top: 31.5%;
+  left: 74%;
+  transition: 0.2s;
+}
+
+.navbar4 {
+  position: absolute;
+  top: 31.7%;
+  left: 70%;
+  transition: 0.2s;
+}
+
+.navbar1:hover, .navbar2:hover, .navbar3:hover, .navbar4:hover {
+  font-weight: bold;
+}
+
+.backgroundate {
+  position: absolute;
+  color: #000;
+  direction: rtl;
+  top: 48%;
+  left: 75%;
+}
+
+.backgroundheader {
+  position: absolute;
+  top: 48%;
+  left: 60%;
+  color: #000;
+  line-height: 46px;
+  font-size: 49px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+.backgroundsecond {
+  position: absolute;
+  color: #000;
+  top: 70%;
+  left: 60.4%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 22px;
+  font-weight: 300;
+}
+
+.backgroundfooter {
+  position: absolute;
+  color: #78787b;
+  top: 83%;
+  left: 81%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 19px;
+  font-weight: 300;
+}
+
+.round-box {
+  /* border: 1px solid black; */
+  background-color: #de1a1a;
+  padding: 25px;
+  position: absolute;
+  width: 620px;
+  direction: rtl;
+  height: 62.8px;
+  top: 100%;
+  left: 19%;
+  cursor: pointer;
+}
+
+.header {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  left: 20.1%;
+  direction: rtl;
+  top: 99%;
+  position: absolute;
+  color: white;
+  cursor: pointer;
+}
+
+.second {
+  font-size: 18px;
+  left: 20.1%;
+  direction: rtl;
+  top: 102.7%;
+  position: absolute;
+  color: white;
+  cursor: pointer;
+}
+
+.three {
+  font-size: 14px;
+  left: 33.7%;
+  direction: rtl;
+  top: 108.5%;
+  position: absolute;
+  color: white;
+  cursor: pointer;
+}
+
+.round-box2 {
+  /* border: 1px solid black; */
+  background-color: #1d1ade;
+  padding: 25px;
+  position: absolute;
+  width: 620px;
+  direction: rtl;
+  height: 74.8px;
+  top: 115%;
+  left: 19%;
+  cursor: pointer;
+}
+
+.header2 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  left: 20.3%;
+  direction: rtl;
+  top: 114%;
+  position: absolute;
+  color: white;
+  cursor: pointer;
+}
+
+.second2 {
+  font-size: 18px;
+  left: 20.1%;
+  direction: rtl;
+  top: 118.7%;
+  position: absolute;
+  color: white;
+  cursor: pointer;
+}
+
+.three2 {
+  font-size: 14px;
+  left: 41.1%;
+  direction: rtl;
+  top: 124.7%;
+  position: absolute;
+  color: white;
+  cursor: pointer;
+}
+
+.round-box3 {
+  /* border: 1px solid black; */
+  background-color: #de1a1a;
+  padding: 25px;
+  position: absolute;
+  width: 620px;
+  direction: rtl;
+  height: 73px;
+  top: 132%;
+  left: 19%;
+  cursor: pointer;
+}
+
+.header3 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  left: 24.3%;
+  direction: rtl;
+  top: 131.5%;
+  position: absolute;
+  color: white;
+  cursor: pointer;
+}
+
+.second3 {
+  font-size: 18px;
+  left: 19.8%;
+  direction: rtl;
+  top: 135.7%;
+  position: absolute;
+  color: white;
+  cursor: pointer;
+}
+
+.three3 {
+  font-size: 14px;
+  left: 40.6%;
+  direction: rtl;
+  top: 141.6%;
+  position: absolute;
+  color: white;
+  cursor: pointer;
+}
+
+.round-box4 {
+  /* border: 1px solid black; */
+  background-color: #0c1c3a;
+  padding: 25px;
+  position: absolute;
+  width: 620px;
+  direction: rtl;
+  height: 72.2px;
+  top: 149%;
+  left: 19%;
+  cursor: pointer;
+}
+
+.header4 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 19px;
+  left: 20.3%;
+  direction: rtl;
+  top: 148.5%;
+  position: absolute;
+  color: white;
+  cursor: pointer;
+}
+
+.second4 {
+  font-size: 18px;
+  left: 20.4%;
+  direction: rtl;
+  top: 151.7%;
+  position: absolute;
+  color: white;
+  cursor: pointer;
+}
+
+.three4 {
+  font-size: 14px;
+  left: 37.8%;
+  direction: rtl;
+  top: 158.1%;
+  position: absolute;
+  color: white;
+  cursor: pointer;
+}
+
+.roundimg {
+  position: absolute;
+  top: 0.2%;
+  left: 70.3%;
+  width: 200px;
+}
+
+.roundimg2 {
+  position: absolute;
+  top: 0%;
+  left: 70.3%;
+  width: 200px;
+}
+
+.roundimg3 {
+  position: absolute;
+  top: 0.5%;
+  left: 70.3%;
+  width: 200px;
+}
+
+.roundimg4 {
+  position: absolute;
+  top: 0%;
+  left: 70.3%;
+  width: 200px;
+}
+
+@media screen and (max-width: 320px) {
+  .background {
+    position: absolute;
+    top: 98%;
+    left: 8%;
+    width: 100%;
+  }
+  .ynetpng {
+    position: absolute;
+    top: 1%;
+    left: 5%;
+    border-radius: 2px;
+    width: 150%;
+  }
+  .ynetheaderpng {
+    position: absolute;
+    top: 20%;
+    left: 45%;
+    width: 51%;
+  }
+  .navbarbox {
+    width: 90%;
+    left: 5%;
+  }
+  .navbar1, .navbar2, .navbar3, .navbar4, .navbar5, .navbar6, .navbar7, .navbar8, .navbar9, .navbar10, .navbar11, .navbar12, .navbar13, .navbar14 {
+    width: 6%;
+    top: 31.5%;
+    position: absolute;
+    margin: 0;
+    transition: 0.2s;
+    cursor: pointer;
+  }
+  .navbar1 {
+    left: 98%;
+  }
+  .navbar2 {
+    left: 80%;
+  }
+  .navbar3 {
+    left: 60%;
+  }
+  .navbar4 {
+    left: 40%;
+  }
+  .navbar1:hover, .navbar2:hover, .navbar3:hover, .navbar4:hover {
+    font-weight: bold;
+  }
+  .backgroundate, .backgroundheader, .backgroundsecond, .backgroundfooter {
+    left: 5%;
+    width: 90%;
+    position: absolute;
+  }
+  .backgroundheader {
+    top: 50%;
+    position: absolute;
+    font-size: 20px;
+    line-height: 30px;
+    margin-top: 20px;
+  }
+  .backgroundate {
+    top: 45%;
+    position: absolute;
+    margin-top: 10px;
+  }
+  .backgroundsecond {
+    top: 65%;
+    font-size: 16px;
+    position: absolute;
+    margin-top: 10px;
+  }
+  .backgroundfooter {
+    top: 87%;
+    position: absolute;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  .header {
+    position: absolute;
+    top: 149%;
+    left: 3%;
+  }
+  .header2 {
+    position: absolute;
+    top: 164%;
+    left: 5%;
+  }
+  .header3 {
+    position: absolute;
+    top: 182%;
+    left: 8%;
+  }
+  .header4 {
+    position: absolute;
+    top: 197%;
+    left: 8%;
+  }
+  .second {
+    position: absolute;
+    top: 152.9%;
+    left: 3%;
+  }
+  .second2 {
+    position: absolute;
+    top: 168%;
+    left: 5%;
+  }
+  .second3 {
+    position: absolute;
+    top: 185%;
+    left: 5%;
+  }
+  .second4 {
+    position: absolute;
+    top: 203%;
+    left: 5%;
+  }
+  .three {
+    position: absolute;
+    top: 160.5%;
+    left: 65%;
+  }
+  .three2 {
+    position: absolute;
+    top: 177%;
+    left: 90%;
+  }
+  .three3 {
+    position: absolute;
+    top: 194%;
+    left: 88%;
+  }
+  .three4 {
+    position: absolute;
+    top: 210%;
+    left: 78%;
+  }
+  .round-box {
+    top: 150%;
+    width: 90%;
+    position: absolute;
+    left: auto;
+  }
+  .round-box2 {
+    top: 165%;
+    width: 90%;
+    position: absolute;
+    left: auto;
+  }
+  .round-box3 {
+    top: 182%;
+    width: 90%;
+    position: absolute;
+    left: auto;
+  }
+  .round-box4 {
+    top: 198%;
+    width: 90%;
+    position: absolute;
+    left: auto;
+  }
+  .header, .header2, .header3, .header4 {
+    font-size: 14px;
+  }
+  .second, .second2, .second3, .second4 {
+    font-size: 13px;
+  }
+  .three, .three2, .three3, .three4 {
+    font-size: 11px;
+  }
+  .roundimg {
+    left: 100%;
+    width: 200px;
+    position: absolute;
+    top: 0%;
+  }
+  .roundimg2 {
+    left: 100%;
+    position: absolute;
+    top: 0%;
+  }
+  .roundimg3 {
+    left: 100%;
+    position: absolute;
+    top: 0%;
+  }
+  .roundimg4 {
+    left: 100%;
+    position: absolute;
+    top: 0%;
+  }
+}/*# sourceMappingURL=style.css.map */
