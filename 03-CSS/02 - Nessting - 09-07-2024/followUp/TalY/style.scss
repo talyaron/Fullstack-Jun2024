@@ -1,0 +1,35 @@
+.card{
+    background-color: blue;
+    color:white;
+    text-align: center;
+    width:500px;
+
+    .heading{
+        .drop-text{
+            color:yellow;
+            vertical-align: middle;
+            transform: rotate(4deg);
+        }
+    }
+    
+    h1{
+        font-style: italic;
+        margin: 0;
+    }
+
+    h2{
+        font-size: 1.5rem;
+        opacity: 0.8;
+    }
+
+    .img{
+        width: 40px;
+        height: 40px;
+        margin: 0 auto;
+   
+        background-image: url("../128pxSVG.svg");
+        img{
+            width: 100%;
+        }
+    }
+}

@@ -1,0 +1,14 @@
+.card {
+  background-color: rgb(52, 101, 236);
+  color: white;
+  width: 400px;
+  height: 300px;
+  text-align: center;
+}
+.card .img {
+  width: 100px;
+  margin: 0 auto;
+}
+.card .img img {
+  width: 100%;
+}/*# sourceMappingURL=style.css.map */

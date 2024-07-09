@@ -25,12 +25,12 @@
   padding: 0;
   margin: 0;
   display: flex;
-  justify-content: flex-start; /* מיישר את הפריטים לתחילת השורה */
+  justify-content: flex-start;
+  /* מיישר את הפריטים לתחילת השורה */
   position: absolute;
   top: 30.5%;
   left: 30%;
 }
-
 .toolbar-pages li {
   margin-right: 20px;
 }
@@ -45,25 +45,33 @@
   border-radius: 15px;
 }
 
-.nt-text1 {
+.flash-news {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 15px;
   font-weight: bold;
   text-align: center;
   color: black;
   position: absolute;
+  border-radius: 15px;
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.452);
   top: 35%;
   left: 16%;
 }
 
+.nt-text1 {
+  left: 16%;
+}
+
 .notifications2 {
-  background-color: rgb(248, 238, 238);
-  width: 300px;
-  height: 100px;
-  position: absolute;
-  top: 35%;
   left: 32%;
-  border-radius: 15px;
+}
+
+.notifications3 {
+  left: 49%;
+}
+
+.notifications4 {
+  left: 66%;
 }
 
 .nt-text2 {
@@ -77,16 +85,6 @@
   left: 3%;
 }
 
-.notifications3 {
-  background-color: rgb(248, 238, 238);
-  width: 300px;
-  height: 100px;
-  position: absolute;
-  top: 35%;
-  left: 49%;
-  border-radius: 15px;
-}
-
 .nt-text3 {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 15px;
@@ -96,16 +94,6 @@
   position: absolute;
   top: 5%;
   left: 3%;
-}
-
-.notifications4 {
-  background-color: rgb(248, 238, 238);
-  width: 300px;
-  height: 100px;
-  position: absolute;
-  top: 35%;
-  left: 66%;
-  border-radius: 15px;
 }
 
 .nt-text4 {
@@ -228,7 +216,8 @@
 }
 
 @media screen and (max-width: 481px) {
-  html, body {
+  html,
+  body {
     overflow-x: hidden;
   }
   .logo {
@@ -256,7 +245,8 @@
     padding: 0;
     margin: 0;
     display: flex;
-    justify-content: flex-start; /* מיישר את הפריטים לתחילת השורה */
+    justify-content: flex-start;
+    /* מיישר את הפריטים לתחילת השורה */
     position: absolute;
     top: 30.5%;
     left: 20%;

@@ -1,0 +1,53 @@
+
+
+.bluebox h1 {
+    font-size: small;
+    font-style: italic;
+    color: blue;
+    text-align: left;
+    border: 1px solid rgb(0, 84, 240);
+    border-radius: 30px;
+    padding: 20px 50px 20px 50px;
+    margin:20px auto;
+    width: fit-content;
+    margin-bottom: 20px; 
+    
+}
+
+.greenbox h1 {
+    font-size: small;
+ font-style: italic;
+ color: forestgreen;
+ border: 1px solid forestgreen;
+ border-radius: 30px;
+ margin: auto;
+ padding: 20px 50px 20px 50px;
+ width: fit-content;
+ margin-bottom: 20px; 
+
+}
+
+.orangbox h1 {
+    font-size: small;
+color: rgb(238, 145, 5);
+ font-style: italic;
+ border: 1px solid rgb(233, 120, 14);
+ border-radius: 30px;
+ margin: auto;
+ padding: 20px 50px 20px 50px;
+ width: fit-content;
+ margin-bottom: 20px; 
+
+}
+
+.redbox h1 {
+    font-size: small;
+    color: rgb(238, 5, 5);
+    font-style: italic;
+    border: 1px solid rgb(233, 14, 14);
+    border-radius: 30px;
+    margin: auto;
+    padding: 20px 50px 20px 50px;
+    width: fit-content;
+    margin-bottom: 20px;    
+}
