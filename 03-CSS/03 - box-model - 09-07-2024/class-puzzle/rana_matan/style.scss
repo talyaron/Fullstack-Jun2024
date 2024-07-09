@@ -1,0 +1,46 @@
+body{
+margin-left: 50%;
+    
+}
+
+.box1{
+     button{
+        background-color: aqua;
+        padding: 3px 50px 3px 50px;
+        margin: 10px;
+        border: dashed 1.5px black;
+    }
+}
+.box2{
+    button{
+       background-color: rgb(60, 255, 0);
+       padding: 3px 50px 3px 50px;
+       margin: 10px;
+       border: solid 1.5px black;
+       border-radius: 20px;
+       color: white;
+   }
+}
+.box3{
+    button{
+       background-color: rgb(200, 255, 0);
+       padding: 3px 50px 3px 50px;
+       margin: 10px;
+       border: none 1.5px black;
+       color: red;
+       border-radius: 20px 10px 5px;
+
+       
+   }
+}
+.box4{
+    button{
+       background-color: rgb(202, 16, 240);
+       padding: 3px 50px 3px 50px;
+       margin: 10px;
+       border: ridge 3px rgb(0, 0, 0);
+       color: blue;
+       border-radius: 20px 10px;
+
+   }
+}

@@ -1,0 +1,33 @@
+body {
+  text-align: center;
+}
+
+.box {
+  color: black;
+  background-color: transparent;
+  border: solid 1px;
+  padding: 2px 20px  ;
+  margin: auto;
+  width: fit-content;
+  font-size:10px ;
+}
+
+.roundedButton {
+  border-radius: 10px;
+ // border-top-left-radius: 30px;
+  //border-bottom-right-radius: 30px;
+}
+
+
+.blueButton {
+  border-color: blue;
+}
+.redButton {
+  border-color: red;
+}
+.greenButton {
+  border-color: green;
+}
+.yellowButton {
+  border-color: yellow;
+}
