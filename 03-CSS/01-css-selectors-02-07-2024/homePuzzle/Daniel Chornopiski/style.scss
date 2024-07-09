@@ -10,11 +10,9 @@ body {
     font-size: x-small;
 }
 
-.color_article {
-    flex: 1
-}
 
-.flash {
+
+.flash-news {
     border-radius: 10px;
     background-color: lightgray;
     padding: 10px;
@@ -22,27 +20,27 @@ body {
     color: black;
 }
 
+.article {
+    flex: 1;
+    display: flex;
+  
+    align-items: center;
+
+}
+
 .red {
     background-color: red;
-    height: auto;
-    display: flex;
-    align-items: center;
+  
 }
 .teal {
     background-color: teal;
-    height: auto;
-    display: flex;
-    align-items: center;
+   
 }
 .blue {
     background-color: blue;
-    height: auto;
-    display: flex;
-    align-items: center;
+   
 }
 .gray {
     background-color: gray;
-    height: auto;
-    display: flex;
-    align-items: center;
+   
 }
