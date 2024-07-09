@@ -1,0 +1,28 @@
+body {
+  text-align: center;
+}
+
+.openingCard {
+  background-color: blue;
+  text-align: center;
+  display: inline-block;
+  padding: 20px;
+}
+.openingCard .title {
+  display: flexbox;
+  color: black;
+  font-size: 2rem;
+}
+.openingCard .title .num {
+  color: yellow;
+  vertical-align: sub;
+}
+.openingCard .text {
+  color: white;
+}
+.openingCard .img {
+  background-image: url(https://cdn.britannica.com/84/73184-050-05ED59CB/Sunflower-field-Fargo-North-Dakota.jpg);
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+}/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,35 @@
+.boxes {
+    &_item{
+        display: flex;
+        padding-bottom: 12px;
+
+        &_butten{
+
+            &--red{
+                border: solid 2px red;
+                font-size: 24px;
+                padding: 12px 20px;
+                margin: 8px;
+            }
+            &--green{
+                border: solid 2px green;
+                font-size: 24px;
+                padding: 12px 20px;
+                margin: 8px;
+            }
+            &--pink{
+                border: solid 2px pink;
+                font-size: 24px;
+                padding: 12px 20px;
+                margin: 8px;
+            }
+            &--black{
+                border: solid 2px black;
+                font-size: 24px;
+                padding: 12px 20px;
+                margin: 8px;
+            }
+
+        }
+    }
+}

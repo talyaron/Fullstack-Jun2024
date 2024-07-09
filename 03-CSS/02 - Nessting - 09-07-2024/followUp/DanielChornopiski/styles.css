@@ -1,0 +1,18 @@
+body {
+  background-color: blue;
+}
+
+.card {
+  text-align: center;
+  color: white;
+}
+.card .title h1 {
+  font-size: xx-large;
+  padding: 2rem;
+}
+.card .title p {
+  font-size: smaller;
+}
+.card .content {
+  padding: 1rem;
+}/*# sourceMappingURL=styles.css.map */
