@@ -1,0 +1,13 @@
+body {
+  width: -moz-max-content;
+  width: max-content;
+}
+body .list {
+  background-color: blue;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
+body .img {
+  position: end;
+}/*# sourceMappingURL=followup.css.map */
