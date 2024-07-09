@@ -1,0 +1,42 @@
+h1 {
+    color:blue;
+}
+
+// Shared Rectangle Style
+
+.rectangle {
+    border: 1px;
+    color: white;
+    margin: auto;
+    padding: 30px;
+    text-align: center;
+    width: 50%;
+}
+
+// Unique Rectangle Style
+
+.red-bg {
+    background-color: red;
+}
+
+.blue-bg {
+    background-color: blue;
+}
+
+.orange-bg {
+    background-color: orange;
+}
+
+.green-bg {
+    background-color: green;
+}
+
+// Shared Image Style
+
+.float-img {
+    border: solid black 1px;
+    float: left;
+    margin-bottom: 5px;
+    margin-right: 10px;
+    padding: 2px;
+}
