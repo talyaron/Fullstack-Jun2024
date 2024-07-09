@@ -1,0 +1,56 @@
+.box {
+  border-style: solid;
+  border-width: 1px;
+  margin: 5px;
+  padding: 5px;
+  text-align: center;
+  margin: 0;
+}
+
+.blue-box .blue {
+  border-style: solid;
+  border-color: blue;
+  margin: 15px;
+}
+.blue-box .blue2 {
+  border-style: solid;
+  border-color: blue;
+  border-radius: 15px;
+  margin: 15px;
+}
+
+.green-box .green {
+  border-style: solid;
+  border-color: #18e518;
+  margin: 15px;
+}
+.green-box .green2 {
+  border-style: solid;
+  border-color: #19df37;
+  border-radius: 45%;
+  margin: 15px;
+}
+
+.orange-box .orange {
+  border-style: solid;
+  border-color: orange;
+  margin: 15px;
+}
+.orange-box .orange2 {
+  border-style: solid;
+  border-color: orange;
+  border-radius: 45%;
+  margin: 15px;
+}
+
+.red-box .red {
+  border-style: solid;
+  border-color: red;
+  margin: 15px;
+}
+.red-box .red2 {
+  border-style: solid;
+  border-color: red;
+  border-radius: 45%;
+  margin: 15px;
+}
