@@ -1,0 +1,30 @@
+.container {
+    text-align: center;
+
+    .button {
+        border: 1px solid black;
+        padding: 10px 40px;
+        width: 100px;
+        height: fit-content;
+        margin: 15px;
+    }
+
+    .yellow {
+        background-color: yellow;
+    }
+
+    .red{
+        background-color: red;
+    }
+    .blue {
+        background-color: blue;
+    }
+
+    .pink {
+        background-color: pink;
+    }
+
+    .round {
+        border-radius: 20px;
+    }
+}
