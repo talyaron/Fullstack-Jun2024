@@ -33,48 +33,46 @@ margin-top: 15px;
 
 .box {
     background-color: red;
-    width: auto;
-    height:auto;
     display: flex;
     align-items: center;
     padding: 2px;
     margin: 10px 0;
+    height: 150px;
   }
-  
 
-  .box_content{
-    flex: 1;
-    color: white;
-    display: inline-block;
-    
-  }
   
   .box_2 {
     background-color: black;
-    width: auto;
-    height:auto;
     display: flex;
     align-items: center;
     padding: 2px;
     margin: 10px 0;
+    height: 150px;
   }
   
 
   .box_3 {
     background-color: blue;
-    width: auto;
-    height:auto;
     display: flex;
     align-items: center;
     padding: 2px;
     margin: 10px 0;
+    height: 150px;
   }
   .box_4 {
     background-color: red;
-    width: auto;
-    height:auto;
     display: flex;
     align-items: center;
     padding: 2px;
     margin: 10px 0;
+    height: 150px;
+  }
+
+    
+
+  .box_content{
+    color: white;
+    flex: content;
+    content:normal;
+    //vertical-align: top;
   }
