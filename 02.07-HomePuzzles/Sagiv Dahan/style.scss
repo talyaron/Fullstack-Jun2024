@@ -27,16 +27,19 @@
     padding: 0;
     margin: 0;
     display: flex;
-    justify-content: flex-start; /* מיישר את הפריטים לתחילת השורה */
+    justify-content: flex-start;
+    /* מיישר את הפריטים לתחילת השורה */
     position: absolute;
     top: 30.5%;
     left: 30%;
+
+    li {
+        margin-right: 20px;
+    }
 }
 
 
-.toolbar-pages li {
-    margin-right: 20px;
-}
+
 
 .notifications1 {
     background-color: rgb(248, 238, 238);
@@ -48,26 +51,47 @@
     border-radius: 15px;
 }
 
-.nt-text1 {
+
+.flash-news {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     font-weight: bold;
     text-align: center;
     color: black;
     position: absolute;
+    border-radius: 15px;
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.452);
     top: 35%;
     left: 16%;
 }
 
-.notifications2 {
-    background-color: rgb(248, 238, 238);
-    width: 300px;
-    height: 100px;
-    position: absolute;
-    top: 35%;
-    left: 32%;
-    border-radius: 15px;
+.nt-text1 {
+
+
+    left: 16%;
 }
+
+.notifications2 {
+
+  
+    left: 32%;
+
+}
+
+.notifications3 {
+
+ 
+    left: 49%;
+
+}
+
+.notifications4 {
+
+
+    left: 66%;
+ 
+}
+
 
 .nt-text2 {
     font-family: Arial, Helvetica, sans-serif;
@@ -78,19 +102,11 @@
     position: absolute;
     top: 8%;
     left: 3%;
-    
+
 }
 
 
-.notifications3 {
-    background-color: rgb(248, 238, 238);
-    width: 300px;
-    height: 100px;
-    position: absolute;
-    top: 35%;
-    left: 49%;
-    border-radius: 15px;
-}
+
 
 .nt-text3 {
     font-family: Arial, Helvetica, sans-serif;
@@ -103,15 +119,6 @@
     left: 3%;
 }
 
-.notifications4 {
-    background-color: rgb(248, 238, 238);
-    width: 300px;
-    height: 100px;
-    position: absolute;
-    top: 35%;
-    left: 66%;
-    border-radius: 15px;
-}
 
 .nt-text4 {
     font-family: Arial, Helvetica, sans-serif;
@@ -222,13 +229,14 @@
 
 .info2 {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px; 
+    font-size: 20px;
     color: white;
     position: absolute;
     top: 137%;
     left: 20%;
     text-align: center;
 }
+
 .small-photo2 {
     position: absolute;
     top: 130%;
@@ -240,7 +248,8 @@
 @media screen and (max-width: 481px) {
     //logo
 
-    html, body {
+    html,
+    body {
         overflow-x: hidden;
     }
 
@@ -251,15 +260,16 @@
         top: 5%;
         left: 30%;
     }
+
     //menu
     .toolbar-color {
-    background-color: rgb(255, 0, 0);
-    width: 542px;
-    height: 30px;
-    position: absolute;
-    top: 30%;
-    left: 15%;
-    overflow: hidden;
+        background-color: rgb(255, 0, 0);
+        width: 542px;
+        height: 30px;
+        position: absolute;
+        top: 30%;
+        left: 15%;
+        overflow: hidden;
     }
 
     .toolbar-pages {
@@ -271,22 +281,24 @@
         padding: 0;
         margin: 0;
         display: flex;
-        justify-content: flex-start; /* מיישר את הפריטים לתחילת השורה */
+        justify-content: flex-start;
+        /* מיישר את הפריטים לתחילת השורה */
         position: absolute;
         top: 30.5%;
         left: 20%;
         overflow: hidden;
     }
+
     //small notifications
     .notifications1 {
-    background-color: rgb(248, 238, 238);
-    width: 250px;
-    height: 100px;
-    position: absolute;
-    top: 35%;
-    left: 40%;
-    border-radius: 15px;
-}
+        background-color: rgb(248, 238, 238);
+        width: 250px;
+        height: 100px;
+        position: absolute;
+        top: 35%;
+        left: 40%;
+        border-radius: 15px;
+    }
 
     .nt-text1 {
         font-family: Arial, Helvetica, sans-serif;
@@ -364,8 +376,8 @@
 
     //head-of-article
 
-   
-    
+
+
     .head-news1 {
         font-family: Arial, Helvetica, sans-serif;
         position: absolute;
@@ -385,7 +397,7 @@
         top: 88%;
         left: 14%;
     }
- 
+
     .text-news1 {
         font-family: Arial, Helvetica, sans-serif;
         font-size: 24px;
@@ -409,7 +421,7 @@
         left: 15%;
         box-sizing: border-box;
     }
-    
+
     .title1 {
         font-family: Arial, Helvetica, sans-serif;
         font-size: 17px;
@@ -419,7 +431,7 @@
         top: 170%;
         left: 16%;
     }
-    
+
     .info1 {
         font-family: Arial, Helvetica, sans-serif;
         font-size: 12px;
@@ -429,6 +441,7 @@
         left: 7%;
         visibility: hidden;
     }
+
     .info1-m {
         font-family: Arial, Helvetica, sans-serif;
         font-size: 15px;
@@ -440,13 +453,13 @@
         text-align: center;
         visibility: visible
     }
-    
+
     .small-photo1 {
         position: absolute;
         top: 170%;
         left: 66%;
     }
-    
+
     //small news 2
 
     .small-news2 {
@@ -458,7 +471,7 @@
         left: 15%;
         box-sizing: border-box;
     }
-    
+
     .title2 {
         font-family: Arial, Helvetica, sans-serif;
         font-size: 13px;
@@ -468,20 +481,21 @@
         top: 190%;
         left: 16%;
     }
-    
+
     .info2 {
         font-family: Arial, Helvetica, sans-serif;
-        font-size: 12px; 
+        font-size: 12px;
         color: white;
         position: absolute;
         top: 197%;
         left: 20%;
         text-align: center;
     }
+
     .small-photo2 {
         position: absolute;
         top: 190%;
         left: 66%;
     }
-    
+
 }

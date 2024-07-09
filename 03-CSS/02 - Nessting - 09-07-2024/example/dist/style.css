@@ -1,0 +1,18 @@
+.card {
+  border: 1px solid gray;
+  height: fit-content;
+}
+.card .info {
+  background-color: teal;
+  padding: 1rem;
+  color: yellow;
+}
+.card .img {
+  background-image: url(https://cdn.britannica.com/84/73184-050-05ED59CB/Sunflower-field-Fargo-North-Dakota.jpg);
+  width: 100%;
+  height: 200px;
+}
+
+.info {
+  color: gray;
+}
