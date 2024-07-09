@@ -1,0 +1,36 @@
+h1 {
+  color: blue;
+}
+
+.rectangle {
+  border: 1px;
+  color: white;
+  margin: auto;
+  padding: 30px;
+  text-align: center;
+  width: 50%;
+}
+
+.red-bg {
+  background-color: red;
+}
+
+.blue-bg {
+  background-color: blue;
+}
+
+.orange-bg {
+  background-color: orange;
+}
+
+.green-bg {
+  background-color: green;
+}
+
+.float-img {
+  border: solid black 1px;
+  float: left;
+  margin-bottom: 5px;
+  margin-right: 10px;
+  padding: 2px;
+}/*# sourceMappingURL=style.css.map */

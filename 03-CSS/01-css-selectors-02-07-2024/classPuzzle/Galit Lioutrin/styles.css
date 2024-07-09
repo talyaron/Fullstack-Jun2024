@@ -3,7 +3,7 @@ body {
   color: white;
 }
 
-.Box1, .Box2, .Box3 {
+.article {
   background-color: red;
   width: 500px;
   height: auto;
@@ -13,8 +13,16 @@ body {
   margin: 10px 0;
 }
 
-.Box2 {
+.red-article {
+  background-color: red;
+}
+
+.blue-article {
   background-color: blue;
+}
+
+.black-article {
+  background-color: black;
 }
 
 .text {

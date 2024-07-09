@@ -20,22 +20,13 @@ body {
 
 img {
   border-radius: 25px;
-<<<<<<< HEAD
-  border: 5px solid #a23ec9;
-=======
   border: 5px solid rgb(162, 62, 201);
->>>>>>> bfa860c9eda3215564141e1f7afdc03920bd7879
 }
 
 .box2 {
   max-width: 1140px;
-<<<<<<< HEAD
-  color: #720f20;
-  background-color: #28d019;
-=======
   color: rgb(114, 15, 32);
   background-color: rgb(40, 208, 25);
->>>>>>> bfa860c9eda3215564141e1f7afdc03920bd7879
   padding: 15px;
   margin: 5%;
   border-radius: 25px;
@@ -46,8 +37,4 @@ img {
 .box_content2 {
   display: flex;
   gap: 10px;
-<<<<<<< HEAD
-}
-=======
 }/*# sourceMappingURL=alexisdanielyulia.css.map */
->>>>>>> bfa860c9eda3215564141e1f7afdc03920bd7879
