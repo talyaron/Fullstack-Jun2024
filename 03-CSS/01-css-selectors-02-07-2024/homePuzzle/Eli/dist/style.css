@@ -6,6 +6,12 @@ body {
 .article {
   color: white;
   display: inline-block;
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  margin: 10px 0;
 }
 
 .text {
@@ -14,31 +20,13 @@ body {
 
 .red {
   background-color: red;
-  width: auto;
-  height: auto;
-  display: flex;
-  align-items: center;
-  padding: 2px;
-  margin: 10px 0;
 }
 
 .blue {
-  width: auto;
-  height: auto;
-  display: flex;
-  align-items: center;
-  padding: 2px;
-  margin: 10px 0;
   background-color: blue;
 }
 
 .black {
-  width: auto;
-  height: auto;
-  display: flex;
-  align-items: center;
-  padding: 2px;
-  margin: 10px 0;
   background-color: darkblue;
 }
 

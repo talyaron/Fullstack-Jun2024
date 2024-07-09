@@ -14,12 +14,11 @@ body {
   width: auto;
   width: 100px;
   display: block;
-  margin-left: 185px;
+  margin-left: 155px;
   margin-right: 125px;
   margin-top: 20px;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
 }
 
 .main-menu {
