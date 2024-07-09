@@ -1,0 +1,28 @@
+.boxes_item {
+  display: flex;
+  padding-bottom: 12px;
+}
+.boxes_item_butten--red {
+  border: solid 2px red;
+  font-size: 24px;
+  padding: 12px 20px;
+  margin: 8px;
+}
+.boxes_item_butten--green {
+  border: solid 2px green;
+  font-size: 24px;
+  padding: 12px 20px;
+  margin: 8px;
+}
+.boxes_item_butten--pink {
+  border: solid 2px pink;
+  font-size: 24px;
+  padding: 12px 20px;
+  margin: 8px;
+}
+.boxes_item_butten--black {
+  border: solid 2px black;
+  font-size: 24px;
+  padding: 12px 20px;
+  margin: 8px;
+}/*# sourceMappingURL=main.css.map */
