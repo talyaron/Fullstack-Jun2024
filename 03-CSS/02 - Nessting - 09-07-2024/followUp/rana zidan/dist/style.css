@@ -1,0 +1,9 @@
+.card {
+  background-color: #4612b6;
+  color: aliceblue;
+  text-align: center;
+}
+.card .img {
+  width: 100px;
+  margin: 0 auto;
+}
