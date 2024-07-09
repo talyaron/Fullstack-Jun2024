@@ -1,0 +1,23 @@
+body {
+    background-color: blue;
+}
+
+.card {
+    text-align: center;
+    color: white;
+
+    .title {
+
+        h1{
+            font-size: xx-large;
+            padding: 2rem;
+        }
+
+        p {
+            font-size: smaller;
+        }
+    }
+    .content {
+        padding: 1rem;
+    }
+}
