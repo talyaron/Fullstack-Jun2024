@@ -29,14 +29,20 @@ body {
   justify-content: space-between;
   color: #fff;
 }
-.hero_content h1 {
+.hero_content--title {
+  display: block;
+  text-align: center;
+}
+.hero_content--title h1 {
   padding: 0 30%;
   text-align: center;
   font-size: 6vh;
+  margin-bottom: 24px;
 }
-.hero_content a {
+.hero_content--title a {
   color: #fff;
   text-align: center;
+  font-size: 24px;
 }
 
 .articles {
