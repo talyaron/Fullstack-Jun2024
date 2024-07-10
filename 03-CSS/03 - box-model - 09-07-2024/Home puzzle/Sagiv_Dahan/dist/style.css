@@ -6,9 +6,10 @@ html {
   background-color: #1D2A35;
   width: 1960px;
   height: 50px;
-  position: absolute;
+  position: fixed;
   top: 0%;
   left: -2%;
+  z-index: 1000;
 }
 .header-elements .half-bg-color {
   background-color: #282A35;
@@ -17,6 +18,7 @@ html {
   position: absolute;
   top: 10%;
   left: 0%;
+  z-index: 1;
 }
 .header-elements .title {
   font-family: "Rubik", sans-serif;
@@ -41,12 +43,16 @@ html {
     margin-left: 0%;
   }
 }
+.header-elements .btns {
+  z-index: 1001;
+  position: relative;
+}
 .header-elements .btns .btns li {
   font-family: "Rubik", sans-serif;
   font-size: 20px;
   font-style: bold;
   color: white;
-  position: absolute;
+  position: fixed;
   list-style-type: none;
   overflow: hidden;
   top: 6%;

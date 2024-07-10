@@ -7,10 +7,10 @@ html {
         background-color: #1D2A35;
         width: 1960px;
         height: 50px;
-        position: absolute;
+        position: fixed;
         top: 0%;
         left: -2%;
-    
+        z-index: 1000;
     }
     
     .half-bg-color {
@@ -20,6 +20,7 @@ html {
         position: absolute;
         top: 10%;
         left: 0%;
+        z-index: 1;
       }
 
 
@@ -50,12 +51,14 @@ html {
     }   
 
     .btns{
+      z-index: 1001;
+      position: relative;
       .btns li{
         font-family: "Rubik", sans-serif;
         font-size: 20px;
         font-style: bold;
         color: white;
-        position: absolute;
+        position: fixed;
         list-style-type: none;
         overflow: hidden;
         top: 6%;
