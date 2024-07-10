@@ -1,0 +1,43 @@
+.header-elements .menucolor {
+  background-color: #1D2A35;
+  width: 1960px;
+  height: 50px;
+  position: absolute;
+  top: 0%;
+  left: -2%;
+}
+.header-elements .half-bg-color {
+  background-color: #282A35;
+  width: 1960px;
+  height: 500px;
+  position: absolute;
+  top: 10%;
+  left: 0%;
+}
+.header-elements .title {
+  font-family: "Rubik", sans-serif;
+  font-style: bold;
+  font-size: 72px;
+  color: white;
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  animation-duration: 8s;
+  animation-name: slidein;
+  animation-iteration-count: infinite;
+}
+@keyframes slidein {
+  0% {
+    margin-left: 0%;
+  }
+  50% {
+    margin-left: 200px;
+  }
+  100% {
+    margin-left: 0%;
+  }
+}
+.header-elements .name {
+  top: 28%;
+  left: 37%;
+}
