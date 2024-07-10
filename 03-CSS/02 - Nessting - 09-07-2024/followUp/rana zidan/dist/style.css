@@ -1,0 +1,16 @@
+.card {
+  background-color: #4612b6;
+  color: aliceblue;
+  text-align: center;
+  width: 350px;
+  height: 250px;
+  margin: 50px;
+}
+.card .h2 {
+  font-style: italic;
+  margin: auto;
+}
+.card .img {
+  width: 100px;
+  margin: 0 auto;
+}
