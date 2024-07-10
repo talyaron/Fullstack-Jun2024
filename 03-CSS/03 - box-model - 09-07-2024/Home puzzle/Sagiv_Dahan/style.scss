@@ -35,6 +35,7 @@ html {
         animation-duration: 8s;
         animation-name: slidein;
         animation-iteration-count: infinite;
+        z-index: 1000;
 
       //animation settings
         @keyframes slidein {
