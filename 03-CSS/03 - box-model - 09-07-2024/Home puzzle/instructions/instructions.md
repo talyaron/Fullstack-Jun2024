@@ -10,5 +10,5 @@ Instructions:
 4. Implement all sizes and color variants visible in the image.
 5. The buttons should not be order in a grid, as you see in the image.
 
- *  Those of you who want to challenge themselves can recreate the buttons as they appear in the image "challange.png" in the same folder.
+ *  Those of you who want to challenge themselves can recreate the buttons as they appear in the image "challenge.png" in the same folder.
  *  You can see the source in this link: https://m3.material.io/develop/web
