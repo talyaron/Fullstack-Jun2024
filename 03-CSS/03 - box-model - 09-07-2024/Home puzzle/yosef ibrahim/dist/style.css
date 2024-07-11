@@ -1,0 +1,14 @@
+h1 {
+  text-align: center;
+  font-size: 70px;
+  text-decoration: underline;
+}
+
+p {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+text_no_bold {
+  font-size: 20px;
+}
