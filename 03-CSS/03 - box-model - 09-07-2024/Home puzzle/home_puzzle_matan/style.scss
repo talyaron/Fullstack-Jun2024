@@ -22,134 +22,33 @@ font-size: 40px;
     justify-content: space-between; 
     gap: 30px; 
 }
-.surface{
+.surface, .primary, .secondary, .tertiary{
     display: flex;
     justify-content: space-between;
     width: 40%;
 
 
-    .surface_one{
+    .surface_img{
         background-color: rgb(232, 220, 245);
         border-radius: 10px;
         margin-top: 30px;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
         
-
-        
     }
-    .surface_two{
-        background-color: rgb(232, 220, 245);
-        border-radius: 10px;
-        margin-top: 30px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-
-        
-    }
-    .surface_three{
-        background-color: rgb(232, 220, 245);
-        border-radius: 10px;
-        margin-top: 30px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-
-        
-    }
-    .surface_four{
-        background-color: rgb(232, 220, 245);
-        border-radius: 10px;
-        margin-top: 30px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-
-        
-    }
-}
-
-.primary{
-    display: flex;
-    justify-content: space-between;
-    width: 40%;
-
-
-    .primary_one{
+    .primary_img{
         background-color: rgb(165, 128, 200);
         border-radius: 10px;
         margin-top: 30px;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 
-        
     }
-    .primary_two{
-        background-color: rgb(165, 128, 200);
-        border-radius: 10px;
-        margin-top: 30px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-
-        
-    }
-    .primary_three{
-        background-color: rgb(165, 128, 200);
-        border-radius: 10px;
-        margin-top: 30px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-
-        
-    }
-    .primary_four{
-        background-color: rgb(165, 128, 200);
-        border-radius: 10px;
-        margin-top: 30px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-
-        
-    }
-}
-
-.secondary{
-    display: flex;
-    justify-content: space-between;
-    width: 40%;
-
-
-    .secondary_one{
+    .secondary_img{
         background-color: rgb(154, 145, 162);
         border-radius: 10px;
         margin-top: 30px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-
-        
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5)
     }
-    .secondary_two{
-        background-color: rgb(154, 145, 162);
-        border-radius: 10px;
-        margin-top: 30px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-
-        
-    }
-    .secondary_three{
-        background-color: rgb(154, 145, 162);
-        border-radius: 10px;
-        margin-top: 30px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-
-        
-    }
-    .secondary_four{
-        background-color: rgb(154, 145, 162);
-        border-radius: 10px;
-        margin-top: 30px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-
-        
-    }
-}
-
-.tertiary{
-    display: flex;
-    justify-content: space-between;
-    width: 40%;
-
-
-    .tertiary_one{
+    .tertiary_img{
         background-color: rgb(230, 149, 191);
         border-radius: 10px;
         margin-top: 30px;
@@ -157,28 +56,12 @@ font-size: 40px;
 
         
     }
-    .tertiary_two{
-        background-color: rgb(230, 149, 191);
-        border-radius: 10px;
-        margin-top: 30px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-
-        
-    }
-    .tertiary_three{
-        background-color: rgb(230, 149, 191);
-        border-radius: 10px;
-        margin-top: 30px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-
-        
-    }
-    .tertiary_four{
-        background-color: rgb(230, 149, 191);
-        border-radius: 10px;
-        margin-top: 30px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-
-        
-    }
+    
 }
+
+
+
+
+    
+
+
