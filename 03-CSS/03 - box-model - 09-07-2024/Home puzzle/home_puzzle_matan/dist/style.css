@@ -9,6 +9,7 @@ header {
 header span {
   color: blueviolet;
   font-size: 90px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .small_fabs, .fabs, .big_fabs {
