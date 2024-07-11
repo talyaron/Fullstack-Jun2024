@@ -1,0 +1,54 @@
+.container {
+    display: flex;
+    align-items: center; 
+    margin-bottom: 20px; /* Add some space between containers */
+}
+
+.button-small-gray, .button-small-purple, .button-small-purple-light, .button-small-pink,
+.button-medium-gray, .button-medium-purple, .button-medium-purple-light, .button-medium-pink,
+.button-big-gray, .button-big-purple, .button-big-purple-light, .button-big-pink {
+    display: flex;
+    justify-content: space-between; /* Adjust spacing between buttons */
+}
+
+.button {
+    border-radius: 15px;
+    border-style: solid;
+    border-width: 1px;
+    padding: 10px 10px;
+    margin: 5px;
+    background-image: url('./images/pencil.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.small {
+    width: 20px;
+    height: 20px;
+}
+
+.medium {
+    width: 30px;
+    height: 30px;
+}
+
+.big {
+    width: 40px;
+    height: 40px;
+}
+
+.gray {
+    background-color: rgb(244, 244, 244);
+}
+
+.purple {
+    background-color: rgb(228, 212, 240);
+}
+
+.purple-light {
+    background-color: rgb(233, 226, 239);
+}
+
+.pink {
+    background-color: rgb(247, 227, 231);
+}
