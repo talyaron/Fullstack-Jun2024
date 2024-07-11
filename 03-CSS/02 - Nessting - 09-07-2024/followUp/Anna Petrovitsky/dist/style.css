@@ -1,0 +1,20 @@
+.card {
+  border: solid 2px green;
+  background-color: blue;
+  text-align: center;
+}
+.card .title {
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+.card .text {
+  color: red;
+  font-size: 10px;
+}
+.card .img {
+  background-image: url(./images/sea.jpeg);
+  width: 100%;
+  height: auto;
+}
