@@ -6,6 +6,10 @@ header {
   text-align: center;
   font-size: 30px;
 }
+header span {
+  color: blueviolet;
+  font-size: 90px;
+}
 
 .small_fabs, .fabs, .big_fabs {
   margin: 20px;
