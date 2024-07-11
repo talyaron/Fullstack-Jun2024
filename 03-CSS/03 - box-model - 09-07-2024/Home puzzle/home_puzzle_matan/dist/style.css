@@ -1,3 +1,7 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 header {
   text-align: center;
   font-size: 30px;
@@ -11,6 +15,7 @@ header {
 .small_fabs h4, .fabs h4, .big_fabs h4 {
   color: blueviolet;
   margin-bottom: 40px;
+  font-size: 50px;
 }
 
 .images {
