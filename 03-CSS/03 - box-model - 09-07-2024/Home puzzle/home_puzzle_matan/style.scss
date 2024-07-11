@@ -1,0 +1,67 @@
+header{
+text-align: center;
+font-size: 30px;
+}
+
+.small_fabs, .fabs, .big_fabs{
+margin: 20px;
+display: inline block;
+font-size: 40px;
+
+
+    h4{
+        color: blueviolet;
+        margin-bottom: 40px;
+    }
+}
+
+
+.images{
+
+    display: flex;
+    justify-content: space-between; 
+    gap: 30px; 
+}
+.surface, .primary, .secondary, .tertiary{
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+
+
+    .surface_img{
+        background-color: rgb(232, 220, 245);
+        border-radius: 10px;
+        margin-top: 30px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        
+    }
+    .primary_img{
+        background-color: rgb(165, 128, 200);
+        border-radius: 10px;
+        margin-top: 30px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+
+    }
+    .secondary_img{
+        background-color: rgb(154, 145, 162);
+        border-radius: 10px;
+        margin-top: 30px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5)
+    }
+    .tertiary_img{
+        background-color: rgb(230, 149, 191);
+        border-radius: 10px;
+        margin-top: 30px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+
+        
+    }
+    
+}
+
+
+
+
+    
+
+

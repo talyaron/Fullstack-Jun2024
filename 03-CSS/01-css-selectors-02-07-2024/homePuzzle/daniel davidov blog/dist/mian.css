@@ -48,6 +48,7 @@ body {
 }
 
 .articles {
+  background-color: tomato;
   max-width: 95%;
   margin: 0 auto;
 }
@@ -60,9 +61,10 @@ body {
   display: flex;
   padding: 40px 0;
   height: 50vh;
+  background-color: teal;
 }
 .articles_cards--content img {
-  width: 580px;
+  width: 10vw;
   height: 380px;
 }
 .articles_cards--info {

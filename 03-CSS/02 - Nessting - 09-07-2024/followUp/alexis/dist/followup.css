@@ -1,0 +1,21 @@
+body {
+  text-align: center;
+  align-items: center;
+
+  .list {
+    background-color: blue;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
+  }
+  .header {
+    display: flex;
+    flex-direction: row;
+    padding-left: 25%;
+    
+  }
+  body .image {
+    position: end;
+  }
+}

@@ -1,0 +1,50 @@
+header {
+  text-align: center;
+  font-size: 30px;
+}
+
+.small_fabs, .fabs, .big_fabs {
+  margin: 20px;
+  display: inline block;
+  font-size: 40px;
+}
+.small_fabs h4, .fabs h4, .big_fabs h4 {
+  color: blueviolet;
+  margin-bottom: 40px;
+}
+
+.images {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.surface, .primary, .secondary, .tertiary {
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+}
+.surface .surface_img, .primary .surface_img, .secondary .surface_img, .tertiary .surface_img {
+  background-color: #e8dcf5;
+  border-radius: 10px;
+  margin-top: 30px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+.surface .primary_img, .primary .primary_img, .secondary .primary_img, .tertiary .primary_img {
+  background-color: #a580c8;
+  border-radius: 10px;
+  margin-top: 30px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+.surface .secondary_img, .primary .secondary_img, .secondary .secondary_img, .tertiary .secondary_img {
+  background-color: #9a91a2;
+  border-radius: 10px;
+  margin-top: 30px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+.surface .tertiary_img, .primary .tertiary_img, .secondary .tertiary_img, .tertiary .tertiary_img {
+  background-color: #e695bf;
+  border-radius: 10px;
+  margin-top: 30px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}

@@ -1,0 +1,14 @@
+.card {
+  background-color: #3465ec;
+  color: white;
+  width: 400px;
+  height: 300px;
+  text-align: center;
+}
+.card .img {
+  width: 100px;
+  margin: 0 auto;
+}
+.card .img img {
+  width: 100%;
+}
