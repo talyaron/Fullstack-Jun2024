@@ -11,6 +11,9 @@ header span {
   font-size: 90px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+header h1 {
+  font-size: 50px;
+}
 
 .small_fabs, .fabs, .big_fabs {
   margin: 20px;
