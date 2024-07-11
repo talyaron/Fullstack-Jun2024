@@ -2,7 +2,6 @@
   display: flex;
   align-items: center;
   margin-bottom: 20px;
-  /* Add some space between containers */
 }
 
 .button-small-gray, .button-small-purple, .button-small-purple-light, .button-small-pink,
@@ -10,7 +9,6 @@
 .button-big-gray, .button-big-purple, .button-big-purple-light, .button-big-pink {
   display: flex;
   justify-content: space-between;
-  /* Adjust spacing between buttons */
 }
 
 .button {

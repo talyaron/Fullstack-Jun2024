@@ -1,14 +1,14 @@
 .container {
   display: flex;
   align-items: center;
-  margin-bottom: 20px; /* Add some space between containers */
+  margin-bottom: 20px;
 }
 
 .button-small-gray, .button-small-purple, .button-small-purple-light, .button-small-pink,
 .button-medium-gray, .button-medium-purple, .button-medium-purple-light, .button-medium-pink,
 .button-big-gray, .button-big-purple, .button-big-purple-light, .button-big-pink {
   display: flex;
-  justify-content: space-between; /* Adjust spacing between buttons */
+  justify-content: space-between;
 }
 
 .button {
