@@ -1,0 +1,179 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+p {
+  position: absolute;
+  left: 2%;
+}
+
+.first .fl-text .fabs {
+  position: absolute;
+  left: 2%;
+  top: 6%;
+  font-weight: bold;
+  font-size: 16px;
+}
+.first .fl-text .headfabs {
+  position: absolute;
+  top: 3.1%;
+  font-size: 21px;
+  left: 9%;
+  color: rgb(133, 79, 133);
+}
+.first .fl-text .surface {
+  top: 11%;
+}
+.first .fl-text .primary {
+  top: 20%;
+}
+.first .fl-text .secondary {
+  top: 30%;
+}
+.first .fl-text .teritary {
+  top: 40%;
+}
+.first .btns .buttons {
+  position: absolute;
+  border-radius: 9px;
+  padding: 11px 12px 11px 12px;
+  display: inline-block;
+  margin: 0px -220px;
+  border: none;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  color: rgb(255, 255, 255);
+}
+.first .btns .buttons-second {
+  position: absolute;
+  border-radius: 9px;
+  padding: 13px 16px 13px 16px;
+  display: inline-block;
+  margin: 0px -220px;
+  border: none;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  color: rgb(255, 255, 255);
+}
+.first .btns .buttons-three {
+  position: absolute;
+  border-radius: 9px;
+  padding: 16px 19px 16px 19px;
+  display: inline-block;
+  margin: 0px -220px;
+  border: none;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  color: rgb(255, 255, 255);
+}
+.first .btns .buttons-1 {
+  background-color: rgb(203, 166, 204);
+  top: 12%;
+}
+.first .btns .buttons-2 {
+  background-color: rgb(157, 119, 158);
+  top: 22%;
+}
+.first .btns .buttons-3 {
+  background-color: rgb(122, 116, 122);
+  top: 32%;
+}
+.first .btns .buttons-4 {
+  background-color: rgb(209, 175, 175);
+  top: 42%;
+}
+.first .btns .buttons-5 {
+  background-color: rgb(203, 166, 204);
+  top: 65%;
+}
+.first .btns .buttons-6 {
+  background-color: rgb(157, 119, 158);
+  top: 75%;
+}
+.first .btns .buttons-7 {
+  background-color: rgb(122, 116, 122);
+  top: 85%;
+}
+.first .btns .buttons-8 {
+  background-color: rgb(209, 175, 175);
+  top: 94.7%;
+}
+.first .btns .buttons-9 {
+  background-color: rgb(203, 166, 204);
+  top: 117%;
+}
+.first .btns .buttons-10 {
+  background-color: rgb(157, 119, 158);
+  top: 127%;
+}
+.first .btns .buttons-11 {
+  background-color: rgb(122, 116, 122);
+  top: 137%;
+}
+.first .btns .buttons-12 {
+  background-color: rgb(209, 175, 175);
+  top: 147%;
+}
+.first .btns .l1 {
+  left: 34%;
+}
+.first .btns .l2 {
+  left: 30%;
+}
+.first .btns .l3 {
+  left: 26%;
+}
+.first .btns .l4 {
+  left: 22%;
+}
+
+.second .second-text .fabs {
+  position: absolute;
+  left: 2%;
+  top: 59%;
+  font-weight: bold;
+  font-size: 16px;
+}
+.second .second-text .headfabs {
+  position: absolute;
+  top: 57.1%;
+  font-size: 21px;
+  left: 9%;
+  color: rgb(133, 79, 133);
+}
+.second .second-text .surface {
+  top: 64%;
+}
+.second .second-text .primary {
+  top: 74%;
+}
+.second .second-text .secondary {
+  top: 84%;
+}
+.second .second-text .teritary {
+  top: 94%;
+}
+
+.three .three-text .fabs {
+  position: absolute;
+  left: 2%;
+  top: 111%;
+  font-weight: bold;
+  font-size: 16px;
+}
+.three .three-text .headfabs {
+  position: absolute;
+  top: 109.1%;
+  font-size: 21px;
+  left: 9%;
+  color: rgb(133, 79, 133);
+}
+.three .three-text .surface {
+  top: 116.2%;
+}
+.three .three-text .primary {
+  top: 126.2%;
+}
+.three .three-text .secondary {
+  top: 136.2%;
+}
+.three .three-text .teritary {
+  top: 146.2%;
+}/*# sourceMappingURL=style.css.map */
