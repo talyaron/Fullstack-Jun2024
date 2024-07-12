@@ -1,6 +1,18 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 header {
   text-align: center;
   font-size: 30px;
+}
+header span {
+  color: blueviolet;
+  font-size: 90px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+header h1 {
+  font-size: 50px;
 }
 
 .small_fabs, .fabs, .big_fabs {
@@ -11,6 +23,7 @@ header {
 .small_fabs h4, .fabs h4, .big_fabs h4 {
   color: blueviolet;
   margin-bottom: 40px;
+  font-size: 50px;
 }
 
 .images {
@@ -28,23 +41,41 @@ header {
   background-color: rgb(232, 220, 245);
   border-radius: 10px;
   margin-top: 30px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 .surface .primary_img, .primary .primary_img, .secondary .primary_img, .tertiary .primary_img {
   background-color: rgb(165, 128, 200);
   border-radius: 10px;
   margin-top: 30px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 .surface .secondary_img, .primary .secondary_img, .secondary .secondary_img, .tertiary .secondary_img {
   background-color: rgb(154, 145, 162);
   border-radius: 10px;
   margin-top: 30px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 .surface .tertiary_img, .primary .tertiary_img, .secondary .tertiary_img, .tertiary .tertiary_img {
   background-color: rgb(230, 149, 191);
   border-radius: 10px;
   margin-top: 30px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+.surface .img_one, .primary .img_one, .secondary .img_one, .tertiary .img_one {
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  filter: brightness(100%);
+}
+.surface .img_two, .primary .img_two, .secondary .img_two, .tertiary .img_two {
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.7);
+  filter: brightness(89%);
+}
+.surface .img_three, .primary .img_three, .secondary .img_three, .tertiary .img_three {
+  box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.9);
+  filter: brightness(81%);
+}
+.surface .img_four, .primary .img_four, .secondary .img_four, .tertiary .img_four {
+  box-shadow: 8px 8px 20px rgb(0, 0, 0);
+  filter: brightness(96%);
+}
+.surface .img_one, .surface .img_two, .surface .img_three, .surface .img_four, .primary .img_one, .primary .img_two, .primary .img_three, .primary .img_four, .secondary .img_one, .secondary .img_two, .secondary .img_three, .secondary .img_four, .tertiary .img_one, .tertiary .img_two, .tertiary .img_three, .tertiary .img_four {
+  transition: opacity 0.3s ease;
+}
+.surface .img_one:hover, .surface .img_two:hover, .surface .img_three:hover, .surface .img_four:hover, .primary .img_one:hover, .primary .img_two:hover, .primary .img_three:hover, .primary .img_four:hover, .secondary .img_one:hover, .secondary .img_two:hover, .secondary .img_three:hover, .secondary .img_four:hover, .tertiary .img_one:hover, .tertiary .img_two:hover, .tertiary .img_three:hover, .tertiary .img_four:hover {
+  opacity: 0.8;
 }/*# sourceMappingURL=style.css.map */
