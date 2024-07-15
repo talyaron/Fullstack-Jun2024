@@ -1,0 +1,69 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #F5F5F5;
+}
+
+.fab-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  border: 2px solid #217124;
+}
+.fab-container .fab-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.fab-container .fab-group h2 {
+  margin: 0;
+  font-size: 18px;
+}
+.fab-container .fab-group .fab-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.fab-container .fab-group .fab-row .label {
+  width: 80px;
+  text-align: left;
+  font-size: 14px bold;
+}
+.fab-container .fab-group .fab-row .fab {
+  margin-left: 50px;
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+.fab-container .fab-group .fab-row .fab.small {
+  width: 40px;
+  height: 40px;
+}
+.fab-container .fab-group .fab-row .fab.large {
+  width: 72px;
+  height: 72px;
+}
+.fab-container .fab-group .fab-row .fab.surface {
+  background-color: #E0E0E0;
+  color: #000;
+}
+.fab-container .fab-group .fab-row .fab.primary {
+  background-color: #6750A4;
+  color: #fff;
+}
+.fab-container .fab-group .fab-row .fab.secondary {
+  background-color: #625B71;
+  color: #fff;
+}
+.fab-container .fab-group .fab-row .fab.tertiary {
+  background-color: #7D5260;
+  color: #fff;
+}
+.fab-container .fab-group .fab-row .fab .icon {
+  font-size: 15px;
+}
