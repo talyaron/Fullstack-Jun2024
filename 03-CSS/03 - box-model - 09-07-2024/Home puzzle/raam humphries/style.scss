@@ -1,0 +1,86 @@
+.tamplate {
+  // template for all buttns
+  margin-top: 5%;
+  margin-left: 5%;
+  border-radius: 15%;
+  padding: 2% 0.5%;
+  border: transparent solid;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+.all {
+  //background color of the hole page
+  background-color: rgb(236, 241, 250);
+}
+
+.white {
+  button {
+    background-color: rgb(232, 232, 232);
+  }
+}
+.perple {
+  button {
+    background-color: rgb(194, 195, 195);
+  }
+}
+
+.gray {
+  button {
+    background-color: rgb(210, 210, 210);
+  }
+}
+.plum {
+  button {
+    background-color: rgb(223, 164, 187);
+  }
+}
+
+.small {
+  img {
+    width: 60%;
+  }
+  button {
+    height: 3%;
+    width: 5%;
+    padding: 0.6% 0.5%;
+  }
+}
+
+.medium {
+  img {
+    width: 60%;
+  }
+  button {
+    height: 6%;
+    width: 10%;
+  }
+}
+
+.large {
+  img {
+    width: 60%;
+  }
+  button {
+    height: 9%;
+    width: 15%;
+  }
+}
+
+.sidetext {
+  color: black;
+  font-size: medium;
+}
+
+.title {
+  margin-top: 15%;
+  margin-left: 17%;
+  text-align: 50%;
+  color: purple;
+  padding: 10px 20px;
+  font-size: larger;
+}
+
+.subtitle {
+  color: black;
+  font-size: large;
+}
