@@ -11,8 +11,21 @@
   filter: brightness(120%);
 }
 
+.bigbtn {
+  border-style: hidden;
+  font-size: 20px;
+  padding: 2px 2px;
+  border-radius: 20%;
+}
+
+.bigbtn:hover {
+  font-size: 22px;
+  padding: 3px 3px;
+  filter: brightness(120%);
+}
+
 .row {
-  padding: 2px;
+  padding: 5px 5px;
   width: fit-content;
   margin: 0 auto;
 }
@@ -39,6 +52,6 @@
 }
 
 .ShadowButton {
-  text-shadow: rgba(117, 115, 115, 0.308) 5px 6px;
+  text-shadow: rgba(117, 115, 115, 0.308) 6px 9px;
   overflow: hidden;
 }
