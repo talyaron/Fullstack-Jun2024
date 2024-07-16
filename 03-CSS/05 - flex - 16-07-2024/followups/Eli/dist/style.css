@@ -1,0 +1,24 @@
+.boxContainer {
+  display: flex;
+  width: 100vw;
+  justify-content: space-evenly;
+}
+.boxContainer .box {
+  border: solid;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.boxContainer .lightgray {
+  background-color: #a3a3a3;
+  width: 100vw;
+}
+.boxContainer .gray {
+  width: 200vw;
+  background-color: #6a6868;
+}
+.boxContainer .litgray {
+  background-color: #c9c8c8;
+  width: 40vw;
+}

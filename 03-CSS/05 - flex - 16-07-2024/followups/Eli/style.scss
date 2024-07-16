@@ -1,0 +1,31 @@
+.boxContainer
+{
+ display: flex;
+ width: 100vw;
+justify-content: space-evenly;
+    .box
+    {
+        border: solid ;
+        
+        height: 50px;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .lightgray
+    {
+        background-color: rgb(163, 163, 163);
+        width: 100vw;
+    }
+    .gray
+    {
+        width: 200vw;
+        background-color: rgb(106, 104, 104);
+    }
+    .litgray
+    {
+        background-color: rgb(201, 200, 200);
+        width: 40vw;
+    }
+}
