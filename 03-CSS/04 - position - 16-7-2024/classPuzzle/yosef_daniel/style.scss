@@ -1,0 +1,34 @@
+.container {
+    border: 1px solid;
+    width: 180px;
+    height: 180px;
+    position: absolute;
+}
+
+.box {
+    border: 1px solid;
+    width: 80px;
+    height: 80px;
+    position: absolute;
+}
+
+.first {   
+    background-color: lightblue;
+    top: 10px;
+    left: 10px;
+}
+.second {
+    background-color: yellow;
+    top: 10px;
+    left: 100px;
+}
+.third {
+    background-color: orange;
+    top: 100px;
+    left: 10px;
+}
+.fourth{
+    background-color: green;
+    top: 100px;
+    left: 100px;
+}
