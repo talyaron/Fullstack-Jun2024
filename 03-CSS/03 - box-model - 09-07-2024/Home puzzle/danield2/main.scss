@@ -14,25 +14,46 @@ body {
     background: var(--section-white, #FFF);
     border-bottom: 1px solid var(--more-dividers, #F0F0F0);
     margin: 0 auto;
-    padding: 25px; 
+    padding: 0 25px; 
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: end;
 
     &_pages{
         display: flex;
         gap: 12px;
 
-        & a{
-            padding: 12px 12px;
+        & .link{
+            padding: 0 12px 24px 12px;
             color: black;
             text-decoration: none;
+            
+        }
+        :hover{
+            border-bottom: solid 2px #3A616B;
         }
     }
 
     &_info {
        display: flex;
        gap: 12px; 
+       padding: 20px 0;
+       justify-content: center;
+       align-items: center;
+        
+       & .logout {
+        border-radius: 0.375rem;
+        border: 1px solid var(--more-borders, #E0E1E1);
+        padding: 12px;
+       }
+
+       & .translet{
+       display: flex;
+       gap: 4px; 
+       justify-content: center;
+       align-items: center;
+       }
+
     }
     }
 
@@ -77,6 +98,10 @@ body {
                 color: #F6F6F6;
                 border-radius: 0.5rem 0 0 0.5rem;
             }
+            &_button:hover{
+                background-color: #59AFB4;
+            }
+            
         
         }
     }
@@ -213,8 +238,9 @@ body {
                                         color: var(--text-light-title, #F6F6F6);
                                         text-align: center;
                                         width: 8rem;
-
-    
+                                    }
+                                    & .viewinghotel:hover{
+                                        background-color: #59AFB4;
                                     }
                                     & .message{
                                         display: flex;
@@ -226,6 +252,10 @@ body {
                                         width: 8rem;
                                         text-align: center;
                                         
+                                    }
+                                    & .message:hover{
+                                        border: #3A616B solid 2px;
+                                        color: #3A616B;
                                     }
                                 }
                             }

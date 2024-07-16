@@ -14,23 +14,40 @@ body {
   background: var(--section-white, #FFF);
   border-bottom: 1px solid var(--more-dividers, #F0F0F0);
   margin: 0 auto;
-  padding: 25px;
+  padding: 0 25px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: end;
 }
 .nevbar_pages {
   display: flex;
   gap: 12px;
 }
-.nevbar_pages a {
-  padding: 12px 12px;
+.nevbar_pages .link {
+  padding: 0 12px 24px 12px;
   color: black;
   text-decoration: none;
+}
+.nevbar_pages :hover {
+  border-bottom: solid 2px #3A616B;
 }
 .nevbar_info {
   display: flex;
   gap: 12px;
+  padding: 20px 0;
+  justify-content: center;
+  align-items: center;
+}
+.nevbar_info .logout {
+  border-radius: 0.375rem;
+  border: 1px solid var(--more-borders, #E0E1E1);
+  padding: 12px;
+}
+.nevbar_info .translet {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
 }
 
 .search {
@@ -71,6 +88,9 @@ body {
   background: var(--primary-700, #3A616B);
   color: #F6F6F6;
   border-radius: 0.5rem 0 0 0.5rem;
+}
+.search_wrapper_button:hover {
+  background-color: #59AFB4;
 }
 
 .content {
@@ -193,6 +213,9 @@ body {
   text-align: center;
   width: 8rem;
 }
+.content_wrapper_tabs .cardhotel .imgandinfohotel .details .proposal .buttons .viewinghotel:hover {
+  background-color: #59AFB4;
+}
 .content_wrapper_tabs .cardhotel .imgandinfohotel .details .proposal .buttons .message {
   display: flex;
   padding: 0.5rem;
@@ -202,6 +225,10 @@ body {
   border: 1px solid var(--more-borders, #E0E1E1);
   width: 8rem;
   text-align: center;
+}
+.content_wrapper_tabs .cardhotel .imgandinfohotel .details .proposal .buttons .message:hover {
+  border: #3A616B solid 2px;
+  color: #3A616B;
 }
 .content_wrapper_filter {
   background: var(--section-white, #FFF);
