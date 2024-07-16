@@ -1,0 +1,16 @@
+.box {
+    margin: 1%;
+    display: flex;
+    background-color: teal;
+    width: 30px;
+    height: 30px;
+    color: aliceblue;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
