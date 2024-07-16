@@ -1,0 +1,37 @@
+.box {
+  border: 1px dashed black;
+  width: 900px;
+  height: 900px;
+  transform: rotate(10deg);
+  margin: 100px;
+}
+.box .boxsize {
+  width: 400px;
+  height: 400px;
+  border: 1px solid black;
+  margin: 25px;
+}
+.box .red {
+  background-color: red;
+  margin-right: 10px;
+}
+.box .green {
+  background-color: green;
+}
+.box .blue {
+  background-color: blue;
+}
+.box .black {
+  background-color: black;
+}
+.box #first {
+  position: absolute;
+  width: 400px;
+  left: 450px;
+}
+.box #fourth {
+  position: absolute;
+  width: 400px;
+  left: 450px;
+  top: 435px;
+}
