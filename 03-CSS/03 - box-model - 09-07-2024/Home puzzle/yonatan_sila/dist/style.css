@@ -1,0 +1,62 @@
+* {
+  line-height: 1.3;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.calculator {
+  background-color: black;
+  height: fit-content;
+  width: fit-content;
+  border: 5px solid black;
+}
+
+.firstline {
+  display: flex;
+  justify-content: space-between;
+}
+
+.numbers {
+  display: flex;
+}
+
+.sumbox {
+  margin: 5px;
+  height: 1.5rem;
+  text-align: end;
+  font-size: xx-large;
+  color: white;
+  margin: 50px 15px 15px;
+}
+
+.numbox {
+  width: 2rem;
+  height: 2rem;
+  margin: 5px;
+  border-radius: 50%;
+  padding: 5px;
+  text-align: center;
+  background-color: #555555;
+  font-size: x-large;
+  font-weight: bold;
+  color: white;
+}
+.numbox div:hover {
+  background-color: red;
+}
+
+.orangeb {
+  background-color: #ff8400;
+  color: white;
+}
+
+.greyb {
+  background-color: #b3aeae;
+  color: black;
+}
+
+.double {
+  width: 4.6rem;
+  border-radius: 500px;
+  text-align: start;
+  padding-left: 15px;
+}
