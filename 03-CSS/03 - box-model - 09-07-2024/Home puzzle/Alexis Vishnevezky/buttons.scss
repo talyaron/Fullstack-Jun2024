@@ -1,0 +1,59 @@
+.button {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center;
+  margin: 5%;
+  border-radius: 12px;
+  border: 15%;
+  height: 45px;
+  width: 45px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.red {
+  color: red;
+  background-color: rgb(255, 255, 255);
+}
+
+.red:hover {
+  background-color: red;
+  color: white;
+}
+.purple {
+  color: white;
+  background-color: rgb(194, 155, 194);
+}
+
+.purple:hover {
+  background-color: white;
+  color: rgb(194, 155, 194);
+}
+.pink {
+  color: rgb(100, 71, 71);
+  background-color: rgb(225, 178, 178);
+}
+
+.pink:hover {
+  background-color: white;
+  color: rgb(225, 178, 178);
+}
+.grey {
+    color: rgb(59, 39, 39);
+    background-color: rgb(187, 185, 185);
+  }
+  
+  .grey:hover {
+    background-color: rgb(59, 39, 39);
+    ;
+    color: rgb(187, 185, 185);
+  }
+  .green {
+    color: rgb(223, 223, 223);
+    background-color: rgb(186, 209, 189);
+  }
+  
+  .green:hover {
+    background-color: rgb(223, 223, 223);
+    ;
+    color: rgb(186, 209, 189);
+  }

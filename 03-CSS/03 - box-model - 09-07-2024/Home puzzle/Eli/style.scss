@@ -1,0 +1,58 @@
+
+.btn {
+border-style: hidden;
+  font-size: 10px;
+  padding: 2px 2px;
+  border-radius: 20%;
+}
+
+.btn:hover {
+    font-size: 12px;
+    padding: 3px 3px;
+    filter: brightness(120%);
+  }
+
+.bigbtn
+{
+    border-style: hidden;
+  font-size: 20px;
+  padding: 2px 2px;
+  border-radius: 20%;
+}
+.bigbtn:hover {
+    font-size: 22px;
+    padding: 3px 3px;
+    filter: brightness(120%);
+  }
+
+.row {
+  padding: 5px 5px ;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.buttonRow1Blur {
+  filter: blur(0.3px);
+  background-color: rgb(249, 198, 206);
+}
+
+.buttonRow2Normal {
+  background-color: rgb(98, 195, 183);
+}
+
+.buttonRow3Purp {
+  background-color: rgb(214, 147, 199);
+}
+
+.brighter {
+  filter: brightness(120%);
+}
+
+.darker {
+  filter: brightness(80%);
+}
+
+.ShadowButton {
+  text-shadow: rgba(117, 115, 115, 0.308) 6px 9px;
+  overflow: hidden;
+}
