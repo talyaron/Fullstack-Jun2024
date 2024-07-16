@@ -1,0 +1,30 @@
+.box {
+    height: 200px;
+    width: 200px;
+    margin: 20px;
+    position: absolute;
+    transform: rotate(10deg);
+
+}
+
+#pink {
+    background-color: pink;
+    left: 50px;
+}
+
+#blue {
+    background-color: rgb(146, 146, 236);
+    left: 295px;
+    top: 50px;
+}
+
+#yellow {
+    background-color: rgb(233, 233, 163);
+    top: 250px;
+}
+
+#green {
+    background-color: rgb(167, 243, 167);
+    top: 295px;
+    left: 250px;
+}
