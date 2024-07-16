@@ -1,0 +1,24 @@
+.boxContainer {
+  display: flex;
+  width: 100vw;
+  justify-content: space-evenly;
+}
+.boxContainer .box {
+  border: solid;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.boxContainer .lightgray {
+  background-color: rgb(163, 163, 163);
+  width: 100vw;
+}
+.boxContainer .gray {
+  width: 200vw;
+  background-color: rgb(106, 104, 104);
+}
+.boxContainer .litgray {
+  background-color: rgb(201, 200, 200);
+  width: 40vw;
+}/*# sourceMappingURL=style.css.map */
