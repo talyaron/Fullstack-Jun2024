@@ -1,0 +1,43 @@
+.content,
+.content--nowrap,
+.content-wrap-reverse {
+  color: #fff;
+  font: 100 24px/100px sans-serif;
+  height: 150px;
+  width: 897px;
+  text-align: center;
+}
+
+.content div,
+.content-nowrap div,
+.content-wrap-reverse div {
+  height: 50%;
+  width: 300px;
+}
+
+.red {
+  background: orangered;
+}
+
+.green {
+  background: yellowgreen;
+}
+
+.blue {
+  background: steelblue;
+}
+
+.content-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.content-nowrap {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.content-wrap-reverse {
+  display: flex;
+  flex-wrap: wrap-reverse;
+}/*# sourceMappingURL=style.css.map */
