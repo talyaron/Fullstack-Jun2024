@@ -1,0 +1,19 @@
+.wrapper {
+  border-style: solid;
+  border-color: black;
+  display: flex;
+  padding: 3px;
+  gap: 5px;
+}
+.wrapper .box {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.wrapper .box .img {
+  width: 250px;
+}
+.wrapper .box .spare {
+  font-size: xx-small;
+}
