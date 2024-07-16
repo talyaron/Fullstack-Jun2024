@@ -1,0 +1,23 @@
+body {
+  margin: 0px;
+}
+
+.box {
+  height: 70px;
+  border: 1px dashed #000;
+}
+
+#first {
+  background-color: tomato;
+  position: relative;
+  top: 20px;
+  left: 20px;
+}
+
+#second {
+  background-color: lightblue;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 40px;
+}/*# sourceMappingURL=style.css.map */

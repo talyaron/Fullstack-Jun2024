@@ -9,6 +9,106 @@ p {
   font-size: 30px;
 }
 
-text_no_bold {
+.text1 {
   font-size: 20px;
+  position: absolute;
+  margin-top: 10px;
+}
+
+.text2 {
+  font-size: 20px;
+  position: absolute;
+  margin-top: 70px;
+}
+
+.text3 {
+  font-size: 20px;
+  position: absolute;
+  margin-top: 130px;
+}
+
+.text4 {
+  font-size: 20px;
+  position: absolute;
+  margin-top: 180px;
+}
+
+.text5 {
+  font-size: 20px;
+  position: absolute;
+  margin-top: 420px;
+}
+
+.text6 {
+  font-size: 20px;
+  position: absolute;
+  margin-top: 520px;
+}
+
+.text7 {
+  font-size: 20px;
+  position: absolute;
+  margin-top: 620px;
+}
+
+.text8 {
+  font-size: 20px;
+  position: absolute;
+  margin-top: 720px;
+}
+
+.text9 {
+  font-size: 20px;
+  position: absolute;
+  margin-top: 1010px;
+}
+
+.text10 {
+  font-size: 20px;
+  position: absolute;
+  margin-top: 1180px;
+}
+
+.text11 {
+  font-size: 20px;
+  position: absolute;
+  margin-top: 1350px;
+}
+
+.text12 {
+  font-size: 20px;
+  position: absolute;
+  margin-top: 1500px;
+}
+
+.purple {
+  color: purple;
+  margin-left: 200px;
+}
+
+.black {
+  color: black;
+}
+
+table {
+  position: static;
+  border-collapse: collapse;
+  width: 100%;
+  margin-left: 200px;
+  display: block;
+}
+
+img {
+  width: 50px;
+  height: 50px;
+}
+
+.medium {
+  width: 100px;
+  height: 100px;
+}
+
+.big {
+  width: 150px;
+  height: 150px;
 }/*# sourceMappingURL=style.css.map */
