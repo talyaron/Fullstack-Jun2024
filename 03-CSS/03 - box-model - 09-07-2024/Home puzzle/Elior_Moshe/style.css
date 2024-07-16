@@ -1,0 +1,163 @@
+
+.SmallFABs h1 {
+    color: blueviolet;
+    font-style: italic;
+    font-size: x-large;
+    margin-left: 20px;
+    display: flex;
+    align-items: center; 
+}
+
+
+
+
+.smallsurfface {
+    align-items: center;
+    display: flex;
+    font-size: small;
+ margin-left: 20px;
+ font-style: italic;
+}
+
+
+
+
+.smallsurfacepic , .smallprimarypic , .smallsecondarypic , .smallTertiarypic  {
+background-color: rgb(230, 230, 245);
+width: 20px;
+padding: 10px;
+margin: 20px;
+border-radius: 15px;
+box-shadow: 3px 3px 3px
+}
+
+.smallprimary {
+    align-items: center;
+    display: flex;
+    font-size: small;
+ margin-left: 20px;
+ font-style: italic;
+}
+
+.smallprimarypic {
+    background-color: rgb(224, 197, 248);
+}
+
+.smallsecondary {
+    align-items: center;
+    display: flex;
+    font-size: small;
+ margin-left: 20px;
+ font-style: italic;
+}
+
+.smallsecondarypic {
+    background-color: rgb(215, 189, 221); 
+}
+
+.smallTertiarypic {
+    background-color: rgb(255, 180, 130);  
+}
+
+.smalltertiary {
+    align-items: center;
+    display: flex;
+    font-size: small;
+ margin-left: 20px;
+ font-style: italic;
+} 
+
+.mediumfab h1 {
+    color: blueviolet;
+    font-style: italic;
+    font-size: x-large;
+    margin-left: 20px;
+    display: flex;
+    align-items: center; 
+}
+
+.mediumsurface , .mediumprirmary , .mediumsecondary , .mediumtertiary {
+    align-items: center;
+    display: flex;
+    font-size: small;
+ margin-left: 20px;
+ font-style: italic;  
+}
+
+.mediumsurfacepic , .mediumprimarypic , .mediumsecondarypic , .mediumtertiarypic  {
+    background-color: rgb(230, 230, 245);
+    width: 30px;
+    padding: 10px;
+    margin: 20px;
+    border-radius: 15px;  
+    box-shadow: 3px 3px 3px
+
+}
+
+.mediumprimarypic {
+    background-color: rgb(224, 197, 248);
+}
+
+.mediumsecondarypic {
+    background-color: rgb(215, 189, 221);
+}
+
+.mediumtertiarypic {
+    background-color: rgb(255, 180, 130);   
+}
+
+
+.largefab h1 {
+    color: blueviolet;
+    font-style: italic;
+    font-size: x-large;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;    
+}
+
+.largefab p {
+    font-style: italic; 
+    font-weight: bold;
+}
+
+.mediumfab p {
+    font-style: italic; 
+    font-weight: bold; 
+}
+
+.SmallFABs p {
+    font-style: italic; 
+    font-weight: bold;   
+}
+
+
+
+.largesurface , .largeprimary , .largesecondary , .largetertiary  {
+    align-items: center;
+    display: flex;
+    font-size: small;
+ margin-left: 20px;
+ font-style: italic;
+}
+
+.largesurfacepic , .largeprimarypic , .largesecondarypic , .largetertiarypic {
+    background-color: rgb(230, 230, 245);
+    width: 45px;
+    padding: 10px;
+    margin: 20px;
+    border-radius: 15px; 
+    box-shadow: 3px 3px 3px
+}
+
+.largeprimarypic {
+    background-color: rgb(224, 197, 248);
+}
+
+.largesecondarypic {
+    background-color: rgb(215, 189, 221);   
+}
+
+.largetertiarypic {
+    background-color: rgb(255, 180, 130);   
+}

@@ -1,0 +1,51 @@
+.box {
+  border: 4px solid;
+  padding: 10px;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 5px;
+}
+
+.blue {
+  border-color: blue;
+}
+
+.green {
+  border-color: green;
+}
+
+.red {
+  border-color: red;
+}
+
+.orange {
+  border-color: orangered;
+}
+
+.circles {
+  display: flex;
+}
+.circles .circle {
+  border-radius: 25px;
+}
+
+.square {
+  display: flex;
+}
+
+.fill {
+  display: flex;
+  color: white;
+}
+.fill .bluefill {
+  background-color: blue;
+}
+.fill .greenfill {
+  background-color: green;
+}
+.fill .orangefill {
+  background-color: orangered;
+}
+.fill .redfill {
+  background-color: red;
+}/*# sourceMappingURL=style.css.map */
