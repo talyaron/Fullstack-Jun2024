@@ -1,0 +1,13 @@
+.FAB {
+  height: -moz-fit-content;
+  height: fit-content;
+  border-radius: 18px;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 18px;
+  box-shadow: 2px 2px 10px gray;
+}
+
+.red {
+  background-color: red;
+}/*# sourceMappingURL=style.css.map */

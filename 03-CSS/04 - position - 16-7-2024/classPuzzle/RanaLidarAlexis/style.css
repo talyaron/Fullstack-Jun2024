@@ -1,0 +1,44 @@
+.box {
+  border-style: solid;
+  border-color: black;
+  height: 150px;
+  width: 150px;
+  position: absolute;
+}
+
+.big {
+  height: 370px;
+  width: 370px;
+  margin-top: 150px;
+  margin-left: 150px;
+}
+
+.moved {
+  position: absolute;
+  left: 700px;
+  rotate: 30deg;
+}
+
+.pink {
+  background-color: pink;
+  top: 20px;
+  left: 20px;
+}
+
+.grey {
+  background-color: grey;
+  top: 20px;
+  right: 20px;
+}
+
+.green {
+  background-color: rgb(141, 193, 141);
+  bottom: 20px;
+  left: 20px;
+}
+
+.blue {
+  background-color: rgb(176, 176, 220);
+  bottom: 20px;
+  right: 20px;
+}/*# sourceMappingURL=style.css.map */

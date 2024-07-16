@@ -1,51 +1,63 @@
-.box {
-  border: 4px solid;
+.section {
+  display: flex;
+}
+
+.button {
   padding: 10px;
-  width: -moz-fit-content;
   width: fit-content;
-  margin: 5px;
+  margin: 5px 20px;
+  border-radius: 8px;
+  box-shadow: 2px 2px #888888;
 }
 
-.blue {
-  border-color: blue;
+.surface .white {
+  background-color: #ece6f0;
+}
+.surface .light {
+  background-color: #e1dbe8;
+}
+.surface .dark {
+  background-color: #dbd4e4;
 }
 
-.green {
-  border-color: green;
+.primary .white {
+  background-color: #eaddff;
+}
+.primary .light {
+  background-color: #dbccf2;
+}
+.primary .dark {
+  background-color: #d2c2eb;
 }
 
-.red {
-  border-color: red;
+.secondary .white {
+  background-color: #e8def8;
+}
+.secondary .light {
+  background-color: #d8cfe8;
+}
+.secondary .dark {
+  background-color: #cfc6df;
 }
 
-.orange {
-  border-color: orangered;
+.teriary .white {
+  background-color: #ffd8e4;
+}
+.teriary .light {
+  background-color: #efc8d4;
+}
+.teriary .dark {
+  background-color: #e6c0cb;
 }
 
-.circles {
-  display: flex;
-}
-.circles .circle {
-  border-radius: 25px;
+.big .button {
+  padding: 15px;
 }
 
-.square {
-  display: flex;
+.large .button {
+  padding: 20px;
 }
 
-.fill {
-  display: flex;
-  color: white;
-}
-.fill .bluefill {
-  background-color: blue;
-}
-.fill .greenfill {
-  background-color: green;
-}
-.fill .orangefill {
-  background-color: orangered;
-}
-.fill .redfill {
-  background-color: red;
+.title {
+  width: 100px;
 }/*# sourceMappingURL=style.css.map */
