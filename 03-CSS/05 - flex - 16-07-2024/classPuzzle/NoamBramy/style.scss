@@ -1,0 +1,52 @@
+body{
+  margin: 0px;
+}
+
+.container{
+  display: flex;
+  // flex-direction: warp;
+  gap: 15px;
+  justify-content: center;
+  .box{
+    width: 19.2%;
+    height: 20vh;
+  }
+  .orange{
+    background-color: rgb(255, 145, 0);
+
+  }
+  .aquamarine{
+    background-color: aquamarine;
+
+  }
+  .beige{
+    background-color: beige;
+  }
+  
+  .header{
+    width: 19.1%;
+    height: 7vh;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    color: rgb(0, 0, 0);
+    display: flex;
+  }
+  
+  .desc{
+    width: 19%;
+    height: 10vh;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: rgb(0, 0, 0);
+    display: flex;
+  }
+  
+  .footer{
+    width: 19%;
+    height: 11vh;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    color: rgb(0, 0, 0);
+    display: flex;
+  }
+}
