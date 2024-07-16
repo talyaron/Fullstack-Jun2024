@@ -10,6 +10,9 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  overflow: hidden;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 .wrapper .box .img {
   width: 250px;

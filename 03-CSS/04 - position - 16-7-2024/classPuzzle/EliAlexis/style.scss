@@ -9,6 +9,8 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    overflow: hidden;
+    width: fit-content;
 
     .img {
       width: 250px;
