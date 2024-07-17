@@ -1,0 +1,78 @@
+.boxRotator {
+  transform: rotate(30deg);
+  position: absolute;
+}
+
+.boxContainer {
+  border: solid;
+  margin: 5px;
+  color: gray;
+  width: 50px;
+  height: 47px;
+}
+
+.box {
+  border: solid;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+}
+
+.green {
+  background-color: green;
+  top: 30px;
+  left: 8px;
+}
+
+.blue {
+  background-color: blue;
+  top: 7px;
+  left: 8px;
+}
+
+.yellow {
+  background-color: yellow;
+  top: 7px;
+  left: 32px;
+}
+
+.orange {
+  background-color: orange;
+  top: 30px;
+  left: 32px;
+}
+
+.boxContainerStanding {
+  border: solid;
+  margin: 5px;
+  color: gray;
+  width: 50px;
+  height: 49px;
+  position: absolute;
+  top: 10px;
+  left: 80px;
+}
+
+.greenStanding {
+  background-color: green;
+  top: 25px;
+  left: 2px;
+}
+
+.blueStanding {
+  background-color: blue;
+  top: 2px;
+  left: 2px;
+}
+
+.yellowStanding {
+  background-color: yellow;
+  top: 2px;
+  left: 26px;
+}
+
+.orangeStanding {
+  background-color: orange;
+  top: 25px;
+  left: 26px;
+}/*# sourceMappingURL=style.css.map */

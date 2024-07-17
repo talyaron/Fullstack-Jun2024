@@ -1,0 +1,58 @@
+body {
+  margin: 0px;
+}
+
+.wrapper {
+  border: 1px solid black;
+<<<<<<< HEAD
+  padding: 50px 50px 50px 50px;
+  width: 500px;
+}
+
+.box {
+  border: 1px solid black;
+  padding: 10px 5px 10px 5px;
+  position: absolute;
+}
+
+.box1 {
+  top: 5%;
+  left: 10%;
+=======
+  padding: 110px 70px 110px 70px;
+  width: 100px;
+  position: absolute;
+  top: 40%;
+  left: 30%;
+  transform: rotate(10deg);
+}
+.wrapper .box {
+  border: 1px solid black;
+  padding: 30px 40px 30px 40px;
+  position: absolute;
+}
+
+.b1 {
+  top: 5%;
+  background-color: aquamarine;
+  left: 5%;
+}
+
+.b2 {
+  top: 5%;
+  background-color: antiquewhite;
+  left: 50%;
+}
+
+.b3 {
+  background-color: chocolate;
+  top: 50%;
+  left: 5%;
+}
+
+.b4 {
+  background-color: skyblue;
+  top: 50%;
+  left: 50%;
+>>>>>>> 33dc033f9ce70f047b5c8c8b023fcba540297713
+}/*# sourceMappingURL=style.css.map */
