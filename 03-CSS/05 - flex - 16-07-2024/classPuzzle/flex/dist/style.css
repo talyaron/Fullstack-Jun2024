@@ -13,7 +13,6 @@ body {
 }
 .article img {
   width: 90%;
-  height: 300px;
   justify-content: center;
 }
 .article p {
