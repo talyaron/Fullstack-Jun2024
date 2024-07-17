@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  border: 1px solid;
+  width: 800px;
+  height: 500px;
+  background-color: aqua;
+}
+
+.box {
+  border: 1px solid;
+  width: 800px;
+  height: 250px;
+  display: flex;
+  background-color: red;
+  margin-top: 50px;
+}
+
+.first {
+  display: flex-grow;
+  width: 250px;
+  height: 170px;
+  background-color: lightblue;
+  top: 320px;
+  left: 10px;
+  position: absolute;
+}
