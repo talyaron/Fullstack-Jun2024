@@ -51,7 +51,7 @@ body {
     background-color: #E8DEF8;
 }
 
-.pink {
+.pink :hover {
     background-color: #FFD8E4;
 }
 

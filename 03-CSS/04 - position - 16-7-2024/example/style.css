@@ -20,4 +20,24 @@ body {
   top: 20px;
   left: 20px;
   width: 40px;
+}
+
+#fab {
+  background-color: rgb(7, 53, 159);
+  color: white;
+  font-size: 2rem;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  text-align: center;
+  z-index: 1;
+}
+
+#sticky {
+  background-color: rgb(7, 53, 159);
+  position: sticky;
+  bottom: 40px;
 }/*# sourceMappingURL=style.css.map */

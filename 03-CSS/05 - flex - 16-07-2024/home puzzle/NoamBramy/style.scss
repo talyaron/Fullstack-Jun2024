@@ -1,0 +1,266 @@
+html{
+  scroll-behavior: smooth;
+}
+body{
+  margin: 0px;
+  height: 240vh;
+  font-family: "Cormorant", serif;
+  font-optical-sizing: auto;
+}
+.ads{
+  height: 40vh;
+  background-color: rgb(207, 207, 207);
+  width: 100%;
+  cursor: pointer;
+  
+  img{
+    position: absolute;
+    width: 50%;
+    top: 10%;
+    left: 25%;
+  }
+}
+.navbar{
+  background-color: rgb(255, 255, 255);
+  height: 6vh;
+  position: fixed;
+  width: 100%;
+  top: 0%;
+  padding: 2px 5px 2px 5px;
+  z-index: 1;
+
+  img{
+    width: 8.13rem;
+    height: 2.5vh;
+    left: 20%;
+    margin: 0.81rem;
+  }
+  .menubars{
+    left: 20%;
+    margin: 10px;
+    font-weight: normal;
+    font-size: 25px;
+    }
+  ul li{
+    position: relative;
+    display: inline-block;
+    list-style: none;
+    margin: 0px 15px;
+    left: 25%;
+  }
+
+  ul li a{
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-size: 17px;
+    text-decoration: none;
+  }
+  p{
+    position: absolute;
+    top: 8%;
+    font-size: 0.89rem;
+    cursor: pointer;
+    left: 77%;
+  }
+  button{
+    border-radius: 0px;
+    background-color: rgb(0, 0, 0);
+    border: 1px solid blackaa;
+    left: 70.5%;
+    top: 25%;
+    color: rgb(255, 255, 255);
+    position: absolute;
+    padding: 7px 15px 7px 15px;
+    cursor: pointer;
+    transition: 0.5s ease;
+  }
+
+  button:hover{
+    color: black;
+    background-color: white;
+  }
+
+}
+
+.textbox{
+  cursor: pointer;
+  img{
+    position: absolute;
+    left: 50%;
+    width: 30%;
+    top: 45%;
+  }
+  h1{
+    position: absolute;
+    max-width: 20.375rem;
+    font-size: 2.50rem;
+    text-align: center;
+    top: 54%;
+    left: 20%;
+    transition: 0.5s ease;
+
+  }
+  h2{
+    position: absolute;
+    left: 28%;
+    top: 53%;
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 0.94rem;
+  }
+  h1:hover{
+    opacity: 0.5;
+  }
+  p{
+    position: absolute;
+    top: 82%;
+    left: 18%;
+    max-width: 410px;
+    text-align: center;
+    font-size: 1.38rem;
+
+  }
+  a{
+    position: absolute;
+    text-align: center;
+    top: 93.5%;
+    left: 26.5%;
+    font-size: 0.81rem;
+    font-weight: bold;
+  }
+}
+
+.fashionbox{
+  cursor: pointer;
+  img{
+    position: absolute;
+    width: 53.75rem;
+    top: 140%;
+    left: 10%;
+  }
+  .fashionads{
+    position: absolute;
+    width: 18.75rem;
+    top: 136%;
+    left: 64%;
+  }
+  h1{
+    position: absolute;
+    top: 110%;
+    font-size: 6.25rem;
+    left: 40%;
+    font-weight: normal;
+  }
+  h1::after{
+    content: '';
+    border: 1px solid black;
+    display: block;
+  }
+  h2{
+    font-weight: bold;
+    position: absolute;
+    text-align: center;
+    left: 15%;
+    top: 191%;
+    max-width: 45.63rem;
+    font-size: 2.19rem;
+    transition: 0.5s ease;
+  }
+  h2:hover{
+    opacity: 0.6;
+  }
+  p{
+    text-align: center;
+    position: absolute;
+    top: 203%;
+    left: 21%;
+    font-size: 1.25rem;
+  }
+  span{
+    font-style: italic;
+  }
+  a{
+    text-align: center;
+    position: absolute;
+    top: 210%;
+    left: 32%;
+    font-size: 0.94rem;
+    font-weight: bold;
+  }
+}
+.cookies {
+  height: 18vh;
+  box-shadow: 0 -0.06rem 0.63rem 0 #acabab4d;
+  background-color: rgb(255, 255, 255);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 2;
+  padding: 1.56rem;
+  font-family: Arial, Helvetica, sans-serif;
+  h1{
+    position: absolute;
+    font-size: 1.25rem;
+    top: 0%;
+  }
+span{
+  color: rgb(39, 99, 228);
+}
+p {
+  position: absolute;
+  top: 23%;
+  margin: 0;
+  line-height: 1.5;
+  font-size: 0.88rem;
+}
+.footer{
+  position: absolute;
+  top: 65%;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+a{
+  color: rgb(39, 99, 228);
+}
+
+.customize {
+  background-color: transparent;
+  color: #1863dc;
+  border: 0.13rem solid #1863dc;
+  padding: 0.81rem 1.88rem;
+  position: absolute;
+  left: 73%;
+  top: 40%;
+  cursor: pointer;
+  transition: 0.5s ease;
+}
+.reject {
+  background-color: #1863dc;
+  color: #ffffff;
+  font-weight: bold;
+  border: 0.13rem solid #1863dc;
+  padding: 0.81rem 1.88rem;
+  position: absolute;
+  left: 81%;
+  top: 40%;
+  cursor: pointer;
+  transition: 0.5s ease;
+}
+.accept {
+  background-color: #1863dc;
+  color: #ffffff;
+  font-weight: bold;
+  border: 0.13rem solid #1863dc;
+  padding: 0.81rem 1.88rem;
+  position: absolute;
+  left: 88.5%;
+  top: 40%;
+  cursor: pointer;
+  transition: 0.5s ease;
+}
+
+.accept:hover, .reject:hover, .customize:hover{
+  opacity: 0.6;
+}
+} 
