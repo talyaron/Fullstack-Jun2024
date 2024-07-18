@@ -1,0 +1,194 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif; 
+    margin-left: 10rem;
+    margin-right: 10rem;
+
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3.125rem; 
+    width: 100%;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1000;
+    border-bottom: 0.0625rem solid #ccc; 
+    padding: 0 1.25rem; 
+    box-sizing: border-box;
+}
+
+.header img.logo {
+    height: 2.1875rem;
+    margin-right: 1.25rem; 
+}
+
+
+
+.header .left-side, .header .right-side {
+    display: flex;
+    gap: 1.25rem; 
+}
+
+.header h4 {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 3.125rem; 
+    cursor: pointer;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.header .right-side {
+    margin-left: auto;
+}
+
+.header .right-side .subscribe {
+    background-color: black;
+    color: white;
+    padding: 0.125rem 0.5rem; 
+    font-size: 0.75rem;
+}
+.gray-box {
+    width: 100%;
+    height: 10rem;
+    background-color: #e3e3e3;
+}
+
+.main-article {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.25rem; 
+    padding: 2rem; 
+}
+
+.main-article .text {
+    text-align: center;
+    max-width: 20rem; 
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: lighter;
+}
+.main-article img.main-image {
+    max-width: 35rem;
+    height: auto;
+}
+
+.main-article .text .shopping {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.875rem;
+}
+
+.main-article .text h1 {
+    font-family: 'Georgia', serif;
+    font-size: 1.75rem; 
+    line-height: 2rem; 
+}
+
+.main-article .text h2 {
+    font-family: 'Georgia', serif;
+    font-size: 1.25rem;
+    line-height: 1.5rem; 
+}
+
+.main-article .text h3 {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1rem; 
+    line-height: 1.25rem;
+}
+.fashion {
+    border-bottom: 0.0625rem solid #ccc; 
+    border-top: 0.0625rem solid #ccc; 
+font-family: Georgia, 'Times New Roman', Times, serif;
+font-size: 4rem;
+text-align: center;
+}
+
+
+.second-article {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem; 
+    width: 50rem; 
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.second-text {
+    text-align: left;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    width: 45rem;
+}
+
+.second-image {
+    width: 45rem; 
+    height: auto;
+}
+
+.second-text h1 {
+    text-align: center;
+    font-family: 'Georgia', serif;
+    font-size: 1.75rem; 
+    line-height: 2rem;
+}
+
+.second-text h2 {
+    text-align: center;
+    font-family: 'Georgia', serif;
+    font-size: 1.25rem;
+    line-height: 1.5rem; 
+}
+
+.second-text h3 {
+    text-align: center;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.25rem; 
+}
+
+.SHOPPING {
+    border-bottom: 0.0625rem solid #ccc; 
+    border-top: 0.0625rem solid #ccc; 
+font-family: Georgia, 'Times New Roman', Times, serif;
+font-size: 4rem;
+text-align: center;
+}
+
+.side-by-side {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem;
+    flex-wrap: wrap;
+}
+
+.side-by-side .item {
+    flex: 1 1 calc(25% - 2rem);
+    margin-bottom: 2rem;
+}
+
+.side-by-side .item:not(:last-child) {
+    margin-right: 1rem;
+}
+
+.side-by-side .image {
+    width: 100%;
+    height: auto;
+}
+
+.side-by-side h4 {
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    line-height: 1.25rem; 
+}
+
+
+.BEAUTY {
+    border-bottom: 0.0625rem solid #ccc; 
+    border-top: 0.0625rem solid #ccc; 
+font-family: Georgia, 'Times New Roman', Times, serif;
+font-size: 4rem;
+text-align: center;
+}
