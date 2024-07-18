@@ -88,3 +88,5 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+03-CSS/05 - flex - 16-07-2024/classPuzzle/flex/dist/style.css
+*.css

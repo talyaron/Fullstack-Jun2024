@@ -1,0 +1,30 @@
+body, html {
+  margin: 0;
+  font-size: 30px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  flex-direction: row;
+  align-items: center;
+  height: 900px;
+  width: fit-content;
+  border: 1px solid black;
+}
+.container .box {
+  font-size: 2em;
+  height: 100px;
+  width: 100px;
+  background-color: tomato;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  background-color: yellow;
+}
