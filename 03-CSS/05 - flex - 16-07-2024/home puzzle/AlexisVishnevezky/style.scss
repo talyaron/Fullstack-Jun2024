@@ -1,0 +1,31 @@
+.wrapper{
+    width: 100%;
+    height: 100%;
+    // <uniquifier>: Use a unique and descriptive class name
+// <weight>: Use a value from 200 to 700
+.title{
+    display: flex;
+flex-direction: row;
+align-items: center;
+justify-items: center;
+}
+.open-sans {
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
+  }
+.oswald {
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style: normal;
+    font-size: 1.5rem;
+  }
+
+}
+
+
+

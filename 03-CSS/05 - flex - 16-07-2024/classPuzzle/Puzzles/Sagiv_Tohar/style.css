@@ -1,0 +1,21 @@
+.art-container {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 30%;
+  left: 15%;
+}
+.art-container .articles {
+  width: 400px;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  max-width: 300px;
+  padding: 20px;
+}
+.art-container .articles h1 {
+  display: flex;
+  font-size: 30px;
+}
+.art-container .articles:p {
+  font-size: 20px;
+}/*# sourceMappingURL=style.css.map */
