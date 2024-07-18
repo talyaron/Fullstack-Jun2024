@@ -1,0 +1,21 @@
+body,
+html {
+  margin: 0px;
+  font-size: 10px;
+  font-family: "Playwrite HR", cursive;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.container {
+  width: 100vw;
+  background-color: red;
+  display: flex;
+  gap: 10px;
+}
+.container article img {
+  width: 100%;
+}
+.container article p {
+  font-size: 2rem;
+}/*# sourceMappingURL=style.css.map */

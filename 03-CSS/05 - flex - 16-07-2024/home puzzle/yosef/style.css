@@ -1,0 +1,18 @@
+body {
+  margin: 0px;
+  background: red;
+}
+
+h1 {
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  width: 100vw;
+  background-color: blue;
+  gap: 10px;
+}
+.container article img {
+  width: 100%;
+}/*# sourceMappingURL=style.css.map */
