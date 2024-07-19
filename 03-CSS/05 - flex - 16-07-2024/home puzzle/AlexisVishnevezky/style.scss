@@ -18,6 +18,7 @@
     font-weight: weight;
     font-style: normal;
     font-size: 1.5rem;
+    cursor: pointer;
   }
   .kalnia-glaze {
     font-family: "Kalnia Glaze", serif;
@@ -40,6 +41,7 @@
     gap: 25px;
     background-color: white;
     opacity: 100%;
+    
     .menu {
       position: relative;
       left: 15px;
@@ -64,12 +66,17 @@
       padding: 0.7%;
       margin: 5px;
     }
-    .sign-in {
-      position: relative;
-      left: 27%;
-      width: fit-content;
+    .button:hover{
+      text-decoration: black underline;
+      cursor: pointer;
     }
   }
+  .sign-in {
+    position: relative;
+    left: 27%;
+    width: fit-content;
+  }
+  
   .space {
     width: 95%;
     background-color: rgb(227, 223, 223);

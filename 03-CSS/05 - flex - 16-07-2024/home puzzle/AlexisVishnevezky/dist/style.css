@@ -19,6 +19,7 @@
   font-weight: weight;
   font-style: normal;
   font-size: 1.5rem;
+  cursor: pointer;
 }
 .container .kalnia-glaze {
   font-family: "Kalnia Glaze", serif;
@@ -66,7 +67,11 @@
   padding: 0.7%;
   margin: 5px;
 }
-.container .title .sign-in {
+.container .title .button:hover {
+  text-decoration: black underline;
+  cursor: pointer;
+}
+.container .sign-in {
   position: relative;
   left: 27%;
   width: fit-content;
