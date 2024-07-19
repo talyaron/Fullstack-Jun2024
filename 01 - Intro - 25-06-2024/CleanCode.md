@@ -30,7 +30,7 @@ Before you start writing code, you should always plan and design your code first
 ## Testing
 Testing is an important part of software development, as it helps to ensure that the code works as expected and that it is free of bugs and errors. There are different types of testing, such as unit testing, integration testing, and end-to-end testing, each of which serves a different purpose and helps to ensure the quality of the code. before you push a code to the main branch, you should always test it, to make sure that it works as expected.
 
-## Delivrability
+## Deliverability
 Deliverability is the ability to deliver a product or service to the customer in a timely and efficient manner. It is important to ensure that the code is delivered on time and meets the requirements of the customer. This means that you should set realistic deadlines, plan your work effectively, and communicate with the customer to ensure that the code meets their expectations.
 
 ## Refactoring
