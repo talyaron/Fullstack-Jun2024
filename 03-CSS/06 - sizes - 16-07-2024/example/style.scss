@@ -1,0 +1,30 @@
+body,
+html {
+    margin: 0px;
+    font-size: 10px;
+    font-family: "Playwrite HR", cursive;
+    font-optical-sizing: auto;
+
+    font-style: normal;
+}
+
+.container {
+    //    width:2560px;
+    width: 100vw; //viewport width
+    // height: 50vh; viewport height
+    background-color: red;
+
+    display: flex;
+    gap: 10px;
+
+    article {
+        img {
+            width: 100%; //% is the percentage of the parent element
+        }
+
+        p {
+            font-size: 2rem; //rem is the root element font size
+        }
+    }
+
+}
