@@ -1,6 +1,6 @@
 .menu
     {
-            background:  rgb(255, 0, 0);
+            background:  rgb(255, 255, 255);
             font-family: sans-serif;
             font-size: 12px;
             gap: 10px;
@@ -39,7 +39,7 @@
 
 .subscribe
     {
-        background-color: white;
+        background-color:black;
         color: white;
         width: 8%;
         height: 50%;
@@ -49,16 +49,54 @@
     }
 .subscribe:hover
     {
-        background: black;
+        background: white;
         color: black;
+        border: 1px solid black
     }
 
 .first_pic_up
     {
+        
         img {
             width: 100vw;
-            height: 500px;
+            height: 400px;
 
              }   
+             .text_on_pic
+             {
+                 background-color: white;
+                 color: black;
+                 font-size: 60px;
+                 text-align: center;
+                 
+                 
+             }
 
     }
+.box1{
+    display: grid;
+    grid-template-columns: 100px;
+    align-items: flex-start;
+    
+}   
+
+.box1 img
+{
+ margin-top: -130px;;
+width: 400px;
+height: auto;
+grid-column: 1;
+}
+
+.box1 p
+{
+    grid-column: 3;
+    font-weight: bold;
+    font-size: 40px;
+    width: auto;
+}
+
+.line
+{
+   margin-left: 20%;
+}
