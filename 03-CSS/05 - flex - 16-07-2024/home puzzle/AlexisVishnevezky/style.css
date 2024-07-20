@@ -1,24 +1,87 @@
-.wrapper {
+.container {
+  position: absolute;
+  left: 2.5%;
+  right: 2.5%;
   width: 100%;
   height: 100%;
 }
-.wrapper .title {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-items: center;
-}
-.wrapper .open-sans {
+.container .open-sans {
   font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: weight;
   font-style: normal;
   font-variation-settings: "wdth" 100;
+  font-size: 15px;
 }
-.wrapper .oswald {
+.container .oswald {
   font-family: "Oswald", sans-serif;
   font-optical-sizing: auto;
   font-weight: weight;
   font-style: normal;
   font-size: 1.5rem;
+  cursor: pointer;
+}
+.container .kalnia-glaze {
+  font-family: "Kalnia Glaze", serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+.container .title {
+  position: relative;
+  width: 100%;
+  padding: 2px;
+  height: -moz-fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  position: sticky;
+  top: 0px;
+  gap: 25px;
+  background-color: white;
+  opacity: 100%;
+}
+.container .title .menu {
+  position: relative;
+  left: 15px;
+  cursor: pointer;
+  background-color: white;
+}
+.container .title .menu .bar1,
+.container .title .menu .bar2,
+.container .title .menu .bar3 {
+  width: 35px;
+  height: 5px;
+  background-color: #333;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+.container .title .suscribe-button {
+  position: relative;
+  left: 25%;
+  background-color: black;
+  color: white;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0.7%;
+  margin: 5px;
+}
+.container .title .button:hover {
+  -webkit-text-decoration: black underline;
+          text-decoration: black underline;
+  cursor: pointer;
+}
+.container .sign-in {
+  position: relative;
+  left: 27%;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.container .space {
+  width: 95%;
+  background-color: rgb(227, 223, 223);
+  height: 100px;
 }/*# sourceMappingURL=style.css.map */
