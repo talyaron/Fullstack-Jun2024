@@ -122,7 +122,8 @@ text-align: center;
     width: 45rem;
 }
 
-.second-image {
+.second-image,
+.forth-image {
     width: 45rem; 
     height: auto;
 }
@@ -186,6 +187,61 @@ text-align: center;
 
 
 .BEAUTY {
+    border-bottom: 0.0625rem solid #ccc; 
+    border-top: 0.0625rem solid #ccc; 
+font-family: Georgia, 'Times New Roman', Times, serif;
+font-size: 4rem;
+text-align: center;
+}
+.third-article {
+    display: flex;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.third-article-left {
+    width: 40rem;
+    height: auto;
+}
+
+.third-article-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-left: 2rem;
+}
+
+.third-article-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.third-article-item img {
+    width: 8rem;
+    height: auto;
+}
+
+.text-content {
+    max-width: 20rem;
+}
+
+.text-content h2, .text-content h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-family: 'Georgia', serif;
+
+}
+
+.third-article-item img {
+    margin-bottom: 0;
+}
+
+.third-article-item {
+    padding-bottom: 0.1rem;
+}
+
+.CULTURE {
     border-bottom: 0.0625rem solid #ccc; 
     border-top: 0.0625rem solid #ccc; 
 font-family: Georgia, 'Times New Roman', Times, serif;
