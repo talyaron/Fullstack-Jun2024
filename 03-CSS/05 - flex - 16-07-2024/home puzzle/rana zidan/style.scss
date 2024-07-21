@@ -61,18 +61,18 @@ ul.breadcrumb {
 
 
 .my-button {
-    background-color: #0c0d0d; /* צבע הרקע של הכפתור */
-    color: rgb(247, 241, 241); /* צבע הכתב בכפתור */
-    border: none; /* ללא גבול */
-    padding: 10px 20px; /* ריפוד פנימי של הכפתור */
-    border-radius: 2px; /* פינות מעוגלות */
-    cursor: pointer; /* סמן עכבר כאשר עובר מעל הכפתור */
+    background-color: #0c0d0d;
+    color: rgb(247, 241, 241); 
+    border: none; 
+    padding: 10px 20px;
+    border-radius: 2px; 
+    cursor: pointer; 
     margin-left: 400px;
 
     
 }
 
 .my-button:hover {
-    background-color: #f4f1f7; /* שינוי צבע הרקע בעת ריחוף מעל הכפתור */
+    background-color: #f4f1f7; 
     color: #0c0d0d;
 }
