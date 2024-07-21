@@ -1,0 +1,82 @@
+body,html {
+    margin: 0%;
+}
+
+.toolbar{
+    font-family: "Rubik", sans-serif;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    float: left;
+    z-index: 1001;
+
+    .navbar {
+        font-size: 16px;
+        background-color: white;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1001;
+    }
+    
+    .navbar ul {
+        padding: 0%;
+        margin: 0%;
+        overflow: hidden;
+        color: #f2f2f2;
+        padding: 14px 16px;
+        font-size: 17px;
+        list-style-type: none;
+        justify-content: center;
+        z-index: 1001;
+    }
+    
+    .navbar a {
+        text-decoration: none;
+        padding: 15px;
+        display: block;
+        color: black;
+        list-style-type: none;
+        z-index: 1001;
+    }
+    
+    .navbar li {
+        display: inline-block;
+        z-index: 1001;
+    }
+    
+    .navbar a:hover {
+        background-color: rgb(204, 204, 204);
+        z-index: 1001;
+    }
+}
+
+.bd{
+    font-family: "Rubik", sans-serif;
+    font-size: 30px;
+    color: black;
+
+    .banner1{
+        position: absolute;
+        top: 20%;
+    }
+
+    .bdhalf {
+        background-color: rgb(241, 238, 238);
+        width: 95vw;
+        height: 10vh;
+        position: absolute;
+        top: 70%;
+        left: 2.5%;
+    }
+    .bd-txt{
+        position: absolute;
+        top: 70%;
+        left: 38%;
+    }
+    .banner2{
+        position: absolute;
+        top: 90%;
+        left: 20%;
+        padding-bottom: 30px;
+    }
+}
