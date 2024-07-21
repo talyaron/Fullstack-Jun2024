@@ -32,6 +32,7 @@
   position: relative;
   width: 100%;
   padding: 2px;
+  height: -moz-fit-content;
   height: fit-content;
   display: flex;
   flex-direction: row;
@@ -63,21 +64,24 @@
   left: 25%;
   background-color: black;
   color: white;
+  width: -moz-fit-content;
   width: fit-content;
   padding: 0.7%;
   margin: 5px;
 }
 .container .title .button:hover {
-  text-decoration: black underline;
+  -webkit-text-decoration: black underline;
+          text-decoration: black underline;
   cursor: pointer;
 }
 .container .sign-in {
   position: relative;
   left: 27%;
+  width: -moz-fit-content;
   width: fit-content;
 }
 .container .space {
   width: 95%;
-  background-color: #e3dfdf;
+  background-color: rgb(227, 223, 223);
   height: 100px;
-}
+}/*# sourceMappingURL=style.css.map */
