@@ -1,11 +1,16 @@
-.container {
+.wrapper {
   position: absolute;
   left: 2.5%;
   right: 2.5%;
   width: 100%;
   height: 100%;
 }
-.container .open-sans {
+.wrapper .abril-fatface-regular {
+  font-family: "Abril Fatface", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.wrapper .container .open-sans {
   font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: weight;
@@ -13,7 +18,7 @@
   font-variation-settings: "wdth" 100;
   font-size: 15px;
 }
-.container .oswald {
+.wrapper .container .oswald {
   font-family: "Oswald", sans-serif;
   font-optical-sizing: auto;
   font-weight: weight;
@@ -21,18 +26,17 @@
   font-size: 1.5rem;
   cursor: pointer;
 }
-.container .kalnia-glaze {
+.wrapper .container .kalnia-glaze {
   font-family: "Kalnia Glaze", serif;
   font-optical-sizing: auto;
   font-weight: weight;
   font-style: normal;
   font-variation-settings: "wdth" 100;
 }
-.container .title {
+.wrapper .container .title {
   position: relative;
   width: 100%;
   padding: 2px;
-  height: -moz-fit-content;
   height: fit-content;
   display: flex;
   flex-direction: row;
@@ -44,44 +48,76 @@
   background-color: white;
   opacity: 100%;
 }
-.container .title .menu {
+.wrapper .container .title .menu {
   position: relative;
   left: 15px;
   cursor: pointer;
   background-color: white;
 }
-.container .title .menu .bar1,
-.container .title .menu .bar2,
-.container .title .menu .bar3 {
+.wrapper .container .title .menu .bar1,
+.wrapper .container .title .menu .bar2,
+.wrapper .container .title .menu .bar3 {
   width: 35px;
   height: 5px;
   background-color: #333;
   margin: 6px 0;
   transition: 0.4s;
 }
-.container .title .suscribe-button {
+.wrapper .container .title .suscribe-button {
   position: relative;
   left: 25%;
   background-color: black;
   color: white;
-  width: -moz-fit-content;
   width: fit-content;
   padding: 0.7%;
   margin: 5px;
 }
-.container .title .button:hover {
-  -webkit-text-decoration: black underline;
-          text-decoration: black underline;
+.wrapper .container .title .button:hover {
+  text-decoration: black underline;
   cursor: pointer;
 }
-.container .sign-in {
+.wrapper .container .sign-in {
   position: relative;
   left: 27%;
-  width: -moz-fit-content;
   width: fit-content;
 }
-.container .space {
+.wrapper .dancing-script {
+  font-family: "Dancing Script", cursive;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+}
+.wrapper .bodoni-moda-sc {
+  font-family: "Bodoni Moda SC", serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+}
+.wrapper .space {
   width: 95%;
-  background-color: rgb(227, 223, 223);
+  background-color: #e3dfdf;
   height: 100px;
-}/*# sourceMappingURL=style.css.map */
+}
+.wrapper .container2 {
+  position: relative;
+  top: 125px;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-items: normal;
+}
+.wrapper .container2 .block1 {
+  padding: 3%;
+  width: 750vw;
+  align-items: center;
+  justify-content: center;
+}
+.wrapper .container2 .bottom {
+  margin: 2px 0;
+  width: 100%;
+  background-color: black;
+  height: 1px;
+  position: relative;
+  bottom: 0%;
+}
