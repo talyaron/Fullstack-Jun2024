@@ -7,16 +7,11 @@
     margin-left: 110px;
     background-color: rgb(255, 255, 255);
     gap: 25px; 
-}
-
-.sticky .topnav {
-    display: flex;
-    align-items: center;
-}
-
-.sticky .img-logo {
-    width: 80px;
-    height: 22px;
+    
+    .img-logo {
+        width: 80px;
+        height: 22px;
+        }
 }
 
 .topnav {
@@ -28,13 +23,6 @@
 .dropdown {
     float: left;
     overflow: hidden;
-}
-
-ul.breadcrumb {
-    list-style: none;
-    margin-top: 0;
-    margin-left: 0;
-    color: black;
 }
 
 .active {
@@ -67,12 +55,27 @@ ul.breadcrumb {
     padding: 10px 20px;
     border-radius: 2px; 
     cursor: pointer; 
-    margin-left: 400px;
-
-    
+    margin-left: 400px;   
 }
 
 .my-button:hover {
     background-color: #f4f1f7; 
     color: #0c0d0d;
 }
+
+.box-title{
+    border: 20px solid #E5E5E5;
+    background-color: #E5E5E5;
+    margin-top: 20px;
+    width: 1490px;
+
+    .img-adv{
+        display: flex;
+        width: 750px;
+        height: 90px;
+        align-items: center;
+        margin-left: 400px;
+        
+    }
+}
+
