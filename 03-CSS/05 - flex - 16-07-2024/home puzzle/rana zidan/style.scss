@@ -1,9 +1,9 @@
+
 .body{
     height: auto;
     width: 100%;
     margin-top: 0;
 }
-
 
 .sticky {
     display: flex;
@@ -76,6 +76,7 @@
     width: 1490px;
 
     .img-adv{
+    cursor: pointer;
     display: flex;
     width: 750px;
     height: 90px;
