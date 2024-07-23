@@ -2,11 +2,11 @@
     display: flex;
     flex-direction: row;
     gap: 50px;
-    justify-content: left;
+    justify-content: center;
     border: 2px solid;
     border-color: aliceblue;
     height: 50px;
-    width: fit-content;
+    width:fit-content;
     background-color: rgb(245, 242, 242);
     position: fixed;
     z-index: 100;
@@ -48,28 +48,16 @@
  
 }
 
-.main {
-    position: relative;
-    left: 10em; 
-    top: 0em;
-
-}
-
 .subscribe{
     color: azure;
-    width: 87px;
-    height: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 1px solid;
+    height: 30px;
+    width: 100px;
     background-color: black;
-    margin: 0.5em;
-    padding: 0.5em;
     text-align: center;
-
-}
-
-.move {
-    position: relative;
-    left: 7em; 
 
 }
 
