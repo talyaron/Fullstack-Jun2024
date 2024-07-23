@@ -12,8 +12,8 @@ It follows from the DRY principle, because if you have a function that does mult
 ## Single source of truth
 Single source of truth is a principle of software development that states that there should be only one place in the code where a particular piece of information is stored. This means that you should avoid duplicating data or storing it in multiple places, as this can lead to inconsistencies and errors. By following the single source of truth principle, you can ensure that the data is always up-to-date and accurate, and that changes are reflected consistently throughout the codebase.
 
-## KISS
-KISS stands for Keep It Simple, Stupid. It is a design principle that states that most systems work best if they are kept simple rather than made complicated. This means that you should strive for simplicity in your code, and avoid unnecessary complexity or over-engineering.
+## KIS
+KIS stands for Keep It Simple. It is a design principle that states that most systems work best if they are kept simple rather than made complicated. This means that you should strive for simplicity in your code, and avoid unnecessary complexity or over-engineering.
 
 Both DRY and SRP are important principles in software development, as they help to reduce complexity, improve maintainability, and make code more readable and reusable.
 
@@ -30,7 +30,7 @@ Before you start writing code, you should always plan and design your code first
 ## Testing
 Testing is an important part of software development, as it helps to ensure that the code works as expected and that it is free of bugs and errors. There are different types of testing, such as unit testing, integration testing, and end-to-end testing, each of which serves a different purpose and helps to ensure the quality of the code. before you push a code to the main branch, you should always test it, to make sure that it works as expected.
 
-## Delivrability
+## Deliverability
 Deliverability is the ability to deliver a product or service to the customer in a timely and efficient manner. It is important to ensure that the code is delivered on time and meets the requirements of the customer. This means that you should set realistic deadlines, plan your work effectively, and communicate with the customer to ensure that the code meets their expectations.
 
 ## Refactoring
