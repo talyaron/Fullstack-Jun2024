@@ -1,0 +1,193 @@
+.wrapper {
+  position: absolute;
+  left: 2.5%;
+  right: 2.5%;
+  width: 100%;
+  height: 100%;
+}
+.wrapper .abril-fatface-regular {
+  font-family: "Abril Fatface", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.wrapper .major {
+  font-family: "Major Mono Display", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+.wrapper .montserrat {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+}
+.wrapper .container .open-sans {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+  font-size: 15px;
+}
+.wrapper .container .oswald {
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.wrapper .container .kalnia-glaze {
+  font-family: "Kalnia Glaze", serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+.wrapper .container .title {
+  position: relative;
+  width: 100%;
+  padding: 2px;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  position: sticky;
+  top: 0px;
+  gap: 25px;
+  background-color: white;
+  opacity: 100%;
+}
+.wrapper .container .title .menu {
+  position: relative;
+  left: 15px;
+  cursor: pointer;
+  background-color: white;
+}
+.wrapper .container .title .menu .bar1,
+.wrapper .container .title .menu .bar2,
+.wrapper .container .title .menu .bar3 {
+  width: 35px;
+  height: 5px;
+  background-color: #333;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+.wrapper .container .title .suscribe-button {
+  position: relative;
+  left: 25%;
+  background-color: black;
+  color: white;
+  width: fit-content;
+  padding: 0.7%;
+  margin: 5px;
+}
+.wrapper .container .title .button:hover {
+  text-decoration: black underline;
+  cursor: pointer;
+}
+.wrapper .container .sign-in {
+  position: relative;
+  left: 27%;
+  width: fit-content;
+}
+.wrapper .dancing-script {
+  font-family: "Dancing Script", cursive;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+}
+.wrapper .bodoni-moda-sc {
+  font-family: "Bodoni Moda SC", serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+}
+.wrapper .space {
+  width: 100%;
+  background-color: #e3dfdf;
+  height: 100px;
+  display: flex;
+  padding: 2%;
+  align-items: center;
+  justify-content: center;
+}
+.wrapper .space .img:hover {
+  cursor: pointer;
+}
+.wrapper .section1 {
+  position: absolute;
+  padding-top: 1%;
+  width: 100%;
+}
+.wrapper .section1 .container2 {
+  position: relative;
+  top: 30%;
+  width: 100%;
+  height: 75vh;
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 5%;
+  border-bottom: solid grey;
+}
+.wrapper .section1 .block1 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.wrapper .section1 .block1 .title1:hover {
+  opacity: 30%;
+  cursor: pointer;
+}
+.wrapper .section1 .image1 {
+  padding-right: 3%;
+}
+.wrapper .block2 {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: solid grey;
+  padding-bottom: 1.5%;
+}
+.wrapper .block2:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.wrapper .section2 {
+  width: 100%;
+  text-align: center;
+  border-bottom: solid grey;
+}
+.wrapper .section2 .image3 {
+  width: 55%;
+}
+.wrapper .block3 {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: solid grey;
+  padding-bottom: 1.5%;
+}
+.wrapper .block3:hover {
+  cursor: pointer;
+  font-style: italic;
+}
+.wrapper .section3 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.wrapper .section3 .small {
+  display: flex;
+  flex-direction: column;
+  width: 22%;
+  padding: 5px;
+}

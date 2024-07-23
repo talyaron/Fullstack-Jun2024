@@ -7,6 +7,7 @@ body {
     display: flex;
     flex-direction: row;
     gap: 50px;
+<<<<<<< HEAD
     justify-content: left;
     align-items: center;
 
@@ -14,6 +15,13 @@ body {
     height: 50px;
     // width: fit-content;
     width: auto;
+=======
+    justify-content: center;
+    border: 2px solid;
+    border-color: aliceblue;
+    height: 50px;
+    width:fit-content;
+>>>>>>> 40c49474d0f8024793513035729a0c6ee8366d48
     background-color: rgb(245, 242, 242);
     position: fixed;
     z-index: 100;
@@ -56,6 +64,7 @@ body {
 }
 
 
+<<<<<<< HEAD
 
 
 
@@ -71,19 +80,34 @@ body {
     color: azure;
     width: fit-content;
     height: fit-content;
+=======
+.subscribe{
+    color: azure;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+>>>>>>> 40c49474d0f8024793513035729a0c6ee8366d48
     border: 1px solid;
+    height: 30px;
+    width: 100px;
     background-color: black;
+<<<<<<< HEAD
     padding: 0.5em;
+=======
+>>>>>>> 40c49474d0f8024793513035729a0c6ee8366d48
     text-align: center;
 
 }
 
+<<<<<<< HEAD
 .move {
     position: relative;
     left: 7em;
 
 }
 
+=======
+>>>>>>> 40c49474d0f8024793513035729a0c6ee8366d48
 .commercial {
     height: 300px;
     border: 1px solid;
