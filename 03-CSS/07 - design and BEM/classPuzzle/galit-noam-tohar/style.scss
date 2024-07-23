@@ -1,0 +1,12 @@
+.blogs{
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+  width: 100vw;
+  .blog{
+    flex: 1;
+    &__image{
+      width: 100%;
+    }
+  }
+}
