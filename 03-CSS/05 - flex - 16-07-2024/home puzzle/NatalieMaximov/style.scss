@@ -20,8 +20,12 @@ body {
     border: 2px solid;
     border-color: aliceblue;
     height: 50px;
+<<<<<<< Updated upstream
     width:fit-content;
 >>>>>>> 40c49474d0f8024793513035729a0c6ee8366d48
+=======
+    width: 100%;
+>>>>>>> Stashed changes
     background-color: rgb(245, 242, 242);
     position: fixed;
     z-index: 100;
@@ -166,4 +170,19 @@ body {
     left: 10.5em;
     bottom: 3em;
 
+<<<<<<< Updated upstream
+=======
+}
+
+.cookie {
+    border: 2px solid;
+    height: 40em;
+    width: fit-content
+    color: grey;
+    background-color: gray;
+    position: fixed;
+    bottom: 40px;
+    z-index: 100;
+
+>>>>>>> Stashed changes
 }
