@@ -1,0 +1,36 @@
+.image_articles {
+  border: solid;
+  width: 40vw;
+  height: 15vw;
+    align-items: center;
+  &__title {
+    color: rgb(255, 255, 255);
+    background-color: gray;
+    margin: 20px 50px;
+    font-size: 1.5rem;
+    text-align: right;
+  }
+  &__articleFrame {
+    display: flex;
+    flex-direction: row;
+    width: 40vw;
+    height: 11vw;
+   
+    &__snip_articles {
+     // width: 10vw;
+      border-right: solid rgb(149, 149, 149);
+      padding:1%;
+      text-align: center;
+      p
+      {
+        text-align: right;
+      }
+      img {
+        width: 60%;
+        height: 50%;
+        
+      }
+    }
+  }
+  
+}
