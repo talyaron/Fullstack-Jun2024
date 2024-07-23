@@ -1,0 +1,61 @@
+p{
+    color: red;
+font-size: 4rem;
+}
+
+
+.card{
+    background-color: teal;
+    color: white;
+    padding: 1rem;
+
+    .image{
+        height: 200px;
+        background-color: pink;
+    }
+
+    .info{
+        h3{
+            color: red;
+
+            &:hover{
+                color: yellow;
+                transition: all 2s;
+                transform: translate(30px, 0px);
+                font-style: italic;
+                // capitalize next line
+                text-transform:uppercase;
+                
+            
+            }
+        }
+        p{
+            color: blue;
+
+            &:active{
+                color: rgb(38, 217, 38);
+            }
+        }
+    }
+}
+
+
+
+.article{ //block
+    width:300px;
+    border:1px solid black;
+    &__image{
+        height: 200px;
+        background-color: pink;
+    }
+
+    &__text{
+        color:gray;
+        p{
+            color:blue;
+            font-size: 1rem;
+        }
+    }
+}
+
+
