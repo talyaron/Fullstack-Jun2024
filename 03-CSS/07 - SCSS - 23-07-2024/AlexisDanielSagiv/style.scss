@@ -1,0 +1,14 @@
+body{background-color: black;}
+.container {
+    direction: rtl;
+  width: 100%;
+  position: absolute;
+  .image-articles {
+    width: 50%;
+    &__title {
+       background-color: solid grey;
+       width: 50%;
+       height: 3%;
+    }
+  }
+}
