@@ -1,27 +1,34 @@
-.article {
+.articles {
   display: flex;
   gap: 20px;
-  &__card {
+  width: 100vw;
+
+  .card {
     display: flex;
     padding: 12px;
     background-color: rgb(234, 234, 234);
+    flex:1;
 
-    & img {
+    &__img {
       height: 200px;
       width: 200px;
     }
-  }
-  &__content {
-    align-items: end;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: end;
-    & span {
-      font-size: 20px;
-      background-color: red;
-      width: 50%;
-      padding: 12px 24px;
+
+    &__content {
+      align-items: end;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: end;
+
+      h2 {
+        font-size: 20px;
+        background-color: red;
+        width: 50%;
+        padding: 12px 24px;
+      }
     }
   }
+
+
 }
