@@ -1,4 +1,13 @@
 
+.body{
+    position: absolute;
+    left: 2.5%;
+    right: 2.5%;
+    width: 100%;
+    height: 100%;
+    margin-top: 0;
+}
+
 .sticky {
     display: flex;
     align-items: center;
@@ -11,25 +20,27 @@
     .img-logo {
         width: 80px;
         height: 22px;
-        }
+    }
+
+    .topnav {
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
+    }
+
+    .dropdown {
+        float: left;
+        overflow: hidden;
+    }
+    .active {
+        background-color: #ffffff;
+        color: rgb(3, 3, 3);
+        margin-left: 0;
+    }
+
 }
 
-.topnav {
-    display: flex;
-    align-items: center;
-    margin-left: 10px;
-}
 
-.dropdown {
-    float: left;
-    overflow: hidden;
-}
-
-.active {
-    background-color: #ffffff;
-    color: rgb(3, 3, 3);
-    margin-left: 0;
-}
 
 .sticky a {
     text-decoration: none;
@@ -55,7 +66,8 @@
     padding: 10px 20px;
     border-radius: 2px; 
     cursor: pointer; 
-    margin-left: 400px;   
+    margin-left: 400px; 
+       
 }
 
 .my-button:hover {
@@ -67,15 +79,121 @@
     border: 20px solid #E5E5E5;
     background-color: #E5E5E5;
     margin-top: 20px;
-    width: 1490px;
+    width: 1400px;
 
     .img-adv{
-        display: flex;
-        width: 750px;
-        height: 90px;
-        align-items: center;
-        margin-left: 400px;
+    cursor: pointer;
+    display: flex;
+    width: 750px;
+    height: 90px;
+    align-items: center;
+    margin-left: 350px;
         
     }
 }
 
+.textbox{
+    cursor: pointer;
+    img{
+    margin-left: 850px;
+    margin-top: 40px;
+    width: 500px;
+    height: 500px;
+    flex-wrap:wrap;
+    }
+    h1{
+    position: absolute;
+    max-width: 20.375rem;
+    font-size: 2.50rem;
+    text-align: center;
+    top: 54%;
+    left: 20%;
+    transition: 0.5s ease;
+  
+    }
+    h2{
+    position: absolute;
+    left: 28%;
+    top: 53%;
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 0.94rem;
+    }
+    h1:hover{
+      opacity: 0.5;
+    }
+    p{
+    position: absolute;
+    top: 85%;
+    left: 18%;
+    max-width: 410px;
+    text-align: center;
+    font-size: 1.38rem;
+  
+    }
+    a{
+    position: absolute;
+    text-align: center;
+    top: 102%;
+    left: 26.5%;
+    font-size: 0.81rem;
+    font-weight: bold;
+    }
+  }
+
+
+.shopping-container {
+    align-items: center;
+   
+
+    .line-shopping {
+    border: 2px solid #E5E5E5;
+    background-color: #E5E5E5;
+    height: 0px;
+    margin-top:50px;
+    }
+
+    .text-shopping {
+    font-size: 50px; 
+    text-align: center;
+    margin-top: 50px;
+    font-family: 'Times New Roman ItaliC' ;
+
+    }
+}
+
+.text-shopping:hover {
+    cursor: pointer;
+    margin-left: 10px;
+    font-weight: normal;
+    letter-spacing: -0.015rem;
+}
+
+.gallery {
+    margin: 15px;
+    border: 0px solid #ccc;
+    float: left;
+    width: 250px;
+    margin-bottom: 100px;
+    margin-left: 80px;
+    margin-right: 30px;
+    
+    .galleryimg {
+    width: 250px;
+    height: auto;
+  }
+
+    .desc {
+    cursor: pointer; 
+    padding: 15px;
+    text-align: left;
+  }
+
+  }
+  
+  .gallery:hover {
+    border: 0px solid #777;
+  }
+  
+
+  
