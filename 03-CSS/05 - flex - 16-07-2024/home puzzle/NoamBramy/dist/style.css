@@ -151,7 +151,7 @@ body {
 }
 .fashionbox h1::after {
   content: "";
-  border: 1px solid black;
+  border: 1px solid #ae2626;
   display: block;
 }
 .fashionbox h2 {
