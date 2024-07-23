@@ -1,5 +1,6 @@
 body {
   text-align: center;
+  font-size: 16;
 }
 .pageBox {
   display: block;
@@ -88,13 +89,12 @@ body {
     .columContainer {
       display: flex;
       flex-direction: row;
-      padding: 5px;
 
       .colum {
         display: flex;
         flex-direction: column;
-        padding: 5px;
-        width: 100%;
+        padding: 5px 2vw;
+        width: 7vw;
       }
     }
   }
@@ -120,5 +120,3 @@ body {
 .btnCookie:hover {
   background-color: rgb(253, 153, 82);
 }
-
-
