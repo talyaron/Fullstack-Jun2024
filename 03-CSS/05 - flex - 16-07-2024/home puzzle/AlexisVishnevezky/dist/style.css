@@ -10,6 +10,17 @@
   font-weight: 400;
   font-style: normal;
 }
+.wrapper .major {
+  font-family: "Major Mono Display", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+.wrapper .montserrat {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+}
 .wrapper .container .open-sans {
   font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
@@ -94,7 +105,7 @@
   font-style: normal;
 }
 .wrapper .space {
-  width: 95%;
+  width: 100%;
   background-color: #e3dfdf;
   height: 100px;
   display: flex;
@@ -108,12 +119,12 @@
 .wrapper .section1 {
   position: absolute;
   padding-top: 1%;
-  width: 95%;
+  width: 100%;
 }
 .wrapper .section1 .container2 {
   position: relative;
   top: 30%;
-  width: 95%;
+  width: 100%;
   height: 75vh;
   display: flex;
   flex-direction: row;
@@ -132,8 +143,11 @@
   opacity: 30%;
   cursor: pointer;
 }
+.wrapper .section1 .image1 {
+  padding-right: 3%;
+}
 .wrapper .block2 {
-  width: 95%;
+  width: 100%;
   position: relative;
   display: flex;
   align-items: center;
@@ -144,4 +158,36 @@
 .wrapper .block2:hover {
   cursor: pointer;
   text-decoration: underline;
+}
+.wrapper .section2 {
+  width: 100%;
+  text-align: center;
+  border-bottom: solid grey;
+}
+.wrapper .section2 .image3 {
+  width: 55%;
+}
+.wrapper .block3 {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: solid grey;
+  padding-bottom: 1.5%;
+}
+.wrapper .block3:hover {
+  cursor: pointer;
+  font-style: italic;
+}
+.wrapper .section3 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.wrapper .section3 .small {
+  display: flex;
+  flex-direction: column;
+  width: 22%;
+  padding: 5px;
 }
