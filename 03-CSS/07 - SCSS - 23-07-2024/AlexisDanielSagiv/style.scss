@@ -1,19 +1,11 @@
-<<<<<<< HEAD
-=======
-body {
-  background-color: rgb(215, 105, 105);
-}
 
->>>>>>> b0cf8105f4455ce0bb20112a5ce9d456b41582a7
 .container {
   direction: rtl;
   width: 100%;
   position: absolute;
-  background-color: teal;
 
   .image-articles {
     width: 50%;
-<<<<<<< HEAD
     padding: 3%;
     &__title {
       background-color: grey;
@@ -32,23 +24,13 @@ body {
         display: flex;
         flex-direction: column;
         width: 16%;
-        height: 0.5%;
+        height: fit-content;
         background-color: beige;
 
         img {
           max-height: 20%;
         }
       }
-=======
-    background-color: hotpink;
-    display: flex;
-
-    &__title {
-      background-color: tomato;
-      background-color:  grey;
-      width: 50%;
-      height: 3%;
->>>>>>> b0cf8105f4455ce0bb20112a5ce9d456b41582a7
     }
   }
 }
