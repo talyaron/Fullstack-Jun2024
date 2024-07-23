@@ -1,0 +1,23 @@
+body {
+  background-color: rgb(215, 105, 105);
+}
+
+.container {
+  direction: rtl;
+  width: 100%;
+  position: absolute;
+  background-color: teal;
+
+  .image-articles {
+    width: 50%;
+    background-color: hotpink;
+    display: flex;
+
+    &__title {
+      background-color: tomato;
+      background-color:  grey;
+      width: 50%;
+      height: 3%;
+    }
+  }
+}
