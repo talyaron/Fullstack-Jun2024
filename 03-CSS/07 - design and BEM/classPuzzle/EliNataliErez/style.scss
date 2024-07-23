@@ -1,7 +1,7 @@
 .image_articles {
   border: solid;
   width: 40vw;
-  height: 15vw;
+ // height: 15vw;
     align-items: center;
   &__title {
     color: rgb(255, 255, 255);
@@ -19,7 +19,9 @@
     &__snip_articles {
      // width: 10vw;
       border-right: solid rgb(149, 149, 149);
-      padding:1%;
+     // padding:1%;
+      width: 33%;
+      height: 100%;
       text-align: center;
       p
       {
