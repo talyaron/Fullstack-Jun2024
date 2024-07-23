@@ -1,6 +1,5 @@
 
 .body{
-    position: absolute;
     left: 2.5%;
     right: 2.5%;
     width: 100%;
@@ -15,7 +14,7 @@
     top: 0;
     margin-left: 110px;
     background-color: rgb(255, 255, 255);
-    gap: 25px; 
+    gap: 20px; 
     
     .img-logo {
         width: 80px;
@@ -40,23 +39,22 @@
 
 }
 
-
-
 .sticky a {
     text-decoration: none;
     color: inherit;
     font-family: 'Arial', sans-serif;
-    font-size: 14px;
+    font-size: 14px;  
+
 }
 
 .sticky a i {
-    font-size: 22px;
-}
+        font-size: 22px;
 
-.sticky a:focus,
-.sticky a:active {
-    text-decoration: underline;
-}
+        
+    }
+.sticky a:focus, .sticky a:active {
+        text-decoration: underline;
+    }
 
 
 .my-button {
@@ -80,6 +78,7 @@
     background-color: #E5E5E5;
     margin-top: 20px;
     width: 1400px;
+    margin-left: 20px;
 
     .img-adv{
     cursor: pointer;
