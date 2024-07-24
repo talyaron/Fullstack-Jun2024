@@ -260,4 +260,78 @@ body{
   }
 }
 
- 
+.second_navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.now_movies {
+  color: rgb(203, 232, 252);
+  font-size: 30px;
+  font-family: "Rubik", sans-serif;
+  font-weight: bolder;
+  margin-right: 20px; 
+}
+
+ul {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+ul li {
+  list-style: none;
+  margin: 0 1vh;
+  display: flex;
+  align-items: center;
+  color: rgb(177, 176, 176);
+}
+
+ul li a {
+  color: rgb(177, 176, 176);
+  font-size: 2.1vh;
+  text-decoration: none;
+}
+
+.movies_menu {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  gap: 1.5rem;
+}
+
+.image_container {
+  width: 16rem;
+  height: auto;
+  position: relative;
+  perspective: 1000px; 
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.front_image {
+  transform: rotateY(0deg);
+}
+
+.back_image {
+  transform: rotateY(180deg);
+}
+
+.image_container:hover .front_image {
+  transform: rotateY(-180deg);
+}
+
+.image_container:hover .back_image {
+  transform: rotateY(0deg);
+}
