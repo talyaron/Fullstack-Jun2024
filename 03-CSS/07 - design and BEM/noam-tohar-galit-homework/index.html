@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./dist/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/9b249219f0.js" crossorigin="anonymous"></script>
+  <script src="./index.js"></script>
+</head>
+<body>
+  <div class="navbar">
+    <button class="button__menu">
+      <i class="fas fa-bars"></i>
+    </button>
+    <button class="button__search">חיפוש</button>
+    <button class="button__tickets">הזמן כרטיסים</button>
+    <ul>
+      <li><a href="">ילדים</a></li>
+      <li><a href="">מתחמים</a></li>
+      <li><a href="">VIP</a></li>
+      <li><a href="">כנסים ואירועים</a></li>
+      <img class="navbar__img" src="https://www.cinema-city.co.il/img/together-logo.png" alt="">
+    </ul>
+  </div>
+  <div class="slideshow-container">
+    <div class="slider slide">
+        <img src="./images/images/sliderpicture1.png" style="width:100%">
+    </div>
+    <div class="slider slide">
+        <img src="./images/images/sliderpicture2.png" style="width:100%">
+    </div>
+    <div class="slider slide">
+        <img src="./images/images/sliderpicture3.png" style="width:100%">
+    </div>
+</div>
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span> 
+  <span class="dot" onclick="currentSlide(2)"></span> 
+  <span class="dot" onclick="currentSlide(3)"></span> 
+</div>
+
+<div class="boxtickets">
+    <div class="boxtickets__title">
+      <h2>הזמן כרטיסים</h2>
+    </div>
+    <button class="buttontickets buttons">להזמנת כרטיסים</button>
+    <button class="buttonchoose buttons"> <i class="fas fa-map-marker-alt icons"></i> בחירת קולנוע <i class="fas fa-chevron-down"></i> </button>
+    <button class="buttondate buttons"> <i class="fas fa-calendar-alt icons"></i> בחירת תאריך <i class="fas fa-chevron-down"></i> </button>
+    <button class="buttontime buttons"> <i class="fas fa-clock icons"></i> בחירת שעה <i class="fas fa-chevron-down"></i> </button>
+    <button class="buttonmovie buttons"> <i class="fas fa-video icons"></i> בחירת סרט <i class="fas fa-chevron-down"></i> </button>
+  </div>
+</body>
+</html>
