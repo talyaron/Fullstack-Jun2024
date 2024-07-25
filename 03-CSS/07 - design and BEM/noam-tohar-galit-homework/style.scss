@@ -264,7 +264,7 @@ body{
   display: flex;
   align-items: center;
   justify-content: center;
-
+}
 
 .now_movies {
   color: rgb(203, 232, 252);
@@ -294,59 +294,72 @@ ul li a {
   font-size: 2.1vh;
   text-decoration: none;
 }
-}
+
 .movies_menu {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-  justify-content: center; 
-  margin-right: 8rem;
-  margin-left: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  gap: 1.5rem;
 }
 
 .image_container {
+  width: 16rem;
+  height: auto;
   position: relative;
+  perspective: 1000px; 
+}
+
+.image {
   width: 100%;
-  padding-top: 150%; 
-
-  .image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
-    width: 15rem;
-    height: auto;
-  }
-
-  .front_image {
-    transform: rotateY(0deg);
-  }
-
-  .back_image {
-    transform: rotateY(180deg);
-  }
-
-  &:hover .front_image {
-    transform: rotateY(-180deg);
-  }
-
-  &:hover .back_image {
-    transform: rotateY(0deg);
-  }
+  height: auto;
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
 }
 
-.show_more {
+.front_image {
+  transform: rotateY(0deg);
+}
+
+.back_image {
+  transform: rotateY(180deg);
+}
+
+.image_container:hover .front_image {
+  transform: rotateY(-180deg);
+}
+
+.image_container:hover .back_image {
+  transform: rotateY(0deg);
+}
+
+
+.last_section_container {
+  background-color: #E72141;
+  width: 100%;
+  flex: 1;
+  margin-top: 70vh;
+  padding: 10rem;
+  
+
+  &__wrap {
+    background-color: #d1f100;
+    display: flex;
+    flex-direction: row;
+
+    h1 {
+      color: #fff;
+    }
+  }
+
+
+}
+/* 
+.last_section_container__wrap {
+  background-color: #d1f100;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgb(203, 232, 252);
-  font-size: 26px;
-  font-weight: bolder;
-  background-color: rgba(128, 128, 128, 0.5); 
-  padding: 1rem; 
-  margin: 0 3rem; 
-}
+    flex-direction: row;
+} */
