@@ -13,6 +13,8 @@ body{
   border: none
 }
 
+//////////////////////  Noam /////////////////////////////////////////////////////////////////////////////////
+
 .navbar{
   position: fixed;
   direction: rtl;
@@ -43,7 +45,7 @@ body{
     width: 8vw;
     position: absolute;
     left: 56%;
-    top: -200%;
+    top: -150%;
   }
 
   .button__menu {
@@ -56,8 +58,8 @@ body{
     padding: 1.2vh 1.7vh;
     cursor: pointer;
     position: absolute;
-    left: 88%;
-    top: 34%;
+    left: 90%;
+    top: 20%;
   }
 
   .button__tickets {
@@ -106,7 +108,7 @@ body{
   ul{
 
     position: relative;
-    top: 20%;
+    top: 33%;
     left: -10%;
     
     li{
@@ -116,16 +118,16 @@ body{
       
       a{
         color: rgb(203, 232, 252);
-        font-size: 2.1vh;
+        font-size: 2.05vh;
         text-decoration: none;
       }
     }
   }
   .navbar__img{
-    width: 5.5vw;
+    width: 5.2vw;
     position: absolute;
     left: 57%;
-    top: -140%;
+    top: -90%;
   }
 
   .button__menu {
@@ -133,13 +135,13 @@ body{
     border: none;
     background-color: rgba(134, 133, 133, 0.4);
     color: white;
-    font-size: 2.4vh;
+    font-size: 2.2vh;
     font-weight: 400;
     padding: 1vh 1.9vh;
     cursor: pointer;
     position: absolute;
-    left: 88%;
-    top: 24%;
+    left: 90%;
+    top: 20%;
   }
 
   .button__tickets {
@@ -260,6 +262,8 @@ body{
   }
 }
 
+////////////////////////////////////// Galit  ////////////////////////////////////////////////////////////////////
+
 .second_navbar {
   display: flex;
   align-items: center;
@@ -297,7 +301,7 @@ ul li a {
 
 .movies_menu {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 1.5rem; 
   justify-content: center;
   margin-right: 3rem;
@@ -308,13 +312,12 @@ ul li a {
   position: relative;
   width: 100%;
   padding-top: 150%;
-
   .image {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 60%;
     backface-visibility: hidden;
     transition: transform 0.6s;
     transform-style: preserve-3d;
@@ -352,6 +355,7 @@ ul li a {
 }
 
 
+
 .image_container {
   width: 16rem;
   height: auto;
@@ -385,6 +389,8 @@ ul li a {
 .image_container:hover .back_image {
   transform: rotateY(0deg);
 }
+
+////////////////////////////////////// Tohar  ////////////////////////////////////////////////////////////////////
 
 
 .last_section_container {
