@@ -264,7 +264,7 @@ body{
   display: flex;
   align-items: center;
   justify-content: center;
-}
+
 
 .now_movies {
   color: rgb(203, 232, 252);
@@ -294,7 +294,7 @@ ul li a {
   font-size: 2.1vh;
   text-decoration: none;
 }
-
+}
 .movies_menu {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
