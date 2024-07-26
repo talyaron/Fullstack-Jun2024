@@ -1,0 +1,35 @@
+.circel-box {
+  border-radius: 25px;
+  padding: 10px;
+  margin: 0 auto;
+  width: fit-content;
+  color: white;
+}
+
+.tringel-box {
+  border-style: solid;
+  padding: 10px;
+  margin: 0 auto;
+  width: fit-content;
+  color: white;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.red {
+  background-color: red;
+}
+
+.green {
+  background-color: greenyellow;
+}
+
+.black {
+  background-color: black;
+}
+
+.line {
+  display: flex;
+}
