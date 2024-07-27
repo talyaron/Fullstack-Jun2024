@@ -14,7 +14,7 @@ body{
     width: 900px;
     height: 30px;
     top: 0;
-        .menu_text{
+        &_text{
             margin: 0 auto;
             font-size: 18px;
             color: white;
@@ -22,9 +22,14 @@ body{
 
 }
 
-.prsomt{
+.prsomt_on_top{
     display: flex ;
     margin: 0 auto;
+}
+
+.prsomt_center{
+
+    
 }
 
 .ynet_logo{
@@ -49,28 +54,40 @@ body{
 
     .main_article_text{
         padding-left: rem;
+        font-size: 25px;
     }
 }
 
-.article{          //כתבות משניות
+.article_red{          //כתבות משניות - רקע אדום
     display: flex;
     flex-direction: row;
     width: 300px;
     background-color: rgb(255, 0, 0);
-    border: 2px solid red;
+    border: 2px solid rgb(0, 255, 85);
     
 
-    .article_image{
+    &_image{
         padding-left: 1rem;
         width: 150px;
         height: 150px;
     }
 
-    .article_text{
+    &_text{
+        color: white;
         padding-left: rem;
         font-weight: bo;
     }
 }
+
+.article_blue{          //כתבות משניות - רקע כחול
+    display: flex;
+    flex-direction: row;
+    width: 300px;
+    background-color: rgb(17, 0, 255);
+    border: 2px solid rgb(0, 255, 42);
+    
+}
+
 
 .mevzak{
     margin: 0 auto;
@@ -83,7 +100,7 @@ body{
     border: 2px solid blue;
     animation: move-right 10s infinite linear;
 
-    @keyframes move-right {
+    @keyframes move-right {     //עושה אפקט הזזה
         from {
             transform: translateX(0px);
         }
