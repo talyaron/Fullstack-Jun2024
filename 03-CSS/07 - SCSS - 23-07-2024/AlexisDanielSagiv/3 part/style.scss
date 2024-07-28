@@ -1,0 +1,48 @@
+.black-box {
+  background-color: black;
+  width: 80%;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 10%;
+  &__title {
+    position: relative;
+    display: flex;
+    width: 90%;
+    padding: 30px;
+    align-items: center;
+    .logo {
+      width: 10%;
+
+      position: relative;
+      left: 50%;
+      align-items: center;
+    }
+
+    .button {
+      position: absolute;
+      left: 25px;
+      color: white;
+      border-style: solid;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-color: white;
+      border-width: 1px;
+      width: fit-content;
+      height: 10px;
+      padding: 15px;
+      margin: 0;
+      :hover{
+        cursor: pointer;
+      }
+    }
+  }
+  &__article {
+    display: flex;
+    flex-direction: column;
+    
+  }
+}
