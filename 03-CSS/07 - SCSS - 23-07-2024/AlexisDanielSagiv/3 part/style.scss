@@ -48,8 +48,9 @@
     padding: 1%;
 
     .image{
-        width: 300px;
-        height: 100px;
+        width: 80%;
+        height: 45%;
+        object-fit: cover;
     }
     &__row{
         display: flex;
