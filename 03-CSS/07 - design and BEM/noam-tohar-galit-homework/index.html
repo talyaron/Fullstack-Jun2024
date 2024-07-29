@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>סינמה סיטי</title>
+  <link rel="stylesheet" href="./dist/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/9b249219f0.js" crossorigin="anonymous"></script>
+  <script src="./index.js"></script>
+</head>
+<body>
+  <div class="navbar">
+    <button class="button__menu">
+      <i class="fas fa-bars"></i>
+    </button>
+    <button class="button__search">חיפוש</button>
+    <button class="button__tickets">הזמן כרטיסים</button>
+    <ul>
+      <li><a href="">ילדים</a></li>
+      <li><a href="">מתחמים</a></li>
+      <li><a href="">VIP</a></li>
+      <li><a href="">כנסים ואירועים</a></li>
+      <img class="navbar__img" src="https://www.cinema-city.co.il/img/together-logo.png" alt="">
+    </ul>
+  </div>
+  <div class="slideshow-container">
+    <div class="slider slide">
+        <img src="./images/images/sliderpicture1.png" style="width:100%">
+    </div>
+    <div class="slider slide">
+        <img src="./images/images/sliderpicture2.png" style="width:100%">
+    </div>
+    <div class="slider slide">
+        <img src="./images/images/sliderpicture3.png" style="width:100%">
+    </div>
+</div>
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span> 
+  <span class="dot" onclick="currentSlide(2)"></span> 
+  <span class="dot" onclick="currentSlide(3)"></span> 
+</div>
+
+<div class="boxtickets">
+    <div class="boxtickets__title">
+      <h2>הזמן כרטיסים</h2>
+    </div>
+    <button class="buttontickets buttons">להזמנת כרטיסים</button>
+    <button class="buttonchoose buttons"> <i class="fas fa-map-marker-alt icons"></i> בחירת קולנוע <i class="fas fa-chevron-down"></i> </button>
+    <button class="buttondate buttons"> <i class="fas fa-calendar-alt icons"></i> בחירת תאריך <i class="fas fa-chevron-down"></i> </button>
+    <button class="buttontime buttons"> <i class="fas fa-clock icons"></i> בחירת שעה <i class="fas fa-chevron-down"></i> </button>
+    <button class="buttonmovie buttons"> <i class="fas fa-video icons"></i> בחירת סרט <i class="fas fa-chevron-down"></i> </button>
+  </div>
+  <div class="second_navbar">
+    <div class="now_movies">עכשיו בקולנוע</div>
+    <ul>
+      <li>|</li>
+      <li><a href="">ילדים</a></li>
+      <li>|</li>
+      <li><a href="">בקרוב</a></li>
+      <li>|</li>
+      <li><a href="">הופעות והצגות</a></li>
+      <li>|</li>
+      <li><a href="">Onyx</a></li>
+    </ul>
+  </div>
+  <br /> 
+  <div class="movies_menu">
+    <div class="image_container">
+      <img src="./images/images/דדפול.jpg" alt="dedpool_image" class="image front_image">
+      <img src="./images/images/דדפול_פירוט.png" alt="dedpool_image_detail" class="image back_image">
+    </div>
+    <div class="image_container">
+      <img src="./images/images/נוח.png" alt="noah_image" class="image front_image">
+      <img src="./images/images/נוח_פירוט.png" alt="noah_image_detail" class="image back_image">
+    </div>
+    <div class="image_container">
+      <img src="./images/images/טאטאמי.png" alt="tatumi_image" class="image front_image">
+      <img src="./images/images/טאטאמי_פירוט.png" alt="tatumi_image_detail" class="image back_image">
+    </div>
+    <div class="image_container">
+      <img src="./images/images/מרוסקים.png" alt="merusakim_image" class="image front_image">
+      <img src="./images/images/מרוסקים_פירוט.png" alt="merusakim_image_detail" class="image back_image">
+    </div>
+    <div class="image_container">
+      <img src="./images/images/הקבלן.png" alt="kablan_image" class="image front_image">
+      <img src="./images/images/הקבלן_פירוט.png" alt="kablan_image_detail" class="image back_image">
+    </div>
+    <div class="image_container">
+      <img src="./images/images/ריאלטי.png" alt="riality_image" class="image front_image">
+      <img src="./images/images/ריאלטי_פירוט.png" alt="riality_image_detail" class="image back_image">
+    </div>
+    <div class="image_container">
+      <img src="./images/images/מטוסי.png" alt="matos_image" class="image front_image">
+      <img src="./images/images/מטוסי_פירוט.png" alt="matos_image_detail" class="image back_image">
+    </div>
+    <div class="image_container">
+      <img src="./images/images/דדפולרוסית.png" alt="deadpoolru_image" class="image front_image">
+      <img src="./images/images/דדפולרוסית_פירוט.png" alt="deadpoolru_image_detail" class="image back_image">
+    </div>
+    <div class="image_container">
+      <img src="./images/images/טוויסט.png" alt="twist_image" class="image front_image">
+      <img src="./images/images/טוויסט_פירוט.png" alt="twist_image_detail" class="image back_image">
+    </div>
+    <div class="image_container">
+      <img src="./images/images/ירח.png" alt="moon_image" class="image front_image">
+      <img src="./images/images/ירח_פירוט.png" alt="moon_image_detail" class="image back_image">
+    </div>
+    <div class="image_container">
+      <img src="./images/images/גנוב.png" alt="ganuv_image" class="image front_image">
+      <img src="./images/images/גנוב_פירוט.png" alt="ganuv_image_detail" class="image back_image">
+    </div>
+    <div class="image_container">
+      <img src="./images/images/אי.png" alt="land_image" class="image front_image">
+      <img src="./images/images/אי_פירוט.png" alt="land_image_detail" class="image back_image">
+    </div>
+  </div>
+  <div class="show_more"> הצג סרטים, הופעות והצגות נוספים </div>
+  <div class="last_section_container">
+    <div class="last_section_container__wrap">
+      <div class="best_movies_text">
+        <h1>הסרטים הנצפים ביותר בסינמה סיטי</h1>
+        <p class="small-ltters-text">* קרא איך המחשב שלנו מרכיב את רשימת הנצפים ביותר</p>
+      </div>
+      <div class="movies">
+        <div class="img_container">
+          <div class="movie-number"><p>1</p></div>
+          <img src="./images/images/גנוב_על_החיים.png" class="movie_img" alt="">
+          <p class="movie_text">גנוב על החיים - מדובב</p>
+        </div>
+        <div class="img_container">
+          <div class="movie-number"><p>2</p></div>
+          <img src="./images/images/מרוסקים.png" class="movie_img" alt="">
+          <p class="movie_text">גולסטאר הסרט: מרוסקים</p>
+        </div>
+        <div class="img_container">
+          <div class="movie-number"><p>3</p></div>
+          <img src="./images/images/הקול_בראש.png" class="movie_img" alt="">
+          <p class="movie_text">הקול בראש 2 -מדובב</p>
+        </div>
+        <div class="img_container">
+          <div class="movie-number"><p>4</p></div>
+          <img src="./images/images/מזל_חתולה.png" class="movie_img" alt="">
+          <p class="movie_text">מזל חתולה</p>
+        </div>
+        <div class="img_container">
+          <div class="movie-number"><p>5</p></div>
+          <img src="./images/images/הכל_או_כלום.png" class="movie_img" alt="">
+          <p class="movie_text">בחורים רעים: הכל או כלום</p>
+        </div>
+      </div>
+    </div>
+    <div class="advertising_section">
+      <img src="./images/images/bd-ad.png" class="ad_img" alt="">
+      <img src="./images/images/recruit_ad.png" class="ad_img" alt="">
+      <img src="./images/images/bd_ad.png" class="ad_img" alt="">
+      <img src="./images/images/ad.png" class="ad_img" alt="">
+    </div>
+    <div class="footer">
+      <hr />
+      <div class="footer_wrapper">
+        <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

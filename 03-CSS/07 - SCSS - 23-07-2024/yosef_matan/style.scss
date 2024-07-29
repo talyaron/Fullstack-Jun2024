@@ -1,0 +1,57 @@
+body{
+    direction: rtl;
+    font-family: Arial, Helvetica, sans-serif;
+display: flex;
+}
+
+
+.article{
+    width: 35%;
+    background-color: rgb(2, 8, 44);
+    border: 19px solid black;
+    height: 40%;
+
+    &_title, &_secondtitle, &_date{
+        color: white;
+    }
+
+    &_title{
+        background-color: rgb(138, 4, 4);
+    }
+
+}
+
+.chat{
+    background-color: gray;
+    width: 20%;
+    .main_title{
+        background-color: red;
+        color: white;
+        text-align: center;
+        font-size: 2rem;
+
+    }
+    &_main{
+        background-color: aliceblue;
+        color: black;
+        border-radius: 20px 10px;
+    }
+
+   &_imgtitle{
+    display: flex;
+    gap: 20px;
+    
+    h6{
+        font-size: 15px;
+        color: red;
+
+    }
+
+    
+}
+&_time{
+color: red;
+text-align: end;
+}
+
+}

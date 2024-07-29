@@ -1,23 +1,26 @@
-body {
-  background-color: rgb(215, 105, 105);
+html,body{
+  margin: 0;
 }
+.navbar{
+  font-family: "Rubik", sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  position: fixed;
+  top: 6.5%;
+  
+  &__bg{
+    width: 100vw;
+    height: 1.5vw;
+    background-color: red;
+  }
 
-.container {
-  direction: rtl;
-  width: 100%;
-  position: absolute;
-  background-color: teal;
-
-  .image-articles {
-    width: 50%;
-    background-color: hotpink;
+  &__categories{
+    color: white;
     display: flex;
-
-    &__title {
-      background-color: tomato;
-      background-color:  grey;
-      width: 50%;
-      height: 3%;
-    }
+    flex-direction: row-reverse;
+    gap: 60px;
+    position: fixed;
+    top: 5.5%;
+    left: 23%;
   }
 }

@@ -46,19 +46,19 @@
   font-weight: bold;
 }
 
-.authortext {
+.author-text {
   font-size: 10px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.articleimg {
+.article-img {
   height: 105px;
   width: 150px;
   float: right;
   margin: auto;
 }
 
-.articlebox {
+.article-box {
   padding-top: 0%;
   border-style: solid;
   width: 100%;
