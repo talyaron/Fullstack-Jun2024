@@ -132,8 +132,10 @@
     padding-top: 1.5%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-content: center;
     justify-content: center;
+    position: relative;
+    left: 15%;
     font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 
     &__upper-articles {
@@ -142,13 +144,13 @@
       flex-direction: row;
       align-content: center;
       justify-content: center;
-     gap: 1%;
+      gap: 1%;
+
       &__flex {
+        width: 50%;
         display: flex;
         flex-direction: column;
 
-       
-      gap: 1%;
         .title {
           width: 100%;
           padding: 5px;
@@ -158,11 +160,10 @@
           color: white;
           height: 35px;
           font-size: 0.3rem;
-
           display: flex;
           justify-content: space-between;
           align-items: center;
-        box-sizing: border-box;
+          box-sizing: border-box;
           .beginning {
             font-weight: bold;
             font-size: 1rem;
@@ -172,29 +173,93 @@
           }
         }
       }
+      .body {
+        display: flex;
+        flex-direction: row;
+
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+
+        box-sizing: border-box;
+        .article {
+          width: 31%;
+          display: flex;
+          flex-direction: column;
+          width: 31%;
+          font-size: 1.19rem;
+          justify-content: center;
+          padding: 0.5%;
+          box-sizing: border-box;
+          .image2 {
+            width: 100%;
+
+            display: block;
+          }
+        }
+        p {
+          font-size: 0.8rem;
+          overflow: inherit;
+        }
+      }
+    }
+    &__lower-articles {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-content: center;
+      justify-content: center;
+      font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+      gap: 1%;
+      position: relative;
+      left: 15%;
+      &__flex {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+
+        .title {
+          width: 100%;
+          padding: 5px;
+          padding-top: 1px;
+          padding-bottom: 1px;
+          background-color: blue;
+          color: white;
+          height: 35px;
+          font-size: 0.3rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          box-sizing: border-box;
+          .beginning {
+            font-weight: bold;
+            font-size: 1rem;
+          }
+          .ending {
+            font-size: 0.8rem;
+          }
+        }
         .body {
           display: flex;
           flex-direction: row;
-          flex-wrap: wrap;
-          gap: 1%;
-          width: 100%;
-          align-items: center;
-          justify-content: center;
-          .article {
+          font-size: 16px;
+          .article1 {
+            width: 40%;
+            padding: 2%;
+            padding-bottom: 0;
             display: flex;
-flex-direction: column;
-width: 31%;
-            font-size: 1.19rem;
-            justify-content: center;
-           padding: 0.5%;
-            box-sizing: border-box;
+            flex-direction: column;
+            gap: 0;
+            .image2 {
+              width: 100%;
+            }
           }
           p {
-            font-size: 0.8rem;
-            overflow: inherit;
+            font-size: 0.6rem;
+            font-family: david;
           }
         }
       }
     }
   }
-
+}
