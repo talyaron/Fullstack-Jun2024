@@ -22,13 +22,34 @@ body{
 
 }
 
+.mevzakem{     //הכותרת הקטנה שמהבהבת
+    margin: auto;
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: rgb(255, 0, 0);
+    width: 90px;
+    animation: blink 1s infinite;
+
+      @keyframes blink {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      
+}
 .prsomt_on_top{
     display: flex ;
     margin: 0 auto;
 }
 
 .prsomt_center{
-
+    
     
 }
 
@@ -89,7 +110,7 @@ body{
 }
 
 
-.mevzak{
+.mevzak{    // קונטינר המכיל מבזקים חדשים כל הזמן
     margin: 0 auto;
     justify-content: space-between;
     display: flex;
@@ -102,10 +123,10 @@ body{
 
     @keyframes move-right {     //עושה אפקט הזזה
         from {
-            transform: translateX(0px);
+            transform: translateX(1000px);
         }
         to {
-            transform: translateX(1100px);
+            transform: translateX(00px);
         }
     }
     
