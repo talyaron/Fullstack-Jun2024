@@ -5,6 +5,7 @@
   width: 80%;
   position: relative;
   direction: rtl;
+  align-items: center;
   .black-box {
     background-color: black;
     width: 100%;
@@ -127,65 +128,73 @@
   }
 
   .box-articles {
-    width: 80%;
-    margin-top: 1%;
+    width: 100%;
+    padding-top: 1.5%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+
     &__upper-articles {
-      padding: 2.5%;
+      width: 100%;
       display: flex;
-      flex-direction: column;
-      font-size: 0.5rem;
-      font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-      width: 80%;
-      align-items: center;
+      flex-direction: row;
+      align-content: center;
       justify-content: center;
-      &__title {
-        padding: 5px;
-        padding-top: 1px;
-        padding-bottom: 1px;
-        background-color: grey;
-        color: white;
-        height: 35px;
-        font-size: 0.3rem;
-        width: 100%;
+     gap: 1%;
+      &__flex {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-        
-        .beginning {
-          font-weight: bold;
-          font-size: 1rem;
-        }
-        .ending{
+        flex-direction: column;
+
+       
+      gap: 1%;
+        .title {
+          width: 100%;
+          padding: 5px;
+          padding-top: 1px;
+          padding-bottom: 1px;
+          background-color: grey;
+          color: white;
+          height: 35px;
+          font-size: 0.3rem;
+
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        box-sizing: border-box;
+          .beginning {
+            font-weight: bold;
+            font-size: 1rem;
+          }
+          .ending {
             font-size: 0.8rem;
+          }
         }
       }
-
-      &__body {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        .article {
+        .body {
           display: flex;
-          flex-direction: column;
-          width: 35%;
-      
-          padding: 1%;
-          font-size: 1.19rem;
-
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 1%;
+          width: 100%;
+          align-items: center;
           justify-content: center;
-        }
-        p{
+          .article {
+            display: flex;
+flex-direction: column;
+width: 31%;
+            font-size: 1.19rem;
+            justify-content: center;
+           padding: 0.5%;
+            box-sizing: border-box;
+          }
+          p {
             font-size: 0.8rem;
-            overflow:inherit;
+            overflow: inherit;
+          }
         }
       }
     }
   }
-}
+
