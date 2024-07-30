@@ -7,7 +7,10 @@
     position: sticky;
 }
 body{
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 .spliter{
     display: flex;
@@ -16,26 +19,25 @@ body{
     width: 50%;
     height: 100px;
     margin-bottom:20px ;
+    margin-top: 15px;
     background-color: red;
     border: 1px solid gray;
     color:white;
     padding: 20px;
     font-weight: bold;
 }
+
+
+
 .containerFirstArticle {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    display: inline-block;
-    gap: 20px;
-    border: 1px solid black;
-    margin-bottom: 1%;
-    width: max-content;
-    margin-bottom: 50px;
-
+    flex-direction: row;
+    margin-top: 10px;
+    gap: 15px;
     .firstArticle {
         width: 800px;
 
+        margin-bottom: 10px;
         &__title {
             color: white;
             display: flex;
@@ -94,14 +96,10 @@ body{
 }
 
 .containerSecondArticle {
-
     display: flex;
     flex-direction: row;
-    gap: 20px;
-    border: 1px solid black;
-    margin-bottom: 1%;
-    width: max-content;
-    margin-top: 50px;
+    margin-top: 10px;
+    gap: 15px;
 
     .secondArticle {
         width: 800px;
