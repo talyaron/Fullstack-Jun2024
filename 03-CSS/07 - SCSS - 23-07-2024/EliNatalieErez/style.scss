@@ -1,79 +1,164 @@
-.page {
-    width: 100%;
-    height: 100%;
-    margin: 4vw;
+body {
+  text-align: center;
+}
+#pageContainer {
+  margin: 0vw 20vw;
+}
+#logo {
+  width: 12vw;
+  height: 5vw;
+}
+
+#scrollMenu {
+  display: flex;
+  background-color: rgb(220, 22, 22);
+  flex-direction: row-reverse;
+  position: sticky;
+  top: 0.5%;
+  margin: 2vw;
+  // width: 55vw;
+  .menuButton {
+    color: white;
+    font-size: 1.5rem;
+    margin: 0.2vw auto;
+
+    &:hover {
+      // background-color: brown;
+      font-style: italic;
+    }
+  }
+}
+
+.flashNews {
+  margin: 2vw;
+  display: flex;
+  flex-direction: row-reverse;
+  background-color: whitesmoke;
+  &__title {
+    font-size: 3.5rem;
+    box-shadow: inset 0.3vw -0.3vw 0.4vw rgba(173, 172, 172, 0.436);
+    display: flexbox;
+    flex-direction: column;
+    padding: 0.4vw;
+    width: 25vw;
+    min-height: fit-content;
+    &__btn {
+      font-size: 1rem;
+      border: solid black;
+      border-width: 2px;
+      border-radius: 30px;
+      margin: 1vw 1vw;
+      &:hover {
+        color: blue;
+      }
+    }
+  }
+  &__articles {
+    font-size: 1.4rem;
+    background-color: rgb(255, 255, 255);
+    overflow-y: hidden;
+    margin: 0.5vw;
+  }
+}
+.headNews {
+  margin: 2vw;
+  display: flex;
+  flex-direction: row;
+  &__img {
+    width: 50%;
+  }
+  &__text {
     display: flex;
     flex-direction: column;
+    &__title {
+      font-size: 4rem;
+    }
+    &__subText {
+      font-size: 2rem;
+    }
+    &__sign {
+      font-size: 0.5rem;
+    }
+  }
+}
+.colorNews {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  margin: 2vw;
 
-    .container {
-        align-items: center;
-        display: flex;
-        flex-direction: row;
-        gap: 2vw;
-        margin: 4vw;
-
-
-
-        .half-container {
-            width: 50%;
-            height: 3vw;
-            align-items: center;
-            display: flex;
-            flex-direction: column;
-            text-align: right;
-
-        
-        
-            .section {
-                background-color: rgb(8, 8, 133);
-                width: 100%;
-                height: 3vw;
-                margin: 2vw;
-                text-align: right;
-                
-                    .section-font {
-                        font-size: 2vw;
-                        color: rgb(252, 248, 242);
-                        padding-right: 3vw;
-                    }
-            }
-
-
-            .articles {
-                width: auto;
-                display: flex;
-                flex-direction: row-reverse;
-                text-align: right;
-                
-
-
-            
-                .clickbait {
-                    width: 100%;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 1vw;
-                    margin: 1vw;
-                    text-align: right;
-
-                        .s-image{
-                            width: 15vw;
-                            height: 10vw;
-                            margin: 1vw;
-
-                        }
-
-                }
-            
-
-
-
-            }
-    
-
-
-        }
-
+  &__box {
+    display: flex;
+    margin: 0.3vw 0;
+    flex-direction: row-reverse;
+    font-size: 1.7rem;
+    height: 5vw;
+    width: 30vw;
+    color: white;
+    &__img {
+      width: 90%;
+      height: 100%;
     }
 
+    &__red {
+      background-color: red;
+    }
+    &__blue {
+      background-color: blue;
+    }
+    &__deepBlue {
+      background-color: rgb(8, 69, 90);
+    }
+    p {
+      margin: 0;
+      text-align: right;
+      overflow-y: hidden;
+    }
+  }
+}
+.sideDevider {
+  display: flex;
+  //  background-color: yellow;
+  .ad {
+    margin: 1vw 0;
+    align-self: center;
+    &__img {
+      width: 80%;
+      height: auto;
+    }
+  }
+}
+
+.section {
+  background-color: rgb(8, 8, 133);
+  height: 3vw;
+  margin: 2vw;
+  text-align: right;
+}
+
+.section-font {
+  font-size: 2vw;
+  color: rgb(252, 248, 242);
+  padding-right: 3vw;
+  margin: 0;
+}
+.articles {
+  display: flex;
+  flex-direction: row;
+  text-align: right;
+
+  .clickbait {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+    margin: 1vw;
+    text-align: right;
+
+    .s-image {
+      width: 15vw;
+      height: 10vw;
+      margin: 1vw;
+    }
+  }
 }
