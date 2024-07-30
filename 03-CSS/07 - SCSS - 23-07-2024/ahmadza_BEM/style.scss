@@ -1,3 +1,27 @@
+.title{
+    background-color: red;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: xx-large;
+    position: sticky;
+}
+body{
+    text-align: center;
+}
+.spliter{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 50%;
+    height: 100px;
+    margin-bottom:20px ;
+    background-color: red;
+    border: 1px solid gray;
+    color:white;
+    padding: 20px;
+    font-weight: bold;
+}
 .containerFirstArticle {
     display: flex;
     align-items: center;
@@ -7,7 +31,7 @@
     border: 1px solid black;
     margin-bottom: 1%;
     width: max-content;
-    margin-bottom: 10px;
+    margin-bottom: 50px;
 
     .firstArticle {
         width: 800px;
@@ -72,14 +96,12 @@
 .containerSecondArticle {
 
     display: flex;
-    align-items: center;
-    justify-content: center;
-    display: inline-block;
+    flex-direction: row;
     gap: 20px;
     border: 1px solid black;
     margin-bottom: 1%;
     width: max-content;
-    margin-top: 10px;
+    margin-top: 50px;
 
     .secondArticle {
         width: 800px;
@@ -119,6 +141,7 @@
                     flex-direction: column;
                     width: 500px;
                     padding: 5px 20px 5px 20px;
+                    background-color: antiquewhite;
                     font-weight: bold;
                     gap: 5px;
 
