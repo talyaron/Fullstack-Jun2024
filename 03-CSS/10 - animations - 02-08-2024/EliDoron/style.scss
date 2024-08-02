@@ -1,0 +1,81 @@
+#chaseAnim {
+  display: flex;
+  flex-direction: row-reverse;
+
+  #cat {
+    width: 285px;
+    height: 120px;
+    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpK3AugSLy0rW-flG4sDdwHJw4gy-VGFGMIt3Xpapmy4fTaWI-KIcc_xgBP0R1y_lhnHQ&usqp=CAU);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    top: 0;
+    animation: cAnim 10s;
+    animation-delay: 0.5s;
+    right: -10vw;
+    animation-iteration-count: infinite;
+  }
+  #mouse {
+    width: 120px;
+    height: 100px;
+    transform: scaleX(-1);
+    background-image: url(https://i.pinimg.com/736x/3a/bd/d7/3abdd77b95a72a35edfd0bdc0bc57985.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    animation: mAnim 9s;
+    right: -10vw;
+    animation-iteration-count: infinite;
+  }
+}
+
+@keyframes mAnim {
+  0% {
+    right: -10vw;
+    top: 0;
+  }
+
+  50% {
+    right: 100vw;
+    top: 0;
+    transform: scaleX(-1);
+  }
+  51% {
+    right: 100vw;
+    top: 1vw;
+    transform: scaleX(1);
+  }
+
+  100% {
+    top: 2vw;
+    right: 0vw;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes cAnim {
+  0% {
+    right: -10vw;
+    top: 0;
+    transform: scaleX(1);
+  }
+
+  50% {
+    right: 100vw;
+    top: 0;
+    transform: scaleX(1);
+  }
+  51% {
+    right: 100vw;
+    top: 1vw;
+    transform: scaleX(-1);
+  }
+
+  100% {
+    top: 2vw;
+    right: 20vw;
+    transform: scaleX(-1);
+  }
+}
