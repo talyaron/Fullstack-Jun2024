@@ -45,10 +45,9 @@ body {
     &__btn {
       font-size: 1rem;
       border: solid black;
-      border-radius: 40%;
       border-width: 2px;
-      // margin: 10px;
-      margin: 1vw 3vw;
+      border-radius: 30px;
+      margin: 1vw 1vw;
       &:hover {
         color: blue;
       }
