@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  justify-content:center;
+  justify-content: center;
   .balloon {
     width: 100px;
     height: 100px;
@@ -12,10 +12,24 @@
     background-position: center;
     position: relative;
     top: 100vh;
-   // left: 40vw;
-    animation: fly 2s;
+    animation: fly 5s;
     animation-iteration-count: 1;
-   margin: 1vw;
+    margin: 1vw;
+    transform: rotate(10deg);
+  }
+  .balloon2 {
+    width: 100px;
+    height: 100px;
+    background-image: url(https://helloblooms.com/cdn/shop/products/BlueRubberBalloon.jpg?v=1662112499);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    top: 100vh;
+  
+    animation: fly 4s;
+    animation-iteration-count: 1;
+    margin: 1vw;
   }
 }
 
