@@ -1,0 +1,27 @@
+#birthday {
+  display: flex;
+  flex-direction: row;
+
+  .balloon {
+    width: 100px;
+    height: 100px;
+    background-image: url(https://helloblooms.com/cdn/shop/products/BlueRubberBalloon.jpg?v=1662112499);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    top: 100vh;
+   // left: 40vw;
+    animation: fly 2s;
+    animation-iteration-count: 1;
+  }
+}
+
+@keyframes fly {
+  from {
+    top: 100vh;
+  }
+  to {
+    top: 0vh;
+  }
+}
