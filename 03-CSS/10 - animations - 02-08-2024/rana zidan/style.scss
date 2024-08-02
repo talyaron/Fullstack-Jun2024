@@ -1,0 +1,35 @@
+#balloon{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(205, 48, 48);
+    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1ER0FZ1EHFw13ZKhmBoL9eleQavSs2hGNAA&s);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    animation: moveRight 2s;
+
+}
+
+@keyframes moveRight {
+    // from{
+    //     left: 0;
+    //     top:0;
+    // } to{
+    //     left: 50vw;
+    //     top: 50vh;
+    // }
+    0%{
+        left: 0;
+        top:0;
+    }20%{
+        left: 20vw;
+        top: 10vh;
+    } 50%{
+        left: 50vw;
+        top: 50vh;
+    } 100%{
+        left: 80vw;
+        top: 10vh;
+    }
+    
+}
