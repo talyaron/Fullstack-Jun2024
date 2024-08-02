@@ -1,7 +1,8 @@
 #birthday {
   display: flex;
   flex-direction: row;
-
+  width: 100%;
+  justify-content:center;
   .balloon {
     width: 100px;
     height: 100px;
@@ -14,6 +15,7 @@
    // left: 40vw;
     animation: fly 2s;
     animation-iteration-count: 1;
+   margin: 1vw;
   }
 }
 
