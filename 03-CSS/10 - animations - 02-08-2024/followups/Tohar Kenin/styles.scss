@@ -1,0 +1,27 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    animation: cards_animation 5s;
+    position: relative;
+    background-repeat: repeat-x;
+
+    .card {
+        height: 15rem;
+        width: 20rem;
+        background-color: blue;
+    }
+
+
+    @keyframes cards_animation {
+        0% {
+          left: -100vw;
+        }
+        50% {
+          left: 50vw;
+        }
+        100% {
+          left: 200vw;
+        }
+      }
+}
