@@ -1,4 +1,4 @@
-// Base Styles
+
 * {
     margin: 0;
     padding: 0;
@@ -8,15 +8,15 @@
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    padding: 10px;
+    padding: 20px;
 }
 
 
 
-// Content Section
+
 .content-section {
     margin-bottom: 20px;
-    padding: 10px;
+    padding: 20px;
     border: 1px solid #ddd;
     &__title {
         font-size: 1.5rem;
@@ -31,7 +31,7 @@ body {
 }
 
 
-// Responsive Styles
+
 @media (max-width: 768px) {
 
     .content-section__title {
