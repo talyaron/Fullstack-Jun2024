@@ -1,0 +1,46 @@
+#chaserToggle {
+    display: none;
+    top: 50vh;
+    left: 50vw;
+  }
+
+#chaser{
+    cursor: pointer;
+    display: inline-block;
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+
+
+    &:hover, #chaserToggle:checked + & {
+        color:red;
+        animation: escape 5s forwards;
+    }
+}
+
+@keyframes escape {
+    0% {
+        top: 50vh;
+        left: 50vw;
+    }
+    20% {
+        top: 0vh;
+        left: 0vw;
+    }
+    40% {
+        top: 50vh;
+        left: 100vw;
+    }
+    60% {
+        top: 100vh;
+        left: 0vw;
+    }
+    80% {
+        top: 50vh;
+        left: 100vw;
+    }
+    100% {
+        top: 50vh;
+        left: 50vw;
+    }
+}
