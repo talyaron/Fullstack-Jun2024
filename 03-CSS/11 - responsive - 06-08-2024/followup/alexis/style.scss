@@ -3,19 +3,21 @@
   height: 100vh;
   display: block;
   text-align: center;
-  text-justify:  center;
+  text-justify: center;
   align-items: center;
   justify-content: center;
-color: white;
+  color: white;
+
   @media (max-width: 600px) {
     background-color: red;
   }
-  @media (min-width: 600px)  {
+
+  @media (min-width: 600px) {
     background-color: green;
-   max-width:1200px;
-    background-color: green;
-  }
+   
  
+  }
+
   @media (min-width:1200px) {
     background-color: blue;
   }
