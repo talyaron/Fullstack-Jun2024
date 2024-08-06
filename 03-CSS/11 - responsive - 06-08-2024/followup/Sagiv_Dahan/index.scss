@@ -1,0 +1,17 @@
+body{
+    @media screen and (max-width: 600px) {
+        background-color: red;
+      }
+
+      @media screen and (min-width: 600px) {
+        background-color: green;
+      }
+      
+      @media screen and (min-width: 1200px) {
+        background-color: blue;
+      }
+
+}
+.smt{
+    color: white;
+}
