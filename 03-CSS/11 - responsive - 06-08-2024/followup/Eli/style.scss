@@ -5,13 +5,35 @@ body {
   h1 {
     color: white;
   }
+ #blu {
+    color: transparent;
+  }
+  #grn {
+    color: transparent;
+  }
+  #red {
+    color: transparent;
+  }
   @media (min-width: 1201px) {
     background-color: blue;
+    #blu {
+        color: white;
+      }
+    
   }
   @media (max-width: 1200px) {
     background-color: green;
+    #grn {
+        color: white;
+      }
   }
   @media (max-width: 600px) {
     background-color: red;
+    #red {
+        color: white;
+      }
+      #grn {
+        color: transparent;
+      }
   }
 }
