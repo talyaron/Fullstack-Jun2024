@@ -1,0 +1,33 @@
+#ballon{
+    width: 100px;
+    height: 100px;
+    background-image:url(https://www.creativefabrica.com/wp-content/uploads/2022/02/01/1643709469/Heart-shaped-baloon-580x386.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    top: 0;
+    left: 15px;
+    animation: moveRight 2s;
+    animation-fill-mode: forwards;
+    animation-delay: 2s;
+    animation-timing-function: ease-in-out;
+  
+}
+
+@keyframes moveRight {
+
+    0%{
+        left: 0vw;
+        top:0vw;
+    }20%{
+        left: 20vw;
+        top: 5vh;
+    } 40%{
+        left: 40vw;
+        top: 50vh;
+    } 80%{
+        left: 30vw;
+        top: 70vh;
+    }
+}
