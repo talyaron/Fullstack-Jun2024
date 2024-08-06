@@ -20,6 +20,31 @@
   
 }
 
+nav{
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    width: 100%;
+    .item{
+      padding: 10px 0px;
+      text-align: center;
+        cursor: pointer;
+        background-color: rgb(77, 77, 77);
+        color: white;
+        flex:1;
+     
+        &:hover{
+            transition:all 340ms;
+            background-color: gray;
+            border-bottom: 2px solid rgb(32, 32, 32);
+            transform: translate(3px, 4px);
+        }
+        &:active{
+            transform: scale(1.2);
+        }
+    }
+}
+
 @keyframes moveRight {
     // this is an example for animation
 
