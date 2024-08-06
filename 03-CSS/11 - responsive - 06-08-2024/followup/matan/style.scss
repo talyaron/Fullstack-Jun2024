@@ -1,8 +1,4 @@
-body {
-    margin: 0;
-    padding: 0;
-  
-}
+
 
 /// 600
 @media (max-width: 600px) {
@@ -12,7 +8,7 @@ body {
 }
 
 /// 600-1200
-@media (min-width: 600px) and (max-width: 1200px) {
+@media (min-width: 600px) {
     body {
         background-color: green; 
     }
