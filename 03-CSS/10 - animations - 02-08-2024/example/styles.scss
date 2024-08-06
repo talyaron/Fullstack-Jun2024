@@ -9,7 +9,7 @@
     top: 0;
     left: 0;
 
-    animation: moveRight 2s;
+    animation: yosef 2s;
     // animation-iteration-count: 2;
     // animation-direction: alternate;
     animation-fill-mode: forwards;
@@ -20,52 +20,18 @@
   
 }
 
-nav{
-    display: flex;
-    justify-content: center;
-    gap: 0;
-    width: 100%;
-    .item{
-      padding: 10px 0px;
-      text-align: center;
-        cursor: pointer;
-        background-color: rgb(77, 77, 77);
-        color: white;
-        flex:1;
-     
-        &:hover{
-            transition:all 340ms;
-            background-color: gray;
-            border-bottom: 2px solid rgb(32, 32, 32);
-            transform: translate(3px, 4px);
-        }
-        &:active{
-            transform: scale(1.2);
-        }
-    }
-}
+@keyframes yosef {
 
-@keyframes moveRight {
-    // this is an example for animation
-
-    // from{
-    //     left: 0;
-    //     top:0;
-    // } to{
-    //     left: 50vw;
-    //     top: 50vh;
-    // }
-    0%{
-        left: 0;
-        top:0;
-    }20%{
-        left: 20vw;
-        top: 10vh;
-    } 50%{
-        left: 50vw;
-        top: 50vh;
-    } 100%{
-        left: 80vw;
-        top: 10vh;
+    0%
+    
+    0% {
+      transform: translateY(0px);
     }
-}
+    100% {
+      transform: translateY(200px);
+    }
+  }
+  
+  .animated-element {
+    animation: myanimation 2s ease-in-out infinite;
+  }

@@ -1,0 +1,62 @@
+// .anim {
+//   width: 150px;
+//   height: 41px;
+//   background-color: beige;
+//   border-radius: 55px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   padding: 0%;
+//   animation: circle;
+//   animation-duration: 10s;
+//   animation-iteration-count: 1;
+//   overflow: hidden;
+//   position: relative;
+//   margin: 5%;
+// }
+// @keyframes circle {
+//   0% {
+//     transform: rotate(0deg);
+//   }
+//   50% {
+//     transform: rotate(180deg);
+//   }
+//   100% {
+//     transform: rotate(360deg);
+//   }
+// }
+.xo {
+  position: relative;
+  animation: hello;
+  animation-duration: 6s;
+  display: flex;
+  flex-direction: column;
+
+
+.image {
+  width: 20vw;
+  height: auto;
+  z-index: 1000;
+
+}
+@keyframes hello {
+  0% {
+    left: 0vw;
+  }
+
+  50% {
+    left: 50vw;
+  }
+  100% {
+    left: 50vw;
+  }
+}
+.skate {
+  position: relative;
+  margin-top: -120px;
+  width: 20vw;
+  height: auto;
+}
+
+
+}
