@@ -17,7 +17,7 @@ body {
   width: 90vw;
   height: 20vh;
   display: flex;
-  justify-content:center;
+  justify-content: center;
   position: relative;
   margin-bottom: 60px;
   
@@ -31,7 +31,7 @@ body {
 
   .slide {
   float: left;
-  margin-left: 2vw;
+  margin-left: 4vw;
   display: flex;
   justify-content: center;
   width: 200px;
@@ -54,11 +54,11 @@ body {
 }
 
 .navigation-prev {
-  left:1150px;
+  left:1250px;
 }
 
 .navigation-next {
-  right:1120px;
+  right:1220px;
 }
 
 
