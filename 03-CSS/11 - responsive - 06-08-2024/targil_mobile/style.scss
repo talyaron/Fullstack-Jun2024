@@ -1,23 +1,29 @@
 body {
 
-background-color: rgb(134, 121, 121);
-
-@media (min-width: 1px) {
     background-color: red;
-}
 
-    @media (max-width: 600px) {
-        background-color: red;
-    }
+    // @media (max-width: 1200px) {
+    //     background-color: rgb(0, 255, 0);
+    // }
 
-    @media (min-width: 601px) {
+
+    // @media (max-width: 600px) {
+    //     background-color: red;
+    // }
+
+    @media (min-width: 600px) {
         background-color: rgb(0, 255, 0);
     }
 
-
-    @media (max-width: 1200px) {
-        background-color: rgb(68, 0, 255);
+    @media (min-width: 1200px) {
+        background-color: blue;
     }
+
+
+
+
+
+
 
 
 

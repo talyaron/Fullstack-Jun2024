@@ -1,0 +1,66 @@
+//scss variables
+// $primary-color: rgb(100, 57, 195);
+// $primary-color-text: rgb(205, 192, 233);
+// $secondary-color: rgb(141, 106, 216);
+// $text-background-color: rgb(255, 255, 255);
+
+:root{
+    // css variables
+    --primary-color: rgb(100, 57, 195);
+    --primary-color-text: rgb(205, 192, 233);
+    --secondary-color: rgb(141, 106, 216);
+    --text-background-color: rgb(255, 255, 255);
+}
+
+@import 'buttons.scss';
+
+
+
+
+body {
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    nav {
+        background-color: var(--primary-color);
+        color:var(--primary-color-text);
+
+        ol {
+            display: flex;
+            justify-content: space-around;
+            max-width: 400px;
+            padding: 1rem;
+            margin: auto;
+
+            a {
+                color: white;
+                text-decoration: none;
+            }
+        }
+    }
+
+    .subnav {
+        background-color: var(--secondary-color);
+        padding: 1rem;
+
+        a {
+            color: black;
+            text-decoration: none;
+        }
+    }
+}
+
+.wrapper {
+    background-color: var(--text-background-color);
+    flex: 1;
+}
+
+footer {
+    background-color:   var(--primary-color);
+    color:  var(--primary-color-text);
+    padding: 1rem;
+    color: white;
+}
