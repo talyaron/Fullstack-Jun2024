@@ -99,17 +99,21 @@ body {
 
 
 .partnershipcontainer {
-  margin-top: 5vh;
-  margin-right: 37vh;
   display: flex;
-  width: 70vh;
+  justify-content: center;
   align-items: center;
+  margin-top: 5vh;
+  margin-right: 36vw;
+  width: 70vh;
+  gap: 1.5rem;
+  
   
 }
 
 .partnershipcontainer img { 
   max-width: 100%; 
-  height: auto;   
+
+  
 }
 
 .partnershiplogo {
@@ -120,7 +124,7 @@ body {
   flex-direction: column;
   
 
-  .textcontainer {
+  .textcontainer1 {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -147,41 +151,117 @@ h1 {
 }
 
 .smalltitledownpage p {
-  font-size: 35px;
+  font-size: 23px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .greyline {
-  width: 200vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  width: 100%;
   height: 28vh;
   background-color: rgb(245, 245, 245);
   text-align: center;
 
   h1 {
-      color: black;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: xx-large;
-      margin-top: 3vw;
+    font-size: 25px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: black;
+    margin-top: 5vh;
+    margin-top: 2vh;
   }
 
   p {
-      margin-right: 82vh;
-      text-align: center;
-      color: rgb(0, 0, 0);
-      font-family: Arial, Helvetica, sans-serif;
-  }
-
-  .mail {
-      width: 700px;
-      height: 50px;
-      margin-right: 70vh;
-      background-color: transparent; 
-      border: 1px solid black; 
+    font-size: 25px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: black;
+    margin-bottom: 5vh;
+    margin-top: 1vh;
   }
 }
 
+.mail {
+  display: flex;
+  text-align: left;
+  width: 35%;
+  height: 50px;
+  background-color: transparent;
+  border: 1px solid black;
+  
+
+  p {
+
+    display: inline-block;
+    background-color: rgba(247, 4, 4, 0.815);
+    color: white;
+    margin: 0;
+    padding: 5px 20px;
+    
+  }
+}
+
+.verify {
+  display: flex;
+  flex-direction: row-reverse;
+
+  h1 {
+    font-size: 15px;
+    max-width: 500px;
+  }
+
+  .verifyicon {
+    display: flex;
+    margin-top: 2.3vh;
+    width: 13px;
+    height: 13px;
+    background-color: transparent;
+    border: 1px solid rgb(75, 79, 114);
+  }
+  }
+
+  .backgroundwrapper {
+    width: 100%;
+    height: 28vh;
+    background-color: rgb(82, 91, 112);
+  }
+
+    .textcontainer {
+      color: white;
+      display: flex;
+      justify-content: center;
+      margin-top: 5vh;
+      gap: 7vw
+      
+      
+    }
+
+    .textsection p {
+    
+      font-size: 15px;
+      margin: 1;
+    }
+   
 
 
 
 
 
+   
+      
+      
+   
+  
+
+
+
+ 
+
+
+
+
+
+
+
+  
