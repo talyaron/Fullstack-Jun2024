@@ -1,0 +1,48 @@
+.mid{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row-reverse;
+    height: auto;
+    overflow-y: visible;
+
+    &__articles{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        width: 65vw;
+
+        &__article{
+            direction: rtl;
+            padding: 1rem;
+            width: 30vw;
+
+            img{
+                width: 100%;
+            }
+            p{
+                font-weight: bold;
+                font-size: large;
+            }
+        }
+    }
+
+    &__chat{
+        position: sticky;
+        top: 1rem;
+        width: 15vw;
+        direction: rtl;
+        align-self: flex-start;
+        background-color: gray;
+
+        &__message{
+            background-color: white;
+            margin: 1rem;
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            h3{
+                color: red;
+            }
+        }
+    }
+}

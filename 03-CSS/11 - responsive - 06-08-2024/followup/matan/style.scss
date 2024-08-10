@@ -1,0 +1,25 @@
+
+
+/// 600
+@media (max-width: 600px) {
+    body {
+        background-color: red; 
+    }
+}
+
+/// 600-1200
+@media (min-width: 600px) {
+    body {
+        background-color: green; 
+    }
+}
+
+/// 1200
+@media (min-width: 1200px) {
+    body {
+        background-color: blue; 
+    }
+
+
+    
+}
