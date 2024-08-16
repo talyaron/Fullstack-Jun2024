@@ -15,13 +15,13 @@ function secondPaintScreen(color: string): void{
   }
 
   if (!usercolor) {
-    paintScreen("red");
+    paintScreen("black");
   } else {
     paintScreen(usercolor);
   }
   
   if (!secondcolor) {
-    secondPaintScreen("red");
+    secondPaintScreen("black");
   } else {
     secondPaintScreen(secondcolor);
   }

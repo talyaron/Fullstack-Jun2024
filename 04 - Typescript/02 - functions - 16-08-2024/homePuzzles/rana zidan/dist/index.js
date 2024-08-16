@@ -9,13 +9,13 @@ function secondPaintScreen(color) {
     document.body.style.color = color;
 }
 if (!usercolor) {
-    paintScreen("red");
+    paintScreen("black");
 }
 else {
     paintScreen(usercolor);
 }
 if (!secondcolor) {
-    secondPaintScreen("red");
+    secondPaintScreen("black");
 }
 else {
     secondPaintScreen(secondcolor);
