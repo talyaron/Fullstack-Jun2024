@@ -8,15 +8,5 @@ function paintScreen(color) {
 function secondPaintScreen(color) {
     document.body.style.color = color;
 }
-if (!usercolor) {
-    paintScreen("black");
-}
-else {
-    paintScreen(usercolor);
-}
-if (!secondcolor) {
-    secondPaintScreen("black");
-}
-else {
-    secondPaintScreen(secondcolor);
-}
+paintScreen(usercolor);
+secondPaintScreen(secondcolor);
