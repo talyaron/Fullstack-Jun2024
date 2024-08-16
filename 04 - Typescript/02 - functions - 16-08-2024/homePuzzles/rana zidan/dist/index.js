@@ -1,12 +1,12 @@
-var username = prompt("Please Enter your name");
-var usercolor = prompt("Please Enter your favorite color");
-var secondcolor = prompt("Please Enter your favorite second color");
-document.write("Hello, " + username + "! Your favorite color is " + usercolor + "!, and the second favorite color is " + secondcolor + "! ");
+var userName = prompt("Please Enter your name");
+var userColor = prompt("Please Enter your favorite color");
+var secondColor = prompt("Please Enter your favorite second color");
+document.write("Hello, " + userName + "! Your favorite color is " + userColor + "!, and the second favorite color is " + secondColor + "! ");
 function paintScreen(color) {
     document.body.style.backgroundColor = color;
 }
-function secondPaintScreen(color) {
+function SecondPaintScreen(color) {
     document.body.style.color = color;
 }
-paintScreen(usercolor);
-secondPaintScreen(secondcolor);
+paintScreen(userColor);
+SecondPaintScreen(secondColor);
