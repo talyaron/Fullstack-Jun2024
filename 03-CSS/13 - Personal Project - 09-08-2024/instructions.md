@@ -70,6 +70,7 @@ You can use box__info--highlighted (use modifier for the block)
 - Implement proper ARIA attributes where necessary
 - Ensure keyboard navigation functionality
 - Use semantic HTML elements appropriately
+
 correct: <footer> incorrect: <div class="footer">
 https://www.w3schools.com/html/html5_semantic_elements.asp
 
@@ -94,5 +95,3 @@ Points allocation:
 6. similarity to figma design - 10 points
 send the repo link to model
 To get score, you must submit by the deadline (before next class)
-```css
-```
