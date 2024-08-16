@@ -1,0 +1,10 @@
+var FirstName = "yosef";
+var LastName = "ibrahimi";
+var Email = "yosefib88@gmail.com";
+var Phone;
+0545732050;
+FirstName = prompt("Please enter your first name");
+LastName = prompt("Please enter your last name");
+Email = prompt("Please enter your email");
+Phone = Number(prompt("Please enter your phone number"));
+document.write("Hello " + FirstName + " " + LastName + "! Your email is " + Email + " and your phone number is " + Phone + ".");

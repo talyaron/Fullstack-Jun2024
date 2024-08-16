@@ -1,6 +1,6 @@
 //primitive variables
 
-let firstName:string |null = "Tal";
+let firstName:string | null = "Tal";
 let cartIemCount:number = 3;
 
 firstName = prompt("Please enter your name");
