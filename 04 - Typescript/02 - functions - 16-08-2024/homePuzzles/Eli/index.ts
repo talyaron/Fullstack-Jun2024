@@ -12,7 +12,7 @@ function paint(
   bcolor: string | null,
   fcolor: string | null,
   name: string | null
-) {
+) : void{
   if (name != null) {
     document.write(`Hello, ${name}!`);
   }
