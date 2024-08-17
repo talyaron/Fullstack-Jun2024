@@ -8,9 +8,9 @@ BackGroundColor = prompt("What is your fovorite BackGround Color");
 
 document.write(`Hello, ${FullName}! <br> Your favorite font color is ${FontColor}, and your favorite background color is ${BackGroundColor}`);
 
-print(FontColor,BackGroundColor);
+print1(FontColor,BackGroundColor);
 
-function print(font_color: string, rekka: string): void{
+function print1(font_color: string, rekka: string): void{
     document.body.style.color = font_color;
     document.body.style.background = rekka;
 
@@ -35,3 +35,4 @@ function print(font_color: string, rekka: string): void{
 
 
 alert("bye bye");
+
