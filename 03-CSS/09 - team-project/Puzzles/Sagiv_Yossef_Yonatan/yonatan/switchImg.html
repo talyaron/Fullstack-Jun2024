@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Toggle Button</title>
+    <style>
+        /* Hide the checkbox input */
+        #toggle {
+            display: none;
+        }
+
+        /* Style the container and image */
+        .image-container {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background-image: url('/03-CSS/01-css-selectors-02-07-2024/homePuzzle/yonatan_silam/logoynet2.jpg');
+            background-size: cover;
+            transition: background-image 0.5s ease-in-out;
+        }
+
+        /* Style the label as a button */
+        label {
+            display: block;
+            width: 100px;
+            height: 40px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        /* Change the background image when the checkbox is checked */
+        #toggle:checked ~ .image-container {
+            background-image: url('image2.jpg');
+        }
+    </style>
+</head>
+<body>
+    <!-- Hidden checkbox input -->
+    <input type="checkbox" id="toggle">
+    
+    <!-- Image container -->
+    <div class="image-container"></div>
+    
+    <!-- Label styled as a button -->
+    <label for="toggle">Change Image</label>
+</body>
+</html>
