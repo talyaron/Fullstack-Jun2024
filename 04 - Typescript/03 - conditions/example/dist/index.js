@@ -29,5 +29,18 @@ function isLegal(age) {
         return false;
     }
 }
+function tellUserIfLegalToDrink(isLegal) {
+    if (isLegal) {
+        return 'You are allowed to drink alcohol';
+    }
+    else {
+        return 'You are not allowed to drink alcohol';
+    }
+}
+// function nameOfFunction(parameter1: type1, parameter2: type2): returnType {
+//     // code
+// }
+debugger;
 var isLegalToDrink = isLegal(age);
-document.write("Is it legal to drink alcohol? " + isLegalToDrink);
+var message = tellUserIfLegalToDrink(isLegalToDrink);
+document.write(message);

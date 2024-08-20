@@ -32,3 +32,10 @@ Write a program that asks the user to enter a number. Then, tell the user if the
 
 These exercises will help you practice using if statements in Typescript. 
 
+## Exercise 4: Tax Calculator
+Write a program that asks the user to enter a salary and  Implement a function named calculateTax that takes an income amount and returns the tax amount based on the following brackets:
+
+Up to 10000: 0%
+10001 to 50000: 10%
+50001 to 100000: 20%
+Above 100000: 30%
