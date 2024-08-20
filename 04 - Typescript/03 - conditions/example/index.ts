@@ -36,3 +36,6 @@ function isLegal(age: number): boolean {
 
 const isLegalToDrink = isLegal(age);
 document.write(`Is it legal to drink alcohol? ${isLegalToDrink}`);
+
+
+
