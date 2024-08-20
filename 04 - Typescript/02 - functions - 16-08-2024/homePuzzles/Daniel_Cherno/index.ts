@@ -2,6 +2,7 @@ const defBgColor: string = "black";
 const defTextColor: string = "white";
 let usrName: string;
 let favColor: string = defBgColor;
+let HasFavColor: boolean = false;
 let otherFavColor: string =  defTextColor;
 
 function getInp(): void
@@ -11,15 +12,18 @@ function getInp(): void
     let color: string | null = prompt("Whats your favorite color?");
     setBgColorName(color);
 
-    color = prompt("Whats your other favorite color?");
-    setTextColorName(color);
-
+    if (HasFavColor)
+    {
+        color = prompt("Whats your other favorite color?");
+        setTextColorName(color);
+    }
 }
 
 function setBgColorName(color: string | null):void
 {
     if (color) // if not null
     {
+        HasFavColor = true;
         favColor = color;
     }
 }
@@ -34,7 +38,14 @@ function setTextColorName(color: string | null):void
 
 function renderMesssage(): void
 {
-    document.write(`Hello, ${usrName}! Your favorite color is ${favColor}!`)
+    if (HasFavColor)
+    {
+        document.write(`Hello, ${usrName}! Your favorite color is ${favColor}!`)
+    }
+    else
+    {
+        document.write(`Hello, ${usrName}!`)
+    }
 }
 
 function paintScreen(): void
