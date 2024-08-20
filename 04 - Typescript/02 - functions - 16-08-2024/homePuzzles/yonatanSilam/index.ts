@@ -1,44 +1,59 @@
 let Name:string | null = "yonatan";
 let Color:string | null = "black";
 let sColor:string|null= "pop";
+
 Name = prompt("Please enter your name");
-Color = (prompt("Please enter your favorite color"));
-sColor = (prompt("Please enter your second favorite color"));
-document.write(`Hello, ${Name}! Your favorite color is ${Color}!`)
+Color = prompt("Please enter your favorite color");
+sColor = prompt("Please enter your second favorite color");
 
-// if(Name !==null)
-// print(Name);
-// else
-// document.write(`Hello, johndou! Your favorite color is ${Color}!`)
+changeBackgroundColor(Color);
+printNameColor();
+changeContainerColor(sColor);
 
-if(Color == null || Color == "")
-    changeBackgroungColor("black");
-else{
-    changeBackgroungColor(Color);
-}
+function printNameColor():void{
 
-function changeBackgroungColor(c: string): void{
-    document.body.style.backgroundColor = c ;
-
-    if(sColor == null || sColor == "")
-        document.body.style.color = "white" ;
+let n =document.getElementById("art")
+if(n){
+    if(Name !== null && Name !== '')
+n.innerText = `hi ${Name}` ;
     else{
-        document.body.style.color = sColor ;    }
+ n.innerText = `hi ploni` ;
+    }
+}
+let display =document.getElementById("display")
+if(display){
+    if(Color !== null&& Color !== ''){
+display.innerText = ` Your favorite color is ${Color}!`;
+    }
+    else{
+    display.innerText = `Your favorite color is black!`;
+    }
+}
 
 }
-// function print(x:string):void{
-// document.write(`Hello, ${x}! Your favorite color is ${Color}!`)
-// }
+function changeBackgroundColor(c: string|null):void{
+    if(c === null || c === ""){
+        document.body.style.backgroundColor = "black" ;
+        document.body.style.color = "white" ;
+    }
+        else{
+        document.body.style.backgroundColor = c ;
+        document.body.style.color = c ; 
+        }
 
-// changeColor(Name, Color);
-// function changeColor(name: string|null, color: string|null) :void{
-//     console.log("hi");
-//     let art= document.getElementById('art');
-//     console.log(art);
-//     if(Name == null)
-//         return
-//     else{
-//     art= art+Name;
-//     console.log(art);
-//     }
+}
+
+function changeContainerColor(c: string | null): void {
+    const q = document.getElementById("con");
+
+    if (q) {
+        if (c === null || c === '') {
+            q.style.backgroundColor = "black";
+        } else {
+            q.style.backgroundColor = c;
+        }
+    } else {
+        console.error("Element with ID 'con' not found.");
+    }
+}
 
