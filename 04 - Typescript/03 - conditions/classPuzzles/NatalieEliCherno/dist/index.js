@@ -29,4 +29,4 @@ function giveGrades(grade) {
 }
 //print the answer to the user 
 var letterGrade = giveGrades(numberGrade);
-Document.write("Your grade is " + letterGrade);
+document.write("Your grade is " + letterGrade);

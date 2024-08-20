@@ -36,4 +36,4 @@ function giveGrades(grade: number): string {
 
 const letterGrade: string = giveGrades(numberGrade)
 
-Document.write(`Your grade is ${letterGrade}`)
+document.write(`Your grade is ${letterGrade}`)
