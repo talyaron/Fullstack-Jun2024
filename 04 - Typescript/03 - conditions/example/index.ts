@@ -33,6 +33,21 @@ function isLegal(age: number): boolean {
         return false;
     }
 }
+function tellUserIfLegalToDrink(isLegal:boolean): string {
+    if(isLegal) {
+        return 'You are allowed to drink alcohol';
+    } else {
+        return 'You are not allowed to drink alcohol';
+    }
+   
+}
 
-const isLegalToDrink = isLegal(age);
-document.write(`Is it legal to drink alcohol? ${isLegalToDrink}`);
+
+// function nameOfFunction(parameter1: type1, parameter2: type2): returnType {
+//     // code
+// }
+
+debugger;
+const isLegalToDrink:boolean = isLegal(age);
+const message: string = tellUserIfLegalToDrink(isLegalToDrink);
+document.write(message);
