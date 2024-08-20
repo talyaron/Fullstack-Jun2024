@@ -95,3 +95,4 @@ Points allocation:
 6. similarity to figma design - 10 points
 send the repo link to model
 To get score, you must submit by the deadline (before next class)
+7. Accessibility - 10 points bonus
