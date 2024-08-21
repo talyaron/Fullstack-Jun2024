@@ -15,9 +15,35 @@ function password_length(password) {
     else if (password.length >= 21)
         return document.write("<br> סיסמה ארוכה מדי - סיסמה צריך להכיל בין 8 עד 20 אותיות ומספרים");
 }
+function ex7() {
+    var num1 = Number(prompt("Enter the first number"));
+    var num2 = Number(prompt("Enter the second number"));
+    var operation = (prompt("what you want : + , - , /"));
+    var sum = null;
+    sum = calc(num1, num2, operation);
+    document.write("<br> the sum of ", num1, " and ", num2, " is " + sum);
+    function calc(num1, num2, operation) {
+        switch (operation) {
+            case "+":
+                {
+                    return String(num1 + num2);
+                    break;
+                }
+            case "-":
+                {
+                    return String(num1 - num2);
+                    break;
+                }
+        }
+    }
+}
 switch (ExerciseNumber) {
     case 5:
         document.write("you choose exercise number 5");
+        break;
+    case 7:
+        document.write("you choose exercise number 7");
+        ex7();
         break;
     case 8:
         document.write("you choose exercise number 8");
