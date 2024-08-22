@@ -62,8 +62,8 @@ document.write(result);
 //   if (password.length === 0) {
 //     return "Please enter a password longer than 8 characters and no more than 20 characters long."}
 //    else if (password.length > 20) {
-//         return "Please enter a passwor not longer than 20 characters long."}
-// else      if (password.length < 6) {
+//         return "Please enter a password not longer than 20 characters long."}
+// else      if (password.length < 8) {
 //     return "Please enter a password longer than 8 characters."}
 //     return "Great password, buddy!";
 //       }
