@@ -1,9 +1,4 @@
 // render objects to DOM
-// const user = {
-//     name:"",
-//     city:"",
-// }
-//make it a function that get the user details
 function getUserDetails() {
     try {
         // get the user name from the user
@@ -28,4 +23,7 @@ function getUserDetails() {
     }
 }
 var user = getUserDetails();
-document.write("Hi " + user.name + ", you are from " + user.city);
+function renderDetails(user) {
+    document.write("Hi " + user.name + ", you are from " + user.city);
+}
+renderDetails(user);

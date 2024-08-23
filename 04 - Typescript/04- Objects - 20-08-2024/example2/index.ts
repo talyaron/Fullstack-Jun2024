@@ -7,19 +7,26 @@
 
 //make it a function that get the user details
 
-function getUserDetails():{name:string, city:string} {
+//interface is the properties of the object
+interface User {
+    name: string;
+    city: string;
+}
+
+
+function getUserDetails(): User {
     try {
-        
+
         // get the user name from the user
         const name = prompt("pls enter your name");
 
         // get the user city from the user
         const city = prompt("pls enter your city");
 
-        if(!name || !city) throw new Error("Invalid input");
+        if (!name || !city) throw new Error("Invalid input");
 
         // return the user object
-        const user = {
+        const user:User = {
             name: name,
             city: city,
         }
@@ -34,6 +41,10 @@ function getUserDetails():{name:string, city:string} {
     }
 }
 
-const user = getUserDetails();
+const user:User = getUserDetails();
 
-document.write(`Hi ${user.name}, you are from ${user.city}`);
+function renderDetails(user: User) {
+    document.write(`Hi ${user.name}, you are from ${user.city}`);
+}
+
+renderDetails(user);
