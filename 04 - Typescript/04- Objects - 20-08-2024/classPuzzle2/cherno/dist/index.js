@@ -3,12 +3,8 @@
 function enterDetails() {
     var userName = prompt("pls enter your name");
     var userCity = prompt("pls enter your city");
-    debugger;
     try {
-        if (null == userCity ||
-            null == userName ||
-            "" == userCity ||
-            "" == userName) {
+        if (!userCity || !userName) {
             throw new Error("no input");
         }
         return { name: String(userName), city: String(userCity) };

@@ -5,13 +5,9 @@ function enterDetails(): {name: string, city: string, error?: string}
 
     const userName:string | null = prompt("pls enter your name");
     const userCity:string | null = prompt("pls enter your city");
-    debugger;
     try
     {
-        if (null == userCity ||
-            null == userName ||
-            "" == userCity   ||
-            "" == userName)
+        if (!userCity || !userName)
         {
             throw new Error("no input");
         }
