@@ -1,10 +1,8 @@
-const user = {
-    name : "";
-    city: "";
-}
+var user = {
+    name : prompt("please enter your name") || "no name available";
+    city : prompt("please enter your city") || "no city available";
 
-user.name= prompt("please enter your name");
-user.city= prompt("please enter your city");
+}
 
 console.log(user);
 
