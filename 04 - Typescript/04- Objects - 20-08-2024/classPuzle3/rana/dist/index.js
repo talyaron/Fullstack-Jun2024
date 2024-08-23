@@ -2,7 +2,7 @@ function PrintBookInfo() {
     try {
         var title = prompt("pls enter the book title");
         var author = prompt("pls enter the book author ");
-        var publicationYear = prompt("pls enter the book publication year");
+        var publicationYear = Number(prompt("pls enter the book publication year"));
         var user_1 = {
             title: title,
             author: author,
@@ -15,7 +15,7 @@ function PrintBookInfo() {
         return {
             title: "",
             author: "",
-            publicationYear: ""
+            publicationYear: Number
         };
     }
 }
