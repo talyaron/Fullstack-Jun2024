@@ -21,34 +21,34 @@
 // console.log(answer);
 
 // ### Exercise 5: Rock, Paper, Scissors Game
-// const user: string | null = prompt("Choose Rock/paper/scissors");
+const user: string | null = prompt("Choose Rock/paper/scissors");
 
 
-// const choice = ['rock', 'paper', 'scissors'];
-// const randomchoice = Math.floor(Math.random() * 3);
-// const computer = choice[randomchoice];
+const choice = ['rock', 'paper', 'scissors'];
+const randomchoice = Math.floor(Math.random() * 3);
+const computer = choice[randomchoice];
 
 
-// function Game(user: string): string{
+function Game(user: string): string{
 
-//   if(user === computer){
-//     return "Sorry, it tie."
-//   } else if(user === "rock" && computer === "scissors" || user === "paper" && computer === "rock" || user === "scissors" && computer === "paper"){
-//     return "You Win, Congratulations"
-//   } else{
-//     return "Computer Wins"
-//   }
-// }
+  if(user === computer){
+    return "Sorry, it tie."
+  } else if(user === "rock" && computer === "scissors" || user === "paper" && computer === "rock" || user === "scissors" && computer === "paper"){
+    return "You Win, Congratulations"
+  } else{
+    return "Computer Wins"
+  }
+}
 
 
-// if(user !== null){
-//   const result = Game(user);
-//   console.log(`Your Choose is ${user}`);
-//   console.log(`Computer Choose is ${computer}`);
-//   console.log(result);
-// } else{
-//   console.log("you dont chosen, paper/rock/scissors")
-// }
+if(user !== null){
+  const result = Game(user);
+  console.log(`Your Choose is ${user}`);
+  console.log(`Computer Choose is ${computer}`);
+  console.log(result);
+} else{
+  console.log("you dont chosen, paper/rock/scissors")
+}
 
 // ### Exercise 6: Simple Calculator
 

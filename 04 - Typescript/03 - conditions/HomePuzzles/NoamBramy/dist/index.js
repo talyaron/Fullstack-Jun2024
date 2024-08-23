@@ -18,27 +18,30 @@
 // const answer = checkLeapYear(year);
 // console.log(answer);
 // ### Exercise 5: Rock, Paper, Scissors Game
-// const user: string | null = prompt("Choose Rock/paper/scissors");
-// const choice = ['rock', 'paper', 'scissors'];
-// const randomchoice = Math.floor(Math.random() * 3);
-// const computer = choice[randomchoice];
-// function Game(user: string): string{
-//   if(user === computer){
-//     return "Sorry, it tie."
-//   } else if(user === "rock" && computer === "scissors" || user === "paper" && computer === "rock" || user === "scissors" && computer === "paper"){
-//     return "You Win, Congratulations"
-//   } else{
-//     return "Computer Wins"
-//   }
-// }
-// if(user !== null){
-//   const result = Game(user);
-//   console.log(`Your Choose is ${user}`);
-//   console.log(`Computer Choose is ${computer}`);
-//   console.log(result);
-// } else{
-//   console.log("you dont chosen, paper/rock/scissors")
-// }
+var user = prompt("Choose Rock/paper/scissors");
+var choice = ['rock', 'paper', 'scissors'];
+var randomchoice = Math.floor(Math.random() * 3);
+var computer = choice[randomchoice];
+function Game(user) {
+    if (user === computer) {
+        return "Sorry, it tie.";
+    }
+    else if (user === "rock" && computer === "scissors" || user === "paper" && computer === "rock" || user === "scissors" && computer === "paper") {
+        return "You Win, Congratulations";
+    }
+    else {
+        return "Computer Wins";
+    }
+}
+if (user !== null) {
+    var result = Game(user);
+    console.log("Your Choose is " + user);
+    console.log("Computer Choose is " + computer);
+    console.log(result);
+}
+else {
+    console.log("you dont chosen, paper/rock/scissors");
+}
 // ### Exercise 6: Simple Calculator
 // const firstnumber: number = Number(prompt("Please Enter your First Number"));
 // const secondnumber: number = Number(prompt("Please Enter your Second Number"));

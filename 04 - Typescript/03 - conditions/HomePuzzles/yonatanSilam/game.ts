@@ -1,51 +1,56 @@
 // return Math.floor(Math.random() * (max - min + 1)) + min;
 const userChoice: string | null = prompt("pls enter rock, paper, or scissors");
-var compChoiceP:string="";
+
 //rock=1
 //paper=2
 //scissors=3
- debugger;
-function rendonChoice(): string {
-  const rendomNumber = Math.floor(Math.random() * 3) + 1;
+
+function randomChoice(): string {
+  const rendomNumber = Math.floor(Math.random() * 3);
   switch (rendomNumber) {
-    case 1:
-        compChoiceP= "rock";
+    case 0:
       return "rock";
-    case 2:
-        compChoiceP= "paper";
+    case 1:
+
       return "paper";
-    case 3:
-        compChoiceP= "scissors";
+    case 2:
+
       return "scissors";
     default:
       return "null";
   }
 }
 //true is user win, false comp.
-function game(userChoice:string|null,compChoice:string):string{
-    
-    if(userChoice==null)
-        return "error"
-    if(userChoice=== compChoice)
-        return "its a tie!!"
-    if(userChoice=== "rock"){
-        if(compChoice ==="paper"){
-            return "u lose!!"
-        }else return "u win!!"
-    }
-    if(userChoice=== "paper"){
-        if(compChoice ==="scissors"){
-            return "u lose!!"
-    }else return "u win!!"
-    }
-    if(userChoice=== "scissors"){
-        if(compChoice ==="rock"){
-            return "u lose!!"
-        }else return "u win!!"
-    }
-    return "error"
+function game(userChoice: string | null): { result: string, compChoice: string, error?: string } {
+
+  const compChoice = randomChoice();
+
+  try {
+    if (userChoice == null) throw new Error("u didnt choose any ");
+
+    //exception
+    userChoice = userChoice?.toLowerCase();
+    if (userChoice !== "rock" && userChoice !== "paper" && userChoice !== "scissors") throw new Error("invalid tool");
+
+   
+
+    if (userChoice === compChoice)
+      return { result: "its a tie!!", compChoice: compChoice }
+    else if (
+      userChoice === "rock" && compChoice === "scissors"
+      || userChoice === "paper" && compChoice === "rock"
+      || userChoice === "scissors" && compChoice === "paper")
+      return { result: "u win!!", compChoice: compChoice }
+    else
+      return { result: "u lose!!", compChoice: compChoice }
+  } catch (e) {
+    console.error(e);
+    return { error: e.message, result: "", compChoice: compChoice };
+  }
 
 }
-// document.write(game(userChoice,rendonChoice()));
-const score:string=game(userChoice,rendonChoice());
-document.write(`u pick ${userChoice} vs ${compChoiceP} and ${score}`) 
+// document.write(game(userChoice,rendomChoice()));
+
+const result = game(userChoice);
+console.log(result);
+document.write(`u pick ${userChoice} vs ${result.compChoice} and ${result.result}`); 
