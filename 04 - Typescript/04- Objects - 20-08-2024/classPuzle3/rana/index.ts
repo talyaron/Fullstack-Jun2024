@@ -4,11 +4,11 @@ interface User {
   publicationYear: number;
 }
 
-function PrintBookInfo(): user {
+function PrintBookInfo(): User {
   try {
-    const title = prompt("pls enter the book title");
-    const author = prompt("pls enter the book author ");
-    const publicationYear = prompt("pls enter the book publication year");
+    const title:string = prompt("pls enter the book title");
+    const author:string = prompt("pls enter the book author ");
+    const publicationYear = Number(prompt("pls enter the book publication year"));
 
     const user: User = {
       title: title,
@@ -23,7 +23,7 @@ function PrintBookInfo(): user {
     return {
         title: "",
         author: "",
-        publicationYear: "",
+        publicationYear:Number,
     }
   }
 }
