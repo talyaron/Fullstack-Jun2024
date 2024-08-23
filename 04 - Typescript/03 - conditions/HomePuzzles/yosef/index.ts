@@ -76,7 +76,6 @@ function ex7(): void{    /* תרגיל המיני מחשבון */
 
 }
 }
-}
 
 
 switch (ExerciseNumber) {
@@ -95,6 +94,10 @@ switch (ExerciseNumber) {
        const new_password = String (prompt("Enter your pasword"));
        password_length(new_password);
        break;
+
+    case 9:
+        ex9();
+        break;
 
     default:
         document.write("לא בחרת מספר תרגיל לא נכון");
