@@ -1,9 +1,10 @@
 alert('שלום למערכת של יוסף')
-alert("אנחנו הולכים לפתור 5 תרגילים")
+alert('תכף יופיע לך 5 תרגילים שונים - תבחר מה שאתה רוצה')
+alert("תרגיל 5 על בדיקת שנה --- תרגיל 6 על משחק אבן,נייר,מספרים --- תרגיל 7 על מיני מחשבון --- תרגיל 8 על בדיקת איכות סיסמה --- תרגיל 9 על מעלות מזג אוויר")
 const ExerciseNumber = Number (prompt("בחר מס' תרגיל - בין 5-9"));
 console.log(ExerciseNumber);
 
-function password_length (password: string): string {
+function password_length (password: string): string {   /* תרגיל 8 - עוצמת הסיסמה שלך */
     
     document.write("<br>");
     document.write("your password length is : " password.length);
@@ -22,13 +23,13 @@ function password_length (password: string): string {
         
 }
 
-function ex7(): void{
+function ex7(): void{    /* תרגיל המיני מחשבון */
     const num1 : Number = Number(prompt("Enter the first number"));
     const num2 : Number = Number(prompt("Enter the second number"));
-    const operation : String =  (prompt("what you want : + , - , /"));
-    const sum : number = null;
-    sum=calc(num1, num2, operation);
-    document.write("<br> the sum of " num1 " and " num2 " is " + sum);
+    const operation : String = (prompt("what you want : + , - , /,*"));
+    const answer : number = null;
+    answer=calc(num1, num2, operation);
+    document.write("<br> the result of " num1 " "  " "  operation  " " " " num2 " is "  answer);
 
 
     function calc (num1: number, num2: number, operation: string): number{
@@ -45,6 +46,31 @@ function ex7(): void{
                     {
                      return String(num1 - num2);
                      break
+                    }
+
+                case "/":
+                    {
+                        if (num2!=0)
+                              {
+                                if (num1>num2)
+                                return String(num1 / num2);
+                            else
+                                return String(num2 / num1);
+                                }
+                            else
+                         return "Error: Division by zero";
+                         break;
+ 
+                    }
+
+                
+                    case "*":
+                        {
+                         return String(num1 * num2);
+                         break;
+                        }
+                        
+                    default:
                     }
                      
 
