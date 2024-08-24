@@ -80,5 +80,5 @@ function calculateArea(rectangle: Rectangle): number {
   }
 }
 const rectangle = getRectangle();
-const result: number = calculateArea(rectangle);
+const result = calculateArea(rectangle);
 document.write(`the area is ${result}`);
