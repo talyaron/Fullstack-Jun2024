@@ -1,4 +1,4 @@
-var exercise_number = Number(prompt("What exercise do you want to try 7-10") || alert("you dont chose number exercise"));
+var exercise_number = Number(prompt("What exercise do you want to try 7-10 --- In the meantime only exercise 7 is ready") || alert("you dont chose number exercise"));
 switch (exercise_number) {
     case 7:
         ex7();
@@ -16,6 +16,7 @@ switch (exercise_number) {
         alert("Invalid exercise number");
 }
 function ex7() {
+    var _a;
     alert('lets create a new bank account');
     var new_use = creat_Account();
     function creat_Account() {
@@ -25,6 +26,7 @@ function ex7() {
             accountNumber: accountNumber,
             balance: balance
         };
+        document.write("<br> A bank account has now been created with a bank account number " + accountNumber + " with balance " + balance);
         return new_member;
     }
     var action_number = String(prompt("What action do you want to: Deposit / Attraction / Transfer") || null);
@@ -37,6 +39,16 @@ function ex7() {
         case "attraction":
             {
                 attraction();
+                break;
+            }
+        case "transfer":
+            {
+                alert("בוא ניצור קודם חשבון בנק שברצינינו להעביר אליו");
+                var new_user_transfer = creat_Account();
+                var money_transfer = Number(prompt("how money you want to send"));
+                _a = Transfer(new_use, new_user_transfer, money_transfer), new_use = _a[0], new_user_transfer = _a[1];
+                console.log(new_use);
+                console.log(new_user_transfer);
                 break;
             }
         default:
@@ -59,7 +71,19 @@ function ex7() {
             document.write("your bank number " + new_use.accountNumber + " have " + new_use.balance + " shekel , you cant attraction " + attraction_amount);
         }
     }
-    document.write("<br> your bank number " + new_use.accountNumber + " have " + new_use.balance + " shekel");
+    function Transfer(sender, reciver, money_send) {
+        if (sender.balance > money_send) {
+            reciver.balance += money_send;
+            sender.balance -= money_send;
+            document.write("<br> Hello, bank account number: " + sender.accountNumber + " After the transfer " + money_send + " your balance stands at " + sender.balance);
+            document.write("<br> Hello, bank account number: " + reciver.accountNumber + " After the recived the money " + money_send + " your balance stands at " + reciver.balance);
+        }
+        else {
+            alert("sorry you dont have money to send -- go to work");
+        }
+        return [sender, reciver];
+    }
+    788;
     // function creat_Account(): {
     //     BankAccount.accountNumber = Number(prompt("enter account number"));
     //     BankAccount.balance = Number(prompt("enter initial balance"));
