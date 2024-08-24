@@ -4,10 +4,10 @@ var secondColor = prompt("Please enter your second color:");
 colorPreferred(userName, firstColor, secondColor);
 console.log(firstColor);
 function colorPreferred(name, firstColor, secondColor) {
-    if (firstColor === "") {
+    if (firstColor == "") {
         firstColor = 'black';
     }
-    if (secondColor === "") {
+    if (secondColor == "") {
         secondColor = 'white';
     }
     document.body.style.backgroundColor = firstColor;
