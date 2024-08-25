@@ -1,4 +1,4 @@
-var exercise_number = Number(prompt("What exercise do you want to try 7-10 --- In the meantime only exercise 7 is ready") || alert("you dont chose number exercise"));
+var exercise_number = Number(prompt("What exercise do you want to try 7 or 10") || alert("you dont chose number exercise"));
 switch (exercise_number) {
     case 7:
         ex7();
@@ -11,6 +11,7 @@ switch (exercise_number) {
         break;
     case 10:
         ex10();
+        document.write("the result in console");
         break;
     default:
         alert("Invalid exercise number");
@@ -83,13 +84,35 @@ function ex7() {
         }
         return [sender, reciver];
     }
-    788;
-    // function creat_Account(): {
-    //     BankAccount.accountNumber = Number(prompt("enter account number"));
-    //     BankAccount.balance = Number(prompt("enter initial balance"));
-    // }
-    // function deposit() {
-    //     BankAccount.accountNumber = Number(prompt("Enter account number"));
-    //     BankAccount.balance += Number(prompt("Enter deposit amount"));
-    // }
+}
+function ex10() {
+    var Alice = { name: "Alice", address: "123 Main St" };
+    var Laptop = { id: 1, name: "Laptop", price: 1000 };
+    var Yosef = { name: "Yosef", address: "Al Rashid 9" };
+    var Iphone = { id: 2, name: "Iphone A15 plus", price: 7000 };
+    var new_order = CreateOrder(Alice, Laptop, 2);
+    var how_much = CalucateTotal(new_order);
+    console.log(new_order);
+    console.log(how_much);
+    var new_order = CreateOrder(Alice, Laptop, 3);
+    var how_much = CalucateTotal(new_order);
+    var invoce = GenerateInvoice(new_order);
+    console.log(new_order);
+    console.log(how_much);
+    console.log(invoce);
+    function CreateOrder(client, item, number_item) {
+        var order = {
+            customer: client,
+            product: item,
+            quantity: number_item
+        };
+        return order;
+    }
+    function CalucateTotal(order) {
+        return order.quantity * order.product.price;
+    }
+    function GenerateInvoice(order) {
+        var text = ("\n                              hey " + order.customer.name + "\n                              from " + order.customer.address + "\n                              you have buy " + order.product.name + "\n                              your quantity " + order.quantity + "\n                              price per unit " + order.product.price + "\n                              total in shekel is " + CalucateTotal(order) + "\n                                ");
+        return text;
+    }
 }
