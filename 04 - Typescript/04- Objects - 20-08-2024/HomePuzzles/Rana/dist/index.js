@@ -1,3 +1,6 @@
+// exercise 1- Book Information
+// // Create an interface for a Book with properties: title, author, and publicationYear.
+// // Write a function that takes a Book object and returns a formatted string with the book's information.
 function calculateArea(circle) {
     try {
         if (circle.radius < 0) {
