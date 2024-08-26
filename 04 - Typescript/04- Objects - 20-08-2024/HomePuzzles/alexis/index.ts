@@ -77,3 +77,11 @@
 // }
 // const circle: Circle = getRadius();
 // displayCircleInfo(circle);
+
+//excersize 3
+
+interface temperature{
+    value:number;
+    unit: strung
+    ;
+}
