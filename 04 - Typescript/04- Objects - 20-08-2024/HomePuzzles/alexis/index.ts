@@ -82,6 +82,20 @@
 
 interface temperature{
     value:number;
-    unit: strung
+    unit: string
     ;
+}
+
+function getValue(){
+    try {
+        const value:number = Number(prompt("Please enter a temperature value"));
+    const unit:string = prompt("Please enter c or f");
+const temperature:temperature={
+    value:value,
+    unit:unit,
+}
+
+} catch (error) {
+        
+    }
 }
