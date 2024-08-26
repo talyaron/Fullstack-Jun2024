@@ -170,73 +170,73 @@
 //  then returns the person's age at that reference date.
 
 
-interface Person {
-    name: string;
-    BirthDate: Date;
-}
+// interface Person {
+//     name: string;
+//     BirthDate: Date;
+// }
 
-function getPersonInfo(): Person {
-    try {
-        const name: string | null = prompt("Enter your name");
+// function getPersonInfo(): Person {
+//     try {
+//         const name: string | null = prompt("Enter your name");
 
-        if (!name) {
-            throw new Error("Invalid input: name cannot be null.");
-        }
+//         if (!name) {
+//             throw new Error("Invalid input: name cannot be null.");
+//         }
 
-        const birthDateInput = prompt("Enter your birth year (YYYY-MM-DD format)");
-        if (!birthDateInput) {
-            throw new Error("Invalid input: birth date cannot be null.");
-        }
+//         const birthDateInput = prompt("Enter your birth year (YYYY-MM-DD format)");
+//         if (!birthDateInput) {
+//             throw new Error("Invalid input: birth date cannot be null.");
+//         }
 
-        const birthDate = new Date(birthDateInput);
-        if (isNaN(birthDate.getTime())) {
-            throw new Error("Invalid input: not a valid date.");
-        }
+//         const birthDate = new Date(birthDateInput);
+//         if (isNaN(birthDate.getTime())) {
+//             throw new Error("Invalid input: not a valid date.");
+//         }
 
-        const person: Person = {
-            name: name,
-            BirthDate: birthDate,
-        };
+//         const person: Person = {
+//             name: name,
+//             BirthDate: birthDate,
+//         };
 
-        console.log(person);
+//         console.log(person);
 
-        return person;
+//         return person;
 
-    } catch (error) {
-        console.error(error);
+//     } catch (error) {
+//         console.error(error);
         
-        return {
-            name: "Unknown",
-            BirthDate: new Date(0), 
-        };
-    }
-}
+//         return {
+//             name: "Unknown",
+//             BirthDate: new Date(0), 
+//         };
+//     }
+// }
 
-function ageCalculator(person: Person, referenceDate: Date): number {
-    try {
-        const birthDate = person.BirthDate;
-        let age = referenceDate.getFullYear() - birthDate.getFullYear();
-        const m = referenceDate.getMonth() - birthDate.getMonth();
+// function ageCalculator(person: Person, referenceDate: Date): number {
+//     try {
+//         const birthDate = person.BirthDate;
+//         let age = referenceDate.getFullYear() - birthDate.getFullYear();
+//         const m = referenceDate.getMonth() - birthDate.getMonth();
 
-        if (m < 0 || (m === 0 && referenceDate.getDate() < birthDate.getDate())) {
-            age--;
-        }
+//         if (m < 0 || (m === 0 && referenceDate.getDate() < birthDate.getDate())) {
+//             age--;
+//         }
 
-        return age;
-    } catch (error) {
-        console.error(error);
-        return 0; 
-    }
-}
+//         return age;
+//     } catch (error) {
+//         console.error(error);
+//         return 0; 
+//     }
+// }
 
-const person = getPersonInfo();
+// const person = getPersonInfo();
 
-const referenceDate = new Date(); 
+// const referenceDate = new Date(); 
 
-const age = ageCalculator(person, referenceDate);
+// const age = ageCalculator(person, referenceDate);
 
-document.write(`Your age is ${age}`);
-console.log(`Your age is ${age}`);
+// document.write(`Your age is ${age}`);
+// console.log(`Your age is ${age}`);
 
 
 //// 5. Car Fuel Efficiency ////
@@ -244,10 +244,228 @@ console.log(`Your age is ${age}`);
 //  (with distance and fuelPrice properties). 
 //  Write a function that calculates the fuel cost for a given Car and Trip.
 
+
+// interface car {
+//     make: string;
+//     model: string;
+//     fuelEfficiency: number;
+// }
+
+// interface trip {
+//     distance: number;
+//     fuelPrice: number;
+// }
+
+// function getCarInfo(): car {
+//     try {
+//         const make: string | null = prompt("Enter your make");
+
+//         if (!make) {
+//             throw new Error("Invalid input: make be null.");
+//         }
+//         const model: string | null = prompt("Enter car model");
+
+//         if (!model) {
+//             throw new Error("Invalid input: car model cant be null.");
+//         }
+
+//         const fuelEfficiency = Number(prompt("Enter fuel efficiency (km per liter)"));
+//         if (isNaN(fuelEfficiency) || fuelEfficiency <= 0) {
+//             throw new Error("Invalid input: fuel efficiency must be a positive number.");
+//         }
+
+
+//         const car: car = {
+//             make: make,
+//             model: model,
+//             fuelEfficiency: fuelEfficiency,
+//         };
+
+//         console.log(car);
+
+//         return car;
+
+//     } catch (error) {
+//         console.error(error);
+        
+//         return {
+//             make: "unknown",
+//             model: "unknown",
+//             fuelEfficiency: 0,
+//         };
+//     }
+// }
+
+// function getTripInfo(): trip {
+//     try {
+//         const distance = Number(prompt("Enter distance in kilometers"));
+//         if (isNaN(distance) || distance <= 0) {
+//             throw new Error("Invalid input: distance must be a positive number.");
+//         }
+
+//         const fuelPrice = Number(prompt("Enter fuel price per liter"));
+//         if (isNaN(fuelPrice) || fuelPrice <= 0) {
+//             throw new Error("Invalid input: fuel price must be a positive number.");
+//         }
+
+//         const trip: trip = {
+//             distance: distance,
+//             fuelPrice: fuelPrice,
+//         };
+
+//         console.log(trip);
+
+//         return trip;
+
+//     } catch (error) {
+//         console.error(error);
+//         return {
+//             distance: 0,
+//             fuelPrice: 0,
+//         };
+//     }
+// }
+
+// //  Write a function that calculates the fuel cost for a given Car and Trip.
+
+// function fuelCost (car: car, trip: trip): number {
+//     try {
+//         if (car.fuelEfficiency === 0) {
+//             throw new Error("Fuel efficiency cannot be zero.");
+//         }
+//         const cost = (trip.distance / car.fuelEfficiency) * trip.fuelPrice;
+
+//         return cost;
+//     } catch (error) {
+//         console.error(error);
+//         return 0; 
+//     }
+// }
+
+
+// const car = getCarInfo();
+// const trip = getTripInfo();
+// const cost = fuelCost(car, trip);
+
+// document.write(`The cost of your trip is: $${cost.toFixed(2)}`);
+// console.log(`The cost of your trip is: $${cost.toFixed(2)}`);
+
+
+
 //// 6. Product Discount ////
 // Define interfaces for Product (with name, price, and category) and Discount
 //  (with category and percentage).  Implement a function that applies the discount to the product 
 //  if the categories match, returning a new Product object.
+
+
+interface Product {
+    name: string;
+    price: number;
+    category: string;
+}
+
+interface Discount {
+    category:  string;
+    percentage: number;
+}
+
+function getProductInfo(): Product {
+    try {
+        const name: string | null = prompt("Enter product name");
+
+        if (!name) {
+            throw new Error("Invalid input: name is null.");
+        }
+        const price: number = Number(prompt("Enter product price"));
+
+        if (isNaN(price) || price <= 0)  {
+            throw new Error("Invalid input: product price cant be null.");
+        }
+        const category: string | null = prompt("Enter product category");
+
+        if (!category) {
+            throw new Error("Invalid input: category is null.");
+        }
+
+
+        const Product: Product = {
+    name: name,
+    price: price,
+    category: category,
+        };
+
+        console.log(Product);
+
+        return Product;
+
+    } catch (error) {
+        console.error(error);
+        
+        return {
+            name: "unknown",
+            price: 0,
+            category:"unknown",
+        };
+    }
+}
+
+function getDiscountInfo(): Discount {
+    try {
+        const category: string | null = prompt("Enter product category");
+
+        if (!category) {
+            throw new Error("Invalid input: category is null.");
+        }
+        const percentage: number = Number(prompt("Enter percentage in %"));
+
+        if (isNaN(percentage) || percentage <= 0)  {
+            throw new Error("Invalid input: percentage cant be null.");
+        }
+
+        const Discount: Discount = {
+            category:  category,
+            percentage: percentage,
+        };
+
+        console.log(Discount);
+
+        return Discount;
+
+    } catch (error) {
+        console.error(error);
+        
+        return {
+            category:  "unknown",
+            percentage: 0
+        };
+    }
+}
+
+function applyDiscount(product: Product, discount: Discount): Product {
+    try {
+        if (product.category === discount.category) {
+            const discountedPrice = product.price - (product.price * (discount.percentage / 100));
+            return {
+                ...product,
+                price: discountedPrice
+            };
+        } else {
+            console.log("No discount applied. Categories do not match.");
+            return product;
+        }
+    } catch (error) {
+        console.error(error);
+        return product;
+    }
+}
+
+const product = getProductInfo();
+const discount = getDiscountInfo();
+const discountedProduct = applyDiscount(product, discount);
+
+document.write(`The cost of ${discountedProduct.name} after the discount is: $${discountedProduct.price.toFixed(2)}`);
+console.log(`The cost of ${discountedProduct.name} after the discount is: $${discountedProduct.price.toFixed(2)}`);
+
 
 
 ////  7. Bank Account Operations ////
