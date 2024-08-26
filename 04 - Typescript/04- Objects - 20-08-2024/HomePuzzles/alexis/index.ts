@@ -46,31 +46,29 @@
 //     radius: number;
 //     area: number;
 //   }
-  
+
 //   function getRadius(): Circle {
 //     try {
 //       const input = prompt("Enter a radius");
 //       const radius: number = Number(input);
-  
 
 //       if (isNaN(radius) || radius < 0) {
 //         console.error("Invalid input. Radius must be a non-negative number.");
 //         return { radius: 0, area: 0 };
 //       }
-  
 
 //       const area: number = radius ** 2 * Math.PI;
 //       const circle: Circle = { radius:radius, area:area };
-  
-//       console.log(circle); 
+
+//       console.log(circle);
 //       return circle;
-  
+
 //     } catch (error) {
 //       console.error("An error occurred:", error);
 //       return { radius: 0, area: 0 };
 //     }
 //   }
-  
+
 //   function displayCircleInfo(circle: Circle) {
 
 //     document.write(`The area of the circle is ${circle.area.toFixed(2)} and the radius is ${circle.radius.toFixed(2)}.`);
@@ -78,28 +76,70 @@
 // const circle: Circle = getRadius();
 // displayCircleInfo(circle);
 
-//excersize 3
+// ### 3. Temperature Converter
+// Create an interface for Temperature with properties: value and unit (either 'C' or 'F').
+// Write a function that takes a Temperature object and converts it to the opposite unit, returning a new Temperature object.
 
-interface temperature{
-    value:number;
-    unit: string
-    ;
+interface Temperature {
+  value: number;
+  unit: string;
 }
 
-function getValue(){
+function getValue(): Temperature {
+  try {
+    let value:number = Number(prompt("enter a temperature value"));
+    let unit:string = prompt("enter a temperature value");
+  
+
+    const temp: Temperature = {
+      value: value,
+      unit: unit,
+    };
+    if (isNaN(value)||(unit !== "c" || unit !== "C" || unit !== "f" || unit !== "F")) {
+        throw new Error("Invalid input.");
+      }
+  else
+    return temp;
+  } catch (error) {
+    console.error(error);
+    return {
+      value: 0,
+      unit: "",
+    };
+  }
+}
+
+const result:Temperature = getValue();
+
+function convertTemp(result:Temperature):Temperature{
     try {
-        const value:number = Number(prompt("Please enter a temperature value"));
-    const unit:string = prompt("Please enter c or f");
-const temperature:temperature={
-    value:value,
-    unit:unit,
-}
 
-} catch (error) {
-    concole.error("error has occurred");
+        if (result.unit === "c"||result.unit==="C"){
+           const value = (result.value - 32) * 5/9;
+        const temperature:Temperature={
+            value:value,
+            unit:result.unit,
+        }
+           console.log(temperature);
+        }else 
+        if (result.unit === "f"||result.unit==="F"){
+            const value = (result.value *9/5) + 32;
+        
+            console.log(temperature);
+         }
+         const temperature:Temperature={
+            value:value,
+            unit:result.unit,
+        }
+         return temperature;
+
+    } catch (error) {
+        console.error(error);
         return{
             value:0,
             unit:"",
-}
+        }
     }
 }
+
+convertTemp(result);
