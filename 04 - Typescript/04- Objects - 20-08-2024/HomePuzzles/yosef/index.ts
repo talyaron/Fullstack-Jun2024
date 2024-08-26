@@ -1,4 +1,4 @@
-var exercise_number:number = Number(prompt("What exercise do you want to try 7-10 --- In the meantime only exercise 7 is ready") || alert("you dont chose number exercise"));
+var exercise_number:number = Number(prompt("What exercise do you want to try 7 or 10") || alert("you dont chose number exercise"));
 
 switch (exercise_number) {
     case 7:
@@ -12,6 +12,7 @@ switch (exercise_number) {
         break;
     case 10:
         ex10();
+        document.write("the result in console");
         break;
     default:
         alert("Invalid exercise number");
@@ -107,18 +108,83 @@ function ex7() {
         return [sender,reciver]
     
     } 
-788
-    // function creat_Account(): {
-    //     BankAccount.accountNumber = Number(prompt("enter account number"));
-    //     BankAccount.balance = Number(prompt("enter initial balance"));
+}
 
-    // }
+function ex10()
+{
+    interface Product
+    {
+        id : number;
+        name : string;
+        price : number;
+    }
 
-    // function deposit() {
-    //     BankAccount.accountNumber = Number(prompt("Enter account number"));
-    //     BankAccount.balance += Number(prompt("Enter deposit amount"));
-       
-    // }
+    interface Customer
+    {
+        name : string;
+        address : string;
+    }
+
+    interface Order   /* ממשק בתוך ממשק */
+    {
+        customer : Customer
+        product : Product
+        quantity : number;
+    }
+
+    const Alice: Customer = { name: "Alice", address: "123 Main St" };
+    const Laptop: Product = { id: 1, name: "Laptop", price: 1000 };
+
+    const Yosef: Customer = { name: "Yosef", address: "Al Rashid 9" };
+    const Iphone: Product = { id: 2, name: "Iphone A15 plus", price: 7000 };
+
+    var new_order : Order = CreateOrder(Alice,Laptop,2);
+    var how_much : Number = CalucateTotal(new_order);
+
+    console.log(new_order);
+    console.log(how_much);
+
+    var new_order : Order = CreateOrder(Alice,Laptop,3);
+    var how_much : Number = CalucateTotal(new_order);
+    var invoce : string = GenerateInvoice(new_order);
+
+    console.log(new_order);
+    console.log(how_much);
+    console.log(invoce);
+
+
+
+    function CreateOrder (client: Customer, item: Product, number_item : number) : Order
+    {
+        const order : Order = {
+        customer : client,
+        product : item,
+        quantity : number_item
+        }
+
+        return order;
+
+}
+
+    function CalucateTotal (order : Order) : Number
+    {
+
+        return order.quantity * order.product.price
+    }
+
+    function GenerateInvoice (order : Order) : string
+    {
+        var text : string = (`
+                              hey ${order.customer.name}
+                              from ${order.customer.address}
+                              you have buy ${order.product.name}
+                              your quantity ${order.quantity}
+                              price per unit ${order.product.price}
+                              total in shekel is ${CalucateTotal(order)}
+                                `);
+        return text;
+        }
+
 }
 
     
