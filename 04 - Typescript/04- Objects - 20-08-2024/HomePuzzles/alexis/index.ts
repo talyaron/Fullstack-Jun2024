@@ -148,27 +148,72 @@
 
 // display(final);
 
-
 // ### 4. Person Age Calculator
-// Define an interface for a Person with name and birthDate properties. 
+// Define an interface for a Person with name and birthDate properties.
 // Implement a function that takes a Person object and a reference date, then returns the person's age at that reference date.
 
-
-interface Person{
-    name:string;
-    birthDate:number;
+interface Person {
+  name: string;
+  birthDate: Date;
 }
 
-function getData(){
-    const name:string = prompt("What's your name?");
-    const birthDate:number = Number(prompt("When is your birthday?"));
-    const referenceDate:number = Number(prompt("What day is it today?"));
-    
+function getData(): Person {
+  try {
+    const name: string | null = prompt("What's your name?");
+    const birthDateInput: string | null = prompt(
+      "When is your birthday? (YYYY-MM-DD)"
+    );
+
+    if (!name || !birthDateInput) {
+      throw new Error("Name or birthdate is missing.");
+    }
+    const birthDate: Date = new Date(birthDateInput);
+    const person: Person = {
+      name: name,
+      birthDate: birthDate,
+    };
+
+    console.log(person);
+    return person;
+  } catch (error) {
+    console.error("An error has occurred:", error.message);
+    return {
+      name: "",
+      birthDate: new Date(0),
+    };
+  }
 }
 
+const person = getData();
+function calculateAge(person: Person): number {
+  try {
+    const dateInput: string | null = prompt("Enter a date (YYYY-MM-DD)");
+    if (!dateInput) {
+        throw new Error("Date is missing.");
+      }
+    const date: Date = new Date(dateInput);
+    const birthDate: Date = person.birthDate;
 
+    let age: number = date.getFullYear() - birthDate.getFullYear();
+    const monthDifference: number = date.getMonth() - birthDate.getMonth();
 
+    if (
+      monthDifference < 0 ||
+      (monthDifference === 0 && date.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
 
+    console.log(`Hi, ${person.name}. Your age today is ${age}`);
+    document.write(`Hi, ${person.name}, your age today is ${age}`);
+    return age;
+  } catch (error) {
+    console.error(
+      "An error has occurred during age calculation:",
+      error.message
+    );
+    return 0;
+  }
+}
 
-
-
+calculateAge(person);
