@@ -38,6 +38,9 @@
 //     document.write(`The book ${book.title}, was written by ${book.author} and published in ${book.publicationYear}`);
 // }
 
+
+
+
 //exercise 2 -Circle Area:
 /*
 interface Circle {
@@ -70,6 +73,9 @@ if (isNaN(radius)) {
     console.log("The circle area is:", area);
 }
 */
+
+
+
 
 //exercise 3- Temperature Converter
 /*
@@ -105,6 +111,8 @@ try {
 }
 
 */
+
+
 
 //exercise 4-Person Age Calculator
 
