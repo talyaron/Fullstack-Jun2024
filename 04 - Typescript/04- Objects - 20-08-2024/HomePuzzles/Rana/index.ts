@@ -72,6 +72,7 @@ if (isNaN(radius)) {
 */
 
 //exercise 3- Temperature Converter
+/*
 interface Temperature {
   value: number;
   unit: string;
@@ -102,3 +103,63 @@ try {
 } catch (error) {
   document.write("An error occurred: " + (error as Error).message);
 }
+
+*/
+
+//exercise 4-Person Age Calculator
+
+/*
+interface Person {
+  name: string;
+  birthDate: Date;
+}
+
+function calculateAge(person: Person, referenceDate: Date): number | null {
+  try {
+    const birthDate = new Date(person.birthDate);
+    const refDate = new Date(referenceDate);
+
+    // בדיקה אם תאריך הייחוס קטן מתאריך הלידה
+    if (refDate < birthDate) {
+      throw new Error("תאריך הייחוס לא יכול להיות מוקדם מתאריך הלידה");
+    }
+
+    let age = refDate.getFullYear() - birthDate.getFullYear();
+    const monthDiff = refDate.getMonth() - birthDate.getMonth();
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && refDate.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+
+    document.write(`גיל ${person.name} בתאריך הייחוס הוא ${age} שנים.<br>`);
+    console.log(`גיל ${person.name} בתאריך הייחוס הוא ${age} שנים.`);
+
+    return age;
+  } catch (error) {
+    document.write(`שגיאה: ${(error as Error).message}<br>`);
+    console.error(`שגיאה: ${(error as Error).message}`);
+    return null;
+  }
+}
+
+function getPersonAndDateFromPrompt(): void {
+  const name = prompt("הכנס את שמו של האדם:");
+  const birthDateStr = prompt(
+    "הכנס את תאריך הלידה של האדם (פורמט YYYY-MM-DD):"
+  );
+  const referenceDateStr = prompt("הכנס את תאריך הייחוס (פורמט YYYY-MM-DD):");
+
+  if (name && birthDateStr && referenceDateStr) {
+    const birthDate = new Date(birthDateStr);
+    const referenceDate = new Date(referenceDateStr);
+
+    const person: Person = { name, birthDate };
+    calculateAge(person, referenceDate);
+  } else {
+    document.write("אנא מלא את כל השדות.<br>");
+  }
+}
+getPersonAndDateFromPrompt();
+*/
