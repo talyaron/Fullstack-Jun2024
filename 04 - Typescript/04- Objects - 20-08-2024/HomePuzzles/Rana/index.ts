@@ -72,42 +72,33 @@ if (isNaN(radius)) {
 */
 
 //exercise 3- Temperature Converter
-
 interface Temperature {
-    value: number;  
-    unit: string;  
+  value: number;
+  unit: string;
 }
 
 function convertTemperature(temp: Temperature): Temperature {
-    try {
-        
-        const convertedValue = (temp.value * 9/5) + 32;
-        return { value: convertedValue, unit: 'F' };
-    } catch {
-        
-        try {
-            const convertedValue = (temp.value - 32) * 5/9;
-            return { value: convertedValue, unit: 'C' };
-        } catch {
-            throw new Error("Unit must be either 'C' or 'F'");
-        }
-    }
+  if (temp.unit === "C") {
+    const convertedValue = (temp.value * 9) / 5 + 32;
+    return { value: convertedValue, unit: "F" };
+  } else if (temp.unit === "F") {
+    const convertedValue = ((temp.value - 32) * 5) / 9;
+    return { value: convertedValue, unit: "C" };
+  } else {
+    throw new Error("Unit must be either 'C' or 'F'");
+  }
 }
-
 
 const valueInput = prompt("Enter the temperature value:")!;
 const unitInput = prompt("Enter the temperature unit (C or F):")!;
 
-
 const temp: Temperature = { value: parseFloat(valueInput), unit: unitInput };
 
 try {
-    
-    const convertedTemp = convertTemperature(temp);
-    document.write(`Converted temperature: ${convertedTemp.value}°${convertedTemp.unit}`);
-    console.log(`Converted temperature: ${convertedTemp.value}°${convertedTemp.unit}`);
+  const convertedTemp = convertTemperature(temp);
+  document.write(
+    `Converted temperature: ${convertedTemp.value}°${convertedTemp.unit}`
+  );
 } catch (error) {
-    console.error("An error occurred:", (error as Error).message);
+  document.write("An error occurred: " + (error as Error).message);
 }
-
-
