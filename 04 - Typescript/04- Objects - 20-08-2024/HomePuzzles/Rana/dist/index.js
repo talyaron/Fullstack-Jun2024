@@ -1,27 +1,29 @@
 // exercise 1- Book Information
 // // Create an interface for a Book with properties: title, author, and publicationYear.
 // // Write a function that takes a Book object and returns a formatted string with the book's information.
-function calculateArea(circle) {
+function convertTemperature(temp) {
     try {
-        if (circle.radius < 0) {
-            throw new Error("הרדיוס לא יכול להיות שלילי.");
+        var convertedValue = (temp.value * 9 / 5) + 32;
+        return { value: convertedValue, unit: 'F' };
+    }
+    catch (_a) {
+        try {
+            var convertedValue = (temp.value - 32) * 5 / 9;
+            return { value: convertedValue, unit: 'C' };
         }
-        var area = Math.PI * Math.pow(circle.radius, 2);
-        return area;
-    }
-    catch (error) {
-        console.error("שגיאה בחישוב השטח:", error.message);
-        return document.write("The circle area cannot be negative");
+        catch (_b) {
+            throw new Error("Unit must be either 'C' or 'F'");
+        }
     }
 }
-var radiusInput = prompt("הזן את הרדיוס של העיגול:");
-var radius = Number(radiusInput);
-if (isNaN(radius)) {
-    console.error("הרדיוס שהוזן אינו מספר תקין.");
+var valueInput = prompt("Enter the temperature value:");
+var unitInput = prompt("Enter the temperature unit (C or F):");
+var temp = { value: parseFloat(valueInput), unit: unitInput };
+try {
+    var convertedTemp = convertTemperature(temp);
+    document.write("Converted temperature: " + convertedTemp.value + "\u00B0" + convertedTemp.unit);
+    console.log("Converted temperature: " + convertedTemp.value + "\u00B0" + convertedTemp.unit);
 }
-else {
-    var myCircle = { radius: radius };
-    var area = calculateArea(myCircle);
-    document.write("The circle area is: " + area);
-    console.log("The circle area is:", area);
+catch (error) {
+    console.error("An error occurred:", error.message);
 }

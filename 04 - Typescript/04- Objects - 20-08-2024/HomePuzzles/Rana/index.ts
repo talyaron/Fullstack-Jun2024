@@ -38,9 +38,8 @@
 //     document.write(`The book ${book.title}, was written by ${book.author} and published in ${book.publicationYear}`);
 // }
 
-
-
 //exercise 2 -Circle Area:
+/*
 interface Circle {
     radius: number;
 }
@@ -70,4 +69,45 @@ if (isNaN(radius)) {
     document.write(`The circle area is: ${area}`)
     console.log("The circle area is:", area);
 }
+*/
+
+//exercise 3- Temperature Converter
+
+interface Temperature {
+    value: number;  
+    unit: string;  
+}
+
+function convertTemperature(temp: Temperature): Temperature {
+    try {
+        
+        const convertedValue = (temp.value * 9/5) + 32;
+        return { value: convertedValue, unit: 'F' };
+    } catch {
+        
+        try {
+            const convertedValue = (temp.value - 32) * 5/9;
+            return { value: convertedValue, unit: 'C' };
+        } catch {
+            throw new Error("Unit must be either 'C' or 'F'");
+        }
+    }
+}
+
+
+const valueInput = prompt("Enter the temperature value:")!;
+const unitInput = prompt("Enter the temperature unit (C or F):")!;
+
+
+const temp: Temperature = { value: parseFloat(valueInput), unit: unitInput };
+
+try {
+    
+    const convertedTemp = convertTemperature(temp);
+    document.write(`Converted temperature: ${convertedTemp.value}°${convertedTemp.unit}`);
+    console.log(`Converted temperature: ${convertedTemp.value}°${convertedTemp.unit}`);
+} catch (error) {
+    console.error("An error occurred:", (error as Error).message);
+}
+
 
