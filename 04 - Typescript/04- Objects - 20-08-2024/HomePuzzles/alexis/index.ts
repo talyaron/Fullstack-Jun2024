@@ -96,6 +96,10 @@ const temperature:temperature={
 }
 
 } catch (error) {
-        
+    concole.error("error has occurred");
+        return{
+            value:0,
+            unit:"",
+}
     }
 }
