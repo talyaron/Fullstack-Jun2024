@@ -12,8 +12,9 @@ function printNumbers(number:number, index:number) { console.log(`on element ${i
 
 const strings: string[] = ['aaa', 'bbb', 'crr', 'ddd', 'eee'];
 
+
+const printStrings = (string:string, index:number) => console.log(`on element ${index} ${string}`) 
 strings.forEach(printStrings);
-function printStrings(string:string, index:number) { console.log(`on element ${index} ${string}`) }
 
 const mixed: (string | number)[] = [1, 'aaa', 2, 'bbb', 3, 'ccc'];
 
@@ -80,7 +81,8 @@ const movies: Movie[] = [
 console.log('movies:', movies);
 
 // i want only movies before 1993
-// const moviesBefore1993:Movie[] = movies.filter(movie=>movie.year<1993);
+const moviesBefore1993:Movie[] = movies.filter((movie:Movie) => movie.year<1995 );
+console.log(moviesBefore1993);
 
 //write all directors of the movies
 movies.forEach(writeMovieDetails);

@@ -7,8 +7,8 @@ var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 numbers.forEach(printNumbers);
 function printNumbers(number, index) { console.log("on element " + index + " " + number * 10); }
 var strings = ['aaa', 'bbb', 'crr', 'ddd', 'eee'];
+var printStrings = function (string, index) { return console.log("on element " + index + " " + string); };
 strings.forEach(printStrings);
-function printStrings(string, index) { console.log("on element " + index + " " + string); }
 var mixed = [1, 'aaa', 2, 'bbb', 3, 'ccc'];
 var movies = [
     {
@@ -64,7 +64,8 @@ var movies = [
 ];
 console.log('movies:', movies);
 // i want only movies before 1993
-// const moviesBefore1993:Movie[] = movies.filter(movie=>movie.year<1993);
+var moviesBefore1993 = movies.filter(function (movie) { return movie.year < 1995; });
+console.log(moviesBefore1993);
 //write all directors of the movies
 movies.forEach(writeMovieDetails);
 function writeMovieDetails(movie) {
