@@ -26,7 +26,7 @@ function printToUser(
   exsistinsystem: Book | undefined,
   collectionBook: Book[]
 ) {
-  if (!exsistinsystem) {
+  if (!exsistinsystem||exsistinsystem.title=="null") {
     collectionBook.push(userBook);
     console.log(collectionBook);
   } else {

@@ -14,7 +14,7 @@ function inputBook() {
     return { title: title, author: author, year: year };
 }
 function printToUser(userBook, exsistinsystem, collectionBook) {
-    if (!exsistinsystem) {
+    if (!exsistinsystem || exsistinsystem.title == "null") {
         collectionBook.push(userBook);
         console.log(collectionBook);
     }
