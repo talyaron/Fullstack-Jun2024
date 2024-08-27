@@ -6,11 +6,15 @@ const obj = {
 
 // array holds a lot of Elements
 const numbers: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+console.log('numbers:', numbers);
 
+numbers.forEach((number:number, index:number) => console.log(`on element ${index} the number is: ${number}`) );
 numbers.forEach(printNumbers);
 function printNumbers(number:number, index:number) { console.log(`on element ${index} ${number * 10}`) }
 
 const strings: string[] = ['aaa', 'bbb', 'crr', 'ddd', 'eee'];
+
+// const anythingGoes: any[] = [1, 'aaa', 2, 'bbb', 3, 'ccc', obj, numbers, strings];
 
 
 const printStrings = (string:string, index:number) => console.log(`on element ${index} ${string}`) 
@@ -81,8 +85,8 @@ const movies: Movie[] = [
 console.log('movies:', movies);
 
 // i want only movies before 1993
-const moviesBefore1993:Movie[] = movies.filter((movie:Movie) => movie.year<1995 );
-console.log(moviesBefore1993);
+const moviesBefore1995:Movie[] = movies.filter((movie:Movie) => movie.year<1995 );
+console.log(moviesBefore1995);
 
 //write all directors of the movies
 movies.forEach(writeMovieDetails);
