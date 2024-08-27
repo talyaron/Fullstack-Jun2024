@@ -1,105 +1,127 @@
 //// 1. Book Information ////
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-function getProductInfo() {
+function getEmployeeInfo() {
     try {
-        var name = prompt("Enter product name");
+        var name = prompt("Enter Employee name");
         if (!name) {
             throw new Error("Invalid input: name is null.");
         }
-        var price = Number(prompt("Enter product price"));
-        if (isNaN(price) || price <= 0) {
-            throw new Error("Invalid input: product price cant be null.");
+        var baseSalary = Number(prompt("Enter base salary"));
+        if (isNaN(baseSalary) || baseSalary <= 0) {
+            throw new Error("Invalid input: base salary must be a positive number.");
         }
-        var category = prompt("Enter product category");
-        if (!category) {
-            throw new Error("Invalid input: category is null.");
+        var department = prompt("Enter department");
+        if (!department) {
+            throw new Error("Invalid input: department is null.");
         }
-        var Product = {
+        return {
             name: name,
-            price: price,
-            category: category
+            baseSalary: baseSalary,
+            department: department
         };
-        console.log(Product);
-        return Product;
     }
     catch (error) {
         console.error(error);
-        return {
-            name: "unknown",
-            price: 0,
-            category: "unknown"
-        };
+        throw new Error('Failed to get employee info.');
     }
 }
-function getDiscountInfo() {
+function getDepartmentInfo() {
     try {
-        var category = prompt("Enter product category");
-        if (!category) {
-            throw new Error("Invalid input: category is null.");
+        var department = prompt("Enter department name");
+        if (!department) {
+            throw new Error("Invalid input: department is null.");
         }
-        var percentage = Number(prompt("Enter percentage in %"));
-        if (isNaN(percentage) || percentage <= 0) {
-            throw new Error("Invalid input: percentage cant be null.");
+        var salaryMultiplier = Number(prompt("Enter salary multiplier"));
+        if (isNaN(salaryMultiplier) || salaryMultiplier <= 0) {
+            throw new Error("Invalid input: salary multiplier must be a positive number.");
         }
-        var Discount = {
-            category: category,
-            percentage: percentage
-        };
-        console.log(Discount);
-        return Discount;
-    }
-    catch (error) {
-        console.error(error);
         return {
-            category: "unknown",
-            percentage: 0
+            department: department,
+            salaryMultiplier: salaryMultiplier
         };
     }
+    catch (error) {
+        console.error(error);
+        throw new Error('Failed to get department info.');
+    }
 }
-function applyDiscount(product, discount) {
+function calculateFinalSalary(employee, department) {
+    if (employee.department !== department.department) {
+        throw new Error("Mismatch: The employee does not belong to the " + department.department + " department.");
+    }
+    var finalSalary = employee.baseSalary * department.salaryMultiplier;
+    return finalSalary;
+}
+try {
+    var employee = getEmployeeInfo();
+    var department = getDepartmentInfo();
+    var finalSalary = calculateFinalSalary(employee, department);
+    console.log("Final salary for " + employee.name + " is: " + finalSalary);
+    document.write("Final salary for " + employee.name + " is: " + finalSalary);
+}
+catch (error) {
+    console.error(error);
+    document.write("Error: " + error.message);
+}
+function calculateVolume(shape) {
     try {
-        if (product.category === discount.category) {
-            var discountedPrice = product.price - (product.price * (discount.percentage / 100));
-            return __assign(__assign({}, product), { price: discountedPrice });
-        }
-        else {
-            console.log("No discount applied. Categories do not match.");
-            return product;
+        switch (shape.type) {
+            case 'cube':
+                return Math.pow(shape.sideLength, 3);
+            case 'sphere':
+                return (4 / 3) * Math.PI * Math.pow(shape.radius, 3);
+            case 'cylinder':
+                return Math.PI * Math.pow(shape.radius, 2) * shape.height;
+            default:
+                throw new Error("Invalid shape type.");
         }
     }
     catch (error) {
         console.error(error);
-        return product;
+        throw new Error('Failed to calculate volume.');
     }
 }
-var product = getProductInfo();
-var discount = getDiscountInfo();
-var discountedProduct = applyDiscount(product, discount);
-document.write("The cost of " + discountedProduct.name + " after the discount is: $" + discountedProduct.price.toFixed(2));
-console.log("The cost of " + discountedProduct.name + " after the discount is: $" + discountedProduct.price.toFixed(2));
-////  7. Bank Account Operations ////
-// Create an interface for BankAccount with accountNumber and balance properties. Implement three functions:
-// - deposit: Takes a BankAccount and an amount, returns an updated BankAccount.
-// - withdraw: Takes a BankAccount and an amount, returns an updated BankAccount or an error if insufficient funds.
-// - transfer: Takes two BankAccounts and an amount, performs the transfer, and returns both updated accounts.
-////  8. Employee Salary Calculator ////
-// Define interfaces for Employee (with name, baseSalary, and department properties) and Department 
-// (with name and salaryMultiplier properties). Write a function that calculates an employee's final salary
-//  based on their base salary and their department's multiplier.
-//// 9. Shape Volume Calculator ////
-// Create interfaces for Cube, Sphere, and Cylinder, each with appropriate properties. 
-// Implement a single function that can calculate the volume of any of these shapes, 
-// using a union type for the parameter.
+function getShapeInfo() {
+    try {
+        var shapeType = prompt("Enter shape type (cube, sphere, cylinder)");
+        if (!shapeType || !['cube', 'sphere', 'cylinder'].includes(shapeType)) {
+            throw new Error("Invalid input: shape type is not recognized.");
+        }
+        switch (shapeType) {
+            case 'cube':
+                var sideLength = Number(prompt("Enter side length"));
+                if (isNaN(sideLength) || sideLength <= 0) {
+                    throw new Error("Invalid input: side length must be a positive number.");
+                }
+                return { type: 'cube', sideLength: sideLength };
+            case 'sphere':
+                var radiusSphere = Number(prompt("Enter radius"));
+                if (isNaN(radiusSphere) || radiusSphere <= 0) {
+                    throw new Error("Invalid input: radius must be a positive number.");
+                }
+                return { type: 'sphere', radius: radiusSphere };
+            case 'cylinder':
+                var radiusCylinder = Number(prompt("Enter radius"));
+                var heightCylinder = Number(prompt("Enter height"));
+                if (isNaN(radiusCylinder) || radiusCylinder <= 0 || isNaN(heightCylinder) || heightCylinder <= 0) {
+                    throw new Error("Invalid input: radius and height must be positive numbers.");
+                }
+                return { type: 'cylinder', radius: radiusCylinder, height: heightCylinder };
+            default:
+                throw new Error("Invalid shape type.");
+        }
+    }
+    catch (error) {
+        console.error(error);
+        throw new Error('Failed to get shape information.');
+    }
+}
+// Get shape info from user
+var shape = getShapeInfo();
+// Calculate volume
+var volume = calculateVolume(shape);
+// Output results
+console.log("The size of the " + shape.type + " is: " + volume);
+document.write("The size of the " + shape.type + " is: " + volume + "<br>");
 // //// 10. Online Order System ////
 // Define interfaces for Product (with id, name, and price), Customer 
 // (with name and address), and Order (with customer, product, and quantity). Implement functions to:
