@@ -1,26 +1,33 @@
-function PrintBookInfo() {
+// // # Book Information Printer:
+// // Create a Book interface with attributes for title, author, and publication year. Then write a function print_book_info that takes a Book object as an argument and prints its information.
+function getRectangle() {
     try {
-        var title = prompt("pls enter the book title");
-        var author = prompt("pls enter the book author ");
-        var publicationYear = Number(prompt("pls enter the book publication year"));
-        var user_1 = {
-            title: title,
-            author: author,
-            publicationYear: publicationYear
+        var width = Number(prompt("Enter width"));
+        var height = Number(prompt("Enter height"));
+        var rectangle_1 = {
+            width: width,
+            height: height
         };
-        return user_1;
+        console.log(rectangle_1);
+        return rectangle_1;
     }
     catch (error) {
         console.error(error);
         return {
-            title: "",
-            author: "",
-            publicationYear: Number
+            width: 0,
+            height: 0
         };
     }
 }
-var user = PrintBookInfo();
-function bookDetails(user) {
-    document.write("The book title " + user.title + ", the book author " + user.author + " ,the book publication year  " + user.publicationYear);
+function calculateArea(rectangle) {
+    try {
+        return rectangle.width * rectangle.height;
+    }
+    catch (error) {
+        console.error(error);
+        return error;
+    }
 }
-bookDetails(user);
+var rectangle = getRectangle();
+var result = calculateArea(rectangle);
+document.write("the area is " + result);
