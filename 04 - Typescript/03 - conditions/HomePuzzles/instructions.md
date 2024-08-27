@@ -4,19 +4,19 @@
 
 ## More Challenging Exercises
 
-### Exercise 4: Leap Year Checker
+### Exercise 5: Leap Year Checker
 
 Write a program that asks the user to enter a year, then tells them if it's a leap year or not. A leap year is divisible by 4, except for century years (years ending with 00). The century years are leap years only if they are perfectly divisible by 400.
 
-### Exercise 5: Rock, Paper, Scissors Game
+### Exercise 6: Rock, Paper, Scissors Game
 
 Create a simple Rock, Paper, Scissors game. Ask the user to choose rock, paper, or scissors, then have the computer randomly choose. Compare the choices and determine the winner using if statements.
 
-### Exercise 6: Simple Calculator
+### Exercise 7: Simple Calculator
 
 Make a calculator that asks the user for two numbers and an operation (+, -, *, /). Use if statements to perform the correct operation and display the result. Remember to handle division by zero!
 
-### Exercise 7: Password Strength Checker
+### Exercise 8: Password Strength Checker
 
 Write a program that checks the strength of a password. Ask the user to enter a password, then use if statements to check:
 - If it's at least 8 characters long and no more than 20 characters long.
@@ -24,7 +24,7 @@ Write a program that checks the strength of a password. Ask the user to enter a 
 
 Tell the user if their password is "OK", "Too short", or "Too long" based on the length of the password.
 
-### Exercise 8: Temperature Converter with Recommendations
+### Exercise 9: Temperature Converter with Recommendations
 
 Create a program that converts temperatures between Fahrenheit and Celsius. Ask the user to enter a temperature and the unit (F or C). Convert it to the other unit and display the result. Additionally, use if statements to give clothing recommendations based on the temperature:
 - Below 32°F (0°C): "It's freezing! Wear a heavy coat."
