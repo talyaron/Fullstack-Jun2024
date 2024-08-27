@@ -4,6 +4,8 @@ interface book {
     year : Number;
 }
 
+const number22: Number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 const books: book[] = [
     {
         title : 'book1',
@@ -28,6 +30,16 @@ const books: book[] = [
     
 ]
 
-const new_arry = books.push() 
+
+const new_arry = number22.push(11,12);
+console.log(number22);
+console.log(new_arry);
+
+books.push({
+    title : 'book4',
+    auther : 'haifa',
+    year : 2002
+})
+
 console.log(books);
 
