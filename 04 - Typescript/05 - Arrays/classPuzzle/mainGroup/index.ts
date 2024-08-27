@@ -27,3 +27,6 @@ console.log(realStudents)
 //get the sum of the students age
 const sumAges = students.reduce((acc, student)=> acc + student.age,0);
 console.log(sumAges)
+
+const newStudents = students.map(student=>({...student, isStudent:true, age:20}))
+console.log(newStudents)

@@ -1,3 +1,14 @@
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var students = [
     { name: 'Alice', age: 25, isStudent: true },
     { name: 'Bob', age: 30, isStudent: true },
@@ -18,3 +29,5 @@ console.log(realStudents);
 //get the sum of the students age
 var sumAges = students.reduce(function (acc, student) { return acc + student.age; }, 0);
 console.log(sumAges);
+var newStudents = students.map(function (student) { return (__assign(__assign({}, student), { isStudent: true, age: 20 })); });
+console.log(newStudents);
