@@ -1,9 +1,5 @@
 # TypeScript If Statements Exercises for Beginners and Intermediate Students
 
-
-
-## More Challenging Exercises
-
 ### Exercise 5: Leap Year Checker
 
 Write a program that asks the user to enter a year, then tells them if it's a leap year or not. A leap year is divisible by 4, except for century years (years ending with 00). The century years are leap years only if they are perfectly divisible by 400.
@@ -14,7 +10,7 @@ Create a simple Rock, Paper, Scissors game. Ask the user to choose rock, paper, 
 
 ### Exercise 7: Simple Calculator
 
-Make a calculator that asks the user for two numbers and an operation (+, -, *, /). Use if statements to perform the correct operation and display the result. Remember to handle division by zero!
+    Make a calculator that asks the user for two numbers and an operation (+, -, *, /). Use if statements to perform the correct operation and display the result. Remember to handle division by zero!
 
 ### Exercise 8: Password Strength Checker
 

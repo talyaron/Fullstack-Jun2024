@@ -1,5 +1,5 @@
 var firstName = "Tohar";
-var favColor = "black";
+var favColor;
 firstName = prompt('Please enter a your first name');
 favColor = prompt('Please enter a your favorate color');
 function paintScreen(color) {

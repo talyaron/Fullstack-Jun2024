@@ -3,7 +3,7 @@ var score = Number(prompt("pls enter a score."));
 var endScore = "";
 checkScore(score);
 function checkScore(number) {
-    if (number >= 0 && number <= 100) {
+    if (number >= 0 && number <= 200) {
         endScore = giveScore(number);
         document.write(endScore);
     }
@@ -13,16 +13,23 @@ function checkScore(number) {
     }
 }
 function giveScore(number) {
-    if (number <= 59)
-        return "F";
-    else if (number <= 69)
-        return "d";
-    else if (number <= 79)
-        return "c";
-    else if (number <= 89)
-        return "b";
-    else if (number <= 100)
+    try {
+        if (number < 0 || number > 100)
+            throw new Error("Score should be between 0-100");
+        if (number <= 59)
+            return "F";
+        else if (number <= 69)
+            return "d";
+        else if (number <= 79)
+            return "c";
+        else if (number <= 89)
+            return "b";
+        else
+            (number <= 100);
         return "A";
-    else
-        return "";
+    }
+    catch (e) {
+        console.error(e);
+        return "error";
+    }
 }
