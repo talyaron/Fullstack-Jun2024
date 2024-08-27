@@ -60,7 +60,7 @@ function getTrip(): trip {
 }
 function getFuelEcon(car: car, trip: trip): String {
   const carEfficency = Number((trip.tripDistance / car.fuelEff).toFixed(2));
-  const carCost = (carEfficency * trip.tripDistance).toFixed(2);
+  const carCost = (carEfficency * trip.tripDistance/trip.fuelPrice).toFixed(2);
   return `fuel in liters for the trip:${carEfficency} and cost $${carCost} `;
 }
 
