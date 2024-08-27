@@ -6,21 +6,25 @@ const obj = {
 
 // array holds a lot of Elements
 const numbers: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-console.log('numbers:', numbers);
+// console.log('numbers:', numbers);
 
-numbers.forEach((number:number, index:number) => console.log(`on element ${index} the number is: ${number}`) );
-numbers.forEach(printNumbers);
-function printNumbers(number:number, index:number) { console.log(`on element ${index} ${number * 10}`) }
+// numbers.forEach((number:number, index:number) => console.log(`on element ${index} the number is: ${number}`) );
+// console.log('check');
+// numbers.forEach(printNumbers);
+// function printNumbers(number:number, index:number) { console.log(`on element ${index} ${number * 10}`) }
 
-const strings: string[] = ['aaa', 'bbb', 'crr', 'ddd', 'eee'];
+// console.log('check');
 
-// const anythingGoes: any[] = [1, 'aaa', 2, 'bbb', 3, 'ccc', obj, numbers, strings];
+// const strings: string[] = ['aaa', 'bbb', 'crr', 'ddd', 'eee'];
 
+// const anythingGoes: any[] = [1, 'aaa', 2, 'bbb', 3, 'ccc'];
 
-const printStrings = (string:string, index:number) => console.log(`on element ${index} ${string}`) 
-strings.forEach(printStrings);
+// anythingGoes.forEach((x) => console.log(`in the array are: ${x}`));
 
-const mixed: (string | number)[] = [1, 'aaa', 2, 'bbb', 3, 'ccc'];
+// const printStrings = (string:string, index:number) => console.log(`on element ${index} ${string}`) 
+// strings.forEach(printStrings);
+
+// const mixed: (string | number)[] = [1, 'aaa', 2, 'bbb', 3, 'ccc'];
 
 // array of objects
 interface Movie {
@@ -82,11 +86,16 @@ const movies: Movie[] = [
     }
 ]
 
-console.log('movies:', movies);
+// console.log('movies:', movies);
 
 // i want only movies before 1993
-const moviesBefore1995:Movie[] = movies.filter((movie:Movie) => movie.year<1995 );
+const moviesBefore1995:Movie[] = movies.filter((movie,i) => movie.year>1995);
 console.log(moviesBefore1995);
+
+const Try : Movie[] = movies.filter((element,index) => index === 7);
+console.log(Try);
+
+
 
 //write all directors of the movies
 movies.forEach(writeMovieDetails);

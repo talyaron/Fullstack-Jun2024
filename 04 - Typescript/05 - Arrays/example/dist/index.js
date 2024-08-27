@@ -4,15 +4,6 @@ var obj = {
 };
 // array holds a lot of Elements
 var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-console.log('numbers:', numbers);
-numbers.forEach(function (number, index) { return console.log("on element " + index + " the number is: " + number); });
-numbers.forEach(printNumbers);
-function printNumbers(number, index) { console.log("on element " + index + " " + number * 10); }
-var strings = ['aaa', 'bbb', 'crr', 'ddd', 'eee'];
-// const anythingGoes: any[] = [1, 'aaa', 2, 'bbb', 3, 'ccc', obj, numbers, strings];
-var printStrings = function (string, index) { return console.log("on element " + index + " " + string); };
-strings.forEach(printStrings);
-var mixed = [1, 'aaa', 2, 'bbb', 3, 'ccc'];
 var movies = [
     {
         name: 'movie1',
@@ -65,10 +56,12 @@ var movies = [
         director: 'director10'
     }
 ];
-console.log('movies:', movies);
+// console.log('movies:', movies);
 // i want only movies before 1993
-var moviesBefore1995 = movies.filter(function (movie) { return movie.year < 1995; });
+var moviesBefore1995 = movies.filter(function (movie, i) { return movie.year > 1995; });
 console.log(moviesBefore1995);
+var Try = movies.filter(function (element, index) { return index === 7; });
+console.log(Try);
 //write all directors of the movies
 movies.forEach(writeMovieDetails);
 function writeMovieDetails(movie) {
