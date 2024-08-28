@@ -1,34 +1,42 @@
 var buttons = document.querySelectorAll(".actionButton");
-// Loop through each button and add a click event listener
+// looping for each button on the html page:
 buttons.forEach(function (button) {
     if (button instanceof HTMLButtonElement) {
         button.addEventListener("click", function () {
             console.log(button.id + " clicked!");
+            //button id: additem to add more items to the array:
             if (button.id === "addItem") {
-                var newitem = addItem(allItems);
-                allItems.push(newitem);
-                alert("new item added! Id:" + newitem.id + " name:" + newitem.name + " price:" + newitem.price + "$ quantity:" + newitem.quantity);
-                allItems.forEach(function (allItems) {
-                    console.log("id:" + allItems.id + " name:" + allItems.name + "\n             Costs " + allItems.price + "$ \n              amount in stock:" + allItems.quantity);
-                });
+                var newitem = inputNewItem(allItems);
+                allItems == addItem(newitem, allItems);
+                displayinventory(allItems);
             }
+            //button id: removeItem to remove item from the collective array:
             if (button.id === "removeItem") {
                 var itemByID = searchbyID(allItems);
                 allItems == removeItem(itemByID, allItems);
-                allItems.forEach(function (allItems) {
-                    console.log("id:" + allItems.id + " name:" + allItems.name + "\n               Costs " + allItems.price + "$ \n                amount in stock:" + allItems.quantity);
-                });
+                displayinventory(allItems);
             }
+            //button id: updateItem to update the quantity of an item based on its id
             if (button.id === "updateItem") {
                 var itemByID = searchbyID(allItems);
                 allItems == updateQuantity(itemByID, allItems);
-                allItems.forEach(function (allItems) {
-                    console.log("id:" + allItems.id + " name:" + allItems.name + "\n                 Costs " + allItems.price + "$ \n                  amount in stock:" + allItems.quantity);
-                });
+                displayinventory(allItems);
+            }
+            //button id: searchItemByName to search for item by its name :
+            if (button.id === "searchItemByName") {
+                var itemByName = searchbyName(allItems);
+                displayItem(itemByName);
+                displayinventory(allItems);
+            }
+            //button id: showRestock to show items with low quantities :
+            if (button.id === "showRestock") {
+                var itemsToRestock = itemToRestock(allItems);
+                displayinventory(itemsToRestock);
             }
         });
     }
 });
+//array for the inventory 
 var allItems = [
     {
         id: 5543,
@@ -55,14 +63,16 @@ var allItems = [
         quantity: 9
     },
 ];
-function addItem(items) {
-    //const _id = prompt("Give new item Id")
+//functions for adding an item into the inventory :
+//asks for an item from the user
+function inputNewItem(items) {
     var _id = giveRandomId(items);
     var _name = String(prompt("Give new item name"));
     var _price = Number(prompt("Give new item price"));
     var _quntity = Number(prompt("Give new item quantity"));
     return { id: _id, name: _name, price: _price, quantity: _quntity };
 }
+//give a random id to the item
 function giveRandomId(items) {
     var randomID = Math.floor(1000 + Math.random() * 9000);
     var checkID = Boolean(items.find(function (item) { return item.id == randomID; }));
@@ -72,6 +82,28 @@ function giveRandomId(items) {
     else
         return randomID;
 }
+//adds the item to the inventory if all prematers are right
+function addItem(item, allItems) {
+    var minNum = 0;
+    if (item.name.length < 2 || item.name.length > 20) {
+        alert("the name you choose is too long/short");
+    }
+    else if (item.price === null ||
+        item.price == undefined ||
+        item.price <= minNum) {
+        alert("Ilegal price!");
+    }
+    else if (!Number.isInteger(item.quantity) || item.quantity <= minNum) {
+        alert("quantity needs to be a full number above 0!");
+    }
+    else {
+        allItems.push(item);
+        alert("new item added! Id: " + item.id + " name: " + item.name + " price: " + item.price + "$ quantity: " + item.quantity);
+    }
+    return allItems;
+}
+//search functions:
+//search by id
 function searchbyID(item) {
     var itemID = Number(prompt("Write the id of the item"));
     var itemSlected = item.find(function (item) { return item.id == itemID; });
@@ -81,6 +113,17 @@ function searchbyID(item) {
     else
         return null;
 }
+//search by name
+function searchbyName(item) {
+    var itemName = String(prompt("Write the id of the item"));
+    var itemSlected = item.find(function (item) { return item.name.toLowerCase() === itemName.toLowerCase(); });
+    if (itemSlected) {
+        return itemSlected;
+    }
+    else
+        return null;
+}
+//remove item function:
 function removeItem(itemToRemove, itemCollection) {
     if (itemToRemove != null) {
         var index = itemCollection.findIndex(function (item) { return item.id === itemToRemove.id; });
@@ -92,9 +135,10 @@ function removeItem(itemToRemove, itemCollection) {
     else
         return itemCollection;
 }
+//update item quantity by id function:
 function updateQuantity(item, itemCollection) {
     if (item != null) {
-        var newQuantity = Number(prompt("write new quantity for item:" + item.name));
+        var newQuantity = Number(prompt("write new quantity for item: " + item.name));
         if (newQuantity === null || !newQuantity || newQuantity < 0) {
             alert("quantity as a number!");
             return itemCollection;
@@ -108,4 +152,36 @@ function updateQuantity(item, itemCollection) {
         alert("this id number doesnt exist buddy!");
         return itemCollection;
     }
+}
+//items to restock function:
+function itemToRestock(item) {
+    var lowNum = 5;
+    var closeToOutItems = item.filter(function (item) { return item.quantity < lowNum; });
+    return closeToOutItems;
+}
+//calculate the sum cost/worth of inventory function:
+function calcInvWorth(items) {
+    var sumAmmount = 0;
+    items.forEach(function (item) {
+        if (typeof item.quantity === "number" && typeof item.price === "number") {
+            sumAmmount += item.quantity * item.price;
+        }
+    });
+    return sumAmmount;
+}
+//display functions
+//displays selected item in the console
+function displayItem(item) {
+    if (item != null)
+        alert("item id: " + item.id + " name: " + item.name + " costs: " + item.price + "$ each. amount in stock: " + item.quantity);
+    else
+        alert("no such item in the system");
+}
+//displays inventory in the console and calculates the sum cost
+function displayinventory(item) {
+    item.forEach(function (item) {
+        console.log("id:" + item.id + " name:" + item.name + "\n      Costs " + item.price + "$ \n    amount in stock:" + item.quantity);
+    });
+    var amountWorth = calcInvWorth(item);
+    console.log("stock worth of : " + amountWorth + "$");
 }
