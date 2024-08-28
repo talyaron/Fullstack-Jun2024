@@ -167,7 +167,7 @@ function removeItem(itemToRemove, itemCollection) {
         return itemCollection;
     }
     else {
-        alert("item wasnt found :/");
+        alert("item wasnt found :/ try writing exsisting item ID");
         return itemCollection;
     }
 }

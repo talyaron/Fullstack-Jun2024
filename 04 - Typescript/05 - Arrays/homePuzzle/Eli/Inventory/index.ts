@@ -190,7 +190,7 @@ function removeItem(itemToRemove: item | null, itemCollection: item[]): item[] {
     alert(`${itemToRemove.name} was removed successfully `);
     return itemCollection;
   } else {
-    alert(`item wasnt found :/`);
+    alert(`item wasnt found :/ try writing exsisting item ID`);
     return itemCollection;
   }
 }
