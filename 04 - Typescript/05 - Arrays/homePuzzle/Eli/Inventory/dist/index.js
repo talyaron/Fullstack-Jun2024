@@ -84,7 +84,7 @@ function inputNewItem(items) {
     var _id = giveRandomId(items);
     //asks user for name
     var _name = String(prompt("Give new item name"));
-    if (_name.length < 2 || _name.length > 20) {
+    if (_name.length < 2 || _name.length > 20 || _name === "null") {
         alert("the name you choose is too long/short");
         return null;
     }
@@ -102,8 +102,6 @@ function inputNewItem(items) {
     }
     //if all is ok returns the user item
     return { id: _id, name: _name, price: _price, quantity: _quntity };
-    //if problem returns null
-    return null;
 }
 //give a random id to the item
 function giveRandomId(items) {
