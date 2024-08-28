@@ -77,6 +77,14 @@ var allItems = [
         quantity: 9
     },
 ];
+//takes assigns the html list element to the scrip
+var itemListElement = document.getElementById("itemList");
+//writes all the items on screen 
+allItems.forEach(function (item) {
+    var itemElement = document.createElement("li");
+    itemElement.textContent = "ID:" + item.id + " - Name: " + item.name + " - Price: $" + item.price + " - In stock : " + item.quantity;
+    itemListElement === null || itemListElement === void 0 ? void 0 : itemListElement.appendChild(itemElement);
+});
 //functions for adding an item into the inventory :
 //asks for an item from the user
 function inputNewItem(items) {
@@ -212,6 +220,15 @@ function displayinventory(item) {
     });
     var amountWorth = calcInvWorth(item);
     console.log("stock worth of : " + amountWorth + "$");
+    // clear existing items on html page
+    if (itemListElement)
+        itemListElement.innerHTML = "";
+    //display items on html page:
+    allItems.forEach(function (item) {
+        var itemElement = document.createElement("li");
+        itemElement.textContent = "ID:" + item.id + " - Name: " + item.name + " - Price: $" + item.price + " - In stock : " + item.quantity;
+        itemListElement === null || itemListElement === void 0 ? void 0 : itemListElement.appendChild(itemElement);
+    });
 }
 //switch two items position in the arrray function
 function switchItems(item) {
@@ -266,5 +283,10 @@ function summary(item) {
     var _avrgPrice = sumPrice / sumAmmount;
     var cheapestItem = item.sort(function (a, b) { return Number(a.price) - Number(b.price); })[0];
     var mostExpensiveItem = item.sort(function (a, b) { return Number(b.price) - Number(a.price); })[0];
-    console.log("the are " + _itemAmountSum + " types of items and overall " + sumAmmount + " items\n  in the inventory average price " + _avrgPrice.toFixed(1) + "$ \n  the most expensive item is : " + mostExpensiveItem.name + " it costs : " + mostExpensiveItem.price + "$\n   and the cheapest is: " + cheapestItem.name + " it costs : " + cheapestItem.price + " ");
+    console.log("the are " + _itemAmountSum + " types of items and overall " + sumAmmount + " items\n  in the inventory average price " + _avrgPrice.toFixed(1) + "$ \n  the most expensive item is : " + mostExpensiveItem.name + " it costs : " + mostExpensiveItem.price + "$\n   and the cheapest is: " + cheapestItem.name + " it costs : " + cheapestItem.price + "$ ");
+    if (itemListElement)
+        itemListElement.innerHTML = "";
+    var itemElement = document.createElement("div");
+    itemElement.textContent = "the are " + _itemAmountSum + " types of items and overall " + sumAmmount + " items\n  in the inventory average price is " + _avrgPrice.toFixed(1) + "$ \n  the most expensive item is : " + mostExpensiveItem.name + " it costs : " + mostExpensiveItem.price + "$\n   and the cheapest is: " + cheapestItem.name + " it costs : " + cheapestItem.price + "$ ";
+    itemListElement === null || itemListElement === void 0 ? void 0 : itemListElement.appendChild(itemElement);
 }
