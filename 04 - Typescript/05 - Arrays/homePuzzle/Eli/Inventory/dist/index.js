@@ -66,27 +66,33 @@ var allItems = [
 //functions for adding an item into the inventory :
 //asks for an item from the user
 function inputNewItem(items) {
+    //calls id randomizer function
     var _id = giveRandomId(items);
+    //asks user for name
     var _name = String(prompt("Give new item name"));
     if (_name.length < 2 || _name.length > 20) {
         alert("the name you choose is too long/short");
     }
     else {
+        //if name is ok asks user for price
         var _price = Number(prompt("Give new item price"));
         if (Number.isNaN(_price) || _price <= 0) {
             alert("Ilegal price!");
         }
         else {
+            //if price is ok asks user for quantity
             var _quntity = Number(prompt("Give new item quantity"));
             if (!Number.isInteger(_quntity) || _quntity <= 0) {
                 alert("quantity needs to be a full number above 0!");
             }
             else {
+                //if all is ok returns the user item
                 return { id: _id, name: _name, price: _price, quantity: _quntity };
             }
         }
     }
-    return { id: 2, name: "a", price: 0, quantity: 0 };
+    //if problem returns null
+    return null;
 }
 //give a random id to the item
 function giveRandomId(items) {
@@ -98,19 +104,22 @@ function giveRandomId(items) {
     else
         return randomID;
 }
-//adds the item to the inventory 
+//adds the item to the inventory
 function addItem(item, allItems) {
-    if (item.name !== "a") {
+    if (item != null) {
         allItems.push(item);
         alert("new item added! Id: " + item.id + " name: " + item.name + " price: " + item.price + "$ quantity: " + item.quantity);
     }
-    alert("no new item added");
+    else {
+        alert("no new item added");
+    }
     return allItems;
+    //return allItems;
 }
 //search functions:
 //search by id
 function searchbyID(item) {
-    var itemID = Number(prompt("Write the id of the item"));
+    var itemID = Number(prompt("Write the ID of the item"));
     var itemSlected = item.find(function (item) { return item.id == itemID; });
     if (itemSlected) {
         return itemSlected;
@@ -120,7 +129,7 @@ function searchbyID(item) {
 }
 //search by name
 function searchbyName(item) {
-    var itemName = String(prompt("Write the id of the item"));
+    var itemName = String(prompt("Write the NAME of the item"));
     var itemSlected = item.find(function (item) { return item.name.toLowerCase() === itemName.toLowerCase(); });
     if (itemSlected) {
         return itemSlected;

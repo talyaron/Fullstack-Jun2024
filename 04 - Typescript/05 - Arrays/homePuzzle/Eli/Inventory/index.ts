@@ -77,25 +77,32 @@ const allItems: item[] = [
 //functions for adding an item into the inventory :
 
 //asks for an item from the user
-function inputNewItem(items: item[]): item {
+function inputNewItem(items: item[]): item | null {
+  //calls id randomizer function
   const _id = giveRandomId(items);
+
+  //asks user for name
   const _name = String(prompt("Give new item name"));
   if (_name.length < 2 || _name.length > 20) {
     alert("the name you choose is too long/short");
   } else {
+    //if name is ok asks user for price
     const _price = Number(prompt("Give new item price"));
     if (Number.isNaN(_price) || _price <= 0) {
       alert("Ilegal price!");
     } else {
+      //if price is ok asks user for quantity
       const _quntity = Number(prompt("Give new item quantity"));
       if (!Number.isInteger(_quntity) || _quntity <= 0) {
         alert("quantity needs to be a full number above 0!");
       } else {
+        //if all is ok returns the user item
         return { id: _id, name: _name, price: _price, quantity: _quntity };
       }
     }
   }
-  return { id: 2, name: "a", price: 0, quantity: 0 };
+  //if problem returns null
+  return null;
 }
 
 //give a random id to the item
@@ -107,23 +114,26 @@ function giveRandomId(items: item[]): number {
   } else return randomID;
 }
 
-//adds the item to the inventory 
-function addItem(item: item, allItems: item[]): item[] {
-  if (item.name !== "a") {
+//adds the item to the inventory
+function addItem(item: item | null, allItems: item[]): item[] {
+  if (item != null) {
     allItems.push(item);
     alert(
       `new item added! Id: ${item.id} name: ${item.name} price: ${item.price}$ quantity: ${item.quantity}`
     );
+  } else {
+    alert(`no new item added`);
   }
-  alert(`no new item added`);
   return allItems;
+
+  //return allItems;
 }
 
 //search functions:
 
 //search by id
 function searchbyID(item: item[]): item | null {
-  const itemID = Number(prompt("Write the id of the item"));
+  const itemID = Number(prompt("Write the ID of the item"));
   const itemSlected = item.find((item) => item.id == itemID);
   if (itemSlected) {
     return itemSlected;
@@ -132,7 +142,7 @@ function searchbyID(item: item[]): item | null {
 
 //search by name
 function searchbyName(item: item[]): item | null {
-  const itemName = String(prompt("Write the id of the item"));
+  const itemName = String(prompt("Write the NAME of the item"));
   const itemSlected = item.find(
     (item) => item.name.toLowerCase() === itemName.toLowerCase()
   );
