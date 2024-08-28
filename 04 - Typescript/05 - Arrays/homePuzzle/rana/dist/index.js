@@ -73,101 +73,129 @@ bookCollection.forEach((book) => {
     console.log(`The book "${book.title}" was written by ${book.author} in ${book.year}.`);
   });
 */
+/*
+// ## Exercise 2:
+
+//1. Define an interface for an `Item` object with properties:
+interface Item {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+}
 //2. Create an array of `Item` objects to represent the inventory.
-var items = [
-    {
-        id: 4356789,
-        name: "sebastian",
-        price: 345,
-        quantity: 67
-    },
-    {
-        id: 435098765436789,
-        name: "catherine",
-        price: 890,
-        quantity: 50
-    },
-    {
-        id: 102928374,
-        name: "sabrina",
-        price: 768,
-        quantity: 128
-    },
-    {
-        id: 98765432,
-        name: "steven",
-        price: 9876,
-        quantity: 7
-    },
-    {
-        id: 34567898,
-        name: "freddie",
-        price: 101092,
-        quantity: 1
-    },
+const items: Item[] = [
+  {
+    id: 4356789,
+    name: "sebastian",
+    price: 345,
+    quantity: 67,
+  },
+  {
+    id: 435098765436789,
+    name: "catherine",
+    price: 890,
+    quantity: 50,
+  },
+  {
+    id: 102928374,
+    name: "sabrina",
+    price: 768,
+    quantity: 128,
+  },
+  {
+    id: 98765432,
+    name: "steven",
+    price: 9876,
+    quantity: 7,
+  },
+  {
+    id: 34567898,
+    name: "freddie",
+    price: 101092,
+    quantity: 1,
+  },
 ];
 //3. Implement the following functions using array methods:
 //a. Add a new item to the inventory
+
 items.push({
-    id: 8194356789,
-    name: "stormi",
-    price: 1000,
-    quantity: 9
+  id: 8194356789,
+  name: "stormi",
+  price: 1000,
+  quantity: 9,
 });
+
 console.log(items);
 //b. Remove an item from the inventory by id
-var newArray = items.filter(function (items) { return items.id != 435098765436789; });
+const newArray = items.filter((items) => items.id != 435098765436789);
 console.log(newArray);
 //c. Update the quantity of an item by id
-var newQuantityItem = items.find(function (items) { return items.id === 34567898; });
+const newQuantityItem = items.find((items) => items.id === 34567898);
+
 if (newQuantityItem) {
-    newQuantityItem.quantity = 7;
+  newQuantityItem.quantity = 7;
 }
 console.log(items);
+
 //d. Find an item by name (case-insensitive)
-var findItem = items.find(function (items) { return items.name === "stormi"; });
+const findItem = items.find((items) => items.name === "stormi");
 console.log(findItem);
+
 //e. Calculate the total value of the inventory
-function summary(items) {
-    var result = items.reduce(function (acc, items) { return acc + items.quantity * items.price; }, 0);
-    console.log(result);
+
+function summary(items: Item[]) {
+  const result: number = items.reduce(
+    (acc, items) => acc + items.quantity * items.price,
+    0
+  );
+
+  console.log(result);
 }
 summary(items);
 //f. List all items with quantity below a specified threshold
-var itemsUnder10 = items.filter(function (items) { return items.quantity < 50; });
+const itemsUnder10: Item[] = items.filter((items) => items.quantity < 50);
 console.log(itemsUnder10);
 // 4. Use array destructuring to swap the positions of two items in the inventory.
 items[2] = items.splice(0, 0, items[2])[2];
 console.log(items);
 // 5. Implement a function to sort the inventory by price (ascending and descending).
-var sort = items.sort(function (a, b) { return a.price - b.price; });
+
+const sort: Item[] = items.sort((a, b) => a.price - b.price);
 console.log(items);
 //6. Create a function that returns a summary object containing:
-function itemNumber(items) {
-    var itemNumber = items.length;
-    console.log(itemNumber);
-    return itemNumber;
+function itemNumber(items: Item[]): number {
+  const itemNumber = items.length;
+
+  console.log(itemNumber);
+  return itemNumber;
 }
 itemNumber(items);
-function mostExpensive(items) {
-    var expensive = items.sort(function (a, b) { return a.price - b.price; });
-    var mostExpensive = items[items.length - 2];
-    console.log(expensive);
-    console.log(mostExpensive);
-    return mostExpensive;
+
+function mostExpensive(items): Item[] {
+  const expensive: Item = items.sort((a, b) => a.price - b.price);
+  const mostExpensive = items[items.length - 2];
+  console.log(expensive);
+  console.log(mostExpensive);
+  return mostExpensive;
 }
+
 mostExpensive(items);
-function leastExpensive(items) {
-    var expensive = items.sort(function (a, b) { return a.price - b.price; });
-    var leastExpensive = items[0];
-    console.log(leastExpensive);
-    return leastExpensive;
+
+function leastExpensive(items): Item[] {
+  const expensive: Item = items.sort((a, b) => a.price - b.price);
+  const leastExpensive = items[0];
+  console.log(leastExpensive);
+  return leastExpensive;
 }
+
 leastExpensive(items);
-function average(items) {
-    var total = items.reduce(function (acc, items) { return acc + items.price; }, 0);
-    var average = total / items.length;
-    console.log(average);
-    return average;
+function average(items: Item[]) {
+  const total: number = items.reduce((acc, items) => acc + items.price, 0);
+  const average: number = total / items.length;
+  console.log(average);
+  return average;
 }
 average(items);
+
+*/

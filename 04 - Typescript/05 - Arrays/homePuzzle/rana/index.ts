@@ -75,6 +75,8 @@ bookCollection.forEach((book) => {
 */
 
 
+
+/*
 // ## Exercise 2:
 
 //1. Define an interface for an `Item` object with properties:
@@ -199,3 +201,4 @@ function average(items: Item[]) {
 }
 average(items);
 
+*/
