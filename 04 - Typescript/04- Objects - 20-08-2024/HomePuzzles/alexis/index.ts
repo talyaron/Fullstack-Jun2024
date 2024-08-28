@@ -293,78 +293,78 @@
 // }
 // calculateRoad(car,trip);
 
-// ### 6. Product Discount
-// Define interfaces for Product (with name, price, and category) and Discount (with category and percentage).
-// Implement a function that applies the discount to the product if the categories match, returning a new Product object.
+// // ### 6. Product Discount
+// // Define interfaces for Product (with name, price, and category) and Discount (with category and percentage).
+// // Implement a function that applies the discount to the product if the categories match, returning a new Product object.
 
-interface Product {
-  name: string;
-  price: number;
-  category: string;
-}
+// interface Product {
+//   name: string;
+//   price: number;
+//   category: string;
+// }
 
-interface Discount {
-  category: string;
-  percentage: number;
-}
+// interface Discount {
+//   category: string;
+//   percentage: number;
+// }
 
-function getData(): Product {
-  try {
-    const name: string = prompt("enter a name");
-    const price: number = Number(prompt("enter a price"));
-    const category: string = prompt("enter a category");
+// function getData(): Product {
+//   try {
+//     const name: string = prompt("enter a name");
+//     const price: number = Number(prompt("enter a price"));
+//     const category: string = prompt("enter a category");
 
-    const product: Product = {
-      name: name,
-      price: price,
-      category: category,
-    };
+//     const product: Product = {
+//       name: name,
+//       price: price,
+//       category: category,
+//     };
 
-    console.log(product);
-    return product;
-  } catch (error) {
-    console.error(error);
-    return {
-      name: "",
-      price: 0,
-      category: "",
-    };
-  }
-}
+//     console.log(product);
+//     return product;
+//   } catch (error) {
+//     console.error(error);
+//     return {
+//       name: "",
+//       price: 0,
+//       category: "",
+//     };
+//   }
+// }
 
-function getDataDiscount(): Discount {
-  try {
-    const percentage: number = Number(prompt("enter a discount"));
-    const category: string = prompt("enter a category");
+// function getDataDiscount(): Discount {
+//   try {
+//     const percentage: number = Number(prompt("enter a discount"));
+//     const category: string = prompt("enter a category");
 
-    const discount: Discount = {
-      category: category,
-      percentage: percentage,
-    };
+//     const discount: Discount = {
+//       category: category,
+//       percentage: percentage,
+//     };
 
-    console.log(discount);
-    return discount;
-  } catch (error) {
-    console.error(error);
-    return {
-      category: "",
-      percentage: 0,
-    };
-  }
-}
+//     console.log(discount);
+//     return discount;
+//   } catch (error) {
+//     console.error(error);
+//     return {
+//       category: "",
+//       percentage: 0,
+//     };
+//   }
+// }
 
-const product = getData();
-const discount = getDataDiscount();
+// const product = getData();
+// const discount = getDataDiscount();
 
-function discountCalculation(product, discount) {
-  const newPrice: number;
-  if (product.category === discount.category) {
-    newPrice = (product.price * (100 - discount.percentage)) / 100;
-    console.log(newPrice);
-  } else {
-    console.log("there is now discount");
-  }
-  return newPrice;
-}
+// function discountCalculation(product, discount) {
+//   const newPrice: number;
+//   if (product.category === discount.category) {
+//     newPrice = (product.price * (100 - discount.percentage)) / 100;
+//     console.log(newPrice);
+//   } else {
+//     console.log("there is now discount");
+//   }
+//   return newPrice;
+// }
 
-discountCalculation(product, discount);
+// discountCalculation(product, discount);
