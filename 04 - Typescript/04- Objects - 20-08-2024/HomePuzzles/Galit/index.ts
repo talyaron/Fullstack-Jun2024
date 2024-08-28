@@ -579,90 +579,90 @@
 // (with name and salaryMultiplier properties). Write a function that calculates an employee's final salary
 //  based on their base salary and their department's multiplier.
 
-interface Employee {
-    name: string;
-    baseSalary: number;
-    department: string;
-}
+// interface Employee {
+//     name: string;
+//     baseSalary: number;
+//     department: string;
+// }
 
-interface Department {
-    department: string;
-    salaryMultiplier: number;
-}
+// interface Department {
+//     department: string;
+//     salaryMultiplier: number;
+// }
 
-function getEmployeeInfo(): Employee {
-    try {
-        const name: string | null = prompt("Enter Employee name");
+// function getEmployeeInfo(): Employee {
+//     try {
+//         const name: string | null = prompt("Enter Employee name");
 
-        if (!name) {
-            throw new Error("Invalid input: name is null.");
-        }
+//         if (!name) {
+//             throw new Error("Invalid input: name is null.");
+//         }
 
-        const baseSalary: number = Number(prompt("Enter base salary"));
-        if (isNaN(baseSalary) || baseSalary <= 0) {
-            throw new Error("Invalid input: base salary must be a positive number.");
-        }
+//         const baseSalary: number = Number(prompt("Enter base salary"));
+//         if (isNaN(baseSalary) || baseSalary <= 0) {
+//             throw new Error("Invalid input: base salary must be a positive number.");
+//         }
 
-        const department: string | null = prompt("Enter department");
-        if (!department) {
-            throw new Error("Invalid input: department is null.");
-        }
+//         const department: string | null = prompt("Enter department");
+//         if (!department) {
+//             throw new Error("Invalid input: department is null.");
+//         }
 
-        return {
-            name: name,
-            baseSalary: baseSalary,
-            department: department,
-        };
-    } catch (error) {
-        console.error(error);
-        throw new Error('Failed to get employee info.');
-    }
-}
+//         return {
+//             name: name,
+//             baseSalary: baseSalary,
+//             department: department,
+//         };
+//     } catch (error) {
+//         console.error(error);
+//         throw new Error('Failed to get employee info.');
+//     }
+// }
 
-function getDepartmentInfo(): Department {
-    try {
-        const department: string | null = prompt("Enter department name");
+// function getDepartmentInfo(): Department {
+//     try {
+//         const department: string | null = prompt("Enter department name");
 
-        if (!department) {
-            throw new Error("Invalid input: department is null.");
-        }
+//         if (!department) {
+//             throw new Error("Invalid input: department is null.");
+//         }
 
-        const salaryMultiplier: number = Number(prompt("Enter salary multiplier"));
-        if (isNaN(salaryMultiplier) || salaryMultiplier <= 0) {
-            throw new Error("Invalid input: salary multiplier must be a positive number.");
-        }
+//         const salaryMultiplier: number = Number(prompt("Enter salary multiplier"));
+//         if (isNaN(salaryMultiplier) || salaryMultiplier <= 0) {
+//             throw new Error("Invalid input: salary multiplier must be a positive number.");
+//         }
 
-        return {
-            department: department,
-            salaryMultiplier: salaryMultiplier,
-        };
-    } catch (error) {
-        console.error(error);
-        throw new Error('Failed to get department info.');
-    }
-}
+//         return {
+//             department: department,
+//             salaryMultiplier: salaryMultiplier,
+//         };
+//     } catch (error) {
+//         console.error(error);
+//         throw new Error('Failed to get department info.');
+//     }
+// }
 
 
-function calculateFinalSalary(employee: Employee, department: Department): number {
-    if (employee.department !== department.department) {
-        throw new Error(`Mismatch: The employee does not belong to the ${department.department} department.`);
-    }
+// function calculateFinalSalary(employee: Employee, department: Department): number {
+//     if (employee.department !== department.department) {
+//         throw new Error(`Mismatch: The employee does not belong to the ${department.department} department.`);
+//     }
 
-    const finalSalary = employee.baseSalary * department.salaryMultiplier;
-    return finalSalary;
-}
+//     const finalSalary = employee.baseSalary * department.salaryMultiplier;
+//     return finalSalary;
+// }
 
-try {
-    const employee = getEmployeeInfo();
-    const department = getDepartmentInfo();
+// try {
+//     const employee = getEmployeeInfo();
+//     const department = getDepartmentInfo();
 
-    const finalSalary = calculateFinalSalary(employee, department);
-    console.log(`Final salary for ${employee.name} is: ${finalSalary}`);
-    document.write(`Final salary for ${employee.name} is: ${finalSalary}`);
-} catch (error) {
-    console.error(error);
-    document.write(`Error: ${error.message}`);
-}
+//     const finalSalary = calculateFinalSalary(employee, department);
+//     console.log(`Final salary for ${employee.name} is: ${finalSalary}`);
+//     document.write(`Final salary for ${employee.name} is: ${finalSalary}`);
+// } catch (error) {
+//     console.error(error);
+//     document.write(`Error: ${error.message}`);
+// }
 
 
 
@@ -673,101 +673,206 @@ try {
 // using a union type for the parameter.
 
 // Define interfaces for each shape
-interface Cube {
-    type: 'cube';
-    sideLength: number;
-}
+// interface Cube {
+//     type: 'cube';
+//     sideLength: number;
+// }
 
-interface Sphere {
-    type: 'sphere';
-    radius: number;
-}
+// interface Sphere {
+//     type: 'sphere';
+//     radius: number;
+// }
 
-interface Cylinder {
-    type: 'cylinder';
-    radius: number;
-    height: number;
-}
+// interface Cylinder {
+//     type: 'cylinder';
+//     radius: number;
+//     height: number;
+// }
 
-type Shape = Cube | Sphere | Cylinder;
+// type Shape = Cube | Sphere | Cylinder;
 
-function calculateVolume(shape: Shape): number {
-    try {
-        switch (shape.type) {
-            case 'cube':
-                return Math.pow(shape.sideLength, 3); 
+// function calculateVolume(shape: Shape): number {
+//     try {
+//         switch (shape.type) {
+//             case 'cube':
+//                 return Math.pow(shape.sideLength, 3); 
 
-            case 'sphere':
-                return (4 / 3) * Math.PI * Math.pow(shape.radius, 3);
+//             case 'sphere':
+//                 return (4 / 3) * Math.PI * Math.pow(shape.radius, 3);
 
-            case 'cylinder':
-                return Math.PI * Math.pow(shape.radius, 2) * shape.height; 
+//             case 'cylinder':
+//                 return Math.PI * Math.pow(shape.radius, 2) * shape.height; 
 
-            default:
-                throw new Error("Invalid shape type.");
-        }
-    } catch (error) {
-        console.error(error);
-        throw new Error('Failed to calculate volume.');
-    }
-}
+//             default:
+//                 throw new Error("Invalid shape type.");
+//         }
+//     } catch (error) {
+//         console.error(error);
+//         throw new Error('Failed to calculate volume.');
+//     }
+// }
 
-function getShapeInfo(): Shape {
-    try {
-        const shapeType: string | null = prompt("Enter shape type (cube, sphere, cylinder)");
+// function getShapeInfo(): Shape {
+//     try {
+//         const shapeType: string | null = prompt("Enter shape type (cube, sphere, cylinder)");
         
-        if (!shapeType || !['cube', 'sphere', 'cylinder'].includes(shapeType)) {
-            throw new Error("Invalid input: shape type is not recognized.");
-        }
+//         if (!shapeType || !['cube', 'sphere', 'cylinder'].includes(shapeType)) {
+//             throw new Error("Invalid input: shape type is not recognized.");
+//         }
 
-        switch (shapeType) {
-            case 'cube':
-                const sideLength: number = Number(prompt("Enter side length"));
-                if (isNaN(sideLength) || sideLength <= 0) {
-                    throw new Error("Invalid input: side length must be a positive number.");
-                }
-                return { type: 'cube', sideLength: sideLength };
+//         switch (shapeType) {
+//             case 'cube':
+//                 const sideLength: number = Number(prompt("Enter side length"));
+//                 if (isNaN(sideLength) || sideLength <= 0) {
+//                     throw new Error("Invalid input: side length must be a positive number.");
+//                 }
+//                 return { type: 'cube', sideLength: sideLength };
 
-            case 'sphere':
-                const radiusSphere: number = Number(prompt("Enter radius"));
-                if (isNaN(radiusSphere) || radiusSphere <= 0) {
-                    throw new Error("Invalid input: radius must be a positive number.");
-                }
-                return { type: 'sphere', radius: radiusSphere };
+//             case 'sphere':
+//                 const radiusSphere: number = Number(prompt("Enter radius"));
+//                 if (isNaN(radiusSphere) || radiusSphere <= 0) {
+//                     throw new Error("Invalid input: radius must be a positive number.");
+//                 }
+//                 return { type: 'sphere', radius: radiusSphere };
 
-            case 'cylinder':
-                const radiusCylinder: number = Number(prompt("Enter radius"));
-                const heightCylinder: number = Number(prompt("Enter height"));
-                if (isNaN(radiusCylinder) || radiusCylinder <= 0 || isNaN(heightCylinder) || heightCylinder <= 0) {
-                    throw new Error("Invalid input: radius and height must be positive numbers.");
-                }
-                return { type: 'cylinder', radius: radiusCylinder, height: heightCylinder };
+//             case 'cylinder':
+//                 const radiusCylinder: number = Number(prompt("Enter radius"));
+//                 const heightCylinder: number = Number(prompt("Enter height"));
+//                 if (isNaN(radiusCylinder) || radiusCylinder <= 0 || isNaN(heightCylinder) || heightCylinder <= 0) {
+//                     throw new Error("Invalid input: radius and height must be positive numbers.");
+//                 }
+//                 return { type: 'cylinder', radius: radiusCylinder, height: heightCylinder };
 
-            default:
-                throw new Error("Invalid shape type.");
-        }
-    } catch (error) {
-        console.error(error);
-        throw new Error('Failed to get shape information.');
-    }
-}
+//             default:
+//                 throw new Error("Invalid shape type.");
+//         }
+//     } catch (error) {
+//         console.error(error);
+//         throw new Error('Failed to get shape information.');
+//     }
+// }
 
-// Get shape info from user
-const shape = getShapeInfo();
+// // Get shape info from user
+// const shape = getShapeInfo();
 
-// Calculate volume
-const volume = calculateVolume(shape);
+// // Calculate volume
+// const volume = calculateVolume(shape);
 
-// Output results
-console.log(`The size of the ${shape.type} is: ${volume}`);
-document.write(`The size of the ${shape.type} is: ${volume}<br>`);
+// // Output results
+// console.log(`The size of the ${shape.type} is: ${volume}`);
+// document.write(`The size of the ${shape.type} is: ${volume}<br>`);
 
 
 
 // //// 10. Online Order System ////
 // Define interfaces for Product (with id, name, and price), Customer 
 // (with name and address), and Order (with customer, product, and quantity). Implement functions to:
+
+
+interface Product {
+    id: number,
+    name: string,
+    price: number
+}
+
+interface Customer {
+    name: string,
+    address: string,
+}
+
+interface Order {
+    customer:  Customer,
+    product: Product,
+    quantity: number
+}
+
 // - createOrder: Takes a Customer, Product, and quantity, returns an Order.
+const getCustomerInfo = (): Customer | null => {
+    try {
+        const name: string | null = prompt("Enter your name");
+        const address: string | null = prompt("Enter your address");
+        if (name && address) {
+            return { name, address };
+        } else {
+            console.error("Invalid input for customer information");
+            return null;
+        }
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+
+// Function to get product information from user input
+const getProductInfo = (): Product | null => {
+    try {
+        const id: number = Number(prompt("Enter product id"));
+        const name: string | null = prompt("Enter product name");
+        const price: number = Number(prompt("Enter product price"));
+        if (name && !isNaN(id) && !isNaN(price)) {
+            return { id, name, price };
+        } else {
+            console.error("Invalid input for product information");
+            return null;
+        }
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+
+const createOrder = (customer: Customer, product: Product, quantity: number): Order => {
+    return {
+        customer,
+        product,
+        quantity
+    };
+}
+
+console.log(createOrder);
+
+
 // - calculateTotal: Takes an Order and returns the total price.
+
+const calculateTotal = (order: Order): number => {
+    return order.product.price * order.quantity;
+}
+
+// Function to generate a formatted invoice string
+
+
 // - generateInvoice: Takes an Order and returns a formatted invoice string.
 
+const generateInvoice = (order: Order): string => {
+    const total = calculateTotal(order);
+    return `
+    --- INVOICE ---
+    Customer Name: ${order.customer.name}
+    Address: ${order.customer.address}
+    
+    Product ID: ${order.product.id}
+    Product Name: ${order.product.name}
+    Price per Unit: $${order.product.price.toFixed(2)}
+    Quantity: ${order.quantity}
+    
+    Total Price: $${total.toFixed(2)}
+    
+    Thank you for your purchase!
+    ------------------------
+    `;
+}
+
+
+const customer = getCustomerInfo();
+const product = getProductInfo();
+
+if (customer && product) {
+    const quantity: number = Number(prompt("Enter the quantity"));
+    if (!isNaN(quantity) && quantity > 0) {
+        const order = createOrder(customer, product, quantity);
+        console.log("Order created:", order);
+        console.log(generateInvoice(order));
+    } else {
+        console.error("Invalid quantity");
+    }
+}
