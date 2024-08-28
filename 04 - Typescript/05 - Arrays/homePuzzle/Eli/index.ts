@@ -26,14 +26,28 @@ function printToUser(
   exsistinsystem: Book | undefined,
   collectionBook: Book[]
 ) {
-  if (!exsistinsystem||exsistinsystem.title=="null") {
+  if (!exsistinsystem || exsistinsystem.title == "null") {
     collectionBook.push(userBook);
-    console.log(collectionBook);
+
+    console.log(`all of our books:`);
+    collectionBook.forEach((collectionBook) => {
+      console.log(
+        ` ${collectionBook.title} by ${collectionBook.author} written in ${collectionBook.year}`
+      );
+    });
+
   } else {
+
     console.log(
       `your book is : ${exsistinsystem.title} by ${exsistinsystem.author} written in ${exsistinsystem.year}`
     );
-    console.log(collectionBook);
+    console.log(`the rest of our books:`);
+    collectionBook.forEach((collectionBook) => {
+      console.log(
+        ` ${collectionBook.title} by ${collectionBook.author} written in ${collectionBook.year}`
+      );
+    });
+    
   }
 }
 
