@@ -33,6 +33,10 @@ buttons.forEach(function (button) {
                 var itemsToRestock = itemToRestock(allItems);
                 displayinventory(itemsToRestock);
             }
+            if (button.id === "switchItemsPositions") {
+                allItems == switchItems(allItems);
+                displayinventory(allItems);
+            }
         });
     }
 });
@@ -72,25 +76,22 @@ function inputNewItem(items) {
     var _name = String(prompt("Give new item name"));
     if (_name.length < 2 || _name.length > 20) {
         alert("the name you choose is too long/short");
+        return null;
     }
-    else {
-        //if name is ok asks user for price
-        var _price = Number(prompt("Give new item price"));
-        if (Number.isNaN(_price) || _price <= 0) {
-            alert("Ilegal price!");
-        }
-        else {
-            //if price is ok asks user for quantity
-            var _quntity = Number(prompt("Give new item quantity"));
-            if (!Number.isInteger(_quntity) || _quntity <= 0) {
-                alert("quantity needs to be a full number above 0!");
-            }
-            else {
-                //if all is ok returns the user item
-                return { id: _id, name: _name, price: _price, quantity: _quntity };
-            }
-        }
+    //if name is ok asks user for price
+    var _price = Number(prompt("Give new item price"));
+    if (Number.isNaN(_price) || _price <= 0) {
+        alert("Ilegal price!");
+        return null;
     }
+    //if price is ok asks user for quantity
+    var _quntity = Number(prompt("Give new item quantity"));
+    if (!Number.isInteger(_quntity) || _quntity <= 0) {
+        alert("quantity needs to be a full number above 0!");
+        return null;
+    }
+    //if all is ok returns the user item
+    return { id: _id, name: _name, price: _price, quantity: _quntity };
     //if problem returns null
     return null;
 }
@@ -128,8 +129,9 @@ function searchbyID(item) {
         return null;
 }
 //search by name
-function searchbyName(item) {
-    var itemName = String(prompt("Write the NAME of the item"));
+function searchbyName(item, hasName) {
+    var itemName = hasName ? hasName
+        : String(prompt("Write the NAME of the item"));
     var itemSlected = item.find(function (item) { return item.name.toLowerCase() === itemName.toLowerCase(); });
     if (itemSlected) {
         return itemSlected;
@@ -201,4 +203,33 @@ function displayinventory(item) {
     });
     var amountWorth = calcInvWorth(item);
     console.log("stock worth of : " + amountWorth + "$");
+}
+function switchItems(item) {
+    //set first item by calling search by name
+    var _firstItem = searchbyName(item);
+    if (_firstItem === null) {
+        alert("no item");
+        return item;
+    }
+    //set second item by calling search by name again
+    var _secondItem = searchbyName(item);
+    if (_secondItem === null) {
+        alert("no item");
+        return item;
+    }
+    // finds the index of the first item
+    var firstIndex = item.findIndex(function (item) { return item.id === _firstItem.id; });
+    // finds the index of the second item
+    var secondIndex = item.findIndex(function (item) { return item.id === _secondItem.id; });
+    if (firstIndex !== -1 && secondIndex !== -1) {
+        // Swap the items
+        var temp = item[firstIndex];
+        item[firstIndex] = item[secondIndex];
+        item[secondIndex] = temp;
+    }
+    else {
+        alert("One or both items not found in the array.");
+    }
+    alert("succsussfully switched between " + _firstItem.name + " and  " + _secondItem.name);
+    return item;
 }

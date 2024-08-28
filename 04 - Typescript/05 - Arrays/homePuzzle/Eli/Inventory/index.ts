@@ -34,6 +34,10 @@ buttons.forEach((button) => {
         const itemsToRestock = itemToRestock(allItems);
         displayinventory(itemsToRestock);
       }
+      if (button.id === "switchItemsPositions") {
+        allItems == switchItems(allItems);
+        displayinventory(allItems);
+      }
     });
   }
 });
@@ -85,22 +89,23 @@ function inputNewItem(items: item[]): item | null {
   const _name = String(prompt("Give new item name"));
   if (_name.length < 2 || _name.length > 20) {
     alert("the name you choose is too long/short");
-  } else {
-    //if name is ok asks user for price
-    const _price = Number(prompt("Give new item price"));
-    if (Number.isNaN(_price) || _price <= 0) {
-      alert("Ilegal price!");
-    } else {
-      //if price is ok asks user for quantity
-      const _quntity = Number(prompt("Give new item quantity"));
-      if (!Number.isInteger(_quntity) || _quntity <= 0) {
-        alert("quantity needs to be a full number above 0!");
-      } else {
-        //if all is ok returns the user item
-        return { id: _id, name: _name, price: _price, quantity: _quntity };
-      }
-    }
+    return null;
   }
+  //if name is ok asks user for price
+  const _price = Number(prompt("Give new item price"));
+  if (Number.isNaN(_price) || _price <= 0) {
+    alert("Ilegal price!");
+    return null;
+  }
+  //if price is ok asks user for quantity
+  const _quntity = Number(prompt("Give new item quantity"));
+  if (!Number.isInteger(_quntity) || _quntity <= 0) {
+    alert("quantity needs to be a full number above 0!");
+    return null;
+  }
+  //if all is ok returns the user item
+  return { id: _id, name: _name, price: _price, quantity: _quntity };
+
   //if problem returns null
   return null;
 }
@@ -141,8 +146,11 @@ function searchbyID(item: item[]): item | null {
 }
 
 //search by name
-function searchbyName(item: item[]): item | null {
-  const itemName = String(prompt("Write the NAME of the item"));
+function searchbyName(item: item[], hasName?: string | null): item | null {
+  
+  const itemName = hasName ? hasName
+    : String(prompt("Write the NAME of the item"));
+
   const itemSlected = item.find(
     (item) => item.name.toLowerCase() === itemName.toLowerCase()
   );
@@ -228,4 +236,36 @@ function displayinventory(item: item[]) {
   });
   const amountWorth = calcInvWorth(item);
   console.log(`stock worth of : ${amountWorth}$`);
+}
+
+function switchItems(item: item[]) {
+  //set first item by calling search by name
+  const _firstItem = searchbyName(item);
+  if (_firstItem === null) {
+    alert("no item");
+    return item;
+  }
+  //set second item by calling search by name again
+  const _secondItem = searchbyName(item);
+  if (_secondItem === null) {
+    alert("no item");
+    return item;
+  }
+
+  // finds the index of the first item
+  const firstIndex = item.findIndex((item) => item.id === _firstItem.id);
+
+  // finds the index of the second item
+  const secondIndex = item.findIndex((item) => item.id === _secondItem.id);
+
+  if (firstIndex !== -1 && secondIndex !== -1) {
+    // Swap the items
+    const temp = item[firstIndex];
+    item[firstIndex] = item[secondIndex];
+    item[secondIndex] = temp;
+  } else {
+    alert("One or both items not found in the array.");
+  }
+  alert(`succsussfully switched between ${_firstItem.name} and  ${_secondItem.name}`);
+  return item;
 }
