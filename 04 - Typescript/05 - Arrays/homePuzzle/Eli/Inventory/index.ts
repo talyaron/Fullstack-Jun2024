@@ -11,25 +11,25 @@ buttons.forEach((button) => {
         allItems == addItem(newitem, allItems);
         displayinventory(allItems);
       }
-        //button id: removeItem to remove item from the collective array:
+      //button id: removeItem to remove item from the collective array:
       if (button.id === "removeItem") {
         const itemByID = searchbyID(allItems);
         allItems == removeItem(itemByID, allItems);
         displayinventory(allItems);
       }
-        //button id: updateItem to update the quantity of an item based on its id
+      //button id: updateItem to update the quantity of an item based on its id
       if (button.id === "updateItem") {
         const itemByID = searchbyID(allItems);
         allItems == updateQuantity(itemByID, allItems);
         displayinventory(allItems);
       }
-        //button id: searchItemByName to search for item by its name :
+      //button id: searchItemByName to search for item by its name :
       if (button.id === "searchItemByName") {
         const itemByName = searchbyName(allItems);
         displayItem(itemByName);
         displayinventory(allItems);
       }
-        //button id: showRestock to show items with low quantities :
+      //button id: showRestock to show items with low quantities :
       if (button.id === "showRestock") {
         const itemsToRestock = itemToRestock(allItems);
         displayinventory(itemsToRestock);
@@ -46,8 +46,7 @@ interface item {
   quantity: Number;
 }
 
-
-//array for the inventory 
+//array for the inventory
 const allItems: item[] = [
   {
     id: 5543,
@@ -81,9 +80,22 @@ const allItems: item[] = [
 function inputNewItem(items: item[]): item {
   const _id = giveRandomId(items);
   const _name = String(prompt("Give new item name"));
-  const _price = Number(prompt("Give new item price"));
-  const _quntity = Number(prompt("Give new item quantity"));
-  return { id: _id, name: _name, price: _price, quantity: _quntity };
+  if (_name.length < 2 || _name.length > 20) {
+    alert("the name you choose is too long/short");
+  } else {
+    const _price = Number(prompt("Give new item price"));
+    if (Number.isNaN(_price) || _price <= 0) {
+      alert("Ilegal price!");
+    } else {
+      const _quntity = Number(prompt("Give new item quantity"));
+      if (!Number.isInteger(_quntity) || _quntity <= 0) {
+        alert("quantity needs to be a full number above 0!");
+      } else {
+        return { id: _id, name: _name, price: _price, quantity: _quntity };
+      }
+    }
+  }
+  return { id: 2, name: "a", price: 0, quantity: 0 };
 }
 
 //give a random id to the item
@@ -95,25 +107,15 @@ function giveRandomId(items: item[]): number {
   } else return randomID;
 }
 
-//adds the item to the inventory if all prematers are right
+//adds the item to the inventory 
 function addItem(item: item, allItems: item[]): item[] {
-  const minNum: Number = 0;
-  if (item.name.length < 2 || item.name.length > 20) {
-    alert("the name you choose is too long/short");
-  } else if (
-    item.price === null ||
-    item.price == undefined ||
-    item.price <= minNum
-  ) {
-    alert("Ilegal price!");
-  } else if (!Number.isInteger(item.quantity) || item.quantity <= minNum) {
-    alert("quantity needs to be a full number above 0!");
-  } else {
+  if (item.name !== "a") {
     allItems.push(item);
     alert(
       `new item added! Id: ${item.id} name: ${item.name} price: ${item.price}$ quantity: ${item.quantity}`
     );
   }
+  alert(`no new item added`);
   return allItems;
 }
 
@@ -139,7 +141,6 @@ function searchbyName(item: item[]): item | null {
   } else return null;
 }
 
-
 //remove item function:
 function removeItem(itemToRemove: item | null, itemCollection: item[]): item[] {
   if (itemToRemove != null) {
@@ -149,8 +150,12 @@ function removeItem(itemToRemove: item | null, itemCollection: item[]): item[] {
     if (index !== -1) {
       itemCollection.splice(index, 1);
     }
+    alert(`${itemToRemove.name} was removed successfully `);
     return itemCollection;
-  } else return itemCollection;
+  } else {
+    alert(`item wasnt found :/`);
+    return itemCollection;
+  }
 }
 
 //update item quantity by id function:
@@ -195,11 +200,11 @@ function calcInvWorth(items: item[]): number {
 
 //displays selected item in the console
 function displayItem(item: item | null) {
-    if (item != null)
-      alert(
-        `item id: ${item.id} name: ${item.name} costs: ${item.price}$ each. amount in stock: ${item.quantity}`
-      );
-    else alert(`no such item in the system`);
+  if (item != null)
+    alert(
+      `item id: ${item.id} name: ${item.name} costs: ${item.price}$ each. amount in stock: ${item.quantity}`
+    );
+  else alert(`no such item in the system`);
 }
 
 //displays inventory in the console and calculates the sum cost

@@ -36,7 +36,7 @@ buttons.forEach(function (button) {
         });
     }
 });
-//array for the inventory 
+//array for the inventory
 var allItems = [
     {
         id: 5543,
@@ -68,9 +68,25 @@ var allItems = [
 function inputNewItem(items) {
     var _id = giveRandomId(items);
     var _name = String(prompt("Give new item name"));
-    var _price = Number(prompt("Give new item price"));
-    var _quntity = Number(prompt("Give new item quantity"));
-    return { id: _id, name: _name, price: _price, quantity: _quntity };
+    if (_name.length < 2 || _name.length > 20) {
+        alert("the name you choose is too long/short");
+    }
+    else {
+        var _price = Number(prompt("Give new item price"));
+        if (Number.isNaN(_price) || _price <= 0) {
+            alert("Ilegal price!");
+        }
+        else {
+            var _quntity = Number(prompt("Give new item quantity"));
+            if (!Number.isInteger(_quntity) || _quntity <= 0) {
+                alert("quantity needs to be a full number above 0!");
+            }
+            else {
+                return { id: _id, name: _name, price: _price, quantity: _quntity };
+            }
+        }
+    }
+    return { id: 2, name: "a", price: 0, quantity: 0 };
 }
 //give a random id to the item
 function giveRandomId(items) {
@@ -82,24 +98,13 @@ function giveRandomId(items) {
     else
         return randomID;
 }
-//adds the item to the inventory if all prematers are right
+//adds the item to the inventory 
 function addItem(item, allItems) {
-    var minNum = 0;
-    if (item.name.length < 2 || item.name.length > 20) {
-        alert("the name you choose is too long/short");
-    }
-    else if (item.price === null ||
-        item.price == undefined ||
-        item.price <= minNum) {
-        alert("Ilegal price!");
-    }
-    else if (!Number.isInteger(item.quantity) || item.quantity <= minNum) {
-        alert("quantity needs to be a full number above 0!");
-    }
-    else {
+    if (item.name !== "a") {
         allItems.push(item);
         alert("new item added! Id: " + item.id + " name: " + item.name + " price: " + item.price + "$ quantity: " + item.quantity);
     }
+    alert("no new item added");
     return allItems;
 }
 //search functions:
@@ -130,10 +135,13 @@ function removeItem(itemToRemove, itemCollection) {
         if (index !== -1) {
             itemCollection.splice(index, 1);
         }
+        alert(itemToRemove.name + " was removed successfully ");
         return itemCollection;
     }
-    else
+    else {
+        alert("item wasnt found :/");
         return itemCollection;
+    }
 }
 //update item quantity by id function:
 function updateQuantity(item, itemCollection) {
