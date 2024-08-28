@@ -34,9 +34,19 @@ buttons.forEach((button) => {
         const itemsToRestock = itemToRestock(allItems);
         displayinventory(itemsToRestock);
       }
+      //button id: switchItemsPositions to switch position between two items :
       if (button.id === "switchItemsPositions") {
         allItems == switchItems(allItems);
         displayinventory(allItems);
+      }
+      //button id: sort to sort items by price :
+      if (button.id === "sort") {
+        allItems == sort(allItems);
+        displayinventory(allItems);
+      }
+      if (button.id === "summary") {
+        const summuries = summary(allItems);
+        //displayinventory(allItems);
       }
     });
   }
@@ -147,8 +157,8 @@ function searchbyID(item: item[]): item | null {
 
 //search by name
 function searchbyName(item: item[], hasName?: string | null): item | null {
-  
-  const itemName = hasName ? hasName
+  const itemName = hasName
+    ? hasName
     : String(prompt("Write the NAME of the item"));
 
   const itemSlected = item.find(
@@ -238,6 +248,7 @@ function displayinventory(item: item[]) {
   console.log(`stock worth of : ${amountWorth}$`);
 }
 
+//switch two items position in the arrray function
 function switchItems(item: item[]) {
   //set first item by calling search by name
   const _firstItem = searchbyName(item);
@@ -259,13 +270,56 @@ function switchItems(item: item[]) {
   const secondIndex = item.findIndex((item) => item.id === _secondItem.id);
 
   if (firstIndex !== -1 && secondIndex !== -1) {
-    // Swap the items
+    // swaps the items
     const temp = item[firstIndex];
     item[firstIndex] = item[secondIndex];
     item[secondIndex] = temp;
   } else {
     alert("One or both items not found in the array.");
   }
-  alert(`succsussfully switched between ${_firstItem.name} and  ${_secondItem.name}`);
+  alert(
+    `succsussfully switched between ${_firstItem.name} and  ${_secondItem.name}`
+  );
   return item;
+}
+
+//sort items by price function
+function sort(item: item[]): item[] {
+  item.sort((a, b) => Number(a.price) - Number(b.price));
+  return item;
+}
+
+//calculate the amount of all the items not type function
+function calculatAllItems(item: item[]): Number {
+  let sumAmmount = 0;
+  item.forEach((item) => {
+    if (typeof item.quantity === "number") {
+      sumAmmount += item.quantity;
+    }
+  });
+  return sumAmmount;
+}
+
+//summary function
+function summary(item: item[]) {
+  const _itemAmountSum = item.length;
+  const sumAmmount = Number(calculatAllItems(item));
+  const sumPrice = calcInvWorth(item);
+  const _avrgPrice = sumPrice / sumAmmount;
+
+  const cheapestItem = item.sort(
+    (a, b) => Number(a.price) - Number(b.price)
+  )[0];
+  const mostExpensiveItem = item.sort(
+    (a, b) => Number(b.price) - Number(a.price)
+  )[0];
+
+  console.log(`the are ${_itemAmountSum} types of items and overall ${sumAmmount} items
+  in the inventory average price ${_avrgPrice.toFixed(1)}$ 
+  the most expensive item is : ${mostExpensiveItem.name} it costs : ${
+    mostExpensiveItem.price
+  }$
+   and the cheapest is: ${cheapestItem.name} it costs : ${
+    cheapestItem.price
+  } `);
 }
