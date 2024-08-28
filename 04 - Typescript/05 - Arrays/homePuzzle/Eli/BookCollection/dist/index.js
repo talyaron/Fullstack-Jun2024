@@ -16,11 +16,17 @@ function inputBook() {
 function printToUser(userBook, exsistinsystem, collectionBook) {
     if (!exsistinsystem || exsistinsystem.title == "null") {
         collectionBook.push(userBook);
-        console.log(collectionBook);
+        console.log("all of our books:");
+        collectionBook.forEach(function (collectionBook) {
+            console.log(" " + collectionBook.title + " by " + collectionBook.author + " written in " + collectionBook.year);
+        });
     }
     else {
         console.log("your book is : " + exsistinsystem.title + " by " + exsistinsystem.author + " written in " + exsistinsystem.year);
-        console.log(collectionBook);
+        console.log("the rest of our books:");
+        collectionBook.forEach(function (collectionBook) {
+            console.log(" " + collectionBook.title + " by " + collectionBook.author + " written in " + collectionBook.year);
+        });
     }
 }
 var userBook = inputBook();
