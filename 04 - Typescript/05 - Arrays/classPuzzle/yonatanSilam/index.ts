@@ -28,5 +28,5 @@ const oldStudets:Person[]= students.filter((student:Person)=> student.age>30);
 const oldStudetsByAge:Person[]=oldStudets.sort((student1,student2) =>student1.age-student2.age )
 oldStudetsByAge.forEach((student:Person)=> console.log(`the student ${student.name} ia ${student.age} years old`))
 
-const lestOlder = students.findLast((num:number)=>num>40 )
-console.log(lestOlder);
+// const lestOlder = students.findLast((num:number)=>num>40 )
+// console.log(lestOlder);

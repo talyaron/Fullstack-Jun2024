@@ -20,5 +20,5 @@ var oldStudets = students.filter(function (student) { return student.age > 30; }
 // oldStudets.forEach((student:Person)=> console.log(`the student ${student.name} ia ${student.age} years old`))
 var oldStudetsByAge = oldStudets.sort(function (student1, student2) { return student1.age - student2.age; });
 oldStudetsByAge.forEach(function (student) { return console.log("the student " + student.name + " ia " + student.age + " years old"); });
-var lestOlder = students.findLast(function (num) { return num > 40; });
-console.log(lestOlder);
+// const lestOlder = students.findLast((num:number)=>num>40 )
+// console.log(lestOlder);
