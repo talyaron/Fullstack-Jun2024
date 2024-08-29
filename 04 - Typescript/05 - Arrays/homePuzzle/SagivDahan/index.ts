@@ -21,11 +21,32 @@ function pushToBookCollection(title: string, author: string, year:number): void 
 }
 
 // I want to make a variables to save and get the user information from the browser in prompt.
-const title: string = prompt("Enter book title:") || '';
-const author: string = prompt("Enter book:") || '';
-const yearInput: number = Number(prompt("Enter the year of the book:")) || 0;
+//const title: string = prompt("Enter book title:") || '';
+//const author: string = prompt("Enter book:") || '';
+//const yearInput: number = Number(prompt("Enter the year of the book:")) || 0;
 
 // this is enable the function.
-pushToBookCollection(title, author, yearInput);
+//pushToBookCollection(title, author, yearInput);
 //this is prints bookCollection array.
-console.log(bookCollection);
+//console.log(bookCollection);
+
+// I want to make a function that filter a book by year.
+function filterBooksAfterYear(collection: Book[], year: number): Book[] {
+    return collection.filter(book => book.year >= year);
+}
+
+// function enable
+const filteredBooks = filterBooksAfterYear(bookCollection, 2010);
+console.log(filteredBooks);
+
+function getNewestBook(collection: Book[]): Book | undefined {
+    return collection.reduce((newest, book) => {
+        if (!newest) return book;
+        return book.year > newest.year ? book : newest;
+    }, undefined as Book | undefined); 
+}
+
+//enable function
+const newestBook = getNewestBook(bookCollection);
+//return the newest book.
+console.log('The newest book is:', newestBook);
