@@ -133,7 +133,7 @@ interface Item {         /*  01  */
     id : number;
     name : string;
     price : number;
-    quantity : number;
+    quantity : Number;
 }
 
 var management_system : Item [] = [         /*  02  */
@@ -193,8 +193,15 @@ const founded = found_item(management_system,"Screen");    /*  03  - D  */
 console.log(founded);
 const total_quantity = total(management_system);         /* 03 - E */
 console.log(total_quantity);
-const list_quantity = list_by_quantity(management_system,5);
+var list_quantity = list_by_quantity(management_system,6);   /*  03  -  F  */
 console.log(list_quantity);
+console.log("array before swap")
+console.log(management_system);
+var try1 = management_system;
+console.log("array after swap")
+swap(try1,0,2);
+console.log(try1);
+
 
 
 
@@ -237,9 +244,24 @@ function total (arr:Item[]) : number {
     return sum
 }
 
-function list_by_quantity (arr:Item[], quantity:number) : Item[]
+function list_by_quantity (arr2:Item[], quantity:number) : Item[]
 {
-    const new_arr[] = arr.filter(arr => arr.quantity < quantity)
+    const new_arr = arr2.filter((arr2 => arr2.quantity < quantity))
     return new_arr;
 }
+
+// console.log(management_system[4].name);
+
+function swap (arr:Item[], new_index:number, old_index:number) : void
+{
+    const temp= arr[old_index];
+    console.log(temp);
+    arr[old_index] = arr[new_index];
+    console.log(arr[old_index]);
+    arr[new_index] = temp
+    management_system = arr;
+}
+
+console.log(management_system.indexOf(2));
+
 

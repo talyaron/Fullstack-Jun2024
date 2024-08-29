@@ -123,8 +123,14 @@ var founded = found_item(management_system, "Screen"); /*  03  - D  */
 console.log(founded);
 var total_quantity = total(management_system); /* 03 - E */
 console.log(total_quantity);
-var list_quantity = list_by_quantity(management_system, 5);
+var list_quantity = list_by_quantity(management_system, 6); /*  03  -  F  */
 console.log(list_quantity);
+console.log("array before swap");
+console.log(management_system);
+var try1 = management_system;
+console.log("array after swap");
+swap(try1, 0, 2);
+console.log(try1);
 function add_item(id, name, price, quantity) {
     management_system.push({
         id: id,
@@ -153,7 +159,17 @@ function total(arr) {
     arr.forEach(function (arr) { return sum = sum + arr.quantity; });
     return sum;
 }
-function list_by_quantity(arr, quantity) {
-    var new_arr, _a = arr.filter(function (arr) { return arr.quantity < quantity; });
+function list_by_quantity(arr2, quantity) {
+    var new_arr = arr2.filter((function (arr2) { return arr2.quantity < quantity; }));
     return new_arr;
 }
+// console.log(management_system[4].name);
+function swap(arr, new_index, old_index) {
+    var temp = arr[old_index];
+    console.log(temp);
+    arr[old_index] = arr[new_index];
+    console.log(arr[old_index]);
+    arr[new_index] = temp;
+    management_system = arr;
+}
+console.log(management_system.indexOf(2));
