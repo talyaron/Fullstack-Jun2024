@@ -33,12 +33,12 @@ function render_yosef_market () {
 
         yosk_market.forEach(item => {
             const item_element = document.createElement('div');
-            market_element.innerHTML = `
+            item_element.innerHTML = `
             <h3>${item.name}</h3>
             <img src="${item.img}" />
         `;
-            market_element.classList.add('pet');
-            market_element.appendChild(market_element);
+        item_element.classList.add('pet');
+            market_element.appendChild(item_element);
         })
 
     }catch (error) {
