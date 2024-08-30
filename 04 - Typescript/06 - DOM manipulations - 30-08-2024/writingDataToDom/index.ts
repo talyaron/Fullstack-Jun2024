@@ -23,7 +23,7 @@ function renderPets() {
         if (!petsElement) throw new Error('Could not find an element with the id "pets"');
         
         pets.forEach(pet => {
-            const petElement = document.createElement('article');
+            const petElement = document.createElement('div');
             petElement.innerHTML = `
             <h3>${pet.name}</h3>
             <img src="${pet.image}" />

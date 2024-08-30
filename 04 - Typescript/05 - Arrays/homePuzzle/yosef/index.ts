@@ -125,7 +125,7 @@ books.forEach((x) => document.write(`<br> title ${x.title} auther is ${x.auther}
 
 
 // ## Exercise 2: Inventory Management System (Advanced)
-
+document.body.style.backgroundColor = 'red';
 document.write("<br> <br>Now Exercise 2");
 
 
@@ -262,6 +262,6 @@ function swap (arr:Item[], new_index:number, old_index:number) : void
     management_system = arr;
 }
 
-console.log(management_system.indexOf(2));
+// console.log(management_system.indexOf(management_system[2]));
 
 

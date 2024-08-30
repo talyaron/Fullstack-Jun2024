@@ -14,7 +14,7 @@ function renderPets() {
         if (!petsElement_1)
             throw new Error('Could not find an element with the id "pets"');
         pets.forEach(function (pet) {
-            var petElement = document.createElement('article');
+            var petElement = document.createElement('div');
             petElement.innerHTML = "\n            <h3>" + pet.name + "</h3>\n            <img src=\"" + pet.image + "\" />\n        ";
             petElement.classList.add('pet');
             petElement.id = pet.id;
