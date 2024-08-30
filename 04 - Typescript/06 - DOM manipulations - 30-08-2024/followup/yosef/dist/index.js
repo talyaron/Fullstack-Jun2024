@@ -19,9 +19,9 @@ function render_yosef_market() {
             throw new Error('No such element');
         yosk_market.forEach(function (item) {
             var item_element = document.createElement('div');
-            market_element_1.innerHTML = "\n            <h3>" + item.name + "</h3>\n            <img src=\"" + item.img + "\" />\n        ";
-            market_element_1.classList.add('pet');
-            market_element_1.appendChild(market_element_1);
+            item_element.innerHTML = "\n            <h3>" + item.name + "</h3>\n            <img src=\"" + item.img + "\" />\n        ";
+            item_element.classList.add('pet');
+            market_element_1.appendChild(item_element);
         });
     }
     catch (error) {
