@@ -37,6 +37,8 @@ function render_yosef_market() {
             <h3>${item.name}</h3>
             <img src="${item.img}" />
         `;
+        item_element.classList.add('pet');
+            market_element.appendChild(item_element);
             item_element.classList.add('pet');
             market_element.appendChild(item_element);
         })
