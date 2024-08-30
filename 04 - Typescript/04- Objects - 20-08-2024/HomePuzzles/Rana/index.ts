@@ -38,9 +38,6 @@
 //     document.write(`The book ${book.title}, was written by ${book.author} and published in ${book.publicationYear}`);
 // }
 
-
-
-
 //exercise 2 -Circle Area:
 /*
 interface Circle {
@@ -73,9 +70,6 @@ if (isNaN(radius)) {
     console.log("The circle area is:", area);
 }
 */
-
-
-
 
 //exercise 3- Temperature Converter
 /*
@@ -111,8 +105,6 @@ try {
 }
 
 */
-
-
 
 //exercise 4-Person Age Calculator
 
@@ -171,3 +163,44 @@ function getPersonAndDateFromPrompt(): void {
 }
 getPersonAndDateFromPrompt();
 */
+
+//exercise 1:
+//### 1. Book Information
+//Create an interface for a Book with properties: title, author, and publicationYear. 
+//Write a function that takes a Book object and returns a formatted string with the book's information.
+
+
+interface Book1{
+  title:string;
+  author:string;
+  publicationYear:number;
+
+}
+
+function bookInformation1() :Book1 {
+  try{
+    const books1:Book1= {
+      title:"rana",
+      author:"saly",
+      publicationYear:2018,
+
+    };
+  
+    console.log(books1);
+    return books1;
+  }
+
+  catch(error){
+   console.log("hi thir is an error",error)
+    return {
+    title:"",
+    author:"",
+    publicationYear:0};
+  }
+  
+}
+
+document.write("אנא מלא את כל השדות.<br>");
+bookInformation1();
+
+
