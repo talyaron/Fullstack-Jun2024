@@ -103,3 +103,4 @@ movies.forEach(writeMovieDetails);
 function writeMovieDetails(movie: Movie) {
     console.log(`the movie director is ${movie.director}, and it produced in the year ${movie.year}`);
 }
+
