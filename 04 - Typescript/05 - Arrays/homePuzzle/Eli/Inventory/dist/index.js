@@ -33,6 +33,20 @@ buttons.forEach(function (button) {
                 var itemsToRestock = itemToRestock(allItems);
                 displayinventory(itemsToRestock);
             }
+            //button id: switchItemsPositions to switch position between two items :
+            if (button.id === "switchItemsPositions") {
+                allItems == switchItems(allItems);
+                displayinventory(allItems);
+            }
+            //button id: sort to sort items by price :
+            if (button.id === "sort") {
+                allItems == sort(allItems);
+                displayinventory(allItems);
+            }
+            if (button.id === "summary") {
+                var summuries = summary(allItems);
+                //displayinventory(allItems);
+            }
         });
     }
 });
@@ -63,30 +77,39 @@ var allItems = [
         quantity: 9
     },
 ];
+//takes assigns the html list element to the scrip
+var itemListElement = document.getElementById("itemList");
+//writes all the items on screen 
+allItems.forEach(function (item) {
+    var itemElement = document.createElement("li");
+    itemElement.textContent = "ID:" + item.id + " - Name: " + item.name + " - Price: $" + item.price + " - In stock : " + item.quantity;
+    itemListElement === null || itemListElement === void 0 ? void 0 : itemListElement.appendChild(itemElement);
+});
 //functions for adding an item into the inventory :
 //asks for an item from the user
 function inputNewItem(items) {
+    //calls id randomizer function
     var _id = giveRandomId(items);
+    //asks user for name
     var _name = String(prompt("Give new item name"));
-    if (_name.length < 2 || _name.length > 20) {
+    if (_name.length < 2 || _name.length > 20 || _name === "null") {
         alert("the name you choose is too long/short");
+        return null;
     }
-    else {
-        var _price = Number(prompt("Give new item price"));
-        if (Number.isNaN(_price) || _price <= 0) {
-            alert("Ilegal price!");
-        }
-        else {
-            var _quntity = Number(prompt("Give new item quantity"));
-            if (!Number.isInteger(_quntity) || _quntity <= 0) {
-                alert("quantity needs to be a full number above 0!");
-            }
-            else {
-                return { id: _id, name: _name, price: _price, quantity: _quntity };
-            }
-        }
+    //if name is ok asks user for price
+    var _price = Number(prompt("Give new item price"));
+    if (Number.isNaN(_price) || _price <= 0) {
+        alert("Ilegal price!");
+        return null;
     }
-    return { id: 2, name: "a", price: 0, quantity: 0 };
+    //if price is ok asks user for quantity
+    var _quntity = Number(prompt("Give new item quantity"));
+    if (!Number.isInteger(_quntity) || _quntity <= 0) {
+        alert("quantity needs to be a full number above 0!");
+        return null;
+    }
+    //if all is ok returns the user item
+    return { id: _id, name: _name, price: _price, quantity: _quntity };
 }
 //give a random id to the item
 function giveRandomId(items) {
@@ -98,19 +121,22 @@ function giveRandomId(items) {
     else
         return randomID;
 }
-//adds the item to the inventory 
+//adds the item to the inventory
 function addItem(item, allItems) {
-    if (item.name !== "a") {
+    if (item != null) {
         allItems.push(item);
         alert("new item added! Id: " + item.id + " name: " + item.name + " price: " + item.price + "$ quantity: " + item.quantity);
     }
-    alert("no new item added");
+    else {
+        alert("no new item added");
+    }
     return allItems;
+    //return allItems;
 }
 //search functions:
 //search by id
 function searchbyID(item) {
-    var itemID = Number(prompt("Write the id of the item"));
+    var itemID = Number(prompt("Write the ID of the item"));
     var itemSlected = item.find(function (item) { return item.id == itemID; });
     if (itemSlected) {
         return itemSlected;
@@ -119,8 +145,10 @@ function searchbyID(item) {
         return null;
 }
 //search by name
-function searchbyName(item) {
-    var itemName = String(prompt("Write the id of the item"));
+function searchbyName(item, hasName) {
+    var itemName = hasName
+        ? hasName
+        : String(prompt("Write the NAME of the item"));
     var itemSlected = item.find(function (item) { return item.name.toLowerCase() === itemName.toLowerCase(); });
     if (itemSlected) {
         return itemSlected;
@@ -139,7 +167,7 @@ function removeItem(itemToRemove, itemCollection) {
         return itemCollection;
     }
     else {
-        alert("item wasnt found :/");
+        alert("item wasnt found :/ try writing exsisting item ID");
         return itemCollection;
     }
 }
@@ -192,4 +220,73 @@ function displayinventory(item) {
     });
     var amountWorth = calcInvWorth(item);
     console.log("stock worth of : " + amountWorth + "$");
+    // clear existing items on html page
+    if (itemListElement)
+        itemListElement.innerHTML = "";
+    //display items on html page:
+    allItems.forEach(function (item) {
+        var itemElement = document.createElement("li");
+        itemElement.textContent = "ID:" + item.id + " - Name: " + item.name + " - Price: $" + item.price + " - In stock : " + item.quantity;
+        itemListElement === null || itemListElement === void 0 ? void 0 : itemListElement.appendChild(itemElement);
+    });
+}
+//switch two items position in the arrray function
+function switchItems(item) {
+    //set first item by calling search by name
+    var _firstItem = searchbyName(item);
+    if (_firstItem === null) {
+        alert("no item");
+        return item;
+    }
+    //set second item by calling search by name again
+    var _secondItem = searchbyName(item);
+    if (_secondItem === null) {
+        alert("no item");
+        return item;
+    }
+    // finds the index of the first item
+    var firstIndex = item.findIndex(function (item) { return item.id === _firstItem.id; });
+    // finds the index of the second item
+    var secondIndex = item.findIndex(function (item) { return item.id === _secondItem.id; });
+    if (firstIndex !== -1 && secondIndex !== -1) {
+        // swaps the items
+        var temp = item[firstIndex];
+        item[firstIndex] = item[secondIndex];
+        item[secondIndex] = temp;
+    }
+    else {
+        alert("One or both items not found in the array.");
+    }
+    alert("succsussfully switched between " + _firstItem.name + " and  " + _secondItem.name);
+    return item;
+}
+//sort items by price function
+function sort(item) {
+    item.sort(function (a, b) { return Number(a.price) - Number(b.price); });
+    return item;
+}
+//calculate the amount of all the items not type function
+function calculatAllItems(item) {
+    var sumAmmount = 0;
+    item.forEach(function (item) {
+        if (typeof item.quantity === "number") {
+            sumAmmount += item.quantity;
+        }
+    });
+    return sumAmmount;
+}
+//summary function
+function summary(item) {
+    var _itemAmountSum = item.length;
+    var sumAmmount = Number(calculatAllItems(item));
+    var sumPrice = calcInvWorth(item);
+    var _avrgPrice = sumPrice / sumAmmount;
+    var cheapestItem = item.sort(function (a, b) { return Number(a.price) - Number(b.price); })[0];
+    var mostExpensiveItem = item.sort(function (a, b) { return Number(b.price) - Number(a.price); })[0];
+    console.log("the are " + _itemAmountSum + " types of items and overall " + sumAmmount + " items\n  in the inventory average price " + _avrgPrice.toFixed(1) + "$ \n  the most expensive item is : " + mostExpensiveItem.name + " it costs : " + mostExpensiveItem.price + "$\n   and the cheapest is: " + cheapestItem.name + " it costs : " + cheapestItem.price + "$ ");
+    if (itemListElement)
+        itemListElement.innerHTML = "";
+    var itemElement = document.createElement("div");
+    itemElement.textContent = "the are " + _itemAmountSum + " types of items and overall " + sumAmmount + " items\n  in the inventory average price is " + _avrgPrice.toFixed(1) + "$ \n  the most expensive item is : " + mostExpensiveItem.name + " it costs : " + mostExpensiveItem.price + "$\n   and the cheapest is: " + cheapestItem.name + " it costs : " + cheapestItem.price + "$ ";
+    itemListElement === null || itemListElement === void 0 ? void 0 : itemListElement.appendChild(itemElement);
 }

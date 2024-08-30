@@ -20,7 +20,7 @@ Let's create a basic program to manage a small collection of books. This exercis
    b. Display all books in the collection V
    c. Find a book by its title 
 
-4. Use an array method to filter books published after a certain year.
+4. Use an array method to filter books published after a certain year. V
 
 5. Create a function that returns the newest book in the collection.
 
