@@ -10,14 +10,21 @@ pets.push(createPet('Luna', 'https://hips.hearstapps.com/hmg-prod/images/cutest-
 //view
 function renderPets() {
     try {
+        //catch the element with the id pets
         var petsElement_1 = document.querySelector('#pets');
         if (!petsElement_1)
             throw new Error('Could not find an element with the id "pets"');
+        //foe each pet in the pets array, create an article element and append it to the pets element
         pets.forEach(function (pet) {
+            //create an article element
             var petElement = document.createElement('article');
+            //set the innerHTML of the article element to the pet's name and image
             petElement.innerHTML = "\n            <h3>" + pet.name + "</h3>\n            <img src=\"" + pet.image + "\" />\n        ";
+            //add the class pet to the article element
             petElement.classList.add('pet');
+            //add the id of the pet to the article element
             petElement.id = pet.id;
+            //append the article element to the pets element
             petsElement_1.appendChild(petElement);
         });
     }
