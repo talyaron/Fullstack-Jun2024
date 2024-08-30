@@ -10,9 +10,9 @@ var bookCollections = [
 function writeList(bookCollections) {
     var elements = document.querySelectorAll(".line");
     elements.forEach(function (element, index) {
-        var _a, _b, _c;
         if (bookCollections[index].title != null) {
-            element.textContent = String("Name : " + ((_a = bookCollections[index]) === null || _a === void 0 ? void 0 : _a.title) + " \n      By : " + ((_b = bookCollections[index]) === null || _b === void 0 ? void 0 : _b.author) + "\n       Publish Year : " + ((_c = bookCollections[index]) === null || _c === void 0 ? void 0 : _c.year) || "");
+            element.textContent =
+                "Name : " + bookCollections[index].title + " -\n      By : " + bookCollections[index].author + " -\n       Publish Year : " + bookCollections[index].year || "";
         }
     });
 }

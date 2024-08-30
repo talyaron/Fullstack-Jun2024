@@ -21,11 +21,10 @@ function writeList(bookCollections: Book[]) {
 
   elements.forEach((element, index) => {
     if (bookCollections[index].title != null) {
-      element.textContent = String(
-        `Name : ${bookCollections[index]?.title} 
-      By : ${bookCollections[index]?.author}
-       Publish Year : ${bookCollections[index]?.year}` || ""
-      );
+      element.textContent =
+        `Name : ${bookCollections[index].title} -
+      By : ${bookCollections[index].author} -
+       Publish Year : ${bookCollections[index].year}` || "";
     }
   });
 }
