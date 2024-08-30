@@ -7,19 +7,19 @@ buttons.forEach(function (button) {
             //button id: additem to add more items to the array:
             if (button.id === "addItem") {
                 var newitem = inputNewItem(allItems);
-                allItems == addItem(newitem, allItems);
+                addItem(newitem, allItems);
                 displayinventory(allItems);
             }
             //button id: removeItem to remove item from the collective array:
             if (button.id === "removeItem") {
                 var itemByID = searchbyID(allItems);
-                allItems == removeItem(itemByID, allItems);
+                removeItem(itemByID, allItems);
                 displayinventory(allItems);
             }
             //button id: updateItem to update the quantity of an item based on its id
             if (button.id === "updateItem") {
                 var itemByID = searchbyID(allItems);
-                allItems == updateQuantity(itemByID, allItems);
+                updateQuantity(itemByID, allItems);
                 displayinventory(allItems);
             }
             //button id: searchItemByName to search for item by its name :
@@ -35,12 +35,12 @@ buttons.forEach(function (button) {
             }
             //button id: switchItemsPositions to switch position between two items :
             if (button.id === "switchItemsPositions") {
-                allItems == switchItems(allItems);
+                switchItems(allItems);
                 displayinventory(allItems);
             }
             //button id: sort to sort items by price :
             if (button.id === "sort") {
-                allItems == sort(allItems);
+                sort(allItems);
                 displayinventory(allItems);
             }
             if (button.id === "summary") {
@@ -79,7 +79,7 @@ var allItems = [
 ];
 //takes assigns the html list element to the scrip
 var itemListElement = document.getElementById("itemList");
-//writes all the items on screen 
+//writes all the items on screen
 allItems.forEach(function (item) {
     var itemElement = document.createElement("li");
     itemElement.textContent = "ID:" + item.id + " - Name: " + item.name + " - Price: $" + item.price + " - In stock : " + item.quantity;
@@ -109,7 +109,8 @@ function inputNewItem(items) {
         return null;
     }
     //if all is ok returns the user item
-    return { id: _id, name: _name, price: _price, quantity: _quntity };
+    var item = { id: _id, name: _name, price: _price, quantity: _quntity };
+    return item;
 }
 //give a random id to the item
 function giveRandomId(items) {
@@ -130,7 +131,7 @@ function addItem(item, allItems) {
     else {
         alert("no new item added");
     }
-    return allItems;
+    //return allItems;
     //return allItems;
 }
 //search functions:

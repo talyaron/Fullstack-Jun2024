@@ -8,19 +8,19 @@ buttons.forEach((button) => {
       //button id: additem to add more items to the array:
       if (button.id === "addItem") {
         const newitem = inputNewItem(allItems);
-        allItems == addItem(newitem, allItems);
+        addItem(newitem, allItems);
         displayinventory(allItems);
       }
       //button id: removeItem to remove item from the collective array:
       if (button.id === "removeItem") {
         const itemByID = searchbyID(allItems);
-        allItems == removeItem(itemByID, allItems);
+        removeItem(itemByID, allItems);
         displayinventory(allItems);
       }
       //button id: updateItem to update the quantity of an item based on its id
       if (button.id === "updateItem") {
         const itemByID = searchbyID(allItems);
-        allItems == updateQuantity(itemByID, allItems);
+        updateQuantity(itemByID, allItems);
         displayinventory(allItems);
       }
       //button id: searchItemByName to search for item by its name :
@@ -36,12 +36,12 @@ buttons.forEach((button) => {
       }
       //button id: switchItemsPositions to switch position between two items :
       if (button.id === "switchItemsPositions") {
-        allItems == switchItems(allItems);
+        switchItems(allItems);
         displayinventory(allItems);
       }
       //button id: sort to sort items by price :
       if (button.id === "sort") {
-        allItems == sort(allItems);
+        sort(allItems);
         displayinventory(allItems);
       }
       if (button.id === "summary") {
@@ -89,13 +89,13 @@ const allItems: item[] = [
 ];
 //takes assigns the html list element to the scrip
 const itemListElement = document.getElementById("itemList");
-//writes all the items on screen 
-allItems.forEach(item => {
+//writes all the items on screen
+
+allItems.forEach((item) => {
   const itemElement = document.createElement("li");
   itemElement.textContent = `ID:${item.id} - Name: ${item.name} - Price: $${item.price} - In stock : ${item.quantity}`;
   itemListElement?.appendChild(itemElement);
 });
-
 
 //functions for adding an item into the inventory :
 
@@ -106,7 +106,7 @@ function inputNewItem(items: item[]): item | null {
 
   //asks user for name
   const _name = String(prompt("Give new item name"));
-  if (_name.length < 2 || _name.length > 20||_name==="null") {
+  if (_name.length < 2 || _name.length > 20 || _name === "null") {
     alert("the name you choose is too long/short");
     return null;
   }
@@ -123,10 +123,8 @@ function inputNewItem(items: item[]): item | null {
     return null;
   }
   //if all is ok returns the user item
-  return { id: _id, name: _name, price: _price, quantity: _quntity };
-
-  
-
+  const item = { id: _id, name: _name, price: _price, quantity: _quntity };
+  return item;
 }
 
 //give a random id to the item
@@ -139,7 +137,7 @@ function giveRandomId(items: item[]): number {
 }
 
 //adds the item to the inventory
-function addItem(item: item | null, allItems: item[]): item[] {
+function addItem(item: item | null, allItems: item[]): void {
   if (item != null) {
     allItems.push(item);
     alert(
@@ -148,7 +146,7 @@ function addItem(item: item | null, allItems: item[]): item[] {
   } else {
     alert(`no new item added`);
   }
-  return allItems;
+  //return allItems;
 
   //return allItems;
 }
@@ -254,13 +252,12 @@ function displayinventory(item: item[]) {
     );
   });
   const amountWorth = calcInvWorth(item);
-  
+
   console.log(`stock worth of : ${amountWorth}$`);
-// clear existing items on html page
-if(itemListElement)
-  itemListElement.innerHTML = ""; 
+  // clear existing items on html page
+  if (itemListElement) itemListElement.innerHTML = "";
   //display items on html page:
-  allItems.forEach(item => {
+  allItems.forEach((item) => {
     const itemElement = document.createElement("li");
     itemElement.textContent = `ID:${item.id} - Name: ${item.name} - Price: $${item.price} - In stock : ${item.quantity}`;
     itemListElement?.appendChild(itemElement);
@@ -341,10 +338,9 @@ function summary(item: item[]) {
    and the cheapest is: ${cheapestItem.name} it costs : ${
     cheapestItem.price
   }$ `);
-  if(itemListElement)
-    itemListElement.innerHTML = ""; 
+  if (itemListElement) itemListElement.innerHTML = "";
   const itemElement = document.createElement("div");
-    itemElement.textContent = `the are ${_itemAmountSum} types of items and overall ${sumAmmount} items
+  itemElement.textContent = `the are ${_itemAmountSum} types of items and overall ${sumAmmount} items
   in the inventory average price is ${_avrgPrice.toFixed(1)}$ 
   the most expensive item is : ${mostExpensiveItem.name} it costs : ${
     mostExpensiveItem.price
@@ -352,5 +348,5 @@ function summary(item: item[]) {
    and the cheapest is: ${cheapestItem.name} it costs : ${
     cheapestItem.price
   }$ `;
-    itemListElement?.appendChild(itemElement);
+  itemListElement?.appendChild(itemElement);
 }
