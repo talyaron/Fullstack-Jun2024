@@ -24,7 +24,7 @@ function renderPets() {
         if (!petsElement) throw new Error('Could not find an element with the id "pets"');
         
         //foe each pet in the pets array, create an article element and append it to the pets element
-        pets.forEach(pet => {
+        pets.forEach(pet => {   
             //create an article element
             const petElement = document.createElement('article');
             

@@ -75,6 +75,7 @@ books.forEach(function (x) { return document.write("<br> title " + x.title + " a
 //   console.log(num * 3); // מדפיס את הכפולה של כל מספר
 // });
 // ## Exercise 2: Inventory Management System (Advanced)
+document.body.style.backgroundColor = 'red';
 document.write("<br> <br>Now Exercise 2");
 var management_system = [
     {
@@ -172,4 +173,4 @@ function swap(arr, new_index, old_index) {
     arr[new_index] = temp;
     management_system = arr;
 }
-console.log(management_system.indexOf(2));
+// console.log(management_system.indexOf(management_system[2]));
