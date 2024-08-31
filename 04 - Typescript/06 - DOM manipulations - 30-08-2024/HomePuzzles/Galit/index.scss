@@ -1,0 +1,23 @@
+.menu {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px 20px;
+
+    .menu-item {
+        font-family: 'Assistant', sans-serif;
+        font-size: 14px;
+        color: #000;
+        cursor: pointer;
+
+        &:not(:first-child) {
+            margin-left: 10px;
+        }
+
+        img {
+            max-height: 50px;
+            transition: transform 0.3s ease-in-out;
+            
+        }
+    }
+}
