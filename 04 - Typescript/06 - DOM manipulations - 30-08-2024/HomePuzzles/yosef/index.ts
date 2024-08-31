@@ -32,18 +32,24 @@ const Computers : Computer[] = [
     {id: 10, name: 'Lenovo Ideapad 7', price: 1000, sale: false, img:'https://cdn.britannica.com/77/170477-050-1C747EE3/Laptop-computer.jpg'}
 ]
 
-function displayComputers() {
+
+displayNavbar();
+display_All_Computers();
+// display_Computers_Down_1000$();
+// display_Computers_on_sale();
+
+function display_All_Computers() {
     try{
         const comp_item = document.querySelector('#computers') as HTMLElement;
         if(!comp_item) throw new Error('No such element');
 
         Computers.forEach(new_computer => {
             const computerItem = document.createElement('div')
-            comp_item.innerHTML = 
+            computerItem.innerHTML = 
             `
-            <h1>Computer ${new_computer.name}
-            <p>the ID is ${new_computer.id}</p>
-            <h2>Price: $${new_computer.price}</h2>
+            <h3>Computer ${new_computer.name}</h3>
+            <h3>Price: $${new_computer.price}</h3>
+            <p>ID:${new_computer.id}</p>
             <p>Sale: ${new_computer.sale? 'Yes' : 'No'}</p>
             <img src="${new_computer.img}" />
             `
@@ -57,7 +63,64 @@ function displayComputers() {
 
 }
 
-console.log(navbarList);
+function display_Computers_Down_1000$() {
+    const temp = [...Computers];
+    console.log(temp);
+    const array_by_price = temp.filter(x => x.price<1000)
+    console.log(array_by_price);
+
+    try{
+        const comp_item = document.querySelector('#computers') as HTMLElement;
+        if(!comp_item) 
+            {throw new Error('No such element');}
+
+        array_by_price.forEach(new_computer =>{
+            const computerItem = document.createElement('div')
+            computerItem.innerHTML = 
+            `
+            <h3>Computer ${new_computer.name}</h3>
+            <h3>Price: $${new_computer.price}</h3>
+            <p>ID:${new_computer.id}</p>
+            <p>Sale: ${new_computer.sale? 'Yes' : 'No'}</p>
+            <img src="${new_computer.img}" />
+            `
+            comp_item.appendChild(computerItem);
+            computerItem.classList.add('computer-item');
+        })}
+        catch(error){
+            console.error(error);
+        }
+    }
+
+function display_Computers_on_sale() {
+        const temp = [...Computers];
+        console.log(temp);
+        const array_by_price = temp.filter(x => x.sale)
+        console.log(array_by_price);
+    
+        try{
+            const comp_item = document.querySelector('#computers') as HTMLElement;
+            if(!comp_item) 
+                {throw new Error('No such element');}
+    
+            array_by_price.forEach(new_computer =>{
+                const computerItem = document.createElement('div')
+                computerItem.innerHTML = 
+                `
+                <h3>Computer ${new_computer.name}</h3>
+                <h3>Price: $${new_computer.price}</h3>
+                <p>ID:${new_computer.id}</p>
+                <p>Sale: ${new_computer.sale? 'Yes' : 'No'}</p>
+                <img src="${new_computer.img}" />
+                `
+                comp_item.appendChild(computerItem);
+                computerItem.classList.add('computer-item');
+            })}
+            catch(error){
+                console.error(error);
+            }
+        }
+        
 
 function displayNavbar(){
     try{
@@ -87,6 +150,3 @@ function displayNavbar(){
         console.error(error);
     }
 }
-
-displayNavbar();
-displayComputers();

@@ -1,3 +1,10 @@
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 var navbarList = [
     { name: 'Mobile/Handheld' },
     { name: 'Laptops' },
@@ -18,15 +25,19 @@ var Computers = [
     { id: 9, name: 'Dell 2025', price: 900, sale: true, img: 'https://cdn.britannica.com/77/170477-050-1C747EE3/Laptop-computer.jpg' },
     { id: 10, name: 'Lenovo Ideapad 7', price: 1000, sale: false, img: 'https://cdn.britannica.com/77/170477-050-1C747EE3/Laptop-computer.jpg' }
 ];
-function displayComputers() {
+displayNavbar();
+display_All_Computers();
+// display_Computers_Down_1000$();
+// display_Computers_on_sale();
+function display_All_Computers() {
     try {
         var comp_item_1 = document.querySelector('#computers');
         if (!comp_item_1)
             throw new Error('No such element');
         Computers.forEach(function (new_computer) {
             var computerItem = document.createElement('div');
-            comp_item_1.innerHTML =
-                "\n            <h1>Computer " + new_computer.name + "\n            <p>the ID is " + new_computer.id + "</p>\n            <h2>Price: $" + new_computer.price + "</h2>\n            <p>Sale: " + (new_computer.sale ? 'Yes' : 'No') + "</p>\n            <img src=\"" + new_computer.img + "\" />\n            ";
+            computerItem.innerHTML =
+                "\n            <h3>Computer " + new_computer.name + "</h3>\n            <h3>Price: $" + new_computer.price + "</h3>\n            <p>ID:" + new_computer.id + "</p>\n            <p>Sale: " + (new_computer.sale ? 'Yes' : 'No') + "</p>\n            <img src=\"" + new_computer.img + "\" />\n            ";
             comp_item_1.appendChild(computerItem);
             computerItem.classList.add('computer-item');
         });
@@ -35,7 +46,50 @@ function displayComputers() {
         console.error(error);
     }
 }
-console.log(navbarList);
+function display_Computers_Down_1000$() {
+    var temp = __spreadArrays(Computers);
+    console.log(temp);
+    var array_by_price = temp.filter(function (x) { return x.price < 1000; });
+    console.log(array_by_price);
+    try {
+        var comp_item_2 = document.querySelector('#computers');
+        if (!comp_item_2) {
+            throw new Error('No such element');
+        }
+        array_by_price.forEach(function (new_computer) {
+            var computerItem = document.createElement('div');
+            computerItem.innerHTML =
+                "\n            <h3>Computer " + new_computer.name + "</h3>\n            <h3>Price: $" + new_computer.price + "</h3>\n            <p>ID:" + new_computer.id + "</p>\n            <p>Sale: " + (new_computer.sale ? 'Yes' : 'No') + "</p>\n            <img src=\"" + new_computer.img + "\" />\n            ";
+            comp_item_2.appendChild(computerItem);
+            computerItem.classList.add('computer-item');
+        });
+    }
+    catch (error) {
+        console.error(error);
+    }
+}
+function display_Computers_on_sale() {
+    var temp = __spreadArrays(Computers);
+    console.log(temp);
+    var array_by_price = temp.filter(function (x) { return x.sale; });
+    console.log(array_by_price);
+    try {
+        var comp_item_3 = document.querySelector('#computers');
+        if (!comp_item_3) {
+            throw new Error('No such element');
+        }
+        array_by_price.forEach(function (new_computer) {
+            var computerItem = document.createElement('div');
+            computerItem.innerHTML =
+                "\n                <h3>Computer " + new_computer.name + "</h3>\n                <h3>Price: $" + new_computer.price + "</h3>\n                <p>ID:" + new_computer.id + "</p>\n                <p>Sale: " + (new_computer.sale ? 'Yes' : 'No') + "</p>\n                <img src=\"" + new_computer.img + "\" />\n                ";
+            comp_item_3.appendChild(computerItem);
+            computerItem.classList.add('computer-item');
+        });
+    }
+    catch (error) {
+        console.error(error);
+    }
+}
 function displayNavbar() {
     try {
         var navbar_1 = document.querySelector('#navbar');
@@ -58,5 +112,3 @@ function displayNavbar() {
         console.error(error);
     }
 }
-displayNavbar();
-displayComputers();
