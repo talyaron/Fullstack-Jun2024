@@ -19,11 +19,9 @@ function render_yosef_market() {
             throw new Error('No such element');
         yosk_market.forEach(function (item) {
             var item_element = document.createElement('div');
-            item_element.innerHTML = "\n            <h2>" + item.name + "</h2>\n            <h2>Price is : " + item.price + "</h2>\n            <p>Quantity for this item is : " + item.quantity + "</p>\n            <img src=\"" + item.img + "\" />\n        ";
-            item_element.classList.add('pet');
+            item_element.innerHTML = "\n            <h2>" + item.name + "</h2>\n            <h2>Price is : " + item.price + "</h2>\n            <p>Quantity for this item is : " + item.quantity + " pcs</p>\n            <img src=\"" + item.img + "\" />\n            <button onclick=\"buy_item(" + item.name + ")\">Buy " + item.name + "</button>\n        ";
             market_element_1.appendChild(item_element);
-            item_element.classList.add('pet');
-            market_element_1.appendChild(item_element);
+            item_element.classList.add('item');
         });
     }
     catch (error) {

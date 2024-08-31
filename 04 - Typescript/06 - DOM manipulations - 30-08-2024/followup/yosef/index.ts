@@ -30,19 +30,18 @@ function render_yosef_market() {
     try {
         const market_element = document.querySelector('#yosk') as HTMLElement;
         if (!market_element) throw new Error('No such element');
-
+   
         yosk_market.forEach(item => {
             const item_element = document.createElement('div');
             item_element.innerHTML = `
             <h2>${item.name}</h2>
             <h2>Price is : ${item.price}</h2>
-            <p>Quantity for this item is : ${item.quantity}</p>
+            <p>Quantity for this item is : ${item.quantity} pcs</p>
             <img src="${item.img}" />
+            <button onclick="buy_item(${item.name})">Buy ${item.name}</button>
         `;
-        item_element.classList.add('pet');
             market_element.appendChild(item_element);
-            item_element.classList.add('pet');
-            market_element.appendChild(item_element);
+            item_element.classList.add('item');
         })
 
     } catch (error) {
