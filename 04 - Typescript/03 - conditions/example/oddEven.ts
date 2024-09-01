@@ -7,3 +7,4 @@ function oddEven(number: number): string {
     return "Odd";
 
 }
+

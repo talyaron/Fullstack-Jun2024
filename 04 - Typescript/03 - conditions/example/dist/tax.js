@@ -5,7 +5,7 @@
 // 50001 to 100000: 20%
 // Above 100000: 30%
 // ask the user to enter a salary
-var salary = Number(prompt('Enter your salary: '));
+var salary = Number(prompt("Enter your salary: "));
 // write a function that takes the salary and returns the tax amount
 function calculateTax(salary) {
     if (salary <= 10000) {
