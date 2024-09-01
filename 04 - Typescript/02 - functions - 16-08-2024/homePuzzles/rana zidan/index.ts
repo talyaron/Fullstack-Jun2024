@@ -1,21 +1,24 @@
 let userName: string | null= prompt("Please Enter your name");
-let userColor: string | null= prompt("Please Enter your favorite color");
-let secondColor: string | null= prompt("Please Enter your favorite second color");
+let fave: string | null= prompt("Please Enter your favorite color")||'black';
+let secondColor: string | null= prompt("Please Enter your favorite second color") ||'white';
 
-document.write(`Hello, ${userName}! Your favorite color is ${userColor}!, and the second favorite color is ${secondColor}! `);
-
-
-
-
-function paintScreen(color: string): void {
-  document.body.style.backgroundColor = color;
+if(!userName){
+  userName='User';
 }
 
-function SecondPaintScreen(color: string): void {
-  document.body.style.color = color;
+document.write(`Hello, ${userName}! Your favorite color is ${fave}! `);
+
+
+
+function paint(color1: string): void {
+  document.body.style.backgroundColor = color1;
+}
+
+function paintText(color2: string): void {
+  document.body.style.color = color2;
 }
 
 
-paintScreen(userColor);
+paint(fave);
 
-SecondPaintScreen(secondColor);
+paintText(secondColor);
