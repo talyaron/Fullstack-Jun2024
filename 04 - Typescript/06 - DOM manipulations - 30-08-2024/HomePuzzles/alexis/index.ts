@@ -100,29 +100,30 @@ console.log(computers);
 const lessThan1000 = computers.filter((computers) => computers.price < 1000);
 console.log(lessThan1000);
 
-function renderProducts() {
+function renderComputers() {
   try {
-    const computerElement = document.querySelector("#computers") as HTMLElement;
-    if (!computerElement) throw new Error();
-    computers.forEach(computer=>{
-        const computerElement = document.createElement('article');
-        computerElement.innerHTML =
-        `
-        <h1>${computer.name}</h1>
-        <h1>${computer.name}</h1>
-        <h1>${computer.name}</h1>
-        <h1>${computer.name}</h1>
-        
-        
-        `
-    })
-
-
-} catch (error) {
+    const computersElement = document.querySelector(
+      "#computers"
+    ) as HTMLElement;
+    if (!computersElement) throw new Error();
+    computers.forEach((computer) => {
+      const computerElement = document.createElement("article");
+      computerElement.innerHTML = `
+         <img src ="${computer.image}"alt="${computer.name}"/> 
+      <h1>${computer.name}</h1>
+        <h3>${computer.price}</h3>
+        <h5>${computer.id}</h5>
+         <h5>${computer.sale}</h5>
+        `;
+      computerElement.classList.add("computer");
+      computerElement.id = computer.id;
+      computersElement.appendChild(computerElement);
+    });
+  } catch (error) {
     return error;
   }
 }
-renderProducts();
+renderComputers();
 // ### 3. Sale Items Feature
 
 // - Display a 'Sale' badge on the computers that are on sale.
