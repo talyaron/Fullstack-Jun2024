@@ -20,5 +20,5 @@ function calculatTax(salary) {
         taxPrecent = 30;
     }
     var Tax = salary - restAmount;
-    document.write('Base on salary ${salary} , The tax rate is ${taxPrecent} the amount is ${Tax} the salary after ${restAmount} ');
+    document.write("Base on salary " + salary + " , The tax rate is " + taxPrecent + " the amount is " + Tax + " the salary after " + restAmount);
 }
