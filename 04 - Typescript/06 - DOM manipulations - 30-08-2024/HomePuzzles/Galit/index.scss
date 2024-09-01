@@ -6,6 +6,7 @@
 
     .menu-item {
         font-family: 'Assistant', sans-serif;
+   justify-content: space-between;
         font-size: 14px;
         color: #000;
         cursor: pointer;
@@ -21,7 +22,13 @@
     }
 }
 
-
+#filter-button{
+    display: flex;
+    background-color: #f8f8f8;
+    border-radius: 30px;
+    border: #aaa 1px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 #Computers {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));

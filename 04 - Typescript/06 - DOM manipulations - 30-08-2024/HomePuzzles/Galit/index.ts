@@ -41,9 +41,9 @@ const Computers: Computer[] = [
     createComputer(567883383, 'https://officejo.com/wp-content/uploads/2024/06/G614JV-N3129_01-1024x1024.jpg', 'ASUS ROG Strix G16 Laptop – Intel Core i7-13650HX, RTX 4060 8GB DDR6, 16GB DDR5, 16″ FHD+ 165Hz, Eclipse Gray', 2390, true),
     createComputer(567883999, 'https://officejo.com/wp-content/uploads/2024/06/FA607PV-N3060_01-1024x1024.jpg', 'ASUS TUF Gaming A16 2024 Laptop – AMD R9-7845HX, NVIDIA RTX 4060 8GB, 16.0″ WUXGA ANTI-GLARE 165Hz, Mecha Gray', 4390, true),
     createComputer(567545889, 'https://officejo.com/wp-content/uploads/2024/06/G634JZR-N4111_04-1024x1024.jpg', 'ASUS ROG Strix SCAR 16 Laptop – Intel Core i9-14900HX, RTX 4080, 32GB DDR5, 16″ QHD+ 240Hz, with ROG Backpack & ROG Gladius III Mouse, Off Black', 1390, false),
-    createComputer(567883535, 'https://officejo.com/wp-content/uploads/2023/08/FX506HF-HN114_01-1024x1024.jpg', 'ASUS TUF Gaming F15 Laptop – i5 11th Gen, RTX 2050, 144Hz', 990, false),
+    createComputer(567883535, 'https://officejo.com/wp-content/uploads/2023/08/FX506HF-HN114_01-1024x1024.jpg', 'ASUS TUF Gaming F15 Laptop – i5 11th Gen, RTX 2050, 144Hz', 9810, false),
     createComputer(543243556, 'https://officejo.com/wp-content/uploads/2022/07/VG27AQ_01.jpg', 'ASUS TUF Gaming VG27AQ HDR 27″ 2K Gaming Monitor', 6390, true),
-    createComputer(567883535, 'https://officejo.com/wp-content/uploads/2023/08/FX506HF-HN114_01-1024x1024.jpg', 'ASUS TUF Gaming F15 Laptop – i5 11th Gen, RTX 2050, 144Hz', 990, false),
+    createComputer(567883535, 'https://officejo.com/wp-content/uploads/2023/08/FX506HF-HN114_01-1024x1024.jpg', 'ASUS TUF Gaming F15 Laptop – i5 11th Gen, RTX 2050, 144Hz', 2390, false),
 ];
 
 function renderComputers() {
@@ -70,5 +70,6 @@ function renderComputers() {
 }
 
 renderComputers();
+
 
 main();
