@@ -21,22 +21,24 @@ console.log(computers);
 // - Display only the computers that cost less than $1000.
 var lessThan1000 = computers.filter(function (computers) { return computers.price < 1000; });
 console.log(lessThan1000);
-function renderProducts() {
+function renderComputers() {
     try {
-        var computerElement = document.querySelector("#computers");
-        if (!computerElement)
+        var computersElement_1 = document.querySelector("#computers");
+        if (!computersElement_1)
             throw new Error();
         computers.forEach(function (computer) {
-            var computerElement = document.createElement('article');
-            computerElement.innerHTML =
-                "\n        <h1>" + computer.name + "</h1>\n        <h1>" + computer.name + "</h1>\n        <h1>" + computer.name + "</h1>\n        <h1>" + computer.name + "</h1>\n        \n        \n        ";
+            var computerElement = document.createElement("article");
+            computerElement.innerHTML = "\n         <img src =\"" + computer.image + "\"alt=\"" + computer.name + "\"/> \n      <h1>" + computer.name + "</h1>\n        <h3>" + computer.price + "</h3>\n        <h5>" + computer.id + "</h5>\n         <h5>" + computer.sale + "</h5>\n        ";
+            computerElement.classList.add("computer");
+            computerElement.id = computer.id;
+            computersElement_1.appendChild(computerElement);
         });
     }
     catch (error) {
         return error;
     }
 }
-renderProducts();
+renderComputers();
 // ### 3. Sale Items Feature
 // - Display a 'Sale' badge on the computers that are on sale.
 function sale(computers) {

@@ -1,0 +1,31 @@
+#computers{
+    display: grid;
+    grid-template: 1fr 1fr 1fr/ 1fr 1fr;
+    background-color: lightgray;
+    align-items: center;
+    justify-content: center;
+}
+.computer {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 30vw;
+  height: fit-content;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  margin: 1%;
+  padding: 1%;
+  font-size: small;
+  
+}
+h1{
+    margin: 1px;
+}
+
+h5{
+    margin: 1px;
+}
+h3{
+    margin: 1px;
+}
