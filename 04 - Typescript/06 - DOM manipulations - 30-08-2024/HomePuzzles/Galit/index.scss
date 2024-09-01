@@ -1,12 +1,14 @@
+
+
 .menu {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     background-color: #fff;
     padding: 10px 20px;
 
     .menu-item {
         font-family: 'Assistant', sans-serif;
-   justify-content: space-between;
         font-size: 14px;
         color: #000;
         cursor: pointer;
@@ -22,12 +24,26 @@
     }
 }
 
-#filter-button{
+.buttons-container {
     display: flex;
+    margin-left: 40px; 
+
+}
+
+#Computers-button, #filter-button {
+    display: flex;
+    align-items: center;
+    margin-left: 10px; 
+    margin-bottom: 20px;
     background-color: #f8f8f8;
     border-radius: 30px;
-    border: #aaa 1px;
+    border: #aaa 1px solid;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+}
+
+#filter-button {
+    margin-left: 0; 
 }
 #Computers {
     display: grid;
