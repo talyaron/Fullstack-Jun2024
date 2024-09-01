@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+#navbar {
+  ul {
+    position: relative;
+    left: 2%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin: 1vh 3vh;
+      display: inline-block;
+
+      a {
+        color: black;
+        font-size: 2vh;
+        text-decoration: none;
+        transition: opacity 0.5s ease;
+
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+    }
+  }
+}
+
+#computers {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  position: relative;
+  left: 1%;
+  top: 30vh;
+  gap: 2vh;
+  align-items: start;
+
+  .computer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  img {
+    width: 80%; 
+    margin-bottom: 1vh;
+  }
+
+  p {
+    color: green;
+    font-size: 2vh;
+    font-weight: bold;
+  }
+
+  button {
+    border: none;
+    box-shadow: 0.2vh 0.2vh 0.8vh black;
+    background-color: rgb(153, 187, 238);
+    padding: 1vh 6vh;
+    border-radius: 4vh;
+    font-weight: bold;
+    font-size: 1.8vh;
+    color: white;
+    transition: 0.4s opacity;
+    cursor: pointer;
+
+    &:hover{
+      opacity: 0.6;
+    }
+  }
+  
+  h2 {
+    color: rgb(153, 187, 238);
+    text-align: center;
+    font-size: 2vh;
+    font-weight: bold;
+    margin: 0.5vh 0; 
+  }
+  
+  .sale {
+    color: rgb(255, 255, 255);
+    background-color: rgb(194, 24, 24);
+    border-radius: 3vh;
+    padding: 0.6vh 5vh;
+    font-size: 2vh;
+    font-weight: bold;
+    margin-top: -44vh;
+    margin-left: 0vh;
+    text-align: center;
+  }
+}
