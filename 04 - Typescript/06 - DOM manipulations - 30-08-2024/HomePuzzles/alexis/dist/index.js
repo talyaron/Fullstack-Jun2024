@@ -1,5 +1,16 @@
-// - Implement a menu structure similar to the Asus website.
 // - Use TypeScript to define the menu items and their structure.
+var menuItems = [
+    { title: "For Home" },
+    { title: "Laptops", subMenus: [
+            { title: "Zenbook" },
+            { title: "Vivobook" },
+            { title: "Gaming" },
+        ]
+    },
+    { title: "Phones" },
+    { title: "Components" },
+    { title: "Support" },
+];
 // - Generate a list of 10 computers with varying prices
 // and sale statuses.
 var randomSale = function () { return Math.random() > 0.5; };
@@ -28,7 +39,7 @@ function renderComputers() {
             throw new Error();
         computers.forEach(function (computer) {
             var computerElement = document.createElement("article");
-            computerElement.innerHTML = "\n         <img src =\"" + computer.image + "\"alt=\"" + computer.name + "\"/> \n      <h1>" + computer.name + "</h1>\n        <h3>" + computer.price + "</h3>\n        <h5>" + computer.id + "</h5>\n         <h5>" + computer.sale + "</h5>\n        ";
+            computerElement.innerHTML = "\n         <img src =\"" + computer.image + "\"alt=\"" + computer.name + "\"/> \n         <h1>" + computer.name + "</h1>\n         <h3>" + computer.price + "</h3>\n         <h5>" + computer.id + "</h5>\n         <h5>" + computer.sale + "</h5>\n        ";
             computerElement.classList.add("computer");
             computerElement.id = computer.id;
             computersElement_1.appendChild(computerElement);

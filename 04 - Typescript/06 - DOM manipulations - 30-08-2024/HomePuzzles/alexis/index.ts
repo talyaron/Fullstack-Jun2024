@@ -1,6 +1,21 @@
 // - Implement a menu structure similar to the Asus website.
+interface MenuItem{
+  title:string;
+  subMenus?=MenuItem[];
+}
 // - Use TypeScript to define the menu items and their structure.
-
+const menuItems: MenuItem[] = [
+  { title: "For Home" },
+  { title: "Laptops", subMenus: [
+      { title: "Zenbook" },
+      { title: "Vivobook" },
+      { title: "Gaming" },
+    ]
+  },
+  { title: "Phones" },
+  { title: "Components" },
+  { title: "Support" },
+];
 interface bar {
   menuItem: string;
 }
@@ -110,9 +125,9 @@ function renderComputers() {
       const computerElement = document.createElement("article");
       computerElement.innerHTML = `
          <img src ="${computer.image}"alt="${computer.name}"/> 
-      <h1>${computer.name}</h1>
-        <h3>${computer.price}</h3>
-        <h5>${computer.id}</h5>
+         <h1>${computer.name}</h1>
+         <h3>${computer.price}</h3>
+         <h5>${computer.id}</h5>
          <h5>${computer.sale}</h5>
         `;
       computerElement.classList.add("computer");
