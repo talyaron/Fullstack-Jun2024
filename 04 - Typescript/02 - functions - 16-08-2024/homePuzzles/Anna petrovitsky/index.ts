@@ -7,7 +7,7 @@ let secondColor: string = prompt("Please enter your second color:");
 colorPreferred(userName,firstColor,secondColor);
 console.log(firstColor);
 
-function colorPreferred (name: string ,firstColor: string , secondColor: string) :void{
+function colorPreferred (name: string,firstColor: string, secondColor: string) :void{
   if(firstColor == ""){
     firstColor =  'black';
   }
