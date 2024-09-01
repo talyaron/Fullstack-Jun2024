@@ -7,18 +7,18 @@
 // Above 100000: 30%
 
 // ask the user to enter a salary
-const salary = Number(prompt('Enter your salary: '));
+const salary = Number(prompt("Enter your salary: "));
 
 // write a function that takes the salary and returns the tax amount
 function calculateTax(salary: number): number {
-  if(salary <=10000){
+  if (salary <= 10000) {
     return 0;
-  } else if  (salary <=50000){
-    return salary*0.1;
-  } else if(salary <=100000){
-    return salary*0.2;
+  } else if (salary <= 50000) {
+    return salary * 0.1;
+  } else if (salary <= 100000) {
+    return salary * 0.2;
   } else {
-    return salary*0.3;
+    return salary * 0.3;
   }
 }
 

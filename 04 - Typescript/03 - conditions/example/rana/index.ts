@@ -9,5 +9,15 @@ function isLegal(age: number): boolean {
     }
 }
 
+function tellUserIfLegalToDrink(isLegal:boolean): string {
+    if(isLegal) {
+        return 'You are allowed to drink alcohol';
+    } else {
+        return 'You are not allowed to drink alcohol';
+    }
+   
+}
+
 const isLegalToDrink = isLegal(age);
-document.write(`Is it legal to drink alcohol? ${isLegalToDrink}`);
+const message: string = tellUserIfLegalToDrink(isLegalToDrink); 
+document.write(message);
