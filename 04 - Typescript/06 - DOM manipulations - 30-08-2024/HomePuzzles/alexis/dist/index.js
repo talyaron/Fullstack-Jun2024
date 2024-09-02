@@ -1,13 +1,33 @@
 // - Use TypeScript to define the menu items and their structure.
 var menuItems = [
-    { title: "Home", href: "/" },
-    { title: "Laptops", subMenus: [
+    {
+        title: "Home",
+        href: "/"
+    },
+    {
+        title: "Laptops",
+        subMenus: [
             { title: "Zenbook", href: "/laptops" },
             { title: "Vivobook", href: "/phones" },
-            { title: "Accessories", href: "/accessories" }
-        ] },
-    { title: "About Us", href: "/about" },
-    { title: "Contact", href: "/contact" }
+            { title: "Accessories", href: "/accessories" },
+        ]
+    },
+    { title: "Mobile / Handhelds", subMenus: [
+            { title: "Zenbook", href: "/laptops" },
+            { title: "Vivobook", href: "/phones" },
+            { title: "Accessories", href: "/accessories" },
+        ], href: "/about" },
+    { title: "Displays / Desktops", subMenus: [
+            { title: "Zenbook", href: "/laptops" },
+            { title: "Vivobook", href: "/phones" },
+            { title: "Accessories", href: "/accessories" },
+        ], href: "/contact" },
+    { title: "Motherboards / Components", subMenus: [
+            { title: "Zenbook", href: "/laptops" },
+            { title: "Vivobook", href: "/phones" },
+            { title: "Accessories", href: "/accessories" },
+        ], href: "/contact" },
+    { title: "Networking / IoT / Servers", href: "/contact" },
 ];
 function renderNavbar() {
     var navbarElement = document.createElement("nav");
@@ -17,16 +37,19 @@ function renderNavbar() {
             // Create a dropdown menu
             var dropdownButton = document.createElement("button");
             dropdownButton.textContent = item.title;
-            var dropdownVisible_1 = false; // Track dropdown visibility
-            dropdownButton.addEventListener("click", function () {
-                dropdownVisible_1 = !dropdownVisible_1;
+            dropdownButton.addEventListener("mouseenter", function () {
                 var dropdownContent = liElement.querySelector("ul");
-                if (dropdownVisible_1) {
+                dropdownContent.style.display = "block";
+                dropdownContent.addEventListener("mouseenter", function () {
                     dropdownContent.style.display = "block";
-                }
-                else {
+                });
+            });
+            dropdownButton.addEventListener("mouseleave", function () {
+                var dropdownContent = liElement.querySelector("ul");
+                dropdownContent.style.display = "none";
+                dropdownContent === null || dropdownContent === void 0 ? void 0 : dropdownContent.addEventListener("mouseleave", function () {
                     dropdownContent.style.display = "none";
-                }
+                });
             });
             var dropdownContent_1 = document.createElement("ul");
             item.subMenus.forEach(function (subItem) {
@@ -39,7 +62,7 @@ function renderNavbar() {
         }
         else {
             // Create a simple menu item
-            liElement.innerHTML = "<a href=\"" + item.href + "\">" + item.title + "</a>";
+            liElement.innerHTML = "<a href=\"" + item.href + "\">" + item.title + ", " + item.logo + "</a>";
         }
         navbarElement.appendChild(liElement);
     });

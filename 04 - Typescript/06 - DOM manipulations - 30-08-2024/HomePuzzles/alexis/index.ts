@@ -1,6 +1,6 @@
 // - Implement a menu structure similar to the Asus website.
 interface MenuItem {
-  logo?:string;
+  logo?: string;
   title: string;
   subMenus?: MenuItem[];
   href?: string;
@@ -8,14 +8,35 @@ interface MenuItem {
 // - Use TypeScript to define the menu items and their structure.
 
 const menuItems: MenuItem[] = [
-  { title: "Home", href: "/" },
-  { title: "Laptops", subMenus: [
+  {
+    
+    title: "Home",
+    href: "/",
+  },
+  {
+    title: "Laptops",
+    subMenus: [
+      { title: "Zenbook", href: "/laptops" },
+      { title: "Vivobook", href: "/phones" },
+      { title: "Accessories", href: "/accessories" },
+    ],
+  },
+  { title: "Mobile / Handhelds",subMenus: [
     { title: "Zenbook", href: "/laptops" },
     { title: "Vivobook", href: "/phones" },
-    { title: "Accessories", href: "/accessories" }
-  ] },
-  { title: "About Us", href: "/about" },
-  { title: "Contact", href: "/contact" }
+    { title: "Accessories", href: "/accessories" },
+  ], href: "/about" },
+  { title: "Displays / Desktops",subMenus: [
+    { title: "Zenbook", href: "/laptops" },
+    { title: "Vivobook", href: "/phones" },
+    { title: "Accessories", href: "/accessories" },
+  ], href: "/contact" },
+  { title: "Motherboards / Components",subMenus: [
+    { title: "Zenbook", href: "/laptops" },
+    { title: "Vivobook", href: "/phones" },
+    { title: "Accessories", href: "/accessories" },
+  ], href: "/contact" },
+  { title: "Networking / IoT / Servers", href: "/contact" },
 ];
 function renderNavbar() {
   const navbarElement = document.createElement("nav");
@@ -28,16 +49,20 @@ function renderNavbar() {
       const dropdownButton = document.createElement("button");
       dropdownButton.textContent = item.title;
 
-      let dropdownVisible = false; // Track dropdown visibility
-
-      dropdownButton.addEventListener("click", () => {
-        dropdownVisible = !dropdownVisible;
+      dropdownButton.addEventListener("mouseenter", () => {
         const dropdownContent = liElement.querySelector("ul");
-        if (dropdownVisible) {
+        dropdownContent.style.display = "block";
+        dropdownContent.addEventListener("mouseenter",()=>{
           dropdownContent.style.display = "block";
-        } else {
-          dropdownContent.style.display = "none";
-        }
+        })
+      });
+
+      dropdownButton.addEventListener("mouseleave", () => {
+        const dropdownContent = liElement.querySelector("ul");
+        dropdownContent.style.display = "none";
+        dropdownContent?.addEventListener("mouseleave",()=>{
+          dropdownContent.style.display="none";
+        })
       });
 
       const dropdownContent = document.createElement("ul");
@@ -50,7 +75,7 @@ function renderNavbar() {
       liElement.appendChild(dropdownContent);
     } else {
       // Create a simple menu item
-      liElement.innerHTML = `<a href="${item.href}">${item.title}</a>`;
+      liElement.innerHTML = `<a href="${item.href}">${item.title}, ${item.logo}</a>`;
     }
 
     navbarElement.appendChild(liElement);
@@ -59,9 +84,7 @@ function renderNavbar() {
   document.body.appendChild(navbarElement);
 }
 renderNavbar();
-interface bar {
-  menuItem: string;
-}
+
 // - Create an interface for Computer objects with the following properties:
 
 interface Computer {
