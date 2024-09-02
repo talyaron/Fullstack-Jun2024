@@ -1,0 +1,50 @@
+
+
+#computers {
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  text-align: center;
+  flex-wrap: wrap;
+  gap: 1rem; 
+
+  .computer {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    width: calc(20% - 0rem); // שלושה פריטים בשורה עם רווח
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    
+    img {
+      max-width: 100%;
+      border-radius: 4px;
+    }
+
+    h1 {
+      font-size: 1.2rem;
+      margin: 0.5rem 0;
+    }
+
+    h3 {
+      color: #153b63; 
+      font-size: 1rem;
+    }
+
+    h5 {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .sale-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: #e84b4b;
+      color: #fff;
+      padding: 0.3rem 0.6rem;
+      border-radius: 3px;
+      font-size: 0.8rem;
+    }
+  }
+}

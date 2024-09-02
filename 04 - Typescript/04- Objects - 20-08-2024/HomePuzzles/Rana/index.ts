@@ -191,7 +191,7 @@ function bookInformation1() :Book1 {
   }
 
   catch(error){
-   console.log("hi thir is an error",error)
+   console.error("hi thir is an error",error)
     return {
     title:"",
     author:"",
