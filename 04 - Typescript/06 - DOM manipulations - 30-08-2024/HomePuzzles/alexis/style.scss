@@ -2,10 +2,14 @@ body{
     display: flex;
     flex-direction: column-reverse;
 }
-.nav{
+nav{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
+}
+a{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: large;
 }
 #computers {
   display: grid;
