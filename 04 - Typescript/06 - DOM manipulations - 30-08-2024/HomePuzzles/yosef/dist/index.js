@@ -5,6 +5,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             r[k] = a[j];
     return r;
 };
+var _a, _b, _c, _d;
 var navbarList = [
     { name: 'Mobile/Handheld' },
     { name: 'Laptops' },
@@ -26,9 +27,15 @@ var Computers = [
     { id: 10, name: 'Lenovo Ideapad 7', price: 1000, sale: false, img: 'https://cdn.britannica.com/77/170477-050-1C747EE3/Laptop-computer.jpg' }
 ];
 displayNavbar();
-display_All_Computers();
+// display_All_Computers();
 // display_Computers_Down_1000$();
 // display_Computers_on_sale();
+(_a = document.getElementById("only_with_sale")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", display_Computers_on_sale);
+(_b = document.getElementById("hide_all")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", hide_All_Computers);
+(_c = document.getElementById("all_computers")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", display_All_Computers);
+(_d = document.getElementById("computers_under_1000_dollars")) === null || _d === void 0 ? void 0 : _d.addEventListener("click", display_Computers_Down_1000$);
+function hide_All_Computers() { alert("asd"); }
+;
 function display_All_Computers() {
     try {
         var comp_item_1 = document.querySelector('#computers');
