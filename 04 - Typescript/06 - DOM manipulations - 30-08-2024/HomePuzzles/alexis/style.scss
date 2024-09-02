@@ -1,3 +1,12 @@
+body{
+    display: flex;
+    flex-direction: column-reverse;
+}
+.nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 #computers {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -10,15 +19,13 @@
   flex-direction: column;
   gap: 0;
   width: 20vw;
-  height: 15vh;
-  align-items: center;
-//   justify-content: center;
+  height: 25vh;
   border-radius: 15px;
   background-color: white;
   margin: 1%;
   padding-top: 0%;
   padding: 1%;
-  font-size: small;
+  font-size: 5px;
 }
 h1 {
   margin: 1px;
@@ -29,4 +36,7 @@ h5 {
 }
 h3 {
   margin: 1px;
+}
+image{
+    margin: 0;
 }
