@@ -1,3 +1,36 @@
+// Define the AddMenu function before using it
+function AddMenu(title, link) {
+    return { id: crypto.randomUUID(), title: title, link: link };
+}
+// Create the navbar array and populate it
+var navbar = [];
+navbar.push(AddMenu("Home", "#"));
+navbar.push(AddMenu("Products", "#"));
+navbar.push(AddMenu("About Us", "#"));
+navbar.push(AddMenu("Contact Us", "#"));
+// Function to render the menu
+function renderMenu() {
+    try {
+        var navbarElement = document.querySelector("#navbar");
+        if (!navbarElement)
+            throw new Error("Invalid navbar Element");
+        var ulElement_1 = document.createElement("ul");
+        navbar.forEach(function (item) {
+            var liElement = document.createElement("li");
+            var aElement = document.createElement("a");
+            aElement.textContent = item.title;
+            aElement.href = item.link;
+            liElement.appendChild(aElement);
+            ulElement_1.appendChild(liElement);
+        });
+        navbarElement.appendChild(ulElement_1);
+    }
+    catch (e) {
+        console.error(e);
+    }
+}
+// Call renderMenu to display the menu
+renderMenu();
 var randomSale = function () { return Math.random() > 0.5; };
 function createListing(name, image, price) {
     return { id: crypto.randomUUID(), name: name, image: image, price: price, sale: randomSale() };

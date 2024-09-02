@@ -1,4 +1,33 @@
 
+#navbar {
+  ul {
+    position: relative;
+    left: 2%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin: 1vh 3vh;
+      display: inline-block;
+
+      a {
+        color: black;
+        font-size: 2vh;
+        text-decoration: none;
+        transition: opacity 0.5s ease;
+
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+    }
+  }
+}
+
+
 
 #computers {
   display: flex;

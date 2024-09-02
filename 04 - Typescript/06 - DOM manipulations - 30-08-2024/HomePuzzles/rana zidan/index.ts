@@ -1,3 +1,50 @@
+interface Menu {
+    title: string;
+    link: string;
+    id: string;
+  }
+  
+  // Define the AddMenu function before using it
+  function AddMenu(title: string, link: string): Menu {
+    return { id: crypto.randomUUID(), title, link };
+  }
+  
+  // Create the navbar array and populate it
+  const navbar: Menu[] = [];
+  navbar.push(AddMenu("Home", "#"));
+  navbar.push(AddMenu("Products", "#"));
+  navbar.push(AddMenu("About Us", "#"));
+  navbar.push(AddMenu("Contact Us", "#"));
+  
+  // Function to render the menu
+  function renderMenu() {
+    try {
+      const navbarElement = document.querySelector("#navbar") as HTMLElement;
+      if (!navbarElement) throw new Error("Invalid navbar Element");
+  
+      const ulElement = document.createElement("ul");
+  
+      navbar.forEach(item => {
+        const liElement = document.createElement("li");
+        const aElement = document.createElement("a");
+  
+        aElement.textContent = item.title;
+        aElement.href = item.link;
+        liElement.appendChild(aElement);
+        ulElement.appendChild(liElement);
+      });
+  
+      navbarElement.appendChild(ulElement);
+  
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  
+  // Call renderMenu to display the menu
+  renderMenu();
+  
+
 interface Computer {
     id: string;
     name: string;
