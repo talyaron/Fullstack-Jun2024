@@ -35,6 +35,7 @@ function renderPets() {
         `;
             //add the class pet to the article element
             petElement.classList.add('pet');
+           
             //add the id of the pet to the article element
             petElement.id = pet.id;
             //append the article element to the pets element

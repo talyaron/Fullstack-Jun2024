@@ -1,16 +1,74 @@
 // - Use TypeScript to define the menu items and their structure.
 var menuItems = [
-    { title: "For Home" },
-    { title: "Laptops", subMenus: [
-            { title: "Zenbook" },
-            { title: "Vivobook" },
-            { title: "Gaming" },
+    {
+        title: "Home",
+        href: "/"
+    },
+    {
+        title: "Laptops",
+        subMenus: [
+            { title: "Zenbook", href: "/laptops" },
+            { title: "Vivobook", href: "/phones" },
+            { title: "Accessories", href: "/accessories" },
         ]
     },
-    { title: "Phones" },
-    { title: "Components" },
-    { title: "Support" },
+    { title: "Mobile / Handhelds", subMenus: [
+            { title: "Zenbook", href: "/laptops" },
+            { title: "Vivobook", href: "/phones" },
+            { title: "Accessories", href: "/accessories" },
+        ], href: "/about" },
+    { title: "Displays / Desktops", subMenus: [
+            { title: "Zenbook", href: "/laptops" },
+            { title: "Vivobook", href: "/phones" },
+            { title: "Accessories", href: "/accessories" },
+        ], href: "/contact" },
+    { title: "Motherboards / Components", subMenus: [
+            { title: "Zenbook", href: "/laptops" },
+            { title: "Vivobook", href: "/phones" },
+            { title: "Accessories", href: "/accessories" },
+        ], href: "/contact" },
+    { title: "Networking / IoT / Servers", href: "/contact" },
 ];
+function renderNavbar() {
+    var navbarElement = document.createElement("nav");
+    menuItems.forEach(function (item) {
+        var liElement = document.createElement("li");
+        if (item.subMenus) {
+            // Create a dropdown menu
+            var dropdownButton = document.createElement("button");
+            dropdownButton.textContent = item.title;
+            dropdownButton.addEventListener("mouseenter", function () {
+                var dropdownContent = liElement.querySelector("ul");
+                dropdownContent.style.display = "block";
+                dropdownContent.addEventListener("mouseenter", function () {
+                    dropdownContent.style.display = "block";
+                });
+            });
+            dropdownButton.addEventListener("mouseleave", function () {
+                var dropdownContent = liElement.querySelector("ul");
+                dropdownContent.style.display = "none";
+                dropdownContent === null || dropdownContent === void 0 ? void 0 : dropdownContent.addEventListener("mouseleave", function () {
+                    dropdownContent.style.display = "none";
+                });
+            });
+            var dropdownContent_1 = document.createElement("ul");
+            item.subMenus.forEach(function (subItem) {
+                var subMenuItem = document.createElement("li");
+                subMenuItem.innerHTML = "<a href=\"" + subItem.href + "\">" + subItem.title + "</a>";
+                dropdownContent_1.appendChild(subMenuItem);
+            });
+            liElement.appendChild(dropdownButton);
+            liElement.appendChild(dropdownContent_1);
+        }
+        else {
+            // Create a simple menu item
+            liElement.innerHTML = "<a href=\"" + item.href + "\">" + item.title + ", " + item.logo + "</a>";
+        }
+        navbarElement.appendChild(liElement);
+    });
+    document.body.appendChild(navbarElement);
+}
+renderNavbar();
 // - Generate a list of 10 computers with varying prices
 // and sale statuses.
 var randomSale = function () { return Math.random() > 0.5; };
