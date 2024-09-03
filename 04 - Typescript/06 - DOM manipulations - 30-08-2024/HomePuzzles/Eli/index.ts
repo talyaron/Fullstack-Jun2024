@@ -68,7 +68,10 @@ const computers: computer[] = [
   },
 ];
 
-const menu: string[] = ["Home", "Computers", "About"];
+const menu: string[]=[];
+menu.push("Home");
+menu.push("Computers");
+menu.push("About");
 
 function menuHandler(menu: string[]) {
   try {

@@ -35,8 +35,7 @@ function renderNavbar(){
         navbars.forEach((art)=>{
             const newart = document.createElement('a');
 
-            newart.innerHTML=`
-            <div> ${art}</div>`;
+            newart.innerHTML=`${art}`;
 
             newart.classList.add('navItem')
             navbar.appendChild(newart);

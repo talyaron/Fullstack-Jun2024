@@ -1,0 +1,13 @@
+body{
+    transition: all 0.5s;
+}
+
+.box {
+    width: 100px;
+    height: 100px;
+    background-color: lightgray;
+}
+
+.box.highlight {
+    background-color: yellow;
+}

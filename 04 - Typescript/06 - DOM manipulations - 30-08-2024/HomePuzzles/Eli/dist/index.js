@@ -60,7 +60,10 @@ var computers = [
         sale: true
     },
 ];
-var menu = ["Home", "Computers", "About"];
+var menu = [];
+menu.push("Home");
+menu.push("Computers");
+menu.push("About");
 function menuHandler(menu) {
     try {
         var navElement_1 = document.querySelector("nav");
