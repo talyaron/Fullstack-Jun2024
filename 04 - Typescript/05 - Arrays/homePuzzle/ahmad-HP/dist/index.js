@@ -1,3 +1,4 @@
+;
 var bookCollection = [];
 function addBook(title, author, year) {
     var newBook = { title: title, author: author, year: year };
