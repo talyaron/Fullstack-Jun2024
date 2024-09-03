@@ -3,15 +3,37 @@ body {
   grid-template-columns: 1fr 1fr;
 }
 
-#movie {
-  align-items: center;
-  justify-content: center;
-  padding: 1%;
-  border-radius: 15px;
-  background-color: beige;
-  font-size: 15px;
+#movies {
+  display: grid;
+ grid-template-rows: auto;
+ grid-template-columns: auto auto auto;
 
-  image {
-    width: 100px;
-  }
+ .movie {
+   display: grid;
+   grid-template-rows: auto;
+   grid-template-columns: auto auto;
+   margin: 10px;
+   padding: 10px;
+   border: 1px solid black;
+   border-radius: 5px;
+   background-color: #f0f0f0;
+
+   img {
+     width: 100px;
+     height: 150px;
+   }
+
+   .title {
+     font-size: 1.5em;
+     font-weight: bold;
+   }
+
+   .year {
+     font-size: 1.2em;
+   }
+
+   .rating {
+     font-size: 1.2em;
+   }
+ }
 }

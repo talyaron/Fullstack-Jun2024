@@ -71,7 +71,7 @@ var movies = [
     },
 ];
 function renderMovie(movie) {
-    return "\n    <h3>" + movie.title + "</h3>\n    <h3>" + movie.year + "</h3>\n    <h3>" + movie.rating + "</h3>\n    <h3>" + movie.genre + "</h3>\n    <img src=" + movie.imageUrl + " alt=" + movie.title + ">";
+    return "\n  <div class=\"movie\">\n    <h3>" + movie.title + "</h3>\n    <h3>" + movie.year + "</h3>\n    <h3>" + movie.rating + "</h3>\n    <h3>" + movie.genre + "</h3>\n    <img src=" + movie.imageUrl + " alt=" + movie.title + ">\n    </div>";
 }
 function renderMovies(movies) {
     return movies.map(renderMovie).join("");
