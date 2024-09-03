@@ -15,14 +15,11 @@ function renderMovies(movies) {
     var moviesElement = document.querySelector("#movies");
     if (!moviesElement)
         throw new Error('Container not found');
-    var gridContainer = document.createElement("div");
-    gridContainer.classList.add("movies-grid");
     movies.forEach(function (movie) {
         var movieCard = document.createElement("div");
         movieCard.classList.add("movie-card");
         movieCard.innerHTML = "\n        <img src=\"" + movie.imageUrl + "\" alt=\"" + movie.title + "\" class=\"movie-image\"/>\n        <h2>" + movie.title + "</h2>\n        <p>" + movie.genre + " (" + movie.year + ")</p>\n        <p>Rating: " + movie.rating + "</p>\n      ";
-        gridContainer.appendChild(movieCard);
+        moviesElement.appendChild(movieCard);
     });
-    moviesElement.appendChild(gridContainer);
 }
 renderMovies(topRatedMovies);
