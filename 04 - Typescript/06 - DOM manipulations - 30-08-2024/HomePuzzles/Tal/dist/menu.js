@@ -14,6 +14,7 @@ function renderMenu(menuItems) {
     return menuItems.map(renderMenuItem).join('');
 }
 console.log(renderMenu(menuItems));
+//controllers
 function main() {
     try {
         var menu = document.querySelector('#menu');
