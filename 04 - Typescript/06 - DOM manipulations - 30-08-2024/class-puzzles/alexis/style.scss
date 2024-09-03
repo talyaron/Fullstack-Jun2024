@@ -1,0 +1,17 @@
+body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#movie {
+  align-items: center;
+  justify-content: center;
+  padding: 1%;
+  border-radius: 15px;
+  background-color: beige;
+  font-size: 15px;
+
+  image {
+    width: 100px;
+  }
+}
