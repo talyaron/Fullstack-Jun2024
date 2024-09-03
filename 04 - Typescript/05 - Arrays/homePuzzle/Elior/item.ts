@@ -8,7 +8,7 @@ interface Item {
 }
 
 //creating inventory of items of array
-const inventory: Item [] = [
+let inventory: Item [] = [
     {id: 1, name: "laptop", quantity: 10, price: 1200},
     {id: 2, name: "Mouse", quantity: 50, price: 25},
     {id: 3, name: "Keyboard", quantity: 30, price: 45},
