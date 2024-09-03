@@ -1,12 +1,15 @@
 var userName = prompt("Please Enter your name");
-var userColor = prompt("Please Enter your favorite color");
-var secondColor = prompt("Please Enter your favorite second color");
-document.write("Hello, " + userName + "! Your favorite color is " + userColor + "!, and the second favorite color is " + secondColor + "! ");
-function paintScreen(color) {
-    document.body.style.backgroundColor = color;
+var fave = prompt("Please Enter your favorite color") || 'black';
+var secondColor = prompt("Please Enter your favorite second color") || 'white';
+if (!userName) {
+    userName = 'User';
 }
-function SecondPaintScreen(color) {
-    document.body.style.color = color;
+document.write("Hello, " + userName + "! Your favorite color is " + fave + "! ");
+function paint(color1) {
+    document.body.style.backgroundColor = color1;
 }
-paintScreen(userColor);
-SecondPaintScreen(secondColor);
+function paintText(color2) {
+    document.body.style.color = color2;
+}
+paint(fave);
+paintText(secondColor);

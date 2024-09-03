@@ -30,5 +30,5 @@ console.log(olderStudents);
 const sortedOlderStudents = olderStudents.sort((a, b) => b.age - a.age);
 console.log(sortedOlderStudents);
 
-const studentName = students.map(student => student.isStudent == false);
+const studentName = students.map(student => ({...student, isStudent : false}));
 console.log(studentName);

@@ -12,7 +12,7 @@ function bookInformation1() {
         return books1;
     }
     catch (error) {
-        console.log("hi thir is an error", error);
+        console.error("hi thir is an error", error);
         return {
             title: "",
             author: "",
