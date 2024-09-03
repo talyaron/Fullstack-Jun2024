@@ -69,7 +69,7 @@
 # Mouse Events:
 
 click
-dblclick (double-click)
+- dblclick (double-click)
 mousedown
 mouseup
 mousemove

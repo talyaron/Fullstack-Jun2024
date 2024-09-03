@@ -1,0 +1,19 @@
+// body{
+//     transition: all 0.5s;
+// }
+#scrollable-element {
+    height: 400px;
+    overflow-y: scroll;
+  }
+  #button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #ccc;
+    border: none;
+    cursor: pointer;
+  }
+  #button.green {
+    background-color: green;
+  }
