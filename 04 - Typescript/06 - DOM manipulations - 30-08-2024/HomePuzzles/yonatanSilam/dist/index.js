@@ -26,7 +26,7 @@ function renderNavbar() {
             throw new Error('Could not find an element with the id "navbar"');
         navbars.forEach(function (art) {
             var newart = document.createElement('a');
-            newart.innerHTML = "\n            <div> " + art + "</div>";
+            newart.innerHTML = "" + art;
             newart.classList.add('navItem');
             navbar_1.appendChild(newart);
         });
