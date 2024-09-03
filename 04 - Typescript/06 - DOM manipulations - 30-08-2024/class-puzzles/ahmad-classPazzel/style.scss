@@ -1,0 +1,75 @@
+$primary-color: #333;
+$secondary-color: #fff;
+$card-bg-color: #f4f4f4;
+$card-border-color: #ddd;
+$font-stack: 'Arial', sans-serif;
+
+body {
+    font-family: $font-stack;
+    background-color: black;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+}
+.container {
+    width: 80%;
+    max-width: 1200px;
+
+
+    h1 {
+        text-align: center;
+        color: $primary-color;
+        margin-bottom: 20px;
+    }
+
+    .movie-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 25px;
+    }
+
+    .movie-card {
+        background-color: $card-bg-color;
+        border: 1px solid $card-border-color;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        align-items: center;
+        text-align: center;
+        cursor: pointer;
+
+        &:hover {
+            transform: translateY(-10px);
+            box-shadow: 5px 4px 8px 6px white;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+
+        h2,
+        h3,
+        p {
+            margin: 10px;
+            color: $primary-color;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+        }
+
+        h3 {
+            font-size: 1rem;
+            color: darken($primary-color, 20%);
+        }
+
+        p {
+            font-size: 0.9rem;
+            color: darken($primary-color, 40%);
+        }
+    }
+}
