@@ -24,12 +24,12 @@ movies.push({
     "https://static0.moviewebimages.com/wordpress/wp-content/uploads/movie/8qHe7US7GuZmC4FWuRKo5goPUSxSGR.jpg",
 });
 movies.push({
-  title: "The Thing",
-  year: 1982,
-  genre: "Horror",
+  title: "Spider-Man 3",
+  year: 2002,
+  genre: "Action",
   rating: 9,
   imageUrl:
-    "https://static0.moviewebimages.com/wordpress/wp-content/uploads/movie/8qHe7US7GuZmC4FWuRKo5goPUSxSGR.jpg",
+    "https://m.media-amazon.com/images/M/MV5BYTk3MDljOWQtNGI2My00OTEzLTlhYjQtOTQ4ODM2MzUwY2IwXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_.jpg",
 });
 
 function displayMovie(movie: Movie): String {
