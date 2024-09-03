@@ -6,6 +6,7 @@ interface Movie {
   year: number;
   genre: string;
   rating: number;
+  imageUrl: string;
 }
 ```
 - create a list of 10 movies with varying genres and ratings. build a card for rendering the movie (level 1).
