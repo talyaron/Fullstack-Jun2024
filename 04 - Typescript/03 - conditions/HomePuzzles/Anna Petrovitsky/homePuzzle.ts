@@ -19,11 +19,11 @@ function leapYear (year : number) : void{
 }
 
 //Exercises 6:
-const user1 : string | null= prompt("Please choose rock,paper,scissors:");
-const user2 : string | null = randomChoice();
-//const result : string = game(user1,user2);
+const user1 : string | null= prompt("Please choose rock,paper,scissors:") || "null" ;
+const user2 : string | null = randomChoice() || "null";
+const Result : string = game(user1,user2);
 
-document.write(`<br> Exercises 6 : <br> `);
+document.write(`<br> Exercises 6 : <br>  User1 choose: ${user1} <br> User2 choose: ${user2} <br> ${Result}`);
 //game(user1,user2);
 function randomChoice () : string {
     let choice : number= Math.floor(Math.random() * 3);
@@ -85,7 +85,7 @@ const secondNum :number = Number(prompt('Please enter second number:'));
 const operator : string = prompt('Please enter the operator: + or - or * or /') || 'null';
 
 const result : number = calculator(firstNum,secondNum,operator);
-document.write(`Exercises 7 <br> Calculator result is ${firstNum} ${operator} ${secondNum} = ${result}`);
+document.write(`<br> Exercises 7 <br> Calculator result is ${firstNum} ${operator} ${secondNum} = ${result}`);
 
 
 function calculator (num1 : number, num2 : number, operator : string) : number{
@@ -122,37 +122,22 @@ function checkPassword (password : string) : string{
 }
 
 //Exercises 9:
-const temp : number = Number(prompt("Please enter the temperatures:"));
-const unit : string = prompt("Please enter the unit F or C:") || "null";
+const temp : number = Number(prompt("Please enter the temperature:"));
+const unit : string = prompt("Please enter the unit:") || "null";
+const converted :string = convertUnit(temp,unit);
+const recommend : string = clothingRec(temp,unit);
+document.write(`<br> Exercises 9: <br> your temp is ${temp}${unit} and converted ${converted} 
+    <br> Base on the temperature that you insert the clothing recommendations is: ${recommend}`);
 
-const converted : number = convert(temp,unit);
-const recommend : string = clothingReco(temp,unit);
-document.write(`<br> Exercises 9: <br> The temperatur converted from ${temp}${unit} to ${converted} <br> 
-    Base on the temperature ${temp}${unit} the clothing recommendations is ${recommend}`);
-
-function convert (temp : number , unit : string) : number{
-    if (unit = 'C'){
-        return ((temp * 9/5) + 32);
-    }
-    else{
-        return ((temp - 32) * 5/9);
-    }
+function convertUnit(temp : number,unit : string) : string{
+    if(unit == "F")
+        return ((temp - 32) / 1.8) + "C";
+    else 
+        return ((temp * 1.8) + 32) + "F";
 }
 
-function clothingReco (temp : number, unit : string) :string{
-    if(unit ='C'){
-        if(temp < 0)
-            return "It's freezing! Wear a heavy coat.";
-        else if(temp <= 10)
-            return "It's cold. Bring a jacket.";
-        else if(temp <= 20)
-            return "It's cool. A light sweater should be fine.";
-        else if(temp <= 30)
-            return "It's warm. T-shirt weather!";
-        else
-            return "It's hot! Stay cool and hydrated.";
-    }
-    else{
+function clothingRec (temp : number, unit : string) : string{
+    if(unit == "F"){
         if(temp < 32)
             return "It's freezing! Wear a heavy coat.";
         else if(temp <= 50)
@@ -160,6 +145,18 @@ function clothingReco (temp : number, unit : string) :string{
         else if(temp <= 68)
             return "It's cool. A light sweater should be fine.";
         else if(temp <= 86)
+            return "It's warm. T-shirt weather!";
+        else
+            return "It's hot! Stay cool and hydrated.";
+    }
+    else{
+        if(temp < 0)
+            return "It's freezing! Wear a heavy coat.";
+        else if(temp <= 10)
+            return "It's cold. Bring a jacket.";
+        else if(temp <= 20)
+            return "It's cool. A light sweater should be fine.";
+        else if(temp <= 30)
             return "It's warm. T-shirt weather!";
         else
             return "It's hot! Stay cool and hydrated.";
