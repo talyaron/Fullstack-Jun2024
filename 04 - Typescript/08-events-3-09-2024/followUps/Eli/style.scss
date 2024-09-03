@@ -15,7 +15,6 @@
 .moving {
     animation: mov 5s infinite;
 }
-
 @keyframes mov {
     20% {
         transform: rotate(180deg);
