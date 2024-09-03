@@ -4,70 +4,70 @@ var movies = [
         year: 2010,
         genre: "Sci-Fi",
         rating: 9,
-        imageUrl: "https://picsum.photos/200/300?random=1"
+        imageUrl: "https://www.themoviedb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg"
     },
     {
         title: "The Dark Knight",
         year: 2008,
         genre: "Action",
         rating: 9,
-        imageUrl: "https://picsum.photos/200/300?random=2"
+        imageUrl: "https://image.tmdb.org/t/p/w500/1hRoyzDtpgMU7Dz4JF22RANzQO7.jpg"
     },
     {
         title: "Interstellar",
         year: 2014,
         genre: "Sci-Fi",
         rating: 8,
-        imageUrl: "https://picsum.photos/200/300?random=3"
+        imageUrl: "https://m.media-amazon.com/images/I/91kFYg4fX3L._AC_SL1500_.jpg"
     },
     {
         title: "Parasite",
         year: 2019,
         genre: "Thriller",
         rating: 8,
-        imageUrl: "https://picsum.photos/200/300?random=4"
+        imageUrl: "https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg"
     },
     {
         title: "Joker",
         year: 2019,
         genre: "Drama",
         rating: 8.5,
-        imageUrl: "https://picsum.photos/200/300?random=5"
+        imageUrl: "https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg"
     },
     {
         title: "Avengers: Endgame",
         year: 2019,
         genre: "Action",
         rating: 8,
-        imageUrl: "https://picsum.photos/200/300?random=6"
+        imageUrl: "https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"
     },
     {
         title: "The Matrix",
         year: 1999,
         genre: "Sci-Fi",
         rating: 9,
-        imageUrl: "https://picsum.photos/200/300?random=7"
+        imageUrl: "https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg"
     },
     {
         title: "Fight Club",
         year: 1999,
         genre: "Drama",
         rating: 8.5,
-        imageUrl: "https://picsum.photos/200/300?random=8"
+        imageUrl: "https://image.tmdb.org/t/p/w500/a26cQPRhJPX6GbWfQbvZdrrp9j9.jpg"
     },
     {
         title: "Pulp Fiction",
         year: 1994,
         genre: "Crime",
         rating: 9,
-        imageUrl: "https://picsum.photos/200/300?random=9"
+        imageUrl: "https://www.themoviedb.org/t/p/w500/fIE3lAGcZDV1G6XM5KmuWnNsPp1.jpg"
     },
     {
         title: "Forrest Gump",
         year: 1994,
         genre: "Drama",
         rating: 8.8,
-        imageUrl: "https://picsum.photos/200/300?random=10"
+        imageUrl: "https://www.themoviedb.org/t/p/w500/saHP97rTPS5eLmrLQEcANmKrsFl.jpg"
     },
 ];
 function renderMovie(movie) {
