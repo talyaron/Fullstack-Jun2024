@@ -14,7 +14,7 @@ var topRatedMovies = movies.filter(function (movie) { return movie.rating >= 7; 
 function renderMovies(movies) {
     var moviesElement = document.querySelector("#movies");
     if (!moviesElement)
-        throw new Error('Container not found');
+        throw new Error('movie not found');
     movies.forEach(function (movie) {
         var movieCard = document.createElement("div");
         movieCard.classList.add("movie-card");

@@ -25,7 +25,7 @@ const topRatedMovies = movies.filter(movie => movie.rating >= 7);
 
 function renderMovies(movies: Movie[]) {
   const moviesElement = document.querySelector("#movies") as HTMLElement;
-  if (!moviesElement) throw new Error('Container not found');
+  if (!moviesElement) throw new Error('movie not found');
 
 
   movies.forEach((movie) => {
