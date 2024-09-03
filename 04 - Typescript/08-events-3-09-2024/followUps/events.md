@@ -66,7 +66,7 @@
 - `error`
 - `contextmenu`
 - `select`
-Mouse Events:
+# Mouse Events:
 
 click
 dblclick (double-click)
@@ -78,7 +78,7 @@ mouseout
 mouseenter
 mouseleave
 
-Keyboard Events:
+# Keyboard Events:
 
 keydown
 keyup
