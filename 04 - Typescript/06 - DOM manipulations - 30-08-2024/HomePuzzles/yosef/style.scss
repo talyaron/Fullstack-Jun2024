@@ -16,11 +16,53 @@
 
 #computers{
     display: grid;
-    grid-template-columns: repeat(2,1fr);
 
+    grid-template-columns: repeat(3,1fr);
 
+    .computer-item{
+        border: 5px solid rgb(150, 84, 84);
+        margin: 10px;
+        padding: 10px;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+        justify-content: center;
+        text-align: center;
+        &:hover{
+            background-color: lightgray;
+            cursor: pointer;
+            text-decoration: underline;
+            transform: scale(1.1);
+            transition: transform 0.3s ease;
+            border-radius: 5px;
+            box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+
+    }
     img{
         width: 30%;
         height: 30%;
+        
     }
+}
+.buttons_container{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    
+
+    button{
+    display: flex;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: lightgray;
+    color: black;
+    transition: background-color 0.3s ease;
+    &:hover{
+        background-color: gray;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+}
 }

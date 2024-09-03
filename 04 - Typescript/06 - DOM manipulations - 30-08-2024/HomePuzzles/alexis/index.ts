@@ -1,14 +1,92 @@
 // - Implement a menu structure similar to the Asus website.
+interface MenuItem {
+  logo?: string;
+  title: string;
+  subMenus?: MenuItem[];
+  href?: string;
+}
 // - Use TypeScript to define the menu items and their structure.
 
-interface bar {
-  menuItem: string;
+const menuItems: MenuItem[] = [
+  {
+    
+    title: "Home",
+    href: "/",
+  },
+  {
+    title: "Laptops",
+    subMenus: [
+      { title: "Zenbook", href: "/laptops" },
+      { title: "Vivobook", href: "/phones" },
+      { title: "Accessories", href: "/accessories" },
+    ],
+  },
+  { title: "Mobile / Handhelds",subMenus: [
+    { title: "Zenbook", href: "/laptops" },
+    { title: "Vivobook", href: "/phones" },
+    { title: "Accessories", href: "/accessories" },
+  ], href: "/about" },
+  { title: "Displays / Desktops",subMenus: [
+    { title: "Zenbook", href: "/laptops" },
+    { title: "Vivobook", href: "/phones" },
+    { title: "Accessories", href: "/accessories" },
+  ], href: "/contact" },
+  { title: "Motherboards / Components",subMenus: [
+    { title: "Zenbook", href: "/laptops" },
+    { title: "Vivobook", href: "/phones" },
+    { title: "Accessories", href: "/accessories" },
+  ], href: "/contact" },
+  { title: "Networking / IoT / Servers", href: "/contact" },
+];
+function renderNavbar() {
+  const navbarElement = document.createElement("nav");
+
+  menuItems.forEach(item => {
+    const liElement = document.createElement("li");
+
+    if (item.subMenus) {
+      // Create a dropdown menu
+      const dropdownButton = document.createElement("button");
+      dropdownButton.textContent = item.title;
+
+      dropdownButton.addEventListener("mouseenter", () => {
+        const dropdownContent = liElement.querySelector("ul");
+        dropdownContent.style.display = "block";
+        dropdownContent.addEventListener("mouseenter",()=>{
+          dropdownContent.style.display = "block";
+        })
+      });
+
+      dropdownButton.addEventListener("mouseleave", () => {
+        const dropdownContent = liElement.querySelector("ul");
+        dropdownContent.style.display = "none";
+        dropdownContent?.addEventListener("mouseleave",()=>{
+          dropdownContent.style.display="none";
+        })
+      });
+
+      const dropdownContent = document.createElement("ul");
+      item.subMenus.forEach(subItem => {
+        const subMenuItem = document.createElement("li");
+        subMenuItem.innerHTML = `<a href="${subItem.href}">${subItem.title}</a>`;
+        dropdownContent.appendChild(subMenuItem);
+      });
+      liElement.appendChild(dropdownButton);
+      liElement.appendChild(dropdownContent);
+    } else {
+      // Create a simple menu item
+      liElement.innerHTML = `<a href="${item.href}">${item.title}, ${item.logo}</a>`;
+    }
+
+    navbarElement.appendChild(liElement);
+  });
+
+  document.body.appendChild(navbarElement);
 }
+renderNavbar();
+
 // - Create an interface for Computer objects with the following properties:
-//   - id: number
-//   - name: string
-//   - price: number
-//   - sale: boolean
+
 interface Computer {
   id: string;
   name: string;
@@ -100,29 +178,30 @@ console.log(computers);
 const lessThan1000 = computers.filter((computers) => computers.price < 1000);
 console.log(lessThan1000);
 
-function renderProducts() {
+function renderComputers() {
   try {
-    const computerElement = document.querySelector("#computers") as HTMLElement;
-    if (!computerElement) throw new Error();
-    computers.forEach(computer=>{
-        const computerElement = document.createElement('article');
-        computerElement.innerHTML =
-        `
-        <h1>${computer.name}</h1>
-        <h1>${computer.name}</h1>
-        <h1>${computer.name}</h1>
-        <h1>${computer.name}</h1>
-        
-        
-        `
-    })
-
-
-} catch (error) {
+    const computersElement = document.querySelector(
+      "#computers"
+    ) as HTMLElement;
+    if (!computersElement) throw new Error();
+    computers.forEach((computer) => {
+      const computerElement = document.createElement("article");
+      computerElement.innerHTML = `
+         <img src ="${computer.image}"alt="${computer.name}"/> 
+         <h1>${computer.name}</h1>
+         <h3>${computer.price}</h3>
+         <h5>${computer.id}</h5>
+         <h5>${computer.sale}</h5>
+        `;
+      computerElement.classList.add("computer");
+      computerElement.id = computer.id;
+      computersElement.appendChild(computerElement);
+    });
+  } catch (error) {
     return error;
   }
 }
-renderProducts();
+renderComputers();
 // ### 3. Sale Items Feature
 
 // - Display a 'Sale' badge on the computers that are on sale.

@@ -34,9 +34,17 @@ const Computers : Computer[] = [
 
 
 displayNavbar();
-display_All_Computers();
+// display_All_Computers();
 // display_Computers_Down_1000$();
 // display_Computers_on_sale();
+
+document.getElementById("only_with_sale")?.addEventListener("click",display_Computers_on_sale);
+document.getElementById("hide_all")?.addEventListener("click",hide_All_Computers);
+document.getElementById("all_computers")?.addEventListener("click",display_All_Computers);
+document.getElementById("computers_under_1000_dollars")?.addEventListener("click",display_Computers_Down_1000$)
+
+function hide_All_Computers() {alert("asd")};
+
 
 function display_All_Computers() {
     try{

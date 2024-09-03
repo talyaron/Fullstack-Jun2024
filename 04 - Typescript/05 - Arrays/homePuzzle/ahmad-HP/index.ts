@@ -1,5 +1,5 @@
 //Q1
-type Book = {
+interface Book  {
   title: string;
   author: string;
   year: number;
@@ -69,7 +69,7 @@ displayBookInfo();
 console.log("---------------------------------------------------------------------------")
 
 //  Q2
-type Item={
+interface Item{
   id:number,
   name:string,
   price:number,

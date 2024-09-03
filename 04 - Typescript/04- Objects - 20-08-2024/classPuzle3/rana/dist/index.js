@@ -1,5 +1,6 @@
-// // # Book Information Printer:
-// // Create a Book interface with attributes for title, author, and publication year. Then write a function print_book_info that takes a Book object as an argument and prints its information.
+// // #1 Book Information Printer:
+// // Create a Book interface with attributes for title, author, and publication year.
+// Then write a function print_book_info that takes a Book object as an argument and prints its information.
 function getRectangle() {
     try {
         var width = Number(prompt("Enter width"));

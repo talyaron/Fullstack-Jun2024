@@ -1,0 +1,26 @@
+nav
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .nav_element
+    {
+        margin: 1rem;
+    }    
+}
+
+section
+{
+    font-weight: bold;
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    footer 
+    {
+        font-size: 1rem;
+        color: red;
+    }
+}
