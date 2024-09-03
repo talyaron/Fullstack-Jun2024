@@ -5,12 +5,7 @@ interface gymItem {
   id: string;
 }
 
-function creatgymItem(
-  name: string,
-  img: string,
-  price: number,
-  id: string
-): gymItem {
+function creatgymItem(name: string,img: string,price: number,id: string): gymItem {
   return { name, img, price, id: crypto.randomUUID() };
 }
 
@@ -60,11 +55,11 @@ function renderGymItem(gymItems: gymItem[]): void {
       gymItemElement.innerHTML = `
             <h2> ${gymItem.name}<h2>
             <h4> ${gymItem.price}<h4>
-            <imh src ="${gymItem.img}" />
+            <img src ="${gymItem.img}" />
         `;
-      gymItemElement.classList.add(`gymItem`);
-      gymItemElement.id = gymItem.id;
-      gymItemElement.appendChild(gymItemElement);
+      gymItemContainer.classList.add(`gymItem`);
+      gymItemContainer.id = gymItem.id;
+      gymItemContainer.appendChild(gymItemElement);
     });
   } catch (error) {
     console.log(error);
