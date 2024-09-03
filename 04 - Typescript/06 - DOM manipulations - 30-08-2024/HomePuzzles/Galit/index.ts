@@ -1,3 +1,43 @@
+interface MenuItem {
+    name: string;
+    url: string;
+}
+
+const menuItems: MenuItem[] = [
+    { name: "Mobile / Handhelds", url: "#" },
+    { name: "Laptops", url: "#" },
+    { name: "Displays / Desktop", url: "#" },
+    { name: "Motherboards / Components", url: "#" },
+    { name: "Networking / IoT / Servers", url: "#" },
+    { name: "Accessories", url: "#" }
+];
+
+function renderMenu(menuItems: MenuItem[]): void {
+    const menuDiv = document.querySelector('#menu-container') as HTMLElement;
+    menuDiv.className = 'menu';
+
+    // Logo
+    const logoDiv = document.createElement('div');
+    logoDiv.className = 'menu-item';
+    const logoImg = document.createElement('img');
+    logoImg.id = 'logo-img';
+    logoImg.src = './images/Asus-Logo-black.png';
+    logoImg.alt = 'Asus Logo';
+    logoDiv.appendChild(logoImg);
+    menuDiv.appendChild(logoDiv);
+
+    // Menu items
+    menuItems.forEach(item => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'menu-item';
+        const itemLink = document.createElement('a');
+        itemLink.href = item.url;
+        itemLink.textContent = item.name;
+        itemDiv.appendChild(itemLink);
+        menuDiv.appendChild(itemDiv);
+    });
+}
+
 interface Computer {
     id: number;
     image: string;
@@ -6,85 +46,64 @@ interface Computer {
     sale: boolean;
 }
 
-function createComputer(id: number, image: string, name: string, price: number, sale: boolean): Computer {
-    return { id, image, name, price, sale };
+const Computers: Computer[] = [
+    { id: 227890553, image: 'https://officejo.com/wp-content/uploads/2024/06/GU605MY-QR104W_01-1024x1024.jpg', name: 'ASUS ROG Zephyrus G16 Laptop', price: 899, sale: true },
+    { id: 227896784, image: 'https://officejo.com/wp-content/uploads/2023/11/G614JV-N3111_01.jpg', name: 'ASUS ROG Strix G16 Laptop', price: 2125, sale: false },
+    { id: 227423384, image: 'https://officejo.com/wp-content/uploads/2024/06/UX8406MA-PZ044W_01-1024x1024.jpg', name: 'ASUS Zenbook Duo OLED Laptop', price: 790, sale: true },
+    { id: 208643383, image: 'https://officejo.com/wp-content/uploads/2023/11/K3605VC-N1177_01.jpg', name: 'ASUS Vivobook 16X Laptop', price: 1990, sale: false },
+    { id: 567883383, image: 'https://officejo.com/wp-content/uploads/2024/06/G614JV-N3129_01-1024x1024.jpg', name: 'ASUS ROG Strix G16 Laptop', price: 1490, sale: true },
+    { id: 567545889, image: 'https://officejo.com/wp-content/uploads/2024/06/G634JZR-N4111_04-1024x1024.jpg', name: 'ASUS ROG Strix SCAR 16 Laptop', price: 1390, sale: false },
+    { id: 567883535, image: 'https://officejo.com/wp-content/uploads/2023/08/FX506HF-HN114_01-1024x1024.jpg', name: 'ASUS TUF Gaming F15 Laptop', price: 999, sale: false },
+    { id: 543243556, image: 'https://officejo.com/wp-content/uploads/2022/07/VG27AQ_01.jpg', name: 'ASUS TUF Gaming VG27AQ HDR Monitor', price: 6390, sale: true }
+];
+
+function renderComputers(maxPrice?: number): void {
+    const computersElement = document.querySelector('#Computers') as HTMLElement;
+
+    computersElement.innerHTML = ''; // Clear the existing content
+
+    const filteredComputers = maxPrice 
+        ? Computers.filter(computer => computer.price < maxPrice)
+        : Computers;
+
+    filteredComputers.forEach(computer => {
+        const computerElement = document.createElement('article');
+        computerElement.innerHTML = `
+            <h5>ID: ${computer.id}</h5>
+            <img src="${computer.image}" alt="${computer.name}" />
+            <h1>${computer.name}</h1>
+            <h3>${computer.price}$</h3>
+            <h3 class="${computer.sale ? 'sale' : ''}">${computer.sale ? 'On Sale!' : 'Regular Price'}</h3>
+        `;
+        computerElement.classList.add('Computer');
+        computerElement.id = computer.id.toString();
+        computersElement.appendChild(computerElement);
+    });
 }
 
-const Computers: Computer[] = [];
-
-Computers.push(createComputer(227890553, 'https://officejo.com/wp-content/uploads/2024/06/GU605MY-QR104W_01-1024x1024.jpg', 'ASUS ROG Zephyrus G16 Laptop – Intel Core Ultra 9, RTX 4090, 16″ 240Hz WQXGA OLED HDR, ROG Zephyrus Sleeve, ROG Impact Gaming Mouse, Win 11', 899, true));
-Computers.push(createComputer(227896784, 'https://officejo.com/wp-content/uploads/2023/11/G614JV-N3111_01.jpg', 'ASUS ROG Strix G16 Laptop – Core i7, RTX 4060, 16GB RAM', 2125, false));
-Computers.push(createComputer(227423384, 'https://officejo.com/wp-content/uploads/2024/06/UX8406MA-PZ044W_01-1024x1024.jpg', 'ASUS Zenbook Duo OLED Laptop – Intel Core Ultra 7, 16GB DDR5X, 1TB SSD, 14.0″ Double Screen 3K OLED, Backpack Sleeve & ASUS Pen, Win 11 Home', 790, true));
-Computers.push(createComputer(208643383, 'https://officejo.com/wp-content/uploads/2023/11/K3605VC-N1177_01.jpg', 'ASUS Vivobook 16X Laptop – Core i7, RTX 3050, 8GB RAM', 1990, false));
-Computers.push(createComputer(567883383, 'https://officejo.com/wp-content/uploads/2024/06/G614JV-N3129_01-1024x1024.jpg', 'ASUS ROG Strix G16 Laptop – Intel Core i7-13650HX, RTX 4060 8GB DDR6, 16GB DDR5, 16″ FHD+ 165Hz, Eclipse Gray', 1490, true));
-Computers.push(createComputer(567545889, 'https://officejo.com/wp-content/uploads/2024/06/G634JZR-N4111_04-1024x1024.jpg', 'ASUS ROG Strix SCAR 16 Laptop – Intel Core i9-14900HX, RTX 4080, 32GB DDR5, 16″ QHD+ 240Hz, with ROG Backpack & ROG Gladius III Mouse, Off Black', 1390, false));
-Computers.push(createComputer(567883535, 'https://officejo.com/wp-content/uploads/2023/08/FX506HF-HN114_01-1024x1024.jpg', 'ASUS TUF Gaming F15 Laptop – i5 11th Gen, RTX 2050, 144Hz', 999, false));
-Computers.push(createComputer(543243556, 'https://officejo.com/wp-content/uploads/2022/07/VG27AQ_01.jpg', 'ASUS TUF Gaming VG27AQ HDR 27″ 2K Gaming Monitor', 6390, true));
-Computers.push(createComputer(567883535, 'https://officejo.com/wp-content/uploads/2023/08/FX506HF-HN114_01-1024x1024.jpg', 'ASUS TUF Gaming F15 Laptop – i5 11th Gen, RTX 2050, 144Hz', 1390, false));
-
-
-function renderComputers(maxPrice?: number) {
-    try {
-        const computersElement = document.querySelector('#Computers') as HTMLElement;
-        if (!computersElement) throw new Error('Could not find an element with the id "Computers"');
-
-        computersElement.innerHTML = ''; // Clear the existing content
-
-        const filteredComputers = maxPrice 
-            ? Computers.filter(computer => computer.price < maxPrice)
-            : Computers;
-
-        filteredComputers.forEach(computer => {
-            const computerElement = document.createElement('article');
-            computerElement.innerHTML = `
-                <h5>${computer.id}</h5>
-                <img src="${computer.image}" alt="${computer.name}" />
-                <h1>${computer.name}</h1>
-                <h3>${computer.price}$</h3>
-                <h3 class="${computer.sale ? 'sale' : ''}">${computer.sale ? 'On Sale!' : 'Regular Price'}</h3>
-            `;
-            computerElement.classList.add('Computer');
-            computerElement.id = computer.id.toString();
-            computersElement.appendChild(computerElement);
-        });
-    } catch (error) {
-        console.error(error.message);
-    }
-}
-
-function main() {
+function main(): void {
     document.addEventListener('DOMContentLoaded', () => {
-        const menuItems = document.querySelectorAll('.menu-item') as NodeListOf<HTMLElement>;
-        menuItems.forEach(item => {
-            item.style.color = 'black';
-            item.style.fontFamily = 'Assistant';
+        renderMenu(menuItems);
+
+        const logoImg = document.querySelector('#logo-img') as HTMLImageElement;
+        logoImg.addEventListener('mouseenter', () => {
+            logoImg.src = './images/asus-logo-blue.png';
         });
 
-        const img = document.querySelector('#logo-img') as HTMLImageElement;
-        if (img) {
-            img.addEventListener('mouseenter', () => {
-                img.src = './images/asus-logo-blue.png';
-            });
-
-            img.addEventListener('mouseleave', () => {
-                img.src = './images/Asus-Logo-black.png';
-            });
-        }
+        logoImg.addEventListener('mouseleave', () => {
+            logoImg.src = './images/Asus-Logo-black.png';
+        });
 
         const filterButton = document.querySelector('#filter-button') as HTMLButtonElement;
         const allComputersButton = document.querySelector('#Computers-button') as HTMLButtonElement;
 
-        if (filterButton) {
-            filterButton.addEventListener('click', () => {
-                renderComputers(1000); 
-            });
-        }
+        filterButton.addEventListener('click', () => {
+            renderComputers(1000); 
+        });
 
-        if (allComputersButton) {
-            allComputersButton.addEventListener('click', () => {
-                renderComputers(); 
-            });
-        }
+        allComputersButton.addEventListener('click', () => {
+            renderComputers(); 
+        });
 
         renderComputers(); 
     });
