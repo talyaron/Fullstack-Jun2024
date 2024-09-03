@@ -1,12 +1,12 @@
 body {
     font-family: Arial, sans-serif;
     padding: 20px;
-    background-color: #dcdcdc;
-}
+    background: linear-gradient( #fffc5f51, rgba(251, 121, 151, 0.312));}
+
 
 #movies-root {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 10px;
     padding: 20px;
 }
@@ -16,7 +16,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
-    border: 1px solid yellow;
+    border: 2px solid yellow;
     padding: 10px;
 
     h1 {
@@ -32,14 +32,13 @@ body {
     }
 
     img {
-        width: 300px;
+        width: 200px;
         height: auto;
         border-bottom: 1px solid #ddd;
     }
 }
 
 .buttons-container {
-    border-radius: 30%;
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: 350px;
@@ -49,6 +48,9 @@ body {
     border-width: 2px;
     margin-left: 20px;
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
- #filter-button , #Movies-button{   border: 1px solid yellow;
+ #filter-button , #Movies-button{
+    border: 3px solid yellow;
+    background-color: white;
+
  }
 }
