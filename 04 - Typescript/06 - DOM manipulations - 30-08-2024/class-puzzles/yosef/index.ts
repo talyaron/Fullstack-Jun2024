@@ -1,9 +1,9 @@
 interface Movie {
-    title: string;
+    title: String;
     year: number;
-    genre: string;
+    genre: String;
     rating: number;
-    imageUrl: string;
+    imageUrl: String;
   }
 
  const Movies : Movie[] = [
@@ -29,7 +29,7 @@ function CreateMovie (Movie : Movie) : String {
 console.log(Movies);
 
 function CreateMovies (Movies : Movie []): String{
-return Movies.map(CreateMovie(Movies)).join('');
+return Movies.map(CreateMovie).join('');
 }
 
 
@@ -50,7 +50,7 @@ return Movies.map(CreateMovie(Movies)).join('');
 
 function main() : void {
     try{
-    const movies_contener = document.querySelector('movies');
+    const movies_contener = document.querySelector('#movies');
     if (!movies_contener) throw new Error('movies container not found');
 
     movies_contener.innerHTML = CreateMovies(Movies);

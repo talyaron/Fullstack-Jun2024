@@ -91,11 +91,13 @@ const movies: Movie[] = [
 
 function renderMovie(movie: Movie): string {
   return `
+  <div class="movie">
     <h3>${movie.title}</h3>
     <h3>${movie.year}</h3>
     <h3>${movie.rating}</h3>
     <h3>${movie.genre}</h3>
-    <img src=${movie.imageUrl} alt=${movie.title}>`;
+    <img src=${movie.imageUrl} alt=${movie.title}>
+    </div>`;
 }
 
 function renderMovies(movies: Movie[]): string {

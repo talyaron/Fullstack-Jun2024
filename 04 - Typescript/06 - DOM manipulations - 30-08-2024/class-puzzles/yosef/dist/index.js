@@ -9,7 +9,7 @@ function CreateMovie(Movie) {
 }
 console.log(Movies);
 function CreateMovies(Movies) {
-    return Movies.map(CreateMovie(Movies)).join('');
+    return Movies.map(CreateMovie).join('');
 }
 // function renderComputers(computers: Computer[]): string {
 //     return computers.map(renderComputer).join('');
@@ -25,7 +25,7 @@ function CreateMovies(Movies) {
 // }
 function main() {
     try {
-        var movies_contener = document.querySelector('movies');
+        var movies_contener = document.querySelector('#movies');
         if (!movies_contener)
             throw new Error('movies container not found');
         movies_contener.innerHTML = CreateMovies(Movies);
