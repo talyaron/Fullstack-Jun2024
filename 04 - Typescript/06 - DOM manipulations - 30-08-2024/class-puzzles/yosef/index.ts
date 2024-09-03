@@ -1,11 +1,11 @@
 //model
 interface Movie {
-    title: string;
+    title: String;
     year: number;
-    genre: string;
+    genre: String;
     rating: number;
-    imageUrl: string;
-}
+    imageUrl: String;
+  }
 
 const Movies: Movie[] = [
 
@@ -29,9 +29,8 @@ function CreateMovie(Movie: Movie): string {
 }
 
 
-
-function renderMovies(Movies: Movie[]): string {
-    return Movies.map(CreateMovie).join('');
+function CreateMovies (Movies : Movie []): String{
+return Movies.map(CreateMovie).join('');
 }
 
 //controller
@@ -43,6 +42,14 @@ function main(): void {
 
         moviesContainer.innerHTML = renderMovies(Movies);
 
+
+function main() : void {
+    try{
+    const movies_contener = document.querySelector('#movies');
+    if (!movies_contener) throw new Error('movies container not found');
+
+    movies_contener.innerHTML = CreateMovies(Movies);
+ 
     }
     catch (err) {
         console.error(err);

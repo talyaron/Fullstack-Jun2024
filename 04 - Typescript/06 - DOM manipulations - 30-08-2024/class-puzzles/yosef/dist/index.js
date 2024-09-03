@@ -8,14 +8,15 @@ var Movies = [
 function CreateMovie(Movie) {
     return "\n    <div class=\"movie\">\n    <p>the movie: " + Movie.title + "</p>\n    <p>the year: " + Movie.year + "</p>\n    <p>the genre: " + Movie.genre + "</p>\n    <p>the rating: " + Movie.rating + "</p>\n    <img src=\"" + Movie.imageUrl + "\" alt=\"" + Movie.title + "\">\n    </div>";
 }
-function renderMovies(Movies) {
+console.log(Movies);
+function CreateMovies(Movies) {
     return Movies.map(CreateMovie).join('');
 }
 //controller
 function main() {
     try {
-        var moviesContainer = document.querySelector('#movies');
-        if (!moviesContainer)
+        var movies_contener = document.querySelector('#movies');
+        if (!movies_contener)
             throw new Error('movies container not found');
         moviesContainer.innerHTML = renderMovies(Movies);
     }
