@@ -1,21 +1,23 @@
+//model
 interface Movie {
     title: string;
     year: number;
     genre: string;
     rating: number;
     imageUrl: string;
-  }
+}
 
- const Movies : Movie[] = [
+const Movies: Movie[] = [
 
-    {title: 'sport hdamim', year: 1988, genre: "action", rating:200, imageUrl: 'https://img.mako.co.il/2022/02/16/jeanclaudevanamme_autoOrient_i.jpg'},
-    {title: 'The Shawshank Redemption', year: 1994, genre: "crime", rating:100, imageUrl: 'https://img.mako.co.il/2022/02/16/jeanclaudevanamme_autoOrient_i.jpg'},
-    {title: 'The Godfather', year: 1972, genre: "crime", rating:150, imageUrl: 'https://img.mako.co.il/2022/02/16/jeanclaudevanamme_autoOrient_i.jpg'},
-    {title: 'Pulp Fiction', year: 1994, genre: "crime", rating:180, imageUrl: 'https://img.mako.co.il/2022/02/16/jeanclaudevanamme_autoOrient_i.jpg'},
+    { title: 'sport hdamim', year: 1988, genre: "action", rating: 200, imageUrl: 'https://img.mako.co.il/2022/02/16/jeanclaudevanamme_autoOrient_i.jpg' },
+    { title: 'The Shawshank Redemption', year: 1994, genre: "crime", rating: 100, imageUrl: 'https://img.mako.co.il/2022/02/16/jeanclaudevanamme_autoOrient_i.jpg' },
+    { title: 'The Godfather', year: 1972, genre: "crime", rating: 150, imageUrl: 'https://img.mako.co.il/2022/02/16/jeanclaudevanamme_autoOrient_i.jpg' },
+    { title: 'Pulp Fiction', year: 1994, genre: "crime", rating: 180, imageUrl: 'https://img.mako.co.il/2022/02/16/jeanclaudevanamme_autoOrient_i.jpg' },
 
-  ]
+]
 
-function CreateMovie (Movie : Movie) : String {
+//view
+function CreateMovie(Movie: Movie): string {
     return `
     <div class="movie">
     <p>the movie: ${Movie.title}</p>
@@ -26,40 +28,28 @@ function CreateMovie (Movie : Movie) : String {
     </div>`;
 }
 
-console.log(Movies);
 
-function CreateMovies (Movies : Movie []): String{
-return Movies.map(CreateMovie(Movies)).join('');
+
+function renderMovies(Movies: Movie[]): string {
+    return Movies.map(CreateMovie).join('');
 }
 
+//controller
 
-// function renderComputers(computers: Computer[]): string {
-//     return computers.map(renderComputer).join('');
-// }
+function main(): void {
+    try {
+        const moviesContainer = document.querySelector('#movies') as HTMLDivElement;
+        if (!moviesContainer) throw new Error('movies container not found');
 
-// function renderComputer(computer: Computer): string {
-//     return `
-//     <div class="computer-card">
-//         <img src="${computer.imageUrl}" alt="${computer.name}">
-//         <h2>${computer.name}</h2>
-//         <p>${computer.price}</p>
-//         ${computer.sale ? '<p class="sale">On Sale</p>' : ''}
-//     </div>`;
-// }
+        moviesContainer.innerHTML = renderMovies(Movies);
 
-
-function main() : void {
-    try{
-    const movies_contener = document.querySelector('movies');
-    if (!movies_contener) throw new Error('movies container not found');
-
-    movies_contener.innerHTML = CreateMovies(Movies);
- 
     }
-    catch(err){
+    catch (err) {
         console.error(err);
     }
 }
+
+main();
 
 
 
