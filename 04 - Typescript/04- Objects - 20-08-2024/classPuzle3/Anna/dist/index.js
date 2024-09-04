@@ -1,7 +1,7 @@
 function getBookDiteails() {
     try {
-        var title = prompt("Please enter your book title:");
-        var author = prompt("Please enter your book author:");
+        var title = prompt("Please enter your book title:") || "";
+        var author = prompt("Please enter your book author:") || "";
         var year = Number(prompt("Please enter your book number:"));
         if (!title || !author || !year)
             throw new Error("Invalid input");

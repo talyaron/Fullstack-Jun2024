@@ -6,8 +6,8 @@ interface Book{
 
 function getBookDiteails() : Book{
     try{
-        const title : string = prompt("Please enter your book title:");
-        const author : string= prompt("Please enter your book author:");
+        const title : string = prompt("Please enter your book title:") || "";
+        const author : string= prompt("Please enter your book author:") || "";
         const year : number = Number(prompt("Please enter your book number:"));
         if(!title || !author || !year) throw new Error("Invalid input");
 
