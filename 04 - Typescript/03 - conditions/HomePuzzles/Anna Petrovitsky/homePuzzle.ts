@@ -40,7 +40,7 @@ function randomChoice () : string {
 }
 
 function game (user1 : string , user2 : string) : string{
-    if(user1 = 'rock'){
+    if(user1 === "rock"){
         switch(user2){
             case 'rock':
                 return `User 1 choice a ${user1} and User 2 choice a ${user2} none of the user win !!!`;
@@ -52,7 +52,7 @@ function game (user1 : string , user2 : string) : string{
                 return "";
         }
     }
-    else if(user1 = 'paper'){
+    else if(user1 === 'paper'){
         switch(user2){
             case 'rock':
                 return `User 1 choice a ${user1} and User 2 choice a ${user2} User 1 WIN THE GAME !!!`;

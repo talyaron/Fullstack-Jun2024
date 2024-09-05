@@ -1,19 +1,50 @@
-
-
 (() => {
     try {
         const theButton = document.querySelector('#the-button') as HTMLButtonElement;
         if (!theButton) throw new Error('button not found');
 
-        theButton.addEventListener('click', (event) => {
-            console.dir(event);
-            console.log('you clicked me');
-            document.body.style.backgroundColor = getRandomColor();
+        theButton.addEventListener('mousedown', (event: MouseEvent) => {
+            if (1 === event.button) 
+            {
+                console.log("right click down")
+                document.body.style.backgroundColor = "green";
+            }
+            else
+            {
+                console.log("other")
+                document.body.style.backgroundColor = getRandomColor();
+            }
         });
+
+        theButton.addEventListener('mouseup', (event: MouseEvent) => {
+            if (1 === event.button) 
+            {
+                console.log("middle mouse up")
+                document.body.style.backgroundColor = "white";
+            }
+            else
+            {
+                console.log("other")
+                document.body.style.backgroundColor = getRandomColor();
+            }
+        });
+
+        document.addEventListener('keydown', (event: KeyboardEvent) => {
+            if ('k' === event.key) 
+            {
+                console.log("k key down")
+                document.body.style.backgroundColor = "white";
+            }
+            else
+            {
+                console.log("other")
+                document.body.style.backgroundColor = getRandomColor();
+            }
+        });
+
 
         theButton.onclick = (event) => {
             console.dir(event);
-            console.log('you clicked me');
             document.body.style.backgroundColor = getRandomColor();
         };
 
@@ -43,10 +74,7 @@
             } catch (error) {
                 console.error(error);
 
-                }
-           
-
-
+            }
         }
     } catch (err) {
         console.error(err);
