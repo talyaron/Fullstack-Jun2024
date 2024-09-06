@@ -51,7 +51,7 @@ function renderWords(): void{
         if (!wordList) throw new Error ('Word list not found');
 
 
-        wordList.innerHTML= words.map((words)=>`<li>${words}</li>`).join('');
+        wordList.innerHTML= words.map((word)=>`<li>${word}</li>`).join('');
     }
 
     catch(error){
