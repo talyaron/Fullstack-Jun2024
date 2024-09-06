@@ -20,7 +20,7 @@ function handleInput(event:any): void {
         if (event.target instanceof HTMLInputElement) {
             const newWord = event.target.value;
             if (newWord) {
-                words.push(newWord);
+                word.push(newWord);
                 event.target.value = '';
 
                 renderWords();
@@ -34,7 +34,7 @@ function renderWords(): void {
         const wordList = document.getElementById('words') as HTMLUListElement;
         if (!wordList) throw new Error('Word list not found');
 
-        wordList.innerHTML = words.map((word) => `<li>${word}</li>`).join('');
+        wordList.innerHTML = word.map((word) => `<li>${word}</li>`).join('');
 
         
     } catch (error) {

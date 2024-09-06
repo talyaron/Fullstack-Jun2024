@@ -17,7 +17,7 @@ function handleInput(event) {
         if (event.target instanceof HTMLInputElement) {
             var newWord = event.target.value;
             if (newWord) {
-                words.push(newWord);
+                word.push(newWord);
                 event.target.value = '';
                 renderWords();
             }
@@ -29,7 +29,7 @@ function renderWords() {
         var wordList = document.getElementById('words');
         if (!wordList)
             throw new Error('Word list not found');
-        wordList.innerHTML = words.map(function (word) { return "<li>" + word + "</li>"; }).join('');
+        wordList.innerHTML = word.map(function (word) { return "<li>" + word + "</li>"; }).join('');
     }
     catch (error) {
         console.error(error);
