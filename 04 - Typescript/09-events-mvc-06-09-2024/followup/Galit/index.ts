@@ -4,20 +4,35 @@ function handleStart(): void {
     const inputField = document.getElementById('input-word') as HTMLInputElement | null;
 
     if (inputField) {
-        inputField.addEventListener('change', handleInput);
+        inputField.addEventListener('keyup', handleInput);
     } else {
         console.error("Input field not found");
     }
 }
 
-function handleInput(event: Event): void {
+function handleInput(event: KeyboardEvent): void {
     const target = event.target as HTMLInputElement;
-    
-    const word = target.value;
-    
-    words.push(word);
+    const word = target.value.trim();
 
-    target.value = '';
+    if (event.key === 'Enter' && word) {
+        words.push(word);
 
-    console.log(words);
+        target.value = '';
+
+        console.log(words);
+
+        // displayWords();
+    }
 }
+
+// function displayWords(): void {
+//     const wordsList = document.getElementById('words');
+//     if (wordsList) {
+//         wordsList.innerHTML = ''; // Clear existing list
+//         words.forEach(word => {
+//             const li = document.createElement('li');
+//             li.textContent = word;
+//             wordsList.appendChild(li);
+//         });
+//     }
+// }

@@ -14,7 +14,6 @@ const words:string[]=[];
         if (!inputhello) throw new Error ('Input element not found');
 
         inputhello.addEventListener("keyup", handleInput); 
-       
 
 
     } catch (error) {
@@ -22,6 +21,7 @@ const words:string[]=[];
     }
     }
   
+
 function handleInput (event:any):void{
     try{
         if(event.key==='Enter'){
@@ -40,9 +40,23 @@ function handleInput (event:any):void{
 
         } catch (error) {
     console.error(error);
+    
 }
+renderWords();
     } 
     
+function renderWords(): void{
+    try{
+        const wordList = document.getElementById('words') as HTMLOListElement;
+        if (!wordList) throw new Error ('Word list not found');
 
+
+        wordList.innerHTML= words.map((word)=>`<li>${word}</li>`).join('');
+    }
+
+    catch(error){
+        console.error(error);
+    }
+}
 
 

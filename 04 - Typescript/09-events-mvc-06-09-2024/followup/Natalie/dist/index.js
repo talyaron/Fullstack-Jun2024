@@ -12,6 +12,7 @@ function handleStart() {
     }
 }
 function handleInput(event) {
+    console.log(event);
     if (event.key === 'Enter') {
         if (event.target instanceof HTMLInputElement) {
             var newWord = event.target.value;
@@ -23,7 +24,7 @@ function handleInput(event) {
         }
     }
 }
-{
+function renderWords() {
     try {
         var wordList = document.getElementById('words');
         if (!wordList)

@@ -14,6 +14,7 @@ function handleStart(): void {
 }
 
 function handleInput(event:any): void {
+    console.log(event);
 
     if (event.key === 'Enter') {
         if (event.target instanceof HTMLInputElement) {
@@ -28,7 +29,7 @@ function handleInput(event:any): void {
     }
 }
 
-function renderWords(): void; {
+function renderWords(): void {
     try {
         const wordList = document.getElementById('words') as HTMLUListElement;
         if (!wordList) throw new Error('Word list not found');

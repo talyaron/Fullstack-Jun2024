@@ -1,3 +1,5 @@
+const words: string[] = [];
+
 function handleLoad()
 {
     console.log("loaded")
@@ -6,7 +8,7 @@ function handleLoad()
         const inputElement = document.getElementById("input")
         if (!inputElement) throw new Error("cant find input element")
 
-        inputElement.onkeydown = (event) => handleInput(event);
+        inputElement.onkeyup = (event) => handleInput(event);
     }
     catch (e)
     {
@@ -16,5 +18,26 @@ function handleLoad()
 
 function handleInput(event)
 {
-    console.log(event);
+    if ("Enter" === event.key)
+    {
+        words.push(event.target.value)
+        event.target.value = ""
+
+        renderWords();
+    }
+}
+
+function renderWords()
+{
+    try
+    {
+        const wordsElement = document.getElementById("words-list");
+        if (!wordsElement) throw new Error("cant find words element");
+
+        wordsElement.innerHTML = words.map(word => `<li> ${word} </li>`).join('')
+    }
+    catch (e)
+    {
+        console.log(e);
+    }
 }
