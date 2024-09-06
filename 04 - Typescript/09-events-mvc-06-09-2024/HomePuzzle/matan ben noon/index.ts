@@ -25,9 +25,10 @@ function main():void{
 
 
 function movieInput(event:Event):void{
+    try{
     event.preventDefault();
     const form:any = event.target as HTMLFormElement;
-
+        if (!form) throw new Error('Form not found');
     const title = form.title.value;
         const year = form.year.value;
         const author = form.author.value;
@@ -37,7 +38,7 @@ function movieInput(event:Event):void{
 
     if(title && year && author&& rating && imgUrl){
 
-        movies.push({ name: title, year, author, rating, imgUrl });
+        movies.push({ name: title, year: year, author: author, rating :rating, imgUrl:imgUrl });
 
         movies.sort((a, b) => b.rating - a.rating);
 
@@ -46,8 +47,10 @@ function movieInput(event:Event):void{
 
     renderMovies()
 
+}catch(e){
+    console.log(e);
 }
-
+}
 
 function deleteMovie(index: number): void {
     if (index !== -1) {
@@ -58,8 +61,9 @@ function deleteMovie(index: number): void {
 
 
 function renderMovies():void{
-
+try{
     const movieList = document.getElementById('movie-list') as HTMLElement;
+    if(!movieList) throw new Error('Movie list not found');
     movieList.innerHTML = movies.map(movie =>
          ` <li>
                 <h2>${movie.name}</h2>
@@ -69,6 +73,8 @@ function renderMovies():void{
                 <img src="${movie.imgUrl}" alt="${movie.name}" style="max-width: 200px; height: auto;">
                 <button onclick="deleteMovie('${movie.name}')">Delete</button>
                  </li>`).join('');
+}catch(e){
+    console.log(e);
 }
 
-
+}

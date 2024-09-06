@@ -11,18 +11,25 @@ function main() {
     }
 }
 function movieInput(event) {
-    event.preventDefault();
-    var form = event.target;
-    var title = form.title.value;
-    var year = form.year.value;
-    var author = form.author.value;
-    var rating = form.rating.value;
-    var imgUrl = form.imgUrl.value;
-    if (title && year && author && rating && imgUrl) {
-        movies.push({ name: title, year: year, author: author, rating: rating, imgUrl: imgUrl });
-        movies.sort(function (a, b) { return b.rating - a.rating; });
+    try {
+        event.preventDefault();
+        var form = event.target;
+        if (!form)
+            throw new Error('Form not found');
+        var title = form.title.value;
+        var year = form.year.value;
+        var author = form.author.value;
+        var rating = form.rating.value;
+        var imgUrl = form.imgUrl.value;
+        if (title && year && author && rating && imgUrl) {
+            movies.push({ name: title, year: year, author: author, rating: rating, imgUrl: imgUrl });
+            movies.sort(function (a, b) { return b.rating - a.rating; });
+        }
+        renderMovies();
     }
-    renderMovies();
+    catch (e) {
+        console.log(e);
+    }
 }
 function deleteMovie(index) {
     if (index !== -1) {
@@ -31,8 +38,15 @@ function deleteMovie(index) {
     }
 }
 function renderMovies() {
-    var movieList = document.getElementById('movie-list');
-    movieList.innerHTML = movies.map(function (movie) {
-        return " <li>\n                <h2>" + movie.name + "</h2>\n                <p>Author: " + movie.author + "</p>\n                <p>Year: " + movie.year + "</p>\n                <p>Rating: " + movie.rating + "</p>\n                <img src=\"" + movie.imgUrl + "\" alt=\"" + movie.name + "\" style=\"max-width: 200px; height: auto;\">\n                <button onclick=\"deleteMovie('" + movie.name + "')\">Delete</button>\n                 </li>";
-    }).join('');
+    try {
+        var movieList = document.getElementById('movie-list');
+        if (!movieList)
+            throw new Error('Movie list not found');
+        movieList.innerHTML = movies.map(function (movie) {
+            return " <li>\n                <h2>" + movie.name + "</h2>\n                <p>Author: " + movie.author + "</p>\n                <p>Year: " + movie.year + "</p>\n                <p>Rating: " + movie.rating + "</p>\n                <img src=\"" + movie.imgUrl + "\" alt=\"" + movie.name + "\" style=\"max-width: 200px; height: auto;\">\n                <button onclick=\"deleteMovie('" + movie.name + "')\">Delete</button>\n                 </li>";
+        }).join('');
+    }
+    catch (e) {
+        console.log(e);
+    }
 }
