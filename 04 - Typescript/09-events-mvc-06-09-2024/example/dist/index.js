@@ -13,6 +13,7 @@ function handleStart() {
     }
 }
 function handleInput(event) {
+    console.log(event);
     //when key is enter --> add  word to array
     if (event.key === 'Enter') {
         if (event.target instanceof HTMLInputElement) {
@@ -27,7 +28,6 @@ function handleInput(event) {
         }
     }
 }
-//on event input -> add word to array -> print array to DOM
 function renderWords() {
     try {
         //catch the dom element
