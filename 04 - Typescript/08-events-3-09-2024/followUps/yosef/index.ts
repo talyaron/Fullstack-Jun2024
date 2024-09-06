@@ -12,7 +12,6 @@
         });
 
         theButton.onclick = (event) => {
-            console.dir(event);
             console.log('you clicked me');
             document.body.style.backgroundColor = getRandomColor();
         };
@@ -31,27 +30,24 @@
 
         theInput.oninput = (event) => {
             try {
-
-
                 console.dir(event);
                 console.dir(theInput);
                 console.log('you typed:', theInput.value);
 
                 const theOutput = document.querySelector('#output') as HTMLDivElement;
                 if (!theOutput) throw new Error('output not found');
-                theOutput.textContent = theInput.value;
+                theOutput.textContent = "yosef :" + theInput.value;
             } catch (error) {
                 console.error(error);
 
-                }
-           
-
-
+            }
         }
     } catch (err) {
         console.error(err);
     }
-})();
+})
+
+();
 
 function getRandomColor() {
     const letters = '0123456789ABCDEF';
