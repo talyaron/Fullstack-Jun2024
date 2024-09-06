@@ -5,8 +5,8 @@
             throw new Error('button not found');
         theButton.addEventListener('mousedown', function (event) {
             if (1 === event.button) {
-                console.log("right click down");
-                document.body.style.backgroundColor = "green";
+                console.log("middle mouse down");
+                document.body.style.backgroundColor = "black";
             }
             else {
                 console.log("other");

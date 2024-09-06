@@ -6,8 +6,8 @@
         theButton.addEventListener('mousedown', (event: MouseEvent) => {
             if (1 === event.button) 
             {
-                console.log("right click down")
-                document.body.style.backgroundColor = "green";
+                console.log("middle mouse down")
+                document.body.style.backgroundColor = "black";
             }
             else
             {
@@ -35,7 +35,7 @@
                 console.log("k key down")
                 document.body.style.backgroundColor = "white";
             }
-            else
+            else 
             {
                 console.log("other")
                 document.body.style.backgroundColor = getRandomColor();
