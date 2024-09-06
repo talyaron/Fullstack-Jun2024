@@ -33,4 +33,16 @@ function handleInput(event) {
     catch (error) {
         console.error(error);
     }
+    renderWords();
+}
+function renderWords() {
+    try {
+        var wordList = document.getElementById('words');
+        if (!wordList)
+            throw new Error('Word list not found');
+        wordList.innerHTML = words.map(function (word) { return "<li>" + word + "</li>"; }).join('');
+    }
+    catch (error) {
+        console.error(error);
+    }
 }
