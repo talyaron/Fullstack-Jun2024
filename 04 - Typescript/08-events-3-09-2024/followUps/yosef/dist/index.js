@@ -3,38 +3,13 @@
         var theButton = document.querySelector('#the-button');
         if (!theButton)
             throw new Error('button not found');
-        theButton.addEventListener('mousedown', function (event) {
-            if (1 === event.button) {
-                console.log("middle mouse down");
-                document.body.style.backgroundColor = "black";
-            }
-            else {
-                console.log("other");
-                document.body.style.backgroundColor = getRandomColor();
-            }
-        });
-        theButton.addEventListener('mouseup', function (event) {
-            if (1 === event.button) {
-                console.log("middle mouse up");
-                document.body.style.backgroundColor = "white";
-            }
-            else {
-                console.log("other");
-                document.body.style.backgroundColor = getRandomColor();
-            }
-        });
-        document.addEventListener('keydown', function (event) {
-            if ('k' === event.key) {
-                console.log("k key down");
-                document.body.style.backgroundColor = "white";
-            }
-            else {
-                console.log("other");
-                document.body.style.backgroundColor = getRandomColor();
-            }
+        theButton.addEventListener('click', function (event) {
+            console.dir(event);
+            console.log('you clicked me');
+            document.body.style.backgroundColor = getRandomColor();
         });
         theButton.onclick = function (event) {
-            console.dir(event);
+            console.log('you clicked me');
             document.body.style.backgroundColor = getRandomColor();
         };
         theButton.onmouseenter = function () {
@@ -56,7 +31,7 @@
                 var theOutput = document.querySelector('#output');
                 if (!theOutput)
                     throw new Error('output not found');
-                theOutput.textContent = theInput_1.value;
+                theOutput.textContent = "yosef :" + theInput_1.value;
             }
             catch (error) {
                 console.error(error);
