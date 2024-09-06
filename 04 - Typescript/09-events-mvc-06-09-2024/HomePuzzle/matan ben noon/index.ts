@@ -49,11 +49,10 @@ function movieInput(event:Event):void{
 }
 
 
-function deleteMovie(movieName: string): void {
-    const index = movies.findIndex(movie => movie.name === movieName);
+function deleteMovie(index: number): void {
     if (index !== -1) {
-        movies.splice(index, 1); 
-        renderMovies();
+        movies.splice(index, 1);  
+        renderMovies();  
     }
 }
 

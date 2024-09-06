@@ -24,8 +24,7 @@ function movieInput(event) {
     }
     renderMovies();
 }
-function deleteMovie(movieName) {
-    var index = movies.findIndex(function (movie) { return movie.name === movieName; });
+function deleteMovie(index) {
     if (index !== -1) {
         movies.splice(index, 1);
         renderMovies();
