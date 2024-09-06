@@ -12,16 +12,16 @@ function getElement() {
 }
 getElement();
 function handleInput(event) {
-    var textElement = event.target;
+    var eventElement = event.target;
     if (event.key === "Enter") {
         event.preventDefault();
-        var userInput = textElement.value.trim();
+        var userInput = eventElement.value.trim();
         if (userInput) {
             wordList.push(userInput);
             console.log(wordList);
         }
         else {
-            console.log("Please enter a word.");
+            console.log("Please enter a word");
         }
     }
 }
