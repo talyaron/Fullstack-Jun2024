@@ -10,3 +10,6 @@
     on keyup  = Enter
  - add value to the list of words
  - console.log the list of words
+
+
+### render to the the list of words to the DOM
