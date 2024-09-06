@@ -14,6 +14,7 @@ function addWords() {
 addWords();
 function handleInput(event) {
     try {
+        console.log(event);
         if (event.key === 'Enter') {
             if (!event)
                 throw new Error('no event');
