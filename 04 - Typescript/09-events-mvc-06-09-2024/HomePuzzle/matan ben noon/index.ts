@@ -61,7 +61,8 @@ function deleteMovie(movieName: string): void {
 function renderMovies():void{
 
     const movieList = document.getElementById('movie-list') as HTMLElement;
-    movieList.innerHTML = movies.map(movie => ` <li>
+    movieList.innerHTML = movies.map(movie =>
+         ` <li>
                 <h2>${movie.name}</h2>
                 <p>Author: ${movie.author}</p>
                 <p>Year: ${movie.year}</p>

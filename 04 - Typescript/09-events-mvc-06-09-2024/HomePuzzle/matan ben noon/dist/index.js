@@ -33,5 +33,7 @@ function deleteMovie(movieName) {
 }
 function renderMovies() {
     var movieList = document.getElementById('movie-list');
-    movieList.innerHTML = movies.map(function (movie) { return " <li>\n                <h2>" + movie.name + "</h2>\n                <p>Author: " + movie.author + "</p>\n                <p>Year: " + movie.year + "</p>\n                <p>Rating: " + movie.rating + "</p>\n                <img src=\"" + movie.imgUrl + "\" alt=\"" + movie.name + "\" style=\"max-width: 200px; height: auto;\">\n                <button onclick=\"deleteMovie('" + movie.name + "')\">Delete</button>\n                 </li>"; }).join('');
+    movieList.innerHTML = movies.map(function (movie) {
+        return " <li>\n                <h2>" + movie.name + "</h2>\n                <p>Author: " + movie.author + "</p>\n                <p>Year: " + movie.year + "</p>\n                <p>Rating: " + movie.rating + "</p>\n                <img src=\"" + movie.imgUrl + "\" alt=\"" + movie.name + "\" style=\"max-width: 200px; height: auto;\">\n                <button onclick=\"deleteMovie('" + movie.name + "')\">Delete</button>\n                 </li>";
+    }).join('');
 }
