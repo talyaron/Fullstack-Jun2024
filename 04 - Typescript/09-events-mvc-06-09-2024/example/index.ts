@@ -17,7 +17,7 @@ function handleStart(): void {
 
 
 function handleInput(event:any): void {
-
+console.log(event);
     //when key is enter --> add  word to array
     if (event.key === 'Enter') {
         if (event.target instanceof HTMLInputElement) {
@@ -37,10 +37,12 @@ function handleInput(event:any): void {
 }
 //on event input -> add word to array -> print array to DOM
 
+function
+
 function renderWords(): void {
     try {
         //catch the dom element
-        const wordList = document.getElementById('words') as HTMLUListElement;
+        const wordList = document.getElementById('words') as HTMLOListElement;
         if (!wordList) throw new Error('Word list not found');
         //render list to dom
 
