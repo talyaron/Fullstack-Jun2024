@@ -16,18 +16,19 @@ function handleInput(event) {
     console.log(event);
     //when key is enter --> add  word to array
     if (event.key === 'Enter') {
-        if (event.target instanceof HTMLInputElement) {
-            var newWord = event.target.value;
-            if (newWord) {
-                //changed model
-                words.push(newWord);
-                event.target.value = '';
-                //change view accordingly
-                renderWords();
-            }
+        if (!(event.target instanceof HTMLInputElement))
+            throw new Error('Event target is not an input element');
+        var newWord = event.target.value;
+        if (newWord) {
+            //changed model
+            words.push(newWord);
+            event.target.value = '';
+            //change view accordingly
+            renderWords();
         }
     }
 }
+//on event input -> add word to array -> print array to DOM
 function renderWords() {
     try {
         //catch the dom element
