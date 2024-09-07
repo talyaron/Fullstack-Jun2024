@@ -1,11 +1,16 @@
 body {
-  margin: 0;
-  padding: 0;
-}
-
+    margin: 0;
+    padding: 0;
+    background-image: url("https://img.freepik.com/free-vector/seamless-pattern-with-cinema-elements_225004-1155.jpg");
+    background-size: 300px 300px;
+    background-repeat: repeat;
+    background-position: top left;
+   
+  }
 #movies {
   display: flex;
   flex-direction: row;
+  margin: 0 auto;
   width: fit-content;
   flex-wrap: wrap;
   perspective: 1000px;
@@ -65,6 +70,52 @@ body {
   border-bottom-right-radius: 50px;
   &:hover {
     transition: all 0.3s;
-    background: linear-gradient(to right, #092664, #780d0d);
+    background: linear-gradient(to right, #092664, #440202);
+    color: rgb(255, 0, 0);
   }
+}
+form {
+  display: flex;
+  flex-direction: row;
+  width: 45vw;
+  height: 2vw;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
+  background: radial-gradient(circle, #761717eb, #0c3b65ec, #070135de);
+  border-radius: 50px;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+input {
+  margin: 5px;
+  border-radius: 50px;
+  border: none;
+  &:hover {
+    transform: scale(1.05);
+    transition: all 0.3s;
+  }
+}
+.but {
+  margin: 5px;
+  border-radius: 50px;
+  border: none;
+  &:hover {
+    background-color: #32405e;
+    color: white;
+    transform: scale(1.2);
+    transition: all 0.3s;
+  }
+}
+h1 {
+  text-align: center;
+  color:rgb(231, 228, 228);
+  background-color: rgba(3, 3, 28, 0.866);
+  width: 20vw;
+  margin: 0 auto;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  margin-bottom: 1vw;
 }

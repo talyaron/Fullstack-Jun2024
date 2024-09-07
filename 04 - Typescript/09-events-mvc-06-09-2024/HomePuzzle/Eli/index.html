@@ -8,14 +8,16 @@
     <script src="./dist/index.js" defer></script>
   </head>
   <body onload="main()">
+
+    <h1>Add a movie card</h1>
     <form id="form" action="">
       <input type="text"minlength="2" maxlength="20"  name="title" placeholder="name" />
       <input type="text" minlength="2" maxlength="20" name="director" placeholder="director" />
       <input type="number" min="1800" max="2024" name="year" placeholder="year" />
       <input type="number" min="1" max="5" name="rating" placeholder="rating" />
       <input type="url" name="imgUrl" placeholder="url" />
-      <button type="submit">submit</button>
-      <button type="sort" id="sortButton">sort</button>
+      <button type="submit" class="but">submit</button>
+      <button type="sort" id="sortButton" class="but">sort</button>
     </form>
 
     <div id="movies">

@@ -21,6 +21,13 @@ const movies: Movie[] = [
     rating: 5,
     imgUrl: `https://m.media-amazon.com/images/I/818hyvdVfvL._AC_SL1500_.jpg`,
   },
+  {
+    title: "Spider-Man",
+    director: "Sam Raimi",
+    year: 2002,
+    rating: 3,
+    imgUrl: `https://i.ebayimg.com/images/g/FQUAAOSwt9JgOARA/s-l1600.webp`,
+  },
 ];
 
 function main() {
