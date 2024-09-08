@@ -31,18 +31,19 @@ try{
 
         const title = form.title.value;
         const author = form.author.value;
-        const year = form.year.value;
-        const rating = form.rating.value;
+        const year = Number(form.year.value);
+        const rating = Number(form.rating.value);
         const imageUrl = form.imageUrl.value;
         console.log(title, author, year, rating, imageUrl);
     
-        if(title && year && author&& rating && imageUrl){
-
-            movies.push({ name: title, year: year, author: author, rating :rating, imageUrl:imageUrl });  
+        if (!title || !author || !year || !rating || !imageUrl) {
+            console.error('All fields must be filled');
+            return;
         }
-       
-
-        renderMovies()
+    
+        movies.push({ name: title, author, year, rating, imageUrl });
+        movies.sort((a, b) => a.rating - b.rating);
+        renderMovies();
 
     } catch (error) {
     console.error(error);
@@ -52,17 +53,16 @@ try{
 
 
 function deleteMovie(index: number): void {
-    if (index !== -1) {
-        movies.splice(index, 1);  
-        renderMovies();  
-    }
+    movies.splice(index, 1); 
+    renderMovies();  
 }
+
 
 function renderMovies():void{
     try{
         const movieList = document.getElementById('movie-list') as HTMLElement;
         if(!movieList) throw new Error('Movie list not found');
-        movieList.innerHTML = movies.map(movie =>
+        movieList.innerHTML = movies.map((movie, index) =>
              ` <li>
                     <h2>${movie.name}</h2>
                     <p>Author: ${movie.author}</p>
