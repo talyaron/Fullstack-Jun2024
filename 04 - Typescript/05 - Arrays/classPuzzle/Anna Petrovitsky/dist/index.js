@@ -15,8 +15,10 @@ var students = [
 ];
 var isStudent = students.filter(function (students) { return students.isStudent === true; });
 console.log(isStudent);
-var olderStudent = students.filter(function (students) { return students.isStudent === true && students.age > 38; });
+var olderStudent = isStudent.filter(function (students) { return students.age > 30; });
 console.log(olderStudent);
-var filteredStudent = students.filter(function (student) { return student.age > 30; });
-var sortArray = filteredStudent.sort(function (a, b) { return b.age - a.age; });
+var sortArray = olderStudent.sort(function (a, b) { return b.age - a.age; });
 console.log(sortArray);
+var sumStudentAge = students.reduce(function (acc, Student) { return acc + Student.age; }, 0);
+console.log(sumStudentAge);
+var lesOlder = students.find;
