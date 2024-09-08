@@ -1,0 +1,16 @@
+#movies {
+    margin-top: 15px;
+  display: inline-grid;
+  grid-template-columns: repeat(3, 33vw);
+
+  gap: 0.5rem;
+
+  .movie {
+    background-color: beige;
+    color: rgb(190, 150, 115);
+    text-align: center;
+    justify-content: start;
+    padding: 2%;
+    border-radius: 25px;
+  }
+}

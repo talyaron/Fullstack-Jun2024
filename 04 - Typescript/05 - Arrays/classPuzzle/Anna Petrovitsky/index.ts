@@ -23,8 +23,12 @@ const students : Student [] = [
 
 const isStudent = students.filter((students)=> students.isStudent===true);
 console.log(isStudent);
-const olderStudent = students.filter((students) => students.isStudent === true && students.age > 38);
+const olderStudent = isStudent.filter((students) => students.age > 30);
 console.log(olderStudent);
-const filteredStudent = students.filter((student) => student.age > 30);
-const sortArray = filteredStudent.sort((a,b) => b.age - a.age);
+const sortArray = olderStudent.sort((a,b) => b.age - a.age);
 console.log(sortArray);
+
+const sumStudentAge = students.reduce((acc,Student) => acc + Student.age,0);
+console.log(sumStudentAge);
+
+const lesOlder = students.find
