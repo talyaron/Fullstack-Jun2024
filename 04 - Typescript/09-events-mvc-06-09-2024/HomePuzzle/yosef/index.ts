@@ -1,7 +1,12 @@
-
-const public_aray : any[] = [];
-const public_title : any[] = [];
-let delete_Movie = false;
+interface movie
+{
+    title: string;
+    year: number;
+    director: string;
+    rating: number;
+    imageUrl: string;
+}
+const movies2 : movie[] = [];
 
 function main2() {
     try {
@@ -20,19 +25,10 @@ function main2() {
 function handleSubmit2(event: Event) {
     try{
         event.preventDefault(); 
-           const array : any= [];
-        //    const my_form = document.getElementById('the_form') as HTMLSelectElement;
            const form:any = event.target as HTMLFormElement;
 
            if(!(event.target instanceof HTMLFormElement)) 
             throw new Error('The target is not a form');
-
-           for (let i = 0; i < form.length; i++)
-            {
-                array[i] = form[i].value;
-                public_aray[i] = array[i];
-                public_title[i] = form.title.value;
-            }
 
             const form2:any = event.target as HTMLFormElement;
             if(!form) throw new Error('The form is not found');
@@ -43,17 +39,12 @@ function handleSubmit2(event: Event) {
             const director = form2.director.value;
             const rating = form2.rating.value;
             const imageUrl = form2.imageUrl.value;
+            movies2.push({title, year,director, rating, imageUrl});
             console.log("the are: " , title, year, director, rating, imageUrl);
-            render(title, year, director, rating, imageUrl);
+            console.log("movies have" , movies2);
+            render();
+            form.reset();
            
-        //    var inputElement = event.target[0] as HTMLFormElement;
-        //     array[inputElement.name] = inputElement.value;
-
-            // console.log(array);
-            // console.dir('dir of event is')
-            // console.dir('the length of the array: '+ form.length);
-            // console.log('the selected rating: ' + form.rating.value);
-            // console.log(public_aray);
         }
         catch (error) {
             console.log(error);
@@ -62,39 +53,46 @@ function handleSubmit2(event: Event) {
        
     }
 
-function render(title:string,year:number,director:string, rating:number, img:string) : void {
+function render() : void {
     try{
     
-    // const public_form = document.querySelector('#the_form');
     const movieList = document.getElementById('the_movies') as HTMLElement;
-    // if (!movieList) throw new Error('The movie list is not found');
-
-    movieList.innerHTML += `
-    <div class="movie">
-        <p>Movie name: ${title}</p>
-        <p>Year: ${year}</p>  <p>Director: ${director}</p>   
-        <p>Rating: ${rating}</p>
-        <img src="${img}" alt="pic_of_the_movie">
-        <br />
-        <button onclick="deleteMovie()">Delete ALL Movies</button>`
+    movieList.innerHTML = movies2.map(display).join('');
     }
-
-    
-//     movieList.innerHTML = pubplic_aray.map((value) => `<p>${pubplic_aray}</p>`).join(' ');
-//     wordList.innerHTML = words2.map((word2) => `<li>${word2}</li>`).join('');
-// }
     catch (error) {
         console.error(error);
     }
 }
 
-function deleteMovie() {
-    delete_Movie = true;
+function deleteMovie(title: string) {
     try{
-    const movieList = document.getElementById('the_movies') as HTMLElement;
-    movieList.innerHTML = '';
-    }
-    catch (error) {
-        console.error(error);
-    }
+
+    movies2.splice(movies2.findIndex(movie => movie.title === title),1);
+    render();
+    console.log(movies2);
+
+}
+
+catch (error) {
+    alert("בעיה בפונקצית מחיקה")
+}
+}
+
+function display (movie:movie){
+    return `
+        <div class="movie">
+        <p>Movie name: ${movie.title}</p>
+        <p>Year: ${movie.year}</p>
+        <p>Director: ${movie.director}</p>   
+        <p>Rating: ${movie.rating}</p>
+        <img src="${movie.imageUrl}" alt="pic_of_the_movie">
+        <br/>
+        <button onclick="deleteMovie(${movie.title})">Delete Movie</button>
+         </div>`;
+}
+
+function sortMovies()
+{
+    movies2.sort((a, b) => b.rating - a.rating);
+    render();
 }

@@ -27,7 +27,6 @@
             <option value="2015">2015</option>
             <option value="2014">2014</option>
         </select>
-        <!-- <input type="number" name="year" id="year"> -->
         <br><br>
         <label style="font-weight: bold;">Director:</label>
         <input type="text" name="director" id="director">
@@ -45,7 +44,6 @@
             <option value="9">9</option>
             <option value="10">10</option>
         </select>
-        <!-- <input type="number" name="rating" id="rating"> -->
         <br><br>
         <label style="font-weight: bold;">Image URL:</label>
         <input type="url" name="imageUrl" style="width: 100%; max-width: 600px; id="imageURL">
@@ -53,6 +51,8 @@
         <button type="submit" style="font-weight: bold;">Add Movie</button>
 
     </form>
+    <br>
+    <button style="font-weight: bold;" type="button" onclick="sortMovies()">Sort By Rating</button>
     <div id="the_movies"></div>
 </body>
 </html>

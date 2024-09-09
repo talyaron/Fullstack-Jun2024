@@ -1,6 +1,4 @@
-var public_aray = [];
-var public_title = [];
-var delete_Movie = false;
+var movies2 = [];
 function main2() {
     try {
         var theForm = document.querySelector('#the_form');
@@ -15,16 +13,9 @@ function main2() {
 function handleSubmit2(event) {
     try {
         event.preventDefault();
-        var array = [];
-        //    const my_form = document.getElementById('the_form') as HTMLSelectElement;
         var form = event.target;
         if (!(event.target instanceof HTMLFormElement))
             throw new Error('The target is not a form');
-        for (var i = 0; i < form.length; i++) {
-            array[i] = form[i].value;
-            public_aray[i] = array[i];
-            public_title[i] = form.title.value;
-        }
         var form2 = event.target;
         if (!form)
             throw new Error('The form is not found');
@@ -33,41 +24,39 @@ function handleSubmit2(event) {
         var director = form2.director.value;
         var rating = form2.rating.value;
         var imageUrl = form2.imageUrl.value;
+        movies2.push({ title: title, year: year, director: director, rating: rating, imageUrl: imageUrl });
         console.log("the are: ", title, year, director, rating, imageUrl);
-        render(title, year, director, rating, imageUrl);
-        //    var inputElement = event.target[0] as HTMLFormElement;
-        //     array[inputElement.name] = inputElement.value;
-        // console.log(array);
-        // console.dir('dir of event is')
-        // console.dir('the length of the array: '+ form.length);
-        // console.log('the selected rating: ' + form.rating.value);
-        // console.log(public_aray);
+        console.log("movies have", movies2);
+        render();
+        form.reset();
     }
     catch (error) {
         console.log(error);
     }
 }
-function render(title, year, director, rating, img) {
+function render() {
     try {
-        // const public_form = document.querySelector('#the_form');
         var movieList = document.getElementById('the_movies');
-        // if (!movieList) throw new Error('The movie list is not found');
-        movieList.innerHTML += "\n    <div class=\"movie\">\n        <p>Movie name: " + title + "</p>\n        <p>Year: " + year + "</p>  <p>Director: " + director + "</p>   \n        <p>Rating: " + rating + "</p>\n        <img src=\"" + img + "\" alt=\"pic_of_the_movie\">\n        <br />\n        <button onclick=\"deleteMovie()\">Delete ALL Movies</button>";
+        movieList.innerHTML = movies2.map(display).join('');
     }
-    //     movieList.innerHTML = pubplic_aray.map((value) => `<p>${pubplic_aray}</p>`).join(' ');
-    //     wordList.innerHTML = words2.map((word2) => `<li>${word2}</li>`).join('');
-    // }
     catch (error) {
         console.error(error);
     }
 }
-function deleteMovie() {
-    delete_Movie = true;
+function deleteMovie(title) {
     try {
-        var movieList = document.getElementById('the_movies');
-        movieList.innerHTML = '';
+        movies2.splice(movies2.findIndex(function (movie) { return movie.title === title; }), 1);
+        render();
+        console.log(movies2);
     }
     catch (error) {
-        console.error(error);
+        alert("בעיה בפונקצית מחיקה");
     }
+}
+function display(movie) {
+    return "\n        <div class=\"movie\">\n        <p>Movie name: " + movie.title + "</p>\n        <p>Year: " + movie.year + "</p>\n        <p>Director: " + movie.director + "</p>   \n        <p>Rating: " + movie.rating + "</p>\n        <img src=\"" + movie.imageUrl + "\" alt=\"pic_of_the_movie\">\n        <br/>\n        <button onclick=\"deleteMovie(" + movie.title + ")\">Delete Movie</button>\n         </div>";
+}
+function sortMovies() {
+    movies2.sort(function (a, b) { return b.rating - a.rating; });
+    render();
 }
