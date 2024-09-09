@@ -7,7 +7,7 @@ function main() {
         allForm.addEventListener('submit', handleSubmit);
     }
     catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }
 function handleSubmit(event) {
@@ -16,7 +16,7 @@ function handleSubmit(event) {
         var form = event.target;
         if (!form)
             throw new Error('The form is not found');
-        var title = form.title.value;
+        var title = String(form.title.value);
         var author = form.author.value;
         var year = Number(form.year.value);
         var rating = Number(form.rating.value);
@@ -26,7 +26,7 @@ function handleSubmit(event) {
             console.error('All fields must be filled');
             return;
         }
-        movies.push({ name: title, author: author, year: year, rating: rating, imageUrl: imageUrl });
+        movies.push({ title: title, author: author, year: year, rating: rating, imageUrl: imageUrl });
         movies.sort(function (a, b) { return a.rating - b.rating; });
         renderMovies();
     }
@@ -44,7 +44,7 @@ function renderMovies() {
         if (!movieList)
             throw new Error('Movie list not found');
         movieList.innerHTML = movies.map(function (movie, index) {
-            return " <li>\n                    <h2>" + movie.name + "</h2>\n                    <p>Author: " + movie.author + "</p>\n                    <p>Year: " + movie.year + "</p>\n                    <p>Rating: " + movie.rating + "</p>\n                    <img src=\"" + movie.imageUrl + "\" alt=\"" + movie.name + "\">\n                    <button onclick=\"deleteMovie('" + movie.name + "')\">Delete</button>\n                     </li>";
+            return " <li>\n                    <h2>" + movie.title + "</h2>\n                    <p>Author: " + movie.author + "</p>\n                    <p>Year: " + movie.year + "</p>\n                    <p>Rating: " + movie.rating + "</p>\n                    <img src=\"" + movie.imageUrl + "\" alt=\"" + movie.title + "\">\n                    <button onclick=\"deleteMovie('" + (movie.title, index) + "')\">Delete</button>\n                     </li>";
         }).join('');
     }
     catch (error) {
