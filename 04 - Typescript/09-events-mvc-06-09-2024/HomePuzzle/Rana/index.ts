@@ -1,5 +1,5 @@
 interface Movies{
-    name: string;
+    title: string;
     author: string;
     year: number;
     rating: number;
@@ -17,7 +17,7 @@ function main():void{
     allForm.addEventListener('submit', handleSubmit);}
 
     catch (error){
-        console.log(error);
+        console.error(error);
     }
 
 }
@@ -41,7 +41,7 @@ try{
             return;
         }
     
-        movies.push({ name: title, author, year, rating, imageUrl });
+        movies.push({title, author, year, rating, imageUrl });
         movies.sort((a, b) => a.rating - b.rating);
         renderMovies();
 
@@ -62,14 +62,14 @@ function renderMovies():void{
     try{
         const movieList = document.getElementById('movie-list') as HTMLElement;
         if(!movieList) throw new Error('Movie list not found');
-        movieList.innerHTML = movies.map((movie, index) =>
+        movieList.innerHTML = movies.map((movie,index) =>
              ` <li>
-                    <h2>${movie.name}</h2>
+                    <h2>${movie.title}</h2>
                     <p>Author: ${movie.author}</p>
                     <p>Year: ${movie.year}</p>
                     <p>Rating: ${movie.rating}</p>
-                    <img src="${movie.imageUrl}" alt="${movie.name}">
-                    <button onclick="deleteMovie('${movie.name}')">Delete</button>
+                    <img src="${movie.imageUrl}" alt="${movie.title}">
+                    <button onclick="deleteMovie('${movie.title, index}')">Delete</button>
                      </li>`).join('');
     }catch(error){
         console.error(error);
