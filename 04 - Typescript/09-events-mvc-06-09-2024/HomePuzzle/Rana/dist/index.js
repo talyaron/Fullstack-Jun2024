@@ -16,7 +16,7 @@ function handleSubmit(event) {
         var form = event.target;
         if (!form)
             throw new Error('The form is not found');
-        var title = form.title.value;
+        var title = String(form.title.value);
         var author = form.author.value;
         var year = Number(form.year.value);
         var rating = Number(form.rating.value);

@@ -29,7 +29,7 @@ try{
         const form:any = event.target as HTMLFormElement;
         if(!form) throw new Error('The form is not found');
 
-        const title = form.title.value;
+        const title = String (form.title.value);
         const author = form.author.value;
         const year = Number(form.year.value);
         const rating = Number(form.rating.value);
