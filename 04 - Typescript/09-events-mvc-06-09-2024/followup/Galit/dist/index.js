@@ -15,17 +15,17 @@ function handleInput(event) {
         words.push(word);
         target.value = '';
         console.log(words);
-        // displayWords();
+        renderWords(words);
     }
 }
-// function displayWords(): void {
-//     const wordsList = document.getElementById('words');
-//     if (wordsList) {
-//         wordsList.innerHTML = ''; // Clear existing list
-//         words.forEach(word => {
-//             const li = document.createElement('li');
-//             li.textContent = word;
-//             wordsList.appendChild(li);
-//         });
-//     }
-// }
+function renderWords(words) {
+    try {
+        var wordItem = document.getElementById("items");
+        if (!wordItem)
+            throw new Error("Word list container not found");
+        wordItem.innerHTML = words.map(function (item) { return "<li>" + item + "</li>"; }).join('');
+    }
+    catch (e) {
+        console.error(e);
+    }
+}
