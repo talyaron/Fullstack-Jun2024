@@ -77,20 +77,25 @@ body {
 form {
   display: flex;
   flex-direction: row;
-  width: 45vw;
-  height: 2vw;
+  width: fit-content;
+  flex-wrap: wrap;
+  
+  height: fit-content;
   padding-top: 1vw;
   padding-bottom: 1vw;
   background: radial-gradient(circle, #761717eb, #0c3b65ec, #070135de);
   border-radius: 50px;
   margin: 0 auto;
-  justify-content: center;
+  justify-content: space-evenly;
+  
 }
 
 input {
-  margin: 5px;
+  margin: 10px;
   border-radius: 50px;
   border: none;
+  height: 20px;
+ 
   &:hover {
     transform: scale(1.05);
     transition: all 0.3s;
