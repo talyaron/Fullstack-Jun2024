@@ -30,7 +30,7 @@ console.log(publicYear);
 //Create a function that returns the newest book in the collection.
 const bookSortYear = books.sort((a,b) => b.year - a.year);
 const newestBook1 = bookSortYear[0];
-console.log(newestBook);
+//console.log(newestBook);
 
 //Practice using a forEach to display each book's information.
 
@@ -147,4 +147,4 @@ function makeNewObject1(itemsList : Item []) : {sumItems : number, avgPriceItems
         leastItem: sorted[0]
     }
 }
-console.log(makeNewObject1(items1));
+//console.log(makeNewObject1(items1));
