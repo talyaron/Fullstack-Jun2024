@@ -18,9 +18,10 @@ function main() {
   }
 
 }
-function removeBtn(){
-  this.parentElement.classList.add('none');
-  allComp.pop();
+function removeBtn(title:string){
+  
+  allComp.splice(allComp.findIndex(movie => movie.title === title), 1);
+  renderComps();
 
 }
 function createNewComp(event: Event) {
@@ -49,7 +50,10 @@ function createNewComp(event: Event) {
       data.color="red";
     }
     allComp.push(data);
+    event.target.reset();
     renderComps();
+    
+    
 
 
     
@@ -70,12 +74,10 @@ function renderComps(){
   <img src="${comp.imageUrl}" alt="${comp.title}"> 
   <h2> IMDB: ${comp.rating} <br> year: ${comp.year}</h2>
   <h3> director: ${comp.director}</h3>
-  <button id="deleteBtn" class="deleteBtn">X</button> </div> `).join('');
+  <button onclick="removeBtn('${comp.title}')" class="deleteBtn">X</button> </div> `).join('');
   allCompToPrint.innerHTML= toPrint;
 
-  const deleteBtn= document.querySelectorAll('#deleteBtn')
-  if (!deleteBtn) throw new Error("not find #deleteBtn");
-  deleteBtn.forEach((btn)=>btn.addEventListener("click",removeBtn))
+
 
   } catch (error) {
     console.log(error);
