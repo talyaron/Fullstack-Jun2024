@@ -21,18 +21,17 @@ function handleInput(event: KeyboardEvent): void {
 
         console.log(words);
 
-        // displayWords();
+        renderWords(words);
     }
 }
 
-// function displayWords(): void {
-//     const wordsList = document.getElementById('words');
-//     if (wordsList) {
-//         wordsList.innerHTML = ''; // Clear existing list
-//         words.forEach(word => {
-//             const li = document.createElement('li');
-//             li.textContent = word;
-//             wordsList.appendChild(li);
-//         });
-//     }
-// }
+function renderWords(words: string[]): void {
+    try {
+        const wordItem = document.getElementById("items") as HTMLUListElement;
+        if (!wordItem) throw new Error("Word list container not found");
+
+        wordItem.innerHTML = words.map((item) => `<li>${item}</li>`).join('');
+    } catch (e) {
+        console.error(e);
+    }
+}
