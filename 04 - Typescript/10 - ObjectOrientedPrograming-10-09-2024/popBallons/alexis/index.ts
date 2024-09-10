@@ -1,62 +1,40 @@
 class Baloon {
-  imageUrl: string;
+  image: string;
   id: string;
-  imageExplode: string;
-  baloonElement: HTMLImageElement|HTMLElement;
-  constructor(
-    imageUrl: string,
-    imageExplode: string,
-    baloonElement: HTMLImageElement | null
-  ) {
-    try {
-      this.imageUrl = imageUrl;
-      this.imageExplode = imageExplode;
-      this.id = crypto.randomUUID();
-      if (!baloonElement) {
-        throw new Error("baloon element is not found");
-      }
-      this.baloonElement = baloonElement;
-    } catch (error) {
-      console.error(error);
-    }
+  constructor(image: string) {
+    this.image = image;
+    this.id = crypto.randomUUID();
   }
 
-  renderBaloon() {
-    this.baloonElement.src = this.imageUrl;
-    this.baloonElement.classList.add('baloon');
-  }
-  explodeBaloon(){
-    this.baloonElement.src=this.imageExplode;
-    
-  }
+ 
 }
 const baloon = document.getElementById("baloon");
-if (!baloon) {
-  throw new Error("no baloon");
-}
-const baloonOne = new Baloon(
-  "../baloon1",
-  "../baloon2",
-  baloon);
-function main() {
+  if(!baloon)throw new Error('no baloon');
+  
+const baloonOne = new Baloon("./dist/images/baloon1.png");
+function main(){
+  renderBaloon(baloonOne);
+  baloon.addEventListener('click',explode);
+  }
+function renderBaloon(baloonOne){
   try {
-    if (!baloon) {
-      throw new Error("no baloon");
-    }
-    baloonOne.baloonElement.addEventListener("click", explosionEvent);
-    baloonOne.renderBaloon();
-  } catch (error) {
-    console.error(error);
+  const baloon = document.getElementById("baloon");
+  if(!baloon)throw new Error('no baloon');
+  
+  baloon.src=baloonOne.image;
+  baloon.id=baloonOne.id;
+  baloon.appendChild(baloon);
+  if (!baloon) {
+    throw new Error("no baloon");
+  }
+}catch (error) {
+ console.error(error);   
   }
 }
+function explode(baloonOne){
+  if(!baloon)throw new Error('no baloon');
+  
+ baloon.src='./dist/images/baloon2.png';
 
-function explosionEvent() {
-baloonOne.explodeBaloon();
-  console.log(baloonOne);
-}
-function renderBaloon(baloonOne) {
-  const baloon = document.createElement("img");
-  baloon.src = baloonOne.imageUrl;
-  baloon.id = baloonOne.id;
 }
 main();

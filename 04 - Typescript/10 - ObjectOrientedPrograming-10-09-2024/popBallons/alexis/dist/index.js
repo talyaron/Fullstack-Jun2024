@@ -1,51 +1,37 @@
 var Baloon = /** @class */ (function () {
-    function Baloon(imageUrl, imageExplode, baloonElement) {
-        try {
-            this.imageUrl = imageUrl;
-            this.imageExplode = imageExplode;
-            this.id = crypto.randomUUID();
-            if (!baloonElement) {
-                throw new Error("baloon element is not found");
-            }
-            this.baloonElement = baloonElement;
-        }
-        catch (error) {
-            console.error(error);
-        }
+    function Baloon(image) {
+        this.image = image;
+        this.id = crypto.randomUUID();
     }
-    Baloon.prototype.renderBaloon = function () {
-        this.baloonElement.src = this.imageUrl;
-        this.baloonElement.classList.add('baloon');
-    };
-    Baloon.prototype.explodeBaloon = function () {
-        this.baloonElement.src = this.imageExplode;
-    };
     return Baloon;
 }());
 var baloon = document.getElementById("baloon");
-if (!baloon) {
-    throw new Error("no baloon");
-}
-var baloonOne = new Baloon("../baloon1", "../baloon2", baloon);
+if (!baloon)
+    throw new Error('no baloon');
+var baloonOne = new Baloon("./dist/images/baloon1.png");
 function main() {
+    renderBaloon(baloonOne);
+    baloon.addEventListener('click', explode);
+}
+function renderBaloon(baloonOne) {
     try {
-        if (!baloon) {
+        var baloon_1 = document.getElementById("baloon");
+        if (!baloon_1)
+            throw new Error('no baloon');
+        baloon_1.src = baloonOne.image;
+        baloon_1.id = baloonOne.id;
+        baloon_1.appendChild(baloon_1);
+        if (!baloon_1) {
             throw new Error("no baloon");
         }
-        baloonOne.baloonElement.addEventListener("click", explosionEvent);
-        baloonOne.renderBaloon();
     }
     catch (error) {
         console.error(error);
     }
 }
-function explosionEvent() {
-    baloonOne.explodeBaloon();
-    console.log(baloonOne);
-}
-function renderBaloon(baloonOne) {
-    var baloon = document.createElement("img");
-    baloon.src = baloonOne.imageUrl;
-    baloon.id = baloonOne.id;
+function explode(baloonOne) {
+    if (!baloon)
+        throw new Error('no baloon');
+    baloon.src = './dist/images/baloon2.png';
 }
 main();
