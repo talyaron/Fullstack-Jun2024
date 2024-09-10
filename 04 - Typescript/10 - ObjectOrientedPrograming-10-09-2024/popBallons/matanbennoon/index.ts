@@ -28,5 +28,5 @@ class Balloon {
     }
 }
 
-const balloon = new Balloon('../image/2.png','../image/1.png' );
+const balloon = new Balloon('/04 - Typescript/10 - ObjectOrientedPrograming-10-09-2024/popBallons/matanbennoon/image/2.png','/04 - Typescript/10 - ObjectOrientedPrograming-10-09-2024/popBallons/matanbennoon/image/1.png' );
 balloon.renderBalloon();
