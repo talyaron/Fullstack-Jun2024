@@ -9,6 +9,7 @@ var Person = /** @class */ (function () {
     //methods
     Person.prototype.changeName = function (newName) {
         this.name = newName;
+        return this.name;
     };
     Person.prototype.yearofBirth = function () {
         var currentYear = new Date().getFullYear();
