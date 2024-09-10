@@ -17,6 +17,7 @@ function handleSubmit(event) {
         for (var i = 0; i >= (event.target.length - 1); i++) {
             var inputElement = event.target[i];
             data[inputElement.name] = inputElement.value;
+            event.target[i].id = i + 1;
         }
         ;
         var form = event.target;
@@ -27,11 +28,12 @@ function handleSubmit(event) {
         var director = form.director.value;
         var rating = form.rating.value;
         var imageUrl = form.imageUrl.value;
+        var button = document.createElement("button");
         if (!title || !year || !director || !rating || !imageUrl) {
             throw new Error('All the fileds must be filled !');
         }
         else {
-            movies.push({ title: title, year: year, director: director, rating: rating, imageUrl: imageUrl });
+            movies.push({ title: title, year: year, director: director, rating: rating, imageUrl: imageUrl, button: button });
             form.reset();
         }
         sortMoviesByRating(movies);
@@ -53,16 +55,35 @@ function sortMoviesByRating(movies) {
     return movies;
 }
 ;
-// function deleteMovie(movies:Movie[]):Movie[] {
-// }
+function deleteMovie(movies) {
+    movies.forEach(function (item) {
+        var button = document.createElement("button");
+        button.innerHTML = "\n        <h1>" + item.title + "}</h1>\n        ";
+        // button.textContent = `Remove`;
+        // button.onclick = () => removeItem(item.id);
+        // buttonsContainer.appendChild(button);
+    });
+}
+;
 function renderMovies(movies) {
     try {
         var movieItem = document.getElementById("movieItems");
         if (!movieItem)
             throw new Error("list item not found");
+        var button = document.createElement("button");
+        // const removeItem = (id: number) => {
+        //     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+        // };
         movieItem.innerHTML = movies.map(function (item) {
-            return "\n            <img src=\"" + item.imageUrl + "\"></>\n            <h1>" + item.title + "</h1>\n            <h1>" + item.director + "</h1>\n            <h1>" + item.year + "</h1>\n            <h1>" + item.rating + "</h1>\n            <button>Remove Movie</button>";
+            return "\n            <img src=\"" + item.imageUrl + "\"></>\n            <h1 class=\"title\">" + item.title + "</h1>\n            <h1>" + item.director + "</h1>\n            <h1>" + item.year + "</h1>\n            <h1>" + item.rating + "</h1>\n            ";
         }).join('');
+        movies.forEach(function (item) {
+            var button = document.createElement("div");
+            button.innerHTML = "\n        <h1>" + item.title + "}</h1>\n        ";
+            // button.textContent = `Remove`;
+            // button.onclick = () => removeItem(item.id);
+            // buttonsContainer.appendChild(button);
+        });
     }
     catch (e) {
         console.error(e);
