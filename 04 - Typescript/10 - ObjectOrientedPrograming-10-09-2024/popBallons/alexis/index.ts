@@ -10,14 +10,9 @@ const baloon = document.getElementById("baloon");
 if (!baloon) throw new Error("no baloon");
 
 const baloonOne = new Baloon("./dist/images/baloon1.png");
-function main() {
-  if (!baloon) throw new Error("no baloon");
-  renderBaloon();
-  baloon.addEventListener("click", explode);
-}
+
 function renderBaloon() {
   try {
-    const baloon = document.getElementById("baloon");
     if (!baloon) throw new Error("no baloon");
 
     baloon.src = baloonOne.image;
@@ -34,5 +29,10 @@ function explode(baloonOne) {
   if (!baloon) throw new Error("no baloon");
 
   baloon.src = "./dist/images/baloon2.png";
+}
+function main() {
+  if (!baloon) throw new Error("no baloon");
+  renderBaloon();
+  baloon.addEventListener("click", explode);
 }
 main();

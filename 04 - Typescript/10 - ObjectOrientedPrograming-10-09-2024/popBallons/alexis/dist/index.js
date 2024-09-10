@@ -9,21 +9,14 @@ var baloon = document.getElementById("baloon");
 if (!baloon)
     throw new Error("no baloon");
 var baloonOne = new Baloon("./dist/images/baloon1.png");
-function main() {
-    if (!baloon)
-        throw new Error("no baloon");
-    renderBaloon();
-    baloon.addEventListener("click", explode);
-}
 function renderBaloon() {
     try {
-        var baloon_1 = document.getElementById("baloon");
-        if (!baloon_1)
+        if (!baloon)
             throw new Error("no baloon");
-        baloon_1.src = baloonOne.image;
-        baloon_1.id = baloonOne.id;
-        baloon_1.appendChild(baloon_1);
-        if (!baloon_1) {
+        baloon.src = baloonOne.image;
+        baloon.id = baloonOne.id;
+        baloon.appendChild(baloon);
+        if (!baloon) {
             throw new Error("no baloon");
         }
     }
@@ -35,5 +28,11 @@ function explode(baloonOne) {
     if (!baloon)
         throw new Error("no baloon");
     baloon.src = "./dist/images/baloon2.png";
+}
+function main() {
+    if (!baloon)
+        throw new Error("no baloon");
+    renderBaloon();
+    baloon.addEventListener("click", explode);
 }
 main();
