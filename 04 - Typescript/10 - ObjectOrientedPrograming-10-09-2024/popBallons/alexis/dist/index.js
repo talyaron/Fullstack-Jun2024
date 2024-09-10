@@ -43,9 +43,9 @@ function explosionEvent() {
     baloonOne.explodeBaloon();
     console.log(baloonOne);
 }
-// function renderBaloon(baloonOne) {
-//   const baloon = document.createElement("img");
-//   baloon.src = baloonOne.imageUrl;
-//   baloon.id = baloonOne.id;
-// }
+function renderBaloon(baloonOne) {
+    var baloon = document.createElement("img");
+    baloon.src = baloonOne.imageUrl;
+    baloon.id = baloonOne.id;
+}
 main();
