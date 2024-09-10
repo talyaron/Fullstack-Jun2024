@@ -39,7 +39,12 @@ function renderBallon(ballon) {
             //alert("you did it");
         });
         ballonElement_1.addEventListener("mouseenter", function () {
-            ballonElement_1.classList.add("running");
+            if (!ballon.exploded) {
+                var randomNumber = Math.random();
+                var numberBetween0And1000 = randomNumber * 1000;
+                var randomIntegerBetween0And1000 = Math.floor(numberBetween0And1000);
+                ballonElement_1.style.left = randomIntegerBetween0And1000 + "px";
+            }
         });
         pageElement.appendChild(ballonElement_1);
     }

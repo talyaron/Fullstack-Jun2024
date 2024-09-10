@@ -13,7 +13,7 @@ class Baloon {
 }
 
 const annaBallon = new Baloon('./dist/image/Purple_Balloon.png');
-const raamBallon = new Baloon('./dist/image/blue-baloon-removebg-preview.png');
+const raamBallon = new Baloon('./dist/image/purpleblowup.png');
 
 function renderNewBallon(baloon : Baloon){
     const baloonElement = document.createElement('img');
@@ -25,6 +25,7 @@ function renderNewBallon(baloon : Baloon){
     
     baloonElement.addEventListener('click', () => {
         baloon.setImageURL('./dist/image/purpleblowup.png');
+        baloonElement.src = baloon.imageUrl;
     });
 }
 

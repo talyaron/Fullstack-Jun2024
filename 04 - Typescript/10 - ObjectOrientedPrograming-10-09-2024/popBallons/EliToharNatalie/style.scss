@@ -1,7 +1,10 @@
 .ballon {
-  position: relative;
   animation: mov 5s;
   animation-iteration-count: infinite;
+}
+img{
+    position: relative;
+    transition: all 0.5;
 }
 
 @keyframes mov {

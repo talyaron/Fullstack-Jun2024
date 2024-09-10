@@ -9,7 +9,7 @@ var Baloon = /** @class */ (function () {
     return Baloon;
 }());
 var annaBallon = new Baloon('./dist/image/Purple_Balloon.png');
-var raamBallon = new Baloon('./dist/image/blue-baloon-removebg-preview.png');
+var raamBallon = new Baloon('./dist/image/purpleblowup.png');
 function renderNewBallon(baloon) {
     var baloonElement = document.createElement('img');
     baloonElement.src = baloon.imageUrl;
@@ -19,6 +19,7 @@ function renderNewBallon(baloon) {
     document.body.appendChild(baloonElement);
     baloonElement.addEventListener('click', function () {
         baloon.setImageURL('./dist/image/purpleblowup.png');
+        baloonElement.src = baloon.imageUrl;
     });
 }
 renderNewBallon(annaBallon);
