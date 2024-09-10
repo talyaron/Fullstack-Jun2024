@@ -7,18 +7,19 @@ var Person = /** @class */ (function () {
         this.age = age;
         this.id = id;
     };
-    Person.prototype.Person = function () {
+    /*Person (){
         this.firstName = "Anna";
         this.lastNamed = "Petrovitsky";
         this.age = 22;
         this.id = 11111;
-    };
-    Person.prototype.Person = function (other) {
+    }
+
+    Person (other : Person){
         this.firstName = other.firstName;
         this.lastNamed = other.lastNamed;
         this.age = other.age;
         this.id = other.id;
-    };
+    }*/
     Person.prototype.getFirstName = function () {
         return this.firstName;
     };

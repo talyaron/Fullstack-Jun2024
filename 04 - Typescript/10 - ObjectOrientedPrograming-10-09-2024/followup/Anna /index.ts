@@ -11,7 +11,7 @@ class Person {
         this.id = id;
     }
 
-    Person (){
+    /*Person (){
         this.firstName = "Anna";
         this.lastNamed = "Petrovitsky";
         this.age = 22;
@@ -23,7 +23,7 @@ class Person {
         this.lastNamed = other.lastNamed;
         this.age = other.age;
         this.id = other.id;
-    }
+    }*/
 
     getFirstName(){
         return this.firstName;
