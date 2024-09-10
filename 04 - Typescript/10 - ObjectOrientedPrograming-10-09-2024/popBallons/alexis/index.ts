@@ -5,36 +5,34 @@ class Baloon {
     this.image = image;
     this.id = crypto.randomUUID();
   }
-
- 
 }
 const baloon = document.getElementById("baloon");
-  if(!baloon)throw new Error('no baloon');
-  
+if (!baloon) throw new Error("no baloon");
+
 const baloonOne = new Baloon("./dist/images/baloon1.png");
-function main(){
-  renderBaloon(baloonOne);
-  baloon.addEventListener('click',explode);
-  }
-function renderBaloon(baloonOne){
+function main() {
+  if (!baloon) throw new Error("no baloon");
+  renderBaloon();
+  baloon.addEventListener("click", explode);
+}
+function renderBaloon() {
   try {
-  const baloon = document.getElementById("baloon");
-  if(!baloon)throw new Error('no baloon');
-  
-  baloon.src=baloonOne.image;
-  baloon.id=baloonOne.id;
-  baloon.appendChild(baloon);
-  if (!baloon) {
-    throw new Error("no baloon");
-  }
-}catch (error) {
- console.error(error);   
+    const baloon = document.getElementById("baloon");
+    if (!baloon) throw new Error("no baloon");
+
+    baloon.src = baloonOne.image;
+    baloon.id = baloonOne.id;
+    baloon.appendChild(baloon);
+    if (!baloon) {
+      throw new Error("no baloon");
+    }
+  } catch (error) {
+    console.error(error);
   }
 }
-function explode(baloonOne){
-  if(!baloon)throw new Error('no baloon');
-  
- baloon.src='./dist/images/baloon2.png';
+function explode(baloonOne) {
+  if (!baloon) throw new Error("no baloon");
 
+  baloon.src = "./dist/images/baloon2.png";
 }
 main();
