@@ -1,0 +1,23 @@
+.ballon {
+  position: relative;
+  animation: mov 5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes mov {
+  0% {
+    top: 15px;
+  }
+  25% {
+    top: 25px;
+  }
+  50% {
+    top: 15px;
+  }
+  75% {
+    top: 25px;
+  }
+  100% {
+    top: 15px;
+  }
+}

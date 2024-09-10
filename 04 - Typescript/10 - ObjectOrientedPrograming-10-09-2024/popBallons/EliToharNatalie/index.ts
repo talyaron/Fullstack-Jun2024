@@ -2,16 +2,38 @@ class Ballon {
   id: string;
   ballonImgUrl: string;
   ExplosionUrl: string;
-  constructor(id: string, ballonImgUrl: string, ExplosionUrl: string) {
+  exploded: boolean;
+  constructor(
+    id: string,
+    ballonImgUrl: string,
+    ExplosionUrl: string,
+    exploded: boolean
+  ) {
     this.id = `id-${crypto.randomUUID()}`;
     this.ballonImgUrl = ballonImgUrl;
     this.ExplosionUrl = ExplosionUrl;
+    this.exploded = exploded;
   }
 }
 
-const ballon1 = new Ballon("", "./dist/images/balloon.png", "./dist/images/balloonEX.png");
-const ballon2 = new Ballon("", "./dist/images/balloon.png", "./dist/images/balloonEX.png");
-const ballon3 = new  Ballon("", "./dist/images/balloon.png", "./dist/images/balloonEX.png");
+const ballon1 = new Ballon(
+  "",
+  "./dist/images/balloon.png",
+  "./dist/images/balloonEX.png",
+  false
+);
+const ballon2 = new Ballon(
+  "",
+  "./dist/images/balloon.png",
+  "./dist/images/balloonEX.png",
+  false
+);
+const ballon3 = new Ballon(
+  "",
+  "./dist/images/balloon.png",
+  "./dist/images/balloonEX.png",
+  false
+);
 function main() {
   renderBallon(ballon2);
 }
@@ -22,10 +44,28 @@ function renderBallon(ballon: Ballon) {
     if (!pageElement) throw new Error("no pag found");
 
     const ballonElement = document.createElement("img");
-    ballonElement.src = ballon.ballonImgUrl;
+      ballonElement.src = ballon.ballonImgUrl;
+      ballonElement.classList.add("ballon");
+
     ballonElement.id = ballon.id;
     ballonElement.addEventListener("click", () => {
-      ballonElement.src = ballon.ExplosionUrl;
+      console.log(ballonElement.src);
+      if (!ballon.exploded) {
+        console.log("no else!");
+        ballonElement.src = ballon.ExplosionUrl;
+        ballonElement.classList.remove("ballon");
+        ballon.exploded = true;
+      } else {
+        console.log("else!");
+        ballonElement.src = ballon.ballonImgUrl;
+        ballonElement.classList.add("ballon");
+        ballon.exploded = false;
+      }
+
+      //alert("you did it");
+    });
+    ballonElement.addEventListener("mouseenter", () => {
+      ballonElement.classList.add("running");
     });
 
     pageElement.appendChild(ballonElement);
