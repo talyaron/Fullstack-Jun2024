@@ -18,6 +18,7 @@ function handleSubmit(event) {
             var inputElement = event.target[i];
             data[inputElement.name] = inputElement.value;
             event.target[i].id = i + 1;
+            console.log(event.target[i].id);
         }
         ;
         var form = event.target;
@@ -55,7 +56,7 @@ function sortMoviesByRating(movies) {
     return movies;
 }
 ;
-function deleteMovie(movies) {
+function removeMovie(movies) {
     movies.forEach(function (item) {
         var button = document.createElement("button");
         button.innerHTML = "\n        <h1>" + item.title + "}</h1>\n        ";
@@ -70,20 +71,13 @@ function renderMovies(movies) {
         var movieItem = document.getElementById("movieItems");
         if (!movieItem)
             throw new Error("list item not found");
-        var button = document.createElement("button");
+        movies.button = document.createElement("button");
         // const removeItem = (id: number) => {
         //     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
         // };
-        movieItem.innerHTML = movies.map(function (item) {
-            return "\n            <img src=\"" + item.imageUrl + "\"></>\n            <h1 class=\"title\">" + item.title + "</h1>\n            <h1>" + item.director + "</h1>\n            <h1>" + item.year + "</h1>\n            <h1>" + item.rating + "</h1>\n            ";
+        movieItem.innerHTML = movies.map(function (item, id) {
+            return "\n            <img src=\"" + item.imageUrl + "\"></>\n            <h1 class=\"title\">" + item.title + "</h1>\n            <h1>" + item.director + "</h1>\n            <h1>" + item.year + "</h1>\n            <h1>" + item.rating + "</h1>\n            <button onclick=\"removeMovie(" + id + ")\">Remove</button>\n            ";
         }).join('');
-        movies.forEach(function (item) {
-            var button = document.createElement("div");
-            button.innerHTML = "\n        <h1>" + item.title + "}</h1>\n        ";
-            // button.textContent = `Remove`;
-            // button.onclick = () => removeItem(item.id);
-            // buttonsContainer.appendChild(button);
-        });
     }
     catch (e) {
         console.error(e);

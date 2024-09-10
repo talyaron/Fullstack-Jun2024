@@ -4,7 +4,7 @@ interface Movie {
     director: string,
     rating: number,
     imageUrl: string,
-    id: 1,
+    id: number,
 }
 
 const movies:Movie[] = [];
@@ -31,6 +31,7 @@ function handleSubmit(event: Event):void {
             const inputElement = event.target[i] as HTMLInputElement;
             data[inputElement.name] = inputElement.value;
             event.target[i].id = i+1;
+            console.log(event.target[i].id)
         };
         
         
@@ -69,7 +70,7 @@ function sortMoviesByRating(movies:Movie[]):Movie[] {
     return movies;
 };
 
-function deleteMovie(movies:Movie[]):void {
+function removeMovie(movies:Movie[]):void {
     movies.forEach((item) => {
         const button = document.createElement("button");
         button.innerHTML = `
@@ -85,30 +86,22 @@ function renderMovies(movies:Movie[]) {
     try {
         const movieItem = document.getElementById("movieItems") as HTMLUListElement;
         if (!movieItem) throw new Error("list item not found");
-        const button:HTMLButtonElement = document.createElement("button");
+        movies.button = document.createElement("button");
 
         // const removeItem = (id: number) => {
         //     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
         // };
-        movieItem.innerHTML = movies.map((item) => 
+        movieItem.innerHTML = movies.map((item, id) => 
             `
             <img src="${item.imageUrl}"></>
             <h1 class="title">${item.title}</h1>
             <h1>${item.director}</h1>
             <h1>${item.year}</h1>
             <h1>${item.rating}</h1>
+            <button onclick="removeMovie(${id})">Remove</button>
             `
 
     ).join('');
-    movies.forEach((item) => {
-        const button = document.createElement("div");
-        button.innerHTML = `
-        <h1>${item.title}}</h1>
-        `
-        // button.textContent = `Remove`;
-        // button.onclick = () => removeItem(item.id);
-        // buttonsContainer.appendChild(button);
-      });
         } catch(e) {
             console.error(e);
         }
