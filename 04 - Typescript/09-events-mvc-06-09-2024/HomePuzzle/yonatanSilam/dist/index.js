@@ -10,9 +10,9 @@ function main() {
         console.log(e);
     }
 }
-function removeBtn() {
-    this.parentElement.classList.add('none');
-    allComp.pop();
+function removeBtn(title) {
+    allComp.splice(allComp.findIndex(function (movie) { return movie.title === title; }), 1);
+    renderComps();
 }
 function createNewComp(event) {
     try {
@@ -38,6 +38,7 @@ function createNewComp(event) {
             data.color = "red";
         }
         allComp.push(data);
+        event.target.reset();
         renderComps();
     }
     catch (e) {
@@ -50,12 +51,8 @@ function renderComps() {
         if (!allCompToPrint)
             throw new Error('not find #allCompToPrint');
         allComp.sort(function (comp, secComp) { return secComp.rating - comp.rating; });
-        var toPrint = allComp.map(function (comp) { return "<div class=\"oneComp " + comp.color + "\"><h1>" + comp.title + "</h1> \n  <img src=\"" + comp.imageUrl + "\" alt=\"" + comp.title + "\"> \n  <h2> IMDB: " + comp.rating + " <br> year: " + comp.year + "</h2>\n  <h3> director: " + comp.director + "</h3>\n  <button id=\"deleteBtn\" class=\"deleteBtn\">X</button> </div> "; }).join('');
+        var toPrint = allComp.map(function (comp) { return "<div class=\"oneComp " + comp.color + "\"><h1>" + comp.title + "</h1> \n  <img src=\"" + comp.imageUrl + "\" alt=\"" + comp.title + "\"> \n  <h2> IMDB: " + comp.rating + " <br> year: " + comp.year + "</h2>\n  <h3> director: " + comp.director + "</h3>\n  <button onclick=\"removeBtn('" + comp.title + "')\" class=\"deleteBtn\">X</button> </div> "; }).join('');
         allCompToPrint.innerHTML = toPrint;
-        var deleteBtn = document.querySelectorAll('#deleteBtn');
-        if (!deleteBtn)
-            throw new Error("not find #deleteBtn");
-        deleteBtn.forEach(function (btn) { return btn.addEventListener("click", removeBtn); });
     }
     catch (error) {
         console.log(error);

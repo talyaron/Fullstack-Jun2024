@@ -26,7 +26,7 @@ console.log(publicYear);
 //Create a function that returns the newest book in the collection.
 var bookSortYear = books.sort(function (a, b) { return b.year - a.year; });
 var newestBook1 = bookSortYear[0];
-console.log(newestBook);
+//console.log(newestBook);
 //Practice using a forEach to display each book's information.
 books.forEach(function (book, index) { return document.write("<br> <b> Book info in index " + index + " is : </b>  Title - " + book.title + " , Author - " + book.author + " , Year - " + book.year); });
 // Create an array of `Item` objects to represent the inventory.
@@ -95,4 +95,4 @@ function makeNewObject1(itemsList) {
         leastItem: sorted[0]
     };
 }
-console.log(makeNewObject1(items1));
+//console.log(makeNewObject1(items1));

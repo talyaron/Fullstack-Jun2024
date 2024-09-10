@@ -24,4 +24,4 @@ Your task is to create a website similar to Asus (https://www.asus.com/) using p
 ### 3. Sale Items Feature
 
 - Add a 'sale' boolean property to the Computer interface.
-- Display a 'Sale' badge on the computers that are on sale.
+- Display a 'Sale' badge on the computers that are on sale.  
