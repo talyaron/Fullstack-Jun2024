@@ -44,8 +44,8 @@ function renderBallon(ballon: Ballon) {
     if (!pageElement) throw new Error("no pag found");
 
     const ballonElement = document.createElement("img");
-      ballonElement.src = ballon.ballonImgUrl;
-      ballonElement.classList.add("ballon");
+    ballonElement.src = ballon.ballonImgUrl;
+    ballonElement.classList.add("ballon");
 
     ballonElement.id = ballon.id;
     ballonElement.addEventListener("click", () => {
@@ -65,7 +65,11 @@ function renderBallon(ballon: Ballon) {
       //alert("you did it");
     });
     ballonElement.addEventListener("mouseenter", () => {
-      ballonElement.classList.add("running");
+        if(!ballon.exploded){
+      const randomNumber = Math.random();
+      const numberBetween0And1000 = randomNumber * 1000;
+      const randomIntegerBetween0And1000 = Math.floor(numberBetween0And1000);
+      ballonElement.style.left = randomIntegerBetween0And1000 + "px";}
     });
 
     pageElement.appendChild(ballonElement);
