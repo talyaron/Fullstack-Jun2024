@@ -6,9 +6,9 @@ var Ballon = /** @class */ (function () {
     }
     return Ballon;
 }());
-var ballon1 = new Ballon("", "./dist/images/balloon.png", "");
-var ballon2 = new Ballon("", "./dist/images/balloon.png", "");
-var ballon3 = new Ballon("", "./dist/images/balloon.png", "");
+var ballon1 = new Ballon("", "./dist/images/balloon.png", "./dist/images/balloonEX.png");
+var ballon2 = new Ballon("", "./dist/images/balloon.png", "./dist/images/balloonEX.png");
+var ballon3 = new Ballon("", "./dist/images/balloon.png", "./dist/images/balloonEX.png");
 function main() {
     renderBallon(ballon2);
 }
