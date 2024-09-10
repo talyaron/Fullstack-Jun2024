@@ -14,6 +14,7 @@ class Person {
   //methods
   changeName(newName:string):string{
   this.name=newName;
+  return this.name;
   }
   yearofBirth():number{
     const currentYear=new Date().getFullYear();
