@@ -4,6 +4,7 @@ interface Movie {
     director: string,
     rating: number,
     imageUrl: string,
+    id: number,
 }
 
 const movies:Movie[] = [];
@@ -29,25 +30,27 @@ function handleSubmit(event: Event):void {
         for (let i = 0; i >= (event.target.length -1); i++) {
             const inputElement = event.target[i] as HTMLInputElement;
             data[inputElement.name] = inputElement.value;
+            event.target[i].id = i+1;
+            console.log(event.target[i].id)
         };
         
         
         const form:any = event.target as HTMLFormElement;
         if(!form) throw new Error('The form is not found');
    
-        const title = form.title.value;
-        const year = form.year.value;
-        const director = form.director.value;
-        const rating = form.rating.value;
-        const imageUrl = form.imageUrl.value;
+        const title:string = form.title.value;
+        const year:number = form.year.value;
+        const director:string = form.director.value;
+        const rating:number = form.rating.value;
+        const imageUrl:string = form.imageUrl.value;
+        const button:HTMLButtonElement = document.createElement("button");
 
         if(!title || !year || !director || !rating || !imageUrl) {
             throw new Error('All the fileds must be filled !');
         } else {
-            movies.push({title, year, director, rating, imageUrl});
+            movies.push({title, year, director, rating, imageUrl, button});
             form.reset();
         }
-
         sortMoviesByRating(movies);
         renderMovies(movies);
     } catch (error) {
@@ -67,23 +70,37 @@ function sortMoviesByRating(movies:Movie[]):Movie[] {
     return movies;
 };
 
-// function deleteMovie(movies:Movie[]):Movie[] {
-
-// }
+function removeMovie(movies:Movie[]):void {
+    movies.forEach((item) => {
+        const button = document.createElement("button");
+        button.innerHTML = `
+        <h1>${item.title}}</h1>
+        `
+        // button.textContent = `Remove`;
+        // button.onclick = () => removeItem(item.id);
+        // buttonsContainer.appendChild(button);
+      });
+};
 
 function renderMovies(movies:Movie[]) {
     try {
         const movieItem = document.getElementById("movieItems") as HTMLUListElement;
         if (!movieItem) throw new Error("list item not found");
-    
-        movieItem.innerHTML = movies.map((item) => 
+        movies.button = document.createElement("button");
+
+        // const removeItem = (id: number) => {
+        //     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+        // };
+        movieItem.innerHTML = movies.map((item, id) => 
             `
             <img src="${item.imageUrl}"></>
-            <h1>${item.title}</h1>
+            <h1 class="title">${item.title}</h1>
             <h1>${item.director}</h1>
             <h1>${item.year}</h1>
             <h1>${item.rating}</h1>
-            <button>Remove Movie</button>`
+            <button onclick="removeMovie(${id})">Remove</button>
+            `
+
     ).join('');
         } catch(e) {
             console.error(e);
