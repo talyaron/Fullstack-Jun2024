@@ -36,14 +36,4 @@ function main() {
 }
 document.addEventListener('DOMContentLoaded', function () {
     main();
-    var refreshButton = document.getElementById('refreshButton');
-    if (refreshButton) {
-        refreshButton.addEventListener('click', function () {
-            console.log('Refresh button clicked');
-            window.location.reload();
-        });
-    }
-    else {
-        console.log('Refresh button not found');
-    }
 });
