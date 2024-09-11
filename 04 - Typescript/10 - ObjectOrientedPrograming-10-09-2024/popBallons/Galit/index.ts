@@ -2,11 +2,13 @@ class Balloon {
     imageUrl: string;
     id: string;
     imageExplosion: string;
+    onExplode: () => void; 
 
-    constructor(imageUrl: string, imageExplosion: string) {
+    constructor(imageUrl: string, imageExplosion: string, onExplode: () => void) {
         this.imageUrl = imageUrl;
         this.id = crypto.randomUUID();
         this.imageExplosion = imageExplosion;
+        this.onExplode = onExplode; 
     }
 
     explode(balloonElement: HTMLImageElement): void {
@@ -21,8 +23,15 @@ class Balloon {
 
         balloonElement.style.bottom = currentBottom;
         balloonElement.style.left = currentLeft;
+
+        if (this.onExplode) {
+            this.onExplode();
+        }
     }
 }
+
+let totalBalloons: number;
+let explodedBalloons: number = 0;
 
 function createBalloon(balloonInstance: Balloon) {
     const balloonContainer = document.getElementById('balloon-container') as HTMLElement;
@@ -40,16 +49,52 @@ function createBalloon(balloonInstance: Balloon) {
 }
 
 function main() {
-    const numberOfBalloons = 10; 
-    for (let i = 0; i < numberOfBalloons; i++) {
+    totalBalloons = 10; 
+    for (let i = 0; i < totalBalloons; i++) {
         const balloonInstance = new Balloon(
             './images/balloon1.png',  
-            './images/balloon2.png' 
+            './images/balloon2.png',
+            () => {
+                explodedBalloons++;
+                if (explodedBalloons === totalBalloons) {
+                    stopTimer(); 
+                }
+            }
         );
         createBalloon(balloonInstance);
     }
 }
 
+let startTime: number;
+let timerInterval: number | undefined;
+
+function startTimer() {
+    startTime = Date.now();
+    timerInterval = setInterval(updateTimer, 1000);
+}
+
+function stopTimer() {
+    if (timerInterval !== undefined) {
+        clearInterval(timerInterval);
+        timerInterval = undefined; 
+    }
+}
+
+function updateTimer() {
+    const elapsedTime = Date.now() - startTime;
+    const seconds = Math.floor(elapsedTime / 1000) % 60;
+    const minutes = Math.floor(elapsedTime / (1000 * 60)) % 60;
+    const hours = Math.floor(elapsedTime / (1000 * 60 * 60));
+
+    const timerElement = document.getElementById('timer') as HTMLElement;
+    timerElement.textContent = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+}
+
+function pad(number: number): string {
+    return number.toString().padStart(2, '0');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     main();
+    startTimer(); 
 });

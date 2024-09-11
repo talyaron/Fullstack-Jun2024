@@ -11,7 +11,7 @@ body {
     align-items: center; 
     position: fixed; 
     top: 50px; 
-    left: 550px; 
+    left: 580px; 
     background-color: #ffffff; 
     color: rgb(15, 59, 154);
     border: none;
@@ -55,4 +55,16 @@ body {
     100% {
         bottom: 100%;
     }
+}
+
+.timer {
+    position: fixed;
+    top: 20px;
+    left: 20px; 
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 24px; 
+    color: #000; 
+    font-family: Arial, sans-serif; 
 }
