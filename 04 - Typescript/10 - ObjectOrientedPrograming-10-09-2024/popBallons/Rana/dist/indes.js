@@ -8,9 +8,11 @@ var Balloon = /** @class */ (function () {
 var balloon = document.getElementById("balloon");
 if (!balloon)
     throw new Error("No balloon");
+console.log(Balloon);
 var baloonOne = new Balloon("./photos/boyorgirl1.png");
 function renderBalloon() {
     try {
+        console.log(baloonOne);
         balloon.src = baloonOne.image;
         balloon.id = baloonOne.id;
     }
@@ -20,6 +22,7 @@ function renderBalloon() {
 }
 function explode() {
     balloon.src = "./photos/girl2.png";
+    console.log(explode);
 }
 function main() {
     renderBalloon();
