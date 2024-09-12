@@ -9,13 +9,13 @@ class Balloon {
   
   const balloon = document.getElementById("balloon") as HTMLImageElement;
   if (!balloon) throw new Error("No balloon");
-  console.log(Balloon);
+  console.log(balloon);
   
   const baloonOne = new Balloon("./photos/boyorgirl1.png");
-  
+  console.log(baloonOne);
   function renderBalloon() {
     try {
-      console.log(baloonOne);
+      
       balloon.src = baloonOne.image;
       balloon.id = baloonOne.id;
     } catch (error) {

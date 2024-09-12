@@ -8,11 +8,11 @@ var Balloon = /** @class */ (function () {
 var balloon = document.getElementById("balloon");
 if (!balloon)
     throw new Error("No balloon");
-console.log(Balloon);
+console.log(balloon);
 var baloonOne = new Balloon("./photos/boyorgirl1.png");
+console.log(baloonOne);
 function renderBalloon() {
     try {
-        console.log(baloonOne);
         balloon.src = baloonOne.image;
         balloon.id = baloonOne.id;
     }
