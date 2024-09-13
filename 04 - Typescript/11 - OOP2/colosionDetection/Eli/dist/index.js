@@ -52,33 +52,58 @@ var playCube = /** @class */ (function (_super) {
     playCube.prototype.moveUP = function () {
         this.pos.spawnPos.y -= 10;
         this.pos.edgePos.y -= 10;
-        this.updateTransform();
+        if (physics(this)) { //checks the if there is going to be a collision if yes it reverts the movement
+            this.updateTransform();
+        }
+        else {
+            //reverts the movement if there is going to be a collision;
+            this.pos.spawnPos.y += 10;
+            this.pos.edgePos.y += 10;
+        }
     };
     playCube.prototype.moveDown = function () {
         this.pos.spawnPos.y += 10;
         this.pos.edgePos.y += 10;
-        this.updateTransform();
+        if (physics(this)) {
+            this.updateTransform(); // this is called to update the position of the elegant in the html
+        }
+        else {
+            this.pos.spawnPos.y -= 10;
+            this.pos.edgePos.y -= 10;
+        }
     };
     playCube.prototype.moveLeft = function () {
         this.pos.spawnPos.x -= 10;
         this.pos.edgePos.x -= 10;
-        this.updateTransform();
+        if (physics(this)) {
+            this.updateTransform();
+        }
+        else {
+            this.pos.spawnPos.x += 10;
+            this.pos.edgePos.x += 10;
+        }
     };
     playCube.prototype.moveRight = function () {
         this.pos.spawnPos.x += 10;
         this.pos.edgePos.x += 10;
-        this.updateTransform();
+        if (physics(this)) {
+            this.updateTransform();
+        }
+        else {
+            this.pos.spawnPos.x -= 10;
+            this.pos.edgePos.x -= 10;
+        }
     };
     playCube.prototype.updateTransform = function () {
         this.domElement.style.transform = "translate(" + this.pos.spawnPos.x + "px, " + this.pos.spawnPos.y + "px ) ";
     };
     return playCube;
 }(box));
-var player = new playCube({ x: 284, y: 22 }, 150, 200);
+var player = new playCube({ x: 284, y: 22 }, 150, 200); //adds the player and its position X and Y are position the rest is width and height
 var containerElement = document.getElementById("boxContainer");
 document.addEventListener("keydown", function (event) {
     if (event.key === "ArrowLeft") {
-        player.moveLeft();
+        player.moveLeft(); //calls the move left function inside the player class...
     }
     if (event.key === "ArrowRight") {
         player.moveRight();
@@ -111,21 +136,28 @@ function main() {
     physics(player);
 }
 function physics(player) {
+    player.colliding = false;
     try {
         boxes.forEach(function (box) {
             if (!box.pos.edgePos || !player.pos.edgePos)
                 throw new Error("no Position!");
             // console.log("player ",player.pos.spawnPos,player.pos.edgePos)
             //console.log("Enemy ",box.pos.spawnPos,box.pos.edgePos,)
-            var overlapX = player.pos.spawnPos.x < box.pos.edgePos.x && player.pos.edgePos.x > box.pos.spawnPos.x;
-            var overlapY = player.pos.spawnPos.y < box.pos.edgePos.y && player.pos.edgePos.y > box.pos.spawnPos.y;
+            var overlapX = //a check for overlap on X axis
+             player.pos.spawnPos.x < box.pos.edgePos.x &&
+                player.pos.edgePos.x > box.pos.spawnPos.x;
+            var overlapY = //a check for overlap on Y axis
+             player.pos.spawnPos.y < box.pos.edgePos.y &&
+                player.pos.edgePos.y > box.pos.spawnPos.y;
             if (overlapX && overlapY) {
                 console.log("Collision detected!");
+                player.colliding = true; //:O
             }
         });
     }
     catch (error) {
         console.log(error);
     }
+    return !player.colliding;
 }
-setInterval(function () { return physics(player); }, 50);
+//setInterval(() => physics(player), 50);
