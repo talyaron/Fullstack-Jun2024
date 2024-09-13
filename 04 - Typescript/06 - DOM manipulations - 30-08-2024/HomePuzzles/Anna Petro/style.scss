@@ -1,10 +1,33 @@
-#store{
+.navBar{
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
     gap: 10px;
+
+    img{
+        width: 12rem;
+        height: auto;
+    }
 }
-#logo{
-    width: 150px;
-    height: auto;
+
+
+.list{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    .computerInfo{
+        img{
+            width: 12rem;
+        }
+        #id{
+            font-size: 0.5rem;
+        }
+        #Sale{
+            color: red;
+        }
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+    }
 }
