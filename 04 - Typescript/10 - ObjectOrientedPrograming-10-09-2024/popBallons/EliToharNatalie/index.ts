@@ -62,14 +62,13 @@ function renderBallon(ballon: Ballon) {
         ballon.exploded = false;
       }
 
-      //alert("you did it");
     });
     ballonElement.addEventListener("mouseenter", () => {
         if(!ballon.exploded){
       const randomNumber = Math.random();
       const numberBetween0And1000 = randomNumber * 1000;
       const randomIntegerBetween0And1000 = Math.floor(numberBetween0And1000);
-      ballonElement.style.left = randomIntegerBetween0And1000 + "px";}
+      ballonElement.style.transform = `translate(${randomIntegerBetween0And1000}px )`;}
     });
 
     pageElement.appendChild(ballonElement);
