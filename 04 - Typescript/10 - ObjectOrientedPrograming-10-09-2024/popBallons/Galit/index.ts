@@ -9,12 +9,15 @@ class Balloon {
         this.id = crypto.randomUUID();
         this.imageExplosion = imageExplosion;
         this.onExplode = onExplode; 
+        console.log(`Balloon created with ID: ${this.id}, image: ${this.imageUrl}`);
     }
 
     explode(balloonElement: HTMLImageElement): void {
         const computedStyle = window.getComputedStyle(balloonElement);
         const currentBottom = computedStyle.getPropertyValue('bottom');
         const currentLeft = computedStyle.getPropertyValue('left');
+
+        console.log(`Balloon exploded with ID: ${this.id}, bottom: ${currentBottom}, left: ${currentLeft}`);
 
         balloonElement.src = this.imageExplosion;
 
@@ -26,6 +29,7 @@ class Balloon {
 
         if (this.onExplode) {
             this.onExplode();
+            console.log(`Balloon exploded callback executed. Total exploded: ${explodedBalloons}`);
         }
     }
 }
@@ -41,7 +45,10 @@ function createBalloon(balloonInstance: Balloon) {
     balloonElement.classList.add('balloon');
     balloonElement.style.left = `${Math.random() * 90}vw`;
 
+    console.log(`Balloon added to DOM with ID: ${balloonInstance.id}`);
+
     balloonElement.addEventListener('click', () => {
+        console.log(`Balloon clicked with ID: ${balloonInstance.id}`);
         balloonInstance.explode(balloonElement); 
     });
 
@@ -50,13 +57,16 @@ function createBalloon(balloonInstance: Balloon) {
 
 function main() {
     totalBalloons = 10; 
+    console.log(`Starting game with total balloons: ${totalBalloons}`);
     for (let i = 0; i < totalBalloons; i++) {
         const balloonInstance = new Balloon(
             './images/balloon1.png',  
             './images/balloon2.png',
             () => {
                 explodedBalloons++;
+                console.log(`Balloons exploded so far: ${explodedBalloons}`);
                 if (explodedBalloons === totalBalloons) {
+                    console.log("All balloons exploded. Stopping timer.");
                     stopTimer(); 
                 }
             }
@@ -70,6 +80,7 @@ let timerInterval: number | undefined;
 
 function startTimer() {
     startTime = Date.now();
+    console.log("Timer started.");
     timerInterval = setInterval(updateTimer, 1000);
 }
 
@@ -77,6 +88,7 @@ function stopTimer() {
     if (timerInterval !== undefined) {
         clearInterval(timerInterval);
         timerInterval = undefined; 
+        console.log("Timer stopped.");
     }
 }
 
@@ -88,6 +100,7 @@ function updateTimer() {
 
     const timerElement = document.getElementById('timer') as HTMLElement;
     timerElement.textContent = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+    console.log(`Timer updated: ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`);
 }
 
 function pad(number: number): string {
@@ -95,6 +108,7 @@ function pad(number: number): string {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("Document loaded. Initializing game.");
     main();
     startTimer(); 
 });
