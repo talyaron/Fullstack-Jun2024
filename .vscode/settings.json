@@ -16,6 +16,7 @@
     "חדשות",
     "כניסה"
   ],
+  /*
   "workbench.colorCustomizations": {
     "activityBar.activeBackground": "#2f7c47",
     "activityBar.background": "#2f7c47",
@@ -34,6 +35,6 @@
     "titleBar.activeForeground": "#e7e7e7",
     "titleBar.inactiveBackground": "#21573299",
     "titleBar.inactiveForeground": "#e7e7e799"
-  },
+  },*/
   "peacock.color": "#215732"
 }

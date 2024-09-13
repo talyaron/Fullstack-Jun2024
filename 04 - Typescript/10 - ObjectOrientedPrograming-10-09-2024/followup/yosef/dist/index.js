@@ -27,17 +27,15 @@ var Car = /** @class */ (function () {
 }());
 var Person = /** @class */ (function () {
     function Person(first_name, last_name) {
-        // change_first_and_last_name()
-        // }
-        this.car1 = new Car('Civic', 2021, 'X', 'Honda', 20000);
         this.first_name = first_name;
         this.last_name = last_name;
     }
-    Person.prototype.log = function (car1, getAge) { };
     return Person;
 }());
-();
-;
+var car1 = new Car('Civic', 2021, 'X', 'Honda', 20000);
+//instance of class Car
+console.log(car1);
+console.log(car1.getAge());
 console.log(car1.initialKilometer);
 car1.addKilometer();
 console.log(car1.initialKilometer);

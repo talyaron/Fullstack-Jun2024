@@ -25,39 +25,43 @@ var Player = /** @class */ (function () {
             console.error(error);
         }
     };
-    Player.prototype.renderPlayer = function (field) {
-        var _this = this;
-        try {
-            if (!(field instanceof HTMLDivElement))
-                throw new Error('field element not found');
-            if (this.playerElement)
-                return;
-            var playerElement = document.createElement('img');
-            playerElement.src = this.imageUrl;
-            playerElement.id = this.id;
-            playerElement.classList.add('player');
-            playerElement.style.left = this.position.x + 'px';
-            playerElement.style.top = this.position.y + 'px';
-            this.setPlayerElement(playerElement);
-            playerElement.addEventListener('click', function () {
-                currentPlayer.player = _this;
-            });
-            field.appendChild(playerElement);
-        }
-        catch (error) {
-            console.error(error);
-        }
-    };
     return Player;
 }());
 var messi = new Player('Messi', './dist/image/messi.png', { x: 50, y: 50 });
 var ronaldo = new Player('Ronaldo', './dist/image/ronaldo.png', { x: 100, y: 100 });
-messi.renderPlayer(document.getElementById('field'));
-ronaldo.renderPlayer(document.getElementById('field'));
+console.log(messi);
+//view
+function renderNewPlayer(player) {
+    try {
+        var playerElement = document.createElement('img');
+        playerElement.src = player.imageUrl;
+        playerElement.id = player.id;
+        playerElement.classList.add('player');
+        playerElement.style.position = 'absolute';
+        playerElement.style.left = player.position.x + 'px';
+        playerElement.style.top = player.position.y + 'px';
+        playerElement.addEventListener('click', function () {
+            currentPlayer.player = player;
+            console.log(currentPlayer);
+        });
+        player.setPlayerElement(playerElement);
+        var field = document.getElementById('field');
+        if (!field) {
+            throw new Error('Field not found');
+        }
+        field.appendChild(playerElement);
+    }
+    catch (error) {
+        console.error(error);
+    }
+}
+renderNewPlayer(messi);
+renderNewPlayer(ronaldo);
+console.log(ronaldo);
 //events
 function main() {
     try {
-        //get field, and add event listener
+        //get field, andd add event listener
         var field = document.getElementById('field');
         if (!field) {
             throw new Error('Field not found');
