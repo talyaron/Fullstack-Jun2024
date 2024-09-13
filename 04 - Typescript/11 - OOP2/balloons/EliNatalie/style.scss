@@ -1,30 +1,23 @@
 .ballon {
-  width: 7vh;
-  height: 7vh;
+  width: 15vh;
+  height: 15vh;
   transition: transform 0.5s ease-in-out; 
   position: absolute;
+  animation: climb 6s forwards;
+  
 }
 img{
-    width: 7vh;
-    height: 7vh;
-    position: relative;
+  animation: climb 5.6s forwards;
+    width: 15vh;
+    height: 15vh;
+    position: absolute;
     transition: all 0.5;
 }
 
-@keyframes mov {
+@keyframes climb {
   0% {
-    top: 15px;
-  }
-  25% {
-    top: 25px;
-  }
-  50% {
-    top: 15px;
-  }
-  75% {
-    top: 25px;
-  }
+    bottom: 0%;}
   100% {
-    top: 15px;
+    bottom: 90%;
   }
 }

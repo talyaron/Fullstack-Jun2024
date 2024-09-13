@@ -13,8 +13,7 @@ class Ballon {
     id: string,
     ballonImgUrl: string,
     ExplosionUrl: string,
-    exploded: boolean,
-    position: position
+    exploded: boolean
   ) {
     this.id = `id-${crypto.randomUUID()}`;
     this.ballonImgUrl = ballonImgUrl;
@@ -22,26 +21,31 @@ class Ballon {
     this.exploded = exploded;
   }
   get positionObj() {
-    return this. position 
+    return this.position;
   }
 
   set positionObj(position: position) {
-    this. position = position;
+    this.position = position;
   }
 }
 
-
-
-function createNewBalloon () {
+function createNewBalloon() {
   const newBallon = new Ballon(
     "",
     "./dist/images/balloon.png",
     "./dist/images/balloonEX.png",
-    false, {x:0, y:0}
+    false
   );
+  const randomX = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
+  newBallon.positionObj = { x: randomX, y: 0 };
   renderBallon(newBallon);
-  setTimeout(()=>{createNewBalloon();},1000)
-  newBallon.positionObj = {x:0, y:100} 
+
+  //newBallon.positionObj = { x: randomX, y: 100 };
+  setTimeout(() => {
+    createNewBalloon();
+  }, 1000);
+
+  // console.log(newBallon.positionObj);
 }
 
 function main() {
@@ -54,9 +58,11 @@ function renderBallon(ballon: Ballon) {
     if (!pageElement) throw new Error("no pag found");
 
     const ballonElement = document.createElement("img");
+    ballonElement.draggable = false; 
     ballonElement.src = ballon.ballonImgUrl;
     ballonElement.classList.add("ballon");
-    ballonElement.style.transform = `translate(0px ${ballon.position.y}px )`;
+    ballonElement.style.bottom = "0";
+    ballonElement.style.left = `${ballon.positionObj.x}vw`;
 
     ballonElement.id = ballon.id;
     ballonElement.addEventListener("click", () => {
@@ -66,20 +72,11 @@ function renderBallon(ballon: Ballon) {
         ballonElement.src = ballon.ExplosionUrl;
         ballonElement.classList.remove("ballon");
         ballon.exploded = true;
+        setTimeout(() => {
+          removeBallon(ballonElement);
+        }, 300);
       } else {
-        console.log("else!");
-        ballonElement.src = ballon.ballonImgUrl;
-        ballonElement.classList.add("ballon");
-        ballon.exploded = false;
       }
-
-    });
-    ballonElement.addEventListener("mouseenter", () => {
-        if(!ballon.exploded){
-      const randomNumber = Math.random();
-      const numberBetween0And1000 = randomNumber * 1000;
-      const randomIntegerBetween0And1000 = Math.floor(numberBetween0And1000);
-      ballonElement.style.transform = `translate(${randomIntegerBetween0And1000}px )`;}
     });
 
     pageElement.appendChild(ballonElement);
@@ -87,4 +84,6 @@ function renderBallon(ballon: Ballon) {
     console.log(error);
   }
 }
-function pop(event: Event) {}
+function removeBallon(ballonElement: HTMLElement) {
+  ballonElement.remove();
+}
