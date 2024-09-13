@@ -1,5 +1,5 @@
 var boom = 'https://pic1.yitweb.co.il/picserver/mynet/crop_images/2023/11/13/HJNPSnkNa/HJNPSnkNa_0_0_640_360_0_large.jpg';
-var no_boom = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7Ec4AyjMzCAhhRfgWLLCCa1edXtULgPt64w&s';
+var no_boom = 'https://cdn.pixabay.com/photo/2012/04/05/01/39/balloon-25734_1280.png';
 ;
 var Ballon = /** @class */ (function () {
     function Ballon(imageURL) {
