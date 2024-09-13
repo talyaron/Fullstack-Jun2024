@@ -36,14 +36,13 @@ function renderBallon(ballon) {
                 ballonElement_1.classList.add("ballon");
                 ballon.exploded = false;
             }
-            //alert("you did it");
         });
         ballonElement_1.addEventListener("mouseenter", function () {
             if (!ballon.exploded) {
                 var randomNumber = Math.random();
                 var numberBetween0And1000 = randomNumber * 1000;
                 var randomIntegerBetween0And1000 = Math.floor(numberBetween0And1000);
-                ballonElement_1.style.left = randomIntegerBetween0And1000 + "px";
+                ballonElement_1.style.transform = "translate(" + randomIntegerBetween0And1000 + "px )";
             }
         });
         pageElement.appendChild(ballonElement_1);

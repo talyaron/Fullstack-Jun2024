@@ -1,6 +1,7 @@
 .ballon {
   animation: mov 5s;
   animation-iteration-count: infinite;
+  transition: transform 0.5s ease-in-out; 
 }
 img{
     position: relative;
