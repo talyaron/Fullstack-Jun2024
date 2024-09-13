@@ -3,7 +3,7 @@ const menu : String [] = ['Mobile / Handhelds','Laptops',
 'Accessories','support']
 
 
-function renderAsusSite(){
+function renderAsusLogo(){
     try {
     const siteElement = document.querySelector('#store') as HTMLElement;
     const logoImage = document.createElement('img');
@@ -25,7 +25,7 @@ function renderAsusSite(){
     }
 }
 
-renderAsusSite();
+renderAsusLogo();
 
 function removeMenuItem (arr : string [],itemToRemove : string){
     const indexToRemove = arr.findIndex((item) => item === itemToRemove)

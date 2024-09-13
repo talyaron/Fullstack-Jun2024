@@ -8,7 +8,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 var menu = ['Mobile / Handhelds', 'Laptops',
     'Displays / Desktops', 'Motherboards / Components', 'Networking / IoT / Servers',
     'Accessories', 'support'];
-function renderAsusSite() {
+function renderAsusLogo() {
     try {
         var siteElement_1 = document.querySelector('#store');
         var logoImage = document.createElement('img');
@@ -29,7 +29,7 @@ function renderAsusSite() {
         console.error(error);
     }
 }
-renderAsusSite();
+renderAsusLogo();
 function removeMenuItem(arr, itemToRemove) {
     var indexToRemove = arr.findIndex(function (item) { return item === itemToRemove; });
     return __spreadArrays(arr).slice(0, indexToRemove).concat(__spreadArrays(arr).slice(indexToRemove + 1));
