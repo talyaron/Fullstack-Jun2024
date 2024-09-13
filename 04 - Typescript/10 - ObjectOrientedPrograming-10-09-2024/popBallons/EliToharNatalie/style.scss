@@ -1,12 +1,11 @@
 .ballon {
   animation: mov 5s;
   animation-iteration-count: infinite;
-  transition: transform 0.5s ease-in-out; /* Smooth movement animation */
+  transition: transform 0.5s ease-in-out; 
 }
 img{
     position: relative;
     transition: all 0.5;
-    transition: transform 0.5s ease-in-out; /* Smooth movement animation */
 }
 
 @keyframes mov {
