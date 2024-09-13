@@ -1,5 +1,5 @@
 const boom : string = 'https://pic1.yitweb.co.il/picserver/mynet/crop_images/2023/11/13/HJNPSnkNa/HJNPSnkNa_0_0_640_360_0_large.jpg';
-const no_boom : string = './dist/images/Yellow_Balloon.png';
+const no_boom : string = 'https://cdn.pixabay.com/photo/2012/04/05/01/39/balloon-25734_1280.png';
 
 interface position {x: number; y: number};
 
