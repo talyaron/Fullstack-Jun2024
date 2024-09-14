@@ -35,16 +35,20 @@ class Player {
     this.playerElement.style.backgroundSize = "contain";
     this.playerElement.style.backgroundRepeat = "no-repeat";
     this.playerElement.style.backgroundImage = `url(${this.imageUrlRight})`;
-
+    this.playerElement.addEventListener("click", () => {
+      this.explode();
+    });
     this.playerElement.addEventListener("keydown", () => {
       this.setupControls();
     });
     mainElement.appendChild(this.playerElement);
-    document.body.style.backgroundImage =
-    'url(./images/back.png)';
-document.body.style.width="100%";
-document.body.style.height="100%";
-}
+    document.body.style.backgroundImage = "url(./images/back.png)";
+    document.body.style.width = "100%";
+    document.body.style.height = "100%";
+    document.addEventListener("click", () => {
+      document.body.appendChild(this.playerElement);
+    });
+  }
 
   private setupControls() {
     document.addEventListener("keydown", (event: KeyboardEvent) => {
@@ -65,7 +69,7 @@ document.body.style.height="100%";
   createRandomPosition() {
     return {
       x: Math.random() * 1000,
-      y: 300,
+      y: 310,
     };
   }
   moveRight() {
@@ -82,13 +86,21 @@ document.body.style.height="100%";
     console.log("left method");
   }
   jump() {
-    this.position.y -=15;
+    this.position.y -= 15;
     this.updatePlayerPosition();
   }
   lower() {
-    this.position.y +=15;
+    this.position.y += 15;
     this.updatePlayerPosition();
   }
+  explode() {
+    setTimeout(() => {
+      this.playerElement.remove();
+    }, 100);
+    alert("Game over!");
+    alert('Click anywhere to restart!');
+  }
+
   private updatePlayerImage() {
     this.playerElement.style.backgroundImage = `${this.imageUrlRight}`;
   }
@@ -106,4 +118,56 @@ if (mainElement) {
 } else {
   console.error("Main element not found");
 }
+const mushrooms: Trouble[] = [];
 
+class Trouble {
+  position: Position;
+  imageUrl: string;
+  id: string;
+  mushroom: HTMLDivElement;
+  constructor(imageUrl: string) {
+    this.imageUrl = imageUrl;
+    this.position = this.randomPosition();
+    this.mushroom = document.createElement('div');
+    this.id = crypto.randomUUID();
+  }
+  renderTrouble(troubleElement: HTMLDivElement) {
+    try {
+      if (!troubleElement) throw new Error("cannot find troubleElement");
+      this.mushroom.classList.add("trouble");
+      this.mushroom.style.position = "absolute";
+      this.mushroom.style.top = `${this.position}px`;
+      this.mushroom.style.left = `${this.position}px`;
+      this.mushroom.style.backgroundSize="contain";
+      this.mushroom.style.backgroundRepeat = "no-repeat";
+      this.mushroom.style.backgroundImage = "url(./images/trouble.png)";
+      this.mushroom.style.width = "15px";
+      this.mushroom.style.height = "15px";
+     
+    } catch (error) {
+      console.error("cannot render mushrooms");
+    }
+  }
+  moveMushroom(){
+    this.mushroom.style.left='15px';
+  }
+  randomPosition() {
+    return {
+      x: 100,
+      y: Math.random() * 500,
+    };
+  }
+}
+setInterval(() => {
+    const troubleElement = document.querySelector("#trouble") as HTMLDivElement;
+    if (troubleElement) {
+      const mushroom = new Trouble('./images/trouble.png');
+      mushrooms.push(mushroom);
+      document.body.appendChild(this.mushroom);
+
+      setInterval(()=>{
+          mushroom.moveMushroom();
+      },3000);
+      mushroom.renderTrouble(document.querySelector("#trouble") as HTMLDivElement);
+    }
+  }, 500);
