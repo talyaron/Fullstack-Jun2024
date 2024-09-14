@@ -35,9 +35,9 @@ class Player {
     this.playerElement.style.backgroundSize = "contain";
     this.playerElement.style.backgroundRepeat = "no-repeat";
     this.playerElement.style.backgroundImage = `url(${this.imageUrlRight})`;
-    this.playerElement.addEventListener("click", () => {
-      this.explode();
-    });
+    // this.playerElement.addEventListener("click", () => {
+    //   this.explode();
+    // });
     this.playerElement.addEventListener("keydown", () => {
       this.setupControls();
     });
@@ -180,7 +180,7 @@ setInterval(() => {
   mushrooms.push(mushroom);
 
   console.error("Trouble container element not found");
-}, 3000);
+}, 1000);
 
 setInterval(() => {
   mushrooms.forEach((mushroom) => mushroom.moveMushroom());
@@ -197,7 +197,6 @@ function gameOver(player: Player, troubleElement: Trouble[]) {
       mushroomRect.right > playerRect.left
     ) {
       player.explode();
-      alert("Game Over!");
       mushrooms.forEach((mushroom)=>mushroom.mushroom.remove());
       mushrooms.length=0;
     }
@@ -205,5 +204,5 @@ function gameOver(player: Player, troubleElement: Trouble[]) {
 }
 
 setInterval(()=>
-gameOver(player,mushrooms),100);
+gameOver(player,mushrooms),10);
 

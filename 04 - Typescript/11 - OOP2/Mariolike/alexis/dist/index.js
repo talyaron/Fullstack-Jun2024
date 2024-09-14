@@ -22,9 +22,9 @@ var Player = /** @class */ (function () {
         this.playerElement.style.backgroundSize = "contain";
         this.playerElement.style.backgroundRepeat = "no-repeat";
         this.playerElement.style.backgroundImage = "url(" + this.imageUrlRight + ")";
-        this.playerElement.addEventListener("click", function () {
-            _this.explode();
-        });
+        // this.playerElement.addEventListener("click", () => {
+        //   this.explode();
+        // });
         this.playerElement.addEventListener("keydown", function () {
             _this.setupControls();
         });
@@ -157,7 +157,7 @@ setInterval(function () {
     var mushroom = new Trouble("https://mario.wiki.gallery/images/8/8b/SuperMushroom_-_2D_art.svg");
     mushrooms.push(mushroom);
     console.error("Trouble container element not found");
-}, 3000);
+}, 1000);
 setInterval(function () {
     mushrooms.forEach(function (mushroom) { return mushroom.moveMushroom(); });
 }, 100);
@@ -170,7 +170,6 @@ function gameOver(player, troubleElement) {
             mushroomRect.top < playerRect.bottom &&
             mushroomRect.right > playerRect.left) {
             player.explode();
-            alert("Game Over!");
             mushrooms.forEach(function (mushroom) { return mushroom.mushroom.remove(); });
             mushrooms.length = 0;
         }
@@ -178,4 +177,4 @@ function gameOver(player, troubleElement) {
 }
 setInterval(function () {
     return gameOver(player, mushrooms);
-}, 100);
+}, 10);
