@@ -1,0 +1,34 @@
+
+
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-y: hidden; 
+  overflow-x: hidden; 
+}
+
+@mixin jump-animation {
+  animation: jump 0.5s ease-in-out;
+}
+
+@keyframes jump {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-120px); 
+  }
+  100% {
+    transform: translateY(0); 
+  }
+}
+
+.jump-animation {
+  @include jump-animation;
+}
+
+.background{
+  width: 100%;
+  height: 100%;
+} 
