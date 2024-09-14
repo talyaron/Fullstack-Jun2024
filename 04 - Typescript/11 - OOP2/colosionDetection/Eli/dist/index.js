@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var box = /** @class */ (function () {
     function box(spawnPos, width, height) {
+        // only "spawn position" needs to be set the other point is calculated
         this.height = height;
         this.width = width;
         this.id = "id:-" + crypto.randomUUID;
@@ -32,6 +33,7 @@ var box = /** @class */ (function () {
         configurable: true
     });
     box.prototype.spawn = function (box) {
+        //setting the box element in the html page
         this.domElement = document.createElement("div");
         this.domElement.style.width = box.width + "px";
         this.domElement.style.height = box.height + "px";
@@ -52,7 +54,8 @@ var playCube = /** @class */ (function (_super) {
     playCube.prototype.moveUP = function () {
         this.pos.spawnPos.y -= 10;
         this.pos.edgePos.y -= 10;
-        if (physics(this)) { //checks the if there is going to be a collision if yes it reverts the movement
+        if (physics(this)) {
+            //checks the if there is going to be a collision if yes it reverts the movement
             this.updateTransform();
         }
         else {
@@ -118,7 +121,7 @@ document.addEventListener("keydown", function (event) {
 var boxes = [];
 function newBox() {
     var newBox = new box({ x: 44, y: 22 }, 150, 200);
-    var newBox2 = new box({ x: 204, y: 302 }, 150, 200);
+    var newBox2 = new box({ x: 204, y: 302 }, 150, 300);
     boxes.push(newBox, newBox2);
     renderplayer(player);
     renderBoxes(boxes);
@@ -136,9 +139,11 @@ function main() {
     physics(player);
 }
 function physics(player) {
+    //for collision check
     player.colliding = false;
     try {
         boxes.forEach(function (box) {
+            //check each boxes if it is being colided with the player
             if (!box.pos.edgePos || !player.pos.edgePos)
                 throw new Error("no Position!");
             // console.log("player ",player.pos.spawnPos,player.pos.edgePos)

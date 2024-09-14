@@ -3,8 +3,9 @@ interface vertex {
   x: number;
   y: number;
 }
-interface position {//holds twp points and each point has a X and Y 
-  spawnPos: vertex;//for the left top position of the rectangle 
+interface position {
+  //holds twp points and each point has a X and Y
+  spawnPos: vertex; //for the left top position of the rectangle
   edgePos: vertex; //for the bottom right position of the rectangle
 }
 
@@ -14,14 +15,15 @@ class box {
   private position: position;
   width: number;
   height: number;
-  constructor(spawnPos: vertex, width: number, height: number) { // only "spawn position" needs to be set the other point is calculated
+  constructor(spawnPos: vertex, width: number, height: number) {
+    // only "spawn position" needs to be set the other point is calculated
     this.height = height;
     this.width = width;
 
     this.id = `id:-${crypto.randomUUID}`;
     this.position = {
       spawnPos: spawnPos,
-      edgePos: { x: spawnPos.x + width, y: spawnPos.y + height },//setting the position of the right bottom corner
+      edgePos: { x: spawnPos.x + width, y: spawnPos.y + height }, //setting the position of the right bottom corner
     };
   }
 
@@ -31,7 +33,8 @@ class box {
   set pos(position: position) {
     this.position = position;
   }
-  spawn(box: box) {//setting the box element in the html page
+  spawn(box: box) {
+    //setting the box element in the html page
     this.domElement = document.createElement("div");
     this.domElement.style.width = `${box.width}px`;
     this.domElement.style.height = `${box.height}px`;
@@ -43,18 +46,20 @@ class box {
     containerElement.appendChild(this.domElement);
   }
 }
-class playCube extends box {//the player box with additional functions for movement;
+class playCube extends box {
+  //the player box with additional functions for movement;
 
-    colliding:boolean; //to change based if its colliding or not
+  colliding: boolean; //to change based if its colliding or not
 
   moveUP() {
     this.pos.spawnPos.y -= 10;
     this.pos.edgePos.y -= 10;
 
-    if (physics(this)) {//checks the if there is going to be a collision if yes it reverts the movement
+    if (physics(this)) {
+      //checks the if there is going to be a collision if yes it reverts the movement
       this.updateTransform();
     } else {
-        //reverts the movement if there is going to be a collision;
+      //reverts the movement if there is going to be a collision;
       this.pos.spawnPos.y += 10;
       this.pos.edgePos.y += 10;
     }
@@ -64,7 +69,7 @@ class playCube extends box {//the player box with additional functions for movem
     this.pos.spawnPos.y += 10;
     this.pos.edgePos.y += 10;
     if (physics(this)) {
-      this.updateTransform();// this is called to update the position of the elegant in the html
+      this.updateTransform(); // this is called to update the position of the elegant in the html
     } else {
       this.pos.spawnPos.y -= 10;
       this.pos.edgePos.y -= 10;
@@ -98,13 +103,13 @@ class playCube extends box {//the player box with additional functions for movem
   }
 }
 
-const player = new playCube({ x: 284, y: 22 }, 150, 200);//adds the player and its position X and Y are position the rest is width and height
+const player = new playCube({ x: 284, y: 22 }, 150, 200); //adds the player and its position X and Y are position the rest is width and height
 
 const containerElement = document.getElementById("boxContainer") as HTMLElement;
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "ArrowLeft") {
-    player.moveLeft();//calls the move left function inside the player class...
+    player.moveLeft(); //calls the move left function inside the player class...
   }
 
   if (event.key === "ArrowRight") {
@@ -122,7 +127,7 @@ const boxes: box[] = [];
 
 function newBox() {
   const newBox = new box({ x: 44, y: 22 }, 150, 200);
-  const newBox2 = new box({ x: 204, y: 302 }, 150, 200);
+  const newBox2 = new box({ x: 204, y: 302 }, 150, 300);
 
   boxes.push(newBox, newBox2);
 
@@ -146,10 +151,12 @@ function main() {
   physics(player);
 }
 
-function physics(player: playCube): boolean {//for collision check 
-  player.colliding=false;
+function physics(player: playCube): boolean {
+  //for collision check
+  player.colliding = false;
   try {
-    boxes.forEach((box) => {//check each boxes if it is being colided with the player
+    boxes.forEach((box) => {
+      //check each boxes if it is being colided with the player
       if (!box.pos.edgePos || !player.pos.edgePos)
         throw new Error("no Position!");
 
@@ -166,7 +173,8 @@ function physics(player: playCube): boolean {//for collision check
 
       if (overlapX && overlapY) {
         console.log("Collision detected!");
-        player.colliding=  true;//:O
+
+        player.colliding = true; //:O
       }
     });
   } catch (error) {
