@@ -6,9 +6,9 @@ interface Position {
 class Player {
   private id: string;
   playerElement: HTMLDivElement;
-  private position: Position;
-  private imageUrlRight: string;
-  private imageUrlLeft: string;
+  position: Position;
+  imageUrlRight: string;
+  imageUrlLeft: string;
 
   constructor(imageUrlRight: string, imageUrlLeft: string) {
     this.id = crypto.randomUUID();
@@ -41,6 +41,7 @@ class Player {
     this.playerElement.addEventListener("keydown", () => {
       this.setupControls();
     });
+
     mainElement.appendChild(this.playerElement);
     document.body.style.backgroundImage = "url(./images/back.png)";
     document.body.style.width = "100%";
@@ -50,7 +51,7 @@ class Player {
     });
   }
 
-  private setupControls() {
+  setupControls() {
     document.addEventListener("keydown", (event: KeyboardEvent) => {
       if (event.key === "ArrowRight") {
         this.moveRight();
@@ -98,19 +99,18 @@ class Player {
       this.playerElement.remove();
     }, 100);
     alert("Game over!");
-    alert('Click anywhere to restart!');
+    alert("Click anywhere to restart!");
   }
 
-  private updatePlayerImage() {
+  updatePlayerImage() {
     this.playerElement.style.backgroundImage = `${this.imageUrlRight}`;
   }
 
-  private updatePlayerPosition() {
+  updatePlayerPosition() {
     this.playerElement.style.left = `${this.position.x}px`;
     this.playerElement.style.top = `${this.position.y}px`;
   }
 }
-
 const mainElement = document.querySelector("#main") as HTMLDivElement;
 if (mainElement) {
   const player = new Player("./images/right.png", "./images/left.png");
@@ -119,55 +119,91 @@ if (mainElement) {
   console.error("Main element not found");
 }
 const mushrooms: Trouble[] = [];
-
 class Trouble {
   position: Position;
   imageUrl: string;
   id: string;
   mushroom: HTMLDivElement;
+
   constructor(imageUrl: string) {
     this.imageUrl = imageUrl;
     this.position = this.randomPosition();
-    this.mushroom = document.createElement('div');
+    this.mushroom = document.createElement("div");
     this.id = crypto.randomUUID();
+    this.renderTrouble(); // Render immediately
   }
-  renderTrouble(troubleElement: HTMLDivElement) {
+
+  renderTrouble() {
     try {
-      if (!troubleElement) throw new Error("cannot find troubleElement");
       this.mushroom.classList.add("trouble");
       this.mushroom.style.position = "absolute";
-      this.mushroom.style.top = `${this.position}px`;
-      this.mushroom.style.left = `${this.position}px`;
-      this.mushroom.style.backgroundSize="contain";
+      this.mushroom.style.left = `${this.position.x}px`;
+      this.mushroom.style.top = `${this.position.y}px`;
+      this.mushroom.style.backgroundSize = "contain";
       this.mushroom.style.backgroundRepeat = "no-repeat";
-      this.mushroom.style.backgroundImage = "url(./images/trouble.png)";
-      this.mushroom.style.width = "15px";
-      this.mushroom.style.height = "15px";
-     
+      this.mushroom.style.backgroundImage = `url(${this.imageUrl})`;
+      this.mushroom.style.width = "30px";
+      this.mushroom.style.height = "30px";
+
+      this.updatePosition();
+      const mushroom = document.querySelector("#trouble") as HTMLDivElement;
+      if (!mushroom) throw new Error("Cannot find troubleElement");
+      mushroom.appendChild(this.mushroom);
     } catch (error) {
-      console.error("cannot render mushrooms");
+      console.error("Cannot render mushroom:", error);
     }
   }
-  moveMushroom(){
-    this.mushroom.style.left='15px';
+  updatePosition() {
+    this.mushroom.style.left = `${this.position.x}px`;
+    this.mushroom.style.top = `${this.position.y}px`;
   }
-  randomPosition() {
+  moveMushroom() {
+    this.position.x += 15; 
+    this.updatePosition();
+    if (this.position.x > window.innerWidth) {
+      this.mushroom.remove();
+    }
+  }
+
+  randomPosition(): Position {
     return {
-      x: 100,
-      y: Math.random() * 500,
+      x: 10,
+      y: Math.random() * window.innerHeight,
     };
   }
 }
-setInterval(() => {
-    const troubleElement = document.querySelector("#trouble") as HTMLDivElement;
-    if (troubleElement) {
-      const mushroom = new Trouble('./images/trouble.png');
-      mushrooms.push(mushroom);
-      document.body.appendChild(this.mushroom);
 
-      setInterval(()=>{
-          mushroom.moveMushroom();
-      },3000);
-      mushroom.renderTrouble(document.querySelector("#trouble") as HTMLDivElement);
+setInterval(() => {
+  const mushroom = new Trouble(
+    "https://mario.wiki.gallery/images/8/8b/SuperMushroom_-_2D_art.svg"
+  );
+  mushrooms.push(mushroom);
+
+  console.error("Trouble container element not found");
+}, 3000);
+
+setInterval(() => {
+  mushrooms.forEach((mushroom) => mushroom.moveMushroom());
+}, 100);
+
+function gameOver(player: Player, troubleElement: Trouble[]) {
+  mushrooms.forEach((mushroom) => {
+    const mushroomRect = mushroom.mushroom.getBoundingClientRect();
+    const playerRect = player.playerElement.getBoundingClientRect();
+    if (
+      mushroomRect.left < playerRect.right &&
+      mushroomRect.bottom > playerRect.top &&
+      mushroomRect.top < playerRect.bottom &&
+      mushroomRect.right > playerRect.left
+    ) {
+      player.explode();
+      alert("Game Over!");
+      mushrooms.forEach((mushroom)=>mushroom.mushroom.remove());
+      mushrooms.length=0;
     }
-  }, 500);
+  });
+}
+
+setInterval(()=>
+gameOver(player,mushrooms),100);
+

@@ -1,4 +1,3 @@
-var _this = this;
 var Player = /** @class */ (function () {
     function Player(imageUrlRight, imageUrlLeft) {
         this.id = crypto.randomUUID();
@@ -86,7 +85,7 @@ var Player = /** @class */ (function () {
             _this.playerElement.remove();
         }, 100);
         alert("Game over!");
-        alert('Click anywhere to restart!');
+        alert("Click anywhere to restart!");
     };
     Player.prototype.updatePlayerImage = function () {
         this.playerElement.style.backgroundImage = "" + this.imageUrlRight;
@@ -110,47 +109,73 @@ var Trouble = /** @class */ (function () {
     function Trouble(imageUrl) {
         this.imageUrl = imageUrl;
         this.position = this.randomPosition();
-        this.mushroom = document.createElement('div');
+        this.mushroom = document.createElement("div");
         this.id = crypto.randomUUID();
+        this.renderTrouble(); // Render immediately
     }
-    Trouble.prototype.renderTrouble = function (troubleElement) {
+    Trouble.prototype.renderTrouble = function () {
         try {
-            if (!troubleElement)
-                throw new Error("cannot find troubleElement");
             this.mushroom.classList.add("trouble");
             this.mushroom.style.position = "absolute";
-            this.mushroom.style.top = this.position + "px";
-            this.mushroom.style.left = this.position + "px";
+            this.mushroom.style.left = this.position.x + "px";
+            this.mushroom.style.top = this.position.y + "px";
             this.mushroom.style.backgroundSize = "contain";
             this.mushroom.style.backgroundRepeat = "no-repeat";
-            this.mushroom.style.backgroundImage = "url(./images/trouble.png)";
-            this.mushroom.style.width = "15px";
-            this.mushroom.style.height = "15px";
+            this.mushroom.style.backgroundImage = "url(" + this.imageUrl + ")";
+            this.mushroom.style.width = "30px";
+            this.mushroom.style.height = "30px";
+            this.updatePosition();
+            var mushroom = document.querySelector("#trouble");
+            if (!mushroom)
+                throw new Error("Cannot find troubleElement");
+            mushroom.appendChild(this.mushroom);
         }
         catch (error) {
-            console.error("cannot render mushrooms");
+            console.error("Cannot render mushroom:", error);
         }
     };
+    Trouble.prototype.updatePosition = function () {
+        this.mushroom.style.left = this.position.x + "px";
+        this.mushroom.style.top = this.position.y + "px";
+    };
     Trouble.prototype.moveMushroom = function () {
-        this.mushroom.style.left = '15px';
+        this.position.x += 15;
+        this.updatePosition();
+        if (this.position.x > window.innerWidth) {
+            this.mushroom.remove();
+        }
     };
     Trouble.prototype.randomPosition = function () {
         return {
-            x: 100,
-            y: Math.random() * 500
+            x: 10,
+            y: Math.random() * window.innerHeight
         };
     };
     return Trouble;
 }());
 setInterval(function () {
-    var troubleElement = document.querySelector("#trouble");
-    if (troubleElement) {
-        var mushroom_1 = new Trouble('./images/trouble.png');
-        mushrooms.push(mushroom_1);
-        document.body.appendChild(_this.mushroom);
-        setInterval(function () {
-            mushroom_1.moveMushroom();
-        }, 3000);
-        mushroom_1.renderTrouble(document.querySelector("#trouble"));
-    }
-}, 500);
+    var mushroom = new Trouble("https://mario.wiki.gallery/images/8/8b/SuperMushroom_-_2D_art.svg");
+    mushrooms.push(mushroom);
+    console.error("Trouble container element not found");
+}, 3000);
+setInterval(function () {
+    mushrooms.forEach(function (mushroom) { return mushroom.moveMushroom(); });
+}, 100);
+function gameOver(player, troubleElement) {
+    mushrooms.forEach(function (mushroom) {
+        var mushroomRect = mushroom.mushroom.getBoundingClientRect();
+        var playerRect = player.playerElement.getBoundingClientRect();
+        if (mushroomRect.left < playerRect.right &&
+            mushroomRect.bottom > playerRect.top &&
+            mushroomRect.top < playerRect.bottom &&
+            mushroomRect.right > playerRect.left) {
+            player.explode();
+            alert("Game Over!");
+            mushrooms.forEach(function (mushroom) { return mushroom.mushroom.remove(); });
+            mushrooms.length = 0;
+        }
+    });
+}
+setInterval(function () {
+    return gameOver(player, mushrooms);
+}, 100);
