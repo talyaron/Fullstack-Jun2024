@@ -51,53 +51,57 @@ var playCube = /** @class */ (function (_super) {
     function playCube() {
         //the player box with additional functions for movement;
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.radius = 2 * (_this.height * 0.5) * Math.PI;
+        _this.radius = _this.width / 2;
         return _this;
     }
     playCube.prototype.moveUP = function () {
-        this.pos.spawnPos.y -= 10;
-        this.pos.edgePos.y -= 10;
+        this.pos.spawnPos.y -= 2;
+        this.pos.edgePos.y -= 2;
         if (physics(this)) {
             //checks the if there is going to be a collision if yes it reverts the movement
             this.updateTransform();
+            this.pos.edgePos = { x: this.pos.spawnPos.x + this.width, y: this.pos.spawnPos.y + this.height };
         }
         else {
             //reverts the movement if there is going to be a collision;
-            this.pos.spawnPos.y += 10;
-            this.pos.edgePos.y += 10;
+            this.pos.spawnPos.y += 2;
+            this.pos.edgePos.y += 2;
         }
     };
     playCube.prototype.moveDown = function () {
-        this.pos.spawnPos.y += 10;
-        this.pos.edgePos.y += 10;
+        this.pos.spawnPos.y += 2;
+        this.pos.edgePos.y += 2;
         if (physics(this)) {
             this.updateTransform(); // this is called to update the position of the elegant in the html
+            this.pos.edgePos = { x: this.pos.spawnPos.x + this.width, y: this.pos.spawnPos.y + this.height };
         }
         else {
-            this.pos.spawnPos.y -= 10;
-            this.pos.edgePos.y -= 10;
+            this.pos.spawnPos.y -= 2;
+            this.pos.edgePos.y -= 2;
         }
     };
     playCube.prototype.moveLeft = function () {
-        this.pos.spawnPos.x -= 10;
-        this.pos.edgePos.x -= 10;
+        this.pos.spawnPos.x -= 2;
+        this.pos.edgePos.x -= 2;
         if (physics(this)) {
             this.updateTransform();
+            this.pos.edgePos = { x: this.pos.spawnPos.x + this.width, y: this.pos.spawnPos.y + this.height };
         }
         else {
-            this.pos.spawnPos.x += 10;
-            this.pos.edgePos.x += 10;
+            this.pos.spawnPos.x += 2;
+            this.pos.edgePos.x += 2;
         }
     };
     playCube.prototype.moveRight = function () {
-        this.pos.spawnPos.x += 10;
-        this.pos.edgePos.x += 10;
+        this.pos.spawnPos.x += 2;
+        this.pos.edgePos.x += 2;
         if (physics(this)) {
             this.updateTransform();
+            this.pos.edgePos = { x: this.pos.spawnPos.x + this.width, y: this.pos.spawnPos.y + this.height };
         }
         else {
-            this.pos.spawnPos.x -= 10;
-            this.pos.edgePos.x -= 10;
+            this.pos.spawnPos.x -= 2;
+            this.pos.edgePos.x -= 2;
         }
     };
     playCube.prototype.updateTransform = function () {
@@ -150,16 +154,15 @@ function physics(player) {
         // Check each box if it is being collided with the player
         if (!box.pos.edgePos || !player.pos.edgePos)
             throw new Error("no Position!");
-        // Step 1: Find the closest point on the rectangle to the circle's center
+        // find the closest point on the rectangle to the circle's center
         var closestX = Math.max(box.pos.spawnPos.x, Math.min(player.pos.edgePos.x - (player.width * 0.5), box.pos.spawnPos.x + box.width));
         var closestY = Math.max(box.pos.spawnPos.y, Math.min(player.pos.edgePos.y - (player.height * 0.5), box.pos.spawnPos.y + box.height));
         // Step 2: Calculate the distance from the circle's center to this closest point
         var distanceX = player.pos.edgePos.x - (player.width * 0.5) - closestX;
         var distanceY = player.pos.edgePos.y - (player.height * 0.5) - closestY;
-        // Step 3: Check if the distance is less than the circle's radius
+        // check if the distance is less than the circle's radius
         var distanceSquared = (distanceX * distanceX) + (distanceY * distanceY);
-        // Remove the extra factor of 2 in the comparison
-        if (distanceSquared <= (player.radius * player.radius)) {
+        if (distanceSquared <= player.radius * player.radius) {
             player.colliding = true;
             console.log("collide");
         }

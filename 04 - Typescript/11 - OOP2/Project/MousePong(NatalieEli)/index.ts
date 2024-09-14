@@ -50,51 +50,55 @@ class playCube extends box {
   //the player box with additional functions for movement;
 
   colliding: boolean; //to change based if its colliding or not
-  radius:number= 2*(this.height*0.5) *Math.PI ; 
+  radius:number= this.width / 2;
   moveUP() {
-    this.pos.spawnPos.y -= 10;
-    this.pos.edgePos.y -= 10;
+    this.pos.spawnPos.y -= 2;
+    this.pos.edgePos.y -= 2;
 
     if (physics(this)) {
       //checks the if there is going to be a collision if yes it reverts the movement
       this.updateTransform();
+      this.pos.edgePos = { x: this.pos.spawnPos.x + this.width, y: this.pos.spawnPos.y + this.height };
     } else {
       //reverts the movement if there is going to be a collision;
-      this.pos.spawnPos.y += 10;
-      this.pos.edgePos.y += 10;
+      this.pos.spawnPos.y += 2;
+      this.pos.edgePos.y += 2;
     }
   }
 
   moveDown() {
-    this.pos.spawnPos.y += 10;
-    this.pos.edgePos.y += 10;
+    this.pos.spawnPos.y += 2;
+    this.pos.edgePos.y += 2;
     if (physics(this)) {
       this.updateTransform(); // this is called to update the position of the elegant in the html
+      this.pos.edgePos = { x: this.pos.spawnPos.x + this.width, y: this.pos.spawnPos.y + this.height };
     } else {
-      this.pos.spawnPos.y -= 10;
-      this.pos.edgePos.y -= 10;
+      this.pos.spawnPos.y -= 2;
+      this.pos.edgePos.y -= 2;
     }
   }
 
   moveLeft() {
-    this.pos.spawnPos.x -= 10;
-    this.pos.edgePos.x -= 10;
+    this.pos.spawnPos.x -= 2;
+    this.pos.edgePos.x -= 2;
     if (physics(this)) {
       this.updateTransform();
+      this.pos.edgePos = { x: this.pos.spawnPos.x + this.width, y: this.pos.spawnPos.y + this.height };
     } else {
-      this.pos.spawnPos.x += 10;
-      this.pos.edgePos.x += 10;
+      this.pos.spawnPos.x += 2;
+      this.pos.edgePos.x += 2;
     }
   }
 
   moveRight() {
-    this.pos.spawnPos.x += 10;
-    this.pos.edgePos.x += 10;
+    this.pos.spawnPos.x += 2;
+    this.pos.edgePos.x += 2;
     if (physics(this)) {
       this.updateTransform();
+      this.pos.edgePos = { x: this.pos.spawnPos.x + this.width, y: this.pos.spawnPos.y + this.height };
     } else {
-      this.pos.spawnPos.x -= 10;
-      this.pos.edgePos.x -= 10;
+      this.pos.spawnPos.x -= 2;
+      this.pos.edgePos.x -= 2;
     }
   }
 
@@ -165,19 +169,18 @@ function physics(player: playCube): boolean {
     if (!box.pos.edgePos || !player.pos.edgePos)
       throw new Error("no Position!");
 
-    // Step 1: Find the closest point on the rectangle to the circle's center
-    let closestX = Math.max(box.pos.spawnPos.x, Math.min(player.pos.edgePos.x - (player.width * 0.5), box.pos.spawnPos.x + box.width));
-    let closestY = Math.max(box.pos.spawnPos.y, Math.min(player.pos.edgePos.y - (player.height * 0.5), box.pos.spawnPos.y + box.height));
+    // find the closest point on the rectangle to the circle's center
+    const closestX = Math.max(box.pos.spawnPos.x, Math.min(player.pos.edgePos.x - (player.width * 0.5), box.pos.spawnPos.x + box.width));
+    const closestY = Math.max(box.pos.spawnPos.y, Math.min(player.pos.edgePos.y - (player.height * 0.5), box.pos.spawnPos.y + box.height));
 
     // Step 2: Calculate the distance from the circle's center to this closest point
-    let distanceX = player.pos.edgePos.x - (player.width * 0.5) - closestX;
-    let distanceY = player.pos.edgePos.y - (player.height * 0.5) - closestY;
+    const distanceX = player.pos.edgePos.x - (player.width * 0.5) - closestX;
+    const distanceY = player.pos.edgePos.y - (player.height * 0.5) - closestY;
 
-    // Step 3: Check if the distance is less than the circle's radius
-    let distanceSquared = (distanceX * distanceX) + (distanceY * distanceY);
+    // check if the distance is less than the circle's radius
+    const distanceSquared = (distanceX * distanceX) + (distanceY * distanceY);
 
-    // Remove the extra factor of 2 in the comparison
-    if (distanceSquared <= (player.radius * player.radius)) {
+    if (distanceSquared <= player.radius * player.radius) {
       player.colliding = true;
       console.log("collide");
     }
