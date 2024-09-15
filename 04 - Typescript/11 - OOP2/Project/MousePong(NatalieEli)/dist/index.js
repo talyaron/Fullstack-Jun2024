@@ -316,13 +316,13 @@ function physics(player) {
         console.log(player.ballDirectionY, player.ballDirectionX, player.ballVelocityX, player.ballVelocityY);
     }
     // Handle collision (reverse direction when a collision happens)
-    if (isColliding(player)) {
+    if (!isColliding(player)) {
+        // Reverse the ball's direction on collision
         player.ballDirectionX *= -1;
-        player.ballDirectionY *= +1;
-    }
-    while (isColliding(player)) {
-        player.pos.spawnPos.x += player.ballDirectionX * 0.1;
-        player.pos.spawnPos.y += player.ballDirectionY * 0.1;
+        player.ballDirectionY *= -1;
+        // Adjust position slightly to prevent getting stuck inside the wall
+        player.pos.spawnPos.x += player.ballDirectionX * 1; // Small step back
+        player.pos.spawnPos.y += player.ballDirectionY * 1; // Small step back
     }
     // Apply gravity if enabled
     if (player.gravity) {
