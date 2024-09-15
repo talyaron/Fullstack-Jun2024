@@ -41,8 +41,6 @@ var box = /** @class */ (function () {
         this.domElement.style.backgroundColor = "blue";
         this.domElement.style.position = "absolute";
         this.domElement.style.transform = "translate(" + box.pos.spawnPos.x + "px, " + box.pos.spawnPos.y + "px)";
-        // this.domElement.style.transition = "transform 1s ease";
-        //console.log(box.pos);
         containerElement.appendChild(this.domElement);
     };
     return box;
@@ -50,7 +48,7 @@ var box = /** @class */ (function () {
 var playCube = /** @class */ (function (_super) {
     __extends(playCube, _super);
     function playCube() {
-        //the player box with additional functions for movement;
+        //the pinBall box with additional functions for movement;
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.radius = _this.width / 2;
         _this.gravity = true;
@@ -74,82 +72,7 @@ var playCube = /** @class */ (function (_super) {
             var distanceFromCenter = event.x - centerX;
             _this.yaw = Math.max(-1, Math.min(1, distanceFromCenter / (_this.width / 2)));
             console.log("mouse", _this.mouseCollidesWithBall);
-            if (_this.yaw > 0) {
-                //    console.log("from the right");
-            }
-            else {
-                //     console.log("from the left");
-            }
         });
-    };
-    // moveUP() {
-    //   if (isColliding(this)) {
-    //     if (this.speed / Math.abs(this.yaw) > this.acceleration) {
-    //       this.acceleration = this.acceleration - 0.1;
-    //     }
-    //     this.pos.spawnPos.y +=
-    //       (this.speed / Math.abs(this.yaw)) * this.acceleration;
-    //     this.pos.edgePos.y +=
-    //       (this.speed / Math.abs(this.yaw)) * this.acceleration;
-    //     //console.log(this.acceleration);
-    //     this.updateTransform();
-    //     this.pos.edgePos = {
-    //       x: this.pos.spawnPos.x + this.width,
-    //       y: this.pos.spawnPos.y + this.height,
-    //     };
-    //   } else if (this.decelerate > 0.1) {
-    //     this.pos.spawnPos.y -= this.acceleration;
-    //     this.pos.edgePos.y -= this.acceleration;
-    //     this.decelerate = this.acceleration / 0.5;
-    //     this.acceleration = -this.decelerate ;
-    //     this.acceleration = this.acceleration * 0.5;
-    //     console.log(this.acceleration, this.decelerate)
-    //   }
-    // }
-    playCube.prototype.moveDown = function () {
-        this.pos.spawnPos.y += 2;
-        this.pos.edgePos.y += 2;
-        if (isColliding(this)) {
-            this.updateTransform(); // this is called to update the position of the elegant in the html
-            this.pos.edgePos = {
-                x: this.pos.spawnPos.x + this.width,
-                y: this.pos.spawnPos.y + this.height
-            };
-        }
-        else {
-            this.pos.spawnPos.y -= 2;
-            this.pos.edgePos.y -= 2;
-        }
-    };
-    playCube.prototype.moveLeft = function () {
-        this.pos.spawnPos.x -= 2;
-        this.pos.edgePos.x -= 2;
-        if (isColliding(this)) {
-            this.updateTransform();
-            this.pos.edgePos = {
-                x: this.pos.spawnPos.x + this.width,
-                y: this.pos.spawnPos.y + this.height
-            };
-        }
-        else {
-            this.pos.spawnPos.x += 2;
-            this.pos.edgePos.x += 2;
-        }
-    };
-    playCube.prototype.moveRight = function () {
-        this.pos.spawnPos.x += 2;
-        this.pos.edgePos.x += 2;
-        if (isColliding(this)) {
-            this.updateTransform();
-            this.pos.edgePos = {
-                x: this.pos.spawnPos.x + this.width,
-                y: this.pos.spawnPos.y + this.height
-            };
-        }
-        else {
-            this.pos.spawnPos.x -= 2;
-            this.pos.edgePos.x -= 2;
-        }
     };
     playCube.prototype.fall = function () {
         if (!isColliding(this)) {
@@ -168,7 +91,7 @@ var playCube = /** @class */ (function (_super) {
         else if (this.acceleration > 0.1) {
             this.pos.spawnPos.y -= 0.98 * this.acceleration;
             this.pos.edgePos.y -= 0.98 * this.acceleration;
-            this.decelerate = this.acceleration / .5;
+            this.decelerate = this.acceleration / 0.5;
             this.acceleration = this.acceleration - this.decelerate;
             this.acceleration = this.acceleration / 1 / 5;
             //this.acceleration = this.acceleration ;
@@ -180,22 +103,8 @@ var playCube = /** @class */ (function (_super) {
     };
     return playCube;
 }(box));
-var player = new playCube({ x: 184, y: 422 }, 50, 50); //adds the player and its position X and Y are position the rest is width and height
+var pinBall = new playCube({ x: 184, y: 422 }, 50, 50); //adds the pinBall and its position X and Y are position the rest is width and height
 var containerElement = document.getElementById("boxContainer");
-document.addEventListener("keydown", function (event) {
-    if (event.key === "ArrowLeft") {
-        player.moveLeft(); //calls the move left function inside the player class...
-    }
-    if (event.key === "ArrowRight") {
-        player.moveRight();
-    }
-    if (event.key === "ArrowUp") {
-        //   player.moveUP();
-    }
-    if (event.key === "ArrowDown") {
-        player.moveDown();
-    }
-});
 var boxes = [];
 function newBox() {
     var brick = new box({ x: 44, y: 50 }, 75, 25);
@@ -204,82 +113,54 @@ function newBox() {
     var wallRight = new box({ x: 1020, y: 2 }, 20, 650);
     var wallTop = new box({ x: 0, y: 2 }, 1020, 25);
     boxes.push(brick, newBox2, wallLeft, wallRight, wallTop);
-    renderplayer(player);
-    player.addListener();
+    renderPinBall(pinBall);
+    pinBall.addListener();
     renderBoxes(boxes);
 }
-function renderplayer(box) {
+function renderPinBall(box) {
     box.spawn(box);
 }
 function renderBoxes(boxes) {
     boxes.forEach(function (box) {
         box.spawn(box);
     });
-    this.player.domElement.id = "player";
+    this.pinBall.domElement.id = "pinBall";
 }
 function main() {
     newBox();
-    isColliding(player);
+    isColliding(pinBall);
 }
-function isColliding(player) {
+function isColliding(pinBall) {
     // For collision check
-    player.colliding = false;
+    pinBall.colliding = false;
     boxes.forEach(function (box) {
-        // Check each box if it is being collided with the player
-        if (!box.pos.edgePos || !player.pos.edgePos)
+        // Check each box if it is being collided with the pinBall
+        if (!box.pos.edgePos || !pinBall.pos.edgePos)
             throw new Error("no Position!");
         // find the closest point on the rectangle to the circle's center
-        var closestX = Math.max(box.pos.spawnPos.x, Math.min(player.pos.edgePos.x - player.width * 0.5, box.pos.spawnPos.x + box.width));
-        var closestY = Math.max(box.pos.spawnPos.y, Math.min(player.pos.edgePos.y - player.height * 0.5, box.pos.spawnPos.y + box.height));
+        var closestX = Math.max(box.pos.spawnPos.x, Math.min(pinBall.pos.edgePos.x - pinBall.width * 0.5, box.pos.spawnPos.x + box.width));
+        var closestY = Math.max(box.pos.spawnPos.y, Math.min(pinBall.pos.edgePos.y - pinBall.height * 0.5, box.pos.spawnPos.y + box.height));
         // Step 2: Calculate the distance from the circle's center to this closest point
-        var distanceX = player.pos.edgePos.x - player.width * 0.5 - closestX;
-        var distanceY = player.pos.edgePos.y - player.height * 0.5 - closestY;
+        var distanceX = pinBall.pos.edgePos.x - pinBall.width * 0.5 - closestX;
+        var distanceY = pinBall.pos.edgePos.y - pinBall.height * 0.5 - closestY;
         // check if the distance is less than the circle's radius
         var distanceSquared = distanceX * distanceX + distanceY * distanceY;
-        if (distanceSquared <= player.radius * player.radius) {
-            player.colliding = true;
+        if (distanceSquared <= pinBall.radius * pinBall.radius) {
+            pinBall.colliding = true;
             console.log("collide", distanceY, distanceX);
         }
     });
-    return player.colliding;
+    return pinBall.colliding;
 }
-/*
-  try {
-    boxes.forEach((box) => {
-      //check each boxes if it is being colided with the player
-      if (!box.pos.edgePos || !player.pos.edgePos)
-        throw new Error("no Position!");
-
-      // console.log("player ",player.pos.spawnPos,player.pos.edgePos)
-      //console.log("Enemy ",box.pos.spawnPos,box.pos.edgePos,)
-
-      const overlapX = //a check for overlap on X axis
-        player.pos.spawnPos.x < box.pos.edgePos.x &&
-        player.pos.edgePos.x > box.pos.spawnPos.x;
-
-      const overlapY = //a check for overlap on Y axis
-        player.pos.spawnPos.y < box.pos.edgePos.y &&
-        player.pos.edgePos.y > box.pos.spawnPos.y;
-
-      if (overlapX && overlapY) {
-        console.log("Collision detected!");
-
-        player.colliding = true; //:O
-      }
-    });
-  } catch (error) {
-    console.log(error);
-  }
-  return !player.colliding;*/
 document.addEventListener("mousemove", function (event) {
     mousePosition.oldX = mousePosition.x;
     mousePosition.oldY = mousePosition.y;
     mousePosition.x = event.clientX;
     mousePosition.y = event.clientY;
 });
-setInterval(function () { return physics(player); }, 8);
-player.gravity = false;
-function physics(player) {
+setInterval(function () { return physics(pinBall); }, 8);
+pinBall.gravity = false;
+function physics(pinBall) {
     var lastMouseX = mousePosition.oldX;
     var lastMouseY = mousePosition.oldY;
     var mouseCurrentX = mousePosition.x;
@@ -288,63 +169,63 @@ function physics(player) {
     var mouseDirY = mouseCurrentY - lastMouseY;
     var slowMan = 1;
     // If mouse moves upwards and collides with ball
-    if (player.mouseCollidesWithBall) {
+    if (pinBall.mouseCollidesWithBall) {
         // Calculate the magnitude of the direction vector
         var magnitude = Math.sqrt(mouseDirX * mouseDirX + mouseDirY * mouseDirY);
         var minMagnitude = 5;
         if (magnitude >= 0 && mouseCurrentY > 400) {
             // Normalize the direction
-            if (player.yaw > 0)
-                player.ballDirectionX = -mouseDirX / magnitude;
+            if (pinBall.yaw > 0)
+                pinBall.ballDirectionX = -mouseDirX / magnitude;
             else
-                player.ballDirectionX = mouseDirX / magnitude;
-            player.ballDirectionY = -mouseDirY / magnitude;
+                pinBall.ballDirectionX = mouseDirX / magnitude;
+            pinBall.ballDirectionY = -mouseDirY / magnitude;
             // Set ball velocity based on mouse movement direction and magnitude
-            player.ballVelocityX = mouseDirX * slowMan;
-            player.ballVelocityY = mouseDirY * slowMan;
+            pinBall.ballVelocityX = mouseDirX * slowMan;
+            pinBall.ballVelocityY = mouseDirY * slowMan;
         }
     }
     // Handle NaN directions (reset to 0 if needed)
-    if (isNaN(player.ballDirectionX)) {
-        player.ballDirectionX = 0;
+    if (isNaN(pinBall.ballDirectionX)) {
+        pinBall.ballDirectionX = 0;
     }
-    if (isNaN(player.ballDirectionY)) {
-        player.ballDirectionY = 0;
+    if (isNaN(pinBall.ballDirectionY)) {
+        pinBall.ballDirectionY = 0;
     }
     var posChange = false;
-    var xPos = player.pos.spawnPos.x;
-    var yPos = player.pos.spawnPos.y;
+    var xPos = pinBall.pos.spawnPos.x;
+    var yPos = pinBall.pos.spawnPos.y;
     // Move the ball if there's a direction and velocity
-    if (player.ballVelocityX || player.ballVelocityY) {
-        player.pos.spawnPos.x += player.ballDirectionX * player.ballVelocityX;
-        player.pos.spawnPos.y += player.ballDirectionY * player.ballVelocityY;
+    if (pinBall.ballVelocityX || pinBall.ballVelocityY) {
+        pinBall.pos.spawnPos.x += pinBall.ballDirectionX * pinBall.ballVelocityX;
+        pinBall.pos.spawnPos.y += pinBall.ballDirectionY * pinBall.ballVelocityY;
         posChange = true;
         // Update edge positions based on new ball position
-        player.pos.edgePos.y = player.pos.spawnPos.y + player.height;
-        player.pos.edgePos.x = player.pos.spawnPos.x + player.width;
+        pinBall.pos.edgePos.y = pinBall.pos.spawnPos.y + pinBall.height;
+        pinBall.pos.edgePos.x = pinBall.pos.spawnPos.x + pinBall.width;
         // console.log(
-        //   player.ballDirectionY,
-        //   player.ballDirectionX,
-        //   player.ballVelocityX,
-        //   player.ballVelocityY
+        //   pinBall.ballDirectionY,
+        //   pinBall.ballDirectionX,
+        //   pinBall.ballVelocityX,
+        //   pinBall.ballVelocityY
         // );
     }
     // Handle collision (reverse direction when a collision happens)
-    if (isColliding(player)) {
+    if (isColliding(pinBall)) {
         // Reverse the ball's direction on collision
-        player.ballDirectionX *= -1;
-        player.ballDirectionY *= -1;
+        pinBall.ballDirectionX *= -1;
+        pinBall.ballDirectionY *= -1;
         posChange = false;
-        player.pos.spawnPos.x = xPos;
-        player.pos.spawnPos.y = yPos;
+        pinBall.pos.spawnPos.x = xPos;
+        pinBall.pos.spawnPos.y = yPos;
     }
     // Apply gravity if enabled
-    if (player.gravity) {
-        player.fall();
+    if (pinBall.gravity) {
+        pinBall.fall();
         posChange = true;
     }
     if (posChange) {
-        player.updateTransform();
+        pinBall.updateTransform();
     }
     // Update the old mouse position for the next frame
     mousePosition.oldX = mouseCurrentX;
