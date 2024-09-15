@@ -131,7 +131,7 @@ function renderAsusProfduct (arr : Computer []){
             if(computers.sale === true){
                 computer.innerHTML=` <img src = ${computers.imageUrl} /> <br>
             <p id='id'> ID: ${computers.id} </p> 
-            <p> Price: ${computers.price} </p><p id='Sale'> Sale!!! </p>`;
+            <p> Price: ${computers.price} </p><p id='Sale'> Sale: ${computers.sale} </p>`;
             }
             computer.classList.add('computerInfo');// add class name computerInfo to computer element
             productList.appendChild(computer);// insert computer elemnt into list element 
