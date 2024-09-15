@@ -46,32 +46,74 @@ class box {
     containerElement.appendChild(this.domElement);
   }
 }
+
 class playCube extends box {
   //the player box with additional functions for movement;
 
   colliding: boolean; //to change based if its colliding or not
-  radius:number= this.width / 2;
-  moveUP() {
-    this.pos.spawnPos.y -= 2;
-    this.pos.edgePos.y -= 2;
+  radius: number = this.width / 2;
+  gravity: boolean = true;
+  acceleration: number = 0;
+  decelerate: number;
+  yaw: number;
+  move: number = 0;
+  speed: number = .5;
 
-    if (physics(this)) {
-      //checks the if there is going to be a collision if yes it reverts the movement
+  addListener() {
+    this.domElement.addEventListener("mouseenter", (event) => {
+      const centerX = this.pos.spawnPos.x + this.width / 2;
+      this.yaw = centerX - event.x;
+
+      this.move = 50;
+
+      const distanceFromCenter = event.x - centerX;
+
+      this.yaw = Math.max(
+        -1,
+        Math.min(1, distanceFromCenter / (this.width / 2))
+      );
+      console.log("mouse", event.y, event.x, this.pos.edgePos, this.yaw);
+
+      if (this.yaw > 0) {
+        console.log("from the right");
+      } else {
+        console.log("from the left");
+      }
+    });
+  }
+
+  moveUP() {
+    if (isColliding(this)) {
+      if (this.speed/Math.abs(this.yaw) > this.acceleration) {
+        this.acceleration = this.acceleration - 0.1;
+      }
+      this.pos.spawnPos.y += this.speed/Math.abs(this.yaw)*this.acceleration;
+      this.pos.edgePos.y += this.speed/Math.abs(this.yaw)*this.acceleration;
+      //console.log(this.acceleration);
       this.updateTransform();
-      this.pos.edgePos = { x: this.pos.spawnPos.x + this.width, y: this.pos.spawnPos.y + this.height };
-    } else {
-      //reverts the movement if there is going to be a collision;
-      this.pos.spawnPos.y += 2;
-      this.pos.edgePos.y += 2;
+      this.pos.edgePos = {
+        x: this.pos.spawnPos.x + this.width,
+        y: this.pos.spawnPos.y + this.height,
+      };
+    } else if (this.acceleration > 0.1) {
+      this.pos.spawnPos.y -= this.acceleration;
+      this.pos.edgePos.y -= this.acceleration;
+      //  this.decelerate = -this.acceleration * 0.5;
+      //     this.acceleration = this.decelerate - this.acceleration * 0.5;
+      //   this.acceleration = this.acceleration * 0.5;
     }
+ 
   }
 
   moveDown() {
     this.pos.spawnPos.y += 2;
     this.pos.edgePos.y += 2;
-    if (physics(this)) {
+    if (isColliding(this)) {
       this.updateTransform(); // this is called to update the position of the elegant in the html
-      this.pos.edgePos = { x: this.pos.spawnPos.x + this.width, y: this.pos.spawnPos.y + this.height };
+      this.pos.edgePos = {
+        x: this.pos.spawnPos.x + this.width,
+        y: this.pos.spawnPos.y + this.height,
+      };
     } else {
       this.pos.spawnPos.y -= 2;
       this.pos.edgePos.y -= 2;
@@ -81,9 +123,12 @@ class playCube extends box {
   moveLeft() {
     this.pos.spawnPos.x -= 2;
     this.pos.edgePos.x -= 2;
-    if (physics(this)) {
+    if (isColliding(this)) {
       this.updateTransform();
-      this.pos.edgePos = { x: this.pos.spawnPos.x + this.width, y: this.pos.spawnPos.y + this.height };
+      this.pos.edgePos = {
+        x: this.pos.spawnPos.x + this.width,
+        y: this.pos.spawnPos.y + this.height,
+      };
     } else {
       this.pos.spawnPos.x += 2;
       this.pos.edgePos.x += 2;
@@ -93,18 +138,39 @@ class playCube extends box {
   moveRight() {
     this.pos.spawnPos.x += 2;
     this.pos.edgePos.x += 2;
-    if (physics(this)) {
+    if (isColliding(this)) {
       this.updateTransform();
-      this.pos.edgePos = { x: this.pos.spawnPos.x + this.width, y: this.pos.spawnPos.y + this.height };
+      this.pos.edgePos = {
+        x: this.pos.spawnPos.x + this.width,
+        y: this.pos.spawnPos.y + this.height,
+      };
     } else {
       this.pos.spawnPos.x -= 2;
       this.pos.edgePos.x -= 2;
     }
   }
 
+  fall() {
+    if (isColliding(this)) {
+      this.acceleration = this.acceleration + 0.1;
+      this.pos.spawnPos.y += 0.98 * this.acceleration;
+      this.pos.edgePos.y += 0.98 * this.acceleration;
+      //console.log(this.acceleration);
+      this.updateTransform();
+      this.pos.edgePos = {
+        x: this.pos.spawnPos.x + this.width,
+        y: this.pos.spawnPos.y + this.height,
+      };
+    } else if (this.acceleration > 0.1) {
+      this.pos.spawnPos.y -= 0.98 * this.acceleration;
+      this.pos.edgePos.y -= 0.98 * this.acceleration;
+      this.decelerate = -this.acceleration * 0.5;
+      this.acceleration = this.decelerate - this.acceleration * 0.5;
+      this.acceleration = this.acceleration * 0.5;
+    }
+  }
+
   private updateTransform() {
-    
-    console.log(player.pos.edgePos.x - (player.width*.5), player.pos.edgePos.y - (player.height*.5) ,player.radius)
     this.domElement.style.transform = `translate(${this.pos.spawnPos.x}px, ${this.pos.spawnPos.y}px ) `;
   }
 }
@@ -132,12 +198,14 @@ document.addEventListener("keydown", (event) => {
 const boxes: box[] = [];
 
 function newBox() {
-  const newBox = new box({ x: 44, y: 22 }, 150, 50);
-  const newBox2 = new box({ x: 204, y: 302 }, 150, 50);
-
-  boxes.push(newBox, newBox2);
+  const brick = new box({ x: 44, y: 22 }, 75, 25);
+  const newBox2 = new box({ x: 204, y: 602 }, 150, 50);
+  const wallLeft = new box({ x: 2, y: 2 }, 20, 650);
+  const wallRight = new box({ x: 420, y: 2 }, 20, 650);
+  boxes.push(brick, newBox2, wallLeft, wallRight);
 
   renderplayer(player);
+  player.addListener();
   renderBoxes(boxes);
 }
 
@@ -149,18 +217,16 @@ function renderBoxes(boxes: box[]) {
   boxes.forEach((box) => {
     box.spawn(box);
   });
-  this.player.domElement.id = ("player");
-
+  this.player.domElement.id = "player";
 }
 
 function main() {
   newBox();
 
-  physics(player);
- 
+  isColliding(player);
 }
 
-function physics(player: playCube): boolean {
+function isColliding(player: playCube): boolean {
   // For collision check
   player.colliding = false;
 
@@ -170,25 +236,37 @@ function physics(player: playCube): boolean {
       throw new Error("no Position!");
 
     // find the closest point on the rectangle to the circle's center
-    const closestX = Math.max(box.pos.spawnPos.x, Math.min(player.pos.edgePos.x - (player.width * 0.5), box.pos.spawnPos.x + box.width));
-    const closestY = Math.max(box.pos.spawnPos.y, Math.min(player.pos.edgePos.y - (player.height * 0.5), box.pos.spawnPos.y + box.height));
+    const closestX = Math.max(
+      box.pos.spawnPos.x,
+      Math.min(
+        player.pos.edgePos.x - player.width * 0.5,
+        box.pos.spawnPos.x + box.width
+      )
+    );
+    const closestY = Math.max(
+      box.pos.spawnPos.y,
+      Math.min(
+        player.pos.edgePos.y - player.height * 0.5,
+        box.pos.spawnPos.y + box.height
+      )
+    );
 
     // Step 2: Calculate the distance from the circle's center to this closest point
-    const distanceX = player.pos.edgePos.x - (player.width * 0.5) - closestX;
-    const distanceY = player.pos.edgePos.y - (player.height * 0.5) - closestY;
+    const distanceX = player.pos.edgePos.x - player.width * 0.5 - closestX;
+    const distanceY = player.pos.edgePos.y - player.height * 0.5 - closestY;
 
     // check if the distance is less than the circle's radius
-    const distanceSquared = (distanceX * distanceX) + (distanceY * distanceY);
+    const distanceSquared = distanceX * distanceX + distanceY * distanceY;
 
     if (distanceSquared <= player.radius * player.radius) {
       player.colliding = true;
-      console.log("collide");
+      /// console.log("collide",distanceY,distanceX);
     }
   });
 
   return !player.colliding;
 }
-   /*
+/*
   try {
     boxes.forEach((box) => {
       //check each boxes if it is being colided with the player
@@ -217,4 +295,15 @@ function physics(player: playCube): boolean {
   }
   return !player.colliding;*/
 
-//setInterval(() => physics(player), 50);
+setInterval(() => physics(player), 10);
+
+function physics(player: playCube) {
+  if (player.gravity && player.move < 1) {
+    player.fall();
+  }
+  if (player.move >= 1) {
+    player.moveUP();
+    player.move -= 1;
+    console.log(player.move);
+  }
+}
