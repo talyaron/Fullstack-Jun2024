@@ -64,9 +64,8 @@ var playCube = /** @class */ (function (_super) {
         _this.gravity = true;
         _this.acceleration = 0;
         _this.maxAcceleration = 15;
-        _this.move = 0;
-        _this.speed = 0.5;
         _this.mouseCollidesWithBall = false;
+        _this.exist = false;
         return _this;
     }
     playCube.prototype.addListener = function () {
@@ -123,8 +122,11 @@ function newBox() {
     var wallRight = new box({ x: myScreen.viewportWidth, y: 0 }, 0, myScreen.viewportHeight);
     var wallTop = new box({ x: 0, y: 2 }, myScreen.viewportWidth, 0);
     boxes.push(brick, newBox2, wallLeft, wallRight, wallTop);
-    renderPinBall(pinBall);
-    pinBall.addListener();
+    if (!pinBall.exist) {
+        renderPinBall(pinBall);
+        pinBall.exist = true;
+        pinBall.addListener();
+    }
     renderBoxes(boxes);
 }
 function renderPinBall(box) {
@@ -133,6 +135,11 @@ function renderPinBall(box) {
 function removeBoxes(boxes) {
     boxes.forEach(function (box) {
         box.die(box);
+        var boxIndex = boxes.indexOf(box);
+        if (boxIndex !== -1) {
+            // Remove the box from the array
+            boxes.splice(boxIndex, 1);
+        }
     });
 }
 function renderBoxes(boxes) {
@@ -259,5 +266,6 @@ function physics(pinBall) {
         myScreen.viewportWidth = window.innerWidth;
         removeBoxes(boxes);
         renderBoxes(boxes);
+        newBox();
     }
 }

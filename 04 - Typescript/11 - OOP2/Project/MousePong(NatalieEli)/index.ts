@@ -22,7 +22,7 @@ interface screen {
 const myScreen: screen = {
   viewportWidth: window.innerWidth,
   viewportHeight: window.innerHeight,
-}
+};
 const mousePosition: mousePos = { x: 0, y: 0, oldX: 0, oldY: 0 };
 class box {
   private id: string;
@@ -57,8 +57,8 @@ class box {
     this.domElement.style.position = "absolute";
     this.domElement.style.transform = `translate(${box.pos.spawnPos.x}px, ${box.pos.spawnPos.y}px)`;
     containerElement.appendChild(this.domElement);
-   /// this.pos.spawnPos=box.pos.spawnPos;
-   // this.pos.edgePos={ x: box.pos.spawnPos.x + box.width, y: box.pos.spawnPos.y + box.height }
+    /// this.pos.spawnPos=box.pos.spawnPos;
+    // this.pos.edgePos={ x: box.pos.spawnPos.x + box.width, y: box.pos.spawnPos.y + box.height }
   }
   die(box: box) {
     //setting the box element in the html page
@@ -76,9 +76,9 @@ class playCube extends box {
   maxAcceleration: number = 15;
   decelerate: number;
   yaw: number;
-  move: number = 0;
-  speed: number = 0.5;
+
   mouseCollidesWithBall: boolean = false;
+  exist= false;
   ballDirectionY;
   ballDirectionX;
   ballVelocityX;
@@ -145,23 +145,34 @@ function newBox() {
   const brick = new box({ x: 44, y: 50 }, 75, 25);
   const newBox2 = new box({ x: 204, y: 602 }, 150, 50);
   const wallLeft = new box({ x: 2, y: 0 }, 0, myScreen.viewportHeight);
-  const wallRight = new box({ x: myScreen.viewportWidth, y: 0 }, 0, myScreen.viewportHeight);
+  const wallRight = new box(
+    { x: myScreen.viewportWidth, y: 0 },
+    0,
+    myScreen.viewportHeight
+  );
   const wallTop = new box({ x: 0, y: 2 }, myScreen.viewportWidth, 0);
-  boxes.push(brick, newBox2, wallLeft, wallRight, wallTop);
 
-  renderPinBall(pinBall);
-  pinBall.addListener();
+  boxes.push(brick, newBox2, wallLeft, wallRight, wallTop);
+  if (!pinBall.exist) {
+    renderPinBall(pinBall);
+    pinBall.exist=true;
+    pinBall.addListener();
+  }
   renderBoxes(boxes);
 }
 
 function renderPinBall(box: box) {
   box.spawn(box);
 }
-function removeBoxes(boxes:box[])
-{boxes.forEach(box=>{
-  box.die(box);
-})
-
+function removeBoxes(boxes: box[]) {
+  boxes.forEach((box) => {
+    box.die(box);
+    const boxIndex = boxes.indexOf(box);
+    if (boxIndex !== -1) {
+      // Remove the box from the array
+      boxes.splice(boxIndex, 1);
+    }
+  });
 }
 
 function renderBoxes(boxes: box[]) {
@@ -330,14 +341,12 @@ function physics(pinBall: playCube) {
   mousePosition.oldX = mouseCurrentX;
   mousePosition.oldY = mouseCurrentY;
 
-  const windowSize= window.innerWidth;
-  if(windowSize!=myScreen.viewportWidth)
-  {
+  const windowSize = window.innerWidth;
+  if (windowSize != myScreen.viewportWidth) {
     myScreen.viewportHeight = window.innerHeight;
-    myScreen.viewportWidth= window.innerWidth;
+    myScreen.viewportWidth = window.innerWidth;
     removeBoxes(boxes);
     renderBoxes(boxes);
+    newBox();
   }
-
-
 }
