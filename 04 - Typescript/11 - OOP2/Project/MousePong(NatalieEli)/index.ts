@@ -47,6 +47,7 @@ class box {
     this.domElement.style.backgroundColor = "blue";
     this.domElement.style.position = "absolute";
     this.domElement.style.transform = `translate(${box.pos.spawnPos.x}px, ${box.pos.spawnPos.y}px)`;
+  
     // this.domElement.style.transition = "transform 1s ease";
     //console.log(box.pos);
     containerElement.appendChild(this.domElement);
@@ -170,7 +171,7 @@ class playCube extends box {
   }
 
   fall() {
-    if (isColliding(this)) {
+    if (!isColliding(this)) {
       if (this.maxAcceleration > this.acceleration) {
         
         this.acceleration = this.acceleration + 0.1;
@@ -341,8 +342,8 @@ function physics(player: playCube) {
   const mouseCurrentX = mousePosition.x;
   const mouseCurrentY = mousePosition.y;
 
-  const mouseDirX = lastMouseX - mouseCurrentX;
-  const mouseDirY = lastMouseY - mouseCurrentY;
+  const mouseDirX = mouseCurrentX - lastMouseX;
+  const mouseDirY = mouseCurrentY - lastMouseY; 
 
   const slowMan = 1;
 
@@ -350,11 +351,13 @@ function physics(player: playCube) {
   if ( player.mouseCollidesWithBall) {
     // Calculate the magnitude of the direction vector
     const magnitude = Math.sqrt(mouseDirX * mouseDirX + mouseDirY * mouseDirY);
-   // const maxMagnitude = 5;
+    const minMagnitude = 5;
 
-    if (magnitude > 0 ) {
+    if (magnitude >= 0 &&mouseCurrentY>400) {
       // Normalize the direction
+      if(player.yaw>0)
       player.ballDirectionX = -mouseDirX / magnitude;
+    else player.ballDirectionX = mouseDirX / magnitude;
       player.ballDirectionY = -mouseDirY / magnitude;
 
       // Set ball velocity based on mouse movement direction and magnitude
@@ -373,7 +376,7 @@ function physics(player: playCube) {
   }
   let posChange = false;
   let xPos =player.pos.spawnPos.x;
-  let yPos=player.pos.spawnPos.y;;
+  let yPos=player.pos.spawnPos.y;
   // Move the ball if there's a direction and velocity
   if (player.ballVelocityX || player.ballVelocityY) {
     player.pos.spawnPos.x+= player.ballDirectionX* player.ballVelocityX;
@@ -402,9 +405,6 @@ function physics(player: playCube) {
 
     player.pos.spawnPos.x = xPos;
     player.pos.spawnPos.y= yPos;
-    // Adjust position slightly to prevent getting stuck inside the wall
-   // player.pos.spawnPos.x += player.ballDirectionX * 1; // Small step back
-   // player.pos.spawnPos.y += player.ballDirectionY * 1; // Small step back
   }
 
   // Apply gravity if enabled

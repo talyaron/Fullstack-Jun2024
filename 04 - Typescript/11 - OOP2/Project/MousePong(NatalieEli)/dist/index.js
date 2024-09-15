@@ -152,7 +152,7 @@ var playCube = /** @class */ (function (_super) {
         }
     };
     playCube.prototype.fall = function () {
-        if (isColliding(this)) {
+        if (!isColliding(this)) {
             if (this.maxAcceleration > this.acceleration) {
                 this.acceleration = this.acceleration + 0.1;
             }
@@ -284,17 +284,20 @@ function physics(player) {
     var lastMouseY = mousePosition.oldY;
     var mouseCurrentX = mousePosition.x;
     var mouseCurrentY = mousePosition.y;
-    var mouseDirX = lastMouseX - mouseCurrentX;
-    var mouseDirY = lastMouseY - mouseCurrentY;
+    var mouseDirX = mouseCurrentX - lastMouseX;
+    var mouseDirY = mouseCurrentY - lastMouseY;
     var slowMan = 1;
     // If mouse moves upwards and collides with ball
     if (player.mouseCollidesWithBall) {
         // Calculate the magnitude of the direction vector
         var magnitude = Math.sqrt(mouseDirX * mouseDirX + mouseDirY * mouseDirY);
-        // const maxMagnitude = 5;
-        if (magnitude > 0) {
+        var minMagnitude = 5;
+        if (magnitude >= 0 && mouseCurrentY > 400) {
             // Normalize the direction
-            player.ballDirectionX = -mouseDirX / magnitude;
+            if (player.yaw > 0)
+                player.ballDirectionX = -mouseDirX / magnitude;
+            else
+                player.ballDirectionX = mouseDirX / magnitude;
             player.ballDirectionY = -mouseDirY / magnitude;
             // Set ball velocity based on mouse movement direction and magnitude
             player.ballVelocityX = mouseDirX * slowMan;
@@ -311,7 +314,6 @@ function physics(player) {
     var posChange = false;
     var xPos = player.pos.spawnPos.x;
     var yPos = player.pos.spawnPos.y;
-    ;
     // Move the ball if there's a direction and velocity
     if (player.ballVelocityX || player.ballVelocityY) {
         player.pos.spawnPos.x += player.ballDirectionX * player.ballVelocityX;
@@ -335,9 +337,6 @@ function physics(player) {
         posChange = false;
         player.pos.spawnPos.x = xPos;
         player.pos.spawnPos.y = yPos;
-        // Adjust position slightly to prevent getting stuck inside the wall
-        // player.pos.spawnPos.x += player.ballDirectionX * 1; // Small step back
-        // player.pos.spawnPos.y += player.ballDirectionY * 1; // Small step back
     }
     // Apply gravity if enabled
     if (player.gravity) {

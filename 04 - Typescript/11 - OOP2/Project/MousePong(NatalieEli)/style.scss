@@ -4,9 +4,22 @@ body {
 #boxContainer {
   width: 100vw;
   height: 100vh;
-  background-color: green;
+  //background-color: green;
   overflow-y: hidden;
 }
+#top {
+  width: 100%;
+  background-color: rgb(90, 119, 226);
+  height: 400px;
+  position: absolute;
+}
+#bottom {
+    width: 100%;
+    background-color: rgb(31, 127, 55);
+    position: absolute;
+    top: 400px; // Start #bottom right below #top
+    height: calc(100% - 400px); // Take up the remaining height below #top
+  }
 #player {
   border-radius: 50%;
 }
