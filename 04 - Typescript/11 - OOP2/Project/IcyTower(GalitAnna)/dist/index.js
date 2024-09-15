@@ -51,12 +51,14 @@ var Player = /** @class */ (function () {
         try {
             if (!mainElement)
                 throw new Error('Main element is required');
-            var player_1 = document.createElement('img');
-            player_1.src = this.imageUrl;
-            player_1.style.position = 'absolute';
-            player_1.style.top = this.positionX + "px";
-            player_1.style.left = this.positionY + "px";
-            mainElement.appendChild(player_1);
+            var player = document.createElement('img');
+            player.src = this.imageUrl;
+            player.style.position = 'absolute';
+            player.style.bottom = this.positionX + "px";
+            player.style.left = this.positionY + "px";
+            player.classList.add('player');
+            player.style.zIndex = '1';
+            mainElement.appendChild(player);
         }
         catch (error) {
         }
@@ -64,19 +66,31 @@ var Player = /** @class */ (function () {
     return Player;
 }());
 var Step = /** @class */ (function () {
-    function Step(length, height) {
+    function Step() {
         try {
-            this.width = length;
-            this.height = height;
+            this.width = Math.floor(Math.random() * (500 - 100) + 100);
+            this.height = 60;
         }
         catch (error) {
             console.error(error);
         }
     }
+    Step.prototype.renderStep = function (mainElement) {
+        var step = document.createElement('steps');
+        step.classList.add('stepDesign');
+        step.style.width = this.width + "px";
+        step.style.height = this.height + "px";
+        step.style.bottom = Math.floor(Math.random() * (1080 - 280) + 280) + "px";
+        step.style.left = Math.floor(Math.random() * (1500 - 150) + 150) + "px";
+        mainElement.appendChild(step);
+    };
     return Step;
 }());
-var player = new Player(500, 0, character);
+var newPlayer = new Player(0, 912.5, character);
+var newStep = new Step();
 function main() {
-    player.renderPlayer(document.getElementById('IcyTower'));
+    var mainElement = document.getElementById('IcyTower');
+    newPlayer.renderPlayer(mainElement);
+    newStep.renderStep(mainElement);
 }
 main();

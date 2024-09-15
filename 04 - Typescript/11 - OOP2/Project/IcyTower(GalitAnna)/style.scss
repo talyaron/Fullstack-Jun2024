@@ -1,3 +1,49 @@
-#IcyTower{
-    
+body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-image: url("../images/bricks.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 0;
+}
+
+.player{
+    width: 80px;
+    height: auto;
+    z-index: 2;
+}
+
+// Variables for colors and sizing
+// Variables for colors and sizing
+$base-color: #d7d3f1;
+$shadow-color: #8686aa;
+$border-color: #000000;
+$step-width: 150px;
+$step-height: 30px;
+$border-radius: 20px;
+
+// Keyframe animation for floating effect
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+// Single Step Design
+.stepDesign {
+  background-color: $base-color;
+  border: 2px solid $border-color;
+  border-radius: $border-radius;
+  z-index: 5;
+  animation: float 3s ease-in-out infinite;
+
+  // Adding a shadow for a slight 3D effect
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  // Darker bottom part for a moon-like appearance using ::before
 }
