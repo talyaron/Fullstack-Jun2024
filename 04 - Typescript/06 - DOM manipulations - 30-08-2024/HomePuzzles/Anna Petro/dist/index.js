@@ -116,7 +116,7 @@ function renderAsusProfduct(arr) {
                 var computer = document.createElement('computer'); // create an element for each computer
                 computer.innerHTML = "\n            <img src = " + computers.imageUrl + " /> <br>\n            <p id='id'> ID: " + computers.id + " </p> \n            <p> Price: " + computers.price + " </p>";
                 if (computers.sale === true) {
-                    computer.innerHTML = " <img src = " + computers.imageUrl + " /> <br>\n            <p id='id'> ID: " + computers.id + " </p> \n            <p> Price: " + computers.price + " </p><p id='Sale'> Sale!!! </p>";
+                    computer.innerHTML = " <img src = " + computers.imageUrl + " /> <br>\n            <p id='id'> ID: " + computers.id + " </p> \n            <p> Price: " + computers.price + " </p><p id='Sale'> Sale: " + computers.sale + " </p>";
                 }
                 computer.classList.add('computerInfo'); // add class name computerInfo to computer element
                 productList_1.appendChild(computer); // insert computer elemnt into list element 
