@@ -60,7 +60,7 @@ class playCube extends box {
   radius: number = this.width / 2;
   gravity: boolean = true;
   acceleration: number = 0;
-  maxAcceleration: number = 30;
+  maxAcceleration: number = 15;
   decelerate: number;
   yaw: number;
   move: number = 0;
@@ -113,12 +113,14 @@ class playCube extends box {
         x: this.pos.spawnPos.x + this.width,
         y: this.pos.spawnPos.y + this.height,
       };
-    } else if (this.acceleration > 0.1) {
+    } else if (this.decelerate > 0.1) {
       this.pos.spawnPos.y -= this.acceleration;
       this.pos.edgePos.y -= this.acceleration;
-      //  this.decelerate = -this.acceleration * 0.5;
-      //     this.acceleration = this.decelerate - this.acceleration * 0.5;
-      //   this.acceleration = this.acceleration * 0.5;
+     
+      this.decelerate = this.acceleration / 0.5;
+      this.acceleration = -this.decelerate ;
+      this.acceleration = this.acceleration * 0.5;
+      console.log(this.acceleration, this.decelerate)
     }
   }
 
@@ -170,6 +172,7 @@ class playCube extends box {
   fall() {
     if (isColliding(this)) {
       if (this.maxAcceleration > this.acceleration) {
+        
         this.acceleration = this.acceleration + 0.1;
       }
       this.pos.spawnPos.y += 0.98 * this.acceleration;
@@ -183,9 +186,12 @@ class playCube extends box {
     } else if (this.acceleration > 0.1) {
       this.pos.spawnPos.y -= 0.98 * this.acceleration;
       this.pos.edgePos.y -= 0.98 * this.acceleration;
-      this.decelerate = -this.acceleration * 0.5;
-      this.acceleration = this.decelerate - this.acceleration * 0.5;
-      this.acceleration = this.acceleration * 0.5;
+
+      this.decelerate = this.acceleration / .5;
+      this.acceleration = this.acceleration-this.decelerate  ;
+      this.acceleration =this.acceleration/1/5
+      //this.acceleration = this.acceleration ;
+      console.log(this.acceleration, this.decelerate)
     }
   }
 
@@ -335,7 +341,7 @@ function physics(player: playCube) {
   const mouseDirX = lastMouseX - mouseCurrentX;
   const mouseDirY = lastMouseY - mouseCurrentY;
 
-  const slowMan = 1;
+  const slowMan = 1.5;
 
   // If mouse moves upwards and collides with ball
   if (mouseDirY < 0 && player.mouseCollidesWithBall) {
@@ -373,12 +379,12 @@ function physics(player: playCube) {
 
     player.updateTransform();
 
-    console.log(
-      player.ballDirectionY,
-      player.ballDirectionX,
-      player.ballVelocityX,
-      player.ballVelocityY
-    );
+    // console.log(
+    //   player.ballDirectionY,
+    //   player.ballDirectionX,
+    //   player.ballVelocityX,
+    //   player.ballVelocityY
+    // );
   }
 
   // Handle collision (reverse direction when a collision happens)
