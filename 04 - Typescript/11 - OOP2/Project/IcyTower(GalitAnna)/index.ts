@@ -38,7 +38,13 @@ class Player {
     renderPlayer(mainElement: HTMLDivElement){
         try {
             if(!mainElement) throw new Error('Main element is required');
-            
+            const player = document.createElement('img');
+            player.src = this.imageUrl;
+            player.style.position = 'absolute';
+            player.style.top = `${this.positionX}%`;
+            player.style.left = `${this.positionY}%`;
+            mainElement.appendChild(player);
+
         } catch (error) {
             
         }
@@ -46,13 +52,15 @@ class Player {
 }
 
 class Step {
-private length: number;
+private positionX : number;
+private positionY : number;
+private width: number;
 private height: number;
 
 
 constructor (length: number, height: number) {
     try {
-    this.length= length;
+    this.width= length;
     this.height=height;
     }catch (error) {
     console.error(error);
@@ -61,4 +69,9 @@ constructor (length: number, height: number) {
 
 
 
+}
+
+const player = new Player(500,0,character)
+function main(){
+    player.renderPlayer(document.getElementById('#IcyTower') as HTMLDivElement);
 }
