@@ -1,8 +1,8 @@
 class Balloon {
-    imageUrl: string;
-    id: string;
-    imageExplosion: string;
-    onExplode: () => void; 
+  public  imageUrl: string;
+    private id: string;
+   public imageExplosion: string;
+   public onExplode: () => void; 
 
     constructor(imageUrl: string, imageExplosion: string, onExplode: () => void) {
         this.imageUrl = imageUrl;
