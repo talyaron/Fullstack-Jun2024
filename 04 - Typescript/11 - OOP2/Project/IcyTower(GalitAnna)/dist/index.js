@@ -51,6 +51,12 @@ var Player = /** @class */ (function () {
         try {
             if (!mainElement)
                 throw new Error('Main element is required');
+            var player_1 = document.createElement('img');
+            player_1.src = this.imageUrl;
+            player_1.style.position = 'absolute';
+            player_1.style.top = this.positionX + "px";
+            player_1.style.left = this.positionY + "px";
+            mainElement.appendChild(player_1);
         }
         catch (error) {
         }
@@ -60,7 +66,7 @@ var Player = /** @class */ (function () {
 var Step = /** @class */ (function () {
     function Step(length, height) {
         try {
-            this.length = length;
+            this.width = length;
             this.height = height;
         }
         catch (error) {
@@ -69,3 +75,8 @@ var Step = /** @class */ (function () {
     }
     return Step;
 }());
+var player = new Player(500, 0, character);
+function main() {
+    player.renderPlayer(document.getElementById('IcyTower'));
+}
+main();
