@@ -11,6 +11,10 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var myScreen = {
+    viewportWidth: window.innerWidth,
+    viewportHeight: window.innerHeight
+};
 var mousePosition = { x: 0, y: 0, oldX: 0, oldY: 0 };
 var box = /** @class */ (function () {
     function box(spawnPos, width, height) {
@@ -42,6 +46,12 @@ var box = /** @class */ (function () {
         this.domElement.style.position = "absolute";
         this.domElement.style.transform = "translate(" + box.pos.spawnPos.x + "px, " + box.pos.spawnPos.y + "px)";
         containerElement.appendChild(this.domElement);
+        /// this.pos.spawnPos=box.pos.spawnPos;
+        // this.pos.edgePos={ x: box.pos.spawnPos.x + box.width, y: box.pos.spawnPos.y + box.height }
+    };
+    box.prototype.die = function (box) {
+        //setting the box element in the html page
+        this.domElement.remove;
     };
     return box;
 }());
@@ -109,9 +119,9 @@ var boxes = [];
 function newBox() {
     var brick = new box({ x: 44, y: 50 }, 75, 25);
     var newBox2 = new box({ x: 204, y: 602 }, 150, 50);
-    var wallLeft = new box({ x: 2, y: 2 }, 20, 650);
-    var wallRight = new box({ x: 1020, y: 2 }, 20, 650);
-    var wallTop = new box({ x: 0, y: 2 }, 1020, 25);
+    var wallLeft = new box({ x: 2, y: 0 }, 0, myScreen.viewportHeight);
+    var wallRight = new box({ x: myScreen.viewportWidth, y: 0 }, 0, myScreen.viewportHeight);
+    var wallTop = new box({ x: 0, y: 2 }, myScreen.viewportWidth, 0);
     boxes.push(brick, newBox2, wallLeft, wallRight, wallTop);
     renderPinBall(pinBall);
     pinBall.addListener();
@@ -119,6 +129,11 @@ function newBox() {
 }
 function renderPinBall(box) {
     box.spawn(box);
+}
+function removeBoxes(boxes) {
+    boxes.forEach(function (box) {
+        box.die(box);
+    });
 }
 function renderBoxes(boxes) {
     boxes.forEach(function (box) {
@@ -131,26 +146,29 @@ function main() {
     isColliding(pinBall);
 }
 function isColliding(pinBall) {
-    // For collision check
     pinBall.colliding = false;
+    var collisionNormal = null;
     boxes.forEach(function (box) {
-        // Check each box if it is being collided with the pinBall
-        if (!box.pos.edgePos || !pinBall.pos.edgePos)
-            throw new Error("no Position!");
-        // find the closest point on the rectangle to the circle's center
-        var closestX = Math.max(box.pos.spawnPos.x, Math.min(pinBall.pos.edgePos.x - pinBall.width * 0.5, box.pos.spawnPos.x + box.width));
-        var closestY = Math.max(box.pos.spawnPos.y, Math.min(pinBall.pos.edgePos.y - pinBall.height * 0.5, box.pos.spawnPos.y + box.height));
-        // Step 2: Calculate the distance from the circle's center to this closest point
-        var distanceX = pinBall.pos.edgePos.x - pinBall.width * 0.5 - closestX;
-        var distanceY = pinBall.pos.edgePos.y - pinBall.height * 0.5 - closestY;
-        // check if the distance is less than the circle's radius
+        var closestX = Math.max(box.pos.spawnPos.x, Math.min(pinBall.pos.spawnPos.x + pinBall.radius, box.pos.spawnPos.x + box.width));
+        var closestY = Math.max(box.pos.spawnPos.y, Math.min(pinBall.pos.spawnPos.y + pinBall.radius, box.pos.spawnPos.y + box.height));
+        var distanceX = pinBall.pos.spawnPos.x + pinBall.radius - closestX;
+        var distanceY = pinBall.pos.spawnPos.y + pinBall.radius - closestY;
         var distanceSquared = distanceX * distanceX + distanceY * distanceY;
         if (distanceSquared <= pinBall.radius * pinBall.radius) {
             pinBall.colliding = true;
-            console.log("collide", distanceY, distanceX);
+            // Calculate the normal vector
+            var normalX = distanceX;
+            var normalY = distanceY;
+            var length = Math.sqrt(normalX * normalX + normalY * normalY);
+            // Normalize the normal vector
+            collisionNormal = {
+                x: normalX / length,
+                y: normalY / length
+            };
+            console.log("Colliding with normal:", collisionNormal);
         }
     });
-    return pinBall.colliding;
+    return { colliding: pinBall.colliding, normal: collisionNormal };
 }
 document.addEventListener("mousemove", function (event) {
     mousePosition.oldX = mousePosition.x;
@@ -210,16 +228,22 @@ function physics(pinBall) {
         //   pinBall.ballVelocityY
         // );
     }
-    // Handle collision (reverse direction when a collision happens)
-    if (isColliding(pinBall)) {
-        // Reverse the ball's direction on collision
-        pinBall.ballDirectionX *= -1;
-        pinBall.ballDirectionY *= -1;
-        posChange = false;
-        pinBall.pos.spawnPos.x = xPos;
-        pinBall.pos.spawnPos.y = yPos;
-    }
     // Apply gravity if enabled
+    if (pinBall.gravity) {
+        pinBall.fall();
+        posChange = true;
+    }
+    var collision = isColliding(pinBall);
+    if (collision.colliding && collision.normal) {
+        // Reflect the ball's direction using the collision normal
+        var normal = collision.normal;
+        var dotProduct = pinBall.ballDirectionX * normal.x + pinBall.ballDirectionY * normal.y;
+        pinBall.ballDirectionX -= 2 * dotProduct * normal.x;
+        pinBall.ballDirectionY -= 2 * dotProduct * normal.y;
+        pinBall.ballVelocityX *= 1;
+        pinBall.ballVelocityY *= 1;
+        console.log("Bouncing with new direction:", pinBall.ballDirectionX, pinBall.ballDirectionY);
+    }
     if (pinBall.gravity) {
         pinBall.fall();
         posChange = true;
@@ -227,7 +251,13 @@ function physics(pinBall) {
     if (posChange) {
         pinBall.updateTransform();
     }
-    // Update the old mouse position for the next frame
     mousePosition.oldX = mouseCurrentX;
     mousePosition.oldY = mouseCurrentY;
+    var windowSize = window.innerWidth;
+    if (windowSize != myScreen.viewportWidth) {
+        myScreen.viewportHeight = window.innerHeight;
+        myScreen.viewportWidth = window.innerWidth;
+        removeBoxes(boxes);
+        renderBoxes(boxes);
+    }
 }

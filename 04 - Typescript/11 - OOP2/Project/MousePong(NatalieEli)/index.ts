@@ -14,6 +14,15 @@ interface mousePos {
   oldX: number;
   oldY: number;
 }
+
+interface screen {
+  viewportWidth: number;
+  viewportHeight: number;
+}
+const myScreen: screen = {
+  viewportWidth: window.innerWidth,
+  viewportHeight: window.innerHeight,
+}
 const mousePosition: mousePos = { x: 0, y: 0, oldX: 0, oldY: 0 };
 class box {
   private id: string;
@@ -48,6 +57,12 @@ class box {
     this.domElement.style.position = "absolute";
     this.domElement.style.transform = `translate(${box.pos.spawnPos.x}px, ${box.pos.spawnPos.y}px)`;
     containerElement.appendChild(this.domElement);
+   /// this.pos.spawnPos=box.pos.spawnPos;
+   // this.pos.edgePos={ x: box.pos.spawnPos.x + box.width, y: box.pos.spawnPos.y + box.height }
+  }
+  die(box: box) {
+    //setting the box element in the html page
+    this.domElement.remove;
   }
 }
 
@@ -90,8 +105,6 @@ class playCube extends box {
     });
   }
 
- 
-
   fall() {
     if (!isColliding(this)) {
       if (this.maxAcceleration > this.acceleration) {
@@ -131,9 +144,9 @@ const boxes: box[] = [];
 function newBox() {
   const brick = new box({ x: 44, y: 50 }, 75, 25);
   const newBox2 = new box({ x: 204, y: 602 }, 150, 50);
-  const wallLeft = new box({ x: 2, y: 2 }, 20, 650);
-  const wallRight = new box({ x: 1020, y: 2 }, 20, 650);
-  const wallTop = new box({ x: 0, y: 2 }, 1020, 25);
+  const wallLeft = new box({ x: 2, y: 0 }, 0, myScreen.viewportHeight);
+  const wallRight = new box({ x: myScreen.viewportWidth, y: 0 }, 0, myScreen.viewportHeight);
+  const wallTop = new box({ x: 0, y: 2 }, myScreen.viewportWidth, 0);
   boxes.push(brick, newBox2, wallLeft, wallRight, wallTop);
 
   renderPinBall(pinBall);
@@ -143,6 +156,12 @@ function newBox() {
 
 function renderPinBall(box: box) {
   box.spawn(box);
+}
+function removeBoxes(boxes:box[])
+{boxes.forEach(box=>{
+  box.die(box);
+})
+
 }
 
 function renderBoxes(boxes: box[]) {
@@ -158,45 +177,52 @@ function main() {
   isColliding(pinBall);
 }
 
-function isColliding(pinBall: playCube): boolean {
-  // For collision check
+function isColliding(pinBall: playCube): {
+  colliding: boolean;
+  normal: vertex | null;
+} {
   pinBall.colliding = false;
+  let collisionNormal: vertex | null = null;
 
   boxes.forEach((box) => {
-    // Check each box if it is being collided with the pinBall
-    if (!box.pos.edgePos || !pinBall.pos.edgePos)
-      throw new Error("no Position!");
-
-    // find the closest point on the rectangle to the circle's center
     const closestX = Math.max(
       box.pos.spawnPos.x,
       Math.min(
-        pinBall.pos.edgePos.x - pinBall.width * 0.5,
+        pinBall.pos.spawnPos.x + pinBall.radius,
         box.pos.spawnPos.x + box.width
       )
     );
     const closestY = Math.max(
       box.pos.spawnPos.y,
       Math.min(
-        pinBall.pos.edgePos.y - pinBall.height * 0.5,
+        pinBall.pos.spawnPos.y + pinBall.radius,
         box.pos.spawnPos.y + box.height
       )
     );
 
-    // Step 2: Calculate the distance from the circle's center to this closest point
-    const distanceX = pinBall.pos.edgePos.x - pinBall.width * 0.5 - closestX;
-    const distanceY = pinBall.pos.edgePos.y - pinBall.height * 0.5 - closestY;
-
-    // check if the distance is less than the circle's radius
+    const distanceX = pinBall.pos.spawnPos.x + pinBall.radius - closestX;
+    const distanceY = pinBall.pos.spawnPos.y + pinBall.radius - closestY;
     const distanceSquared = distanceX * distanceX + distanceY * distanceY;
 
     if (distanceSquared <= pinBall.radius * pinBall.radius) {
       pinBall.colliding = true;
-      console.log("collide", distanceY, distanceX);
+
+      // Calculate the normal vector
+      const normalX = distanceX;
+      const normalY = distanceY;
+      const length = Math.sqrt(normalX * normalX + normalY * normalY);
+
+      // Normalize the normal vector
+      collisionNormal = {
+        x: normalX / length,
+        y: normalY / length,
+      };
+
+      console.log("Colliding with normal:", collisionNormal);
     }
   });
 
-  return pinBall.colliding;
+  return { colliding: pinBall.colliding, normal: collisionNormal };
 }
 
 document.addEventListener("mousemove", (event: MouseEvent) => {
@@ -266,27 +292,52 @@ function physics(pinBall: playCube) {
     //   pinBall.ballVelocityY
     // );
   }
-  // Handle collision (reverse direction when a collision happens)
-  if (isColliding(pinBall)) {
-    // Reverse the ball's direction on collision
-    pinBall.ballDirectionX *= -1;
-    pinBall.ballDirectionY *= -1;
-
-    posChange = false;
-
-    pinBall.pos.spawnPos.x = xPos;
-    pinBall.pos.spawnPos.y = yPos;
-  }
-
   // Apply gravity if enabled
   if (pinBall.gravity) {
     pinBall.fall();
     posChange = true;
   }
+  const collision = isColliding(pinBall);
+
+  if (collision.colliding && collision.normal) {
+    // Reflect the ball's direction using the collision normal
+    const normal = collision.normal;
+
+    const dotProduct =
+      pinBall.ballDirectionX * normal.x + pinBall.ballDirectionY * normal.y;
+    pinBall.ballDirectionX -= 2 * dotProduct * normal.x;
+    pinBall.ballDirectionY -= 2 * dotProduct * normal.y;
+
+    pinBall.ballVelocityX *= 1;
+    pinBall.ballVelocityY *= 1;
+
+    console.log(
+      "Bouncing with new direction:",
+      pinBall.ballDirectionX,
+      pinBall.ballDirectionY
+    );
+  }
+
+  if (pinBall.gravity) {
+    pinBall.fall();
+    posChange = true;
+  }
+
   if (posChange) {
     pinBall.updateTransform();
   }
-  // Update the old mouse position for the next frame
+
   mousePosition.oldX = mouseCurrentX;
   mousePosition.oldY = mouseCurrentY;
+
+  const windowSize= window.innerWidth;
+  if(windowSize!=myScreen.viewportWidth)
+  {
+    myScreen.viewportHeight = window.innerHeight;
+    myScreen.viewportWidth= window.innerWidth;
+    removeBoxes(boxes);
+    renderBoxes(boxes);
+  }
+
+
 }
