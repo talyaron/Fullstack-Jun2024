@@ -54,8 +54,8 @@ var Player = /** @class */ (function () {
             var player_1 = document.createElement('img');
             player_1.src = this.imageUrl;
             player_1.style.position = 'absolute';
-            player_1.style.top = this.positionX + "%";
-            player_1.style.left = this.positionY + "%";
+            player_1.style.top = this.positionX + "px";
+            player_1.style.left = this.positionY + "px";
             mainElement.appendChild(player_1);
         }
         catch (error) {
@@ -77,5 +77,6 @@ var Step = /** @class */ (function () {
 }());
 var player = new Player(500, 0, character);
 function main() {
-    player.renderPlayer(document.getElementById('#IcyTower'));
+    player.renderPlayer(document.getElementById('IcyTower'));
 }
+main();

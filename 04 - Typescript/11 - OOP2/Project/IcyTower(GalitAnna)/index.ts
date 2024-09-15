@@ -41,8 +41,8 @@ class Player {
             const player = document.createElement('img');
             player.src = this.imageUrl;
             player.style.position = 'absolute';
-            player.style.top = `${this.positionX}%`;
-            player.style.left = `${this.positionY}%`;
+            player.style.top = `${this.positionX}px`;
+            player.style.left = `${this.positionY}px`;
             mainElement.appendChild(player);
 
         } catch (error) {
@@ -73,5 +73,7 @@ constructor (length: number, height: number) {
 
 const player = new Player(500,0,character)
 function main(){
-    player.renderPlayer(document.getElementById('#IcyTower') as HTMLDivElement);
+    player.renderPlayer(document.getElementById('IcyTower') as HTMLDivElement);
 }
+
+main();
