@@ -11,6 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var mousePosition = { x: 0, y: 0, oldX: 0, oldY: 0 };
 var box = /** @class */ (function () {
     function box(spawnPos, width, height) {
         // only "spawn position" needs to be set the other point is calculated
@@ -41,7 +42,7 @@ var box = /** @class */ (function () {
         this.domElement.style.position = "absolute";
         this.domElement.style.transform = "translate(" + box.pos.spawnPos.x + "px, " + box.pos.spawnPos.y + "px)";
         // this.domElement.style.transition = "transform 1s ease";
-        console.log(box.pos);
+        //console.log(box.pos);
         containerElement.appendChild(this.domElement);
     };
     return box;
@@ -54,24 +55,30 @@ var playCube = /** @class */ (function (_super) {
         _this.radius = _this.width / 2;
         _this.gravity = true;
         _this.acceleration = 0;
+        _this.maxAcceleration = 30;
         _this.move = 0;
-        _this.speed = .5;
+        _this.speed = 0.5;
+        _this.mouseCollidesWithBall = false;
         return _this;
     }
     playCube.prototype.addListener = function () {
         var _this = this;
+        this.domElement.addEventListener("mouseleave", function (event) {
+            _this.mouseCollidesWithBall = false;
+        });
         this.domElement.addEventListener("mouseenter", function (event) {
             var centerX = _this.pos.spawnPos.x + _this.width / 2;
             _this.yaw = centerX - event.x;
-            _this.move = 50;
+            _this.mouseCollidesWithBall = true;
+            //  this.move = 50;
             var distanceFromCenter = event.x - centerX;
             _this.yaw = Math.max(-1, Math.min(1, distanceFromCenter / (_this.width / 2)));
-            console.log("mouse", event.y, event.x, _this.pos.edgePos, _this.yaw);
+            console.log("mouse", _this.mouseCollidesWithBall);
             if (_this.yaw > 0) {
-                console.log("from the right");
+                //    console.log("from the right");
             }
             else {
-                console.log("from the left");
+                //     console.log("from the left");
             }
         });
     };
@@ -80,8 +87,10 @@ var playCube = /** @class */ (function (_super) {
             if (this.speed / Math.abs(this.yaw) > this.acceleration) {
                 this.acceleration = this.acceleration - 0.1;
             }
-            this.pos.spawnPos.y += this.speed / Math.abs(this.yaw) * this.acceleration;
-            this.pos.edgePos.y += this.speed / Math.abs(this.yaw) * this.acceleration;
+            this.pos.spawnPos.y +=
+                (this.speed / Math.abs(this.yaw)) * this.acceleration;
+            this.pos.edgePos.y +=
+                (this.speed / Math.abs(this.yaw)) * this.acceleration;
             //console.log(this.acceleration);
             this.updateTransform();
             this.pos.edgePos = {
@@ -144,7 +153,9 @@ var playCube = /** @class */ (function (_super) {
     };
     playCube.prototype.fall = function () {
         if (isColliding(this)) {
-            this.acceleration = this.acceleration + 0.1;
+            if (this.maxAcceleration > this.acceleration) {
+                this.acceleration = this.acceleration + 0.1;
+            }
             this.pos.spawnPos.y += 0.98 * this.acceleration;
             this.pos.edgePos.y += 0.98 * this.acceleration;
             //console.log(this.acceleration);
@@ -257,14 +268,129 @@ function isColliding(player) {
     console.log(error);
   }
   return !player.colliding;*/
-setInterval(function () { return physics(player); }, 10);
+document.addEventListener("mousemove", function (event) {
+    mousePosition.oldX = mousePosition.x;
+    mousePosition.oldY = mousePosition.y;
+    mousePosition.x = event.clientX;
+    mousePosition.y = event.clientY;
+});
+setInterval(function () { return physics(player); }, 8);
+//player.gravity = false;
 function physics(player) {
-    if (player.gravity && player.move < 1) {
+    var lastMouseX = mousePosition.oldX;
+    var lastMouseY = mousePosition.oldY;
+    var mouseCurrentX = mousePosition.x;
+    var mouseCurrentY = mousePosition.y;
+    var mouseDirX = lastMouseX - mouseCurrentX;
+    var mouseDirY = lastMouseY - mouseCurrentY;
+    var slowMan = 1;
+    // If mouse moves upwards and collides with ball
+    if (mouseDirY < 0 && player.mouseCollidesWithBall) {
+        // Calculate the magnitude of the direction vector
+        var magnitude = Math.sqrt(mouseDirX * mouseDirX + mouseDirY * mouseDirY);
+        var maxMagnitude = 5;
+        if (magnitude > 0 && magnitude < maxMagnitude) {
+            // Normalize the direction
+            player.ballDirectionX = -mouseDirX / magnitude;
+            player.ballDirectionY = -mouseDirY / magnitude;
+            // Set ball velocity based on mouse movement direction and magnitude
+            player.ballVelocityX = mouseDirX * slowMan;
+            player.ballVelocityY = mouseDirY * slowMan;
+        }
+    }
+    // Handle NaN directions (reset to 0 if needed)
+    if (isNaN(player.ballDirectionX)) {
+        player.ballDirectionX = 0;
+    }
+    if (isNaN(player.ballDirectionY)) {
+        player.ballDirectionY = 0;
+    }
+    // Move the ball if there's a direction and velocity
+    if (player.ballDirectionX || player.ballDirectionY) {
+        player.pos.spawnPos.x += player.ballVelocityX;
+        player.pos.spawnPos.y += player.ballVelocityY;
+        // Update edge positions based on new ball position
+        player.pos.edgePos.y = player.pos.spawnPos.y + player.height;
+        player.pos.edgePos.x = player.pos.spawnPos.x + player.width;
+        player.updateTransform();
+        console.log(player.ballDirectionY, player.ballDirectionX, player.ballVelocityX, player.ballVelocityY);
+    }
+    // Handle collision (reverse direction when a collision happens)
+    if (isColliding(player)) {
+        player.ballDirectionX *= -1;
+        player.ballDirectionY *= +1;
+    }
+    while (isColliding(player)) {
+        player.pos.spawnPos.x += player.ballDirectionX * 0.1;
+        player.pos.spawnPos.y += player.ballDirectionY * 0.1;
+    }
+    // Apply gravity if enabled
+    if (player.gravity) {
         player.fall();
     }
-    if (player.move >= 1) {
-        player.moveUP();
-        player.move -= 1;
-        console.log(player.move);
-    }
+    // Update the old mouse position for the next frame
+    mousePosition.oldX = mouseCurrentX;
+    mousePosition.oldY = mouseCurrentY;
 }
+/*
+function physics(player: playCube) {
+  const lastMouseX = mousePosition.oldX;
+  const lastMouseY = mousePosition.oldY;
+  //console.log(lastMouseX, mouseCurrentX);
+
+  const mouseCurrentX = mousePosition.x;
+
+  const mouseDirX = lastMouseX - mousePosition.x;
+  const mouseDirY = lastMouseY - mousePosition.y;
+
+  //if (dy > 0) { push };
+
+  const slowMan = 0.5;
+  if (mouseDirY < 0 && player.mouseCollidesWithBall) {
+    // collision happened.
+    const w = Math.sqrt(mouseDirX * mouseDirX + mouseDirY * mouseDirY);
+    player.ballDirectionX = -mouseDirX / w;
+    player.ballDirectionY = -mouseDirY / w;
+
+    player.ballVelocityX = mouseDirX * slowMan;
+    player.ballVelocityY = mouseDirY * slowMan;
+  }
+  // Update ball position
+  if (isNaN(player.ballDirectionX)) {
+    player.ballDirectionX = 0;
+  }
+
+  if (isNaN(player.ballDirectionY)) {
+    player.ballDirectionY = 0;
+  }
+
+  if (player.ballDirectionX && player.ballDirectionY) {
+    // player.pos.spawnPos.x =
+    //   player.pos.spawnPos.x + player.ballDirectionX * player.ballVelocityX * 5;
+    // player.pos.spawnPos.y =
+    //   player.pos.spawnPos.y + player.ballDirectionY * player.ballVelocityY * 1;
+    player.pos.spawnPos.x += player.ballVelocityX;
+    player.pos.spawnPos.y += player.ballVelocityY;
+    player.pos.edgePos.y = player.pos.spawnPos.y + player.height;
+    player.pos.edgePos.x = player.pos.spawnPos.x + player.width;
+
+    player.updateTransform();
+    console.log(
+      player.ballDirectionY,
+      player.ballDirectionX,
+      player.ballVelocityX,
+      player.ballVelocityY
+    );
+  }
+
+  // Check collision:
+  if (isColliding(player)) {
+    // this should technically use the normal for this, but.. this is probably easier ^^ might be wrong tbh
+    player.ballDirectionX *= -1;
+    player.ballDirectionY *= -1;
+  }
+
+  if (player.gravity) {
+    player.fall();
+  }
+}*/
