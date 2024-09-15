@@ -1,12 +1,12 @@
-body{
-    margin: 0;
+body {
+  margin: 0;
 }
-#boxContainer
-{
-   width: 100vw;
-   height:  100vh;
-    background-color: green;
+#boxContainer {
+  width: 100vw;
+  height: 100vh;
+  background-color: green;
+  overflow-y: hidden;
 }
-#player{
-    border-radius: 50%;
+#player {
+  border-radius: 50%;
 }
