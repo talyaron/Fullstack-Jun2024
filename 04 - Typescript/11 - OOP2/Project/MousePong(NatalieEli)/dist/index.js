@@ -112,7 +112,7 @@ var playCube = /** @class */ (function (_super) {
     };
     return playCube;
 }(box));
-var pinBall = new playCube({ x: window.innerWidth * .5, y: 440 }, 50, 50); //adds the pinBall and its position X and Y are position the rest is width and height
+var pinBall = new playCube({ x: window.innerWidth * 0.5, y: 440 }, 50, 50); //adds the pinBall and its position X and Y are position the rest is width and height
 var containerElement = document.getElementById("boxContainer");
 var boxes = [];
 function newBox() {
@@ -261,12 +261,29 @@ function physics(pinBall) {
     }
     mousePosition.oldX = mouseCurrentX;
     mousePosition.oldY = mouseCurrentY;
+    if (pinBall.pos.edgePos.x > window.innerWidth) {
+        console.log("outside");
+        pinBall.pos.spawnPos.x = window.innerWidth - pinBall.width;
+        pinBall.pos.edgePos.x = pinBall.pos.spawnPos.x - pinBall.width;
+        pinBall.updateTransform();
+    }
+    if (pinBall.pos.spawnPos.y > window.innerHeight) {
+        console.log("you lost ! ");
+        pinBall.pos.spawnPos.y = 440;
+        pinBall.pos.edgePos.y = 440;
+        pinBall.pos.spawnPos.x = innerWidth * 0.5;
+        pinBall.pos.edgePos.x = innerWidth * 0.5;
+        pinBall.ballDirectionX = 0;
+        pinBall.ballDirectionY = 0;
+        pinBall.ballVelocityX = 0;
+        pinBall.ballVelocityY = 0;
+        pinBall.updateTransform();
+    }
     var windowSize = window.innerWidth;
     if (windowSize != myScreen.viewportWidth) {
         myScreen.viewportHeight = window.innerHeight;
         myScreen.viewportWidth = window.innerWidth;
         removeBoxes(boxes);
-        renderBoxes(boxes);
         newBox();
     }
 }

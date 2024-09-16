@@ -31,7 +31,6 @@ class box {
   width: number;
   height: number;
 
-
   constructor(spawnPos: vertex, width: number, height: number) {
     // only "spawn position" needs to be set the other point is calculated
     this.height = height;
@@ -80,7 +79,7 @@ class playCube extends box {
   yaw: number;
 
   mouseCollidesWithBall: boolean = false;
-  exist= false;
+  exist = false;
   ballDirectionY;
   ballDirectionX;
   ballVelocityX;
@@ -137,7 +136,7 @@ class playCube extends box {
   }
 }
 
-const pinBall = new playCube({ x: window.innerWidth*.5, y: 440 }, 50, 50); //adds the pinBall and its position X and Y are position the rest is width and height
+const pinBall = new playCube({ x: window.innerWidth * 0.5, y: 440 }, 50, 50); //adds the pinBall and its position X and Y are position the rest is width and height
 
 const containerElement = document.getElementById("boxContainer") as HTMLElement;
 
@@ -157,7 +156,7 @@ function newBox() {
   boxes.push(brick, newBox2, wallLeft, wallRight, wallTop);
   if (!pinBall.exist) {
     renderPinBall(pinBall);
-    pinBall.exist=true;
+    pinBall.exist = true;
     pinBall.addListener();
   }
   renderBoxes(boxes);
@@ -175,7 +174,7 @@ function removeBoxes(boxes: box[]) {
       boxes.splice(boxIndex, 1);
     }
   });
-  boxes.length = 0; 
+  boxes.length = 0;
 }
 
 function renderBoxes(boxes: box[]) {
@@ -344,12 +343,35 @@ function physics(pinBall: playCube) {
   mousePosition.oldX = mouseCurrentX;
   mousePosition.oldY = mouseCurrentY;
 
+  if (pinBall.pos.edgePos.x > window.innerWidth) {
+    console.log("outside")
+    pinBall.pos.spawnPos.x =window.innerWidth-pinBall.width;
+    pinBall.pos.edgePos.x =pinBall.pos.spawnPos.x-pinBall.width;
+
+    pinBall.updateTransform();
+  }
+
+  if (pinBall.pos.spawnPos.y > window.innerHeight) {
+    console.log("you lost ! ");
+    pinBall.pos.spawnPos.y = 440;
+    pinBall.pos.edgePos.y = 440;
+    pinBall.pos.spawnPos.x = innerWidth * 0.5;
+    pinBall.pos.edgePos.x = innerWidth * 0.5;
+
+    pinBall.ballDirectionX = 0;
+    pinBall.ballDirectionY = 0;
+
+    pinBall.ballVelocityX = 0;
+    pinBall.ballVelocityY = 0;
+
+    pinBall.updateTransform();
+  }
+
   const windowSize = window.innerWidth;
   if (windowSize != myScreen.viewportWidth) {
     myScreen.viewportHeight = window.innerHeight;
     myScreen.viewportWidth = window.innerWidth;
     removeBoxes(boxes);
-    renderBoxes(boxes);
     newBox();
   }
 }
