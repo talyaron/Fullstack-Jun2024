@@ -51,7 +51,7 @@ var box = /** @class */ (function () {
     };
     box.prototype.die = function (box) {
         //setting the box element in the html page
-        this.domElement.remove;
+        this.domElement.remove();
     };
     return box;
 }());
@@ -112,15 +112,23 @@ var playCube = /** @class */ (function (_super) {
     };
     return playCube;
 }(box));
-var pinBall = new playCube({ x: 184, y: 422 }, 50, 50); //adds the pinBall and its position X and Y are position the rest is width and height
 var containerElement = document.getElementById("boxContainer");
+var minWidth = 600;
+var minHeight = 400;
+var containerRect = containerElement.getClientRects();
+// Convert to number
+var initialPlace = parseFloat(window.getComputedStyle(containerElement).width);
+var pinBall = new playCube({ x: initialPlace * 0.5, y: 440 }, 50, 50); //adds the pinBall and its position X and Y are position the rest is width and height
 var boxes = [];
 function newBox() {
+    var containerStyle = window.getComputedStyle(containerElement);
+    var containerWidth = parseFloat(containerStyle.width);
+    console.log('Width:', containerWidth);
     var brick = new box({ x: 44, y: 50 }, 75, 25);
     var newBox2 = new box({ x: 204, y: 602 }, 150, 50);
     var wallLeft = new box({ x: 2, y: 0 }, 0, myScreen.viewportHeight);
-    var wallRight = new box({ x: myScreen.viewportWidth, y: 0 }, 0, myScreen.viewportHeight);
-    var wallTop = new box({ x: 0, y: 2 }, myScreen.viewportWidth, 0);
+    var wallRight = new box({ x: containerWidth, y: 0 }, 0, myScreen.viewportHeight);
+    var wallTop = new box({ x: 0, y: 2 }, containerWidth, 0);
     boxes.push(brick, newBox2, wallLeft, wallRight, wallTop);
     if (!pinBall.exist) {
         renderPinBall(pinBall);
@@ -141,6 +149,7 @@ function removeBoxes(boxes) {
             boxes.splice(boxIndex, 1);
         }
     });
+    boxes.length = 0;
 }
 function renderBoxes(boxes) {
     boxes.forEach(function (box) {
@@ -150,6 +159,8 @@ function renderBoxes(boxes) {
 }
 function main() {
     newBox();
+    containerElement.style.minWidth = "800px";
+    containerElement.style.minHeight = "600px";
     isColliding(pinBall);
 }
 function isColliding(pinBall) {
@@ -260,12 +271,31 @@ function physics(pinBall) {
     }
     mousePosition.oldX = mouseCurrentX;
     mousePosition.oldY = mouseCurrentY;
+    var containerStyle = window.getComputedStyle(containerElement);
+    var containerWidth = parseFloat(containerStyle.width);
+    if (pinBall.pos.edgePos.x > containerWidth) {
+        console.log("outside");
+        pinBall.pos.spawnPos.x = containerWidth - pinBall.width;
+        pinBall.pos.edgePos.x = pinBall.pos.spawnPos.x - pinBall.width;
+        pinBall.updateTransform();
+    }
+    if (pinBall.pos.spawnPos.y > window.innerHeight) {
+        console.log("you lost ! ");
+        pinBall.pos.spawnPos.y = 440;
+        pinBall.pos.edgePos.y = 440;
+        pinBall.pos.spawnPos.x = innerWidth * 0.5;
+        pinBall.pos.edgePos.x = innerWidth * 0.5;
+        pinBall.ballDirectionX = 0;
+        pinBall.ballDirectionY = 0;
+        pinBall.ballVelocityX = 0;
+        pinBall.ballVelocityY = 0;
+        pinBall.updateTransform();
+    }
     var windowSize = window.innerWidth;
     if (windowSize != myScreen.viewportWidth) {
-        myScreen.viewportHeight = window.innerHeight;
         myScreen.viewportWidth = window.innerWidth;
+        myScreen.viewportHeight = window.innerHeight;
         removeBoxes(boxes);
-        renderBoxes(boxes);
         newBox();
     }
 }
