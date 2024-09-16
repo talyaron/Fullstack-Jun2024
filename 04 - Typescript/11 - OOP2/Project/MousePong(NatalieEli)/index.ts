@@ -8,6 +8,7 @@ interface position {
   spawnPos: vertex; //for the left top position of the rectangle
   edgePos: vertex; //for the bottom right position of the rectangle
 }
+
 interface mousePos {
   x: number;
   y: number;
@@ -19,10 +20,12 @@ interface screen {
   viewportWidth: number;
   viewportHeight: number;
 }
+
 const myScreen: screen = {
   viewportWidth: window.innerWidth,
   viewportHeight: window.innerHeight,
-};
+}
+
 const mousePosition: mousePos = { x: 0, y: 0, oldX: 0, oldY: 0 };
 class box {
   private id: string;
