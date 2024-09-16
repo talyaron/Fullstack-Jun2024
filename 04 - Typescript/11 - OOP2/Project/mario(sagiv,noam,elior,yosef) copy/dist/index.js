@@ -1,3 +1,11 @@
+window.onload = function () {
+    var popup = document.getElementById('image-popup');
+    popup.style.display = 'flex';
+    // אם תרצה להסתיר את התמונה אחרי זמן מסוים (למשל 5 שניות):
+    setTimeout(function () {
+        popup.style.display = 'none';
+    }, 5000); // 5000 מילישניות = 5 שניות
+};
 var Obstacles = /** @class */ (function () {
     function Obstacles(position, imageUrl, isAttack) {
         this.id = "id-" + crypto.randomUUID();
@@ -11,7 +19,6 @@ var Obstacles = /** @class */ (function () {
             if (!obstacles_1)
                 throw new Error("obstacles character div not found.");
             var obstaclesIMG = document.createElement("img");
-            this.position.y = 1150;
             obstaclesIMG.src = this.ImageURL;
             obstaclesIMG.id = this.id;
             obstaclesIMG.style.position = "absolute";
@@ -20,8 +27,7 @@ var Obstacles = /** @class */ (function () {
             obstaclesIMG.style.width = "100px";
             obstaclesIMG.style.height = "200px";
             obstacles_1.appendChild(obstaclesIMG);
-            this.position.y = 700;
-            // this.renderScore(); //render score (שגיב)
+            this.startRunning();
         }
         catch (error) {
             console.error(error);
@@ -30,13 +36,8 @@ var Obstacles = /** @class */ (function () {
     Obstacles.prototype.alwaysRun = function () {
         var obstaclesElement = document.getElementById(this.id);
         if (obstaclesElement) {
-            this.position.y -= 10;
+            this.position.y -= 1;
             obstaclesElement.style.left = this.position.y + "px";
-        }
-        if (this.position.y >= 1820) {
-            alert("ניצחת יאלה תתחיל מחדש");
-            this.position.y = 0;
-            // this.resetScore();
         }
     };
     Obstacles.prototype.startRunning = function () {
@@ -45,15 +46,12 @@ var Obstacles = /** @class */ (function () {
             this.isAttack = false;
             this.intervalID = setInterval(function () {
                 _this.alwaysRun();
-            }, 40);
-            // this.startScoreTimer(); //start the timer (שגיב)
+            }, 5);
         }
     };
     return Obstacles;
 }());
 var obstacles = new Obstacles({ x: 380, y: 1150 }, "./dist/images/Obstacles.png", true); //
-obstacles.renderObstacles(); // render obstacles
-setInterval(function () { obstacles.startRunning(); }, 300);
 setInterval(function () { obstacles.renderObstacles(); }, 3000);
 var Mario = /** @class */ (function () {
     function Mario(position, ImageURL, score) {

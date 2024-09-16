@@ -1,4 +1,12 @@
+window.onload = function() {
+  var popup = document.getElementById('image-popup');
+  popup.style.display = 'flex';
 
+  // אם תרצה להסתיר את התמונה אחרי זמן מסוים (למשל 5 שניות):
+  setTimeout(function() {
+      popup.style.display = 'none';
+  }, 5000); // 5000 מילישניות = 5 שניות
+};
 
 interface Position {
   x: number;
@@ -25,9 +33,8 @@ renderObstacles() {
     const obstacles = document.getElementById("main");
         if (!obstacles)
              throw new Error("obstacles character div not found.");
-
+    
     const obstaclesIMG = document.createElement("img");
-    this.position.y=1150;
     obstaclesIMG.src = this.ImageURL;
     obstaclesIMG.id = this.id;
     obstaclesIMG.style.position = "absolute";
@@ -36,9 +43,8 @@ renderObstacles() {
     obstaclesIMG.style.width = "100px";
     obstaclesIMG.style.height = "200px";
     obstacles.appendChild(obstaclesIMG);
-    this.position.y=700;
-  
-    // this.renderScore(); //render score (שגיב)
+    this.startRunning();
+    
   } catch (error) {
     console.error(error);
   }
@@ -47,36 +53,26 @@ renderObstacles() {
 alwaysRun() {
   const obstaclesElement = document.getElementById(this.id);
   if (obstaclesElement) {
-    this.position.y -= 10;
+    this.position.y -= 1;
     obstaclesElement.style.left = `${this.position.y}px`;
   }
 
-  if (this.position.y >= 1820) {
-    alert("ניצחת יאלה תתחיל מחדש");
-    this.position.y = 0;
-    // this.resetScore();
+
   }
-}
 
 startRunning() {
   if (this.isAttack) {
     this.isAttack = false;
     this.intervalID = setInterval(() => {
       this.alwaysRun();
-    }, 40);
-    // this.startScoreTimer(); //start the timer (שגיב)
+    }, 5);
   }
 }
-
 }
 
 const obstacles = new Obstacles({ x: 380, y: 1150 }, "./dist/images/Obstacles.png", true); //
 
- obstacles.renderObstacles(); // render obstacles
-setInterval(() => {obstacles.startRunning()}, 300);
 setInterval(() => {obstacles.renderObstacles()},3000)
-
-
 
 
 class Mario {
