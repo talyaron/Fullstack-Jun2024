@@ -30,6 +30,8 @@ class box {
   private position: position;
   width: number;
   height: number;
+
+
   constructor(spawnPos: vertex, width: number, height: number) {
     // only "spawn position" needs to be set the other point is calculated
     this.height = height;
@@ -62,7 +64,7 @@ class box {
   }
   die(box: box) {
     //setting the box element in the html page
-    this.domElement.remove;
+    this.domElement.remove();
   }
 }
 
@@ -135,7 +137,7 @@ class playCube extends box {
   }
 }
 
-const pinBall = new playCube({ x: 184, y: 422 }, 50, 50); //adds the pinBall and its position X and Y are position the rest is width and height
+const pinBall = new playCube({ x: window.innerWidth*.5, y: 440 }, 50, 50); //adds the pinBall and its position X and Y are position the rest is width and height
 
 const containerElement = document.getElementById("boxContainer") as HTMLElement;
 
@@ -173,6 +175,7 @@ function removeBoxes(boxes: box[]) {
       boxes.splice(boxIndex, 1);
     }
   });
+  boxes.length = 0; 
 }
 
 function renderBoxes(boxes: box[]) {

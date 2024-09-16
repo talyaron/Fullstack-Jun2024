@@ -51,7 +51,7 @@ var box = /** @class */ (function () {
     };
     box.prototype.die = function (box) {
         //setting the box element in the html page
-        this.domElement.remove;
+        this.domElement.remove();
     };
     return box;
 }());
@@ -112,7 +112,7 @@ var playCube = /** @class */ (function (_super) {
     };
     return playCube;
 }(box));
-var pinBall = new playCube({ x: 184, y: 422 }, 50, 50); //adds the pinBall and its position X and Y are position the rest is width and height
+var pinBall = new playCube({ x: window.innerWidth * .5, y: 440 }, 50, 50); //adds the pinBall and its position X and Y are position the rest is width and height
 var containerElement = document.getElementById("boxContainer");
 var boxes = [];
 function newBox() {
@@ -141,6 +141,7 @@ function removeBoxes(boxes) {
             boxes.splice(boxIndex, 1);
         }
     });
+    boxes.length = 0;
 }
 function renderBoxes(boxes) {
     boxes.forEach(function (box) {
