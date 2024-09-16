@@ -1,7 +1,83 @@
+
+
 interface Position {
   x: number;
   y: number;
 }
+
+class Obstacles {
+  private id: string;
+  private position: Position;
+  private ImageURL: string;
+  private isAttack: boolean;
+  private intervalID: number | null;
+
+  constructor(position: Position, imageUrl: string, isAttack: boolean) {
+    this.id = `id-${crypto.randomUUID()}`;
+    this.position = position;
+    this.ImageURL = imageUrl;
+    this.isAttack = isAttack;
+  
+}
+
+renderObstacles() {
+  try {
+    const obstacles = document.getElementById("main");
+        if (!obstacles)
+             throw new Error("obstacles character div not found.");
+
+    const obstaclesIMG = document.createElement("img");
+    this.position.y=1150;
+    obstaclesIMG.src = this.ImageURL;
+    obstaclesIMG.id = this.id;
+    obstaclesIMG.style.position = "absolute";
+    obstaclesIMG.style.left = `${this.position.y}px`;
+    obstaclesIMG.style.top = `${this.position.x}px`;
+    obstaclesIMG.style.width = "100px";
+    obstaclesIMG.style.height = "200px";
+    obstacles.appendChild(obstaclesIMG);
+    this.position.y=700;
+  
+    // this.renderScore(); //render score (שגיב)
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+alwaysRun() {
+  const obstaclesElement = document.getElementById(this.id);
+  if (obstaclesElement) {
+    this.position.y -= 10;
+    obstaclesElement.style.left = `${this.position.y}px`;
+  }
+
+  if (this.position.y >= 1820) {
+    alert("ניצחת יאלה תתחיל מחדש");
+    this.position.y = 0;
+    // this.resetScore();
+  }
+}
+
+startRunning() {
+  if (this.isAttack) {
+    this.isAttack = false;
+    this.intervalID = setInterval(() => {
+      this.alwaysRun();
+    }, 40);
+    // this.startScoreTimer(); //start the timer (שגיב)
+  }
+}
+
+}
+
+const obstacles = new Obstacles({ x: 380, y: 1150 }, "./dist/images/Obstacles.png", true); //
+
+ obstacles.renderObstacles(); // render obstacles
+setInterval(() => {obstacles.startRunning()}, 300);
+setInterval(() => {obstacles.renderObstacles()},3000)
+
+
+
 
 class Mario {
   private id: string;
@@ -76,7 +152,7 @@ class Mario {
       marioIMG.src = this.ImageURL;
       marioIMG.id = this.id;
       marioIMG.style.position = "absolute";
-      marioIMG.style.left = `${this.position.y}px`;
+      marioIMG.style.left = `${this.position.y+}px`;
       marioIMG.style.top = `${this.position.x}px`;
       marioIMG.style.width = "100px";
       marioIMG.style.height = "200px";
@@ -108,7 +184,7 @@ class Mario {
   alwaysRun() {
     const marioElement = document.getElementById(this.id);
     if (marioElement) {
-      this.position.y += 12;
+      this.position.y += 4;
       marioElement.style.left = `${this.position.y}px`;
     }
 
@@ -142,18 +218,17 @@ class Mario {
 }
 
 
-const mario = new Mario({ x: 600, y: 0 }, "./dist/images/mario.png", 0); // הדיפולט לא לגעת בזה, הגדרתי מיקום שיהיה על הרצפה ושיהיה צמוד לקיר (נועם)
+const mario = new Mario({ x: 340, y: 0 }, "./dist/images/mario.png", 0); // הדיפולט לא לגעת בזה, הגדרתי מיקום שיהיה על הרצפה ושיהיה צמוד לקיר (נועם)
 mario.renderMario();
+
 
 document.addEventListener("keydown", (e) => {
   if (e.key === " ") {
     mario.jump();
   } else if(e.key === "w") {
-    mario.stopRunning();
+    mario.stopRunning()
   }
 
 });
 
-setInterval(() => {
-  mario.startRunning();
-}, 300);
+setInterval(() => {mario.startRunning()}, 300);
