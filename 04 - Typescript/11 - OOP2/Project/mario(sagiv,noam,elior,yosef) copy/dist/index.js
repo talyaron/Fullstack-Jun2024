@@ -1,3 +1,60 @@
+var Obstacles = /** @class */ (function () {
+    function Obstacles(position, imageUrl, isAttack) {
+        this.id = "id-" + crypto.randomUUID();
+        this.position = position;
+        this.ImageURL = imageUrl;
+        this.isAttack = isAttack;
+    }
+    Obstacles.prototype.renderObstacles = function () {
+        try {
+            var obstacles_1 = document.getElementById("main");
+            if (!obstacles_1)
+                throw new Error("obstacles character div not found.");
+            var obstaclesIMG = document.createElement("img");
+            this.position.y = 1150;
+            obstaclesIMG.src = this.ImageURL;
+            obstaclesIMG.id = this.id;
+            obstaclesIMG.style.position = "absolute";
+            obstaclesIMG.style.left = this.position.y + "px";
+            obstaclesIMG.style.top = this.position.x + "px";
+            obstaclesIMG.style.width = "100px";
+            obstaclesIMG.style.height = "200px";
+            obstacles_1.appendChild(obstaclesIMG);
+            this.position.y = 700;
+            // this.renderScore(); //render score (שגיב)
+        }
+        catch (error) {
+            console.error(error);
+        }
+    };
+    Obstacles.prototype.alwaysRun = function () {
+        var obstaclesElement = document.getElementById(this.id);
+        if (obstaclesElement) {
+            this.position.y -= 10;
+            obstaclesElement.style.left = this.position.y + "px";
+        }
+        if (this.position.y >= 1820) {
+            alert("ניצחת יאלה תתחיל מחדש");
+            this.position.y = 0;
+            // this.resetScore();
+        }
+    };
+    Obstacles.prototype.startRunning = function () {
+        var _this = this;
+        if (this.isAttack) {
+            this.isAttack = false;
+            this.intervalID = setInterval(function () {
+                _this.alwaysRun();
+            }, 40);
+            // this.startScoreTimer(); //start the timer (שגיב)
+        }
+    };
+    return Obstacles;
+}());
+var obstacles = new Obstacles({ x: 380, y: 1150 }, "./dist/images/Obstacles.png", true); //
+obstacles.renderObstacles(); // render obstacles
+setInterval(function () { obstacles.startRunning(); }, 300);
+setInterval(function () { obstacles.renderObstacles(); }, 3000);
 var Mario = /** @class */ (function () {
     function Mario(position, ImageURL, score) {
         this.id = "id-" + crypto.randomUUID();
@@ -59,7 +116,7 @@ var Mario = /** @class */ (function () {
             marioIMG.src = this.ImageURL;
             marioIMG.id = this.id;
             marioIMG.style.position = "absolute";
-            marioIMG.style.left = this.position.y + "px";
+            marioIMG.style.left = this.position.y +  + "px";
             marioIMG.style.top = this.position.x + "px";
             marioIMG.style.width = "100px";
             marioIMG.style.height = "200px";
@@ -89,7 +146,7 @@ var Mario = /** @class */ (function () {
     Mario.prototype.alwaysRun = function () {
         var marioElement = document.getElementById(this.id);
         if (marioElement) {
-            this.position.y += 12;
+            this.position.y += 4;
             marioElement.style.left = this.position.y + "px";
         }
         if (this.position.y >= 1820) {
@@ -119,7 +176,7 @@ var Mario = /** @class */ (function () {
     };
     return Mario;
 }());
-var mario = new Mario({ x: 600, y: 0 }, "./dist/images/mario.png", 0); // הדיפולט לא לגעת בזה, הגדרתי מיקום שיהיה על הרצפה ושיהיה צמוד לקיר (נועם)
+var mario = new Mario({ x: 340, y: 0 }, "./dist/images/mario.png", 0); // הדיפולט לא לגעת בזה, הגדרתי מיקום שיהיה על הרצפה ושיהיה צמוד לקיר (נועם)
 mario.renderMario();
 document.addEventListener("keydown", function (e) {
     if (e.key === " ") {
@@ -129,6 +186,4 @@ document.addEventListener("keydown", function (e) {
         mario.stopRunning();
     }
 });
-setInterval(function () {
-    mario.startRunning();
-}, 300);
+setInterval(function () { mario.startRunning(); }, 300);
