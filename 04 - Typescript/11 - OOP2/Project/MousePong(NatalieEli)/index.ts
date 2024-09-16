@@ -136,22 +136,33 @@ class playCube extends box {
   }
 }
 
-const pinBall = new playCube({ x: window.innerWidth * 0.5, y: 440 }, 50, 50); //adds the pinBall and its position X and Y are position the rest is width and height
-
 const containerElement = document.getElementById("boxContainer") as HTMLElement;
+const minWidth = 600;
+const minHeight = 400;
+
+const containerRect = containerElement.getClientRects();
+// Convert to number
+const initialPlace =parseFloat(window.getComputedStyle(containerElement).width);
+
+const pinBall = new playCube({ x: initialPlace * 0.5, y: 440 }, 50, 50); //adds the pinBall and its position X and Y are position the rest is width and height
+
 
 const boxes: box[] = [];
 
 function newBox() {
+ const containerStyle = window.getComputedStyle(containerElement);
+ const containerWidth = parseFloat(containerStyle.width);
+console.log('Width:', containerWidth);
+
   const brick = new box({ x: 44, y: 50 }, 75, 25);
   const newBox2 = new box({ x: 204, y: 602 }, 150, 50);
   const wallLeft = new box({ x: 2, y: 0 }, 0, myScreen.viewportHeight);
   const wallRight = new box(
-    { x: myScreen.viewportWidth, y: 0 },
+    { x: containerWidth, y: 0 },
     0,
     myScreen.viewportHeight
   );
-  const wallTop = new box({ x: 0, y: 2 }, myScreen.viewportWidth, 0);
+  const wallTop = new box({ x: 0, y: 2 },containerWidth, 0);
 
   boxes.push(brick, newBox2, wallLeft, wallRight, wallTop);
   if (!pinBall.exist) {
@@ -186,7 +197,8 @@ function renderBoxes(boxes: box[]) {
 
 function main() {
   newBox();
-
+  containerElement.style.minWidth = "800px";
+  containerElement.style.minHeight = "600px";
   isColliding(pinBall);
 }
 
@@ -343,10 +355,13 @@ function physics(pinBall: playCube) {
   mousePosition.oldX = mouseCurrentX;
   mousePosition.oldY = mouseCurrentY;
 
-  if (pinBall.pos.edgePos.x > window.innerWidth) {
-    console.log("outside")
-    pinBall.pos.spawnPos.x =window.innerWidth-pinBall.width;
-    pinBall.pos.edgePos.x =pinBall.pos.spawnPos.x-pinBall.width;
+
+  const containerStyle = window.getComputedStyle(containerElement);
+  const containerWidth = parseFloat(containerStyle.width);
+  if (pinBall.pos.edgePos.x > containerWidth) {
+    console.log("outside");
+    pinBall.pos.spawnPos.x = containerWidth - pinBall.width;
+    pinBall.pos.edgePos.x = pinBall.pos.spawnPos.x - pinBall.width;
 
     pinBall.updateTransform();
   }
@@ -368,9 +383,10 @@ function physics(pinBall: playCube) {
   }
 
   const windowSize = window.innerWidth;
+
   if (windowSize != myScreen.viewportWidth) {
-    myScreen.viewportHeight = window.innerHeight;
     myScreen.viewportWidth = window.innerWidth;
+    myScreen.viewportHeight = window.innerHeight;
     removeBoxes(boxes);
     newBox();
   }
