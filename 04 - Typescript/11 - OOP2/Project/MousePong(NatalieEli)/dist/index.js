@@ -283,14 +283,14 @@ function physics(pinBall) {
         pinBall.pos.edgePos.x = pinBall.pos.spawnPos.x - pinBall.width;
         pinBall.updateTransform();
     }
-    if (pinBall.pos.edgePos.x < containerWidth - containerWidth) {
+    if (pinBall.pos.spawnPos.x < 0) {
         console.log("outside");
-        pinBall.pos.spawnPos.x = containerWidth + pinBall.width;
+        pinBall.pos.spawnPos.x = 0 + pinBall.width;
         pinBall.pos.edgePos.x = pinBall.pos.spawnPos.x + pinBall.width;
         pinBall.updateTransform();
     }
     if (pinBall.pos.spawnPos.y < 0) {
-        pinBall.pos.spawnPos.y = 0.5 + pinBall.height;
+        pinBall.pos.spawnPos.y = pinBall.height;
         pinBall.pos.edgePos.y = pinBall.pos.spawnPos.y + pinBall.height;
         pinBall.updateTransform();
     }
