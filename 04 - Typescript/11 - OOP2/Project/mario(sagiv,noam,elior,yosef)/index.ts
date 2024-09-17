@@ -1,7 +1,68 @@
+
+
 interface Position {
   x: number;
   y: number;
+} 
+
+class Obstacles {
+  private id: string;
+  private position: Position;
+  private ImageURL: string;
+  private isAttack: boolean;
+
+  constructor(position: Position, imageUrl: string, isAttack: boolean) {
+    this.id = `id-${crypto.randomUUID()}`;
+    this.position = position;
+    this.ImageURL = imageUrl;
+    this.isAttack = isAttack;
+  
 }
+
+renderObstacles() {
+  try {
+    const obstacles = document.getElementById("main");
+        if (!obstacles)
+             throw new Error("obstacles character div not found.");
+    
+    const obstaclesIMG = document.createElement("img");
+    obstaclesIMG.src = this.ImageURL;
+    obstaclesIMG.id = this.id;
+    obstaclesIMG.style.position = "absolute";
+    obstaclesIMG.style.left = `${this.position.y}%`;
+    obstaclesIMG.style.top = `${this.position.x}%`;
+    obstaclesIMG.style.width = "100px";
+    obstaclesIMG.style.height = "200px";
+    obstacles.appendChild(obstaclesIMG);
+    this.startRunning();
+    
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+alwaysRun() {
+  const obstaclesElement = document.getElementById(this.id);
+  if (obstaclesElement) {
+    this.position.y -= 0.8;
+    obstaclesElement.style.left = `${this.position.y}%`;
+  }
+
+
+  }
+
+startRunning() {
+  if (this.isAttack) {
+    this.isAttack = false;
+    this.intervalID = setInterval(() => {
+      this.alwaysRun();
+    }, 35);
+  }
+}
+}
+
+const obstacles = new Obstacles({ x: 67, y: 100 }, "./dist/images/Obstacles.png", true); //
+
 
 class Mario {
   private id: string;
@@ -76,8 +137,8 @@ class Mario {
       marioIMG.src = this.ImageURL;
       marioIMG.id = this.id;
       marioIMG.style.position = "absolute";
-      marioIMG.style.left = `${this.position.y}px`;
-      marioIMG.style.top = `${this.position.x}px`;
+      marioIMG.style.left = `${this.position.y+}%`;
+      marioIMG.style.top = `${this.position.x}%`;
       marioIMG.style.width = "100px";
       marioIMG.style.height = "200px";
       mario.appendChild(marioIMG);
@@ -108,8 +169,8 @@ class Mario {
   alwaysRun() {
     const marioElement = document.getElementById(this.id);
     if (marioElement) {
-      this.position.y += 12;
-      marioElement.style.left = `${this.position.y}px`;
+      this.position.y += 0.8;
+      marioElement.style.left = `${this.position.y}%`;
     }
 
     if (this.position.y >= 1820) {
@@ -142,18 +203,33 @@ class Mario {
 }
 
 
-const mario = new Mario({ x: 600, y: 0 }, "./dist/images/mario.png", 0); // הדיפולט לא לגעת בזה, הגדרתי מיקום שיהיה על הרצפה ושיהיה צמוד לקיר (נועם)
+const mario = new Mario({ x: 67, y: 0 }, "./dist/images/mario.png", 0); // הדיפולט לא לגעת בזה, הגדרתי מיקום שיהיה על הרצפה ושיהיה צמוד לקיר (נועם)
 mario.renderMario();
+
 
 document.addEventListener("keydown", (e) => {
   if (e.key === " ") {
     mario.jump();
   } else if(e.key === "w") {
-    mario.stopRunning();
+    mario.stopRunning()
   }
 
 });
 
-setInterval(() => {
-  mario.startRunning();
-}, 300);
+window.onload = function() {
+  try {
+    const popup = document.getElementById(`image-popup`);
+    if(!popup) throw new Error("Popup Element Not Found")
+      popup.style.display = 'flex';
+      setTimeout(() => {
+        if(!popup) throw new Error("Popup Element Not Found");
+        popup.style.display = 'none';
+        mario.startRunning();
+        obstacles.renderObstacles()
+
+      }, 5000);
+  } catch (error) {
+    console.error(error)
+  }
+}
+// setInterval(() => {mario.startRunning()}, 300); -- אם לא משתמשים ב נwindow.onload אז להפעיל את זה !
