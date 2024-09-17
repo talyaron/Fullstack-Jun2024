@@ -142,6 +142,7 @@ const bricks: Brick[] = [];
 const brickAmount :number=30;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+//inside the newBox() function
 //create a for loop using "brickAmount" to create each brick element 
 //use 2 variables for the x and y to set every brick next to each other 
 //you can use the last brick x and y + its height and width keep the width and height the same
