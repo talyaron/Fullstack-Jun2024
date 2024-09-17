@@ -1,0 +1,27 @@
+body{
+    width: 90vw;
+    height: 90vh;
+}
+
+#main {
+    position: relative;
+    width: 800px;
+    height: 400px;
+    
+}
+
+.player {
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+
+
+.mushroom {
+    width: 50px;
+    height: 50px;
+    background-image: url('./mushroom.png');
+    background-size: contain;
+    position: absolute;
+}
+
