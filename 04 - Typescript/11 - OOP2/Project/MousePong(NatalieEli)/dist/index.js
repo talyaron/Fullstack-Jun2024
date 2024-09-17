@@ -193,7 +193,7 @@ document.addEventListener("mousemove", function (event) {
     mousePosition.x = event.clientX;
     mousePosition.y = event.clientY;
 });
-setInterval(function () { return physics(pinBall); }, 8);
+setInterval(function () { return physics(pinBall); }, 16);
 pinBall.gravity = false;
 function physics(pinBall) {
     //holds the previous mouse position
@@ -206,7 +206,7 @@ function physics(pinBall) {
     var mouseDirX = mouseCurrentX - lastMouseX;
     var mouseDirY = mouseCurrentY - lastMouseY;
     //multiplier of speed 1 is good for now
-    var slowMan = 1;
+    var slowMan = 2;
     // If mouse moves upwards and collides with ball
     if (pinBall.mouseCollidesWithBall) {
         // Calculate the magnitude of the direction vector
@@ -285,7 +285,7 @@ function physics(pinBall) {
     }
     if (pinBall.pos.spawnPos.x < 0) {
         console.log("outside");
-        pinBall.pos.spawnPos.x = 0 + pinBall.width;
+        pinBall.pos.spawnPos.x = 0;
         pinBall.pos.edgePos.x = pinBall.pos.spawnPos.x + pinBall.width;
         pinBall.updateTransform();
     }

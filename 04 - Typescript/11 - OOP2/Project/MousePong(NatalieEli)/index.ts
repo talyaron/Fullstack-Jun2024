@@ -115,7 +115,7 @@ class playCube extends box {
 
   //updates the position of the html element to the current position of the ball
   updateTransform() {
-    this.domElement.style.transform = `translate(${this.pos.spawnPos.x}px, ${this.pos.spawnPos.y}px ) `;
+    this.domElement.style.transform = `translate(${this.pos.spawnPos.x}px, ${this.pos.spawnPos.y}px ) ` ;
   }
 }
 
@@ -263,7 +263,7 @@ document.addEventListener("mousemove", (event: MouseEvent) => {
   mousePosition.y = event.clientY;
 });
 
-setInterval(() => physics(pinBall), 8);
+setInterval(() => physics(pinBall), 16);
 
 pinBall.gravity = false;
 
@@ -279,7 +279,7 @@ function physics(pinBall: playCube) {
   const mouseDirY = mouseCurrentY - lastMouseY;
 
   //multiplier of speed 1 is good for now
-  const slowMan = 1;
+  const slowMan = 2;
 
   // If mouse moves upwards and collides with ball
   if (pinBall.mouseCollidesWithBall) {
@@ -379,7 +379,7 @@ function physics(pinBall: playCube) {
 
   if (pinBall.pos.spawnPos.x < 0) {
     console.log("outside");
-    pinBall.pos.spawnPos.x = 0 + pinBall.width;
+    pinBall.pos.spawnPos.x = 0 ;
     pinBall.pos.edgePos.x = pinBall.pos.spawnPos.x + pinBall.width;
 
     pinBall.updateTransform();
