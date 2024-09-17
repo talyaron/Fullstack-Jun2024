@@ -68,10 +68,10 @@ var Player = /** @class */ (function () {
 var Step = /** @class */ (function () {
     function Step() {
         try {
-            this.width = Math.floor(Math.random() * (750 - 300) + 300);
-            this.height = 60;
-            this.positionX = Math.floor(Math.random() * (1600 - 150) + 150);
-            this.positionY = 1080;
+            this.width = Math.floor(Math.random() * (46 - 19) + 19);
+            this.height = 3.75;
+            this.positionX = Math.floor(Math.random() * (100 - 10) + 10);
+            this.positionY = 68;
         }
         catch (error) {
             console.error(error);
@@ -137,21 +137,21 @@ var Step = /** @class */ (function () {
         var positionChanged = false;
         var step = document.createElement('div');
         if (this.positionX + this.width > 1600) {
-            this.positionX = Math.floor(Math.random() * (1400 - 1000) + 1000);
-            this.width = Math.floor(Math.random() * (320 - 250) + 250);
+            this.positionX = Math.floor(Math.random() * (87.5 - 63) + 63);
+            this.width = Math.floor(Math.random() * (20 - 16) + 16);
             positionChanged = true;
         }
         if (this.positionX < 100) {
             this.positionX = 101;
         }
         step.classList.add('stepDesign');
-        step.style.width = this.width + "px";
+        step.style.width = this.width + "rem";
         step.style.position = 'absolute';
-        step.style.height = this.height + "px";
-        step.style.bottom = this.positionY + "px";
-        step.style.left = this.positionX + "px";
+        step.style.height = this.height + "rem";
+        step.style.bottom = this.positionY + "rem";
+        step.style.left = this.positionX + "rem";
         console.log('Step positionX:', this.positionX, 'Step width:', this.width, positionChanged, this.positionY);
-        step.style.setProperty('--initial-positionY', this.positionY + "px");
+        step.style.setProperty('--initial-positionY', this.positionY + "rem");
         var animationDuration = 10;
         step.style.animationDuration = animationDuration + "s";
         step.addEventListener('animationend', function () {
