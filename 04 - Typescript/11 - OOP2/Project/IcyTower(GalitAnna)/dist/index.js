@@ -54,8 +54,8 @@ var Player = /** @class */ (function () {
             var player = document.createElement('img');
             player.src = this.imageUrl;
             player.style.position = 'absolute';
-            player.style.bottom = this.positionX + "px";
-            player.style.left = this.positionY + "px";
+            player.style.bottom = this.positionY + "px";
+            player.style.left = this.positionX + "vw";
             player.classList.add('player');
             player.style.zIndex = '1';
             mainElement.appendChild(player);
@@ -68,10 +68,10 @@ var Player = /** @class */ (function () {
 var Step = /** @class */ (function () {
     function Step() {
         try {
-            this.width = Math.floor(Math.random() * (46 - 19) + 19);
-            this.height = 3.75;
-            this.positionX = Math.floor(Math.random() * (100 - 10) + 10);
-            this.positionY = 68;
+            this.width = Math.floor(Math.random() * (40 - 10) + 10);
+            this.height = 5;
+            this.positionX = Math.floor(Math.random() * (60 - 8) + 8);
+            this.positionY = 0;
         }
         catch (error) {
             console.error(error);
@@ -136,22 +136,22 @@ var Step = /** @class */ (function () {
     Step.prototype.renderStep = function (mainElement) {
         var positionChanged = false;
         var step = document.createElement('div');
-        if (this.positionX + this.width > 1600) {
-            this.positionX = Math.floor(Math.random() * (87.5 - 63) + 63);
-            this.width = Math.floor(Math.random() * (20 - 16) + 16);
+        /*if(this.positionX  + this.width > 1600){
+            this.positionX = Math.floor(Math.random()*(87.5 - 63)+63);
+            this.width = Math.floor(Math.random()* (20 - 16)+16);
             positionChanged = true;
         }
-        if (this.positionX < 100) {
+        if(this.positionX < 100){
             this.positionX = 101;
-        }
+        }*/
         step.classList.add('stepDesign');
-        step.style.width = this.width + "rem";
+        step.style.width = this.width + "vw";
         step.style.position = 'absolute';
-        step.style.height = this.height + "rem";
-        step.style.bottom = this.positionY + "rem";
-        step.style.left = this.positionX + "rem";
+        step.style.height = this.height + "vh";
+        step.style.top = this.positionY + "vh";
+        step.style.left = this.positionX + "vw";
         console.log('Step positionX:', this.positionX, 'Step width:', this.width, positionChanged, this.positionY);
-        step.style.setProperty('--initial-positionY', this.positionY + "rem");
+        step.style.setProperty('--initial-positionY', this.positionY + "vh");
         var animationDuration = 10;
         step.style.animationDuration = animationDuration + "s";
         step.addEventListener('animationend', function () {
@@ -161,7 +161,7 @@ var Step = /** @class */ (function () {
     };
     return Step;
 }());
-var newPlayer = new Player(0, 912.5, character);
+var newPlayer = new Player(50, 0, character);
 function main() {
     var mainElement = document.getElementById('IcyTower');
     newPlayer.renderPlayer(mainElement);
