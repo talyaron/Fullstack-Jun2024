@@ -24,6 +24,7 @@ class Player {
     renderPlayer(mainElement: HTMLDivElement) {
         if (!mainElement) {
             throw new Error("No main element provided for player rendering");
+
         }
 
         
