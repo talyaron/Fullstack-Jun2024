@@ -27,7 +27,9 @@ const myScreen: screen = {
 };
 
 const mousePosition: mousePos = { x: 0, y: 0, oldX: 0, oldY: 0 };
-class box {
+
+
+class Box {
   private id: string;
   protected domElement: HTMLDivElement;
   private position: position;
@@ -52,7 +54,7 @@ class box {
   set pos(position: position) {
     this.position = position;
   }
-  spawn(box: box) {
+  spawn(box: Box) {
     //setting the box element in the html page
     this.domElement = document.createElement("div");
     this.domElement.style.width = `${box.width}px`;
@@ -64,13 +66,16 @@ class box {
     /// this.pos.spawnPos=box.pos.spawnPos;
     // this.pos.edgePos={ x: box.pos.spawnPos.x + box.width, y: box.pos.spawnPos.y + box.height }
   }
-  die(box: box) {
+  die(box: Box) {
     //setting the box element in the html page
     this.domElement.remove();
   }
 }
+class Brick extends Box {
+  broken:boolean=false;
+}
 
-class playCube extends box {
+class playCube extends Box {
   //the pinBall box with additional functions for movement;
 
   colliding: boolean; //to change based if its colliding or not
@@ -132,7 +137,18 @@ const initialPlace = parseFloat(
 //holds the pinBall and its positions - x - and that is - y - width height
 const pinBall = new playCube({ x: initialPlace * 0.5, y: 440 }, 50, 50);
 
-const boxes: box[] = [];
+const boxes: Box[] = [];
+const bricks: Brick[] = [];
+const brickAmount :number=30;
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+//create a for loop using "brickAmount" to create each brick element 
+//use 2 variables for the x and y to set every brick next to each other 
+//you can use the last brick x and y + its height and width keep the width and height the same
+//  const brick = new Brick({ x: -here, y-: -here Y- }, 75, 25);
+//at the end inside the for loop do a bricks.push(brick);
+//בהצלחה 😄
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //creates the boxes and calling the render function later
 function newBox() {
@@ -143,19 +159,20 @@ function newBox() {
   console.log("Width:", containerWidth);
 
   //some boxes
-  const brick = new box({ x: 44, y: 50 }, 75, 25);
-  const newBox2 = new box({ x: 204, y: 602 }, 150, 50);
-  const newBox3 = new box({ x: 504, y: 602 }, 150, 50);
+  
+  const brick = new Brick({ x: 44, y: 50 }, 75, 25);
+  const newBox2 = new Box({ x: 204, y: 602 }, 150, 50);
+  const newBox3 = new Box({ x: 504, y: 602 }, 150, 50);
   //left wall
-  const wallLeft = new box({ x: 2, y: 0 }, 0, myScreen.viewportHeight);
+  const wallLeft = new Box({ x: 2, y: 0 }, 0, myScreen.viewportHeight);
   //right wall
-  const wallRight = new box(
+  const wallRight = new Box(
     { x: containerWidth, y: 0 },
     0,
     myScreen.viewportHeight
   );
   //celling wall
-  const wallTop = new box({ x: 0, y: 2 }, containerWidth, 0);
+  const wallTop = new Box({ x: 0, y: 2 }, containerWidth, 0);
 
   boxes.push(brick, newBox2, wallLeft, wallRight, wallTop,newBox3);
   //initializes the pinball
@@ -168,12 +185,12 @@ function newBox() {
 }
 
 //render the pinball
-function renderPinBall(box: box) {
+function renderPinBall(box: Box) {
   box.spawn(box);
 }
 
 //removes the boxes
-function removeBoxes(boxes: box[]) {
+function removeBoxes(boxes: Box[]) {
   boxes.forEach((box) => {
     box.die(box);
     const boxIndex = boxes.indexOf(box);
@@ -187,7 +204,7 @@ function removeBoxes(boxes: box[]) {
 }
 
 //does what it says
-function renderBoxes(boxes: box[]) {
+function renderBoxes(boxes: Box[]) {
   boxes.forEach((box) => {
     box.spawn(box);
   });
@@ -263,7 +280,7 @@ document.addEventListener("mousemove", (event: MouseEvent) => {
   mousePosition.y = event.clientY;
 });
 
-setInterval(() => physics(pinBall), 16);
+setInterval(() => physics(pinBall), 8);
 
 pinBall.gravity = false;
 
@@ -279,7 +296,7 @@ function physics(pinBall: playCube) {
   const mouseDirY = mouseCurrentY - lastMouseY;
 
   //multiplier of speed 1 is good for now
-  const slowMan = 2;
+  const slowMan = 1.2;
 
   // If mouse moves upwards and collides with ball
   if (pinBall.mouseCollidesWithBall) {
@@ -299,6 +316,7 @@ function physics(pinBall: playCube) {
       // Set ball velocity based on mouse movement direction and magnitude
       pinBall.ballVelocityX = mouseDirX * slowMan;
       pinBall.ballVelocityY = mouseDirY * slowMan;
+      
     }
   }
 
@@ -314,6 +332,7 @@ function physics(pinBall: playCube) {
 
   // move the ball if there's a direction and velocity
   if (pinBall.ballVelocityX || pinBall.ballVelocityY) {
+    
     pinBall.pos.spawnPos.x += pinBall.ballDirectionX * pinBall.ballVelocityX;
     pinBall.pos.spawnPos.y += pinBall.ballDirectionY * pinBall.ballVelocityY;
     pinBall.posChange = true;
@@ -386,7 +405,7 @@ function physics(pinBall: playCube) {
   }
 
   if (pinBall.pos.spawnPos.y < 0) {
-    pinBall.pos.spawnPos.y =  pinBall.height;
+    pinBall.pos.spawnPos.y =  0;
     pinBall.pos.edgePos.y = pinBall.pos.spawnPos.y + pinBall.height;
 
     pinBall.updateTransform();

@@ -16,8 +16,8 @@ var myScreen = {
     viewportHeight: window.innerHeight
 };
 var mousePosition = { x: 0, y: 0, oldX: 0, oldY: 0 };
-var box = /** @class */ (function () {
-    function box(spawnPos, width, height) {
+var Box = /** @class */ (function () {
+    function Box(spawnPos, width, height) {
         // only "spawn position" needs to be set the other point is calculated
         this.height = height;
         this.width = width;
@@ -27,7 +27,7 @@ var box = /** @class */ (function () {
             edgePos: { x: spawnPos.x + width, y: spawnPos.y + height }
         };
     }
-    Object.defineProperty(box.prototype, "pos", {
+    Object.defineProperty(Box.prototype, "pos", {
         get: function () {
             return this.position;
         },
@@ -37,7 +37,7 @@ var box = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    box.prototype.spawn = function (box) {
+    Box.prototype.spawn = function (box) {
         //setting the box element in the html page
         this.domElement = document.createElement("div");
         this.domElement.style.width = box.width + "px";
@@ -49,12 +49,21 @@ var box = /** @class */ (function () {
         /// this.pos.spawnPos=box.pos.spawnPos;
         // this.pos.edgePos={ x: box.pos.spawnPos.x + box.width, y: box.pos.spawnPos.y + box.height }
     };
-    box.prototype.die = function (box) {
+    Box.prototype.die = function (box) {
         //setting the box element in the html page
         this.domElement.remove();
     };
-    return box;
+    return Box;
 }());
+var Brick = /** @class */ (function (_super) {
+    __extends(Brick, _super);
+    function Brick() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.broken = false;
+        return _this;
+    }
+    return Brick;
+}(Box));
 var playCube = /** @class */ (function (_super) {
     __extends(playCube, _super);
     function playCube() {
@@ -90,7 +99,7 @@ var playCube = /** @class */ (function (_super) {
         this.domElement.style.transform = "translate(" + this.pos.spawnPos.x + "px, " + this.pos.spawnPos.y + "px ) ";
     };
     return playCube;
-}(box));
+}(Box));
 //holds the container for the ball and boxes
 var containerElement = document.getElementById("boxContainer");
 //holds the sizes of the element
@@ -100,6 +109,16 @@ var initialPlace = parseFloat(window.getComputedStyle(containerElement).width);
 //holds the pinBall and its positions - x - and that is - y - width height
 var pinBall = new playCube({ x: initialPlace * 0.5, y: 440 }, 50, 50);
 var boxes = [];
+var bricks = [];
+var brickAmount = 30;
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+//create a for loop using "brickAmount" to create each brick element 
+//use 2 variables for the x and y to set every brick next to each other 
+//you can use the last brick x and y + its height and width keep the width and height the same
+//  const brick = new Brick({ x: -here, y-: -here Y- }, 75, 25);
+//at the end inside the for loop do a bricks.push(brick);
+//בהצלחה 😄
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 //creates the boxes and calling the render function later
 function newBox() {
     //holds the size of the element container 
@@ -107,15 +126,15 @@ function newBox() {
     var containerWidth = parseFloat(containerStyle.width);
     console.log("Width:", containerWidth);
     //some boxes
-    var brick = new box({ x: 44, y: 50 }, 75, 25);
-    var newBox2 = new box({ x: 204, y: 602 }, 150, 50);
-    var newBox3 = new box({ x: 504, y: 602 }, 150, 50);
+    var brick = new Brick({ x: 44, y: 50 }, 75, 25);
+    var newBox2 = new Box({ x: 204, y: 602 }, 150, 50);
+    var newBox3 = new Box({ x: 504, y: 602 }, 150, 50);
     //left wall
-    var wallLeft = new box({ x: 2, y: 0 }, 0, myScreen.viewportHeight);
+    var wallLeft = new Box({ x: 2, y: 0 }, 0, myScreen.viewportHeight);
     //right wall
-    var wallRight = new box({ x: containerWidth, y: 0 }, 0, myScreen.viewportHeight);
+    var wallRight = new Box({ x: containerWidth, y: 0 }, 0, myScreen.viewportHeight);
     //celling wall
-    var wallTop = new box({ x: 0, y: 2 }, containerWidth, 0);
+    var wallTop = new Box({ x: 0, y: 2 }, containerWidth, 0);
     boxes.push(brick, newBox2, wallLeft, wallRight, wallTop, newBox3);
     //initializes the pinball
     if (!pinBall.exist) {
@@ -193,7 +212,7 @@ document.addEventListener("mousemove", function (event) {
     mousePosition.x = event.clientX;
     mousePosition.y = event.clientY;
 });
-setInterval(function () { return physics(pinBall); }, 16);
+setInterval(function () { return physics(pinBall); }, 8);
 pinBall.gravity = false;
 function physics(pinBall) {
     //holds the previous mouse position
@@ -206,7 +225,7 @@ function physics(pinBall) {
     var mouseDirX = mouseCurrentX - lastMouseX;
     var mouseDirY = mouseCurrentY - lastMouseY;
     //multiplier of speed 1 is good for now
-    var slowMan = 2;
+    var slowMan = 1.2;
     // If mouse moves upwards and collides with ball
     if (pinBall.mouseCollidesWithBall) {
         // Calculate the magnitude of the direction vector
@@ -290,7 +309,7 @@ function physics(pinBall) {
         pinBall.updateTransform();
     }
     if (pinBall.pos.spawnPos.y < 0) {
-        pinBall.pos.spawnPos.y = pinBall.height;
+        pinBall.pos.spawnPos.y = 0;
         pinBall.pos.edgePos.y = pinBall.pos.spawnPos.y + pinBall.height;
         pinBall.updateTransform();
     }
