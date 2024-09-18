@@ -127,6 +127,20 @@ function newBox() {
     var containerWidth = parseFloat(containerStyle.width);
     console.log("Width:", containerWidth);
     //some boxes
+    var offsetX = 22;
+    var marginX = containerWidth - offsetX;
+    var spaceX = marginX / 15 - offsetX;
+    console.log(spaceX);
+    for (var i = 0; i < 15; i++) {
+        var brickRow1 = new Brick({ x: offsetX, y: 50 }, spaceX, 25);
+        var brickRow2 = new Brick({ x: offsetX, y: 80 }, spaceX, 25);
+        var brickRow3 = new Brick({ x: offsetX, y: 110 }, spaceX, 25);
+        var brickRow4 = new Brick({ x: offsetX, y: 140 }, spaceX, 25);
+        var brickRow5 = new Brick({ x: offsetX, y: 170 }, spaceX, 25);
+        boxes.push(brickRow1, brickRow2, brickRow3, brickRow4, brickRow5);
+        offsetX = offsetX + 90;
+        console.log(i);
+    }
     var brick = new Brick({ x: 44, y: 50 }, 75, 25);
     var newBox2 = new Box({ x: 204, y: 602 }, 150, 50);
     var newBox3 = new Box({ x: 504, y: 602 }, 150, 50);
@@ -136,7 +150,7 @@ function newBox() {
     var wallRight = new Box({ x: containerWidth, y: 0 }, 0, myScreen.viewportHeight);
     //celling wall
     var wallTop = new Box({ x: 0, y: 2 }, containerWidth, 0);
-    boxes.push(brick, newBox2, wallLeft, wallRight, wallTop, newBox3);
+    boxes.push(newBox2, wallLeft, wallRight, wallTop, newBox3);
     //initializes the pinball
     if (!pinBall.exist) {
         renderPinBall(pinBall);
