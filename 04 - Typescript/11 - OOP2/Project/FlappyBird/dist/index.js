@@ -81,7 +81,6 @@ var Bird = /** @class */ (function () {
         this.position.y += this.velocity;
         if (this.position.y > window.innerHeight) {
             this.position.y = window.innerHeight;
-            this.gameOver();
         }
         this.element.style.top = this.position.y + 'px';
     };
@@ -89,14 +88,21 @@ var Bird = /** @class */ (function () {
         var _this = this;
         setInterval(function () {
             if (_this.isFlying) {
-                // this.moveWings();
+                _this.moveWings();
                 _this.applyGravity();
             }
         }, 20);
     };
     Bird.prototype.gameOver = function () {
+        console.log('game-over');
+        var container = document.getElementById("bg-img");
+        if (!container)
+            throw new Error("Ellement not found");
         var gameover = document.createElement("img");
-        gameover.src = './dist/images/gameover.png';
+        gameover.src = './dist/images/gameOver.png';
+        gameover.style.position = 'absolute';
+        container.appendChild(gameover);
+        this.element.classList.add('gameover');
     };
     return Bird;
 }());

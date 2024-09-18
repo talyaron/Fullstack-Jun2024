@@ -13,7 +13,7 @@ class Bird {
     private flyingBirdImgUrl: string;
     isFlying: boolean;
 
-    constructor (position: Position, velocity: number, gravity: number) {
+    constructor(position: Position, velocity: number, gravity: number) {
         this.id = `-id${crypto.randomUUID()}`;
         this.position = position;
         this.imgUrl = "./dist/images/bird-down.png";
@@ -24,21 +24,20 @@ class Bird {
         this.isFlying = false;
 
         window.addEventListener('keydown', (event: KeyboardEvent) => {
-            if (event.code === 'Space'){
+            if (event.code === 'Space') {
                 this.handlePressKeyDown();
             }
         });
 
         window.addEventListener('keyup', (event: KeyboardEvent) => {
-            if (event.code === 'Space'){
+            if (event.code === 'Space') {
                 this.handlePressKeyUp();
             }
         });
-
         this.gameLoop();
     }
 
-     //GETTER
+    //GETTER
     getElement(): HTMLImageElement {
         return this.element;
     }
@@ -58,7 +57,7 @@ class Bird {
             setInterval(() => {
                 element.src = this.flyingBirdImgUrl
             }, 1000);
-          }, 1000);
+        }, 1000);
         return element;
     }
 
@@ -68,7 +67,7 @@ class Bird {
             this.element = document.createElement('img');
             const container = document.getElementById('container');
             if (!container) throw new Error('Element not found');
-            
+
             if (this.isFlying) {
                 // this.moveWings();
             } else {
@@ -80,51 +79,57 @@ class Bird {
             this.element.style.top = this.position.y + 'px';
             this.element.classList.add('bird');
             container.appendChild(this.element);
-            
+
         } catch (e) {
             console.error(e);
         }
     }
 
-    handlePressKeyDown(): void{
+    handlePressKeyDown(): void {
         this.isFlying = true;
-        
+
         this.element.style.left = this.position.x + 'px';
         this.element.style.top = this.position.y + 'px';
-        this.position.y = this.position.y -80;
-        this.velocity =- 5;
+        this.position.y = this.position.y - 80;
+        this.velocity = - 5;
     }
 
-    handlePressKeyUp() : void {
+    handlePressKeyUp(): void {
         // this.isFlying=false;
     }
 
-    applyGravity(): void { 
-        this.velocity += this.gravity; 
-        this.position.y += this.velocity; 
-        
-        if (this.position.y > window.innerHeight) { 
+    applyGravity(): void {
+        this.velocity += this.gravity;
+        this.position.y += this.velocity;
+
+        if (this.position.y > window.innerHeight) {
             this.position.y = window.innerHeight;
-            this.gameOver();
-        } 
-        this.element.style.top = this.position.y + 'px'; 
+        }
+        this.element.style.top = this.position.y + 'px';
     }
 
     gameLoop(): void {
-         setInterval(() => { 
-            if (this.isFlying) { 
-                // this.moveWings();
-                this.applyGravity(); 
-            } 
-        }, 20); 
+        setInterval(() => {
+            if (this.isFlying) {
+                this.moveWings();
+                this.applyGravity();
+            }
+        }, 20);
     }
 
     gameOver(): void {
+        console.log('game-over');
+        const container = document.getElementById("bg-img");
+        if (!container) throw new Error("Ellement not found");
+
         const gameover: HTMLImageElement = document.createElement("img");
-        gameover.src = './dist/images/gameover.png';
-    }
+        gameover.src = './dist/images/gameOver.png';
+        gameover.style.position = 'absolute';
+        container.appendChild(gameover);
+        this.element.classList.add('gameover');
+ }
 }
 
-function main():void {
-    new Bird({x: 300, y: 300}, 0, 0.4);
+function main(): void {
+    new Bird({ x: 300, y: 300 }, 0, 0.4);
 };
