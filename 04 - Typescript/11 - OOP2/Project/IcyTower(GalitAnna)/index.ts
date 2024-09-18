@@ -147,12 +147,14 @@ class Step {
     private positionY: number;
     private width: number;
     private height: number;
+    private element: HTMLDivElement | null;
 
     constructor() {
         this.width = Math.floor(Math.random() * (40 - 10) + 10);
         this.height = 5;
         this.positionX = Math.floor(Math.random() * (60 - 8) + 8);
         this.positionY = 0;
+        this.element = null;
     }
 
     get getPositionX() {
@@ -198,25 +200,32 @@ class Step {
         step.style.setProperty('--initial-positionY', `${this.positionY}vh`);
         const animationDuration = 10;
         step.style.animationDuration = `${animationDuration}s`;
-        step.addEventListener('animationend', () => {
-            mainElement.removeChild(step);
-        });
+        step.style.animationPlayState = 'running';
         mainElement.appendChild(step);
+        this.element = step;
+    }
+
+    public stopAnimation() {
+        if (this.element) {
+            this.element.style.animationPlayState = 'paused'; 
+        }
+    }
+
+    public resumeAnimation() {
+        if (this.element) {
+            this.element.style.animationPlayState = 'running';
+        }
     }
 }
 
 const newPlayer = new Player(50, 0, character, 0, 0.5, false);
+let isGamePaused = false;
+let stepIntervalId: number | null = null;
+let steps: Step[] = [];
 
 function main() {
     const mainElement = document.getElementById('IcyTower') as HTMLDivElement;
     newPlayer.renderPlayer(mainElement);
-
-    function createStepWithDelay() {
-        const newStep = createSteps();
-        newStep.renderStep(mainElement);
-
-        setTimeout(createStepWithDelay, 1500);
-    }
     createStepWithDelay();
 }
 
@@ -224,17 +233,67 @@ function createSteps(): Step {
     return new Step();
 }
 
+function pauseGame() {
+    isGamePaused = true;
+    newPlayer.pauseGame();
+    steps.forEach(step => step.stopAnimation());
+    if (stepIntervalId !== null) {
+        clearTimeout(stepIntervalId);
+    }
+}
+
+function resumeGame() {
+    isGamePaused = false;
+    newPlayer.resumeGame();
+    steps.forEach(step => step.resumeAnimation()); 
+    createStepWithDelay();
+}
+
+function resetGame() {
+  
+    const mainElement = document.getElementById('IcyTower') as HTMLDivElement;
+    const existingSteps = mainElement.querySelectorAll('.stepDesign');
+    existingSteps.forEach(step => step.remove());
+
+    newPlayer.resetGame();
+
+    if (stepIntervalId !== null) {
+        clearTimeout(stepIntervalId);
+    }
+    steps = []; 
+    createStepWithDelay();
+}
+
+function createStepWithDelay() {
+    if (!isGamePaused) {
+        const mainElement = document.getElementById('IcyTower') as HTMLDivElement;
+        const newStep = createSteps();
+        newStep.renderStep(mainElement);
+        steps.push(newStep);
+    }
+    stepIntervalId = setTimeout(createStepWithDelay, 1500);
+}
+
 window.onload = () => {
     const pauseButton = document.getElementById('pauseButton') as HTMLButtonElement;
     const startOverButton = document.getElementById('startOverButton') as HTMLButtonElement;
 
     pauseButton.addEventListener('click', () => {
-        newPlayer.pauseGame();
+        if (isGamePaused) {
+            resumeGame();
+            pauseButton.textContent = '||';
+        } else {
+            pauseGame();
+            pauseButton.textContent = '▶';
+        }
     });
 
     startOverButton.addEventListener('click', () => {
-        newPlayer.resetGame();
-        newPlayer.resumeGame();
+        resetGame();
+        if (isGamePaused) {
+            resumeGame();
+            pauseButton.textContent = '||';
+        }
     });
 
     main(); 
