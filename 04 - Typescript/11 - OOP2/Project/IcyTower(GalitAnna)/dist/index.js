@@ -147,6 +147,7 @@ var Step = /** @class */ (function () {
         this.height = 5;
         this.positionX = Math.floor(Math.random() * (60 - 8) + 8);
         this.positionY = 0;
+        this.element = null;
     }
     Object.defineProperty(Step.prototype, "getPositionX", {
         get: function () {
@@ -215,36 +216,87 @@ var Step = /** @class */ (function () {
         step.style.setProperty('--initial-positionY', this.positionY + "vh");
         var animationDuration = 10;
         step.style.animationDuration = animationDuration + "s";
-        step.addEventListener('animationend', function () {
-            mainElement.removeChild(step);
-        });
+        step.style.animationPlayState = 'running';
         mainElement.appendChild(step);
+        this.element = step;
+    };
+    Step.prototype.stopAnimation = function () {
+        if (this.element) {
+            this.element.style.animationPlayState = 'paused';
+        }
+    };
+    Step.prototype.resumeAnimation = function () {
+        if (this.element) {
+            this.element.style.animationPlayState = 'running';
+        }
     };
     return Step;
 }());
 var newPlayer = new Player(50, 0, character, 0, 0.5, false);
+var isGamePaused = false;
+var stepIntervalId = null;
+var steps = [];
 function main() {
     var mainElement = document.getElementById('IcyTower');
     newPlayer.renderPlayer(mainElement);
-    function createStepWithDelay() {
-        var newStep = createSteps();
-        newStep.renderStep(mainElement);
-        setTimeout(createStepWithDelay, 1500);
-    }
     createStepWithDelay();
 }
 function createSteps() {
     return new Step();
 }
+function pauseGame() {
+    isGamePaused = true;
+    newPlayer.pauseGame();
+    steps.forEach(function (step) { return step.stopAnimation(); });
+    if (stepIntervalId !== null) {
+        clearTimeout(stepIntervalId);
+    }
+}
+function resumeGame() {
+    isGamePaused = false;
+    newPlayer.resumeGame();
+    steps.forEach(function (step) { return step.resumeAnimation(); });
+    createStepWithDelay();
+}
+function resetGame() {
+    var mainElement = document.getElementById('IcyTower');
+    var existingSteps = mainElement.querySelectorAll('.stepDesign');
+    existingSteps.forEach(function (step) { return step.remove(); });
+    newPlayer.resetGame();
+    if (stepIntervalId !== null) {
+        clearTimeout(stepIntervalId);
+    }
+    steps = [];
+    createStepWithDelay();
+}
+function createStepWithDelay() {
+    if (!isGamePaused) {
+        var mainElement = document.getElementById('IcyTower');
+        var newStep = createSteps();
+        newStep.renderStep(mainElement);
+        steps.push(newStep);
+    }
+    stepIntervalId = setTimeout(createStepWithDelay, 1500);
+}
 window.onload = function () {
     var pauseButton = document.getElementById('pauseButton');
     var startOverButton = document.getElementById('startOverButton');
     pauseButton.addEventListener('click', function () {
-        newPlayer.pauseGame();
+        if (isGamePaused) {
+            resumeGame();
+            pauseButton.textContent = '||';
+        }
+        else {
+            pauseGame();
+            pauseButton.textContent = '▶';
+        }
     });
     startOverButton.addEventListener('click', function () {
-        newPlayer.resetGame();
-        newPlayer.resumeGame();
+        resetGame();
+        if (isGamePaused) {
+            resumeGame();
+            pauseButton.textContent = '||';
+        }
     });
     main();
 };

@@ -69,9 +69,29 @@ $border-radius: 20px;
   }
 
 
-  #startOverButton , #pauseButton {
- font-size: 20px;
- background-color: transparent;
-color: $card-bg-color;
- font-weight: bolder;
-  }
+  #controls {
+    position: absolute; 
+    left: 0.1vh; 
+    top: 1vh; 
+    display: flex;
+    align-items: center;
+}
+
+#startOverButton, #pauseButton {
+    font-size: 22px; 
+    width: 8vh;
+    height: 8vh;
+    font-weight: 900;
+    background: linear-gradient(to bottom, #eaeaea, #606060); 
+    color: white;
+    border: none; 
+    padding: 5px 10px; 
+    border-radius: 5px; 
+    margin-left: 10px;
+    cursor: pointer; 
+    transition: background 0.3s; 
+}
+
+#startOverButton:hover, #pauseButton:hover {
+    background: linear-gradient(to bottom, #b0b0b0, #404040); 
+}
