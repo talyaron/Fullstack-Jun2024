@@ -158,6 +158,22 @@ function newBox() {
   console.log("Width:", containerWidth);
 
   //some boxes
+  let offsetX = 22
+  const marginX = containerWidth - offsetX
+  let spaceX = marginX/15 - offsetX;
+  console.log(spaceX);
+  for (let i = 0; i < 15; i++) {
+    const brickRow1 = new Brick({ x: offsetX, y: 50 }, spaceX, 25);
+    const brickRow2 = new Brick({ x: offsetX, y: 80 }, spaceX, 25);
+    const brickRow3 = new Brick({ x: offsetX, y: 110 }, spaceX, 25);
+    const brickRow4 = new Brick({ x: offsetX, y: 140 }, spaceX, 25);
+    const brickRow5 = new Brick({ x: offsetX, y: 170 }, spaceX, 25);
+
+
+    boxes.push (brickRow1, brickRow2, brickRow3, brickRow4, brickRow5);
+    offsetX = offsetX + 90;
+    console.log(i);
+  }
 
   const brick = new Brick({ x: 44, y: 50 }, 75, 25);
   const newBox2 = new Box({ x: 204, y: 602 }, 150, 50);
@@ -173,7 +189,7 @@ function newBox() {
   //celling wall
   const wallTop = new Box({ x: 0, y: 2 }, containerWidth, 0);
 
-  boxes.push(brick, newBox2, wallLeft, wallRight, wallTop, newBox3);
+  boxes.push(newBox2, wallLeft, wallRight, wallTop, newBox3);
   //initializes the pinball
   if (!pinBall.exist) {
     renderPinBall(pinBall);
