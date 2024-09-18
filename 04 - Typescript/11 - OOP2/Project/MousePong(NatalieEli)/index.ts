@@ -28,7 +28,6 @@ const myScreen: screen = {
 
 const mousePosition: mousePos = { x: 0, y: 0, oldX: 0, oldY: 0 };
 
-
 class Box {
   private id: string;
   protected domElement: HTMLDivElement;
@@ -72,7 +71,7 @@ class Box {
   }
 }
 class Brick extends Box {
-  broken:boolean=false;
+  broken: boolean = false;
 }
 
 class playCube extends Box {
@@ -82,14 +81,14 @@ class playCube extends Box {
   radius: number = this.width / 2; //holds the radius of the pinball
   gravity: boolean = true; //to enable or disable gravity
 
-  mouseEntryDirection: number; 
+  mouseEntryDirection: number;
   posChange = false;
 
   mouseCollidesWithBall: boolean = false;
 
   //if the ball was already created of not
   exist = false;
- 
+
   ballDirectionY;
   ballDirectionX;
   ballVelocityX;
@@ -120,7 +119,7 @@ class playCube extends Box {
 
   //updates the position of the html element to the current position of the ball
   updateTransform() {
-    this.domElement.style.transform = `translate(${this.pos.spawnPos.x}px, ${this.pos.spawnPos.y}px ) ` ;
+    this.domElement.style.transform = `translate(${this.pos.spawnPos.x}px, ${this.pos.spawnPos.y}px ) `;
   }
 }
 
@@ -139,12 +138,12 @@ const pinBall = new playCube({ x: initialPlace * 0.5, y: 440 }, 50, 50);
 
 const boxes: Box[] = [];
 const bricks: Brick[] = [];
-const brickAmount :number=30;
+const brickAmount: number = 30;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 //inside the newBox() function
-//create a for loop using "brickAmount" to create each brick element 
-//use 2 variables for the x and y to set every brick next to each other 
+//create a for loop using "brickAmount" to create each brick element
+//use 2 variables for the x and y to set every brick next to each other
 //you can use the last brick x and y + its height and width keep the width and height the same
 //  const brick = new Brick({ x: -here, y-: -here Y- }, 75, 25);
 //at the end inside the for loop do a bricks.push(brick);
@@ -153,14 +152,13 @@ const brickAmount :number=30;
 
 //creates the boxes and calling the render function later
 function newBox() {
-
-  //holds the size of the element container 
+  //holds the size of the element container
   const containerStyle = window.getComputedStyle(containerElement);
   const containerWidth = parseFloat(containerStyle.width);
   console.log("Width:", containerWidth);
 
   //some boxes
-  
+
   const brick = new Brick({ x: 44, y: 50 }, 75, 25);
   const newBox2 = new Box({ x: 204, y: 602 }, 150, 50);
   const newBox3 = new Box({ x: 504, y: 602 }, 150, 50);
@@ -175,7 +173,7 @@ function newBox() {
   //celling wall
   const wallTop = new Box({ x: 0, y: 2 }, containerWidth, 0);
 
-  boxes.push(brick, newBox2, wallLeft, wallRight, wallTop,newBox3);
+  boxes.push(brick, newBox2, wallLeft, wallRight, wallTop, newBox3);
   //initializes the pinball
   if (!pinBall.exist) {
     renderPinBall(pinBall);
@@ -261,10 +259,14 @@ function isColliding(pinBall: playCube): {
       const length = Math.sqrt(normalX * normalX + normalY * normalY);
 
       // normalizes the normal 🥴(vector)
-      collisionNormal = {
-        x: normalX / length,
-        y: normalY / length,
-      };
+      if (length !== 0) {
+        collisionNormal = {
+          x: normalX / length,
+          y: normalY / length,
+        };
+      } else {
+        collisionNormal = { x: 0, y: 0 };
+      }
 
       console.log("Colliding with normal:", collisionNormal);
     }
@@ -285,107 +287,7 @@ setInterval(() => physics(pinBall), 8);
 
 pinBall.gravity = false;
 
-function physics(pinBall: playCube) {
-  //holds the previous mouse position
-  const lastMouseX = mousePosition.oldX;
-  const lastMouseY = mousePosition.oldY;
-  //holds the new mouse position
-  const mouseCurrentX = mousePosition.x;
-  const mouseCurrentY = mousePosition.y;
-  //calculates the direction of mouse
-  const mouseDirX = mouseCurrentX - lastMouseX;
-  const mouseDirY = mouseCurrentY - lastMouseY;
-
-  //multiplier of speed 1 is good for now
-  const slowMan = 1.2;
-
-  // If mouse moves upwards and collides with ball
-  if (pinBall.mouseCollidesWithBall) {
-    // Calculate the magnitude of the direction vector
-    const magnitude = Math.sqrt(mouseDirX * mouseDirX + mouseDirY * mouseDirY);
-
-    if (magnitude >= 0 && mouseCurrentY > 400) {
-      // check where the mouse came from and apply it to direction of the ball
-      if (pinBall.mouseEntryDirection > 0) {
-        pinBall.ballDirectionX = -mouseDirX / magnitude;
-      } else {
-        pinBall.ballDirectionX = mouseDirX / magnitude;
-      }
-
-      pinBall.ballDirectionY = -mouseDirY / magnitude;
-
-      // Set ball velocity based on mouse movement direction and magnitude
-      pinBall.ballVelocityX = mouseDirX * slowMan;
-      pinBall.ballVelocityY = mouseDirY * slowMan;
-      
-    }
-  }
-
-  // Handle NaN directions (reset to 0 if needed)
-  if (isNaN(pinBall.ballDirectionX)) {
-    pinBall.ballDirectionX = 0;
-  }
-  if (isNaN(pinBall.ballDirectionY)) {
-    pinBall.ballDirectionY = 0;
-  }
-
-  //let posChange = false;
-
-  // move the ball if there's a direction and velocity
-  if (pinBall.ballVelocityX || pinBall.ballVelocityY) {
-    
-    pinBall.pos.spawnPos.x += pinBall.ballDirectionX * pinBall.ballVelocityX;
-    pinBall.pos.spawnPos.y += pinBall.ballDirectionY * pinBall.ballVelocityY;
-    pinBall.posChange = true;
-    // Update edge positions based on new ball position
-    pinBall.pos.edgePos.y = pinBall.pos.spawnPos.y + pinBall.height;
-    pinBall.pos.edgePos.x = pinBall.pos.spawnPos.x + pinBall.width;
-  }
-  // Apply gravity if enabled
-  if (pinBall.gravity) {
-    // pinBall.fall();
-    pinBall.posChange = true;
-  }
-  //holds the collider if teh ball its colliding
-  const collision = isColliding(pinBall);
-
-  // if the ball hits a collider change the ball's direction using the collision normal
-  if (collision.colliding && collision.normal) {
-    //const to hold the collider normal
-    const normal = collision.normal;
-
-    // calculates the alignment between the ball direction vector and the surface normal
-    const dotProduct =
-      pinBall.ballDirectionX * normal.x + pinBall.ballDirectionY * normal.y;
-
-    //update the ball direction
-    pinBall.ballDirectionX -= 2 * dotProduct * normal.x;
-    pinBall.ballDirectionY -= 2 * dotProduct * normal.y;
-
-    //uncomment to make the ball lose speed with each collider hit
-    //pinBall.ballVelocityX *= .9;
-    // pinBall.ballVelocityY *= .9;
-
-    console.log(
-      "Bouncing with new direction:",
-      pinBall.ballDirectionX,
-      pinBall.ballDirectionY
-    );
-  }
-
-  //if gravity is enabled make the ball fall
-  if (pinBall.gravity) {
-    pinBall.posChange = true;
-    //no gravity for now we will be back on the next episode of dragon ball z
-  }
-
-  if (pinBall.posChange) {
-    pinBall.updateTransform();
-  }
-  //update the old mouse pos
-  mousePosition.oldX = mouseCurrentX;
-  mousePosition.oldY = mouseCurrentY;
-
+function windowResized() {
   //checks if pinball is outside the play area and brings it back inside if it is
   const containerStyle = window.getComputedStyle(containerElement);
   const containerWidth = parseFloat(containerStyle.width);
@@ -399,14 +301,14 @@ function physics(pinBall: playCube) {
 
   if (pinBall.pos.spawnPos.x < 0) {
     console.log("outside");
-    pinBall.pos.spawnPos.x = 0 ;
+    pinBall.pos.spawnPos.x = 0;
     pinBall.pos.edgePos.x = pinBall.pos.spawnPos.x + pinBall.width;
 
     pinBall.updateTransform();
   }
 
   if (pinBall.pos.spawnPos.y < 0) {
-    pinBall.pos.spawnPos.y =  0;
+    pinBall.pos.spawnPos.y = 0;
     pinBall.pos.edgePos.y = pinBall.pos.spawnPos.y + pinBall.height;
 
     pinBall.updateTransform();
@@ -438,4 +340,116 @@ function physics(pinBall: playCube) {
     removeBoxes(boxes);
     newBox();
   }
+}
+
+function physics(pinBall: playCube) {
+  //holds the previous mouse position
+  const lastMouseX = mousePosition.oldX;
+  const lastMouseY = mousePosition.oldY;
+
+  //holds the new mouse position
+  const mouseCurrentX = mousePosition.x;
+  const mouseCurrentY = mousePosition.y;
+
+  //calculates the direction of mouse
+  const mouseDirX = mouseCurrentX - lastMouseX;
+  const mouseDirY = mouseCurrentY - lastMouseY;
+
+  //multiplier of speed 1 is good for now
+  const slowMan = 1.2;
+
+  // If mouse moves upwards and collides with ball
+  if (pinBall.mouseCollidesWithBall) {
+    // Calculate the magnitude of the direction vector
+    const magnitude = Math.sqrt(mouseDirX * mouseDirX + mouseDirY * mouseDirY);
+
+    if (magnitude >= 0 && mouseCurrentY > 400) {
+      // check where the mouse came from and apply it to direction of the ball
+      if (pinBall.mouseEntryDirection > 0) {
+        pinBall.ballDirectionX = -mouseDirX / magnitude;
+      } else {
+        pinBall.ballDirectionX = mouseDirX / magnitude;
+      }
+
+      pinBall.ballDirectionY = -mouseDirY / magnitude;
+
+      // Set ball velocity based on mouse movement direction and magnitude
+      pinBall.ballVelocityX = mouseDirX * slowMan;
+      pinBall.ballVelocityY = mouseDirY * slowMan;
+    }
+  }
+
+  // Handle NaN directions (reset to 0 if needed)
+  if (isNaN(pinBall.ballDirectionX)) {
+    pinBall.ballDirectionX = 0;
+  }
+  if (isNaN(pinBall.ballDirectionY)) {
+    pinBall.ballDirectionY = 0;
+  }
+
+  //let posChange = false;
+
+  // move the ball if there's a direction and velocity
+  if (pinBall.ballVelocityX || pinBall.ballVelocityY) {
+    pinBall.pos.spawnPos.x += pinBall.ballDirectionX * pinBall.ballVelocityX;
+    pinBall.pos.spawnPos.y += pinBall.ballDirectionY * pinBall.ballVelocityY;
+
+    pinBall.posChange = true;
+
+    // Update edge positions based on new ball position
+    pinBall.pos.edgePos.y = pinBall.pos.spawnPos.y + pinBall.height;
+    pinBall.pos.edgePos.x = pinBall.pos.spawnPos.x + pinBall.width;
+  }
+
+  // Apply gravity if enabled
+  if (pinBall.gravity) {
+    // pinBall.fall();
+    pinBall.posChange = true;
+  }
+
+  //holds the collider if teh ball its colliding
+  const collision = isColliding(pinBall);
+
+  // if the ball hits a collider change the ball's direction using the collision normal
+  if (collision.colliding && collision.normal) {
+    //const to hold the collider normal
+    const normal = collision.normal;
+
+    // calculates the alignment between the ball direction vector and the surface normal
+    const dotProduct =
+      pinBall.ballDirectionX * normal.x + pinBall.ballDirectionY * normal.y;
+
+    //update the ball direction
+    pinBall.ballDirectionX -= 2 * dotProduct * normal.x;
+    pinBall.ballDirectionY -= 2 * dotProduct * normal.y;
+
+    // moves the ball slightly out of the collider to prevent it from getting stuck
+    pinBall.pos.spawnPos.x += normal.x * 0.5;
+    pinBall.pos.spawnPos.y += normal.y * 0.5;
+
+    //uncomment to make the ball lose speed with each collider hit
+    //pinBall.ballVelocityX *= .9;
+    // pinBall.ballVelocityY *= .9;
+
+    console.log(
+      "Bouncing with new direction:",
+      pinBall.ballDirectionX,
+      pinBall.ballDirectionY
+    );
+  }
+
+  //if gravity is enabled make the ball fall
+  if (pinBall.gravity) {
+    pinBall.posChange = true;
+    //no gravity for now we will be back on the next episode of dragon ball z
+  }
+
+  if (pinBall.posChange) {
+    pinBall.updateTransform();
+  }
+  //update the old mouse pos
+  mousePosition.oldX = mouseCurrentX;
+  mousePosition.oldY = mouseCurrentY;
+
+  windowResized();
 }

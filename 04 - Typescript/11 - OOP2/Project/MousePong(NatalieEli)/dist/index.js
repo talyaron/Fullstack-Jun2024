@@ -113,8 +113,8 @@ var bricks = [];
 var brickAmount = 30;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 //inside the newBox() function
-//create a for loop using "brickAmount" to create each brick element 
-//use 2 variables for the x and y to set every brick next to each other 
+//create a for loop using "brickAmount" to create each brick element
+//use 2 variables for the x and y to set every brick next to each other
 //you can use the last brick x and y + its height and width keep the width and height the same
 //  const brick = new Brick({ x: -here, y-: -here Y- }, 75, 25);
 //at the end inside the for loop do a bricks.push(brick);
@@ -122,7 +122,7 @@ var brickAmount = 30;
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //creates the boxes and calling the render function later
 function newBox() {
-    //holds the size of the element container 
+    //holds the size of the element container
     var containerStyle = window.getComputedStyle(containerElement);
     var containerWidth = parseFloat(containerStyle.width);
     console.log("Width:", containerWidth);
@@ -196,10 +196,15 @@ function isColliding(pinBall) {
             var normalY = distanceY;
             var length = Math.sqrt(normalX * normalX + normalY * normalY);
             // normalizes the normal 🥴(vector)
-            collisionNormal = {
-                x: normalX / length,
-                y: normalY / length
-            };
+            if (length !== 0) {
+                collisionNormal = {
+                    x: normalX / length,
+                    y: normalY / length
+                };
+            }
+            else {
+                collisionNormal = { x: 0, y: 0 };
+            }
             console.log("Colliding with normal:", collisionNormal);
         }
     });
@@ -215,6 +220,49 @@ document.addEventListener("mousemove", function (event) {
 });
 setInterval(function () { return physics(pinBall); }, 8);
 pinBall.gravity = false;
+function windowResized() {
+    //checks if pinball is outside the play area and brings it back inside if it is
+    var containerStyle = window.getComputedStyle(containerElement);
+    var containerWidth = parseFloat(containerStyle.width);
+    if (pinBall.pos.edgePos.x > containerWidth) {
+        console.log("outside");
+        pinBall.pos.spawnPos.x = containerWidth - pinBall.width;
+        pinBall.pos.edgePos.x = pinBall.pos.spawnPos.x - pinBall.width;
+        pinBall.updateTransform();
+    }
+    if (pinBall.pos.spawnPos.x < 0) {
+        console.log("outside");
+        pinBall.pos.spawnPos.x = 0;
+        pinBall.pos.edgePos.x = pinBall.pos.spawnPos.x + pinBall.width;
+        pinBall.updateTransform();
+    }
+    if (pinBall.pos.spawnPos.y < 0) {
+        pinBall.pos.spawnPos.y = 0;
+        pinBall.pos.edgePos.y = pinBall.pos.spawnPos.y + pinBall.height;
+        pinBall.updateTransform();
+    }
+    //lose condition is if the ball fell down too far (brings it back to the center for now)
+    if (pinBall.pos.spawnPos.y > window.innerHeight) {
+        console.log("you lost ! ");
+        pinBall.pos.spawnPos.y = 440;
+        pinBall.pos.edgePos.y = 440;
+        pinBall.pos.spawnPos.x = innerWidth * 0.5;
+        pinBall.pos.edgePos.x = innerWidth * 0.5;
+        pinBall.ballDirectionX = 0;
+        pinBall.ballDirectionY = 0;
+        pinBall.ballVelocityX = 0;
+        pinBall.ballVelocityY = 0;
+        pinBall.updateTransform();
+    }
+    var windowSize = window.innerWidth;
+    //check if the view window is resized and if it is rerender the boxes accordingly
+    if (windowSize != myScreen.viewportWidth) {
+        myScreen.viewportWidth = window.innerWidth;
+        myScreen.viewportHeight = window.innerHeight;
+        removeBoxes(boxes);
+        newBox();
+    }
+}
 function physics(pinBall) {
     //holds the previous mouse position
     var lastMouseX = mousePosition.oldX;
@@ -278,6 +326,9 @@ function physics(pinBall) {
         //update the ball direction
         pinBall.ballDirectionX -= 2 * dotProduct * normal.x;
         pinBall.ballDirectionY -= 2 * dotProduct * normal.y;
+        // moves the ball slightly out of the collider to prevent it from getting stuck
+        pinBall.pos.spawnPos.x += normal.x * 0.5;
+        pinBall.pos.spawnPos.y += normal.y * 0.5;
         //uncomment to make the ball lose speed with each collider hit
         //pinBall.ballVelocityX *= .9;
         // pinBall.ballVelocityY *= .9;
@@ -294,45 +345,5 @@ function physics(pinBall) {
     //update the old mouse pos
     mousePosition.oldX = mouseCurrentX;
     mousePosition.oldY = mouseCurrentY;
-    //checks if pinball is outside the play area and brings it back inside if it is
-    var containerStyle = window.getComputedStyle(containerElement);
-    var containerWidth = parseFloat(containerStyle.width);
-    if (pinBall.pos.edgePos.x > containerWidth) {
-        console.log("outside");
-        pinBall.pos.spawnPos.x = containerWidth - pinBall.width;
-        pinBall.pos.edgePos.x = pinBall.pos.spawnPos.x - pinBall.width;
-        pinBall.updateTransform();
-    }
-    if (pinBall.pos.spawnPos.x < 0) {
-        console.log("outside");
-        pinBall.pos.spawnPos.x = 0;
-        pinBall.pos.edgePos.x = pinBall.pos.spawnPos.x + pinBall.width;
-        pinBall.updateTransform();
-    }
-    if (pinBall.pos.spawnPos.y < 0) {
-        pinBall.pos.spawnPos.y = 0;
-        pinBall.pos.edgePos.y = pinBall.pos.spawnPos.y + pinBall.height;
-        pinBall.updateTransform();
-    }
-    //lose condition is if the ball fell down too far (brings it back to the center for now)
-    if (pinBall.pos.spawnPos.y > window.innerHeight) {
-        console.log("you lost ! ");
-        pinBall.pos.spawnPos.y = 440;
-        pinBall.pos.edgePos.y = 440;
-        pinBall.pos.spawnPos.x = innerWidth * 0.5;
-        pinBall.pos.edgePos.x = innerWidth * 0.5;
-        pinBall.ballDirectionX = 0;
-        pinBall.ballDirectionY = 0;
-        pinBall.ballVelocityX = 0;
-        pinBall.ballVelocityY = 0;
-        pinBall.updateTransform();
-    }
-    var windowSize = window.innerWidth;
-    //check if the view window is resized and if it is rerender the boxes accordingly
-    if (windowSize != myScreen.viewportWidth) {
-        myScreen.viewportWidth = window.innerWidth;
-        myScreen.viewportHeight = window.innerHeight;
-        removeBoxes(boxes);
-        newBox();
-    }
+    windowResized();
 }
