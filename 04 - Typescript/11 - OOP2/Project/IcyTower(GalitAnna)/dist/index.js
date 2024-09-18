@@ -3,11 +3,12 @@ var Player = /** @class */ (function () {
     function Player(x, y, imageUrl, velocityY, gravity, isJumping) {
         this.positionX = x;
         this.positionY = y;
-        this.imageUrl = './images/character1.png';
-        this.velocityY = 0;
-        this.gravity = 0.5;
-        this.isJumping = false;
-        this.element = null; // Initialize element as null
+        this.imageUrl = imageUrl;
+        this.velocityY = velocityY;
+        this.gravity = gravity;
+        this.isJumping = isJumping;
+        this.isPaused = false;
+        this.element = null;
     }
     Object.defineProperty(Player.prototype, "getPositionX", {
         get: function () {
@@ -63,7 +64,7 @@ var Player = /** @class */ (function () {
             player.classList.add('player');
             player.style.zIndex = '1';
             mainElement.appendChild(player);
-            this.element = player; // Store reference to the player element
+            this.element = player;
             this.addEventListeners();
             this.update();
         }
@@ -74,14 +75,16 @@ var Player = /** @class */ (function () {
     Player.prototype.addEventListeners = function () {
         var _this = this;
         window.addEventListener('keydown', function (event) {
-            if (event.key === 'ArrowRight') {
-                _this.moveRight();
-            }
-            if (event.key === 'ArrowLeft') {
-                _this.moveLeft();
-            }
-            if (event.key === ' ' || event.key === 'ArrowUp') {
-                _this.jump();
+            if (!_this.isPaused) {
+                if (event.key === 'ArrowRight') {
+                    _this.moveRight();
+                }
+                if (event.key === 'ArrowLeft') {
+                    _this.moveLeft();
+                }
+                if (event.key === ' ' || event.key === 'ArrowUp') {
+                    _this.jump();
+                }
             }
         });
     };
@@ -101,22 +104,40 @@ var Player = /** @class */ (function () {
     };
     Player.prototype.update = function () {
         var _this = this;
-        if (this.isJumping) {
-            this.positionY += this.velocityY;
-            this.velocityY -= this.gravity;
-            if (this.positionY <= 0) {
-                this.positionY = 0;
-                this.isJumping = false;
+        if (!this.isPaused) {
+            if (this.isJumping) {
+                this.positionY += this.velocityY;
+                this.velocityY -= this.gravity;
+                if (this.positionY <= 0) {
+                    this.positionY = 0;
+                    this.isJumping = false;
+                }
             }
+            this.updatePosition();
+            requestAnimationFrame(function () { return _this.update(); });
         }
-        this.updatePosition();
-        requestAnimationFrame(function () { return _this.update(); });
     };
     Player.prototype.updatePosition = function () {
         if (this.element) {
             this.element.style.left = this.positionX + "vw";
             this.element.style.bottom = this.positionY + "vh";
         }
+    };
+    Player.prototype.pauseGame = function () {
+        this.isPaused = true;
+    };
+    Player.prototype.resumeGame = function () {
+        if (this.isPaused) {
+            this.isPaused = false;
+            this.update();
+        }
+    };
+    Player.prototype.resetGame = function () {
+        this.positionX = 50;
+        this.positionY = 0;
+        this.velocityY = 0;
+        this.isJumping = false;
+        this.updatePosition();
     };
     return Player;
 }());
@@ -215,4 +236,15 @@ function main() {
 function createSteps() {
     return new Step();
 }
-main();
+window.onload = function () {
+    var pauseButton = document.getElementById('pauseButton');
+    var startOverButton = document.getElementById('startOverButton');
+    pauseButton.addEventListener('click', function () {
+        newPlayer.pauseGame();
+    });
+    startOverButton.addEventListener('click', function () {
+        newPlayer.resetGame();
+        newPlayer.resumeGame();
+    });
+    main();
+};

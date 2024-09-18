@@ -67,3 +67,11 @@ $border-radius: 20px;
       border-radius: 0 0 5px 5px;
     }*/
   }
+
+
+  #startOverButton , #pauseButton {
+ font-size: 20px;
+ background-color: transparent;
+color: $card-bg-color;
+ font-weight: bolder;
+  }

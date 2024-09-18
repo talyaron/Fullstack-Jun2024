@@ -8,15 +8,17 @@ class Player {
     private gravity: number;
     private element: HTMLImageElement | null;
     private isJumping: boolean;
+    private isPaused: boolean;
 
     constructor(x: number, y: number, imageUrl: string, velocityY: number, gravity: number, isJumping: boolean) {
         this.positionX = x;
         this.positionY = y;
-        this.imageUrl = './images/character1.png';
-        this.velocityY = 0;
-        this.gravity = 0.5;
-        this.isJumping = false;
-        this.element = null; // Initialize element as null
+        this.imageUrl = imageUrl;
+        this.velocityY = velocityY;
+        this.gravity = gravity;
+        this.isJumping = isJumping;
+        this.isPaused = false;
+        this.element = null; 
     }
 
     get getPositionX() {
@@ -54,7 +56,7 @@ class Player {
             player.classList.add('player');
             player.style.zIndex = '1';
             mainElement.appendChild(player);
-            this.element = player; // Store reference to the player element
+            this.element = player;
 
             this.addEventListeners();
             this.update();
@@ -65,14 +67,16 @@ class Player {
 
     private addEventListeners() {
         window.addEventListener('keydown', (event) => {
-            if (event.key === 'ArrowRight') {
-                this.moveRight();
-            }
-            if (event.key === 'ArrowLeft') {
-                this.moveLeft();
-            }
-            if (event.key === ' ' || event.key === 'ArrowUp') {
-                this.jump();
+            if (!this.isPaused) { 
+                if (event.key === 'ArrowRight') {
+                    this.moveRight();
+                }
+                if (event.key === 'ArrowLeft') {
+                    this.moveLeft();
+                }
+                if (event.key === ' ' || event.key === 'ArrowUp') {
+                    this.jump();
+                }
             }
         });
     }
@@ -95,19 +99,20 @@ class Player {
     }
 
     private update() {
-        if (this.isJumping) {
-            this.positionY += this.velocityY;
-            this.velocityY -= this.gravity;
+        if (!this.isPaused) { 
+            if (this.isJumping) {
+                this.positionY += this.velocityY;
+                this.velocityY -= this.gravity;
 
-            if (this.positionY <= 0) {
-                this.positionY = 0;
-                this.isJumping = false;
+                if (this.positionY <= 0) {
+                    this.positionY = 0;
+                    this.isJumping = false;
+                }
             }
+
+            this.updatePosition();
+            requestAnimationFrame(() => this.update());
         }
-
-        this.updatePosition();
-
-        requestAnimationFrame(() => this.update());
     }
 
     private updatePosition() {
@@ -115,6 +120,25 @@ class Player {
             this.element.style.left = `${this.positionX}vw`;
             this.element.style.bottom = `${this.positionY}vh`;
         }
+    }
+
+    public pauseGame() {
+        this.isPaused = true;
+    }
+
+    public resumeGame() {
+        if (this.isPaused) {
+            this.isPaused = false;
+            this.update();
+        }
+    }
+
+    public resetGame() {
+        this.positionX = 50; 
+        this.positionY = 0;
+        this.velocityY = 0;
+        this.isJumping = false;
+        this.updatePosition();
     }
 }
 
@@ -200,4 +224,18 @@ function createSteps(): Step {
     return new Step();
 }
 
-main();
+window.onload = () => {
+    const pauseButton = document.getElementById('pauseButton') as HTMLButtonElement;
+    const startOverButton = document.getElementById('startOverButton') as HTMLButtonElement;
+
+    pauseButton.addEventListener('click', () => {
+        newPlayer.pauseGame();
+    });
+
+    startOverButton.addEventListener('click', () => {
+        newPlayer.resetGame();
+        newPlayer.resumeGame();
+    });
+
+    main(); 
+};
