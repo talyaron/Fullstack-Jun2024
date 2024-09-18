@@ -364,3 +364,8 @@ function physics(pinBall) {
     mousePosition.oldY = mouseCurrentY;
     windowResized();
 }
+///להוסיף התחלה ואנימציה 
+//לתקן כמה באגים
+// לעצב את הקוביות והעיגול
+//להוסיף נקודות
+// מסך ותנאי הפסד
