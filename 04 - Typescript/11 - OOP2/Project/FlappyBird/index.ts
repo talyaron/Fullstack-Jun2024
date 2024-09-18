@@ -34,6 +34,8 @@ class Bird {
                 this.handlePressKeyUp();
             }
         });
+
+        this.gameLoop();
     }
 
      //GETTER
@@ -51,12 +53,12 @@ class Bird {
         const element = this.getElement();
         setInterval(() => {
             element.src = this.imgUrl;
-        }, 500);
+        }, 1000);
         setTimeout(() => {
             setInterval(() => {
                 element.src = this.flyingBirdImgUrl
-            }, 500);
-          }, 200);
+            }, 1000);
+          }, 1000);
         return element;
     }
 
@@ -64,8 +66,11 @@ class Bird {
         console.log("in render");
         try {
             this.element = document.createElement('img');
-            if (!this.isFlying) {
-                this.moveWings();
+            const container = document.getElementById('container');
+            if (!container) throw new Error('Element not found');
+            
+            if (this.isFlying) {
+                // this.moveWings();
             } else {
                 this.element.src = this.imgUrl;
             }
@@ -74,7 +79,7 @@ class Bird {
             this.element.style.left = this.position.x + 'px';
             this.element.style.top = this.position.y + 'px';
             this.element.classList.add('bird');
-            document.body.appendChild(this.element);
+            container.appendChild(this.element);
             
         } catch (e) {
             console.error(e);
@@ -82,22 +87,44 @@ class Bird {
     }
 
     handlePressKeyDown(): void{
-        console.log('pressed');
-
-        this.position.y = this.position.y + 30;
+        this.isFlying = true;
         
         this.element.style.left = this.position.x + 'px';
         this.element.style.top = this.position.y + 'px';
+        this.position.y = this.position.y -80;
+        this.velocity =- 5;
     }
 
-    // handlePressKeyUp(): void {
-    //     this.position.y = this.position.y --;
+    handlePressKeyUp() : void {
+        // this.isFlying=false;
+    }
+
+    applyGravity(): void { 
+        this.velocity += this.gravity; 
+        this.position.y += this.velocity; 
         
-    //     this.element.style.left = this.position.x + 'px';
-    //     this.element.style.top = this.position.y + 'px';
-    // }
+        if (this.position.y > window.innerHeight) { 
+            this.position.y = window.innerHeight;
+            this.gameOver();
+        } 
+        this.element.style.top = this.position.y + 'px'; 
+    }
+
+    gameLoop(): void {
+         setInterval(() => { 
+            if (this.isFlying) { 
+                // this.moveWings();
+                this.applyGravity(); 
+            } 
+        }, 20); 
+    }
+
+    gameOver(): void {
+        const gameover: HTMLImageElement = document.createElement("img");
+        gameover.src = './dist/images/gameover.png';
+    }
 }
 
 function main():void {
-    new Bird({x: 300, y: 300}, 0, 0);
+    new Bird({x: 300, y: 300}, 0, 0.4);
 };
