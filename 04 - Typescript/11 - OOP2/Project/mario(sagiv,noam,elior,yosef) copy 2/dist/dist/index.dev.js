@@ -1,5 +1,62 @@
 "use strict";
 
+var Obstacles =
+/** @class */
+function () {
+  function Obstacles(position, imageUrl, isAttack) {
+    this.id = "id-" + crypto.randomUUID();
+    this.position = position;
+    this.ImageURL = imageUrl;
+    this.isAttack = isAttack;
+  }
+
+  Obstacles.prototype.renderObstacles = function () {
+    try {
+      var obstacles_1 = document.getElementById("main");
+      if (!obstacles_1) throw new Error("obstacles character div not found.");
+      var obstaclesIMG = document.createElement("img");
+      obstaclesIMG.src = this.ImageURL;
+      obstaclesIMG.id = this.id;
+      obstaclesIMG.style.position = "absolute";
+      obstaclesIMG.style.left = this.position.y + "%";
+      obstaclesIMG.style.top = this.position.x + "%";
+      obstaclesIMG.style.width = "100px";
+      obstaclesIMG.style.height = "200px";
+      obstacles_1.appendChild(obstaclesIMG);
+      this.startRunning();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  Obstacles.prototype.alwaysRun = function () {
+    var obstaclesElement = document.getElementById(this.id);
+
+    if (obstaclesElement) {
+      this.position.y -= 0.8;
+      obstaclesElement.style.left = this.position.y + "%";
+    }
+  };
+
+  Obstacles.prototype.startRunning = function () {
+    var _this = this;
+
+    if (this.isAttack) {
+      this.isAttack = false;
+      this.intervalID = setInterval(function () {
+        _this.alwaysRun();
+      }, 35);
+    }
+  };
+
+  return Obstacles;
+}();
+
+var obstacles = new Obstacles({
+  x: 67,
+  y: 100
+}, "./dist/images/Obstacles.png", true); //
+
 var Mario =
 /** @class */
 function () {
@@ -70,8 +127,8 @@ function () {
       marioIMG.src = this.ImageURL;
       marioIMG.id = this.id;
       marioIMG.style.position = "absolute";
-      marioIMG.style.left = this.position.y + "px";
-      marioIMG.style.top = this.position.x + "px";
+      marioIMG.style.left = this.position.y + +"%";
+      marioIMG.style.top = this.position.x + "%";
       marioIMG.style.width = "100px";
       marioIMG.style.height = "200px";
       mario_1.appendChild(marioIMG);
@@ -103,8 +160,8 @@ function () {
     var marioElement = document.getElementById(this.id);
 
     if (marioElement) {
-      this.position.y += 12;
-      marioElement.style.left = this.position.y + "px";
+      this.position.y += 0.8;
+      marioElement.style.left = this.position.y + "%";
     }
 
     if (this.position.y >= 1820) {
@@ -141,7 +198,7 @@ function () {
 }();
 
 var mario = new Mario({
-  x: 600,
+  x: 67,
   y: 0
 }, "./dist/images/mario.png", 0); // הדיפולט לא לגעת בזה, הגדרתי מיקום שיהיה על הרצפה ושיהיה צמוד לקיר (נועם)
 
@@ -153,6 +210,19 @@ document.addEventListener("keydown", function (e) {
     mario.stopRunning();
   }
 });
-setInterval(function () {
-  mario.startRunning();
-}, 300);
+
+window.onload = function () {
+  try {
+    var popup_1 = document.getElementById("image-popup");
+    if (!popup_1) throw new Error("Popup Element Not Found");
+    popup_1.style.display = 'flex';
+    setTimeout(function () {
+      if (!popup_1) throw new Error("Popup Element Not Found");
+      popup_1.style.display = 'none';
+      mario.startRunning();
+      obstacles.renderObstacles();
+    }, 5000);
+  } catch (error) {
+    console.error(error);
+  }
+}; // setInterval(() => {mario.startRunning()}, 300); -- אם לא משתמשים ב נwindow.onload אז להפעיל את זה !

@@ -3,7 +3,7 @@
 //  2. condition (if the condition is true, the loop will continue)
 // 3. increment the variable
 
-const x = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
+const x = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "p"];
 
 
 for (let i = 0; i < x.length; i++) {

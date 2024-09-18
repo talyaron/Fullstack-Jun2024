@@ -1,24 +1,15 @@
-window.onload = function() {
-  var popup = document.getElementById('image-popup');
-  popup.style.display = 'flex';
 
-  // אם תרצה להסתיר את התמונה אחרי זמן מסוים (למשל 5 שניות):
-  setTimeout(function() {
-      popup.style.display = 'none';
-  }, 5000); // 5000 מילישניות = 5 שניות
-};
 
 interface Position {
   x: number;
   y: number;
-}
+} 
 
 class Obstacles {
   private id: string;
   private position: Position;
   private ImageURL: string;
   private isAttack: boolean;
-  private intervalID: number | null;
 
   constructor(position: Position, imageUrl: string, isAttack: boolean) {
     this.id = `id-${crypto.randomUUID()}`;
@@ -38,8 +29,8 @@ renderObstacles() {
     obstaclesIMG.src = this.ImageURL;
     obstaclesIMG.id = this.id;
     obstaclesIMG.style.position = "absolute";
-    obstaclesIMG.style.left = `${this.position.y}px`;
-    obstaclesIMG.style.top = `${this.position.x}px`;
+    obstaclesIMG.style.left = `${this.position.y}%`;
+    obstaclesIMG.style.top = `${this.position.x}%`;
     obstaclesIMG.style.width = "100px";
     obstaclesIMG.style.height = "200px";
     obstacles.appendChild(obstaclesIMG);
@@ -53,8 +44,8 @@ renderObstacles() {
 alwaysRun() {
   const obstaclesElement = document.getElementById(this.id);
   if (obstaclesElement) {
-    this.position.y -= 1;
-    obstaclesElement.style.left = `${this.position.y}px`;
+    this.position.y -= 0.8;
+    obstaclesElement.style.left = `${this.position.y}%`;
   }
 
 
@@ -65,14 +56,12 @@ startRunning() {
     this.isAttack = false;
     this.intervalID = setInterval(() => {
       this.alwaysRun();
-    }, 5);
+    }, 35);
   }
 }
 }
 
-const obstacles = new Obstacles({ x: 380, y: 1150 }, "./dist/images/Obstacles.png", true); //
-
-setInterval(() => {obstacles.renderObstacles()},3000)
+const obstacles = new Obstacles({ x: 67, y: 100 }, "./dist/images/Obstacles.png", true); //
 
 
 class Mario {
@@ -142,14 +131,14 @@ class Mario {
 // נועם
   renderMario() {
     try {
-      const mario = document.getElementById("mariocharacter");
+      const mario = document.getElementById("game");
       if (!mario) throw new Error("Mario character div not found.");
       const marioIMG = document.createElement("img");
       marioIMG.src = this.ImageURL;
       marioIMG.id = this.id;
       marioIMG.style.position = "absolute";
-      marioIMG.style.left = `${this.position.y+}px`;
-      marioIMG.style.top = `${this.position.x}px`;
+      marioIMG.style.left = `${this.position.y+}%`;
+      marioIMG.style.top = `${this.position.x}%`;
       marioIMG.style.width = "100px";
       marioIMG.style.height = "200px";
       mario.appendChild(marioIMG);
@@ -180,8 +169,8 @@ class Mario {
   alwaysRun() {
     const marioElement = document.getElementById(this.id);
     if (marioElement) {
-      this.position.y += 4;
-      marioElement.style.left = `${this.position.y}px`;
+      this.position.y += 0.8;
+      marioElement.style.left = `${this.position.y}%`;
     }
 
     if (this.position.y >= 1820) {
@@ -214,7 +203,7 @@ class Mario {
 }
 
 
-const mario = new Mario({ x: 340, y: 0 }, "./dist/images/mario.png", 0); // הדיפולט לא לגעת בזה, הגדרתי מיקום שיהיה על הרצפה ושיהיה צמוד לקיר (נועם)
+const mario = new Mario({ x: 67, y: 0 }, "./dist/images/mario.png", 0); // הדיפולט לא לגעת בזה, הגדרתי מיקום שיהיה על הרצפה ושיהיה צמוד לקיר (נועם)
 mario.renderMario();
 
 
@@ -227,4 +216,20 @@ document.addEventListener("keydown", (e) => {
 
 });
 
-setInterval(() => {mario.startRunning()}, 300);
+window.onload = function() {
+  try {
+    const popup = document.getElementById(`image-popup`);
+    if(!popup) throw new Error("Popup Element Not Found")
+      popup.style.display = 'flex';
+      setTimeout(() => {
+        if(!popup) throw new Error("Popup Element Not Found");
+        popup.style.display = 'none';
+        mario.startRunning();
+        obstacles.renderObstacles()
+
+      }, 5000);
+  } catch (error) {
+    console.error(error)
+  }
+}
+// setInterval(() => {mario.startRunning()}, 300); -- אם לא משתמשים ב נwindow.onload אז להפעיל את זה !

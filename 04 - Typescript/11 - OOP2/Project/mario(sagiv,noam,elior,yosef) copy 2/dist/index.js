@@ -1,11 +1,3 @@
-window.onload = function () {
-    var popup = document.getElementById('image-popup');
-    popup.style.display = 'flex';
-    // אם תרצה להסתיר את התמונה אחרי זמן מסוים (למשל 5 שניות):
-    setTimeout(function () {
-        popup.style.display = 'none';
-    }, 5000); // 5000 מילישניות = 5 שניות
-};
 var Obstacles = /** @class */ (function () {
     function Obstacles(position, imageUrl, isAttack) {
         this.id = "id-" + crypto.randomUUID();
@@ -22,8 +14,8 @@ var Obstacles = /** @class */ (function () {
             obstaclesIMG.src = this.ImageURL;
             obstaclesIMG.id = this.id;
             obstaclesIMG.style.position = "absolute";
-            obstaclesIMG.style.left = this.position.y + "px";
-            obstaclesIMG.style.top = this.position.x + "px";
+            obstaclesIMG.style.left = this.position.y + "%";
+            obstaclesIMG.style.top = this.position.x + "%";
             obstaclesIMG.style.width = "100px";
             obstaclesIMG.style.height = "200px";
             obstacles_1.appendChild(obstaclesIMG);
@@ -36,8 +28,8 @@ var Obstacles = /** @class */ (function () {
     Obstacles.prototype.alwaysRun = function () {
         var obstaclesElement = document.getElementById(this.id);
         if (obstaclesElement) {
-            this.position.y -= 1;
-            obstaclesElement.style.left = this.position.y + "px";
+            this.position.y -= 0.8;
+            obstaclesElement.style.left = this.position.y + "%";
         }
     };
     Obstacles.prototype.startRunning = function () {
@@ -46,13 +38,12 @@ var Obstacles = /** @class */ (function () {
             this.isAttack = false;
             this.intervalID = setInterval(function () {
                 _this.alwaysRun();
-            }, 5);
+            }, 35);
         }
     };
     return Obstacles;
 }());
-var obstacles = new Obstacles({ x: 380, y: 1150 }, "./dist/images/Obstacles.png", true); //
-setInterval(function () { obstacles.renderObstacles(); }, 3000);
+var obstacles = new Obstacles({ x: 67, y: 100 }, "./dist/images/Obstacles.png", true); //
 var Mario = /** @class */ (function () {
     function Mario(position, ImageURL, score) {
         this.id = "id-" + crypto.randomUUID();
@@ -107,15 +98,15 @@ var Mario = /** @class */ (function () {
     // נועם
     Mario.prototype.renderMario = function () {
         try {
-            var mario_1 = document.getElementById("mariocharacter");
+            var mario_1 = document.getElementById("game");
             if (!mario_1)
                 throw new Error("Mario character div not found.");
             var marioIMG = document.createElement("img");
             marioIMG.src = this.ImageURL;
             marioIMG.id = this.id;
             marioIMG.style.position = "absolute";
-            marioIMG.style.left = this.position.y +  + "px";
-            marioIMG.style.top = this.position.x + "px";
+            marioIMG.style.left = this.position.y +  + "%";
+            marioIMG.style.top = this.position.x + "%";
             marioIMG.style.width = "100px";
             marioIMG.style.height = "200px";
             mario_1.appendChild(marioIMG);
@@ -144,8 +135,8 @@ var Mario = /** @class */ (function () {
     Mario.prototype.alwaysRun = function () {
         var marioElement = document.getElementById(this.id);
         if (marioElement) {
-            this.position.y += 4;
-            marioElement.style.left = this.position.y + "px";
+            this.position.y += 0.8;
+            marioElement.style.left = this.position.y + "%";
         }
         if (this.position.y >= 1820) {
             alert("ניצחת יאלה תתחיל מחדש");
@@ -174,7 +165,7 @@ var Mario = /** @class */ (function () {
     };
     return Mario;
 }());
-var mario = new Mario({ x: 340, y: 0 }, "./dist/images/mario.png", 0); // הדיפולט לא לגעת בזה, הגדרתי מיקום שיהיה על הרצפה ושיהיה צמוד לקיר (נועם)
+var mario = new Mario({ x: 67, y: 0 }, "./dist/images/mario.png", 0); // הדיפולט לא לגעת בזה, הגדרתי מיקום שיהיה על הרצפה ושיהיה צמוד לקיר (נועם)
 mario.renderMario();
 document.addEventListener("keydown", function (e) {
     if (e.key === " ") {
@@ -184,4 +175,22 @@ document.addEventListener("keydown", function (e) {
         mario.stopRunning();
     }
 });
-setInterval(function () { mario.startRunning(); }, 300);
+window.onload = function () {
+    try {
+        var popup_1 = document.getElementById("image-popup");
+        if (!popup_1)
+            throw new Error("Popup Element Not Found");
+        popup_1.style.display = 'flex';
+        setTimeout(function () {
+            if (!popup_1)
+                throw new Error("Popup Element Not Found");
+            popup_1.style.display = 'none';
+            mario.startRunning();
+            obstacles.renderObstacles();
+        }, 5000);
+    }
+    catch (error) {
+        console.error(error);
+    }
+};
+// setInterval(() => {mario.startRunning()}, 300); -- אם לא משתמשים ב נwindow.onload אז להפעיל את זה !

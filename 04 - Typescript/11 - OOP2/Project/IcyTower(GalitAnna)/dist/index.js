@@ -1,9 +1,13 @@
 var character = './images/character1.png';
 var Player = /** @class */ (function () {
-    function Player(x, y, imageUrl) {
+    function Player(x, y, imageUrl, velocityY, gravity, isJumping) {
         this.positionX = x;
         this.positionY = y;
         this.imageUrl = './images/character1.png';
+        this.velocityY = 0;
+        this.gravity = 0.5;
+        this.isJumping = false;
+        this.element = null; // Initialize element as null
     }
     Object.defineProperty(Player.prototype, "getPositionX", {
         get: function () {
@@ -54,28 +58,74 @@ var Player = /** @class */ (function () {
             var player = document.createElement('img');
             player.src = this.imageUrl;
             player.style.position = 'absolute';
-            player.style.bottom = this.positionX + "px";
-            player.style.left = this.positionY + "px";
+            player.style.bottom = this.positionY + "px";
+            player.style.left = this.positionX + "vw";
             player.classList.add('player');
             player.style.zIndex = '1';
             mainElement.appendChild(player);
+            this.element = player; // Store reference to the player element
+            this.addEventListeners();
+            this.update();
         }
         catch (error) {
+            console.error(error);
+        }
+    };
+    Player.prototype.addEventListeners = function () {
+        var _this = this;
+        window.addEventListener('keydown', function (event) {
+            if (event.key === 'ArrowRight') {
+                _this.moveRight();
+            }
+            if (event.key === 'ArrowLeft') {
+                _this.moveLeft();
+            }
+            if (event.key === ' ' || event.key === 'ArrowUp') {
+                _this.jump();
+            }
+        });
+    };
+    Player.prototype.moveRight = function () {
+        this.positionX += 5;
+        this.updatePosition();
+    };
+    Player.prototype.moveLeft = function () {
+        this.positionX -= 5;
+        this.updatePosition();
+    };
+    Player.prototype.jump = function () {
+        if (!this.isJumping) {
+            this.isJumping = true;
+            this.velocityY = 5;
+        }
+    };
+    Player.prototype.update = function () {
+        var _this = this;
+        if (this.isJumping) {
+            this.positionY += this.velocityY;
+            this.velocityY -= this.gravity;
+            if (this.positionY <= 0) {
+                this.positionY = 0;
+                this.isJumping = false;
+            }
+        }
+        this.updatePosition();
+        requestAnimationFrame(function () { return _this.update(); });
+    };
+    Player.prototype.updatePosition = function () {
+        if (this.element) {
+            this.element.style.left = this.positionX + "vw";
+            this.element.style.bottom = this.positionY + "vh";
         }
     };
     return Player;
 }());
 var Step = /** @class */ (function () {
     function Step() {
-        try {
-            this.width = Math.floor(Math.random() * (750 - 300) + 300);
-            this.height = 60;
-            this.positionX = Math.floor(Math.random() * (1600 - 150) + 150);
-            this.positionY = 1080;
-        }
-        catch (error) {
-            console.error(error);
-        }
+        this.width = Math.floor(Math.random() * (40 - 10) + 10);
+        this.height = 5;
+        this.positionX = Math.floor(Math.random() * (60 - 8) + 8);
+        this.positionY = 0;
     }
     Object.defineProperty(Step.prototype, "getPositionX", {
         get: function () {
@@ -134,24 +184,14 @@ var Step = /** @class */ (function () {
         configurable: true
     });
     Step.prototype.renderStep = function (mainElement) {
-        var positionChanged = false;
         var step = document.createElement('div');
-        if (this.positionX + this.width > 1600) {
-            this.positionX = Math.floor(Math.random() * (1400 - 1000) + 1000);
-            this.width = Math.floor(Math.random() * (320 - 250) + 250);
-            positionChanged = true;
-        }
-        if (this.positionX < 100) {
-            this.positionX = 101;
-        }
         step.classList.add('stepDesign');
-        step.style.width = this.width + "px";
+        step.style.width = this.width + "vw";
         step.style.position = 'absolute';
-        step.style.height = this.height + "px";
-        step.style.bottom = this.positionY + "px";
-        step.style.left = this.positionX + "px";
-        console.log('Step positionX:', this.positionX, 'Step width:', this.width, positionChanged, this.positionY);
-        step.style.setProperty('--initial-positionY', this.positionY + "px");
+        step.style.height = this.height + "vh";
+        step.style.top = this.positionY + "vh";
+        step.style.left = this.positionX + "vw";
+        step.style.setProperty('--initial-positionY', this.positionY + "vh");
         var animationDuration = 10;
         step.style.animationDuration = animationDuration + "s";
         step.addEventListener('animationend', function () {
@@ -161,7 +201,7 @@ var Step = /** @class */ (function () {
     };
     return Step;
 }());
-var newPlayer = new Player(0, 912.5, character);
+var newPlayer = new Player(50, 0, character, 0, 0.5, false);
 function main() {
     var mainElement = document.getElementById('IcyTower');
     newPlayer.renderPlayer(mainElement);
