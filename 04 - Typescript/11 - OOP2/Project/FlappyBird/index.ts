@@ -10,19 +10,24 @@ class Bird {
     private imgUrl: string;
     private gravity: number;
     private element: HTMLImageElement;
+    private flyingBirdImgUrl: string;
 
     constructor (position: Position, velocity: number, gravity: number) {
         this.id = `-id${crypto.randomUUID()}`;
         this.position = position;
         this.imgUrl = "./dist/images/bird1.png";
+        this.flyingBirdImgUrl = "./dist/images/fly.png";
         this.gravity = gravity;
         this.velocity = velocity;
         this.renderBird();
     }
+    
+    initialPosition(): void {
 
-    getElement(): HTMLImageElement
-    {
-        return this.element;
+    }
+
+    moveWings(): void {
+
     }
 
     //methods 

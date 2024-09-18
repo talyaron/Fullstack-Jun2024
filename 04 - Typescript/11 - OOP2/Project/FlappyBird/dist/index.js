@@ -3,13 +3,15 @@ var Bird = /** @class */ (function () {
         this.id = "-id" + crypto.randomUUID();
         this.position = position;
         this.imgUrl = "./dist/images/bird1.png";
+        this.flyingBirdImgUrl = "./dist/images/fly.png";
         this.gravity = gravity;
         this.velocity = velocity;
         this.renderBird();
     }
-    Bird.prototype.getElement = function () {
-        return this.element;
-    };
+    // getElement(): HTMLImageElement
+    // {
+    //     return this.element;
+    // }
     //methods 
     Bird.prototype.renderBird = function () {
         console.log("in render");
