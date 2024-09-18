@@ -66,6 +66,34 @@ var Bird = /** @class */ (function () {
             console.error(e);
         }
     };
+    // return the y of the bird.
+    Bird.prototype.getY = function () {
+        return this.position.y;
+    };
+    Bird.prototype.checkYposition = function () {
+        try {
+            if (!this.checkYposition)
+                throw new Error;
+            console.log("checkYposition function is enable");
+        }
+        catch (error) {
+            console.error("cannot find the function");
+        }
+    };
+    Bird.prototype.updateYPosition = function () {
+        var _this = this;
+        try {
+            if (!this.updateYPosition)
+                throw new Error;
+            setInterval(function () {
+                console.log("Bird's Y position is: ", _this.getY());
+            }, 1000);
+            console.log("updateYPosition function is enable");
+        }
+        catch (error) {
+            console.error("cannot find the function");
+        }
+    };
     Bird.prototype.handlePressKeyDown = function () {
         this.isFlying = true;
         this.element.style.left = this.position.x + 'px';
@@ -90,23 +118,36 @@ var Bird = /** @class */ (function () {
             if (_this.isFlying) {
                 _this.moveWings();
                 _this.applyGravity();
+                _this.checkGameOver();
             }
         }, 20);
     };
+    Bird.prototype.checkGameOver = function () {
+        if (this.position.y >= 1050) {
+            this.gameOver();
+        }
+    };
+    // פונקציה שאומרת כאשר המשחק נגמר אז מופיעה תמונה על המסך.
     Bird.prototype.gameOver = function () {
-        console.log('game-over');
-        var container = document.getElementById("bg-img");
-        if (!container)
-            throw new Error("Ellement not found");
-        var gameover = document.createElement("img");
-        gameover.src = './dist/images/gameOver.png';
-        gameover.style.position = 'absolute';
-        container.appendChild(gameover);
-        this.element.classList.add('gameover');
+        try {
+            var gameoverdiv = document.getElementById("gameoverdiv");
+            if (!gameoverdiv)
+                throw new Error("Ellement not found");
+            var gameoverimg = document.createElement("img");
+            gameoverimg.src = './dist/images/gameOver.png';
+            gameoverimg.style.position = 'absolute';
+            gameoverdiv.appendChild(gameoverimg);
+            gameoverimg.classList.add("gameover-img");
+        }
+        catch (error) {
+            console.error("img is not found");
+        }
     };
     return Bird;
 }());
 function main() {
-    new Bird({ x: 300, y: 300 }, 0, 0.4);
+    var bird1 = new Bird({ x: 300, y: 300 }, 0, 0.4);
+    console.log("game has started");
+    bird1.updateYPosition();
+    console.log("Bird's Y position is: ", bird1.getY());
 }
-;

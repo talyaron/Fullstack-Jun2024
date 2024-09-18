@@ -84,6 +84,31 @@ class Bird {
             console.error(e);
         }
     }
+    // return the y of the bird.
+    getY(): number {
+        return this.position.y;
+    }
+
+    checkYposition(): void{
+        try {
+            if(!this.checkYposition) throw new Error
+            console.log("checkYposition function is enable")
+        } catch (error) {
+            console.error("cannot find the function")
+        }
+    }
+    
+    updateYPosition(): void {
+        try {
+            if(!this.updateYPosition) throw new Error
+            setInterval(() => {
+                console.log("Bird's Y position is: ", this.getY());
+            }, 1000);
+            console.log("updateYPosition function is enable")
+        } catch (error) {
+            console.error("cannot find the function")
+        }
+    }
 
     handlePressKeyDown(): void {
         this.isFlying = true;
@@ -113,23 +138,38 @@ class Bird {
             if (this.isFlying) {
                 this.moveWings();
                 this.applyGravity();
+                this.checkGameOver();
             }
         }, 20);
     }
 
-    gameOver(): void {
-        console.log('game-over');
-        const container = document.getElementById("bg-img");
-        if (!container) throw new Error("Ellement not found");
+    checkGameOver(): void {
+        if (this.position.y >= 1050) {
+            this.gameOver();
+        }
+    }
 
-        const gameover: HTMLImageElement = document.createElement("img");
-        gameover.src = './dist/images/gameOver.png';
-        gameover.style.position = 'absolute';
-        container.appendChild(gameover);
-        this.element.classList.add('gameover');
- }
+    // פונקציה שאומרת כאשר המשחק נגמר אז מופיעה תמונה על המסך.
+     gameOver(): void {
+    try {
+        const gameoverdiv = document.getElementById("gameoverdiv");
+        if (!gameoverdiv) throw new Error("Ellement not found");
+
+        const gameoverimg: HTMLImageElement = document.createElement("img");
+        gameoverimg.src = './dist/images/gameOver.png';
+        gameoverimg.style.position = 'absolute';
+        gameoverdiv.appendChild(gameoverimg);
+        gameoverimg.classList.add("gameover-img");
+        
+    } catch (error) {
+        console.error("img is not found")
+    }
+    }
 }
 
 function main(): void {
-    new Bird({ x: 300, y: 300 }, 0, 0.4);
-};
+    const bird1 = new Bird({ x: 300, y: 300 }, 0, 0.4);
+    console.log("game has started");
+    bird1.updateYPosition();
+    console.log("Bird's Y position is: ", bird1.getY());
+}
