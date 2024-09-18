@@ -126,7 +126,6 @@ class Bird {
     applyGravity(): void {
         this.velocity += this.gravity;
         this.position.y += this.velocity;
-
         if (this.position.y > window.innerHeight) {
             this.position.y = window.innerHeight;
         }
@@ -151,19 +150,18 @@ class Bird {
 
     // פונקציה שאומרת כאשר המשחק נגמר אז מופיעה תמונה על המסך.
      gameOver(): void {
-    try {
+        try {
         const gameoverdiv = document.getElementById("gameoverdiv");
         if (!gameoverdiv) throw new Error("Ellement not found");
-
         const gameoverimg: HTMLImageElement = document.createElement("img");
         gameoverimg.src = './dist/images/gameOver.png';
         gameoverimg.style.position = 'absolute';
         gameoverdiv.appendChild(gameoverimg);
         gameoverimg.classList.add("gameover-img");
         
-    } catch (error) {
+        }  catch (error) {
         console.error("img is not found")
-    }
+        }
     }
 }
 
