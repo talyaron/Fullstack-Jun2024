@@ -139,16 +139,7 @@ const pinBall = new playCube({ x: initialPlace * 0.5, y: 440 }, 50, 50);
 const boxes: Box[] = [];
 const bricks: Brick[] = [];
 const brickAmount: number = 30;
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////
-//inside the newBox() function
-//create a for loop using "brickAmount" to create each brick element
-//use 2 variables for the x and y to set every brick next to each other
-//you can use the last brick x and y + its height and width keep the width and height the same
-//  const brick = new Brick({ x: -here, y-: -here Y- }, 75, 25);
-//at the end inside the for loop do a bricks.push(brick);
-//בהצלחה 😄
-//////////////////////////////////////////////////////////////////////////////////////////////////////
+let runOnce:boolean = false;
 
 //creates the boxes and calling the render function later
 function newBox() {
@@ -157,27 +148,34 @@ function newBox() {
   const containerWidth = parseFloat(containerStyle.width);
   console.log("Width:", containerWidth);
 
-  //some boxes
-  let offsetX = 22
-  const marginX = containerWidth - offsetX
-  let spaceX = marginX/15 - offsetX;
-  console.log(spaceX);
-  for (let i = 0; i < 15; i++) {
-    const brickRow1 = new Brick({ x: offsetX, y: 50 }, spaceX, 25);
-    const brickRow2 = new Brick({ x: offsetX, y: 80 }, spaceX, 25);
-    const brickRow3 = new Brick({ x: offsetX, y: 110 }, spaceX, 25);
-    const brickRow4 = new Brick({ x: offsetX, y: 140 }, spaceX, 25);
-    const brickRow5 = new Brick({ x: offsetX, y: 170 }, spaceX, 25);
+  const size = 50;
 
+  const numberOfBoxes = 15;
+  let offsetX = 44;
+  const totalSpacing = containerWidth - numberOfBoxes * size - 2 * offsetX;
+  const spaceX = totalSpacing / (numberOfBoxes - 1);
 
-    boxes.push (brickRow1, brickRow2, brickRow3, brickRow4, brickRow5);
-    offsetX = offsetX + 90;
-    console.log(i);
+  // Create the boxes with dynamic spacing
+  if (runOnce == false) {
+    for (let i = 0; i < numberOfBoxes; i++) {
+      const brickRow1 = new Brick({ x: offsetX, y: 50 }, size, 25);
+      const brickRow2 = new Brick({ x: offsetX, y: 80 }, size, 25);
+      const brickRow3 = new Brick({ x: offsetX, y: 110 }, size, 25);
+      const brickRow4 = new Brick({ x: offsetX, y: 140 }, size, 25);
+      const brickRow5 = new Brick({ x: offsetX, y: 170 }, size, 25);
+
+      boxes.push(brickRow1, brickRow2, brickRow3, brickRow4, brickRow5);
+
+      // Move to the next position for the next box
+      offsetX = offsetX + size + spaceX;
+    }
+    runOnce=true;
   }
 
-  const brick = new Brick({ x: 44, y: 50 }, 75, 25);
-  const newBox2 = new Box({ x: 204, y: 602 }, 150, 50);
-  const newBox3 = new Box({ x: 504, y: 602 }, 150, 50);
+  const newBox1 = new Box({ x: 204, y: 602 }, 150, 50);
+  const newBox2 = new Box({ x: 504, y: 602 }, 150, 50);
+  const newBox3 = new Box({ x: 804, y: 602 }, 150, 50);
+  const newBox4 = new Box({ x: 1104, y: 602 }, 150, 50);
   //left wall
   const wallLeft = new Box({ x: 2, y: 0 }, 0, myScreen.viewportHeight);
   //right wall
@@ -189,7 +187,7 @@ function newBox() {
   //celling wall
   const wallTop = new Box({ x: 0, y: 2 }, containerWidth, 0);
 
-  boxes.push(newBox2, wallLeft, wallRight, wallTop, newBox3);
+  boxes.push(newBox1, newBox2, newBox3, newBox4, wallLeft, wallRight, wallTop);
   //initializes the pinball
   if (!pinBall.exist) {
     renderPinBall(pinBall);
@@ -241,7 +239,7 @@ function isColliding(pinBall: playCube): {
   pinBall.colliding = false;
   let collisionNormal: vertex | null = null;
 
-  boxes.forEach((box) => {
+  boxes.forEach((box, index) => {
     //finds the closes x point to the ball on the collider
     const closestX = Math.max(
       box.pos.spawnPos.x,
@@ -285,8 +283,17 @@ function isColliding(pinBall: playCube): {
       }
 
       console.log("Colliding with normal:", collisionNormal);
+
+      if (box instanceof Brick) {
+        box.die(box);
+        // Call the die method on the box
+
+        // Remove the box from the array
+        boxes.splice(index, 1);
+      }
     }
   });
+
   //returns  that the player is colliding and the normals of the object it collided with
   return { colliding: pinBall.colliding, normal: collisionNormal };
 }

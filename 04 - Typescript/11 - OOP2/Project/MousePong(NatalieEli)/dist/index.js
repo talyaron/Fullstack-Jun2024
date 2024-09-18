@@ -111,46 +111,43 @@ var pinBall = new playCube({ x: initialPlace * 0.5, y: 440 }, 50, 50);
 var boxes = [];
 var bricks = [];
 var brickAmount = 30;
-///////////////////////////////////////////////////////////////////////////////////////////////////////
-//inside the newBox() function
-//create a for loop using "brickAmount" to create each brick element
-//use 2 variables for the x and y to set every brick next to each other
-//you can use the last brick x and y + its height and width keep the width and height the same
-//  const brick = new Brick({ x: -here, y-: -here Y- }, 75, 25);
-//at the end inside the for loop do a bricks.push(brick);
-//בהצלחה 😄
-//////////////////////////////////////////////////////////////////////////////////////////////////////
+var runOnce = false;
 //creates the boxes and calling the render function later
 function newBox() {
     //holds the size of the element container
     var containerStyle = window.getComputedStyle(containerElement);
     var containerWidth = parseFloat(containerStyle.width);
     console.log("Width:", containerWidth);
-    //some boxes
-    var offsetX = 22;
-    var marginX = containerWidth - offsetX;
-    var spaceX = marginX / 15 - offsetX;
-    console.log(spaceX);
-    for (var i = 0; i < 15; i++) {
-        var brickRow1 = new Brick({ x: offsetX, y: 50 }, spaceX, 25);
-        var brickRow2 = new Brick({ x: offsetX, y: 80 }, spaceX, 25);
-        var brickRow3 = new Brick({ x: offsetX, y: 110 }, spaceX, 25);
-        var brickRow4 = new Brick({ x: offsetX, y: 140 }, spaceX, 25);
-        var brickRow5 = new Brick({ x: offsetX, y: 170 }, spaceX, 25);
-        boxes.push(brickRow1, brickRow2, brickRow3, brickRow4, brickRow5);
-        offsetX = offsetX + 90;
-        console.log(i);
+    var size = 50;
+    var numberOfBoxes = 15;
+    var offsetX = 44;
+    var totalSpacing = containerWidth - numberOfBoxes * size - 2 * offsetX;
+    var spaceX = totalSpacing / (numberOfBoxes - 1);
+    // Create the boxes with dynamic spacing
+    if (runOnce == false) {
+        for (var i = 0; i < numberOfBoxes; i++) {
+            var brickRow1 = new Brick({ x: offsetX, y: 50 }, size, 25);
+            var brickRow2 = new Brick({ x: offsetX, y: 80 }, size, 25);
+            var brickRow3 = new Brick({ x: offsetX, y: 110 }, size, 25);
+            var brickRow4 = new Brick({ x: offsetX, y: 140 }, size, 25);
+            var brickRow5 = new Brick({ x: offsetX, y: 170 }, size, 25);
+            boxes.push(brickRow1, brickRow2, brickRow3, brickRow4, brickRow5);
+            // Move to the next position for the next box
+            offsetX = offsetX + size + spaceX;
+        }
+        runOnce = true;
     }
-    var brick = new Brick({ x: 44, y: 50 }, 75, 25);
-    var newBox2 = new Box({ x: 204, y: 602 }, 150, 50);
-    var newBox3 = new Box({ x: 504, y: 602 }, 150, 50);
+    var newBox1 = new Box({ x: 204, y: 602 }, 150, 50);
+    var newBox2 = new Box({ x: 504, y: 602 }, 150, 50);
+    var newBox3 = new Box({ x: 804, y: 602 }, 150, 50);
+    var newBox4 = new Box({ x: 1104, y: 602 }, 150, 50);
     //left wall
     var wallLeft = new Box({ x: 2, y: 0 }, 0, myScreen.viewportHeight);
     //right wall
     var wallRight = new Box({ x: containerWidth, y: 0 }, 0, myScreen.viewportHeight);
     //celling wall
     var wallTop = new Box({ x: 0, y: 2 }, containerWidth, 0);
-    boxes.push(newBox2, wallLeft, wallRight, wallTop, newBox3);
+    boxes.push(newBox1, newBox2, newBox3, newBox4, wallLeft, wallRight, wallTop);
     //initializes the pinball
     if (!pinBall.exist) {
         renderPinBall(pinBall);
@@ -193,7 +190,7 @@ function main() {
 function isColliding(pinBall) {
     pinBall.colliding = false;
     var collisionNormal = null;
-    boxes.forEach(function (box) {
+    boxes.forEach(function (box, index) {
         //finds the closes x point to the ball on the collider
         var closestX = Math.max(box.pos.spawnPos.x, Math.min(pinBall.pos.spawnPos.x + pinBall.radius, box.pos.spawnPos.x + box.width));
         //finds the closes y point to the ball on the collider
@@ -220,6 +217,12 @@ function isColliding(pinBall) {
                 collisionNormal = { x: 0, y: 0 };
             }
             console.log("Colliding with normal:", collisionNormal);
+            if (box instanceof Brick) {
+                box.die(box);
+                // Call the die method on the box
+                // Remove the box from the array
+                boxes.splice(index, 1);
+            }
         }
     });
     //returns  that the player is colliding and the normals of the object it collided with
