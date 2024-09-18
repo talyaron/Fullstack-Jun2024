@@ -19,6 +19,7 @@ var Bird = /** @class */ (function () {
                 _this.handlePressKeyUp();
             }
         });
+        this.gameLoop();
     }
     //GETTER
     Bird.prototype.getElement = function () {
@@ -33,20 +34,23 @@ var Bird = /** @class */ (function () {
         var element = this.getElement();
         setInterval(function () {
             element.src = _this.imgUrl;
-        }, 500);
+        }, 1000);
         setTimeout(function () {
             setInterval(function () {
                 element.src = _this.flyingBirdImgUrl;
-            }, 500);
-        }, 200);
+            }, 1000);
+        }, 1000);
         return element;
     };
     Bird.prototype.renderBird = function () {
         console.log("in render");
         try {
             this.element = document.createElement('img');
-            if (!this.isFlying) {
-                this.moveWings();
+            var container = document.getElementById('container');
+            if (!container)
+                throw new Error('Element not found');
+            if (this.isFlying) {
+                // this.moveWings();
             }
             else {
                 this.element.src = this.imgUrl;
@@ -56,21 +60,53 @@ var Bird = /** @class */ (function () {
             this.element.style.left = this.position.x + 'px';
             this.element.style.top = this.position.y + 'px';
             this.element.classList.add('bird');
-            document.body.appendChild(this.element);
+            container.appendChild(this.element);
         }
         catch (e) {
             console.error(e);
         }
     };
     Bird.prototype.handlePressKeyDown = function () {
-        console.log('pressed');
-        this.position.y = this.position.y + 30;
+        this.isFlying = true;
         this.element.style.left = this.position.x + 'px';
         this.element.style.top = this.position.y + 'px';
+        this.position.y = this.position.y - 80;
+        this.velocity = -5;
+    };
+    Bird.prototype.handlePressKeyUp = function () {
+        // this.isFlying=false;
+    };
+    Bird.prototype.applyGravity = function () {
+        this.velocity += this.gravity;
+        this.position.y += this.velocity;
+        if (this.position.y > window.innerHeight) {
+            this.position.y = window.innerHeight;
+        }
+        this.element.style.top = this.position.y + 'px';
+    };
+    Bird.prototype.gameLoop = function () {
+        var _this = this;
+        setInterval(function () {
+            if (_this.isFlying) {
+                _this.moveWings();
+                _this.applyGravity();
+            }
+        }, 20);
+    };
+    Bird.prototype.gameOver = function () {
+        console.log('game-over');
+        var container = document.getElementById("bg-img");
+        if (!container)
+            throw new Error("Ellement not found");
+        var gameover = document.createElement("img");
+        gameover.src = './dist/images/gameOver.png';
+        gameover.style.position = 'absolute';
+        container.appendChild(gameover);
+        this.element.classList.add('gameover');
     };
     return Bird;
 }());
 function main() {
-    new Bird({ x: 300, y: 300 }, 0, 0);
+    new Bird({ x: 300, y: 300 }, 0, 0.4);
 }
 ;
