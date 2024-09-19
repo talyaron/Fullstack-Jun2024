@@ -32,13 +32,36 @@ body {
     right: 30%;
 }
 
-#obsticals {
+#obstical-1 {
     .obstical-1 {
-        width: 40vw;
+        height: 28vw;
+        width: 25vw;
         position: absolute;
-        top: 20%;
+        top: 43%;
+        left: 25%;
     }
     .obstical-2 {
+        height: 10vw;
+        width: 25vw;
+        position: absolute;
+        top: 0%;
+        left: 25%;
+    }
+}
 
+#obstical-2 {
+    .obstical-3 {
+        height: 23vw;
+        width: 25vw;
+        position: absolute;
+        top: 53%;
+        left: 45%;
+    }
+    .obstical-4 {
+        height: 14vw;
+        width: 25vw;
+        position: absolute;
+        top: 0%;
+        left: 45%;
     }
 }

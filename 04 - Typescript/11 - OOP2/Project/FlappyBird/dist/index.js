@@ -12,6 +12,12 @@ var Bird = /** @class */ (function () {
         this.isGameActive = false;
         window.addEventListener('keydown', function (event) {
             if (event.code === 'Space') {
+                event.preventDefault();
+                _this.handlePressKeyDown();
+            }
+        });
+        window.addEventListener('keydown', function (event) {
+            if (event.code === 'Space') {
                 _this.handlePressKeyDown();
             }
         });
@@ -201,20 +207,36 @@ var Obstical = /** @class */ (function () {
     function Obstical() {
         this.imgUrl = "./dist/images/obstical.png";
         this.imgUrlReversed = "./dist/images/obstical-reversed.png";
+        this.moveInObsticale = false;
     }
     Obstical.prototype.render = function () {
         try {
-            var container = document.getElementById("obsticals");
+            //obstical 1 part 1
+            var container = document.getElementById("obstical-1");
             if (!container)
                 throw new Error("Element not found");
-            var obsticalNormal1 = document.createElement("img");
-            obsticalNormal1.src = this.imgUrl;
-            obsticalNormal1.classList.add("obstical-1");
-            var obsticalReverse1 = document.createElement("img");
-            obsticalReverse1.src = this.imgUrlReversed;
-            obsticalReverse1.classList.add("obstical-2");
-            container.appendChild(obsticalNormal1);
-            container.appendChild(obsticalReverse1);
+            var obstical1 = document.createElement("img");
+            obstical1.src = this.imgUrl;
+            obstical1.classList.add("obstical-1");
+            container.appendChild(obstical1);
+            //part 2 of obstical 1
+            var obstical2 = document.createElement("img");
+            obstical2.src = this.imgUrl;
+            obstical2.classList.add("obstical-2");
+            container.appendChild(obstical2);
+            //obstical 2 part 1
+            var container1 = document.getElementById("obstical-2");
+            if (!container1)
+                throw new Error("Element not found");
+            var obstical3 = document.createElement("img");
+            obstical3.src = this.imgUrl;
+            obstical3.classList.add("obstical-3");
+            container1.appendChild(obstical3);
+            //part 2 of obstical 1
+            var obstical4 = document.createElement("img");
+            obstical4.src = this.imgUrl;
+            obstical4.classList.add("obstical-4");
+            container1.appendChild(obstical4);
         }
         catch (error) {
             console.error(error);
@@ -225,7 +247,7 @@ var Obstical = /** @class */ (function () {
     return Obstical;
 }());
 function main() {
-    var bird1 = new Bird({ x: 300, y: 300 }, 0, 0.4);
+    var bird1 = new Bird({ x: 200, y: 450 }, 0, 0.4);
     console.log("game has started");
     // bird1.updateYPosition();
     console.log("Bird's Y position is: ", bird1.getY());
