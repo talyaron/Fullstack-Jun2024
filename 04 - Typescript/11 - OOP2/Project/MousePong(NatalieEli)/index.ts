@@ -337,23 +337,7 @@ function windowResized() {
     pinBall.updateTransform();
   }
 
-  //lose condition is if the ball fell down too far (brings it back to the center for now)
-  if (pinBall.pos.spawnPos.y > window.innerHeight) {
-    console.log("you lost ! ");
-    pinBall.pos.spawnPos.y = 440;
-    pinBall.pos.edgePos.y = 440;
-    pinBall.pos.spawnPos.x = innerWidth * 0.5;
-    pinBall.pos.edgePos.x = innerWidth * 0.5;
-
-    pinBall.ballDirectionX = 0;
-    pinBall.ballDirectionY = 0;
-
-    pinBall.ballVelocityX = 0;
-    pinBall.ballVelocityY = 0;
-
-    pinBall.updateTransform();
-  }
-
+ 
   const windowSize = window.innerWidth;
 
   //check if the view window is resized and if it is rerender the boxes accordingly
@@ -475,6 +459,24 @@ function physics(pinBall: playCube) {
   mousePosition.oldY = mouseCurrentY;
 
   windowResized();
+  
+   //lose condition is if the ball fell down too far (brings it back to the center for now)
+   if (pinBall.pos.spawnPos.y > window.innerHeight) {
+    console.log("you lost ! ");
+    pinBall.pos.spawnPos.y = 440;
+    pinBall.pos.edgePos.y = 440;
+    pinBall.pos.spawnPos.x = innerWidth * 0.5;
+    pinBall.pos.edgePos.x = innerWidth * 0.5;
+
+    pinBall.ballDirectionX = 0;
+    pinBall.ballDirectionY = 0;
+
+    pinBall.ballVelocityX = 0;
+    pinBall.ballVelocityY = 0;
+
+    pinBall.updateTransform();
+  }
+
 }
 ///להוסיף התחלה ואנימציה 
 //לתקן כמה באגים
