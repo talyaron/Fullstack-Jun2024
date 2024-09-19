@@ -72,6 +72,12 @@ class Box {
 }
 class Brick extends Box {
   broken: boolean = false;
+  paint() {
+    this.domElement.style.backgroundImage = `url("./dist/images/Brick.png")`;
+    this.domElement.style.backgroundSize = "cover";
+    // this.domElement.style.background= `${getColor()}`;
+    this.domElement.style.backgroundColor = `${getColor()}`; // Red with 50% opacity
+  }
 }
 
 class playCube extends Box {
@@ -80,6 +86,9 @@ class playCube extends Box {
   colliding: boolean; //to change based if its colliding or not
   radius: number = this.width / 2; //holds the radius of the pinball
   gravity: boolean = true; //to enable or disable gravity
+
+  score = 0;
+  lives = 3;
 
   mouseEntryDirection: number;
   posChange = false;
@@ -121,6 +130,11 @@ class playCube extends Box {
   updateTransform() {
     this.domElement.style.transform = `translate(${this.pos.spawnPos.x}px, ${this.pos.spawnPos.y}px ) `;
   }
+
+  paint() {
+    this.domElement.style.backgroundImage = `url("./dist/images/ball.png")`;
+    getColor();
+  }
 }
 
 //holds the container for the ball and boxes
@@ -136,27 +150,36 @@ const initialPlace = parseFloat(
 //holds the pinBall and its positions - x - and that is - y - width height
 const pinBall = new playCube({ x: initialPlace * 0.5, y: 440 }, 50, 50);
 
+//some variables for the bricks
 const boxes: Box[] = [];
 const bricks: Brick[] = [];
-const brickAmount: number = 30;
-let runOnce:boolean = false;
+let runOnce: boolean = false;
+
+//colors for bricks
+const yellow = "#FFFAFA";
+const blue = "#E0F7FA";
+const red = "#B2EBF2";
 
 //creates the boxes and calling the render function later
 function newBox() {
+  removeBoxes(boxes);
   //holds the size of the element container
   const containerStyle = window.getComputedStyle(containerElement);
   const containerWidth = parseFloat(containerStyle.width);
+  const containerHeight = parseFloat(containerStyle.height);
   console.log("Width:", containerWidth);
 
-  const size = 50;
+  // Adjust the size of boxes based on container width
+  const size = containerWidth / 20; // calculate the size relative to container width (this ratio can be adjusted)
 
+  // Set the number of boxes and initial offset
   const numberOfBoxes = 15;
   let offsetX = 44;
   const totalSpacing = containerWidth - numberOfBoxes * size - 2 * offsetX;
   const spaceX = totalSpacing / (numberOfBoxes - 1);
 
-  // Create the boxes with dynamic spacing
-  if (runOnce == false) {
+  // Adjust the size of the boxes and spacing if needed
+  if (!runOnce) {
     for (let i = 0; i < numberOfBoxes; i++) {
       const brickRow1 = new Brick({ x: offsetX, y: 50 }, size, 25);
       const brickRow2 = new Brick({ x: offsetX, y: 80 }, size, 25);
@@ -169,13 +192,18 @@ function newBox() {
       // Move to the next position for the next box
       offsetX = offsetX + size + spaceX;
     }
-    runOnce=true;
+    runOnce = true;
   }
+  //boxes under
+  const newBox1 = new Box({ x: 0, y: containerHeight - 50 }, 1250, 50);
+  const newBox2 = new Box({ x: 504, y: containerHeight - 50 }, 150, 50);
+  const newBox3 = new Box({ x: 804, y: containerHeight - 50 }, 150, 50);
+  const newBox4 = new Box({ x: 1104, y: containerHeight - 50 }, 150, 50);
+  const newBox5 = new Box({ x: 1404, y: containerHeight - 50 }, 150, 50);
+  const newBox6 = new Box({ x: 1704, y: containerHeight - 50 }, 150, 50);
+  const newBox7 = new Box({ x: 2004, y: containerHeight - 50 }, 150, 50);
 
-  const newBox1 = new Box({ x: 204, y: 602 }, 150, 50);
-  const newBox2 = new Box({ x: 504, y: 602 }, 150, 50);
-  const newBox3 = new Box({ x: 804, y: 602 }, 150, 50);
-  const newBox4 = new Box({ x: 1104, y: 602 }, 150, 50);
+  //walls
   //left wall
   const wallLeft = new Box({ x: 2, y: 0 }, 0, myScreen.viewportHeight);
   //right wall
@@ -187,7 +215,19 @@ function newBox() {
   //celling wall
   const wallTop = new Box({ x: 0, y: 2 }, containerWidth, 0);
 
-  boxes.push(newBox1, newBox2, newBox3, newBox4, wallLeft, wallRight, wallTop);
+  boxes.push(
+    newBox1,
+    newBox2,
+    newBox3,
+    newBox4,
+    newBox5,
+    newBox6,
+    newBox7,
+    wallLeft,
+    wallRight,
+    wallTop
+  );
+
   //initializes the pinball
   if (!pinBall.exist) {
     renderPinBall(pinBall);
@@ -222,14 +262,50 @@ function renderBoxes(boxes: Box[]) {
     box.spawn(box);
   });
   //gives the player pinball id;
+
   this.pinBall.domElement.id = "pinBall";
+  boxes.forEach((box) => {
+    if (box instanceof Brick) {
+      box.paint();
+    }
+  });
 }
 
 //being called from the html element
 function main() {
   //call for for the boxes to be created
   newBox();
+  giveHp();
+  pinBall.paint();
+
   //isColliding(pinBall);
+}
+
+const lifeContainer: HTMLElement[] = [];
+
+function giveHp() {
+  const lifeElements = document.createElement("div");
+
+  lifeElements.id = "lives";
+  containerElement.appendChild(lifeElements);
+
+  for (let index = 1; index < pinBall.lives; index++) {
+    const lifeElement = document.createElement("div");
+    lifeElement.classList.add("live");
+    lifeElement.style.backgroundImage = `url("./dist/images/ball.png")`;
+    lifeElements.appendChild(lifeElement);
+
+    lifeContainer.push(lifeElement);
+  }
+}
+
+function loseHp() {
+  if (lifeContainer.length > 0) {
+    const lifeElementToRemove = lifeContainer.pop();
+    if (lifeElementToRemove) {
+      lifeElementToRemove.remove();
+    }
+  }
 }
 
 function isColliding(pinBall: playCube): {
@@ -286,6 +362,9 @@ function isColliding(pinBall: playCube): {
 
       if (box instanceof Brick) {
         box.die(box);
+        pinBall.score++;
+        console.log(pinBall.score);
+
         // Call the die method on the box
 
         // Remove the box from the array
@@ -315,7 +394,7 @@ function windowResized() {
   const containerStyle = window.getComputedStyle(containerElement);
   const containerWidth = parseFloat(containerStyle.width);
   if (pinBall.pos.edgePos.x > containerWidth) {
-    console.log("outside");
+    //console.log("outside");
     pinBall.pos.spawnPos.x = containerWidth - pinBall.width;
     pinBall.pos.edgePos.x = pinBall.pos.spawnPos.x - pinBall.width;
 
@@ -323,7 +402,7 @@ function windowResized() {
   }
 
   if (pinBall.pos.spawnPos.x < 0) {
-    console.log("outside");
+    // console.log("outside");
     pinBall.pos.spawnPos.x = 0;
     pinBall.pos.edgePos.x = pinBall.pos.spawnPos.x + pinBall.width;
 
@@ -337,7 +416,6 @@ function windowResized() {
     pinBall.updateTransform();
   }
 
- 
   const windowSize = window.innerWidth;
 
   //check if the view window is resized and if it is rerender the boxes accordingly
@@ -370,7 +448,7 @@ function physics(pinBall: playCube) {
     // Calculate the magnitude of the direction vector
     const magnitude = Math.sqrt(mouseDirX * mouseDirX + mouseDirY * mouseDirY);
 
-    if (magnitude >= 0 && mouseCurrentY > 400) {
+    if (magnitude >= 0 && mouseCurrentY > 400 && pinBall.lives > 0) {
       // check where the mouse came from and apply it to direction of the ball
       if (pinBall.mouseEntryDirection > 0) {
         pinBall.ballDirectionX = -mouseDirX / magnitude;
@@ -438,11 +516,11 @@ function physics(pinBall: playCube) {
     //pinBall.ballVelocityX *= .9;
     // pinBall.ballVelocityY *= .9;
 
-    console.log(
+    /* console.log(
       "Bouncing with new direction:",
       pinBall.ballDirectionX,
       pinBall.ballDirectionY
-    );
+    );*/
   }
 
   //if gravity is enabled make the ball fall
@@ -459,27 +537,71 @@ function physics(pinBall: playCube) {
   mousePosition.oldY = mouseCurrentY;
 
   windowResized();
-  
-   //lose condition is if the ball fell down too far (brings it back to the center for now)
-   if (pinBall.pos.spawnPos.y > window.innerHeight) {
-    console.log("you lost ! ");
-    pinBall.pos.spawnPos.y = 440;
-    pinBall.pos.edgePos.y = 440;
-    pinBall.pos.spawnPos.x = innerWidth * 0.5;
-    pinBall.pos.edgePos.x = innerWidth * 0.5;
 
-    pinBall.ballDirectionX = 0;
-    pinBall.ballDirectionY = 0;
+  //lose condition is if the ball fell down too far (brings it back to the center for now)
+  if (pinBall.pos.spawnPos.y > window.innerHeight) {
+    if (pinBall.lives > 1) {
+      loseHp();
+      pinBall.pos.spawnPos.y = 440;
+      pinBall.pos.edgePos.y = 440;
+      pinBall.pos.spawnPos.x = innerWidth * 0.5;
+      pinBall.pos.edgePos.x = innerWidth * 0.5;
 
-    pinBall.ballVelocityX = 0;
-    pinBall.ballVelocityY = 0;
+      pinBall.ballDirectionX = 0;
+      pinBall.ballDirectionY = 0;
 
-    pinBall.updateTransform();
+      pinBall.ballVelocityX = 0;
+      pinBall.ballVelocityY = 0;
+
+      pinBall.lives--;
+      pinBall.updateTransform();
+    } else {
+      pinBall.pos.spawnPos.y = 440;
+      pinBall.pos.edgePos.y = 440;
+      pinBall.pos.spawnPos.x = innerWidth * 0.5;
+      pinBall.pos.edgePos.x = innerWidth * 0.5;
+
+      pinBall.ballDirectionX = 0;
+      pinBall.ballDirectionY = 0;
+
+      pinBall.ballVelocityX = 0;
+      pinBall.ballVelocityY = 0;
+      pinBall.lives = 0;
+      pinBall.die(pinBall);
+      lose();
+    }
   }
-
+  if (pinBall.score === 75 && pinBall.exist) {
+    win();
+    pinBall.exist = false;
+  }
 }
-///להוסיף התחלה ואנימציה 
-//לתקן כמה באגים
-// לעצב את הקוביות והעיגול
-//להוסיף נקודות
-// מסך ותנאי הפסד
+
+function getColor(): string {
+  const randomNumber = Math.floor(Math.random() * 3);
+  if (randomNumber == 0) {
+    return yellow;
+  } else if (randomNumber == 1) {
+    return blue;
+  }
+  return red;
+}
+
+function lose() {
+  const loseElement = document.createElement("div");
+  loseElement.id = "loser";
+  loseElement.innerHTML = `<h1>Game Over</h1> <h3>Score: ${pinBall.score}</h3> `;
+  containerElement.appendChild(loseElement);
+  setTimeout(() => {
+    location.reload();
+  }, 6000);
+}
+function win() {
+  const loseElement = document.createElement("div");
+  loseElement.id = "winner";
+  loseElement.innerHTML = `<h1>You Win!</h1> <h3>Score: ${pinBall.score}</h3> `;
+  containerElement.appendChild(loseElement);
+  setTimeout(() => {
+    location.reload();
+  }, 6000);
+}
