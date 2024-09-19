@@ -9,16 +9,19 @@ class Player {
     private element: HTMLImageElement | null;
     private isJumping: boolean;
     private isPaused: boolean;
+    private isFailed : boolean;
+    private firstJump: boolean;
 
-    constructor(x: number, y: number, imageUrl: string, velocityY: number, gravity: number, isJumping: boolean) {
+    constructor(x: number, y: number, imageUrl: string, velocityY: number, gravity: number, isJumping: boolean, isFailed: boolean, firstJump: boolean) {
         this.positionX = x;
         this.positionY = y;
         this.imageUrl = imageUrl;
         this.velocityY = velocityY;
         this.gravity = gravity;
-        this.isJumping = isJumping;
+        this.isJumping = true;
         this.isPaused = false;
         this.element = null; 
+        this.isFailed= false;
     }
 
     get getPositionX() {
@@ -82,14 +85,24 @@ class Player {
     }
 
     private moveRight() {
+
+        const playerWidthVW = (80 / window.innerWidth) * 100; 
+    
         this.positionX += 5;
+        if (this.positionX > (100 - playerWidthVW - 10 )) {
+            this.positionX = 100 - playerWidthVW - 10; 
+        }
         this.updatePosition();
     }
-
+    
     private moveLeft() {
         this.positionX -= 5;
+        if (this.positionX < 10) {
+            this.positionX = 10; 
+        }
         this.updatePosition();
     }
+    
 
     private jump() {
         if (!this.isJumping) {
@@ -98,20 +111,46 @@ class Player {
         }
     }
 
+    private firstJump (){
+        if (this.isJumping. || this.isJumping.which == 1)
+       return this.firstJump = false;
+    }
     private update() {
         if (!this.isPaused) { 
             if (this.isJumping) {
                 this.positionY += this.velocityY;
                 this.velocityY -= this.gravity;
-
+    
                 if (this.positionY <= 0) {
                     this.positionY = 0;
                     this.isJumping = false;
                 }
             }
-
+    
+            if (this.isNearBounds()) {
+                this.rotatePlayer(); 
+            }
+    
             this.updatePosition();
             requestAnimationFrame(() => this.update());
+        }
+    }
+    
+    private isNearBounds(): boolean {
+        const leftBound = 10; 
+        const rightBound = 100 - 10;
+        const bottomBound = 12; 
+    
+        return (this.positionX < leftBound || this.positionX > rightBound || this.positionY < bottomBound);
+    }
+    
+    private rotatePlayer() {
+        if (this.element) {
+            this.element.classList.add('rotate'); 
+    
+            setTimeout(() => {
+                this.element?.classList.remove('rotate');
+            }, 1000);
         }
     }
 

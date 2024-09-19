@@ -1,14 +1,15 @@
 var character = './images/character1.png';
 var Player = /** @class */ (function () {
-    function Player(x, y, imageUrl, velocityY, gravity, isJumping) {
+    function Player(x, y, imageUrl, velocityY, gravity, isJumping, isFailed, firstJump) {
         this.positionX = x;
         this.positionY = y;
         this.imageUrl = imageUrl;
         this.velocityY = velocityY;
         this.gravity = gravity;
-        this.isJumping = isJumping;
+        this.isJumping = true;
         this.isPaused = false;
         this.element = null;
+        this.isFailed = false;
     }
     Object.defineProperty(Player.prototype, "getPositionX", {
         get: function () {
@@ -89,11 +90,18 @@ var Player = /** @class */ (function () {
         });
     };
     Player.prototype.moveRight = function () {
+        var playerWidthVW = (80 / window.innerWidth) * 100;
         this.positionX += 5;
+        if (this.positionX > (100 - playerWidthVW - 10)) {
+            this.positionX = 100 - playerWidthVW - 10;
+        }
         this.updatePosition();
     };
     Player.prototype.moveLeft = function () {
         this.positionX -= 5;
+        if (this.positionX < 10) {
+            this.positionX = 10;
+        }
         this.updatePosition();
     };
     Player.prototype.jump = function () {
@@ -101,6 +109,10 @@ var Player = /** @class */ (function () {
             this.isJumping = true;
             this.velocityY = 5;
         }
+    };
+    Player.prototype.firstJump = function () {
+        if (this.isJumping. || this.isJumping.which == 1)
+            return this.firstJump = false;
     };
     Player.prototype.update = function () {
         var _this = this;
@@ -113,8 +125,27 @@ var Player = /** @class */ (function () {
                     this.isJumping = false;
                 }
             }
+            if (this.isNearBounds()) {
+                this.rotatePlayer();
+            }
             this.updatePosition();
             requestAnimationFrame(function () { return _this.update(); });
+        }
+    };
+    Player.prototype.isNearBounds = function () {
+        var leftBound = 10;
+        var rightBound = 100 - 10;
+        var bottomBound = 12;
+        return (this.positionX < leftBound || this.positionX > rightBound || this.positionY < bottomBound);
+    };
+    Player.prototype.rotatePlayer = function () {
+        var _this = this;
+        if (this.element) {
+            this.element.classList.add('rotate');
+            setTimeout(function () {
+                var _a;
+                (_a = _this.element) === null || _a === void 0 ? void 0 : _a.classList.remove('rotate');
+            }, 1000);
         }
     };
     Player.prototype.updatePosition = function () {
