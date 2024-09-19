@@ -82,10 +82,9 @@ class Player {
     }
 
     private moveRight() {
-        // Calculate player's width in vw based on screen width
-        const playerWidthVW = (80 / window.innerWidth) * 100; // 80px is the player's width in pixels
+
+        const playerWidthVW = (80 / window.innerWidth) * 100; 
     
-        // Move the player right and limit it to the screen width
         this.positionX += 5;
         if (this.positionX > (100 - playerWidthVW - 10 )) {
             this.positionX = 100 - playerWidthVW - 10; 
