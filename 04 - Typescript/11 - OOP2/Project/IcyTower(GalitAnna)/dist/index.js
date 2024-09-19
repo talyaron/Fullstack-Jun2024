@@ -120,8 +120,27 @@ var Player = /** @class */ (function () {
                     this.isJumping = false;
                 }
             }
+            if (this.isNearBounds()) {
+                this.rotatePlayer();
+            }
             this.updatePosition();
             requestAnimationFrame(function () { return _this.update(); });
+        }
+    };
+    Player.prototype.isNearBounds = function () {
+        var leftBound = 10;
+        var rightBound = 100 - 10;
+        var bottomBound = 12;
+        return (this.positionX < leftBound || this.positionX > rightBound || this.positionY < bottomBound);
+    };
+    Player.prototype.rotatePlayer = function () {
+        var _this = this;
+        if (this.element) {
+            this.element.classList.add('rotate');
+            setTimeout(function () {
+                var _a;
+                (_a = _this.element) === null || _a === void 0 ? void 0 : _a.classList.remove('rotate');
+            }, 1000);
         }
     };
     Player.prototype.updatePosition = function () {

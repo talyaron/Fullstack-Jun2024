@@ -120,8 +120,30 @@ class Player {
                 }
             }
     
+            if (this.isNearBounds()) {
+                this.rotatePlayer(); 
+            }
+    
             this.updatePosition();
             requestAnimationFrame(() => this.update());
+        }
+    }
+    
+    private isNearBounds(): boolean {
+        const leftBound = 10; 
+        const rightBound = 100 - 10;
+        const bottomBound = 12; 
+    
+        return (this.positionX < leftBound || this.positionX > rightBound || this.positionY < bottomBound);
+    }
+    
+    private rotatePlayer() {
+        if (this.element) {
+            this.element.classList.add('rotate'); 
+    
+            setTimeout(() => {
+                this.element?.classList.remove('rotate');
+            }, 1000);
         }
     }
 
