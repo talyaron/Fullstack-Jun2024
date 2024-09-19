@@ -44,9 +44,20 @@ class Bird {
 
     //methods 
 
-    initialPosition(): void {
-        this.position.x = 40;
+    initialPosition(): Position {
+        const posY = 300;
+        const posX = 300;
+        this.position = {x: posX, y: posY};
+        console.log("initialPosition: " + this.position.x, this.position.y);
+        this.initialPositionRender(posX, posY);
+        return this.position;
     }
+
+    //render the bird's position in px
+    initialPositionRender(positionX: number, positionY: number): void{
+        this.element.style.left = positionX + 'px';
+        this.element.style.top = positionY + 'px';
+    } 
 
     moveWings(): HTMLImageElement {
         const element = this.getElement();
@@ -57,7 +68,7 @@ class Bird {
             setInterval(() => {
                 element.src = this.flyingBirdImgUrl
             }, 1000);
-        }, 1000);
+        }, 200);
         return element;
     }
 
@@ -133,31 +144,39 @@ class Bird {
     }
 
     gameLoop(): void {
-        setInterval(() => {
+        const gameloop = setInterval(() => {
             if (this.isFlying) {
                 this.moveWings();
                 this.applyGravity();
+                
                 this.checkGameOver();
+                if (this.checkGameOver()){
+                    clearInterval(gameloop);
+                    this.initialPosition();
+                }
             }
         }, 20);
     }
 
-    checkGameOver(): void {
-        if (this.position.y >= 1050) {
+    checkGameOver(): boolean {
+        if (this.getY() >= window.innerHeight) {
             this.gameOver();
+            return true;
         }
+        return false;
     }
 
     // פונקציה שאומרת כאשר המשחק נגמר אז מופיעה תמונה על המסך.
      gameOver(): void {
         try {
-        const gameoverdiv = document.getElementById("gameoverdiv");
-        if (!gameoverdiv) throw new Error("Ellement not found");
-        const gameoverimg: HTMLImageElement = document.createElement("img");
-        gameoverimg.src = './dist/images/gameOver.png';
-        gameoverimg.style.position = 'absolute';
-        gameoverdiv.appendChild(gameoverimg);
-        gameoverimg.classList.add("gameover-img");
+            const gameoverdiv = document.getElementById("gameoverdiv");
+            if (!gameoverdiv) throw new Error("Ellement not found");
+
+            const gameoverimg: HTMLImageElement = document.createElement("img");
+            gameoverimg.src = './dist/images/gameOver.png';
+            gameoverimg.style.position = 'absolute';
+            gameoverdiv.appendChild(gameoverimg);
+            gameoverimg.classList.add("gameover-img");
         
         }  catch (error) {
         console.error("img is not found")

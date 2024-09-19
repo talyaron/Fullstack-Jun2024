@@ -27,7 +27,17 @@ var Bird = /** @class */ (function () {
     };
     //methods 
     Bird.prototype.initialPosition = function () {
-        this.position.x = 40;
+        var posY = 300;
+        var posX = 300;
+        this.position = { x: posX, y: posY };
+        console.log("initialPosition: " + this.position.x, this.position.y);
+        this.initialPositionRender(posX, posY);
+        return this.position;
+    };
+    //render the bird's position in px
+    Bird.prototype.initialPositionRender = function (positionX, positionY) {
+        this.element.style.left = positionX + 'px';
+        this.element.style.top = positionY + 'px';
     };
     Bird.prototype.moveWings = function () {
         var _this = this;
@@ -39,7 +49,7 @@ var Bird = /** @class */ (function () {
             setInterval(function () {
                 element.src = _this.flyingBirdImgUrl;
             }, 1000);
-        }, 1000);
+        }, 200);
         return element;
     };
     Bird.prototype.renderBird = function () {
@@ -114,18 +124,24 @@ var Bird = /** @class */ (function () {
     };
     Bird.prototype.gameLoop = function () {
         var _this = this;
-        setInterval(function () {
+        var gameloop = setInterval(function () {
             if (_this.isFlying) {
                 _this.moveWings();
                 _this.applyGravity();
                 _this.checkGameOver();
+                if (_this.checkGameOver()) {
+                    clearInterval(gameloop);
+                    _this.initialPosition();
+                }
             }
         }, 20);
     };
     Bird.prototype.checkGameOver = function () {
-        if (this.position.y >= 1050) {
+        if (this.getY() >= window.innerHeight) {
             this.gameOver();
+            return true;
         }
+        return false;
     };
     // פונקציה שאומרת כאשר המשחק נגמר אז מופיעה תמונה על המסך.
     Bird.prototype.gameOver = function () {
