@@ -1,9 +1,15 @@
 var character = './images/character1.png';
 var Player = /** @class */ (function () {
-    function Player(x, y, imageUrl) {
+    function Player(x, y, imageUrl, velocityY, gravity, isJumping, isFailed, firstJump) {
         this.positionX = x;
         this.positionY = y;
-        this.imageUrl = './images/character1.png';
+        this.imageUrl = imageUrl;
+        this.velocityY = velocityY;
+        this.gravity = gravity;
+        this.isJumping = true;
+        this.isPaused = false;
+        this.element = null;
+        this.isFailed = false;
     }
     Object.defineProperty(Player.prototype, "getPositionX", {
         get: function () {
@@ -54,28 +60,125 @@ var Player = /** @class */ (function () {
             var player = document.createElement('img');
             player.src = this.imageUrl;
             player.style.position = 'absolute';
-            player.style.bottom = this.positionX + "px";
-            player.style.left = this.positionY + "px";
+            player.style.bottom = this.positionY + "px";
+            player.style.left = this.positionX + "vw";
             player.classList.add('player');
             player.style.zIndex = '1';
             mainElement.appendChild(player);
+            this.element = player;
+            this.addEventListeners();
+            this.update();
         }
         catch (error) {
+            console.error(error);
         }
+    };
+    Player.prototype.addEventListeners = function () {
+        var _this = this;
+        window.addEventListener('keydown', function (event) {
+            if (!_this.isPaused) {
+                if (event.key === 'ArrowRight') {
+                    _this.moveRight();
+                }
+                if (event.key === 'ArrowLeft') {
+                    _this.moveLeft();
+                }
+                if (event.key === ' ' || event.key === 'ArrowUp') {
+                    _this.jump();
+                }
+            }
+        });
+    };
+    Player.prototype.moveRight = function () {
+        var playerWidthVW = (80 / window.innerWidth) * 100;
+        this.positionX += 5;
+        if (this.positionX > (100 - playerWidthVW - 10)) {
+            this.positionX = 100 - playerWidthVW - 10;
+        }
+        this.updatePosition();
+    };
+    Player.prototype.moveLeft = function () {
+        this.positionX -= 5;
+        if (this.positionX < 10) {
+            this.positionX = 10;
+        }
+        this.updatePosition();
+    };
+    Player.prototype.jump = function () {
+        if (!this.isJumping) {
+            this.isJumping = true;
+            this.velocityY = 5;
+        }
+    };
+    Player.prototype.firstJump = function () {
+        if (this.isJumping. || this.isJumping.which == 1)
+            return this.firstJump = false;
+    };
+    Player.prototype.update = function () {
+        var _this = this;
+        if (!this.isPaused) {
+            if (this.isJumping) {
+                this.positionY += this.velocityY;
+                this.velocityY -= this.gravity;
+                if (this.positionY <= 0) {
+                    this.positionY = 0;
+                    this.isJumping = false;
+                }
+            }
+            if (this.isNearBounds()) {
+                this.rotatePlayer();
+            }
+            this.updatePosition();
+            requestAnimationFrame(function () { return _this.update(); });
+        }
+    };
+    Player.prototype.isNearBounds = function () {
+        var leftBound = 10;
+        var rightBound = 100 - 10;
+        var bottomBound = 12;
+        return (this.positionX < leftBound || this.positionX > rightBound || this.positionY < bottomBound);
+    };
+    Player.prototype.rotatePlayer = function () {
+        var _this = this;
+        if (this.element) {
+            this.element.classList.add('rotate');
+            setTimeout(function () {
+                var _a;
+                (_a = _this.element) === null || _a === void 0 ? void 0 : _a.classList.remove('rotate');
+            }, 1000);
+        }
+    };
+    Player.prototype.updatePosition = function () {
+        if (this.element) {
+            this.element.style.left = this.positionX + "vw";
+            this.element.style.bottom = this.positionY + "vh";
+        }
+    };
+    Player.prototype.pauseGame = function () {
+        this.isPaused = true;
+    };
+    Player.prototype.resumeGame = function () {
+        if (this.isPaused) {
+            this.isPaused = false;
+            this.update();
+        }
+    };
+    Player.prototype.resetGame = function () {
+        this.positionX = 50;
+        this.positionY = 0;
+        this.velocityY = 0;
+        this.isJumping = false;
+        this.updatePosition();
     };
     return Player;
 }());
 var Step = /** @class */ (function () {
     function Step() {
-        try {
-            this.width = Math.floor(Math.random() * (46 - 19) + 19);
-            this.height = 3.75;
-            this.positionX = Math.floor(Math.random() * (100 - 10) + 10);
-            this.positionY = 68;
-        }
-        catch (error) {
-            console.error(error);
-        }
+        this.width = Math.floor(Math.random() * (40 - 10) + 10);
+        this.height = 5;
+        this.positionX = Math.floor(Math.random() * (60 - 8) + 8);
+        this.positionY = 0;
+        this.element = null;
     }
     Object.defineProperty(Step.prototype, "getPositionX", {
         get: function () {
@@ -134,45 +237,97 @@ var Step = /** @class */ (function () {
         configurable: true
     });
     Step.prototype.renderStep = function (mainElement) {
-        var positionChanged = false;
         var step = document.createElement('div');
-        if (this.positionX + this.width > 1600) {
-            this.positionX = Math.floor(Math.random() * (87.5 - 63) + 63);
-            this.width = Math.floor(Math.random() * (20 - 16) + 16);
-            positionChanged = true;
-        }
-        if (this.positionX < 100) {
-            this.positionX = 101;
-        }
         step.classList.add('stepDesign');
-        step.style.width = this.width + "rem";
+        step.style.width = this.width + "vw";
         step.style.position = 'absolute';
-        step.style.height = this.height + "rem";
-        step.style.bottom = this.positionY + "rem";
-        step.style.left = this.positionX + "rem";
-        console.log('Step positionX:', this.positionX, 'Step width:', this.width, positionChanged, this.positionY);
-        step.style.setProperty('--initial-positionY', this.positionY + "rem");
+        step.style.height = this.height + "vh";
+        step.style.top = this.positionY + "vh";
+        step.style.left = this.positionX + "vw";
+        step.style.setProperty('--initial-positionY', this.positionY + "vh");
         var animationDuration = 10;
         step.style.animationDuration = animationDuration + "s";
-        step.addEventListener('animationend', function () {
-            mainElement.removeChild(step);
-        });
+        step.style.animationPlayState = 'running';
         mainElement.appendChild(step);
+        this.element = step;
+    };
+    Step.prototype.stopAnimation = function () {
+        if (this.element) {
+            this.element.style.animationPlayState = 'paused';
+        }
+    };
+    Step.prototype.resumeAnimation = function () {
+        if (this.element) {
+            this.element.style.animationPlayState = 'running';
+        }
     };
     return Step;
 }());
-var newPlayer = new Player(0, 912.5, character);
+var newPlayer = new Player(50, 0, character, 0, 0.5, false);
+var isGamePaused = false;
+var stepIntervalId = null;
+var steps = [];
 function main() {
     var mainElement = document.getElementById('IcyTower');
     newPlayer.renderPlayer(mainElement);
-    function createStepWithDelay() {
-        var newStep = createSteps();
-        newStep.renderStep(mainElement);
-        setTimeout(createStepWithDelay, 1500);
-    }
     createStepWithDelay();
 }
 function createSteps() {
     return new Step();
 }
-main();
+function pauseGame() {
+    isGamePaused = true;
+    newPlayer.pauseGame();
+    steps.forEach(function (step) { return step.stopAnimation(); });
+    if (stepIntervalId !== null) {
+        clearTimeout(stepIntervalId);
+    }
+}
+function resumeGame() {
+    isGamePaused = false;
+    newPlayer.resumeGame();
+    steps.forEach(function (step) { return step.resumeAnimation(); });
+    createStepWithDelay();
+}
+function resetGame() {
+    var mainElement = document.getElementById('IcyTower');
+    var existingSteps = mainElement.querySelectorAll('.stepDesign');
+    existingSteps.forEach(function (step) { return step.remove(); });
+    newPlayer.resetGame();
+    if (stepIntervalId !== null) {
+        clearTimeout(stepIntervalId);
+    }
+    steps = [];
+    createStepWithDelay();
+}
+function createStepWithDelay() {
+    if (!isGamePaused) {
+        var mainElement = document.getElementById('IcyTower');
+        var newStep = createSteps();
+        newStep.renderStep(mainElement);
+        steps.push(newStep);
+    }
+    stepIntervalId = setTimeout(createStepWithDelay, 1500);
+}
+window.onload = function () {
+    var pauseButton = document.getElementById('pauseButton');
+    var startOverButton = document.getElementById('startOverButton');
+    pauseButton.addEventListener('click', function () {
+        if (isGamePaused) {
+            resumeGame();
+            pauseButton.textContent = '||';
+        }
+        else {
+            pauseGame();
+            pauseButton.textContent = '▶';
+        }
+    });
+    startOverButton.addEventListener('click', function () {
+        resetGame();
+        if (isGamePaused) {
+            resumeGame();
+            pauseButton.textContent = '||';
+        }
+    });
+    main();
+};

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD</title>
+    <script src="./dist/index.js" defer></script>
+    <link rel="stylesheet" href="./dist/style.css">
+</head>
+<body>
+    <h1>CRUD</h1>
+    <form onsubmit="handleAddPet(event)">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="text" name="gender" placeholder="Gender" required>
+        <input type="number" name="price" placeholder="Price" required>
+        <input type="url" name="imageUrl" placeholder="Image URL" required>
+        <select name="species">
+            <option value="dog">Dog</option>
+            <option value="cat">Cat</option>
+            <option value="fish">Fish</option>
+            <option value="rabbit">Rabbit</option>
+        </select>
+        <button type="submit">Add Pet</button>
+    </form>
+    <div id="pets"></div>
+</body>
+</html>

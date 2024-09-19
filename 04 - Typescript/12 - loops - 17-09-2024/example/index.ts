@@ -36,3 +36,14 @@ for (let key in obj) {
 
 
 console.log("done");
+
+let j = 0;
+
+//while are used when we don't know how many times we need to loop
+while ( j < .95) {
+    j = Math.random();
+    console.log(j)
+    
+    
+}
+console.log("done");
