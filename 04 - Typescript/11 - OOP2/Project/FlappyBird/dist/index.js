@@ -197,11 +197,12 @@ var Bird = /** @class */ (function () {
     return Bird;
 }());
 ;
-var Obsticals = /** @class */ (function () {
-    function Obsticals() {
+var Obstical = /** @class */ (function () {
+    function Obstical() {
         this.imgUrl = "./dist/images/obsticals.png";
         this.imgUrlReversed = "./dist/images/obsticals-reversed.png";
     }
+<<<<<<< Updated upstream
     Obsticals.prototype.render = function () {
         try {
             if (!this.render)
@@ -218,10 +219,13 @@ var Obsticals = /** @class */ (function () {
         catch (error) {
             console.error(error);
         }
+=======
+    Obstical.prototype.render = function () {
+>>>>>>> Stashed changes
     };
-    Obsticals.prototype.move = function () {
+    Obstical.prototype.move = function () {
     };
-    return Obsticals;
+    return Obstical;
 }());
 function main() {
     var bird1 = new Bird({ x: 300, y: 300 }, 0, 0.4);

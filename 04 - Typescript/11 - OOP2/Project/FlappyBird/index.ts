@@ -235,7 +235,7 @@ class Bird {
 };
 
 
-class Obsticals {
+class Obstical {
     private position: Position;
     private imgUrl: string;
     private imgUrlReversed: string;
@@ -246,6 +246,7 @@ class Obsticals {
     }
 
     render() {
+<<<<<<< Updated upstream
         try {
             if(!this.render) throw new Error
             document.getElementById("obsticals");   
@@ -260,6 +261,9 @@ class Obsticals {
         } catch (error) {
             console.error(error)
         }
+=======
+
+>>>>>>> Stashed changes
     }
 
     move() {
