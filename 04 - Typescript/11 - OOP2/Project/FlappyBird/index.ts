@@ -246,7 +246,20 @@ class Obsticals {
     }
 
     render() {
-        
+        try {
+            if(!this.render) throw new Error
+            document.getElementById("obsticals");   
+            const obsticalNormal1 = document.createElement("img");
+            obsticalNormal1.src = "./dist/images/obstical.png";
+            obsticalNormal1.classList.add("obstical-1");
+
+            document.getElementById("obsticals");   
+            const obsticalReverse1 = document.createElement("img");
+            obsticalReverse1.src = "./dist/images/obstical - reversed.png";
+            obsticalReverse1.classList.add("obstical-1");
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     move() {

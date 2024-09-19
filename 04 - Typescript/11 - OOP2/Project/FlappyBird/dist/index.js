@@ -203,6 +203,21 @@ var Obsticals = /** @class */ (function () {
         this.imgUrlReversed = "./dist/images/obsticals-reversed.png";
     }
     Obsticals.prototype.render = function () {
+        try {
+            if (!this.render)
+                throw new Error;
+            document.getElementById("obsticals");
+            var obsticalNormal1 = document.createElement("img");
+            obsticalNormal1.src = "./dist/images/obstical.png";
+            obsticalNormal1.classList.add("obstical-1");
+            document.getElementById("obsticals");
+            var obsticalReverse1 = document.createElement("img");
+            obsticalReverse1.src = "./dist/images/obstical - reversed.png";
+            obsticalReverse1.classList.add("obstical-1");
+        }
+        catch (error) {
+            console.error(error);
+        }
     };
     Obsticals.prototype.move = function () {
     };
