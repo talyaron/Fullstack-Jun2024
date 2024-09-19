@@ -77,15 +77,14 @@ $border-radius: 20px;
 }
 
 #startOverButton, #pauseButton {
-    font-size: 20px;
+    font-size: 40px;
     background-color: transparent;
-    color: rgb(204, 204, 204);
-    font-weight: bolder; 
+    background: linear-gradient(90deg, #ffffff, #404040);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px black;
+    font-weight: 900; 
     border: none; 
     margin-left: 10px;
 }
 
-#startOverButton, #pauseButton {
-    font-size: 40px; 
-    font-weight: 900;
-}
