@@ -82,14 +82,25 @@ class Player {
     }
 
     private moveRight() {
+        // Calculate player's width in vw based on screen width
+        const playerWidthVW = (80 / window.innerWidth) * 100; // 80px is the player's width in pixels
+    
+        // Move the player right and limit it to the screen width
         this.positionX += 5;
+        if (this.positionX > (100 - playerWidthVW - 10 )) {
+            this.positionX = 100 - playerWidthVW - 10; 
+        }
         this.updatePosition();
     }
-
+    
     private moveLeft() {
         this.positionX -= 5;
+        if (this.positionX < 10) {
+            this.positionX = 10; 
+        }
         this.updatePosition();
     }
+    
 
     private jump() {
         if (!this.isJumping) {
@@ -103,13 +114,13 @@ class Player {
             if (this.isJumping) {
                 this.positionY += this.velocityY;
                 this.velocityY -= this.gravity;
-
+    
                 if (this.positionY <= 0) {
                     this.positionY = 0;
                     this.isJumping = false;
                 }
             }
-
+    
             this.updatePosition();
             requestAnimationFrame(() => this.update());
         }

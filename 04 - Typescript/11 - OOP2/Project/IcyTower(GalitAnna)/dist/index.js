@@ -89,11 +89,20 @@ var Player = /** @class */ (function () {
         });
     };
     Player.prototype.moveRight = function () {
+        // Calculate player's width in vw based on screen width
+        var playerWidthVW = (80 / window.innerWidth) * 100; // 80px is the player's width in pixels
+        // Move the player right and limit it to the screen width
         this.positionX += 5;
+        if (this.positionX > (100 - playerWidthVW - 10)) {
+            this.positionX = 100 - playerWidthVW - 10;
+        }
         this.updatePosition();
     };
     Player.prototype.moveLeft = function () {
         this.positionX -= 5;
+        if (this.positionX < 10) {
+            this.positionX = 10;
+        }
         this.updatePosition();
     };
     Player.prototype.jump = function () {
