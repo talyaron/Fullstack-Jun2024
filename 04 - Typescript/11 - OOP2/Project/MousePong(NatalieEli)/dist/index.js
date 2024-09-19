@@ -62,6 +62,12 @@ var Brick = /** @class */ (function (_super) {
         _this.broken = false;
         return _this;
     }
+    Brick.prototype.paint = function () {
+        this.domElement.style.backgroundImage = "url(\"./dist/images/Brick.png\")";
+        this.domElement.style.backgroundSize = "cover";
+        // this.domElement.style.background= `${getColor()}`;
+        this.domElement.style.backgroundColor = "" + getColor(); // Red with 50% opacity
+    };
     return Brick;
 }(Box));
 var playCube = /** @class */ (function (_super) {
@@ -71,6 +77,8 @@ var playCube = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.radius = _this.width / 2; //holds the radius of the pinball
         _this.gravity = true; //to enable or disable gravity
+        _this.score = 0;
+        _this.lives = 3;
         _this.posChange = false;
         _this.mouseCollidesWithBall = false;
         //if the ball was already created of not
@@ -98,6 +106,10 @@ var playCube = /** @class */ (function (_super) {
     playCube.prototype.updateTransform = function () {
         this.domElement.style.transform = "translate(" + this.pos.spawnPos.x + "px, " + this.pos.spawnPos.y + "px ) ";
     };
+    playCube.prototype.paint = function () {
+        this.domElement.style.backgroundImage = "url(\"./dist/images/ball.png\")";
+        getColor();
+    };
     return playCube;
 }(Box));
 //holds the container for the ball and boxes
@@ -108,23 +120,31 @@ var containerRect = containerElement.getClientRects();
 var initialPlace = parseFloat(window.getComputedStyle(containerElement).width);
 //holds the pinBall and its positions - x - and that is - y - width height
 var pinBall = new playCube({ x: initialPlace * 0.5, y: 440 }, 50, 50);
+//some variables for the bricks
 var boxes = [];
 var bricks = [];
-var brickAmount = 30;
 var runOnce = false;
+//colors for bricks
+var yellow = "#FFFAFA";
+var blue = "#E0F7FA";
+var red = "#B2EBF2";
 //creates the boxes and calling the render function later
 function newBox() {
+    removeBoxes(boxes);
     //holds the size of the element container
     var containerStyle = window.getComputedStyle(containerElement);
     var containerWidth = parseFloat(containerStyle.width);
+    var containerHeight = parseFloat(containerStyle.height);
     console.log("Width:", containerWidth);
-    var size = 50;
+    // Adjust the size of boxes based on container width
+    var size = containerWidth / 20; // calculate the size relative to container width (this ratio can be adjusted)
+    // Set the number of boxes and initial offset
     var numberOfBoxes = 15;
     var offsetX = 44;
     var totalSpacing = containerWidth - numberOfBoxes * size - 2 * offsetX;
     var spaceX = totalSpacing / (numberOfBoxes - 1);
-    // Create the boxes with dynamic spacing
-    if (runOnce == false) {
+    // Adjust the size of the boxes and spacing if needed
+    if (!runOnce) {
         for (var i = 0; i < numberOfBoxes; i++) {
             var brickRow1 = new Brick({ x: offsetX, y: 50 }, size, 25);
             var brickRow2 = new Brick({ x: offsetX, y: 80 }, size, 25);
@@ -137,17 +157,22 @@ function newBox() {
         }
         runOnce = true;
     }
-    var newBox1 = new Box({ x: 204, y: 602 }, 150, 50);
-    var newBox2 = new Box({ x: 504, y: 602 }, 150, 50);
-    var newBox3 = new Box({ x: 804, y: 602 }, 150, 50);
-    var newBox4 = new Box({ x: 1104, y: 602 }, 150, 50);
+    //boxes under
+    var newBox1 = new Box({ x: 0, y: containerHeight - 50 }, 1250, 50);
+    var newBox2 = new Box({ x: 504, y: containerHeight - 50 }, 150, 50);
+    var newBox3 = new Box({ x: 804, y: containerHeight - 50 }, 150, 50);
+    var newBox4 = new Box({ x: 1104, y: containerHeight - 50 }, 150, 50);
+    var newBox5 = new Box({ x: 1404, y: containerHeight - 50 }, 150, 50);
+    var newBox6 = new Box({ x: 1704, y: containerHeight - 50 }, 150, 50);
+    var newBox7 = new Box({ x: 2004, y: containerHeight - 50 }, 150, 50);
+    //walls
     //left wall
     var wallLeft = new Box({ x: 2, y: 0 }, 0, myScreen.viewportHeight);
     //right wall
     var wallRight = new Box({ x: containerWidth, y: 0 }, 0, myScreen.viewportHeight);
     //celling wall
     var wallTop = new Box({ x: 0, y: 2 }, containerWidth, 0);
-    boxes.push(newBox1, newBox2, newBox3, newBox4, wallLeft, wallRight, wallTop);
+    boxes.push(newBox1, newBox2, newBox3, newBox4, newBox5, newBox6, newBox7, wallLeft, wallRight, wallTop);
     //initializes the pinball
     if (!pinBall.exist) {
         renderPinBall(pinBall);
@@ -180,12 +205,40 @@ function renderBoxes(boxes) {
     });
     //gives the player pinball id;
     this.pinBall.domElement.id = "pinBall";
+    boxes.forEach(function (box) {
+        if (box instanceof Brick) {
+            box.paint();
+        }
+    });
 }
 //being called from the html element
 function main() {
     //call for for the boxes to be created
     newBox();
+    giveHp();
+    pinBall.paint();
     //isColliding(pinBall);
+}
+var lifeContainer = [];
+function giveHp() {
+    var lifeElements = document.createElement("div");
+    lifeElements.id = "lives";
+    containerElement.appendChild(lifeElements);
+    for (var index = 1; index < pinBall.lives; index++) {
+        var lifeElement = document.createElement("div");
+        lifeElement.classList.add("live");
+        lifeElement.style.backgroundImage = "url(\"./dist/images/ball.png\")";
+        lifeElements.appendChild(lifeElement);
+        lifeContainer.push(lifeElement);
+    }
+}
+function loseHp() {
+    if (lifeContainer.length > 0) {
+        var lifeElementToRemove = lifeContainer.pop();
+        if (lifeElementToRemove) {
+            lifeElementToRemove.remove();
+        }
+    }
 }
 function isColliding(pinBall) {
     pinBall.colliding = false;
@@ -219,6 +272,8 @@ function isColliding(pinBall) {
             console.log("Colliding with normal:", collisionNormal);
             if (box instanceof Brick) {
                 box.die(box);
+                pinBall.score++;
+                console.log(pinBall.score);
                 // Call the die method on the box
                 // Remove the box from the array
                 boxes.splice(index, 1);
@@ -242,13 +297,13 @@ function windowResized() {
     var containerStyle = window.getComputedStyle(containerElement);
     var containerWidth = parseFloat(containerStyle.width);
     if (pinBall.pos.edgePos.x > containerWidth) {
-        console.log("outside");
+        //console.log("outside");
         pinBall.pos.spawnPos.x = containerWidth - pinBall.width;
         pinBall.pos.edgePos.x = pinBall.pos.spawnPos.x - pinBall.width;
         pinBall.updateTransform();
     }
     if (pinBall.pos.spawnPos.x < 0) {
-        console.log("outside");
+        // console.log("outside");
         pinBall.pos.spawnPos.x = 0;
         pinBall.pos.edgePos.x = pinBall.pos.spawnPos.x + pinBall.width;
         pinBall.updateTransform();
@@ -283,7 +338,7 @@ function physics(pinBall) {
     if (pinBall.mouseCollidesWithBall) {
         // Calculate the magnitude of the direction vector
         var magnitude = Math.sqrt(mouseDirX * mouseDirX + mouseDirY * mouseDirY);
-        if (magnitude >= 0 && mouseCurrentY > 400) {
+        if (magnitude >= 0 && mouseCurrentY > 400 && pinBall.lives > 0) {
             // check where the mouse came from and apply it to direction of the ball
             if (pinBall.mouseEntryDirection > 0) {
                 pinBall.ballDirectionX = -mouseDirX / magnitude;
@@ -336,7 +391,11 @@ function physics(pinBall) {
         //uncomment to make the ball lose speed with each collider hit
         //pinBall.ballVelocityX *= .9;
         // pinBall.ballVelocityY *= .9;
-        console.log("Bouncing with new direction:", pinBall.ballDirectionX, pinBall.ballDirectionY);
+        /* console.log(
+          "Bouncing with new direction:",
+          pinBall.ballDirectionX,
+          pinBall.ballDirectionY
+        );*/
     }
     //if gravity is enabled make the ball fall
     if (pinBall.gravity) {
@@ -352,20 +411,63 @@ function physics(pinBall) {
     windowResized();
     //lose condition is if the ball fell down too far (brings it back to the center for now)
     if (pinBall.pos.spawnPos.y > window.innerHeight) {
-        console.log("you lost ! ");
-        pinBall.pos.spawnPos.y = 440;
-        pinBall.pos.edgePos.y = 440;
-        pinBall.pos.spawnPos.x = innerWidth * 0.5;
-        pinBall.pos.edgePos.x = innerWidth * 0.5;
-        pinBall.ballDirectionX = 0;
-        pinBall.ballDirectionY = 0;
-        pinBall.ballVelocityX = 0;
-        pinBall.ballVelocityY = 0;
-        pinBall.updateTransform();
+        if (pinBall.lives > 1) {
+            loseHp();
+            pinBall.pos.spawnPos.y = 440;
+            pinBall.pos.edgePos.y = 440;
+            pinBall.pos.spawnPos.x = innerWidth * 0.5;
+            pinBall.pos.edgePos.x = innerWidth * 0.5;
+            pinBall.ballDirectionX = 0;
+            pinBall.ballDirectionY = 0;
+            pinBall.ballVelocityX = 0;
+            pinBall.ballVelocityY = 0;
+            pinBall.lives--;
+            pinBall.updateTransform();
+        }
+        else {
+            pinBall.pos.spawnPos.y = 440;
+            pinBall.pos.edgePos.y = 440;
+            pinBall.pos.spawnPos.x = innerWidth * 0.5;
+            pinBall.pos.edgePos.x = innerWidth * 0.5;
+            pinBall.ballDirectionX = 0;
+            pinBall.ballDirectionY = 0;
+            pinBall.ballVelocityX = 0;
+            pinBall.ballVelocityY = 0;
+            pinBall.lives = 0;
+            pinBall.die(pinBall);
+            lose();
+        }
+    }
+    if (pinBall.score === 75 && pinBall.exist) {
+        win();
+        pinBall.exist = false;
     }
 }
-///להוסיף התחלה ואנימציה 
-//לתקן כמה באגים
-// לעצב את הקוביות והעיגול
-//להוסיף נקודות
-// מסך ותנאי הפסד
+function getColor() {
+    var randomNumber = Math.floor(Math.random() * 3);
+    if (randomNumber == 0) {
+        return yellow;
+    }
+    else if (randomNumber == 1) {
+        return blue;
+    }
+    return red;
+}
+function lose() {
+    var loseElement = document.createElement("div");
+    loseElement.id = "loser";
+    loseElement.innerHTML = "<h1>Game Over</h1> <h3>Score: " + pinBall.score + "</h3> ";
+    containerElement.appendChild(loseElement);
+    setTimeout(function () {
+        location.reload();
+    }, 6000);
+}
+function win() {
+    var loseElement = document.createElement("div");
+    loseElement.id = "winner";
+    loseElement.innerHTML = "<h1>You Win!</h1> <h3>Score: " + pinBall.score + "</h3> ";
+    containerElement.appendChild(loseElement);
+    setTimeout(function () {
+        location.reload();
+    }, 6000);
+}
