@@ -10,6 +10,7 @@ var Bird = /** @class */ (function () {
         this.renderBird();
         this.isFlying = false;
         this.isGameActive = false;
+        this.obsticle = new Obstical();
         window.addEventListener('keydown', function (event) {
             if (event.code === 'Space') {
                 event.preventDefault();
@@ -21,9 +22,6 @@ var Bird = /** @class */ (function () {
                 _this.handlePressKeyDown();
             }
         });
-        // if(!this.isGameActive){
-        //     this.startGame();
-        // }
         this.gameLoop();
     }
     //GETTERS
@@ -88,6 +86,7 @@ var Bird = /** @class */ (function () {
             }
             // this.element.id = this.id;
             this.element.style.position = 'absolute';
+            this.element.style.zIndex = '999';
             this.element.style.left = this.position.x + 'px';
             this.element.style.top = this.position.y + 'px';
             this.element.classList.add('bird');
@@ -112,25 +111,6 @@ var Bird = /** @class */ (function () {
             console.error(e);
         }
     };
-    // checkYposition(): void{
-    //     try {
-    //         if(!this.checkYposition) throw new Error
-    //         console.log("checkYposition function is enable")
-    //     } catch (error) {
-    //         console.error("cannot find the function")
-    //     }
-    // }
-    // updateYPosition(): void {
-    //     try {
-    //         if(!this.updateYPosition) throw new Error
-    //         setInterval(() => {
-    //             console.log("Bird's Y position is: ", this.getY());
-    //         }, 1000);
-    //         console.log("updateYPosition function is enable")
-    //     } catch (error) {
-    //         console.error("cannot find the function")
-    //     }
-    // }
     Bird.prototype.handlePressKeyDown = function () {
         console.log('in press', this.isGameActive);
         this.isGameActive = true;
@@ -207,35 +187,28 @@ var Obstical = /** @class */ (function () {
         this.imgUrl = "./dist/images/obstical.png";
         this.moveInObsticale = false;
         this.obsticalsVelocity = 5;
+        this.position = this.initialPosition();
+        console.log("initial position", this.position);
     }
     Obstical.prototype.render = function () {
         try {
             var obstacles = [];
             var container = document.getElementById("obstical-1");
             if (container) {
-                var obstical1 = document.createElement("img");
-                obstical1.src = this.imgUrl;
-                obstical1.classList.add("obstical-1");
-                container.appendChild(obstical1);
-                obstacles.push(obstical1);
-                var obstical2 = document.createElement("img");
-                obstical2.src = this.imgUrl;
-                obstical2.classList.add("obstical-2");
-                container.appendChild(obstical2);
-                obstacles.push(obstical2);
-            }
-            var container1 = document.getElementById("obstical-2");
-            if (container1) {
-                var obstical3 = document.createElement("img");
-                obstical3.src = this.imgUrl;
-                obstical3.classList.add("obstical-3");
-                container1.appendChild(obstical3);
-                obstacles.push(obstical3);
-                var obstical4 = document.createElement("img");
-                obstical4.src = this.imgUrl;
-                obstical4.classList.add("obstical-4");
-                container1.appendChild(obstical4);
-                obstacles.push(obstical4);
+                this.elementTop = document.createElement("img");
+                this.elementTop.src = this.imgUrl;
+                this.elementTop.classList.add("obstical-1");
+                container.appendChild(this.elementTop);
+                obstacles.push(this.elementTop);
+                this.elementBottom = document.createElement("img");
+                this.elementBottom.src = this.imgUrl;
+                this.elementBottom.classList.add("obstical-2");
+                container.appendChild(this.elementBottom);
+                obstacles.push(this.elementBottom);
+                this.elementTop.style.left = this.position.x + 'px';
+                this.elementTop.style.top = this.position.y + 'px';
+                this.elementBottom.style.left = this.position.x + 'px';
+                this.elementBottom.style.top = this.position.y + 'px';
             }
             return obstacles;
         }
@@ -244,12 +217,14 @@ var Obstical = /** @class */ (function () {
             return [];
         }
     };
-    Obstical.prototype.moveObstacles = function (obstacles) {
-        obstacles.forEach(function (obstacle) {
-            var currentLeftPosition = parseInt(obstacle.element.style.left, 10);
-            var newLeftPosition = currentLeftPosition - obstacle.speed;
-            obstacle.element.style.left = newLeftPosition + 'px';
-        });
+    Obstical.prototype.initialPosition = function () {
+        var width = window.innerWidth;
+        var height = window.innerHeight;
+        // this.elementTop.style.left = this.position.x + 'px';
+        // this.elementTop.style.top = this.position.y + 'px';
+        // this.elementBottom.style.left = this.position.x + 'px';
+        // this.elementBottom.style.top = this.position.y + 'px';
+        return ({ x: width, y: height });
     };
     return Obstical;
 }());
@@ -258,7 +233,7 @@ var Obstical = /** @class */ (function () {
 // const obstaclesList = obstical.render(); // Render and get obstacles
 // obstical.moveObstacles(obstaclesList); // Move obstacles
 function main() {
-    var bird1 = new Bird({ x: 200, y: 450 }, 0, 0.4);
+    var bird1 = new Bird({ x: 300, y: 300 }, 0, 0.4);
     console.log("game has started");
     // bird1.updateYPosition();
     console.log("Bird's Y position is: ", bird1.getY());

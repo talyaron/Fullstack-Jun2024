@@ -13,6 +13,7 @@ class Bird {
     private flyingBirdImgUrl: string;
     isGameActive: boolean;
     isFlying: boolean;
+    obsticle: Obstical;
     
 
     constructor(position: Position, velocity: number, gravity: number) {
@@ -25,6 +26,8 @@ class Bird {
         this.renderBird();
         this.isFlying = false;
         this.isGameActive = false;
+        this.obsticle = new Obstical();
+
 
         window.addEventListener('keydown', (event: KeyboardEvent) => {
             if (event.code === 'Space') {
@@ -38,9 +41,6 @@ class Bird {
                 this.handlePressKeyDown();
             }
         });
-        // if(!this.isGameActive){
-        //     this.startGame();
-        // }
 
         this.gameLoop();
     }
@@ -115,6 +115,7 @@ class Bird {
             }
             // this.element.id = this.id;
             this.element.style.position = 'absolute';
+            this.element.style.zIndex = '999';
             this.element.style.left = this.position.x + 'px';
             this.element.style.top = this.position.y + 'px';
             this.element.classList.add('bird');
@@ -141,29 +142,7 @@ class Bird {
             console.error(e);
         }
     }
-   
-
-    // checkYposition(): void{
-    //     try {
-    //         if(!this.checkYposition) throw new Error
-    //         console.log("checkYposition function is enable")
-    //     } catch (error) {
-    //         console.error("cannot find the function")
-    //     }
-    // }
-    
-    // updateYPosition(): void {
-    //     try {
-    //         if(!this.updateYPosition) throw new Error
-    //         setInterval(() => {
-    //             console.log("Bird's Y position is: ", this.getY());
-    //         }, 1000);
-    //         console.log("updateYPosition function is enable")
-    //     } catch (error) {
-    //         console.error("cannot find the function")
-    //     }
-    // }
-
+ 
     handlePressKeyDown(): void {
         console.log('in press', this.isGameActive);
         this.isGameActive = true;
@@ -240,21 +219,22 @@ class Bird {
     }
 };
 
-interface Obstacle {
-    element: HTMLElement;
-    speed: number;
-}
 
 class Obstical {
     private position: Position;
     private imgUrl: string;
     private moveInObsticale: boolean;
     private obsticalsVelocity: number;
+    private elementTop: HTMLImageElement;
+    private elementBottom: HTMLImageElement;
 
     constructor() {
         this.imgUrl = "./dist/images/obstical.png";
         this.moveInObsticale = false;
         this.obsticalsVelocity = 5; 
+        this.position = this.initialPosition();
+
+        console.log("initial position", this.position);
     }
 
     render(): HTMLElement[] {
@@ -263,35 +243,24 @@ class Obstical {
             
             const container = document.getElementById("obstical-1");  
             if (container) {
-                const obstical1 = document.createElement("img");
-                obstical1.src = this.imgUrl;
-                obstical1.classList.add("obstical-1");
-                container.appendChild(obstical1);
-                obstacles.push(obstical1);
+                this.elementTop = document.createElement("img");
+                this.elementTop.src = this.imgUrl;
+                this.elementTop.classList.add("obstical-1");
+                container.appendChild(this.elementTop);
+                obstacles.push(this.elementTop);
                 
-                const obstical2 = document.createElement("img");
-                obstical2.src = this.imgUrl;
-                obstical2.classList.add("obstical-2");
-                container.appendChild(obstical2);
-                obstacles.push(obstical2);
+                this.elementBottom = document.createElement("img");
+                this.elementBottom.src = this.imgUrl;
+                this.elementBottom.classList.add("obstical-2");
+                container.appendChild(this.elementBottom);
+                obstacles.push(this.elementBottom);
+            this.elementTop.style.left = this.position.x + 'px';
+        this.elementTop.style.top = this.position.y + 'px';
+        this.elementBottom.style.left = this.position.x + 'px';
+        this.elementBottom.style.top = this.position.y + 'px';
             }
-    
-            const container1 = document.getElementById("obstical-2");  
-            if (container1) {
-                const obstical3 = document.createElement("img");
-                obstical3.src = this.imgUrl;
-                obstical3.classList.add("obstical-3");
-                container1.appendChild(obstical3);
-                obstacles.push(obstical3);
-                
-                const obstical4 = document.createElement("img");
-                obstical4.src = this.imgUrl;
-                obstical4.classList.add("obstical-4");
-                container1.appendChild(obstical4);
-                obstacles.push(obstical4);
-            }
-    
-            return obstacles;
+
+        return obstacles;
         } catch (error) {
             console.error(error);
             return [];
@@ -299,13 +268,23 @@ class Obstical {
 
     }
 
-    moveObstacles(obstacles: Obstacle[]) {
-        obstacles.forEach(obstacle => {
-            const currentLeftPosition = parseInt(obstacle.element.style.left, 10);
-            const newLeftPosition = currentLeftPosition - obstacle.speed;
-            obstacle.element.style.left = newLeftPosition + 'px';
-         });
-        }
+    initialPosition(): Position {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        // this.elementTop.style.left = this.position.x + 'px';
+        // this.elementTop.style.top = this.position.y + 'px';
+        // this.elementBottom.style.left = this.position.x + 'px';
+        // this.elementBottom.style.top = this.position.y + 'px';
+        return ({x: width, y: height});
+    }
+
+    // moveObstacles(obstacles: Obstacle[]) {
+    //     obstacles.forEach(obstacle => {
+    //         const currentLeftPosition = parseInt(obstacle.element.style.left, 10);
+    //         const newLeftPosition = currentLeftPosition - obstacle.speed;
+    //         obstacle.element.style.left = newLeftPosition + 'px';
+    //      });
+    //     }
     }
 
         
@@ -316,7 +295,7 @@ class Obstical {
     
 
 function main(): void {
-    const bird1 = new Bird({ x: 200, y: 450 }, 0, 0.4);
+    const bird1 = new Bird({ x: 300, y: 300 }, 0, 0.4);
     console.log("game has started");
     // bird1.updateYPosition();
     console.log("Bird's Y position is: ", bird1.getY());
