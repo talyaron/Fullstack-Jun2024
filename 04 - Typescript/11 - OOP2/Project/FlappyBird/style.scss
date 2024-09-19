@@ -20,8 +20,80 @@ body {
 .gameover-img{
     position: relative;
     width: 80%;
-    // margin: 0 auto;
-    // height: 1240px;
     top: -5rem;
     left: 10%;
+}
+
+.start {
+    position: absolute;
+    top: 20%;
+    color: #005eff;
+    font-family: Arial, Helvetica, sans-serif;
+    right: 30%;
+}
+
+#obstical-1 {
+    .obstical-1 {
+        height: 28vw;
+        width: 25vw;
+        position: absolute;
+        top: 43%;
+        left: 25%;
+    }
+    .obstical-2 {
+        height: 10vw;
+        width: 25vw;
+        position: absolute;
+        top: 0%;
+        left: 25%;
+    }
+}
+
+// #obstical-2 {
+//     .obstical-3 {
+//         height: 23vw;
+//         width: 25vw;
+//         position: absolute;
+//         top: 53%;
+//         left: 45%;
+//     }
+//     .obstical-4 {
+//         height: 14vw;
+//         width: 25vw;
+//         position: absolute;
+//         top: 0%;
+//         left: 45%;
+//     }
+// }
+#obstical-1 {
+    .obstical-1 {
+        height: 26vw;
+        width: 25vw;
+        position: absolute;
+        top: 47%;
+        left: 25%;
+    }
+    .obstical-2 {
+        height: 10vw;
+        width: 25vw;
+        position: absolute;
+        top: 0%;
+        left: 25%;
+    }
+}
+#obstical-2 {
+    .obstical-3 {
+        height: 23vw;
+        width: 25vw;
+        position: absolute;
+        top: 53%;
+        left: 45%;
+    }
+    .obstical-4 {
+        height: 14vw;
+        width: 25vw;
+        position: absolute;
+        top: 0%;
+        left: 45%;
+    }
 }

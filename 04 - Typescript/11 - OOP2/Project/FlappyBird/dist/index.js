@@ -9,28 +9,45 @@ var Bird = /** @class */ (function () {
         this.velocity = velocity;
         this.renderBird();
         this.isFlying = false;
+        this.isGameActive = false;
+        this.obsticle = new Obstical();
+        window.addEventListener('keydown', function (event) {
+            if (event.code === 'Space') {
+                event.preventDefault();
+                _this.handlePressKeyDown();
+            }
+        });
         window.addEventListener('keydown', function (event) {
             if (event.code === 'Space') {
                 _this.handlePressKeyDown();
             }
         });
-        window.addEventListener('keyup', function (event) {
-            if (event.code === 'Space') {
-                _this.handlePressKeyUp();
-            }
-        });
         this.gameLoop();
     }
-    //GETTER
+    //GETTERS
     Bird.prototype.getElement = function () {
         return this.element;
     };
-    //methods 
+    // return the y of the bird.
+    Bird.prototype.getY = function () {
+        return this.position.y;
+    };
+    Bird.prototype.getGameActivity = function () {
+        return this.isGameActive;
+    };
+    //SETTERS
+    Bird.prototype.setGameActive = function (active) {
+        this.isGameActive = active;
+    };
+    Bird.prototype.setIsFlying = function (isFlying) {
+        this.isFlying = isFlying;
+    };
+    //METHODS 
+    //position of X and Y initially
     Bird.prototype.initialPosition = function () {
         var posY = 300;
         var posX = 300;
         this.position = { x: posX, y: posY };
-        console.log("initialPosition: " + this.position.x, this.position.y);
         this.initialPositionRender(posX, posY);
         return this.position;
     };
@@ -39,6 +56,7 @@ var Bird = /** @class */ (function () {
         this.element.style.left = positionX + 'px';
         this.element.style.top = positionY + 'px';
     };
+    //effect of moving the bird's wings
     Bird.prototype.moveWings = function () {
         var _this = this;
         var element = this.getElement();
@@ -52,6 +70,7 @@ var Bird = /** @class */ (function () {
         }, 200);
         return element;
     };
+    //render bird
     Bird.prototype.renderBird = function () {
         console.log("in render");
         try {
@@ -60,13 +79,14 @@ var Bird = /** @class */ (function () {
             if (!container)
                 throw new Error('Element not found');
             if (this.isFlying) {
-                // this.moveWings();
+                this.moveWings();
             }
             else {
                 this.element.src = this.imgUrl;
             }
             // this.element.id = this.id;
             this.element.style.position = 'absolute';
+            this.element.style.zIndex = '999';
             this.element.style.left = this.position.x + 'px';
             this.element.style.top = this.position.y + 'px';
             this.element.classList.add('bird');
@@ -76,43 +96,28 @@ var Bird = /** @class */ (function () {
             console.error(e);
         }
     };
-    // return the y of the bird.
-    Bird.prototype.getY = function () {
-        return this.position.y;
-    };
-    Bird.prototype.checkYposition = function () {
+    Bird.prototype.startGame = function () {
         try {
-            if (!this.checkYposition)
-                throw new Error;
-            console.log("checkYposition function is enable");
+            var startElement = document.createElement('h1');
+            var container = document.getElementById('container');
+            if (!container)
+                throw new Error('Element not found');
+            // startElement.style.position = 'relative';
+            startElement.textContent = "Press on 'Space' key to start the game";
+            startElement.classList.add('start');
+            container.appendChild(startElement);
         }
-        catch (error) {
-            console.error("cannot find the function");
-        }
-    };
-    Bird.prototype.updateYPosition = function () {
-        var _this = this;
-        try {
-            if (!this.updateYPosition)
-                throw new Error;
-            setInterval(function () {
-                console.log("Bird's Y position is: ", _this.getY());
-            }, 1000);
-            console.log("updateYPosition function is enable");
-        }
-        catch (error) {
-            console.error("cannot find the function");
+        catch (e) {
+            console.error(e);
         }
     };
     Bird.prototype.handlePressKeyDown = function () {
-        this.isFlying = true;
+        console.log('in press', this.isGameActive);
+        this.isGameActive = true;
         this.element.style.left = this.position.x + 'px';
         this.element.style.top = this.position.y + 'px';
         this.position.y = this.position.y - 80;
         this.velocity = -5;
-    };
-    Bird.prototype.handlePressKeyUp = function () {
-        // this.isFlying=false;
     };
     Bird.prototype.applyGravity = function () {
         this.velocity += this.gravity;
@@ -125,13 +130,13 @@ var Bird = /** @class */ (function () {
     Bird.prototype.gameLoop = function () {
         var _this = this;
         var gameloop = setInterval(function () {
-            if (_this.isFlying) {
+            if (_this.isGameActive) {
                 _this.moveWings();
                 _this.applyGravity();
-                _this.checkGameOver();
                 if (_this.checkGameOver()) {
                     clearInterval(gameloop);
                     _this.initialPosition();
+                    console.log('inloop', _this.isGameActive);
                 }
             }
         }, 20);
@@ -143,17 +148,32 @@ var Bird = /** @class */ (function () {
         }
         return false;
     };
-    // פונקציה שאומרת כאשר המשחק נגמר אז מופיעה תמונה על המסך.
     Bird.prototype.gameOver = function () {
+        var _this = this;
+        this.setGameActive(false);
+        console.log('in gameOver', this.isFlying);
         try {
             var gameoverdiv = document.getElementById("gameoverdiv");
             if (!gameoverdiv)
                 throw new Error("Ellement not found");
-            var gameoverimg = document.createElement("img");
-            gameoverimg.src = './dist/images/gameOver.png';
-            gameoverimg.style.position = 'absolute';
-            gameoverdiv.appendChild(gameoverimg);
-            gameoverimg.classList.add("gameover-img");
+            var gameoverimg_1 = document.createElement("img");
+            gameoverimg_1.src = './dist/images/gameOver.png';
+            gameoverimg_1.style.position = 'absolute';
+            gameoverdiv.appendChild(gameoverimg_1);
+            gameoverimg_1.classList.add("gameover-img");
+            setTimeout(function () {
+                gameoverimg_1.style.display = 'none';
+            }, 2000);
+            if (!this.getGameActivity()) {
+                this.element.style.visibility = 'hidden';
+                setTimeout(function () {
+                    _this.element.style.visibility = 'visible';
+                    _this.initialPosition;
+                    _this.setIsFlying(false);
+                    window.location.assign(window.location.href);
+                }, 2000);
+                console.log("game not active", this.isGameActive);
+            }
         }
         catch (error) {
             console.error("img is not found");
@@ -161,9 +181,62 @@ var Bird = /** @class */ (function () {
     };
     return Bird;
 }());
+;
+var Obstical = /** @class */ (function () {
+    function Obstical() {
+        this.imgUrl = "./dist/images/obstical.png";
+        this.moveInObsticale = false;
+        this.obsticalsVelocity = 5;
+        this.position = this.initialPosition();
+        console.log("initial position", this.position);
+    }
+    Obstical.prototype.render = function () {
+        try {
+            var obstacles = [];
+            var container = document.getElementById("obstical-1");
+            if (container) {
+                this.elementTop = document.createElement("img");
+                this.elementTop.src = this.imgUrl;
+                this.elementTop.classList.add("obstical-1");
+                container.appendChild(this.elementTop);
+                obstacles.push(this.elementTop);
+                this.elementBottom = document.createElement("img");
+                this.elementBottom.src = this.imgUrl;
+                this.elementBottom.classList.add("obstical-2");
+                container.appendChild(this.elementBottom);
+                obstacles.push(this.elementBottom);
+                this.elementTop.style.left = this.position.x + 'px';
+                this.elementTop.style.top = this.position.y + 'px';
+                this.elementBottom.style.left = this.position.x + 'px';
+                this.elementBottom.style.top = this.position.y + 'px';
+            }
+            return obstacles;
+        }
+        catch (error) {
+            console.error(error);
+            return [];
+        }
+    };
+    Obstical.prototype.initialPosition = function () {
+        var width = window.innerWidth;
+        var height = window.innerHeight;
+        // this.elementTop.style.left = this.position.x + 'px';
+        // this.elementTop.style.top = this.position.y + 'px';
+        // this.elementBottom.style.left = this.position.x + 'px';
+        // this.elementBottom.style.top = this.position.y + 'px';
+        return ({ x: width, y: height });
+    };
+    return Obstical;
+}());
+// // עדכון מכשולים
+// const obstical = new Obstical();
+// const obstaclesList = obstical.render(); // Render and get obstacles
+// obstical.moveObstacles(obstaclesList); // Move obstacles
 function main() {
     var bird1 = new Bird({ x: 300, y: 300 }, 0, 0.4);
     console.log("game has started");
-    bird1.updateYPosition();
+    // bird1.updateYPosition();
     console.log("Bird's Y position is: ", bird1.getY());
+    var obstical = new Obstical();
+    obstical.render();
 }
