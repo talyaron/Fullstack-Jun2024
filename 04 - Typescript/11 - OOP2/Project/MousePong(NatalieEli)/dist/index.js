@@ -42,7 +42,9 @@ var Box = /** @class */ (function () {
         this.domElement = document.createElement("div");
         this.domElement.style.width = box.width + "px";
         this.domElement.style.height = box.height + "px";
-        this.domElement.style.backgroundColor = "blue";
+        this.domElement.style.backgroundColor = "wheat";
+        this.domElement.style.backgroundSize = "cover";
+        this.domElement.style.backgroundImage = "url(\"./dist/images/Brick.png\")";
         this.domElement.style.position = "absolute";
         this.domElement.style.transform = "translate(" + box.pos.spawnPos.x + "px, " + box.pos.spawnPos.y + "px)";
         containerElement.appendChild(this.domElement);
@@ -63,9 +65,6 @@ var Brick = /** @class */ (function (_super) {
         return _this;
     }
     Brick.prototype.paint = function () {
-        this.domElement.style.backgroundImage = "url(\"./dist/images/Brick.png\")";
-        this.domElement.style.backgroundSize = "cover";
-        // this.domElement.style.background= `${getColor()}`;
         this.domElement.style.backgroundColor = "" + getColor(); // Red with 50% opacity
     };
     return Brick;
@@ -158,7 +157,7 @@ function newBox() {
         runOnce = true;
     }
     //boxes under
-    var newBox1 = new Box({ x: 0, y: containerHeight - 50 }, 1250, 50);
+    var newBox1 = new Box({ x: 204, y: containerHeight - 50 }, 150, 50);
     var newBox2 = new Box({ x: 504, y: containerHeight - 50 }, 150, 50);
     var newBox3 = new Box({ x: 804, y: containerHeight - 50 }, 150, 50);
     var newBox4 = new Box({ x: 1104, y: containerHeight - 50 }, 150, 50);
