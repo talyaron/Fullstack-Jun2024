@@ -11,6 +11,7 @@ class Bird {
     private gravity: number;
     private element: HTMLImageElement;
     private flyingBirdImgUrl: string;
+    isGameActive: boolean;
     isFlying: boolean;
 
     constructor(position: Position, velocity: number, gravity: number) {
@@ -22,6 +23,7 @@ class Bird {
         this.velocity = velocity;
         this.renderBird();
         this.isFlying = false;
+        this.isGameActive = false;
 
         window.addEventListener('keydown', (event: KeyboardEvent) => {
             if (event.code === 'Space') {
@@ -29,26 +31,41 @@ class Bird {
             }
         });
 
-        window.addEventListener('keyup', (event: KeyboardEvent) => {
-            if (event.code === 'Space') {
-                this.handlePressKeyUp();
-            }
-        });
+        console.log('in const', this.isGameActive);
         this.gameLoop();
     }
 
-    //GETTER
+    //GETTERS
     getElement(): HTMLImageElement {
         return this.element;
     }
+    
+     // return the y of the bird.
+     getY(): number {
+        return this.position.y;
+    }
 
-    //methods 
+    getGameActivity(): boolean {
+        return this.isGameActive;
+    }
 
+    //SETTERS
+
+    setGameActive(active: boolean) {
+        this.isGameActive = active;
+    }
+
+    setIsFlying(isFlying: boolean) {
+        this.isFlying = isFlying;
+    }
+
+    //METHODS 
+
+    //position of X and Y initially
     initialPosition(): Position {
         const posY = 300;
         const posX = 300;
         this.position = {x: posX, y: posY};
-        console.log("initialPosition: " + this.position.x, this.position.y);
         this.initialPositionRender(posX, posY);
         return this.position;
     }
@@ -59,6 +76,7 @@ class Bird {
         this.element.style.top = positionY + 'px';
     } 
 
+    //effect of moving the bird's wings
     moveWings(): HTMLImageElement {
         const element = this.getElement();
         setInterval(() => {
@@ -72,6 +90,7 @@ class Bird {
         return element;
     }
 
+    //render bird
     renderBird(): void {
         console.log("in render");
         try {
@@ -80,7 +99,7 @@ class Bird {
             if (!container) throw new Error('Element not found');
 
             if (this.isFlying) {
-                // this.moveWings();
+                this.moveWings();
             } else {
                 this.element.src = this.imgUrl;
             }
@@ -90,49 +109,44 @@ class Bird {
             this.element.style.top = this.position.y + 'px';
             this.element.classList.add('bird');
             container.appendChild(this.element);
+            
 
         } catch (e) {
             console.error(e);
         }
     }
-    // return the y of the bird.
-    getY(): number {
-        return this.position.y;
-    }
+   
 
-    checkYposition(): void{
-        try {
-            if(!this.checkYposition) throw new Error
-            console.log("checkYposition function is enable")
-        } catch (error) {
-            console.error("cannot find the function")
-        }
-    }
+    // checkYposition(): void{
+    //     try {
+    //         if(!this.checkYposition) throw new Error
+    //         console.log("checkYposition function is enable")
+    //     } catch (error) {
+    //         console.error("cannot find the function")
+    //     }
+    // }
     
-    updateYPosition(): void {
-        try {
-            if(!this.updateYPosition) throw new Error
-            setInterval(() => {
-                console.log("Bird's Y position is: ", this.getY());
-            }, 1000);
-            console.log("updateYPosition function is enable")
-        } catch (error) {
-            console.error("cannot find the function")
-        }
-    }
+    // updateYPosition(): void {
+    //     try {
+    //         if(!this.updateYPosition) throw new Error
+    //         setInterval(() => {
+    //             console.log("Bird's Y position is: ", this.getY());
+    //         }, 1000);
+    //         console.log("updateYPosition function is enable")
+    //     } catch (error) {
+    //         console.error("cannot find the function")
+    //     }
+    // }
 
     handlePressKeyDown(): void {
-        this.isFlying = true;
-
+        console.log('in press', this.isGameActive);
+        this.isGameActive = true;
         this.element.style.left = this.position.x + 'px';
         this.element.style.top = this.position.y + 'px';
         this.position.y = this.position.y - 80;
         this.velocity = - 5;
     }
 
-    handlePressKeyUp(): void {
-        // this.isFlying=false;
-    }
 
     applyGravity(): void {
         this.velocity += this.gravity;
@@ -145,14 +159,14 @@ class Bird {
 
     gameLoop(): void {
         const gameloop = setInterval(() => {
-            if (this.isFlying) {
+            if (this.isGameActive) {
                 this.moveWings();
                 this.applyGravity();
-                
-                this.checkGameOver();
+
                 if (this.checkGameOver()){
                     clearInterval(gameloop);
                     this.initialPosition();
+                    console.log('inloop', this.isGameActive)
                 }
             }
         }, 20);
@@ -168,6 +182,8 @@ class Bird {
 
     // פונקציה שאומרת כאשר המשחק נגמר אז מופיעה תמונה על המסך.
      gameOver(): void {
+        this.setGameActive(false);
+        console.log('in gameOver', this.isFlying);
         try {
             const gameoverdiv = document.getElementById("gameoverdiv");
             if (!gameoverdiv) throw new Error("Ellement not found");
@@ -177,6 +193,22 @@ class Bird {
             gameoverimg.style.position = 'absolute';
             gameoverdiv.appendChild(gameoverimg);
             gameoverimg.classList.add("gameover-img");
+
+            setTimeout(() => {
+                gameoverimg.style.display = 'none';
+            }, 2000);
+            if (!this.getGameActivity()) {
+                this.element.style.visibility = 'hidden';
+
+                setTimeout(() => {
+                    this.element.style.visibility = 'visible';
+                    this.initialPosition;
+                    this.setIsFlying(false);
+                    window.location.assign(window.location.href);
+                }, 2000);
+                console.log("game not active", this.isGameActive);
+            }
+            
         
         }  catch (error) {
         console.error("img is not found")
@@ -187,6 +219,6 @@ class Bird {
 function main(): void {
     const bird1 = new Bird({ x: 300, y: 300 }, 0, 0.4);
     console.log("game has started");
-    bird1.updateYPosition();
+    // bird1.updateYPosition();
     console.log("Bird's Y position is: ", bird1.getY());
 }

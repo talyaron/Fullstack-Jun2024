@@ -9,28 +9,39 @@ var Bird = /** @class */ (function () {
         this.velocity = velocity;
         this.renderBird();
         this.isFlying = false;
+        this.isGameActive = false;
         window.addEventListener('keydown', function (event) {
             if (event.code === 'Space') {
                 _this.handlePressKeyDown();
             }
         });
-        window.addEventListener('keyup', function (event) {
-            if (event.code === 'Space') {
-                _this.handlePressKeyUp();
-            }
-        });
+        console.log('in const', this.isGameActive);
         this.gameLoop();
     }
-    //GETTER
+    //GETTERS
     Bird.prototype.getElement = function () {
         return this.element;
     };
-    //methods 
+    // return the y of the bird.
+    Bird.prototype.getY = function () {
+        return this.position.y;
+    };
+    Bird.prototype.getGameActivity = function () {
+        return this.isGameActive;
+    };
+    //SETTERS
+    Bird.prototype.setGameActive = function (active) {
+        this.isGameActive = active;
+    };
+    Bird.prototype.setIsFlying = function (isFlying) {
+        this.isFlying = isFlying;
+    };
+    //METHODS 
+    //position of X and Y initially
     Bird.prototype.initialPosition = function () {
         var posY = 300;
         var posX = 300;
         this.position = { x: posX, y: posY };
-        console.log("initialPosition: " + this.position.x, this.position.y);
         this.initialPositionRender(posX, posY);
         return this.position;
     };
@@ -39,6 +50,7 @@ var Bird = /** @class */ (function () {
         this.element.style.left = positionX + 'px';
         this.element.style.top = positionY + 'px';
     };
+    //effect of moving the bird's wings
     Bird.prototype.moveWings = function () {
         var _this = this;
         var element = this.getElement();
@@ -52,6 +64,7 @@ var Bird = /** @class */ (function () {
         }, 200);
         return element;
     };
+    //render bird
     Bird.prototype.renderBird = function () {
         console.log("in render");
         try {
@@ -60,7 +73,7 @@ var Bird = /** @class */ (function () {
             if (!container)
                 throw new Error('Element not found');
             if (this.isFlying) {
-                // this.moveWings();
+                this.moveWings();
             }
             else {
                 this.element.src = this.imgUrl;
@@ -76,43 +89,32 @@ var Bird = /** @class */ (function () {
             console.error(e);
         }
     };
-    // return the y of the bird.
-    Bird.prototype.getY = function () {
-        return this.position.y;
-    };
-    Bird.prototype.checkYposition = function () {
-        try {
-            if (!this.checkYposition)
-                throw new Error;
-            console.log("checkYposition function is enable");
-        }
-        catch (error) {
-            console.error("cannot find the function");
-        }
-    };
-    Bird.prototype.updateYPosition = function () {
-        var _this = this;
-        try {
-            if (!this.updateYPosition)
-                throw new Error;
-            setInterval(function () {
-                console.log("Bird's Y position is: ", _this.getY());
-            }, 1000);
-            console.log("updateYPosition function is enable");
-        }
-        catch (error) {
-            console.error("cannot find the function");
-        }
-    };
+    // checkYposition(): void{
+    //     try {
+    //         if(!this.checkYposition) throw new Error
+    //         console.log("checkYposition function is enable")
+    //     } catch (error) {
+    //         console.error("cannot find the function")
+    //     }
+    // }
+    // updateYPosition(): void {
+    //     try {
+    //         if(!this.updateYPosition) throw new Error
+    //         setInterval(() => {
+    //             console.log("Bird's Y position is: ", this.getY());
+    //         }, 1000);
+    //         console.log("updateYPosition function is enable")
+    //     } catch (error) {
+    //         console.error("cannot find the function")
+    //     }
+    // }
     Bird.prototype.handlePressKeyDown = function () {
-        this.isFlying = true;
+        console.log('in press', this.isGameActive);
+        this.isGameActive = true;
         this.element.style.left = this.position.x + 'px';
         this.element.style.top = this.position.y + 'px';
         this.position.y = this.position.y - 80;
         this.velocity = -5;
-    };
-    Bird.prototype.handlePressKeyUp = function () {
-        // this.isFlying=false;
     };
     Bird.prototype.applyGravity = function () {
         this.velocity += this.gravity;
@@ -125,13 +127,13 @@ var Bird = /** @class */ (function () {
     Bird.prototype.gameLoop = function () {
         var _this = this;
         var gameloop = setInterval(function () {
-            if (_this.isFlying) {
+            if (_this.isGameActive) {
                 _this.moveWings();
                 _this.applyGravity();
-                _this.checkGameOver();
                 if (_this.checkGameOver()) {
                     clearInterval(gameloop);
                     _this.initialPosition();
+                    console.log('inloop', _this.isGameActive);
                 }
             }
         }, 20);
@@ -145,15 +147,31 @@ var Bird = /** @class */ (function () {
     };
     // פונקציה שאומרת כאשר המשחק נגמר אז מופיעה תמונה על המסך.
     Bird.prototype.gameOver = function () {
+        var _this = this;
+        this.setGameActive(false);
+        console.log('in gameOver', this.isFlying);
         try {
             var gameoverdiv = document.getElementById("gameoverdiv");
             if (!gameoverdiv)
                 throw new Error("Ellement not found");
-            var gameoverimg = document.createElement("img");
-            gameoverimg.src = './dist/images/gameOver.png';
-            gameoverimg.style.position = 'absolute';
-            gameoverdiv.appendChild(gameoverimg);
-            gameoverimg.classList.add("gameover-img");
+            var gameoverimg_1 = document.createElement("img");
+            gameoverimg_1.src = './dist/images/gameOver.png';
+            gameoverimg_1.style.position = 'absolute';
+            gameoverdiv.appendChild(gameoverimg_1);
+            gameoverimg_1.classList.add("gameover-img");
+            setTimeout(function () {
+                gameoverimg_1.style.display = 'none';
+            }, 2000);
+            if (!this.getGameActivity()) {
+                this.element.style.visibility = 'hidden';
+                setTimeout(function () {
+                    _this.element.style.visibility = 'visible';
+                    _this.initialPosition;
+                    _this.setIsFlying(false);
+                    window.location.assign(window.location.href);
+                }, 2000);
+                console.log("game not active", this.isGameActive);
+            }
         }
         catch (error) {
             console.error("img is not found");
@@ -164,6 +182,6 @@ var Bird = /** @class */ (function () {
 function main() {
     var bird1 = new Bird({ x: 300, y: 300 }, 0, 0.4);
     console.log("game has started");
-    bird1.updateYPosition();
+    // bird1.updateYPosition();
     console.log("Bird's Y position is: ", bird1.getY());
 }
