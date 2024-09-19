@@ -168,7 +168,6 @@ var Bird = /** @class */ (function () {
         }
         return false;
     };
-    // פונקציה שאומרת כאשר המשחק נגמר אז מופיעה תמונה על המסך.
     Bird.prototype.gameOver = function () {
         var _this = this;
         this.setGameActive(false);
@@ -206,46 +205,58 @@ var Bird = /** @class */ (function () {
 var Obstical = /** @class */ (function () {
     function Obstical() {
         this.imgUrl = "./dist/images/obstical.png";
-        this.imgUrlReversed = "./dist/images/obstical-reversed.png";
         this.moveInObsticale = false;
+        this.obsticalsVelocity = 5;
     }
     Obstical.prototype.render = function () {
         try {
-            //obstical 1 part 1
+            var obstacles = [];
             var container = document.getElementById("obstical-1");
-            if (!container)
-                throw new Error("Element not found");
-            var obstical1 = document.createElement("img");
-            obstical1.src = this.imgUrl;
-            obstical1.classList.add("obstical-1");
-            container.appendChild(obstical1);
-            //part 2 of obstical 1
-            var obstical2 = document.createElement("img");
-            obstical2.src = this.imgUrl;
-            obstical2.classList.add("obstical-2");
-            container.appendChild(obstical2);
-            //obstical 2 part 1
+            if (container) {
+                var obstical1 = document.createElement("img");
+                obstical1.src = this.imgUrl;
+                obstical1.classList.add("obstical-1");
+                container.appendChild(obstical1);
+                obstacles.push(obstical1);
+                var obstical2 = document.createElement("img");
+                obstical2.src = this.imgUrl;
+                obstical2.classList.add("obstical-2");
+                container.appendChild(obstical2);
+                obstacles.push(obstical2);
+            }
             var container1 = document.getElementById("obstical-2");
-            if (!container1)
-                throw new Error("Element not found");
-            var obstical3 = document.createElement("img");
-            obstical3.src = this.imgUrl;
-            obstical3.classList.add("obstical-3");
-            container1.appendChild(obstical3);
-            //part 2 of obstical 1
-            var obstical4 = document.createElement("img");
-            obstical4.src = this.imgUrl;
-            obstical4.classList.add("obstical-4");
-            container1.appendChild(obstical4);
+            if (container1) {
+                var obstical3 = document.createElement("img");
+                obstical3.src = this.imgUrl;
+                obstical3.classList.add("obstical-3");
+                container1.appendChild(obstical3);
+                obstacles.push(obstical3);
+                var obstical4 = document.createElement("img");
+                obstical4.src = this.imgUrl;
+                obstical4.classList.add("obstical-4");
+                container1.appendChild(obstical4);
+                obstacles.push(obstical4);
+            }
+            return obstacles;
         }
         catch (error) {
             console.error(error);
+            return [];
         }
     };
-    Obstical.prototype.move = function () {
+    Obstical.prototype.moveObstacles = function (obstacles) {
+        obstacles.forEach(function (obstacle) {
+            var currentLeftPosition = parseInt(obstacle.element.style.left, 10);
+            var newLeftPosition = currentLeftPosition - obstacle.speed;
+            obstacle.element.style.left = newLeftPosition + 'px';
+        });
     };
     return Obstical;
 }());
+// // עדכון מכשולים
+// const obstical = new Obstical();
+// const obstaclesList = obstical.render(); // Render and get obstacles
+// obstical.moveObstacles(obstaclesList); // Move obstacles
 function main() {
     var bird1 = new Bird({ x: 200, y: 450 }, 0, 0.4);
     console.log("game has started");

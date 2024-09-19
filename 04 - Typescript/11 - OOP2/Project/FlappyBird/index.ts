@@ -188,11 +188,10 @@ class Bird {
             if (this.isGameActive) {
                 this.moveWings();
                 this.applyGravity();
-
-                if (this.checkGameOver()){
+                if (this.checkGameOver()) {
                     clearInterval(gameloop);
                     this.initialPosition();
-                    console.log('inloop', this.isGameActive)
+                    console.log('inloop', this.isGameActive);
                 }
             }
         }, 20);
@@ -206,7 +205,6 @@ class Bird {
         return false;
     }
 
-    // פונקציה שאומרת כאשר המשחק נגמר אז מופיעה תמונה על המסך.
      gameOver(): void {
         this.setGameActive(false);
         console.log('in gameOver', this.isFlying);
@@ -242,61 +240,80 @@ class Bird {
     }
 };
 
+interface Obstacle {
+    element: HTMLElement;
+    speed: number;
+}
 
 class Obstical {
     private position: Position;
     private imgUrl: string;
-    private imgUrlReversed: string;
     private moveInObsticale: boolean;
+    private obsticalsVelocity: number;
 
     constructor() {
         this.imgUrl = "./dist/images/obstical.png";
-        this.imgUrlReversed = "./dist/images/obstical-reversed.png";
         this.moveInObsticale = false;
+        this.obsticalsVelocity = 5; 
     }
 
-    render() {
+    render(): HTMLElement[] {
         try {
-            //obstical 1 part 1
+            const obstacles: HTMLElement[] = [];
+            
             const container = document.getElementById("obstical-1");  
-            if (!container) throw new Error("Element not found"); 
-            
-            const obstical1:HTMLImageElement = document.createElement("img");
-            obstical1.src = this.imgUrl;
-            obstical1.classList.add("obstical-1");
-            container.appendChild(obstical1);
-            //part 2 of obstical 1
-            const obstical2:HTMLImageElement = document.createElement("img");
-            obstical2.src = this.imgUrl;
-            obstical2.classList.add("obstical-2");
-            container.appendChild(obstical2);
-            
-            //obstical 2 part 1
-            
+            if (container) {
+                const obstical1 = document.createElement("img");
+                obstical1.src = this.imgUrl;
+                obstical1.classList.add("obstical-1");
+                container.appendChild(obstical1);
+                obstacles.push(obstical1);
+                
+                const obstical2 = document.createElement("img");
+                obstical2.src = this.imgUrl;
+                obstical2.classList.add("obstical-2");
+                container.appendChild(obstical2);
+                obstacles.push(obstical2);
+            }
+    
             const container1 = document.getElementById("obstical-2");  
-            if (!container1) throw new Error("Element not found"); 
-            
-            const obstical3:HTMLImageElement = document.createElement("img");
-            obstical3.src = this.imgUrl;
-            obstical3.classList.add("obstical-3");
-            container1.appendChild(obstical3);
-            //part 2 of obstical 1
-            const obstical4:HTMLImageElement = document.createElement("img");
-            obstical4.src = this.imgUrl;
-            obstical4.classList.add("obstical-4");
-            container1.appendChild(obstical4);
+            if (container1) {
+                const obstical3 = document.createElement("img");
+                obstical3.src = this.imgUrl;
+                obstical3.classList.add("obstical-3");
+                container1.appendChild(obstical3);
+                obstacles.push(obstical3);
+                
+                const obstical4 = document.createElement("img");
+                obstical4.src = this.imgUrl;
+                obstical4.classList.add("obstical-4");
+                container1.appendChild(obstical4);
+                obstacles.push(obstical4);
+            }
+    
+            return obstacles;
         } catch (error) {
-            console.error(error)
+            console.error(error);
+            return [];
         }
 
     }
 
-    move() {
-
+    moveObstacles(obstacles: Obstacle[]) {
+        obstacles.forEach(obstacle => {
+            const currentLeftPosition = parseInt(obstacle.element.style.left, 10);
+            const newLeftPosition = currentLeftPosition - obstacle.speed;
+            obstacle.element.style.left = newLeftPosition + 'px';
+         });
+        }
     }
 
+        
+                // // עדכון מכשולים
+                // const obstical = new Obstical();
+                // const obstaclesList = obstical.render(); // Render and get obstacles
+                // obstical.moveObstacles(obstaclesList); // Move obstacles
     
-}
 
 function main(): void {
     const bird1 = new Bird({ x: 200, y: 450 }, 0, 0.4);
