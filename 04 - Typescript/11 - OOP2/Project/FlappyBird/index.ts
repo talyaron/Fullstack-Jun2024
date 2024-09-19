@@ -30,8 +30,10 @@ class Bird {
                 this.handlePressKeyDown();
             }
         });
+        // if(!this.isGameActive){
+        //     this.startGame();
+        // }
 
-        console.log('in const', this.isGameActive);
         this.gameLoop();
     }
 
@@ -111,6 +113,22 @@ class Bird {
             container.appendChild(this.element);
             
 
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    startGame(): void {
+        try {
+            const startElement:HTMLElement = document.createElement('h1');
+            const container = document.getElementById('container');
+            if (!container) throw new Error('Element not found');
+
+            // startElement.style.position = 'relative';
+            startElement.textContent = `Press on 'Space' key to start the game`;
+            startElement.classList.add('start');
+            container.appendChild(startElement);
+            
         } catch (e) {
             console.error(e);
         }
@@ -213,6 +231,26 @@ class Bird {
         }  catch (error) {
         console.error("img is not found")
         }
+    }
+};
+
+
+class Obsticals {
+    private position: Position;
+    private imgUrl: string;
+    private imgUrlReversed: string;
+
+    constructor() {
+        this.imgUrl = "./dist/images/obsticals.png";
+        this.imgUrlReversed = "./dist/images/obsticals-reversed.png";
+    }
+
+    render() {
+        
+    }
+
+    move() {
+
     }
 }
 

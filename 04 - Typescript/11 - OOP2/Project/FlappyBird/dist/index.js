@@ -15,7 +15,9 @@ var Bird = /** @class */ (function () {
                 _this.handlePressKeyDown();
             }
         });
-        console.log('in const', this.isGameActive);
+        // if(!this.isGameActive){
+        //     this.startGame();
+        // }
         this.gameLoop();
     }
     //GETTERS
@@ -84,6 +86,21 @@ var Bird = /** @class */ (function () {
             this.element.style.top = this.position.y + 'px';
             this.element.classList.add('bird');
             container.appendChild(this.element);
+        }
+        catch (e) {
+            console.error(e);
+        }
+    };
+    Bird.prototype.startGame = function () {
+        try {
+            var startElement = document.createElement('h1');
+            var container = document.getElementById('container');
+            if (!container)
+                throw new Error('Element not found');
+            // startElement.style.position = 'relative';
+            startElement.textContent = "Press on 'Space' key to start the game";
+            startElement.classList.add('start');
+            container.appendChild(startElement);
         }
         catch (e) {
             console.error(e);
@@ -178,6 +195,18 @@ var Bird = /** @class */ (function () {
         }
     };
     return Bird;
+}());
+;
+var Obsticals = /** @class */ (function () {
+    function Obsticals() {
+        this.imgUrl = "./dist/images/obsticals.png";
+        this.imgUrlReversed = "./dist/images/obsticals-reversed.png";
+    }
+    Obsticals.prototype.render = function () {
+    };
+    Obsticals.prototype.move = function () {
+    };
+    return Obsticals;
 }());
 function main() {
     var bird1 = new Bird({ x: 300, y: 300 }, 0, 0.4);

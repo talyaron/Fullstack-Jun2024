@@ -20,8 +20,14 @@ body {
 .gameover-img{
     position: relative;
     width: 80%;
-    // margin: 0 auto;
-    // height: 1240px;
     top: -5rem;
     left: 10%;
+}
+
+.start {
+    position: absolute;
+    top: 20%;
+    color: #005eff;
+    font-family: Arial, Helvetica, sans-serif;
+    right: 30%;
 }
