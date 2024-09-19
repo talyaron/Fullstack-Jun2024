@@ -18,9 +18,10 @@ body {
 }
 
 .gameover-img{
-    position: absolute;
-    width: 1470px;
-    height: 1240px;
-    top: -10%;
-    left: 15%;
+    position: relative;
+    width: 80%;
+    // margin: 0 auto;
+    // height: 1240px;
+    top: -5rem;
+    left: 10%;
 }
