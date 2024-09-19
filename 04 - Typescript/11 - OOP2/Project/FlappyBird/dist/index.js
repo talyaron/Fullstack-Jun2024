@@ -199,29 +199,26 @@ var Bird = /** @class */ (function () {
 ;
 var Obstical = /** @class */ (function () {
     function Obstical() {
-        this.imgUrl = "./dist/images/obsticals.png";
-        this.imgUrlReversed = "./dist/images/obsticals-reversed.png";
+        this.imgUrl = "./dist/images/obstical.png";
+        this.imgUrlReversed = "./dist/images/obstical-reversed.png";
     }
-<<<<<<< Updated upstream
-    Obsticals.prototype.render = function () {
+    Obstical.prototype.render = function () {
         try {
-            if (!this.render)
-                throw new Error;
-            document.getElementById("obsticals");
+            var container = document.getElementById("obsticals");
+            if (!container)
+                throw new Error("Element not found");
             var obsticalNormal1 = document.createElement("img");
-            obsticalNormal1.src = "./dist/images/obstical.png";
+            obsticalNormal1.src = this.imgUrl;
             obsticalNormal1.classList.add("obstical-1");
-            document.getElementById("obsticals");
             var obsticalReverse1 = document.createElement("img");
-            obsticalReverse1.src = "./dist/images/obstical - reversed.png";
-            obsticalReverse1.classList.add("obstical-1");
+            obsticalReverse1.src = this.imgUrlReversed;
+            obsticalReverse1.classList.add("obstical-2");
+            container.appendChild(obsticalNormal1);
+            container.appendChild(obsticalReverse1);
         }
         catch (error) {
             console.error(error);
         }
-=======
-    Obstical.prototype.render = function () {
->>>>>>> Stashed changes
     };
     Obstical.prototype.move = function () {
     };
@@ -232,4 +229,6 @@ function main() {
     console.log("game has started");
     // bird1.updateYPosition();
     console.log("Bird's Y position is: ", bird1.getY());
+    var obstical = new Obstical();
+    obstical.render();
 }

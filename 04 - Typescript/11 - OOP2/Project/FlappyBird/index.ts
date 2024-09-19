@@ -241,29 +241,29 @@ class Obstical {
     private imgUrlReversed: string;
 
     constructor() {
-        this.imgUrl = "./dist/images/obsticals.png";
-        this.imgUrlReversed = "./dist/images/obsticals-reversed.png";
+        this.imgUrl = "./dist/images/obstical.png";
+        this.imgUrlReversed = "./dist/images/obstical-reversed.png";
     }
 
     render() {
-<<<<<<< Updated upstream
         try {
-            if(!this.render) throw new Error
-            document.getElementById("obsticals");   
-            const obsticalNormal1 = document.createElement("img");
-            obsticalNormal1.src = "./dist/images/obstical.png";
+            const container = document.getElementById("obsticals");  
+            if (!container) throw new Error("Element not found"); 
+            
+            const obsticalNormal1:HTMLImageElement = document.createElement("img");
+            obsticalNormal1.src = this.imgUrl;
             obsticalNormal1.classList.add("obstical-1");
 
-            document.getElementById("obsticals");   
-            const obsticalReverse1 = document.createElement("img");
-            obsticalReverse1.src = "./dist/images/obstical - reversed.png";
-            obsticalReverse1.classList.add("obstical-1");
+            const obsticalReverse1:HTMLImageElement = document.createElement("img");
+            obsticalReverse1.src = this.imgUrlReversed;
+            obsticalReverse1.classList.add("obstical-2");
+            container.appendChild(obsticalNormal1);
+            container.appendChild(obsticalReverse1);
+            
         } catch (error) {
             console.error(error)
         }
-=======
 
->>>>>>> Stashed changes
     }
 
     move() {
@@ -276,4 +276,6 @@ function main(): void {
     console.log("game has started");
     // bird1.updateYPosition();
     console.log("Bird's Y position is: ", bird1.getY());
+    const obstical = new Obstical();
+    obstical.render();
 }
