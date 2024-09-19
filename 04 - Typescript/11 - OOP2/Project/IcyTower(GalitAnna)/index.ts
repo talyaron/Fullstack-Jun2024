@@ -9,16 +9,19 @@ class Player {
     private element: HTMLImageElement | null;
     private isJumping: boolean;
     private isPaused: boolean;
+    private isFailed : boolean;
+    private firstJump: boolean;
 
-    constructor(x: number, y: number, imageUrl: string, velocityY: number, gravity: number, isJumping: boolean) {
+    constructor(x: number, y: number, imageUrl: string, velocityY: number, gravity: number, isJumping: boolean, isFailed: boolean, firstJump: boolean) {
         this.positionX = x;
         this.positionY = y;
         this.imageUrl = imageUrl;
         this.velocityY = velocityY;
         this.gravity = gravity;
-        this.isJumping = isJumping;
+        this.isJumping = true;
         this.isPaused = false;
         this.element = null; 
+        this.isFailed= false;
     }
 
     get getPositionX() {
@@ -108,6 +111,10 @@ class Player {
         }
     }
 
+    private firstJump (){
+        if (this.isJumping. || this.isJumping.which == 1)
+       return this.firstJump = false;
+    }
     private update() {
         if (!this.isPaused) { 
             if (this.isJumping) {

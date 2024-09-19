@@ -1,14 +1,15 @@
 var character = './images/character1.png';
 var Player = /** @class */ (function () {
-    function Player(x, y, imageUrl, velocityY, gravity, isJumping) {
+    function Player(x, y, imageUrl, velocityY, gravity, isJumping, isFailed, firstJump) {
         this.positionX = x;
         this.positionY = y;
         this.imageUrl = imageUrl;
         this.velocityY = velocityY;
         this.gravity = gravity;
-        this.isJumping = isJumping;
+        this.isJumping = true;
         this.isPaused = false;
         this.element = null;
+        this.isFailed = false;
     }
     Object.defineProperty(Player.prototype, "getPositionX", {
         get: function () {
@@ -108,6 +109,10 @@ var Player = /** @class */ (function () {
             this.isJumping = true;
             this.velocityY = 5;
         }
+    };
+    Player.prototype.firstJump = function () {
+        if (this.isJumping. || this.isJumping.which == 1)
+            return this.firstJump = false;
     };
     Player.prototype.update = function () {
         var _this = this;
