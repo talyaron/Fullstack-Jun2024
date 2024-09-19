@@ -12,7 +12,7 @@ class Player {
     private isFailed : boolean;
     private firstJump: boolean;
 
-    constructor(x: number, y: number, imageUrl: string, velocityY: number, gravity: number, isJumping: boolean, isFailed: boolean, firstJump: boolean) {
+    constructor(x: number, y: number, imageUrl: string, velocityY: number, gravity: number, isJumping: boolean, isFailed: boolean) {
         this.positionX = x;
         this.positionY = y;
         this.imageUrl = imageUrl;
@@ -22,6 +22,7 @@ class Player {
         this.isPaused = false;
         this.element = null; 
         this.isFailed= false;
+        this.firstJump = true;
     }
 
     get getPositionX() {
@@ -36,6 +37,13 @@ class Player {
         return this.imageUrl;
     }
 
+    get getFirstJump(){
+        return this.firstJump;
+    }
+
+    get getIsFaield(){
+        return this.isFailed;
+    }
     set setPositionX(x: number) {
         this.positionX = x;
     }
@@ -80,6 +88,7 @@ class Player {
                 if (event.key === ' ' || event.key === 'ArrowUp') {
                     this.jump();
                 }
+                this.firstJump = false;
             }
         });
     }
@@ -111,10 +120,6 @@ class Player {
         }
     }
 
-    private firstJump (){
-        if (this.isJumping. || this.isJumping.which == 1)
-       return this.firstJump = false;
-    }
     private update() {
         if (!this.isPaused) { 
             if (this.isJumping) {
@@ -125,6 +130,8 @@ class Player {
                     this.positionY = 0;
                     this.isJumping = false;
                 }
+                
+                this.checkCollisionWithSteps();
             }
     
             if (this.isNearBounds()) {
@@ -135,7 +142,37 @@ class Player {
             requestAnimationFrame(() => this.update());
         }
     }
+    private checkCollisionWithSteps() {
+        const playerHeight = 5; 
+        const playerBottom = this.positionY; 
+        const playerTop = this.positionY + playerHeight; 
     
+        let onStep = false; 
+    
+        for (const step of steps) {
+            const stepTop = step.getPositionY; 
+            const stepBottom = step.getPositionY + step.getHeight; 
+    
+            
+            if (
+                playerBottom >= stepTop &&
+                playerTop <= stepBottom && 
+                this.positionX + 5 >= step.getPositionX && 
+                this.positionX <= (step.getPositionX + step.getWidth) 
+            ) {
+                this.positionY = stepTop; 
+                this.isJumping = false; 
+                this.velocityY = 0; 
+                onStep = true; 
+                break; 
+            }
+        }
+        console.log(`Player Position: Y=${this.positionY}, Bottom=${playerBottom}, Top=${playerTop}`);
+        steps.forEach(step => {
+        console.log(`Step Position: Top=${step.getPositionY}, Bottom=${step.getPositionY + step.getHeight}`);
+});
+    }
+
     private isNearBounds(): boolean {
         const leftBound = 10; 
         const rightBound = 100 - 10;
@@ -257,7 +294,7 @@ class Step {
     }
 }
 
-const newPlayer = new Player(50, 0, character, 0, 0.5, false);
+const newPlayer = new Player(50, 0, character, 0, 0.5, false,false);
 let isGamePaused = false;
 let stepIntervalId: number | null = null;
 let steps: Step[] = [];
