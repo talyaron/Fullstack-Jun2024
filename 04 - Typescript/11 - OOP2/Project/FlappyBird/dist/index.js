@@ -150,6 +150,11 @@ var Bird = /** @class */ (function () {
     };
     Bird.prototype.gameOver = function () {
         var _this = this;
+<<<<<<< HEAD
+=======
+        if (!this.isGameActive)
+            return;
+>>>>>>> b9f9fa17a0a1d90007b9a398df732edeb847ffc7
         this.setGameActive(false);
         console.log('in gameOver', this.isFlying);
         try {
@@ -185,16 +190,22 @@ var Bird = /** @class */ (function () {
 var Obstical = /** @class */ (function () {
     function Obstical() {
         this.imgUrl = "./dist/images/obstical.png";
+<<<<<<< HEAD
         this.moveInObsticale = false;
         this.obsticalsVelocity = 5;
         this.position = this.initialPosition();
         console.log("initial position", this.position);
+=======
+        this.obsticalsVelocity = 4;
+        this.render();
+>>>>>>> b9f9fa17a0a1d90007b9a398df732edeb847ffc7
     }
     Obstical.prototype.render = function () {
         try {
             var obstacles = [];
             var container = document.getElementById("obstical-1");
             if (container) {
+<<<<<<< HEAD
                 this.elementTop = document.createElement("img");
                 this.elementTop.src = this.imgUrl;
                 this.elementTop.classList.add("obstical-1");
@@ -209,6 +220,18 @@ var Obstical = /** @class */ (function () {
                 this.elementTop.style.top = this.position.y + 'px';
                 this.elementBottom.style.left = this.position.x + 'px';
                 this.elementBottom.style.top = this.position.y + 'px';
+=======
+                var elementTop = document.createElement("img");
+                elementTop.src = this.imgUrl;
+                elementTop.classList.add("obstical-1");
+                container.appendChild(elementTop);
+                var elementBottom = document.createElement("img");
+                elementBottom.src = this.imgUrl;
+                elementBottom.classList.add("obstical-2");
+                container.appendChild(elementBottom);
+                this.elements = [elementTop, elementBottom];
+                this.setObstaclePositions();
+>>>>>>> b9f9fa17a0a1d90007b9a398df732edeb847ffc7
             }
             return obstacles;
         }

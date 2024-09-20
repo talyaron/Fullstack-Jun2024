@@ -45,6 +45,7 @@ class Bird {
         this.gameLoop();
     }
 
+<<<<<<< HEAD
     //GETTERS
     getElement(): HTMLImageElement {
         return this.element;
@@ -54,6 +55,10 @@ class Bird {
      getY(): number {
         return this.position.y;
     }
+=======
+  gameOver(): void {
+    if (!this.isGameActive) return;
+>>>>>>> b9f9fa17a0a1d90007b9a398df732edeb847ffc7
 
     getGameActivity(): boolean {
         return this.isGameActive;
@@ -228,6 +233,7 @@ class Obstical {
     private elementTop: HTMLImageElement;
     private elementBottom: HTMLImageElement;
 
+<<<<<<< HEAD
     constructor() {
         this.imgUrl = "./dist/images/obstical.png";
         this.moveInObsticale = false;
@@ -235,6 +241,33 @@ class Obstical {
         this.position = this.initialPosition();
 
         console.log("initial position", this.position);
+=======
+  constructor() {
+    this.imgUrl = "./dist/images/obstical.png";
+    this.obsticalsVelocity = 4; 
+    this.render();
+  }
+
+  render(): void {
+    try {
+      const container = document.getElementById("obstical-1");
+      if (container) {
+        const elementTop = document.createElement("img");
+        elementTop.src = this.imgUrl;
+        elementTop.classList.add("obstical-1");
+        container.appendChild(elementTop);
+
+        const elementBottom = document.createElement("img");
+        elementBottom.src = this.imgUrl;
+        elementBottom.classList.add("obstical-2");
+        container.appendChild(elementBottom);
+
+        this.elements = [elementTop, elementBottom];
+        this.setObstaclePositions();
+      }
+    } catch (error) {
+      console.error(error);
+>>>>>>> b9f9fa17a0a1d90007b9a398df732edeb847ffc7
     }
 
     render(): HTMLElement[] {
