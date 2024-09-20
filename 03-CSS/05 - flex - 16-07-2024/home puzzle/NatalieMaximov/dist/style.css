@@ -1,0 +1,104 @@
+html,
+body {
+  margin: 0;
+}
+
+.freeze {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  justify-content: left;
+  align-items: center;
+  height: 50px;
+  width: auto;
+  background-color: #f5f2f2;
+  position: fixed;
+  z-index: 100;
+}
+.freeze img {
+  max-width: 100%;
+  max-height: 100%;
+  position: absolute;
+  left: 1em;
+  top: 0px;
+}
+.freeze .playwrite-pe-brand {
+  font-family: "Playwrite PE", cursive;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: thin;
+  display: flex;
+}
+.freeze .category {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.wrapper {
+  padding: 10px;
+}
+
+.subscribe {
+  color: azure;
+  width: fit-content;
+  height: fit-content;
+  border: 1px solid;
+  background-color: black;
+  padding: 0.5em;
+  text-align: center;
+}
+
+.move {
+  position: relative;
+  left: 7em;
+}
+
+.commercial {
+  height: 300px;
+  border: 1px solid;
+  border-color: #d3d6d6;
+  background-color: #e0e0e0;
+  position: relative;
+  top: 5em;
+}
+.commercial .commercialbox {
+  height: 200px;
+  width: 1000px;
+  border: 1px solid;
+  border-color: #e8ebee;
+  background-color: #f8f6f6;
+  margin: 1em;
+  margin-left: 9em;
+  padding: 2em;
+  position: relative;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 10em;
+  margin: 7em;
+}
+
+.article {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2em;
+}
+
+.center {
+  text-align: center;
+}
+
+.line {
+  border: 0.2px solid;
+  border-color: #bbb8b8;
+  background-color: #cac9c9;
+  height: 0.2px;
+  width: 200px;
+  position: relative;
+  left: 10.5em;
+  bottom: 3em;
+}

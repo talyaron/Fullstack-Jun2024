@@ -1,0 +1,79 @@
+body {
+  margin: 0;
+}
+
+#boxContainer {
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  min-width: 600px;
+  min-height: 400px;
+}
+
+#top {
+  width: 100%;
+  height: 400px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(to bottom, #99dde6, #9daae4);
+}
+#top:hover {
+  cursor: not-allowed;
+}
+
+#bottom {
+  width: 100%;
+  position: absolute;
+  top: 400px;
+  height: calc(100% - 400px);
+  left: 0;
+  background: linear-gradient(to bottom, #e0f7fa, #9d9fa8);
+}
+
+#pinBall {
+  border-radius: 50%;
+  position: absolute;
+}
+
+#loser {
+  color: red;
+  position: relative;
+  top: 400px;
+  animation: mov 2.5s forwards;
+  text-align: center;
+  font-size: 2vh;
+}
+
+#winner {
+  color: #0c6b01;
+  position: relative;
+  top: 400px;
+  animation: mov 2.5s reverse;
+  text-align: center;
+  font-size: 2vh;
+}
+
+#lives {
+  width: fit-content;
+  height: 50px;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  bottom: 0;
+}
+
+.live {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  scale: 0.8;
+}
+
+@keyframes mov {
+  100% {
+    top: 440px;
+  }
+}

@@ -1,0 +1,61 @@
+#navbar {
+  border-radius: 2px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+#navbar a {
+  color: black;
+}
+#navbar img {
+  width: 10%;
+  height: 10%;
+}
+
+#computers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+#computers .computer-item {
+  border: 5px solid #965454;
+  margin: 10px;
+  padding: 10px;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  justify-content: center;
+  text-align: center;
+}
+#computers .computer-item:hover {
+  background-color: lightgray;
+  cursor: pointer;
+  text-decoration: underline;
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+  border-radius: 5px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+#computers img {
+  width: 30%;
+  height: 30%;
+}
+
+.buttons_container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.buttons_container button {
+  display: flex;
+  justify-content: center;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: lightgray;
+  color: black;
+  transition: background-color 0.3s ease;
+}
+.buttons_container button:hover {
+  background-color: gray;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}

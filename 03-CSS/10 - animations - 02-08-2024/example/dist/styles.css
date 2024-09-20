@@ -1,0 +1,58 @@
+#ballon {
+  width: 100px;
+  height: 100px;
+  background-image: url(https://helloblooms.com/cdn/shop/products/BlueRubberBalloon.jpg?v=1662112499);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  top: 0;
+  left: 0;
+  animation: moveRight 2s;
+  animation-fill-mode: forwards;
+  animation-delay: 2s;
+  animation-timing-function: ease-in-out;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+}
+nav .item {
+  padding: 10px 0px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #4d4d4d;
+  color: white;
+  flex: 1;
+}
+nav .item:hover {
+  transition: all 340ms;
+  background-color: gray;
+  border-bottom: 2px solid #202020;
+  transform: translate(3px, 4px);
+}
+nav .item:active {
+  transform: scale(1.2);
+}
+
+@keyframes moveRight {
+  0% {
+    left: 0;
+    top: 0;
+  }
+  20% {
+    left: 20vw;
+    top: 10vh;
+  }
+  50% {
+    left: 50vw;
+    top: 50vh;
+  }
+  100% {
+    left: 80vw;
+    top: 10vh;
+  }
+}

@@ -1,0 +1,56 @@
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
+
+.img {
+  height: 70vh;
+  width: 220.7vh;
+  margin-left: 0%;
+}
+
+.carousel {
+  margin-top: 100px;
+  width: 90vw;
+  height: 20vh;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 60px;
+}
+.carousel .slides {
+  flex-direction: row;
+  width: 60px;
+  height: 100px;
+}
+.carousel .slide {
+  float: left;
+  margin-left: 4vw;
+  display: flex;
+  justify-content: center;
+  width: 200px;
+  height: 200px;
+}
+
+.navigation .prev,
+.navigation .next {
+  color: black;
+  padding: 10px;
+  cursor: pointer;
+  user-select: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+}
+
+.navigation-prev {
+  left: 1250px;
+}
+
+.navigation-next {
+  right: 1220px;
+}

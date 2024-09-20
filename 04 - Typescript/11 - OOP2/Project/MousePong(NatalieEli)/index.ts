@@ -152,6 +152,8 @@ const pinBall = new playCube({ x: initialPlace * 0.5, y: 440 }, 50, 50);
 //some variables for the bricks
 const boxes: Box[] = [];
 const bricks: Brick[] = [];
+const numberOfBrickRows = 15;
+//const numberOfBricks :Brick;
 let runOnce: boolean = false;
 
 //colors for bricks
@@ -172,14 +174,14 @@ function newBox() {
   const size = containerWidth / 20; // calculate the size relative to container width (this ratio can be adjusted)
 
   // Set the number of boxes and initial offset
-  const numberOfBoxes = 15;
+
   let offsetX = 44;
-  const totalSpacing = containerWidth - numberOfBoxes * size - 2 * offsetX;
-  const spaceX = totalSpacing / (numberOfBoxes - 1);
+  const totalSpacing = containerWidth - numberOfBrickRows * size - 2 * offsetX;
+  const spaceX = totalSpacing / (numberOfBrickRows - 1);
 
   // Adjust the size of the boxes and spacing if needed
   if (!runOnce) {
-    for (let i = 0; i < numberOfBoxes; i++) {
+    for (let i = 0; i < numberOfBrickRows; i++) {
       const brickRow1 = new Brick({ x: offsetX, y: 50 }, size, 25);
       const brickRow2 = new Brick({ x: offsetX, y: 80 }, size, 25);
       const brickRow3 = new Brick({ x: offsetX, y: 110 }, size, 25);
@@ -187,7 +189,7 @@ function newBox() {
       const brickRow5 = new Brick({ x: offsetX, y: 170 }, size, 25);
 
       boxes.push(brickRow1, brickRow2, brickRow3, brickRow4, brickRow5);
-
+      bricks.push(brickRow1, brickRow2, brickRow3, brickRow4, brickRow5);
       // Move to the next position for the next box
       offsetX = offsetX + size + spaceX;
     }
@@ -555,22 +557,24 @@ function physics(pinBall: playCube) {
       pinBall.lives--;
       pinBall.updateTransform();
     } else {
-      pinBall.pos.spawnPos.y = 440;
-      pinBall.pos.edgePos.y = 440;
-      pinBall.pos.spawnPos.x = innerWidth * 0.5;
-      pinBall.pos.edgePos.x = innerWidth * 0.5;
+      if (pinBall.score !== bricks.length) {
+        pinBall.pos.spawnPos.y = 440;
+        pinBall.pos.edgePos.y = 440;
+        pinBall.pos.spawnPos.x = innerWidth * 0.5;
+        pinBall.pos.edgePos.x = innerWidth * 0.5;
 
-      pinBall.ballDirectionX = 0;
-      pinBall.ballDirectionY = 0;
+        pinBall.ballDirectionX = 0;
+        pinBall.ballDirectionY = 0;
 
-      pinBall.ballVelocityX = 0;
-      pinBall.ballVelocityY = 0;
-      pinBall.lives = 0;
-      pinBall.die(pinBall);
-      lose();
+        pinBall.ballVelocityX = 0;
+        pinBall.ballVelocityY = 0;
+        pinBall.lives = 0;
+        pinBall.die(pinBall);
+        lose();
+      }
     }
   }
-  if (pinBall.score === 75 && pinBall.exist) {
+  if (pinBall.score === bricks.length && pinBall.exist) {
     win();
     pinBall.exist = false;
   }

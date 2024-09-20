@@ -1,0 +1,22 @@
+body {
+  font-size: 17px;
+}
+
+#flower {
+  background-image: url();
+}
+
+.button {
+  padding: 20px 40px;
+  background-color: teal;
+  border-radius: 5px;
+  color: white;
+  width: fit-content;
+  border: none;
+  margin: 4px;
+}
+
+.nav ul {
+  display: flex;
+  gap: 2rem;
+}

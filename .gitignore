@@ -89,9 +89,5 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 03-CSS/05 - flex - 16-07-2024/classPuzzle/flex/dist/style.css
-*.css
-<<<<<<< Updated upstream
+
 .DS_Store
-=======
-04 - Typescript/01 - primitive variables - 16-08-2024/example/dist/index.js
->>>>>>> Stashed changes
