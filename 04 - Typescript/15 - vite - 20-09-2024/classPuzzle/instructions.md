@@ -1,0 +1,1 @@
+1) use the default vite template to create a new project. Than create a function that return random number between 1 and 100, and print the number to the screen. the should be under the controller folder.
