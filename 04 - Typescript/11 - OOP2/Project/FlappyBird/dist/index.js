@@ -181,7 +181,7 @@ var Bird = /** @class */ (function () {
     Bird.prototype.gameOver = function () {
         var _this = this;
         if (!this.isGameActive)
-            return; // מניעת הפעלה כפולה של gameOver
+            return;
         this.setGameActive(false);
         console.log("המשחק נגמר");
         try {
@@ -214,7 +214,7 @@ var Obstical = /** @class */ (function () {
         this.elements = [];
         this.gapSize = 200;
         this.imgUrl = "./dist/images/obstical.png";
-        this.obsticalsVelocity = 4; // מהירות המכשולים
+        this.obsticalsVelocity = 4;
         this.render();
     }
     Obstical.prototype.render = function () {
@@ -230,7 +230,7 @@ var Obstical = /** @class */ (function () {
                 elementBottom.classList.add("obstical-2");
                 container.appendChild(elementBottom);
                 this.elements = [elementTop, elementBottom];
-                this.setObstaclePositions(); // מקם את המכשולים בצורה נכונה
+                this.setObstaclePositions();
             }
         }
         catch (error) {

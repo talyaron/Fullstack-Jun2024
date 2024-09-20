@@ -225,7 +225,7 @@ gameLoop(): void {
 }
 
   gameOver(): void {
-    if (!this.isGameActive) return; // מניעת הפעלה כפולה של gameOver
+    if (!this.isGameActive) return;
 
     this.setGameActive(false);
     console.log("המשחק נגמר");
@@ -263,7 +263,7 @@ class Obstical {
 
   constructor() {
     this.imgUrl = "./dist/images/obstical.png";
-    this.obsticalsVelocity = 4; // מהירות המכשולים
+    this.obsticalsVelocity = 4; 
     this.render();
   }
 
@@ -282,7 +282,7 @@ class Obstical {
         container.appendChild(elementBottom);
 
         this.elements = [elementTop, elementBottom];
-        this.setObstaclePositions(); // מקם את המכשולים בצורה נכונה
+        this.setObstaclePositions();
       }
     } catch (error) {
       console.error(error);
