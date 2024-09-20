@@ -26,6 +26,14 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
+var lastPlay = [];
+var lastPosition = [];
+var statistics = {
+  turn: true,
+  whiteScore: 12,
+  blackScore: 12
+};
+
 var Square =
 /** @class */
 function () {
@@ -37,6 +45,63 @@ function () {
     this.color = color;
     this.occupied = occupied;
   }
+
+  Square.prototype.eat = function (row, colum) {
+    var _a, _b, _c;
+
+    var lastOne = lastPlay.pop();
+    var lastPos = lastPosition.pop();
+    console.log(lastPos);
+
+    if (lastOne === null || lastOne === void 0 ? void 0 : lastOne.piece) {
+      putSolider((_a = lastOne === null || lastOne === void 0 ? void 0 : lastOne.piece) === null || _a === void 0 ? void 0 : _a.color, row, colum);
+    }
+
+    if ((lastPos === null || lastPos === void 0 ? void 0 : lastPos.row) != undefined && (lastPos === null || lastPos === void 0 ? void 0 : lastPos.colum) != undefined) {
+      deleteSolider(lastPos === null || lastPos === void 0 ? void 0 : lastPos.row, lastPos === null || lastPos === void 0 ? void 0 : lastPos.colum);
+
+      if ((_c = (_b = board[row][colum]) === null || _b === void 0 ? void 0 : _b.piece) === null || _c === void 0 ? void 0 : _c.color) {
+        statistics.blackScore--;
+
+        if ((lastPos === null || lastPos === void 0 ? void 0 : lastPos.colum) > colum) {
+          deleteSolider(row + 1, colum + 1);
+        }
+
+        if ((lastPos === null || lastPos === void 0 ? void 0 : lastPos.colum) < colum) {
+          deleteSolider(row + 1, colum - 1);
+        }
+      } else {
+        statistics.whiteScore--;
+
+        if ((lastPos === null || lastPos === void 0 ? void 0 : lastPos.colum) > colum) {
+          deleteSolider(row - 1, colum + 1);
+        }
+
+        if ((lastPos === null || lastPos === void 0 ? void 0 : lastPos.colum) < colum) {
+          deleteSolider(row - 1, colum - 1);
+        }
+      }
+    }
+
+    statistics.turn = !statistics.turn;
+    renderGame();
+  };
+
+  Square.prototype.move = function (row, colum) {
+    var _a;
+
+    var lastOne = lastPlay.pop();
+    var lastPos = lastPosition.pop();
+
+    if (lastOne === null || lastOne === void 0 ? void 0 : lastOne.piece) {
+      putSolider((_a = lastOne === null || lastOne === void 0 ? void 0 : lastOne.piece) === null || _a === void 0 ? void 0 : _a.color, row, colum);
+    }
+
+    deleteSolider(Number(lastPos === null || lastPos === void 0 ? void 0 : lastPos.row), Number(lastPos === null || lastPos === void 0 ? void 0 : lastPos.colum));
+    statistics.turn = !statistics.turn;
+    fixBackground();
+    renderGame();
+  };
 
   return Square;
 }(); // regular piece
@@ -54,6 +119,8 @@ function () {
 
   Piece.prototype.getPosition = function () {};
 
+  Piece.prototype.move = function (row, colum) {};
+
   return Piece;
 }();
 
@@ -69,34 +136,72 @@ function (_super) {
   Solider.prototype.getPosition = function () {};
 
   Solider.prototype.canIMove = function (row, colum) {
-    var _a, _b, _c, _d, _e, _f;
+    var _a, _b, _c, _d;
 
-    fixBackground(); //black
+    fixBackground();
+    lastPlay.push(board[row][colum]);
+    lastPosition.push({
+      row: row,
+      colum: colum
+    }); //black
 
     if (!this.color) {
-      if (!board[row + 1][colum].occupied) {
-        board[row + 1][colum].html.style.backgroundColor = "red";
+      if (board[row + 1][colum + 1] != undefined) {
+        if (!board[row + 1][colum + 1].occupied) {
+          board[row + 1][colum + 1].html.style.backgroundColor = "red";
+          board[row + 1][colum + 1].moveThere = true;
+        } else if (((_a = board[row + 1][colum + 1].piece) === null || _a === void 0 ? void 0 : _a.color) && board[row + 1][colum + 1].occupied) {
+          if (board[row + 2][colum + 2]) {
+            if (!board[row + 2][colum + 2].occupied) {
+              board[row + 2][colum + 2].html.style.backgroundColor = "yellow";
+              board[row + 2][colum + 2].jumpThere = true;
+            }
+          }
+        }
       }
 
-      if ((_a = board[row + 1][colum + 1].piece) === null || _a === void 0 ? void 0 : _a.color) {
-        board[row + 1][colum + 1].html.style.backgroundColor = "red";
-      }
-
-      if ((_b = board[row + 1][colum - 1].piece) === null || _b === void 0 ? void 0 : _b.color) {
-        board[row + 1][colum - 1].html.style.backgroundColor = "red";
+      if (board[row + 1][colum - 1] != undefined) {
+        if (!board[row + 1][colum - 1].occupied) {
+          board[row + 1][colum - 1].html.style.backgroundColor = "red";
+          board[row + 1][colum - 1].moveThere = true;
+        } else if (((_b = board[row + 1][colum - 1].piece) === null || _b === void 0 ? void 0 : _b.color) && board[row + 1][colum - 1].occupied) {
+          if (board[row + 2][colum - 2]) {
+            if (!board[row + 2][colum - 2].occupied) {
+              board[row + 2][colum - 2].html.style.backgroundColor = "yellow";
+              board[row + 2][colum - 2].jumpThere = true;
+            }
+          }
+        }
       } //white
 
     } else {
-      if (!board[row - 1][colum].occupied) {
-        board[row - 1][colum].html.style.backgroundColor = "red";
+      if (board[row - 1][colum - 1] != undefined) {
+        if (!board[row - 1][colum - 1].occupied) {
+          board[row - 1][colum - 1].html.style.backgroundColor = "red";
+          board[row - 1][colum - 1].moveThere = true;
+          console.log(board);
+        } else if (!((_c = board[row - 1][colum - 1].piece) === null || _c === void 0 ? void 0 : _c.color) && board[row - 1][colum - 1].occupied) {
+          if (board[row - 2][colum - 2]) {
+            if (!board[row - 2][colum - 2].occupied) {
+              board[row - 2][colum - 2].html.style.backgroundColor = "yellow";
+              board[row - 2][colum - 2].jumpThere = true;
+            }
+          }
+        }
       }
 
-      if (!((_c = board[row - 1][colum - 1].piece) === null || _c === void 0 ? void 0 : _c.color) && ((_d = board[row - 1][colum - 1].piece) === null || _d === void 0 ? void 0 : _d.color) != undefined) {
-        board[row - 1][colum - 1].html.style.backgroundColor = "red";
-      }
-
-      if (!((_e = board[row - 1][colum + 1].piece) === null || _e === void 0 ? void 0 : _e.color) && ((_f = board[row - 1][colum + 1].piece) === null || _f === void 0 ? void 0 : _f.color) != undefined) {
-        board[row - 1][colum + 1].html.style.backgroundColor = "red";
+      if (board[row - 1][colum + 1] != undefined) {
+        if (!board[row - 1][colum + 1].occupied) {
+          board[row - 1][colum + 1].html.style.backgroundColor = "red";
+          board[row - 1][colum + 1].moveThere = true;
+        } else if (!((_d = board[row - 1][colum + 1].piece) === null || _d === void 0 ? void 0 : _d.color) && board[row - 1][colum + 1].occupied) {
+          if (board[row - 2][colum + 2]) {
+            if (!board[row - 2][colum + 2].occupied) {
+              board[row - 2][colum + 2].html.style.backgroundColor = "yellow";
+              board[row - 2][colum + 2].jumpThere = true;
+            }
+          }
+        }
       }
     }
   };
@@ -104,146 +209,7 @@ function (_super) {
   return Solider;
 }(Piece);
 
-var Steeple =
-/** @class */
-function (_super) {
-  __extends(Steeple, _super);
-
-  function Steeple(color, image) {
-    return _super.call(this, color, image) || this;
-  }
-
-  Steeple.prototype.canIMove = function (row, colum) {
-    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7;
-
-    fixBackground();
-
-    if (this.color) {
-      for (var i = colum + 1; i < 8; i++) {
-        if (!((_a = board[row][i].piece) === null || _a === void 0 ? void 0 : _a.color) && ((_b = board[row][i].piece) === null || _b === void 0 ? void 0 : _b.color) != undefined || !board[row][i].occupied) {
-          board[row][i].html.style.backgroundColor = "red";
-          if (!((_c = board[row][i].piece) === null || _c === void 0 ? void 0 : _c.color) && ((_d = board[row][i].piece) === null || _d === void 0 ? void 0 : _d.color) != undefined) break;
-        } else {
-          break;
-        }
-      }
-
-      for (var i = colum - 1; i >= 0; i--) {
-        if (!((_e = board[row][i].piece) === null || _e === void 0 ? void 0 : _e.color) && ((_f = board[row][i].piece) === null || _f === void 0 ? void 0 : _f.color) != undefined || !board[row][i].occupied) {
-          board[row][i].html.style.backgroundColor = "red";
-          if (!((_g = board[row][i].piece) === null || _g === void 0 ? void 0 : _g.color) && ((_h = board[row][i].piece) === null || _h === void 0 ? void 0 : _h.color) != undefined) break;
-        } else {
-          break;
-        }
-      }
-
-      for (var i = row - 1; i >= 0; i--) {
-        if (!((_j = board[i][colum].piece) === null || _j === void 0 ? void 0 : _j.color) && ((_k = board[i][colum].piece) === null || _k === void 0 ? void 0 : _k.color) != undefined || !board[i][colum].occupied) {
-          board[i][colum].html.style.backgroundColor = "red";
-          if (!((_l = board[i][colum].piece) === null || _l === void 0 ? void 0 : _l.color) && ((_m = board[i][colum].piece) === null || _m === void 0 ? void 0 : _m.color) != undefined) break;
-        } else {
-          break;
-        }
-      }
-
-      for (var i = row + 1; i < 8; i++) {
-        if (!((_o = board[i][colum].piece) === null || _o === void 0 ? void 0 : _o.color) && ((_p = board[i][colum].piece) === null || _p === void 0 ? void 0 : _p.color) != undefined || !board[i][colum].occupied) {
-          board[i][colum].html.style.backgroundColor = "red";
-          if (!((_q = board[i][colum].piece) === null || _q === void 0 ? void 0 : _q.color) && ((_r = board[i][colum].piece) === null || _r === void 0 ? void 0 : _r.color) != undefined) break;
-        } else {
-          break;
-        }
-      }
-    } else {
-      for (var i = colum + 1; i < 8; i++) {
-        if (((_s = board[row][i].piece) === null || _s === void 0 ? void 0 : _s.color) && ((_t = board[row][i].piece) === null || _t === void 0 ? void 0 : _t.color) != undefined || !board[row][i].occupied) {
-          board[row][i].html.style.backgroundColor = "red";
-          if (((_u = board[row][i].piece) === null || _u === void 0 ? void 0 : _u.color) && ((_v = board[row][i].piece) === null || _v === void 0 ? void 0 : _v.color) != undefined) break;
-        } else {
-          break;
-        }
-      }
-
-      for (var i = colum - 1; i >= 0; i--) {
-        if (((_w = board[row][i].piece) === null || _w === void 0 ? void 0 : _w.color) && ((_x = board[row][i].piece) === null || _x === void 0 ? void 0 : _x.color) != undefined || !board[row][i].occupied) {
-          board[row][i].html.style.backgroundColor = "red";
-          if (((_y = board[row][i].piece) === null || _y === void 0 ? void 0 : _y.color) && ((_z = board[row][i].piece) === null || _z === void 0 ? void 0 : _z.color) != undefined) break;
-        } else {
-          break;
-        }
-      }
-
-      for (var i = row - 1; i >= 0; i--) {
-        if (((_0 = board[i][colum].piece) === null || _0 === void 0 ? void 0 : _0.color) && ((_1 = board[i][colum].piece) === null || _1 === void 0 ? void 0 : _1.color) != undefined || !board[i][colum].occupied) {
-          board[i][colum].html.style.backgroundColor = "red";
-          if (((_2 = board[i][colum].piece) === null || _2 === void 0 ? void 0 : _2.color) && ((_3 = board[i][colum].piece) === null || _3 === void 0 ? void 0 : _3.color) != undefined) break;
-        } else {
-          break;
-        }
-      }
-
-      for (var i = row + 1; i < 8; i++) {
-        if (((_4 = board[i][colum].piece) === null || _4 === void 0 ? void 0 : _4.color) && ((_5 = board[i][colum].piece) === null || _5 === void 0 ? void 0 : _5.color) != undefined || !board[i][colum].occupied) {
-          board[i][colum].html.style.backgroundColor = "red";
-          if (((_6 = board[i][colum].piece) === null || _6 === void 0 ? void 0 : _6.color) && ((_7 = board[i][colum].piece) === null || _7 === void 0 ? void 0 : _7.color) != undefined) break;
-        } else {
-          break;
-        }
-      }
-    }
-  };
-
-  return Steeple;
-}(Piece);
-
-var Horseman =
-/** @class */
-function (_super) {
-  __extends(Horseman, _super);
-
-  function Horseman(color, image) {
-    return _super.call(this, color, image) || this;
-  }
-
-  return Horseman;
-}(Piece);
-
-var Runner =
-/** @class */
-function (_super) {
-  __extends(Runner, _super);
-
-  function Runner(color, image) {
-    return _super.call(this, color, image) || this;
-  }
-
-  return Runner;
-}(Piece);
-
-var Queen =
-/** @class */
-function (_super) {
-  __extends(Queen, _super);
-
-  function Queen(color, image) {
-    return _super.call(this, color, image) || this;
-  }
-
-  return Queen;
-}(Piece);
-
-var King =
-/** @class */
-function (_super) {
-  __extends(King, _super);
-
-  function King(color, image) {
-    return _super.call(this, color, image) || this;
-  }
-
-  return King;
-}(Piece); //create the board
-
+var Esteeple = new Solider(false, ""); //create the board
 
 var board = [];
 
@@ -251,6 +217,15 @@ function main() {
   var _a;
 
   try {
+    statistics.blackScore = 12;
+    statistics.whiteScore = 12;
+    statistics.turn = true;
+    console.log(statistics);
+    lastPlay.length = 0;
+    var turn = document.querySelector("#turn");
+    if (!turn) throw new Error("not find #turn");
+    var whoTurn = statistics.turn ? "white" : "red";
+    turn.innerHTML = "<h1> " + whoTurn + " turn </h1>";
     var game = document.querySelector("#game");
     if (!game) throw new Error("not find #game");
 
@@ -264,35 +239,6 @@ function main() {
       }
 
       board.push(rowArray);
-    } //put pieces
-
-
-    putSteeple(false, 0, 0);
-    putHorseman(false, 0, 1);
-    putRunner(false, 0, 2);
-    putQueen(false, 0, 3);
-    putKing(false, 0, 4);
-    putRunner(false, 0, 5);
-    putHorseman(false, 0, 6);
-    putSteeple(false, 0, 7);
-    putSteeple(true, 7, 0);
-    putHorseman(true, 7, 1);
-    putRunner(true, 7, 2);
-    putQueen(true, 7, 3);
-    putKing(true, 7, 4);
-    putRunner(true, 7, 5);
-    putHorseman(true, 7, 6);
-    putSteeple(true, 7, 7);
-    putSolider(false, 4, 6);
-    putSolider(true, 2, 5);
-    putSteeple(true, 4, 3);
-
-    for (var i = 0; i < board[1].length; i++) {
-      putSolider(false, 1, i);
-    }
-
-    for (var i = 0; i < board[6].length; i++) {
-      putSolider(true, 6, i);
     }
 
     var _loop_1 = function _loop_1(i) {
@@ -304,6 +250,12 @@ function main() {
         var isGreen = (i + n) % 2 === 0;
         var color = isGreen ? "green" : "beige";
         square.classList.add("" + color);
+
+        if (!isGreen) {
+          if (i != 3 && i != 4) if (i < 3) putSolider(false, i, n);else {
+            putSolider(true, i, n);
+          }
+        }
 
         if (board[i][n].occupied) {
           var img = document.createElement("img");
@@ -318,7 +270,10 @@ function main() {
       for (var n = 0; n < 8; n++) {
         _loop_2(n);
       }
-    };
+    }; //put pieces
+    // putSolider(false, 4, 3);
+    // putSolider(true, 3, 4);
+
 
     for (var i = 0; i < 8; i++) {
       _loop_1(i);
@@ -329,14 +284,32 @@ function main() {
 }
 
 function active(row, colum) {
-  var piece = board[row][colum].piece;
-  piece === null || piece === void 0 ? void 0 : piece.canIMove(row, colum);
-  console.log(board[row][colum].piece);
+  var _a;
+
+  var place = board[row][colum];
+  var piece = place.piece;
+
+  if (place.occupied && ((_a = place.piece) === null || _a === void 0 ? void 0 : _a.color) == statistics.turn) {
+    console.log(1);
+    piece === null || piece === void 0 ? void 0 : piece.canIMove(row, colum);
+  }
+
+  if (place.moveThere) {
+    console.log(2);
+    place === null || place === void 0 ? void 0 : place.move(row, colum);
+  }
+
+  if (place.jumpThere) {
+    console.log(3);
+    place === null || place === void 0 ? void 0 : place.eat(row, colum);
+  }
 }
 
 function fixBackground() {
   for (var i = 0; i < 8; i++) {
     for (var n = 0; n < 8; n++) {
+      board[i][n].moveThere = false;
+      board[i][n].jumpThere = false;
       var isGreen = (i + n) % 2 === 0;
       var color = isGreen ? "green" : "beige";
       board[i][n].html.style.backgroundColor = color;
@@ -344,54 +317,50 @@ function fixBackground() {
   }
 }
 
-function putSteeple(color, row, colum) {
-  var imgBlack = "./chessPicecs/צילום_מסך_2024-09-15_230859-removebg-preview.png";
-  var imgWhite = "./chessPicecs/צריח_לבן-removebg-preview.png";
-  var img = color ? imgWhite : imgBlack;
-  var steeple = new Steeple(color, img);
-  board[row][colum].piece = steeple;
-  board[row][colum].occupied = true;
-}
+function renderGame() {
+  var _a;
 
-function putHorseman(color, row, colum) {
-  var imgBlack = "./chessPicecs/פרש_שחור-removebg-preview.png";
-  var imgWhite = "./chessPicecs/פרש_לבן-removebg-preview.png";
-  var img = color ? imgWhite : imgBlack;
-  var steeple = new Horseman(color, img);
-  board[row][colum].piece = steeple;
-  board[row][colum].occupied = true;
-}
+  var turn = document.querySelector("#turn");
+  if (!turn) throw new Error("not find #turn");
+  var whoTurn = statistics.turn ? "white" : "red";
+  turn.innerHTML = "<h1> " + whoTurn + " turn </h1>";
+  var game = document.querySelector("#game");
+  if (!game) throw new Error("not find #game");
+  game.innerHTML = "";
 
-function putRunner(color, row, colum) {
-  var imgBlack = "./chessPicecs/רץ_שחור-removebg-preview.png";
-  var imgWhite = "./chessPicecs/רץ_לבן-removebg-preview.png";
-  var img = color ? imgWhite : imgBlack;
-  var steeple = new Runner(color, img);
-  board[row][colum].piece = steeple;
-  board[row][colum].occupied = true;
-}
+  var _loop_3 = function _loop_3(i) {
+    var _loop_4 = function _loop_4(n) {
+      var square = document.createElement("div");
+      square.addEventListener("click", function () {
+        return active(i, n);
+      });
+      var isGreen = (i + n) % 2 === 0;
+      var color = isGreen ? "green" : "beige";
+      square.classList.add("" + color);
 
-function putQueen(color, row, colum) {
-  var imgBlack = "./chessPicecs/מלכה_שחורה-removebg-preview.png";
-  var imgWhite = "./chessPicecs/מלכה_לבנה_-removebg-preview.png";
-  var img = color ? imgWhite : imgBlack;
-  var steeple = new Queen(color, img);
-  board[row][colum].piece = steeple;
-  board[row][colum].occupied = true;
-}
+      if (board[i][n].occupied) {
+        var img = document.createElement("img");
+        img.src = ((_a = board[i][n].piece) === null || _a === void 0 ? void 0 : _a.imageUrl) || "";
+        square.appendChild(img);
+      }
 
-function putKing(color, row, colum) {
-  var imgBlack = "./chessPicecs/מלך_שחור-removebg-preview.png";
-  var imgWhite = "./chessPicecs/מלך_לבן-removebg-preview.png";
-  var img = color ? imgWhite : imgBlack;
-  var steeple = new King(color, img);
-  board[row][colum].piece = steeple;
-  board[row][colum].occupied = true;
+      board[i][n].html = square;
+      game.appendChild(square);
+    };
+
+    for (var n = 0; n < 8; n++) {
+      _loop_4(n);
+    }
+  };
+
+  for (var i = 0; i < 8; i++) {
+    _loop_3(i);
+  }
 }
 
 function putSolider(color, row, colum) {
-  var imgBlack = "./chessPicecs/חייל_שחור-removebg-preview.png";
-  var imgWhite = "./chessPicecs/חייל_לבן-removebg-preview.png";
+  var imgBlack = "./damka/red-removebg-preview.png";
+  var imgWhite = "./damka/white-removebg-preview.png";
 
   if (row <= board.length && row <= board[row].length) {
     var img = color ? imgWhite : imgBlack;
@@ -399,7 +368,38 @@ function putSolider(color, row, colum) {
     board[row][colum].piece = steeple;
     board[row][colum].occupied = true;
   }
-} // putSolider(false,2,0);
+}
 
+function deleteSolider(row, colum) {
+  var img = "";
+  var Esteeple = new Solider(false, img);
+  board[row][colum].piece = Esteeple;
+  board[row][colum].occupied = false;
+  console.log(statistics);
+
+  if (statistics.blackScore == 0) {
+    stopGame(true);
+  }
+
+  if (statistics.whiteScore == 0) {
+    stopGame(false);
+  }
+}
+
+function stopGame(white) {
+  var game = document.querySelector("#game");
+  if (!game) throw new Error("not find #game");
+  game.innerHTML = "";
+
+  if (white) {
+    var win = document.querySelector("#win");
+    if (!win) throw new Error("not find #win");
+    win.innerHTML = "<h1> White win!!!! </h1>";
+  } else {
+    var win = document.querySelector("#win");
+    if (!win) throw new Error("not find #win");
+    win.innerHTML = "<h1> Red win!!!! </h1>";
+  }
+}
 
 console.log(board);
