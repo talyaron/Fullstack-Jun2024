@@ -33,67 +33,16 @@ body {
 }
 
 #obstical-1 {
-    .obstical-1 {
-        height: 28vw;
-        width: 25vw;
+    .obstical-1, .obstical-2 {
+        width: 20vw; 
         position: absolute;
-        top: 43%;
-        left: 25%;
+    }
+    .obstical-1 {
+        top: 0;
+        height: 50vh; 
     }
     .obstical-2 {
-        height: 10vw;
-        width: 25vw;
-        position: absolute;
-        top: 0%;
-        left: 25%;
-    }
-}
-
-// #obstical-2 {
-//     .obstical-3 {
-//         height: 23vw;
-//         width: 25vw;
-//         position: absolute;
-//         top: 53%;
-//         left: 45%;
-//     }
-//     .obstical-4 {
-//         height: 14vw;
-//         width: 25vw;
-//         position: absolute;
-//         top: 0%;
-//         left: 45%;
-//     }
-// }
-#obstical-1 {
-    .obstical-1 {
-        height: 26vw;
-        width: 25vw;
-        position: absolute;
-        top: 47%;
-        left: 25%;
-    }
-    .obstical-2 {
-        height: 10vw;
-        width: 25vw;
-        position: absolute;
-        top: 0%;
-        left: 25%;
-    }
-}
-#obstical-2 {
-    .obstical-3 {
-        height: 23vw;
-        width: 25vw;
-        position: absolute;
-        top: 53%;
-        left: 45%;
-    }
-    .obstical-4 {
-        height: 14vw;
-        width: 25vw;
-        position: absolute;
-        top: 0%;
-        left: 45%;
+        bottom: 0;
+        height: 30vh; 
     }
 }
