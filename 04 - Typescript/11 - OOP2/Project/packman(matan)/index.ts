@@ -12,7 +12,7 @@ class Packmen {
         this.imgUrl = imgUrl;
     }
 
-    renderPackmen(mainElement: HTMLDivElement, initialLeft: number, initialTop: number) {
+    renderPackmen(mainElement: HTMLDivElement, left: number, top: number) {
         this.domElement = document.createElement('div');
         this.domElement.classList.add('packmen');
         this.domElement.style.position = 'absolute';
@@ -20,8 +20,8 @@ class Packmen {
         this.domElement.style.backgroundSize = 'cover';
         this.domElement.style.width = '100px';
         this.domElement.style.height = '100px';
-        this.domElement.style.left = `${initialLeft}px`;
-        this.domElement.style.top = `${initialTop}px`;
+        this.domElement.style.left = `${left}px`;
+        this.domElement.style.top = `${top}px`;
 
         mainElement.appendChild(this.domElement);
 
@@ -78,9 +78,24 @@ class Packmen {
             if (isCollision) {
                 point.remove();
             }
+
+            
+
+            
         });
+
+        if(points.length === 0){
+            winGame(); 
+        
+
+        }
     }
+
+
+
+
 }
+
 
 class EnemyPackmen extends Packmen {
     id: number;
@@ -89,6 +104,8 @@ class EnemyPackmen extends Packmen {
     constructor(imgUrl: string) {
         super(imgUrl);
     }
+
+
 
     renderEnemyPackmen(mainElement: HTMLDivElement, left: number, top: number) {
         this.domElement = document.createElement('div');
@@ -149,7 +166,7 @@ class EnemyPackmen extends Packmen {
         this.movePackmen(left, top);
     }
 
-    stopMoving() {
+    stopMovingEnemy() {
         if (this.id) {
             clearInterval(this.id);
         }
@@ -187,11 +204,30 @@ function showGameOver() {
     document.body.appendChild(message);
 }
 
+function winGame() {
+    const messageWinner = document.createElement('div');
+    messageWinner.innerText = 'WINNER';
+    messageWinner.style.position = 'fixed';
+    messageWinner.style.top = '50%';
+    messageWinner.style.left = '50%';
+    messageWinner.style.transform = 'translate(-50%, -50%)';
+    messageWinner.style.backgroundColor = 'green';
+    messageWinner.style.color = 'white';
+    messageWinner.style.padding = '20px';
+    document.body.appendChild(messageWinner);
+
+    enemy.stopMovingEnemy();
+    enemySecond.stopMovingEnemy();
+    enemyThird.stopMovingEnemy();
+
+
+}
+
 function checkPositionTwoPlayers(packman: Packmen, enemy: EnemyPackmen) {
     const packmanRect = packman.domElement.getBoundingClientRect();
     const enemyRect = enemy.domElement.getBoundingClientRect();
 
-    return !(packmanRect.right < enemyRect.left ||
+    return !(packmanRect.right < enemyRect.left  ||
              packmanRect.left > enemyRect.right ||
              packmanRect.bottom < enemyRect.top ||
              packmanRect.top > enemyRect.bottom);
@@ -220,9 +256,13 @@ enemyThird.startMoving();
 setInterval(() => {
     if (checkPositionTwoPlayers(packman, enemy)) {
         showGameOver()
-        enemy.stopMoving();
-        enemySecond.stopMoving();
-        enemyThird.stopMoving();
+        enemy.stopMovingEnemy();
+        enemySecond.stopMovingEnemy();
+        enemyThird.stopMovingEnemy();
 
     }
+
+  
 }, 100);
+
+
