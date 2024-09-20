@@ -28,7 +28,7 @@ class Player {
         }
 
         
-        this.playerElement.style.position = "relative";
+        this.playerElement.style.position = "absolute";
         this.playerElement.style.left = `${this.position.x}px`;
         this.playerElement.style.top = `${this.position.y}px`;
         this.playerElement.style.backgroundImage = `url(${this.currentDirection === 'right' ? this.imageRight : this.imageLeft})`;
@@ -61,8 +61,11 @@ class Player {
                 break;
         }
 
+        this.playerElement.style.left = `${this.position.x}px`;
+        this.playerElement.style.top = `${this.position.y}px`;
+
         
-        this.renderPlayer(document.getElementById("main") as HTMLDivElement);
+        // this.renderPlayer(document.getElementById("main") as HTMLDivElement);
     }
 }
 

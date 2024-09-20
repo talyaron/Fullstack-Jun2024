@@ -12,7 +12,7 @@ var Player = /** @class */ (function () {
         if (!mainElement) {
             throw new Error("No main element provided for player rendering");
         }
-        this.playerElement.style.position = "relative";
+        this.playerElement.style.position = "absolute";
         this.playerElement.style.left = this.position.x + "px";
         this.playerElement.style.top = this.position.y + "px";
         this.playerElement.style.backgroundImage = "url(" + (this.currentDirection === 'right' ? this.imageRight : this.imageLeft) + ")";
@@ -40,7 +40,9 @@ var Player = /** @class */ (function () {
                 this.position.y += speed;
                 break;
         }
-        this.renderPlayer(document.getElementById("main"));
+        this.playerElement.style.left = this.position.x + "px";
+        this.playerElement.style.top = this.position.y + "px";
+        // this.renderPlayer(document.getElementById("main") as HTMLDivElement);
     };
     return Player;
 }());

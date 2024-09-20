@@ -3,7 +3,7 @@
 //  2. condition (if the condition is true, the loop will continue)
 // 3. increment the variable
 
-const x = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
+const x = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "p"];
 
 
 for (let i = 0; i < x.length; i++) {
@@ -35,4 +35,15 @@ for (let key in obj) {
 }
 
 
+console.log("done");
+
+let j = 0;
+
+//while are used when we don't know how many times we need to loop
+while ( j < .95) {
+    j = Math.random();
+    console.log(j)
+    
+    
+}
 console.log("done");
