@@ -1,24 +1,28 @@
 import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
+
 import { setupCounter } from './counter.ts'
+import { items } from './model/itemsModel.ts';
+import { renderItems } from './view/itemView.ts';
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
+    <h1>Hello Vite!</h1>
+    <div id="items"></div>
   </div>
 `
+
+function initializeItems() {
+  try {
+    const itemsElement = document.querySelector<HTMLDivElement>('#items');
+    if(!itemsElement) throw new Error('items element not found');
+
+
+    itemsElement.innerHTML = renderItems(items);
+
+  } catch (error) {
+    console.error(error)
+  }
+}
+initializeItems();
 
 setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
