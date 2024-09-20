@@ -1,6 +1,6 @@
 var character = './images/character1.png';
 var Player = /** @class */ (function () {
-    function Player(x, y, imageUrl, velocityY, gravity, isJumping, isFailed, firstJump) {
+    function Player(x, y, imageUrl, velocityY, gravity, isJumping, isFailed) {
         this.positionX = x;
         this.positionY = y;
         this.imageUrl = imageUrl;
@@ -10,6 +10,7 @@ var Player = /** @class */ (function () {
         this.isPaused = false;
         this.element = null;
         this.isFailed = false;
+        this.firstJump = true;
     }
     Object.defineProperty(Player.prototype, "getPositionX", {
         get: function () {
@@ -28,6 +29,20 @@ var Player = /** @class */ (function () {
     Object.defineProperty(Player.prototype, "getImageUrl", {
         get: function () {
             return this.imageUrl;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Player.prototype, "getFirstJump", {
+        get: function () {
+            return this.firstJump;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Player.prototype, "getIsFaield", {
+        get: function () {
+            return this.isFailed;
         },
         enumerable: false,
         configurable: true
@@ -86,6 +101,7 @@ var Player = /** @class */ (function () {
                 if (event.key === ' ' || event.key === 'ArrowUp') {
                     _this.jump();
                 }
+                _this.firstJump = false;
             }
         });
     };
@@ -110,10 +126,6 @@ var Player = /** @class */ (function () {
             this.velocityY = 5;
         }
     };
-    Player.prototype.firstJump = function () {
-        if (this.isJumping. || this.isJumping.which == 1)
-            return this.firstJump = false;
-    };
     Player.prototype.update = function () {
         var _this = this;
         if (!this.isPaused) {
@@ -124,6 +136,7 @@ var Player = /** @class */ (function () {
                     this.positionY = 0;
                     this.isJumping = false;
                 }
+                this.checkCollisionWithSteps();
             }
             if (this.isNearBounds()) {
                 this.rotatePlayer();
@@ -131,6 +144,31 @@ var Player = /** @class */ (function () {
             this.updatePosition();
             requestAnimationFrame(function () { return _this.update(); });
         }
+    };
+    Player.prototype.checkCollisionWithSteps = function () {
+        var playerHeight = 5;
+        var playerBottom = this.positionY;
+        var playerTop = this.positionY + playerHeight;
+        var onStep = false;
+        for (var _i = 0, steps_1 = steps; _i < steps_1.length; _i++) {
+            var step = steps_1[_i];
+            var stepTop = step.getPositionY;
+            var stepBottom = step.getPositionY + step.getHeight;
+            if (playerBottom >= stepTop &&
+                playerTop <= stepBottom &&
+                this.positionX + 5 >= step.getPositionX &&
+                this.positionX <= (step.getPositionX + step.getWidth)) {
+                this.positionY = stepTop;
+                this.isJumping = false;
+                this.velocityY = 0;
+                onStep = true;
+                break;
+            }
+        }
+        console.log("Player Position: Y=" + this.positionY + ", Bottom=" + playerBottom + ", Top=" + playerTop);
+        steps.forEach(function (step) {
+            console.log("Step Position: Top=" + step.getPositionY + ", Bottom=" + (step.getPositionY + step.getHeight));
+        });
     };
     Player.prototype.isNearBounds = function () {
         var leftBound = 10;
@@ -263,7 +301,7 @@ var Step = /** @class */ (function () {
     };
     return Step;
 }());
-var newPlayer = new Player(50, 0, character, 0, 0.5, false);
+var newPlayer = new Player(50, 0, character, 0, 0.5, false, false);
 var isGamePaused = false;
 var stepIntervalId = null;
 var steps = [];

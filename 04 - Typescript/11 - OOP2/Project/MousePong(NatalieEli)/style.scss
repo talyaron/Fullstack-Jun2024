@@ -5,32 +5,85 @@ body {
 #boxContainer {
   width: 100%;
   height: 100vh;
-  overflow-y: auto; 
-  overflow-x: hidden; 
+  overflow-y: auto;
+  overflow-x: hidden;
   position: relative;
-  min-width: 600px; 
-  min-height: 400px; 
+  min-width: 600px;
+  min-height: 400px;
 }
 
 #top {
   width: 100%;
-  background-color: rgb(90, 119, 226);
+  // background-color: rgb(90, 119, 226);
   height: 400px;
   position: absolute;
-  top: 0; 
+  top: 0;
   left: 0;
+  background: linear-gradient(
+    to bottom,
+    #99dde6,
+    #9daae4
+  ); // Gradient from Snow White to Ice Blue
+  &:hover {
+    cursor: not-allowed;
+  }
 }
 
 #bottom {
   width: 100%;
-  background-color: rgb(31, 127, 55);
+  //background-color: rgb(31, 127, 55);
   position: absolute;
-  top: 400px; 
-  height: calc(100% - 400px); 
-  left: 0; 
+  top: 400px;
+  height: calc(100% - 400px);
+  left: 0;
+  background: linear-gradient(
+    to bottom,
+    #e0f7fa,
+    #9d9fa8
+  ); // Gradient from Snow White to Ice Blue
 }
 
 #pinBall {
   border-radius: 50%;
-  position: absolute; 
+  position: absolute;
+}
+
+#loser {
+  color: red;
+  position: relative;
+  top: 400px;
+  animation: mov 2.5s forwards;
+  text-align: center;
+  font-size: 2vh;
+}
+
+#winner {
+  color: rgb(12, 107, 1);
+  position: relative;
+  top: 400px;
+  animation: mov 2.5s reverse;
+  text-align: center;
+  font-size: 2vh;
+}
+
+#lives {
+  width: fit-content;
+  height: 50px;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  bottom: 0;
+  //align-items: center; /* Align items vertically in the center */
+}
+.live {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  scale: 0.8;
+}
+
+@keyframes mov {
+  100% {
+    top: 440px;
+  }
 }
