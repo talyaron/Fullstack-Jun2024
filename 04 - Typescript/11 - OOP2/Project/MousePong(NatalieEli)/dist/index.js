@@ -131,6 +131,7 @@ var pinBall = new playCube({ x: initialPlace * 0.5, y: 440 }, 50, 50);
 //some variables for the bricks
 var boxes = [];
 var bricks = [];
+var walls = [];
 var numberOfBrickRows = 15;
 //const numberOfBricks :Brick;
 var runOnce = false;
@@ -144,6 +145,14 @@ function newBox() {
     var containerStyle = window.getComputedStyle(containerElement);
     var containerWidth = parseFloat(containerStyle.width);
     var containerHeight = parseFloat(containerStyle.height);
+    //walls
+    //left wall
+    var wallLeft = new Box({ x: 2, y: 0 }, 0, myScreen.viewportHeight);
+    //right wall
+    var wallRight = new Box({ x: containerWidth, y: 0 }, 0, myScreen.viewportHeight);
+    //celling wall
+    var wallTop = new Box({ x: 0, y: 2 }, containerWidth, 0);
+    boxes.push(wallLeft, wallRight, wallTop);
     // Adjust the size of boxes based on container width
     var brickWidth = containerWidth / 20; // calculate the size relative to container width
     var brickHeight = containerHeight / 30; // adjust this ratio as needed
@@ -171,14 +180,7 @@ function newBox() {
     var newBox5 = new Box({ x: 1404, y: containerHeight - 50 }, 150, 50);
     var newBox6 = new Box({ x: 1704, y: containerHeight - 50 }, 150, 50);
     var newBox7 = new Box({ x: 2004, y: containerHeight - 50 }, 150, 50);
-    //walls
-    //left wall
-    var wallLeft = new Box({ x: 2, y: 0 }, 0, myScreen.viewportHeight);
-    //right wall
-    var wallRight = new Box({ x: containerWidth, y: 0 }, 0, myScreen.viewportHeight);
-    //celling wall
-    var wallTop = new Box({ x: 0, y: 2 }, containerWidth, 0);
-    boxes.push(newBox1, newBox2, newBox3, newBox4, newBox5, newBox6, newBox7, wallLeft, wallRight, wallTop);
+    boxes.push(newBox1, newBox2, newBox3, newBox4, newBox5, newBox6, newBox7);
     //initializes the pinball
     if (!pinBall.exist) {
         renderPinBall(pinBall);
@@ -190,6 +192,28 @@ function newBox() {
 //render the pinball
 function renderPinBall(box) {
     box.spawn(box);
+}
+function updateWalls() {
+    var containerStyle = window.getComputedStyle(containerElement);
+    var containerWidth = parseFloat(containerStyle.width);
+    var containerHeight = parseFloat(containerStyle.height);
+    // Update left wall
+    //boxes[0].pos.edgePos.y = 0;
+    boxes[0].height = containerHeight;
+    console.log(boxes[0].height);
+    boxes[0].die(boxes[0]);
+    boxes[0].spawn(boxes[0]);
+    // Update right wall
+    boxes[1].pos.spawnPos.x = containerWidth;
+    //boxes[1].pos.spawnPos.y = 0;
+    boxes[1].height = containerHeight;
+    boxes[1].die(boxes[1]);
+    boxes[1].spawn(boxes[1]);
+    // Update ceiling wall
+    boxes[2].pos.edgePos.y = 2;
+    boxes[2].width = containerWidth;
+    boxes[2].die(boxes[2]);
+    boxes[2].spawn(boxes[2]);
 }
 //removes the boxes
 function removeBoxes(boxes) {
@@ -339,11 +363,14 @@ function windowResized() {
         pinBall.pos.edgePos.y = pinBall.pos.spawnPos.y + pinBall.height;
         pinBall.updateTransform();
     }
-    var windowSize = window.innerWidth;
+    var windowSizeW = window.innerWidth;
+    var windowSizeH = window.innerHeight;
     //check if the view window is resized and if it is rerender the boxes accordingly
-    if (windowSize != myScreen.viewportWidth) {
+    if (windowSizeW != myScreen.viewportWidth ||
+        windowSizeH != myScreen.viewportHeight) {
         myScreen.viewportWidth = window.innerWidth;
         myScreen.viewportHeight = window.innerHeight;
+        updateWalls();
     }
 }
 function physics(pinBall) {
