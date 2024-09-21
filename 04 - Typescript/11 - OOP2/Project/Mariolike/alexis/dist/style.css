@@ -1,0 +1,15 @@
+body {
+  background-image: "./images/back.png";
+  width: 100vw;
+  height: 100vh;
+}
+
+#player {
+  margin: 0;
+  padding: 0;
+}
+
+#trouble {
+  margin: 0;
+  padding: 0;
+}
