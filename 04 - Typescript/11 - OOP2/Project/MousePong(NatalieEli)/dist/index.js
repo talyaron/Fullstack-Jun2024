@@ -48,12 +48,20 @@ var Box = /** @class */ (function () {
         this.domElement.style.position = "absolute";
         this.domElement.style.transform = "translate(" + box.pos.spawnPos.x + "px, " + box.pos.spawnPos.y + "px)";
         containerElement.appendChild(this.domElement);
-        /// this.pos.spawnPos=box.pos.spawnPos;
-        // this.pos.edgePos={ x: box.pos.spawnPos.x + box.width, y: box.pos.spawnPos.y + box.height }
     };
     Box.prototype.die = function (box) {
         //setting the box element in the html page
         this.domElement.remove();
+    };
+    Box.prototype.resize = function (newWidth, newHeight) {
+        this.width = newWidth;
+        this.height = newHeight;
+        this.domElement.style.width = this.width + "px";
+        this.domElement.style.height = this.height + "px";
+        this.pos.edgePos = {
+            x: this.pos.spawnPos.x + this.width,
+            y: this.pos.spawnPos.y + this.height
+        };
     };
     return Box;
 }());
@@ -63,9 +71,10 @@ var Brick = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.broken = false;
         return _this;
+        // Add method to resize the brick
     }
     Brick.prototype.paint = function () {
-        this.domElement.style.backgroundColor = "" + getColor(); // Red with 50% opacity
+        this.domElement.style.backgroundColor = "" + getColor();
     };
     return Brick;
 }(Box));
@@ -132,29 +141,25 @@ var red = "#B2EBF2";
 //creates the boxes and calling the render function later
 function newBox() {
     removeBoxes(boxes);
-    //holds the size of the element container
     var containerStyle = window.getComputedStyle(containerElement);
     var containerWidth = parseFloat(containerStyle.width);
     var containerHeight = parseFloat(containerStyle.height);
-    console.log("Width:", containerWidth);
     // Adjust the size of boxes based on container width
-    var size = containerWidth / 20; // calculate the size relative to container width (this ratio can be adjusted)
-    // Set the number of boxes and initial offset
+    var brickWidth = containerWidth / 20; // calculate the size relative to container width
+    var brickHeight = containerHeight / 30; // adjust this ratio as needed
     var offsetX = 44;
-    var totalSpacing = containerWidth - numberOfBrickRows * size - 2 * offsetX;
+    var totalSpacing = containerWidth - numberOfBrickRows * brickWidth - 2 * offsetX;
     var spaceX = totalSpacing / (numberOfBrickRows - 1);
-    // Adjust the size of the boxes and spacing if needed
     if (!runOnce) {
         for (var i = 0; i < numberOfBrickRows; i++) {
-            var brickRow1 = new Brick({ x: offsetX, y: 50 }, size, 25);
-            var brickRow2 = new Brick({ x: offsetX, y: 80 }, size, 25);
-            var brickRow3 = new Brick({ x: offsetX, y: 110 }, size, 25);
-            var brickRow4 = new Brick({ x: offsetX, y: 140 }, size, 25);
-            var brickRow5 = new Brick({ x: offsetX, y: 170 }, size, 25);
+            var brickRow1 = new Brick({ x: offsetX, y: 50 }, brickWidth, brickHeight);
+            var brickRow2 = new Brick({ x: offsetX, y: 50 + brickHeight + 5 }, brickWidth, brickHeight);
+            var brickRow3 = new Brick({ x: offsetX, y: 50 + (brickHeight + 5) * 2 }, brickWidth, brickHeight);
+            var brickRow4 = new Brick({ x: offsetX, y: 50 + (brickHeight + 5) * 3 }, brickWidth, brickHeight);
+            var brickRow5 = new Brick({ x: offsetX, y: 50 + (brickHeight + 5) * 4 }, brickWidth, brickHeight);
             boxes.push(brickRow1, brickRow2, brickRow3, brickRow4, brickRow5);
             bricks.push(brickRow1, brickRow2, brickRow3, brickRow4, brickRow5);
-            // Move to the next position for the next box
-            offsetX = offsetX + size + spaceX;
+            offsetX = offsetX + brickWidth + spaceX;
         }
         runOnce = true;
     }
@@ -275,8 +280,6 @@ function isColliding(pinBall) {
                 box.die(box);
                 pinBall.score++;
                 console.log(pinBall.score);
-                // Call the die method on the box
-                // Remove the box from the array
                 boxes.splice(index, 1);
             }
         }
@@ -297,6 +300,28 @@ function windowResized() {
     //checks if pinball is outside the play area and brings it back inside if it is
     var containerStyle = window.getComputedStyle(containerElement);
     var containerWidth = parseFloat(containerStyle.width);
+    var containerHeight = parseFloat(containerStyle.height);
+    // Recalculate brick size
+    var brickWidth = containerWidth / 20;
+    var brickHeight = containerHeight / 30;
+    var offsetX = 44;
+    var totalSpacing = containerWidth - numberOfBrickRows * brickWidth - 2 * offsetX;
+    var spaceX = totalSpacing / (numberOfBrickRows - 1);
+    // Resize and reposition bricks
+    bricks.forEach(function (brick, index) {
+        var row = Math.floor(index / numberOfBrickRows);
+        var col = index % numberOfBrickRows;
+        brick.resize(brickWidth, brickHeight);
+        brick.pos.spawnPos = {
+            x: offsetX + col * (brickWidth + spaceX),
+            y: 50 + row * (brickHeight + 5)
+        };
+        brick.pos.edgePos = {
+            x: brick.pos.spawnPos.x + brickWidth,
+            y: brick.pos.spawnPos.y + brickHeight
+        };
+        brick.domElement.style.transform = "translate(" + brick.pos.spawnPos.x + "px, " + brick.pos.spawnPos.y + "px)";
+    });
     if (pinBall.pos.edgePos.x > containerWidth) {
         //console.log("outside");
         pinBall.pos.spawnPos.x = containerWidth - pinBall.width;
@@ -319,8 +344,6 @@ function windowResized() {
     if (windowSize != myScreen.viewportWidth) {
         myScreen.viewportWidth = window.innerWidth;
         myScreen.viewportHeight = window.innerHeight;
-        removeBoxes(boxes);
-        newBox();
     }
 }
 function physics(pinBall) {
