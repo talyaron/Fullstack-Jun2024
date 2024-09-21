@@ -428,8 +428,6 @@ function windowResized() {
     containerWidth - numberOfBrickRows * brickWidth - 2 * offsetX;
   const spaceX = totalSpacing / (numberOfBrickRows - 1);
 
- 
-
   // Resize and reposition bricks
   bricks.forEach((brick, index) => {
     const row = Math.floor(index / numberOfBrickRows);
