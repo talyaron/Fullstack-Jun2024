@@ -1,6 +1,9 @@
-body {
-  width: 90vw;
-  height: 90vh;
+body,
+html {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
 }
 
 #main {
@@ -12,6 +15,7 @@ body {
 .player {
   background-size: contain;
   background-repeat: no-repeat;
+  position: absolute;
 }
 
 .mushroom {
