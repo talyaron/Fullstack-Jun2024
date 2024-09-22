@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./dist/main.js" defer></script>
+  <link rel="stylesheet" href="./dist/style.css">
+</head>
+<body>
+  <form action="" id="form">
+    <input type="text" id="input_joke" placeholder="Enter Your Joke" />
+    <select id="select_catagory" name="select">
+     <option value="kasa" style="background-color: yellow;">בדיחה גסה</option>
+     <option value="under18" style="background-color: blue; color:white;">בדיחה מתחת לגיל 18</option>
+     <option value="up18" style="background-color: red;">בדיחה מעל גיל 18</option>
+    </select>
+
+    <button type="submit">Send my joke</button>
+<br /> <P>סנן בדיחות לפי קטיגוריות</P>
+<select onchange="filter_array(event)" name="filter" id="filter">
+     <option value="kasa">בדיחה כסה</option>
+     <option value="up18">בדיחות מעל גיל 18</option>
+     <option value="under18">בדיחות מתחת לגיל 18</option>
+</select>
+  </form>
+<div id="print_to_screen"></div>
+</body>
+</html>
