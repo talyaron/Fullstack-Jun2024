@@ -11,7 +11,7 @@ export function render(jokes: Joke[]) {
     jokeElement.id = joke.id;
     jokeElement.innerHTML = `<button id=${joke.id}"edit">edit</button><h3 id=${joke.id}"leadUp">${joke.leadUp}</h3><br><h3 id=${joke.id}"punchline" > ${joke.punchline}</h3> <button id=${joke.id}"delete">delete</button>`;
     jokeElement.style.margin ="3vh"
-     jokeElement.style.backgroundColor ="teal";
+     jokeElement.style.backgroundColor ="lightblue";
      jokeElement.style.width="80vh"
      jokeElement.style.borderRadius="50px"
      jokecontainerElement.appendChild(jokeElement);
