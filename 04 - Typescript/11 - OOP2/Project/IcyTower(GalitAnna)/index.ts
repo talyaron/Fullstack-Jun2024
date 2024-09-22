@@ -41,9 +41,10 @@ class Player {
         return this.firstJump;
     }
 
-    get getIsFaield(){
+    get getIsFailed(){
         return this.isFailed;
     }
+
     set setPositionX(x: number) {
         this.positionX = x;
     }
@@ -57,23 +58,18 @@ class Player {
     }
 
     renderPlayer(mainElement: HTMLDivElement) {
-        try {
-            if (!mainElement) throw new Error('Main element is required');
-            const player = document.createElement('img');
-            player.src = this.imageUrl;
-            player.style.position = 'absolute';
-            player.style.bottom = `${this.positionY}px`;
-            player.style.left = `${this.positionX}vw`;
-            player.classList.add('player');
-            player.style.zIndex = '1';
-            mainElement.appendChild(player);
-            this.element = player;
+        const player = document.createElement('img');
+        player.src = this.imageUrl;
+        player.style.position = 'absolute';
+        player.style.bottom = `${this.positionY}px`;
+        player.style.left = `${this.positionX}vw`;
+        player.classList.add('player');
+        player.style.zIndex = '1';
+        mainElement.appendChild(player);
+        this.element = player;
 
-            this.addEventListeners();
-            this.update();
-        } catch (error) {
-            console.error(error);
-        }
+        this.addEventListeners();
+        this.update();
     }
 
     private addEventListeners() {
@@ -94,16 +90,14 @@ class Player {
     }
 
     private moveRight() {
-
         const playerWidthVW = (80 / window.innerWidth) * 100; 
-    
         this.positionX += 5;
         if (this.positionX > (100 - playerWidthVW - 10 )) {
             this.positionX = 100 - playerWidthVW - 10; 
         }
         this.updatePosition();
     }
-    
+
     private moveLeft() {
         this.positionX -= 5;
         if (this.positionX < 10) {
@@ -111,7 +105,6 @@ class Player {
         }
         this.updatePosition();
     }
-    
 
     private jump() {
         if (!this.isJumping) {
@@ -142,35 +135,34 @@ class Player {
             requestAnimationFrame(() => this.update());
         }
     }
+
     private checkCollisionWithSteps() {
         const playerHeight = 5; 
         const playerBottom = this.positionY; 
         const playerTop = this.positionY + playerHeight; 
-    
-        let onStep = false; 
+        const playerWidth = 5; 
+        const playerLeft = this.positionX;
+        const playerRight = this.positionX + playerWidth; 
     
         for (const step of steps) {
             const stepTop = step.getPositionY; 
             const stepBottom = step.getPositionY + step.getHeight; 
+            const stepLeft = step.getPositionX;
+            const stepRight = step.getPositionX + step.getWidth; 
     
-            
             if (
+                this.velocityY < 0 &&
                 playerBottom >= stepTop &&
                 playerTop <= stepBottom && 
-                this.positionX + 5 >= step.getPositionX && 
-                this.positionX <= (step.getPositionX + step.getWidth) 
+                playerRight > stepLeft && 
+                playerLeft < stepRight 
             ) {
-                this.positionY = stepTop; 
-                this.isJumping = false; 
+                this.positionY = stepTop - playerHeight;
                 this.velocityY = 0; 
-                onStep = true; 
+                this.isJumping = false; 
                 break; 
             }
         }
-        console.log(`Player Position: Y=${this.positionY}, Bottom=${playerBottom}, Top=${playerTop}`);
-        steps.forEach(step => {
-        console.log(`Step Position: Top=${step.getPositionY}, Bottom=${step.getPositionY + step.getHeight}`);
-});
     }
 
     private isNearBounds(): boolean {
@@ -180,11 +172,10 @@ class Player {
     
         return (this.positionX < leftBound || this.positionX > rightBound || this.positionY < bottomBound);
     }
-    
+
     private rotatePlayer() {
         if (this.element) {
             this.element.classList.add('rotate'); 
-    
             setTimeout(() => {
                 this.element?.classList.remove('rotate');
             }, 1000);
@@ -249,22 +240,6 @@ class Step {
         return this.height;
     }
 
-    set setPositionX(x: number) {
-        this.positionX = x;
-    }
-
-    set setPositionY(y: number) {
-        this.positionY = y;
-    }
-
-    set setWidth(width: number) {
-        this.width = width;
-    }
-
-    set setHeight(height: number) {
-        this.height = height;
-    }
-
     renderStep(mainElement: HTMLDivElement) {
         const step = document.createElement('div');
         step.classList.add('stepDesign');
@@ -326,7 +301,6 @@ function resumeGame() {
 }
 
 function resetGame() {
-  
     const mainElement = document.getElementById('IcyTower') as HTMLDivElement;
     const existingSteps = mainElement.querySelectorAll('.stepDesign');
     existingSteps.forEach(step => step.remove());
@@ -366,11 +340,7 @@ window.onload = () => {
 
     startOverButton.addEventListener('click', () => {
         resetGame();
-        if (isGamePaused) {
-            resumeGame();
-            pauseButton.textContent = '||';
-        }
     });
 
-    main(); 
+    main();
 };

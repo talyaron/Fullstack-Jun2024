@@ -1,0 +1,26 @@
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.blogs {
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+  width: 100vw;
+}
+.blogs .blog {
+  flex: 1;
+}
+.blogs .blog__image {
+  width: 100%;
+}
+.blogs .blog__text {
+  color: black;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 20px;
+}
+.blogs .blog__date {
+  color: gray;
+  font-size: 0.9rem;
+}/*# sourceMappingURL=style.css.map */

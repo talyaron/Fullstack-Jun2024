@@ -1,0 +1,22 @@
+#game {
+  display: inline-grid;
+  grid-template-columns: auto auto auto auto auto auto auto auto;
+  grid-template-rows: auto auto auto auto auto auto auto auto;
+}
+#game img {
+  width: 100%;
+}
+
+.green {
+  width: 60px;
+  height: 60px;
+  background-color: green;
+  border: 0.1px solid black;
+}
+
+.beige {
+  width: 60px;
+  height: 60px;
+  background-color: beige;
+  border: 0.1px solid black;
+}/*# sourceMappingURL=style.css.map */

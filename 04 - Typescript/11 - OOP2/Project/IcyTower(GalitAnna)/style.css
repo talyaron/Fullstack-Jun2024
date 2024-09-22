@@ -1,0 +1,78 @@
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-image: url("../images/bricks.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 0;
+}
+
+.player {
+  width: 80px;
+  height: auto;
+  z-index: 2;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(var(--initial-positionY));
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes moveDown {
+  0% {
+    top: var(--initial-positionY);
+  }
+  100% {
+    top: 100vh;
+  }
+}
+@keyframes rotate360 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.player.rotate {
+  animation: rotate360 1s ease-in-out;
+}
+
+.stepDesign {
+  background-color: #d7d3f1;
+  border: 2px solid #000000;
+  border-radius: 5px;
+  z-index: 5;
+  width: var(--width, 200px);
+  height: 60px;
+  position: absolute;
+  animation: float 3s ease-in-out infinite;
+  animation: moveDown 10s linear forwards;
+  box-shadow: 0 6px 8px #000000, 0 2px 4px #000000;
+  background: linear-gradient(to bottom, #d7d3f1 0%, #8686aa 100%);
+}
+
+#controls {
+  position: absolute;
+  left: 2vh;
+  top: 0;
+  display: flex;
+  align-items: center;
+}
+
+#startOverButton, #pauseButton {
+  font-size: 40px;
+  background-color: transparent;
+  background: linear-gradient(90deg, #ffffff, #404040);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px black;
+  font-weight: 900;
+  border: none;
+  margin-left: 10px;
+}/*# sourceMappingURL=style.css.map */

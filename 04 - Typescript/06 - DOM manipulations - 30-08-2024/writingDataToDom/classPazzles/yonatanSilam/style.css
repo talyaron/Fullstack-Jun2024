@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#items {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.continer {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px black solid;
+  width: 500px;
+  height: 500px;
+  margin: 10px;
+}
+.continer img {
+  height: 80%;
+}/*# sourceMappingURL=style.css.map */
