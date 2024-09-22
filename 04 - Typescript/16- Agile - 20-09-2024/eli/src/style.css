@@ -28,6 +28,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #5f778d;
 }
 
 h1 {
@@ -76,6 +77,10 @@ button {
 }
 button:hover {
   border-color: #646cff;
+}
+.selectable:hover {
+  color: #646cff;
+  background-color: #1a1a1a;
 }
 button:focus,
 button:focus-visible {
