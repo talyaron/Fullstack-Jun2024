@@ -1,0 +1,21 @@
+.round-ball {
+  width: 100px;
+  height: 100px;
+  background-color: aqua;
+  border-radius: 50%;
+  position: relative;
+  top: 5vh;
+  left: 50vw;
+  animation: jumping;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes jumping {
+  from {
+    top: 5vh;
+  }
+  to {
+    top: 70vh;
+  }
+}/*# sourceMappingURL=styles.css.map */

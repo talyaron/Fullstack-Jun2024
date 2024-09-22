@@ -1,0 +1,31 @@
+.image_articles {
+  border: solid;
+  width: 40vw;
+  align-items: center;
+}
+.image_articles__title {
+  color: rgb(255, 255, 255);
+  background-color: gray;
+  margin: 20px 50px;
+  font-size: 1.5rem;
+  text-align: right;
+}
+.image_articles__articleFrame {
+  display: flex;
+  flex-direction: row;
+  width: 40vw;
+  height: 11vw;
+}
+.image_articles__articleFrame__snip_articles {
+  border-right: solid rgb(149, 149, 149);
+  width: 33%;
+  height: 100%;
+  text-align: center;
+}
+.image_articles__articleFrame__snip_articles p {
+  text-align: right;
+}
+.image_articles__articleFrame__snip_articles img {
+  width: 60%;
+  height: 50%;
+}/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,9 @@
+body {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+:root {
+  --primary-color: blue;
+  --secondary-color: green;
+}/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,17 @@
+#yosef {
+  width: 200px;
+  height: 200px;
+  background-image: url(https://www.childevelophysio.com/wp-content/uploads/2017/03/baby2.jpg);
+  background-size: cover;
+  position: relative;
+  animation: yosef 2s linear infinite;
+  animation-duration: 2s;
+}
+@keyframes yosef {
+  0% {
+    transform: translateX(0px);
+  }
+  100% {
+    transform: translateX(500px);
+  }
+}/*# sourceMappingURL=style.css.map */

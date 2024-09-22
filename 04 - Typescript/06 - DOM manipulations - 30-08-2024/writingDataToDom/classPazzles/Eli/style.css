@@ -1,0 +1,29 @@
+#cars {
+  width: 40em;
+  height: 10em;
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  text-align: center;
+}
+#cars img {
+  width: 100%;
+  height: 100%;
+}
+#cars .car {
+  margin: 1vw;
+  cursor: pointer;
+}
+#cars .car:hover {
+  scale: 1.1;
+  transition: all 0.3s;
+}
+
+header {
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+  margin: 0;
+}/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,759 @@
+body {
+  font-size: 17px;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f7fa;
+}
+
+:root {
+  --titelOfElement-color: #343c6a;
+  --main-InterFont-color: #718ebf;
+  --side-hover-InterFont-color: #b1b1b1;
+  --HoverOn-color: #2d60ff;
+  --card-background-color: linear-gradient(
+    135deg,
+    rgba(76, 73, 237, 1),
+    rgba(10, 6, 244, 1)
+  );
+  --element-Background-color: #ffffff;
+  --borderElement-color: #f5f7fa;
+  --body-background-color: #f5f7fa;
+  --main-InterFont-FontSize: 13px;
+  --main-titelOfElement-FontSize: 28px;
+  --header-titelOfElement-FontSize: 22px;
+  --element-FontFamily: initial;
+}
+
+button {
+  border: none;
+  outline: none;
+  border-radius: 50rem;
+  background-color: var(--body-background-color);
+}
+button:hover {
+  border: 0.5px solid var(--borderElement-color);
+}
+
+input {
+  border: none;
+  outline: none;
+}
+
+header {
+  width: 100%;
+  height: 100px;
+  background-color: var(--element-Background-color);
+  border: var(--borderElement-color);
+}
+header .addLogo {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  top: 29px;
+  left: 2%;
+}
+header .addLogo h1 {
+  margin-left: 20px;
+  font-size: var(--header-titelOfElement-FontSize);
+  color: var(--titelOfElement-color);
+  font-family: var(--element-FontFamily);
+  font-weight: bolder;
+}
+@media (max-width: 730px) {
+  header .addLogo {
+    display: none;
+  }
+}
+header .icon-replacement {
+  display: none;
+}
+@media (max-width: 730px) {
+  header .icon-replacement {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 45px;
+    left: 10%;
+    width: 35px;
+    height: 35px;
+  }
+  header .icon-replacement img {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+}
+header h2 {
+  font-size: var(--header-titelOfElement-FontSize);
+  color: var(--titelOfElement-color);
+  font-family: var(--element-FontFamily);
+  position: absolute;
+  top: 25px;
+  left: 25%;
+}
+@media (max-width: 730px) {
+  header h2 {
+    position: absolute;
+    left: 35%;
+  }
+}
+header .searchBar {
+  background-color: var(--body-background-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 25%;
+  height: 55px;
+  border-radius: 50px;
+  padding: 5px;
+  position: absolute;
+  top: 22px;
+  left: 51%;
+  transition: background-color 0.3s;
+}
+header .searchBar__buttonSearch {
+  height: 30px;
+  padding: 0;
+  border-radius: 50px;
+  width: 50px;
+  height: 50px;
+  margin-right: 10%;
+  margin-left: 5%;
+  background-color: transparent;
+  cursor: pointer;
+}
+header .searchBar__buttonSearch svg {
+  width: 30px;
+  height: 30px;
+}
+header .searchBar__buttonSearch:hover {
+  background-color: var(--element-Background-color);
+}
+header .searchBar__inputSearch {
+  flex: 1;
+  width: 100%;
+  border-radius: 25px;
+  display: flex;
+  background: transparent;
+  font-size: var(--main-InterFont-FontSize);
+  color: var(--main-InterFont-color);
+  font-family: var(--element-FontFamily);
+}
+header .searchBar__inputSearch::-moz-placeholder {
+  font-size: var(--main-InterFont-FontSize);
+  color: var(--main-InterFont-color);
+  font-family: var(--element-FontFamily);
+}
+header .searchBar__inputSearch::placeholder {
+  font-size: var(--main-InterFont-FontSize);
+  color: var(--main-InterFont-color);
+  font-family: var(--element-FontFamily);
+}
+header .searchBar:hover {
+  background-color: var(--side-hover-InterFont-color);
+}
+@media (max-width: 730px) {
+  header .searchBar {
+    top: 85px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+  }
+}
+header .addElement {
+  position: absolute;
+  top: 25px;
+  left: 78%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+header .addElement__Element {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 2px;
+  margin-right: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+header .addElement__Element img {
+  width: 25px;
+  height: 25px;
+}
+header .addElement__Element:hover {
+  background-color: var(--side-hover-InterFont-color);
+}
+@media (max-width: 1000px) {
+  header .addElement__Element {
+    display: none;
+  }
+}
+header .addPhoto {
+  position: absolute;
+  top: 20px;
+  left: 90%;
+}
+header .addPhoto img {
+  width: 65px;
+  width: 65px;
+  border-radius: 50%;
+}
+@media (max-width: 730px) {
+  header .addPhoto {
+    left: 85%;
+  }
+}
+
+aside {
+  width: 20vw;
+  height: 120vh;
+  background-color: var(--element-Background-color);
+  border: var(--borderElement-color);
+  z-index: 1000px;
+  position: absolute;
+}
+aside .asideList {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 5px;
+  padding: none;
+  margin: none;
+}
+aside .asideList .asideItem {
+  margin-bottom: 20px;
+  margin: 10px 0;
+  position: relative;
+}
+aside .asideList .asideItem button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+aside .asideList .asideItem button a {
+  width: 15vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--side-hover-InterFont-color);
+  font-size: large;
+  padding: 10px 30px;
+  transition: color 0.3;
+  text-align: right;
+  margin-left: 5px;
+}
+aside .asideList .asideItem button a img {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  left: 30px;
+  margin-right: 30px;
+}
+aside .asideList .asideItem button a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 5px;
+  height: 100%;
+  border-radius: 0px 10px 10px 0px;
+  background-color: var(--HoverOn-color);
+  transform: scaleY(0);
+  transform: scaleX(0);
+  transition: transform 0.3s;
+  transform-origin: bottom;
+}
+aside .asideList .asideItem button a:active {
+  color: var(--HoverOn-color);
+}
+aside .asideList .asideItem button a:hover {
+  color: var(--HoverOn-color);
+}
+aside .asideList .asideItem button a:hover::before {
+  transform: scaleY(1);
+  transform: scaleX(2);
+}
+aside .asideList .asideItem button a span {
+  margin-top: 5px;
+}
+@media (max-width: 1024px) {
+  aside {
+    display: none;
+  }
+}
+
+h4 {
+  font-family: var(--element-FontFamily);
+  margin-bottom: 2px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+}
+
+h2 {
+  font-family: var(--element-FontFamily);
+  margin-bottom: 10%;
+  font-size: 18px;
+}
+
+.beColmun {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+
+.beRow {
+  display: flex;
+  flex-direction: row;
+}
+
+main {
+  display: flex;
+  gap: 15px;
+  position: absolute;
+  left: 20%;
+  top: 170px;
+}
+@media (max-width: 1000px) {
+  main {
+    position: absolute;
+    left: 0;
+    top: 170px;
+  }
+}
+main h1 {
+  font-family: var(--element-FontFamily);
+  font-size: var(--main-titelOfElement-FontSize);
+  color: var(--titelOfElement-color);
+}
+main .dashboard {
+  width: 80vw;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+main .dashboard .card-container {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+}
+main .dashboard .card-container .card {
+  background: var(--card-background-color);
+  color: #fff;
+  padding: 20px;
+  border-radius: 35px;
+  box-shadow: 0 3px 6px rgba(65, 96, 198, 0.1);
+  width: 330px;
+  height: 235px;
+  margin-bottom: 30px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+main .dashboard .card-container .card:hover {
+  animation: 0.6s enlargeCard ease-in-out;
+}
+main .dashboard .card-container .card__header {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 30px;
+  gap: 150px;
+}
+main .dashboard .card-container .card__header .text {
+  flex: 1;
+}
+main .dashboard .card-container .card__header svg {
+  flex: 1;
+  width: 35px;
+}
+main .dashboard .card-container .card__midelCard {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  gap: 5px;
+}
+main .dashboard .card-container .card__midelCard .beColmun {
+  display: flex;
+  flex-direction: column;
+}
+main .dashboard .card-container .card__fotterCard {
+  font-size: var(--main-InterFont-FontSize);
+  margin-top: 20px;
+  text-align: center;
+  padding: 10px;
+  border-radius: 0 0 25px 25px;
+  width: 100%;
+  height: 55px;
+  -webkit-backdrop-filter: blur(60px);
+          backdrop-filter: blur(60px);
+  background-color: rgba(2, 12, 78, 0.345);
+  position: relative;
+  right: 6.2%;
+  bottom: 12%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+main .dashboard .card-container .card__fotterCard .number {
+  flex: 1;
+}
+main .dashboard .card-container .card__fotterCard svg {
+  flex: 1;
+  width: 10px;
+}
+main .dashboard .card-container .card__whiteCard {
+  background: white;
+  color: black;
+}
+main .dashboard .card-container .card__whiteCard h2 {
+  color: black;
+}
+main .dashboard .card-container .card__whiteCard h4 {
+  color: var(--HoverOn-color);
+}
+main .dashboard .card-container .card__whiteCard hr {
+  border-color: black;
+}
+@keyframes enlargeCard {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+main .dashboard .recent-transaction {
+  background-color: var(--element-Background-color);
+  border-radius: 25px;
+  padding: 20px;
+  width: 350px;
+}
+main .dashboard .recent-transaction .transaction {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+  height: 70px;
+  cursor: pointer;
+}
+main .dashboard .recent-transaction .transaction .icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background-color: var(--element-Background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 25px;
+}
+main .dashboard .recent-transaction .transaction .icon__icon-primary {
+  background-color: #ffd893;
+  border-radius: 50%;
+}
+main .dashboard .recent-transaction .transaction .icon__icon-secondary {
+  background-color: rgb(231, 237, 255);
+  border-radius: 50%;
+}
+main .dashboard .recent-transaction .transaction .icon__icon-tertiary {
+  background-color: rgb(220, 250, 248);
+  border-radius: 50%;
+}
+main .dashboard .recent-transaction .transaction .description {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 5px;
+}
+main .dashboard .recent-transaction .transaction .amount {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  margin-left: 75px;
+}
+main .dashboard .recent-transaction .transaction .amount__amount-positive {
+  margin-left: 45px;
+  color: #4fd0a9;
+}
+main .dashboard .recent-transaction .transaction .amount__amount-negative {
+  color: #f06e7d;
+}
+main .dashboard .recent-transaction .transaction .date {
+  font-size: 12px;
+  color: #888;
+}
+main .dashboard .weekly-activity {
+  background-color: var(--element-Background-color);
+  border-radius: 25%;
+  border-radius: 10px;
+  padding: 25px;
+  width: 450px;
+  height: 300px;
+  margin-right: 20px;
+  margin-bottom: 150px;
+  align-items: center;
+}
+main .dashboard .weekly-activity .container {
+  display: grid;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+}
+main .dashboard .weekly-activity .container .chart {
+  display: flex;
+  width: 100%;
+  height: 300px;
+  margin-bottom: 30%;
+}
+main .dashboard .weekly-activity .container .chart__chart__item {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+main .dashboard .weekly-activity .container .chart__chart__item .chart__bar--blue {
+  width: 15px;
+  border-radius: 25px;
+  margin-bottom: 5px;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: row;
+  background-color: var(--HoverOn-color);
+}
+@media (max-width: 1000px) {
+  main .dashboard .weekly-activity .container .chart__chart__item .chart__bar--blue {
+    width: 10px;
+    margin-right: 2px;
+  }
+}
+main .dashboard .weekly-activity .container .chart__chart__item .chart__bar--green {
+  width: 15px;
+  border-radius: 25px;
+  margin-bottom: 1px;
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(22, 219, 204);
+}
+@media (max-width: 1000px) {
+  main .dashboard .weekly-activity .container .chart__chart__item .chart__bar--green {
+    width: 10px;
+  }
+}
+main .dashboard .weekly-activity .container .legend {
+  display: flex;
+  margin-bottom: 20px;
+}
+main .dashboard .weekly-activity .container .legend__legend__item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 20px;
+  position: absolute;
+  left: 300px;
+}
+main .dashboard .weekly-activity .container .legend__legend__item .legend__dot--green {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+  background-color: rgb(22, 219, 204);
+  margin-right: 70px;
+}
+main .dashboard .weekly-activity .container .legend__legend__item .legend__dot--pink {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+  background-color: rgb(255, 130, 172);
+}
+main .dashboard .weekly-activity .container .legend__legend__item span {
+  margin-left: 20px;
+}
+@media (min-width: 2118px) {
+  main .dashboard .weekly-activity .container .legend__legend__item {
+    position: absolute;
+    left: 1400px;
+    top: 20%;
+  }
+}
+@media (max-width: 1459px) {
+  main .dashboard .weekly-activity .container .legend__legend__item {
+    position: absolute;
+    left: 700px;
+  }
+}
+@media (max-width: 1450px) {
+  main .dashboard .weekly-activity .container .legend__legend__item {
+    position: absolute;
+    left: 650px;
+  }
+}
+@media (max-width: 1145px) {
+  main .dashboard .weekly-activity .container .legend__legend__item {
+    position: absolute;
+    left: 310px;
+  }
+}
+main .dashboard .weekly-activity .container .x-axis {
+  display: flex;
+  width: 450px;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  position: absolute;
+  top: 80%;
+  left: 3%;
+}
+main .dashboard .weekly-activity .container .x-axis__x-axis__label {
+  font-size: 12px;
+  font-weight: bold;
+}
+@media (min-width: 2118px) {
+  main .dashboard .weekly-activity .container .x-axis {
+    position: absolute;
+    left: 1200px;
+    top: 58%;
+  }
+}
+@media (max-width: 1459px) {
+  main .dashboard .weekly-activity .container .x-axis {
+    position: absolute;
+    top: 67%;
+    left: 35%;
+  }
+}
+@media (max-width: 1443px) {
+  main .dashboard .weekly-activity .container .x-axis {
+    position: absolute;
+    top: 67%;
+    left: 35%;
+  }
+}
+@media (max-width: 1374px) {
+  main .dashboard .weekly-activity .container .x-axis {
+    position: absolute;
+    top: 67%;
+    left: 37%;
+  }
+}
+@media (max-width: 1200px) {
+  main .dashboard .weekly-activity .container .x-axis {
+    position: absolute;
+    left: 42%;
+    top: 67%;
+  }
+}
+@media (max-width: 1145px) {
+  main .dashboard .weekly-activity .container .x-axis {
+    position: absolute;
+    left: 2%;
+    top: 75%;
+  }
+}
+@media (max-width: 964px) {
+  main .dashboard .weekly-activity .container .x-axis {
+    position: absolute;
+    top: 79%;
+  }
+}
+@media (max-width: 880px) {
+  main .dashboard .weekly-activity .container .x-axis {
+    position: absolute;
+    top: 79%;
+  }
+}
+@media (max-width: 515px) {
+  main .dashboard .weekly-activity .container .x-axis {
+    position: absolute;
+    top: 75%;
+  }
+}
+@media (max-width: 375px) {
+  main .dashboard .weekly-activity .container .x-axis {
+    position: absolute;
+    left: 10% !important;
+    top: 57%;
+  }
+}
+main .dashboard .weekly-activity .container .y-axis {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 25px;
+  margin-right: 20px;
+  position: absolute;
+  top: 57%;
+  left: 2%;
+}
+@media (min-width: 2118px) {
+  main .dashboard .weekly-activity .container .y-axis {
+    position: absolute;
+    left: 1200px;
+    top: 25%;
+  }
+}
+@media (max-width: 1459px) {
+  main .dashboard .weekly-activity .container .y-axis {
+    position: absolute;
+    left: 35%;
+    top: 48%;
+  }
+}
+@media (max-width: 1443px) {
+  main .dashboard .weekly-activity .container .y-axis {
+    position: absolute;
+    left: 37%;
+    top: 48%;
+  }
+}
+@media (max-width: 1353px) {
+  main .dashboard .weekly-activity .container .y-axis {
+    position: absolute;
+    left: 39%;
+    top: 48%;
+  }
+}
+@media (max-width: 1200px) {
+  main .dashboard .weekly-activity .container .y-axis {
+    position: absolute;
+    left: 44%;
+    top: 48%;
+  }
+}
+@media (max-width: 1145px) {
+  main .dashboard .weekly-activity .container .y-axis {
+    position: absolute;
+    left: 3%;
+    top: 60%;
+  }
+}
+@media (max-width: 964px) {
+  main .dashboard .weekly-activity .container .y-axis {
+    position: absolute;
+    top: 67%;
+    left: 5%;
+  }
+}
+main .dashboard .weekly-activity .container .y-axis__y-axis__label {
+  font-size: 12px;
+  font-weight: bold;
+}/*# sourceMappingURL=global.css.map */

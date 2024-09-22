@@ -1,0 +1,49 @@
+body {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+body h1 {
+  color: white;
+}
+body #blu {
+  color: transparent;
+  position: relative;
+}
+body #grn {
+  color: transparent;
+  position: relative;
+  top: -60px;
+}
+body #red {
+  color: transparent;
+  position: relative;
+  top: -120px;
+}
+@media (min-width: 1201px) {
+  body {
+    background-color: blue;
+  }
+  body #blu {
+    color: white;
+  }
+}
+@media (max-width: 1200px) {
+  body {
+    background-color: green;
+  }
+  body #grn {
+    color: white;
+  }
+}
+@media (max-width: 600px) {
+  body {
+    background-color: red;
+  }
+  body #red {
+    color: white;
+  }
+  body #grn {
+    color: transparent;
+  }
+}/*# sourceMappingURL=style.css.map */

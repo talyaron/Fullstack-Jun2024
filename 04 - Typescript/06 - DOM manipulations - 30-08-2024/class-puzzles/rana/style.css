@@ -1,0 +1,19 @@
+#movies {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.movie-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  background-color: #f9f9f9;
+  padding: 16px;
+}
+
+.movie-image {
+  max-width: 100%;
+  border-bottom: 1px solid #ddd;
+}/*# sourceMappingURL=style.css.map */
