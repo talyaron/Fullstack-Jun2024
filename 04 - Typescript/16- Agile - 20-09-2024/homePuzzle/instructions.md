@@ -11,7 +11,7 @@ In this exercise, you'll create a joke management application using Vite.js and 
 
 ### 2. Create the Joke model and a list of jokes
 
-- Create a new file `src/models/Joke.ts`.
+- Create a new file `src/models/Joke.ts`. 
 - Define a `Joke` interface with `id` and `text` properties.
 - Create an array of joke objects using the `Joke` interface.
 
