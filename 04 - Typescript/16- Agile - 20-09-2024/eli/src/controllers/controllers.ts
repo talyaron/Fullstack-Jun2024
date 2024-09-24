@@ -6,7 +6,11 @@ interface editMode {
 }
 const editMode: editMode = { editOn: false };
 
-export function getButtons(jokeElement: HTMLElement, joke: Joke) {
+export function getButtons(
+  jokeElement: HTMLElement,
+  joke: Joke,
+  index: number
+) {
   const addJoke = document.getElementById(`add`) as HTMLButtonElement;
 
   addJoke.addEventListener("click", newJoke);
@@ -21,10 +25,7 @@ export function getButtons(jokeElement: HTMLElement, joke: Joke) {
   deleteButton.addEventListener("click", () => {
     jokeElement.remove();
 
-    const jokeDeleteIndex = jokes.findIndex(
-      (joke) => joke.id === jokeElement.id
-    );
-    jokes.splice(jokeDeleteIndex, 1);
+    jokes.splice(index, 1);
   });
 
   editButton.addEventListener("click", () => {
@@ -34,7 +35,7 @@ export function getButtons(jokeElement: HTMLElement, joke: Joke) {
     const punchlineElement = document.getElementById(
       `${joke.id}"punchline"`
     ) as HTMLButtonElement;
-
+    
     editMode.editOn = true;
     if (editMode.editOn == true) {
       leadUpElement.classList.add("selectable");
