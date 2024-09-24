@@ -1,0 +1,89 @@
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 10px 20px;
+}
+.menu .menu-item {
+  font-family: "Assistant", sans-serif;
+  font-size: 14px;
+  color: #000;
+  cursor: pointer;
+}
+.menu .menu-item:not(:first-child) {
+  margin-left: 10px;
+}
+.menu .menu-item img {
+  max-height: 50px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.buttons-container {
+  display: flex;
+  margin-left: 40px;
+}
+
+#Computers-button, #filter-button {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  background-color: #f8f8f8;
+  border-radius: 30px;
+  border: #aaa 1px solid;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+}
+
+#filter-button {
+  margin-left: 0;
+}
+
+#Computers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 2%;
+  max-width: 90vw;
+  margin: auto;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.Computer {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.Computer:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.Computer h1 {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  color: #333;
+}
+.Computer h3 {
+  font-size: 1rem;
+  color: #777;
+}
+.Computer h5 {
+  font-size: 0.9rem;
+  color: #aaa;
+}
+.Computer img {
+  width: 80%;
+  height: auto;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+.Computer .sale {
+  color: #ff4c4c;
+  font-weight: bold;
+}
