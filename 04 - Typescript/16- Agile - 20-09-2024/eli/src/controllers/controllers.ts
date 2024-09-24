@@ -20,6 +20,11 @@ export function getButtons(jokeElement: HTMLElement, joke: Joke) {
 
   deleteButton.addEventListener("click", () => {
     jokeElement.remove();
+
+    const jokeDeleteIndex = jokes.findIndex(
+      (joke) => joke.id === jokeElement.id
+    );
+    jokes.splice(jokeDeleteIndex, 1);
   });
 
   editButton.addEventListener("click", () => {
