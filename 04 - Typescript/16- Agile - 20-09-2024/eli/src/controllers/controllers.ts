@@ -48,6 +48,7 @@ export function getButtons(jokeElement: HTMLElement, joke: Joke) {
           const leadUpChange = prompt("write what you would change it to");
           if (leadUpChange) {
             leadUpElement.innerHTML = `${leadUpChange}`;
+            joke.leadUp = leadUpChange;
           }
           editMode.editOn = false;
           leadUpElement.classList.remove("selectable");
@@ -63,6 +64,7 @@ export function getButtons(jokeElement: HTMLElement, joke: Joke) {
           const punchlineChange = prompt("write what you would change it to");
           if (punchlineChange) {
             punchlineElement.innerHTML = `${punchlineChange}`;
+            joke.punchline = punchlineChange;
           }
           editMode.editOn = false;
           leadUpElement.classList.remove("selectable");
