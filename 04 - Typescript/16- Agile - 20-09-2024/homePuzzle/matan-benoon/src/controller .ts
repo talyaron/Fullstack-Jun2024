@@ -1,5 +1,4 @@
-import { joke } from "./models/model";
-import { jokes} from "./models/model";
+import { jokes, joke} from "./models/model";
 
 
 export function renderJokes(element: HTMLElement, jokes: joke[]) {
@@ -31,7 +30,3 @@ export function removeJoke(jokeId: number): void {
   }
 }
 
-export function clearResults(): void {
-  const resultDiv = document.getElementById('result') as HTMLDivElement;
-  resultDiv.innerHTML = ''; 
-}
