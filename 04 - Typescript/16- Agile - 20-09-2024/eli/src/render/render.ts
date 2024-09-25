@@ -5,7 +5,7 @@ import { getButtons } from "../controllers/controllers";
 const jokecontainerElement = document.getElementById("jokeList") as HTMLElement;
 export function render(jokes: Joke[]) {
     jokecontainerElement.innerHTML="";
-  jokes.forEach((joke) => {
+  jokes.forEach((joke,index) => {
     const jokeElement = document.createElement("div");
     jokeElement.classList.add("joker");
     jokeElement.id = joke.id;
@@ -15,7 +15,7 @@ export function render(jokes: Joke[]) {
      jokeElement.style.width="80vh"
      jokeElement.style.borderRadius="50px"
      jokecontainerElement.appendChild(jokeElement);
-    getButtons(jokeElement, joke);
+    getButtons(jokeElement, joke,index);
   });
 }
 
