@@ -35,3 +35,8 @@ export const jokes: Joke[] = [
       },
       
   ];
+
+  export function newJoke(event){
+    const newJoke = event.target;
+    
+  }

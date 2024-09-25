@@ -2,11 +2,20 @@ body{
 width: 100vw;
 height: 100vh;
 display: flex;
-text-align: center;
+text-align: start;
 justify-content: center;
+align-items: center;
 color: navy;
 background-color: beige ;
+flex-direction: column;
 }
 h1{
-margin: 5vw;
+margin-bottom: 5vw;
+}
+input{
+  width: 15vw;
+  height: 5vh;
+} button{
+  width: 5vw;
+  height: 5vh;
 }
