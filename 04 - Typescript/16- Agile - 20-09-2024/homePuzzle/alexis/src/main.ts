@@ -1,5 +1,5 @@
-import './style.css'
-import {Joke} from './models/Joke.ts'
+// import './style.css'
+// import {Joke} from './models/Joke.ts'
 import {jokes} from './models/Joke.ts'
 
 
@@ -12,7 +12,7 @@ const jokesHTML = jokes.map(joke => `<p>${joke.text}</p>`).join('');
 
 jokesElement.innerHTML = `
 <h1>"Here are some great Dad Jokes!"</h1>
-<p>${jokesHTML}</p>`
+${jokesHTML}`
 
 }
 renderJokes();
