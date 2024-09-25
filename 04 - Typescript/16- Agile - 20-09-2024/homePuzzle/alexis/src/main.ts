@@ -1,5 +1,4 @@
-// import './style.css'
-// import {Joke} from './models/Joke.ts'
+import './style.css'
 import {jokes} from './models/Joke.ts'
 
 
