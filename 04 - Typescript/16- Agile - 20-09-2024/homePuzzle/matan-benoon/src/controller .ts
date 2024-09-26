@@ -1,4 +1,6 @@
 import { jokes, joke} from "./models/model";
+import './style.css';
+
 
 
 export function renderJokes(element: HTMLElement, jokes: joke[]) {
@@ -10,13 +12,16 @@ export function renderJokes(element: HTMLElement, jokes: joke[]) {
 
 export function displayResults(name: string, jokeId: number): void {
   const result = document.getElementById('result') as HTMLDivElement;
+  const jokeDiv = document.createElement('div');
 
-  result.innerHTML += `
-    <div id="user-joke-${jokeId}">
-      <p>${name}</p>
-      <button id="remove-btn-${jokeId}">Remove</button>
+  jokeDiv.innerHTML = `
+    <div id="user-joke-${jokeId}" class="joke-item">
+      <p class="joke-text">${name}</p>
+      <button id="remove-btn-${jokeId}" class="remove-btn">Remove</button>
     </div>
   `;
+  
+  result.appendChild(jokeDiv);
 
   const buttonRemove = document.getElementById(`remove-btn-${jokeId}`);
   if (buttonRemove) {

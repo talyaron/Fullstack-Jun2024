@@ -53,13 +53,16 @@ button:hover {
   background-color: #0056b3;
 }
 
-#joke-list, #result {
+#joke-list {
   width: 80%;
   margin-top: 20px;
   padding: 15px;
   background-color: #fff; 
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 #joke-list {
@@ -67,20 +70,32 @@ button:hover {
   padding: 0;
 }
 
-#result div {
-  background-color: #f9f9f9; 
-  margin: 10px 0;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+#result {
+  width: 80%;
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #fff; 
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+  
+
+
+.joke-item {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; 
   align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 5px;
 }
 
-#result p {
+.joke-text {
   margin: 0;
-  font-size: 16px;
+}
+
+.remove-btn {
+  margin-left: 10px;
 }
 
 #result button {
@@ -96,3 +111,5 @@ button:hover {
 #result button:hover {
   background-color: #cc0000;
 }
+
+
