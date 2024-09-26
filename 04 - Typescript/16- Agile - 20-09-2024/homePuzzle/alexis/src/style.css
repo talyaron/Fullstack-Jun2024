@@ -16,6 +16,6 @@ input{
   width: 15vw;
   height: 5vh;
 } button{
-  width: 5vw;
-  height: 5vh;
+  width: fit-content;
+  height: fit-content;
 }
