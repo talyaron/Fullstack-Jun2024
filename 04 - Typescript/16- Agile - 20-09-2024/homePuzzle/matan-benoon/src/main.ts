@@ -1,6 +1,6 @@
 import './style.css';
 import { renderJokes } from './controller ';
-import { displayResults, removeJoke } from './controller ';
+import { displayResults, } from './controller ';
 import { jokes } from './models/model';
 
 const jokesListElement = document.getElementById('joke-list');
@@ -27,7 +27,8 @@ export function handleSubmit(event: Event): void {
     (document.getElementById('your-joke') as HTMLInputElement).value = ''; 
 }
 
+
 const form = document.getElementById('myForm') as HTMLFormElement;
 form.addEventListener('submit', handleSubmit);
 
-(window as any).removeJoke = removeJoke;
+
