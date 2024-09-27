@@ -1,4 +1,4 @@
-import { jokes, joke} from "./models/model";
+import { joke} from "./models/model";
 import './style.css';
 
 
@@ -33,9 +33,5 @@ export function removeJoke(jokeId: number): void {
   const jokeItem = document.getElementById(`user-joke-${jokeId}`);
   if (jokeItem) {
     jokeItem.remove(); 
-    const index = jokes.findIndex(joke => joke.id === jokeId);
-    if (index !== -1) {
-      jokes.splice(index, 1); 
-    }
-  }
+}
 }
