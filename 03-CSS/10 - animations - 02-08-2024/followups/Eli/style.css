@@ -1,0 +1,42 @@
+#birthday {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+}
+#birthday .balloon {
+  width: 100px;
+  height: 100px;
+  background-image: url(https://helloblooms.com/cdn/shop/products/BlueRubberBalloon.jpg?v=1662112499);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  top: 100vh;
+  animation: fly 7s;
+  animation-iteration-count: 1;
+  margin: 1vw;
+  transform: rotate(10deg);
+}
+#birthday .balloon2 {
+  width: 100px;
+  height: 100px;
+  background-image: url(https://helloblooms.com/cdn/shop/products/BlueRubberBalloon.jpg?v=1662112499);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  top: 100vh;
+  animation: fly 5s;
+  animation-iteration-count: 1;
+  margin: 1vw;
+}
+
+@keyframes fly {
+  from {
+    top: 100vh;
+  }
+  to {
+    top: -30vh;
+  }
+}/*# sourceMappingURL=style.css.map */

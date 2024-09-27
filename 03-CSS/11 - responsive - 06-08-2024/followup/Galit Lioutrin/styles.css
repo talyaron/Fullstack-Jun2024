@@ -1,0 +1,21 @@
+body {
+  color: white;
+  font-family: "Courier New", Courier, monospace;
+  text-align: center;
+  font-weight: bolder;
+}
+@media (max-width: 600px) {
+  body {
+    background-color: red;
+  }
+}
+@media (min-width: 600px) and (max-width: 1200px) {
+  body {
+    background-color: green;
+  }
+}
+@media (min-width: 1200px) {
+  body {
+    background-color: blue;
+  }
+}/*# sourceMappingURL=styles.css.map */

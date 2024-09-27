@@ -1,0 +1,451 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Rubik", sans-serif;
+  height: 300vh;
+  box-sizing: border-box;
+  direction: rtl;
+  background-color: rgb(29, 29, 72);
+  border: none;
+}
+
+.navbar {
+  position: fixed;
+  direction: rtl;
+  background-color: rgba(0, 0, 0, 0.192);
+  width: 100vw;
+  height: 13vh;
+  z-index: 1;
+}
+.navbar ul {
+  position: relative;
+  top: 30%;
+  left: -10%;
+}
+.navbar ul li {
+  margin: 0vh 1.9vh;
+  display: inline-block;
+  list-style: none;
+}
+.navbar ul li a {
+  color: rgb(203, 232, 252);
+  font-size: 2.3vh;
+  text-decoration: none;
+}
+.navbar__img {
+  width: 8vw;
+  position: absolute;
+  left: 56%;
+  top: -150%;
+}
+.navbar .button__menu {
+  background: none;
+  border: none;
+  background-color: rgba(134, 133, 133, 0.4);
+  color: white;
+  font-size: 2.7vh;
+  font-weight: 400;
+  padding: 1.2vh 1.7vh;
+  cursor: pointer;
+  position: absolute;
+  left: 90%;
+  top: 20%;
+}
+.navbar .button__tickets {
+  background-color: rgb(231, 33, 65);
+  font-size: 2.4vh;
+  border: none;
+  background-image: url("https://www.cinema-city.co.il/img/arrow-left2.png");
+  background-position: 2.2vh center;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  position: absolute;
+  text-align: right;
+  left: 10%;
+  top: 35%;
+  color: white;
+  cursor: pointer;
+  padding: 1.4vh 2.7vh 1.4vh 5.2vh;
+}
+.navbar .button__search {
+  background-color: rgba(134, 133, 133, 0.4);
+  font-size: 2.4vh;
+  color: rgb(191, 226, 250);
+  border: none;
+  background-image: url("	https://www.cinema-city.co.il/img/search-new.png");
+  background-position: right 1.2vh center;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  position: absolute;
+  text-align: left;
+  left: 21.5%;
+  top: 35%;
+  cursor: pointer;
+  padding: 1.4vh 4.2vh 1.2vh 2.7vh;
+}
+
+.navbar.scrolled {
+  position: fixed;
+  direction: rtl;
+  background-color: rgb(33, 31, 77);
+  width: 100vw;
+  height: 8.5vh;
+  z-index: 1;
+}
+.navbar.scrolled ul {
+  position: relative;
+  top: 33%;
+  left: -10%;
+}
+.navbar.scrolled ul li {
+  margin: 0vh 1.9vh;
+  display: inline-block;
+  list-style: none;
+}
+.navbar.scrolled ul li a {
+  color: rgb(203, 232, 252);
+  font-size: 2.05vh;
+  text-decoration: none;
+}
+.navbar.scrolled .navbar__img {
+  width: 5.2vw;
+  position: absolute;
+  left: 57%;
+  top: -90%;
+}
+.navbar.scrolled .button__menu {
+  background: none;
+  border: none;
+  background-color: rgba(134, 133, 133, 0.4);
+  color: white;
+  font-size: 2.2vh;
+  font-weight: 400;
+  padding: 1vh 1.9vh;
+  cursor: pointer;
+  position: absolute;
+  left: 90%;
+  top: 20%;
+}
+.navbar.scrolled .button__tickets {
+  background-color: rgb(255, 197, 0);
+  font-size: 1.9vh;
+  border: none;
+  background-image: url("https://www.cinema-city.co.il/img/arrow-left-black-227.png");
+  background-position: 1.8vh center;
+  font-weight: bold;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  position: absolute;
+  text-align: right;
+  left: 9%;
+  top: 28%;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  padding: 0.9vh 1.7vh 0.9vh 3.2vh;
+}
+.navbar.scrolled .button__search {
+  background-color: rgba(134, 133, 133, 0.4);
+  font-size: 2.4vh;
+  color: rgb(191, 226, 250);
+  border: none;
+  background-image: url("	https://www.cinema-city.co.il/img/search-new.png");
+  background-position: right 1.2vh center;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  position: absolute;
+  left: 17.5%;
+  top: 25%;
+  cursor: pointer;
+  padding: 0.9vh 4.7vh 0.9vh 2.2vh;
+}
+
+@keyframes slide {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.dot {
+  height: 1.7vh;
+  width: 0.75vw;
+  background-color: transparent;
+  position: relative;
+  top: -3vh;
+  left: 46%;
+  border: 0.3vh solid rgb(84, 84, 117);
+  margin: 0 0.7vh;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 1s ease;
+}
+
+.active {
+  background-color: rgb(84, 84, 117);
+}
+
+.boxtickets {
+  position: relative;
+  width: 80vw;
+  left: -10%;
+  top: -5%;
+  height: 23vh;
+  box-shadow: rgba(0, 0, 0, 0.69) 0vh 0vh 2vh 0vh;
+  background-color: rgb(231, 33, 65);
+}
+.boxtickets__title {
+  color: rgb(203, 232, 252);
+  padding: 0vh 64vh;
+  top: 2vh;
+  font-size: 4.4vh;
+  position: relative;
+}
+.boxtickets .buttons {
+  cursor: pointer;
+  border: none;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 2.3vh;
+  background-color: rgba(0, 0, 0, 0.123);
+  color: rgba(255, 255, 255, 0.747);
+  top: 11.5vh;
+  padding: 2.3vh 10vh;
+  position: absolute;
+}
+.boxtickets .fa-chevron-down {
+  position: absolute;
+  left: 3%;
+}
+.boxtickets .icons {
+  position: absolute;
+  right: 8%;
+}
+.boxtickets .buttontickets {
+  background-color: rgb(29, 29, 72);
+  font-size: 3.1vh;
+  color: rgb(203, 232, 252);
+  left: 1%;
+  padding: 1.8vh 4.6vh;
+}
+.boxtickets .buttondate {
+  left: 59%;
+}
+.boxtickets .buttontime {
+  left: 20%;
+}
+.boxtickets .buttonchoose {
+  background-color: rgb(203, 232, 252);
+  color: rgb(231, 33, 65);
+  left: 79%;
+}
+.boxtickets .buttonmovie {
+  left: 39.5%;
+}
+
+.second_navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.now_movies {
+  color: rgb(203, 232, 252);
+  font-size: 30px;
+  font-family: "Rubik", sans-serif;
+  font-weight: bolder;
+  margin-right: 20px;
+}
+
+ul {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+ul li {
+  list-style: none;
+  margin: 0 1vh;
+  display: flex;
+  align-items: center;
+  color: rgb(177, 176, 176);
+}
+
+ul li a {
+  color: rgb(177, 176, 176);
+  font-size: 2.1vh;
+  text-decoration: none;
+}
+
+.movies_menu {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.5rem;
+  justify-content: center;
+  margin-right: 3rem;
+  margin-left: 3rem;
+}
+
+.image_container {
+  position: relative;
+  width: 100%;
+  padding-top: 150%;
+}
+.image_container .image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 90%;
+  height: 60%;
+  backface-visibility: hidden;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+.image_container .front_image {
+  transform: rotateY(0deg);
+}
+.image_container .back_image {
+  transform: rotateY(180deg);
+}
+.image_container:hover .front_image {
+  transform: rotateY(-180deg);
+}
+.image_container:hover .back_image {
+  transform: rotateY(0deg);
+}
+
+.show_more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(203, 232, 252);
+  font-size: 26px;
+  font-weight: bolder;
+  background-color: rgba(128, 128, 128, 0.5);
+  padding: 1rem;
+  margin: 0 3rem;
+  border-radius: 0.5rem;
+}
+
+.image_container {
+  width: 16rem;
+  height: auto;
+  position: relative;
+  perspective: 1000px;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.front_image {
+  transform: rotateY(0deg);
+}
+
+.back_image {
+  transform: rotateY(180deg);
+}
+
+.image_container:hover .front_image {
+  transform: rotateY(-180deg);
+}
+
+.image_container:hover .back_image {
+  transform: rotateY(0deg);
+}
+
+.last_section_container {
+  background-color: #E72141;
+  width: 100vw;
+  height: 95%;
+  margin-top: 70vh;
+  padding: 5rem;
+}
+.last_section_container .last_section_container__wrap {
+  background-color: rgba(255, 255, 255, 0.1647058824);
+  display: flex;
+  width: 80vw;
+  flex-direction: row;
+  padding: 3rem;
+  gap: 7rem;
+  align-items: center;
+}
+.last_section_container .last_section_container__wrap .best_movies_text {
+  color: #fff;
+  font-size: 1rem;
+  position: relative;
+  bottom: 2rem;
+}
+.last_section_container .last_section_container__wrap .best_movies_text .small-ltters-text {
+  cursor: pointer;
+}
+.last_section_container .last_section_container__wrap .movies {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
+  text-align: center;
+}
+.last_section_container .last_section_container__wrap .movies:hover {
+  cursor: pointer;
+}
+.last_section_container .last_section_container__wrap .movies .movie-number {
+  background-color: rgba(255, 255, 255, 0.8941176471);
+  border-radius: 50px;
+  border-color: #E72141;
+  border-style: solid;
+  border-width: 0.1rem;
+  width: 4rem;
+  height: 4rem;
+  position: relative;
+  top: 2rem;
+  right: 2rem;
+}
+.last_section_container .last_section_container__wrap .movies .movie-number p {
+  font-size: 2rem;
+  font-weight: 700;
+  position: relative;
+  bottom: 1rem;
+}
+.last_section_container .last_section_container__wrap .movies .movie_img {
+  width: 10vw;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.last_section_container .last_section_container__wrap .movies .movie_text {
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.advertising_section {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10vh;
+}
+.advertising_section .ad_img {
+  width: 40%;
+  margin: 1.5rem;
+}
+
+.footer hr {
+  width: 90vw;
+}
+.footer .footer_wrapper {
+  display: flex;
+}/*# sourceMappingURL=style.css.map */

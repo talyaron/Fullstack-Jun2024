@@ -40,7 +40,7 @@ var Player = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Player.prototype, "getIsFaield", {
+    Object.defineProperty(Player.prototype, "getIsFailed", {
         get: function () {
             return this.isFailed;
         },
@@ -69,24 +69,17 @@ var Player = /** @class */ (function () {
         configurable: true
     });
     Player.prototype.renderPlayer = function (mainElement) {
-        try {
-            if (!mainElement)
-                throw new Error('Main element is required');
-            var player = document.createElement('img');
-            player.src = this.imageUrl;
-            player.style.position = 'absolute';
-            player.style.bottom = this.positionY + "px";
-            player.style.left = this.positionX + "vw";
-            player.classList.add('player');
-            player.style.zIndex = '1';
-            mainElement.appendChild(player);
-            this.element = player;
-            this.addEventListeners();
-            this.update();
-        }
-        catch (error) {
-            console.error(error);
-        }
+        var player = document.createElement('img');
+        player.src = this.imageUrl;
+        player.style.position = 'absolute';
+        player.style.bottom = this.positionY + "px";
+        player.style.left = this.positionX + "vw";
+        player.classList.add('player');
+        player.style.zIndex = '1';
+        mainElement.appendChild(player);
+        this.element = player;
+        this.addEventListeners();
+        this.update();
     };
     Player.prototype.addEventListeners = function () {
         var _this = this;
@@ -149,26 +142,26 @@ var Player = /** @class */ (function () {
         var playerHeight = 5;
         var playerBottom = this.positionY;
         var playerTop = this.positionY + playerHeight;
-        var onStep = false;
+        var playerWidth = 5;
+        var playerLeft = this.positionX;
+        var playerRight = this.positionX + playerWidth;
         for (var _i = 0, steps_1 = steps; _i < steps_1.length; _i++) {
             var step = steps_1[_i];
             var stepTop = step.getPositionY;
             var stepBottom = step.getPositionY + step.getHeight;
-            if (playerBottom >= stepTop &&
+            var stepLeft = step.getPositionX;
+            var stepRight = step.getPositionX + step.getWidth;
+            if (this.velocityY < 0 &&
+                playerBottom >= stepTop &&
                 playerTop <= stepBottom &&
-                this.positionX + 5 >= step.getPositionX &&
-                this.positionX <= (step.getPositionX + step.getWidth)) {
-                this.positionY = stepTop;
-                this.isJumping = false;
+                playerRight > stepLeft &&
+                playerLeft < stepRight) {
+                this.positionY = stepTop - playerHeight;
                 this.velocityY = 0;
-                onStep = true;
+                this.isJumping = false;
                 break;
             }
         }
-        console.log("Player Position: Y=" + this.positionY + ", Bottom=" + playerBottom + ", Top=" + playerTop);
-        steps.forEach(function (step) {
-            console.log("Step Position: Top=" + step.getPositionY + ", Bottom=" + (step.getPositionY + step.getHeight));
-        });
     };
     Player.prototype.isNearBounds = function () {
         var leftBound = 10;
@@ -242,34 +235,6 @@ var Step = /** @class */ (function () {
     Object.defineProperty(Step.prototype, "getHeight", {
         get: function () {
             return this.height;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(Step.prototype, "setPositionX", {
-        set: function (x) {
-            this.positionX = x;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(Step.prototype, "setPositionY", {
-        set: function (y) {
-            this.positionY = y;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(Step.prototype, "setWidth", {
-        set: function (width) {
-            this.width = width;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(Step.prototype, "setHeight", {
-        set: function (height) {
-            this.height = height;
         },
         enumerable: false,
         configurable: true
@@ -362,10 +327,6 @@ window.onload = function () {
     });
     startOverButton.addEventListener('click', function () {
         resetGame();
-        if (isGamePaused) {
-            resumeGame();
-            pauseButton.textContent = '||';
-        }
     });
     main();
 };

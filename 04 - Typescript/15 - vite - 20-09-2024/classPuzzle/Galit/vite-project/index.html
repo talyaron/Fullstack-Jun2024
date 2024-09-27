@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Number Generator</title>
+    <script type="module" src="controllers/randomNumberController.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div>
+        <h1>Random Number Generator</h1>
+        <p id="random-number">Loading...</p>
+    </div>
+
+    <script type="module">
+        import { getRandomNumber } from './controller/randomNumberController.js';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const randomNumberElement = document.getElementById('random-number');
+            const number = getRandomNumber();
+            randomNumberElement.textContent = `Your random number is: ${number}`;
+        });
+    </script>
+</body>
+</html>

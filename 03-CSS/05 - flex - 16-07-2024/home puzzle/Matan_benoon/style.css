@@ -1,0 +1,165 @@
+body {
+  font-family: Noto Sans Hebrew;
+  direction: rtl;
+  font-size: 16px;
+}
+
+header {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 2px solid black;
+  height: 150px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  background-color: white;
+}
+header .icon_header {
+  display: flex;
+  gap: 30px;
+  margin-top: 80px;
+}
+header .menu_header {
+  display: flex;
+  font-size: 18px;
+  margin-left: 150px;
+}
+header .menu_header ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+header .menu_header li {
+  margin-right: 80px;
+  margin-top: 80px;
+}
+header .menu_header a {
+  text-decoration: none;
+  color: black;
+}
+header .menu_header a:hover {
+  color: rgb(202, 202, 201);
+}
+header .logo_header {
+  display: flex;
+  align-items: center;
+}
+
+.Main_Content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url(https://eltesoro.com.co/wp-content/uploads/2021/01/pullbear-tienda-el-tesoro-5.jpg);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  filter: brightness(90%);
+}
+.Main_Content h1 {
+  font-size: 5.125rem;
+  margin-top: 300px;
+  color: rgb(255, 255, 255);
+  font-weight: 1000;
+}
+.Main_Content h5 {
+  font-size: 2.125rem;
+  font-weight: 300;
+  position: relative;
+  bottom: 100px;
+  color: white;
+}
+.Main_Content p {
+  font-size: 1.125rem;
+  position: relative;
+  bottom: 150px;
+  color: white;
+}
+.Main_Content .btn_main_comtent {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 70px;
+}
+.Main_Content button {
+  font-size: 1.125rem;
+  border-radius: 10px;
+  text-align: center;
+  padding: 5px 20px 5px 20px;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  transition: background-color 0.5s ease;
+}
+.Main_Content button:hover {
+  background-color: #05818a;
+}
+
+.about {
+  display: flex;
+  border-top: 2px solid black;
+  justify-content: space-around;
+  margin-top: 100px;
+}
+.about .about_ditels {
+  display: inline;
+  width: 35%;
+  margin-top: 100px;
+}
+.about .about_ditels p {
+  line-height: 2.5;
+}
+.about .about_ditels button {
+  font-size: 1.125rem;
+  border-radius: 10px;
+  text-align: center;
+  padding: 5px 20px 5px 20px;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  transition: background-color 0.5s ease;
+}
+.about .about_img {
+  position: relative;
+  width: 45%;
+  margin-top: 100px;
+}
+.about .about_img .img_about {
+  border-radius: 30px;
+}
+
+.cookie {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 80%;
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.cookie-button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 10px;
+  background-color: #fff;
+  color: #333;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.cookie-accept {
+  background-color: #05818a;
+  color: #fff;
+}
+
+.cookie-reject {
+  background-color: #05818a;
+  color: #fff;
+}/*# sourceMappingURL=style.css.map */
