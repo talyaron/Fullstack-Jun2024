@@ -1,17 +1,20 @@
 import './style.css'
-import {jokes} from './models/Joke.ts'
+
+import { handleNewJoke } from './controllers/JokeCont.ts';
+import { renderJokes } from './view/components/renderJokes/RenderJokes.ts';
 
 
 
-
-function renderJokes(){
-const jokesElement = document.querySelector<HTMLDivElement>('#joke');
-if (!jokesElement) throw new Error('no jokes found');
-const jokesHTML = jokes.map(joke => `<p>${joke.text}</p>`).join('');
-
-jokesElement.innerHTML = `
-<h1>"Here are some great Dad Jokes!"</h1>
-${jokesHTML}`
-
-}
 renderJokes();
+
+function main(){
+    try {
+        const form = document.querySelector<HTMLFormElement>('#form-add-joke');
+        if (!form) throw new Error('no form found');
+        form.addEventListener('submit',handleNewJoke);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+main();

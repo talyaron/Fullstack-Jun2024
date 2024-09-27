@@ -1,6 +1,7 @@
 export interface Joke {
   id: string;
   text: string;
+  isEdited?: boolean;
 }
 
 
@@ -36,7 +37,4 @@ export const jokes: Joke[] = [
       
   ];
 
-  export function newJoke(event){
-    const newJoke = event.target;
-    
-  }
+  
