@@ -1,0 +1,82 @@
+
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin responsive-image {
+  max-width: 100%;
+  height: auto;
+}
+
+
+body {
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: grey;
+  background-color: rgb(251, 237, 245); 
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.PersonalIntroduction {
+  @include flex-center;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 50px;
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: rgb(248, 104, 176);
+  }
+
+  p {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+    color: $text-color;
+  }
+
+  #image {
+    @include responsive-image;
+    border-radius: 25%;
+    width: 50vh;
+    height: auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+}
+
+button {
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: $border-radius;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}
+
+@media (max-width: 768px) {
+  #app {
+    padding: 10px;
+  }
+
+  .PersonalIntroduction h1 {
+    font-size: 2rem;
+  }
+
+  .PersonalIntroduction p {
+    font-size: 1rem;
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "name": "joke-app",
+  "name": "progress-site",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,11 +13,7 @@
     "vite": "^5.4.1"
   },
   "dependencies": {
-    "express": "^4.21.0"
-  },
-  "main": "index.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.3"
+  }
 }
