@@ -1,0 +1,84 @@
+.BOX {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 20px;
+}
+
+/* FAB Styles */
+.fab {
+  position: relative;
+  display: inline-block;
+  border-radius: 25%;
+}
+
+/* FAB Sizes */
+.fab-small {
+  width: 48px;
+  height: 48px;
+  font-size: 20px;
+}
+
+.fab-medium {
+  width: 56px;
+  height: 56px;
+  font-size: 22px;
+}
+
+.fab-large {
+  width: 64px;
+  height: 64px;
+  font-size: 24px;
+}
+
+/* FAB Colors */
+.fab-primary {
+  background-color: #8595a24d;
+  color: #fff;
+}
+
+.fab-secondary {
+  background-color: #9b27b063;
+  color: #fff;
+}
+
+.fab-accent {
+  background-color: #ff990062;
+  color: #fff;
+}
+
+.fab-disabled {
+  background-color: #c1161654;
+  color: #fff;
+  cursor: not-allowed;
+}
+
+/* Icon Styles */
+.material-icons {
+  font-size: inherit;
+  vertical-align: middle;
+}
+
+/* Example Usage */
+.fab-example {
+  margin: 10px;
+}
+
+.fab-example .fab {
+  margin: 10px;
+}
+
+.fab-type {
+  display: inline-flex;
+  padding: 20px;
+}

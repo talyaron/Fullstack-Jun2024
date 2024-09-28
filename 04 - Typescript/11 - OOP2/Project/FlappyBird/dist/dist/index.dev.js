@@ -29,8 +29,7 @@ function () {
       }
     });
     this.gameLoop();
-  } //GETTERS
-
+  }
 
   Bird.prototype.getElement = function () {
     return this.element;
@@ -261,14 +260,10 @@ function () {
 
   Obstical.prototype.initialPosition = function () {
     var width = window.innerWidth;
-    var height = window.innerHeight; // this.elementTop.style.left = this.position.x + 'px';
-    // this.elementTop.style.top = this.position.y + 'px';
-    // this.elementBottom.style.left = this.position.x + 'px';
-    // this.elementBottom.style.top = this.position.y + 'px';
-
+    var height = window.innerHeight;
     return {
       x: width,
-      y: height
+      y: height / 2
     };
   };
 
