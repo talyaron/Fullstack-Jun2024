@@ -1,0 +1,11 @@
+#field {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: lightblue;
+}
+
+.balloon {
+  width: 300px;
+  height: 300px;
+}

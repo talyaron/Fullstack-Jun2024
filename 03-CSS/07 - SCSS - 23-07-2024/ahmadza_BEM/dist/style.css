@@ -1,0 +1,153 @@
+.title {
+  background-color: red;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: xx-large;
+  position: sticky;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.spliter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 50%;
+  height: 100px;
+  margin-bottom: 20px;
+  margin-top: 15px;
+  background-color: red;
+  border: 1px solid gray;
+  color: white;
+  padding: 20px;
+  font-weight: bold;
+}
+
+.containerFirstArticle {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  gap: 15px;
+}
+.containerFirstArticle .firstArticle {
+  width: 800px;
+  margin-bottom: 10px;
+}
+.containerFirstArticle .firstArticle__title {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: gray;
+  border-radius: 35px;
+}
+.containerFirstArticle .firstArticle__title .leftext {
+  text-align: left;
+}
+.containerFirstArticle .firstArticle__title .rightext {
+  text-align: right;
+}
+.containerFirstArticle .firstArticle .container {
+  width: 800px;
+  display: flex;
+  flex-wrap: row;
+  align-items: center;
+  justify-content: center;
+}
+.containerFirstArticle .firstArticle .container__image {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 5%;
+}
+.containerFirstArticle .firstArticle .container__image .imageText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.containerFirstArticle .firstArticle .container__image img {
+  padding: 10px;
+  width: 150px;
+  border-radius: 25px;
+}
+.containerFirstArticle .firstArticle__text {
+  font-weight: bold;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+}
+.containerFirstArticle .firstArticle__text h6 {
+  color: gray;
+}
+
+.containerSecondArticle {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  gap: 15px;
+}
+.containerSecondArticle .secondArticle {
+  width: 800px;
+}
+.containerSecondArticle .secondArticle__title {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #0f0cc5;
+  border-radius: 35px;
+}
+.containerSecondArticle .secondArticle__title .leftext {
+  text-align: left;
+}
+.containerSecondArticle .secondArticle__title .rightext {
+  text-align: right;
+}
+.containerSecondArticle .secondArticle__Container {
+  width: 800px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 10px;
+}
+.containerSecondArticle .secondArticle__Container .ineerContiner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+.containerSecondArticle .secondArticle__Container .ineerContiner .textBox {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  padding: 5px 20px 5px 20px;
+  background-color: antiquewhite;
+  font-weight: bold;
+  gap: 5px;
+}
+.containerSecondArticle .secondArticle__Container .ineerContiner .textBox h6 {
+  color: gray;
+}
+.containerSecondArticle .secondArticle__Container .imageBox {
+  flex: 1;
+  width: 250px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+}
+.containerSecondArticle .secondArticle__Container .imageBox img {
+  width: 230px;
+  border-radius: 15px;
+}
+.containerSecondArticle .secondArticle__Container .imageBox .caption {
+  margin-top: 10px;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+}

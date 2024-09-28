@@ -1,0 +1,41 @@
+.Box {
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
+  transform: rotate(10deg);
+  position: absolute;
+  top: 50px;
+  left: 50px;
+}
+
+.InSideBOX {
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+  margin: 0px auto;
+  position: absolute;
+}
+
+.box1 {
+  top: 5%;
+  left: 5%;
+  background-color: yellow;
+}
+
+.box2 {
+  top: 5%;
+  left: 25%;
+  background-color: #2c7da3;
+}
+
+.box3 {
+  top: 25%;
+  left: 5%;
+  background-color: #d08943;
+}
+
+.box4 {
+  top: 25%;
+  left: 25%;
+  background-color: #7d2e61;
+}

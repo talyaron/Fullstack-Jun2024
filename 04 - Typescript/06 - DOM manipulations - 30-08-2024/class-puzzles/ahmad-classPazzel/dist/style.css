@@ -1,0 +1,60 @@
+body {
+  font-family: "Arial", sans-serif;
+  background-color: black;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+}
+
+.container {
+  width: 80%;
+  max-width: 1200px;
+}
+.container h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+.container .movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 25px;
+}
+.container .movie-card {
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+.container .movie-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 5px 4px 8px 6px white;
+}
+.container .movie-card img {
+  width: 100%;
+  height: auto;
+}
+.container .movie-card h2,
+.container .movie-card h3,
+.container .movie-card p {
+  margin: 10px;
+  color: #333;
+}
+.container .movie-card h2 {
+  font-size: 1.2rem;
+}
+.container .movie-card h3 {
+  font-size: 1rem;
+  color: black;
+}
+.container .movie-card p {
+  font-size: 0.9rem;
+  color: black;
+}
