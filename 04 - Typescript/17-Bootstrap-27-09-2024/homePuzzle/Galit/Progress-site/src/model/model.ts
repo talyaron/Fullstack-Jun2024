@@ -1,17 +1,17 @@
 export interface PersonalIntroduction {
   name: string;
   tagline: string;
-  images: string[];
+  image: string[];
+  learned: string;
 }
 
 export const personalIntroduction: PersonalIntroduction = {
   name: "Galit",
   tagline: "Full Stack student and online Personal trainer",
-  images: [
-    "../images/Galit1.jpg",
+  learned: "HTML, CSS, SCSS, TypeScript, Vite",
+  image:[  "../images/Galit1.jpg",
     "../images/Galit2.jpg",
-    "../images/Galit3.jpg"
-  ],
+    "../images/Galit3.jpg" ],
 };
 
 export interface Note {
@@ -35,6 +35,11 @@ export class NoteModel {
     this.saveNotes();
   }
 
+  editNote(index: number, updatedNote: Note): void {
+    this.notes[index] = updatedNote;
+    this.saveNotes();
+  }
+
   deleteNote(index: number): void {
     this.notes.splice(index, 1);
     this.saveNotes();
@@ -44,10 +49,3 @@ export class NoteModel {
     localStorage.setItem('notes', JSON.stringify(this.notes));
   }
 }
-
-const notesModel = new NoteModel();
-
-notesModel.addNote({
-  title: "HomePuzzle",
-  note: "You need to make the homePuzzle until next Friday.",
-});

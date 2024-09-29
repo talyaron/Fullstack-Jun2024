@@ -1,14 +1,20 @@
-import { personalIntroduction } from '../model/model.ts';
-import { NoteModel } from '../model/model.ts';
+import { personalIntroduction, NoteModel } from '../model/model.ts';
 import { NotesView } from '../view/view.ts';
 
 const notesModel = new NoteModel();
 const notesView = new NotesView();
 
+document.addEventListener('DOMContentLoaded', () => {
+  renderContent();
+  cycleImages();
+});
+
 export const renderContent = () => {
-  const titleElement = document.getElementById('title');
+  const titleElement = document.getElementById('name');
   const contentElement = document.getElementById('content');
+  const learnedElement = document.getElementById('learned');
   const imageElement = document.getElementById('image') as HTMLImageElement;
+
 
   if (titleElement) {
     titleElement.innerText = personalIntroduction.name;
@@ -22,28 +28,33 @@ export const renderContent = () => {
     console.error('contentElement not found');
   }
 
+  if (learnedElement) {
+    learnedElement.innerText = personalIntroduction.learned;
+  } else {
+    console.error('learnedElement not found');
+  }
+  notesView.displayNotes(notesModel.getNotes());
+
   if (imageElement) {
-    startImageCarousel(imageElement);
+    imageElement.src = personalIntroduction.image[0]; 
   } else {
     console.error('imageElement not found');
   }
+}
 
-  notesView.displayNotes(notesModel.getNotes());
+
+// Function to cycle through images every 1500ms
+const cycleImages = () => {
+  const imageElement = document.getElementById('image') as HTMLImageElement;
+  let currentImageIndex = 0;
+
+  if (imageElement) {
+    setInterval(() => {
+      currentImageIndex = (currentImageIndex + 1) % personalIntroduction.image.length;
+      imageElement.src = personalIntroduction.image[currentImageIndex];
+    }, 1500); // 1500ms = 1.5 seconds
+  }
 };
-
-const startImageCarousel = (imageElement: HTMLImageElement) => {
-  let currentIndex = 0;
-
-  setInterval(() => {
-    if (personalIntroduction.images[currentIndex]) {
-      imageElement.src = personalIntroduction.images[currentIndex];
-    } else {
-      console.error('Image not found at index', currentIndex);
-    }
-    currentIndex = (currentIndex + 1) % personalIntroduction.images.length;
-  }, 1500);
-};
-
 
 const totalLessons = 76;
 let completedLessons = 21;
@@ -64,18 +75,21 @@ const updateProgressBar = () => {
 updateProgressBar();
 
 const notesForm = document.querySelector('#notes') as HTMLFormElement;
+let currentEditingIndex: number | null = null;
 
 notesForm.addEventListener('submit', (event) => {
   event.preventDefault();
 
-  const titleInput = document.querySelector('#title') as HTMLInputElement;
-  const noteInput = document.querySelector('#note') as HTMLTextAreaElement;
-
-  const title = titleInput.value;
-  const note = noteInput.value;
+  const { title, note } = notesView.getInputs();
 
   if (title && note) {
-    notesModel.addNote({ title, note });
+    if (currentEditingIndex === null) {
+      notesModel.addNote({ title, note });
+    } else {
+      notesModel.editNote(currentEditingIndex, { title, note });
+      currentEditingIndex = null;
+    }
+
     notesView.displayNotes(notesModel.getNotes());
     notesView.clearInputs();
   }
@@ -84,8 +98,7 @@ notesForm.addEventListener('submit', (event) => {
 (window as any).editNote = (index: number) => {
   const note = notesModel.getNotes()[index];
   notesView.setInputs(note);
-  notesModel.deleteNote(index);
-  notesView.displayNotes(notesModel.getNotes());
+  currentEditingIndex = index;
 };
 
 (window as any).deleteNote = (index: number) => {

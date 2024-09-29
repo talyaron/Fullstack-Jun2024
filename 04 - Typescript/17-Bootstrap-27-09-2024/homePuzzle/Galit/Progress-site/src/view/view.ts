@@ -12,18 +12,29 @@ export class NotesView {
   }
 
   displayNotes(notes: Note[]) {
-    this.notesList.innerHTML = '';
+    this.notesList.innerHTML = ''; 
+  
     notes.forEach((note, index) => {
       const noteItem = document.createElement('div');
-      noteItem.className = 'noteItem';
+      noteItem.className = 'col-md-4 mb-3'; 
+  
       noteItem.innerHTML = `
-        <h3>${note.title}</h3>
-        <p>${note.note}</p>
-        <button onclick="editNote(${index})">Edit</button>
-        <button onclick="deleteNote(${index})">Delete</button>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">${note.title}</h5>
+            <p class="card-text">${note.note}</p>
+            <button class="btn btn-warning btn-sm" onclick="editNote(${index})">Edit</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteNote(${index})">Delete</button>
+          </div>
+        </div>
       `;
+  
       this.notesList.appendChild(noteItem);
     });
+
+    if (notes.length === 0) {
+      this.notesList.innerHTML = '<p>No notes available.</p>';
+    }
   }
 
   clearInputs() {
