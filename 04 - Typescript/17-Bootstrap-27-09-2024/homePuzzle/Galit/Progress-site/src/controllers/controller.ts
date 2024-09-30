@@ -13,8 +13,8 @@ export const renderContent = () => {
   const titleElement = document.getElementById('name');
   const contentElement = document.getElementById('content');
   const learnedElement = document.getElementById('learned');
+  const gitElement = document.getElementById('git') as HTMLAnchorElement;
   const imageElement = document.getElementById('image') as HTMLImageElement;
-
 
   if (titleElement) {
     titleElement.innerText = personalIntroduction.name;
@@ -33,17 +33,24 @@ export const renderContent = () => {
   } else {
     console.error('learnedElement not found');
   }
-  notesView.displayNotes(notesModel.getNotes());
+
+  if (gitElement) {
+    gitElement.href = personalIntroduction.git; 
+    gitElement.innerText = "Visit my GitHub";
+    gitElement.target = "_blank";
+  } else {
+    console.error('gitElement not found');
+  }
 
   if (imageElement) {
     imageElement.src = personalIntroduction.image[0]; 
   } else {
     console.error('imageElement not found');
   }
+
+  notesView.displayNotes(notesModel.getNotes());
 }
 
-
-// Function to cycle through images every 1500ms
 const cycleImages = () => {
   const imageElement = document.getElementById('image') as HTMLImageElement;
   let currentImageIndex = 0;
@@ -52,7 +59,7 @@ const cycleImages = () => {
     setInterval(() => {
       currentImageIndex = (currentImageIndex + 1) % personalIntroduction.image.length;
       imageElement.src = personalIntroduction.image[currentImageIndex];
-    }, 1500); // 1500ms = 1.5 seconds
+    }, 1500);
   }
 };
 

@@ -3,12 +3,14 @@ export interface PersonalIntroduction {
   tagline: string;
   image: string[];
   learned: string;
+  git: string;
 }
 
 export const personalIntroduction: PersonalIntroduction = {
   name: "Galit",
   tagline: "Full Stack student and online Personal trainer",
   learned: "HTML, CSS, SCSS, TypeScript, Vite",
+  git: "https://github.com/Galit97/Galit",
   image:[  "../images/Galit1.jpg",
     "../images/Galit2.jpg",
     "../images/Galit3.jpg" ],

@@ -26,6 +26,9 @@
                         <a class="nav-link" href="#study-plan">Study Plan</a>
                     </li>
                     <li class="nav-item">
+                      <a class="nav-link" href="#form-check">Projects to do</a>
+                  </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#notes">Notes</a>
                     </li>
                 </ul>
@@ -35,13 +38,14 @@
 
     <div id="info" class="container mt-5">
         <div class="PersonalIntroduction">
-            <h1 id="name">Personal Introduction</h1>
-            <p id="content">This section contains personal information and a brief overview of the course.</p>
-            <p id="learned">What I've learned so far...</p>
+            <h1 id="name"></h1>
+            <p id="content"></p>
+            <p id="learned"></p>
+            <a id="git"></a>
             <img id="image" alt="Personal Introduction Image" class="img-fluid" />
         </div>
     </div>
-
+<br/>
     <div id="progress" class="container mt-5">
         <h2>Course Progress</h2>
         <div class="progress">
@@ -78,9 +82,46 @@
             <div class="col-6">8.04.25 - 22.04.25</div>
         </div>
     </div>
-
+    <br/>   
+       <h3> Projects to do</h3>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" >
+      <label class="form-check-label" for="flexCheckDefault">
+        Vite project
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" >
+      <label class="form-check-label" for="flexCheckChecked">
+        NodeJS
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" >
+      <label class="form-check-label" for="flexCheckChecked">
+        Express
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="">
+      <label class="form-check-label" for="flexCheckChecked">
+        SQL
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="">
+      <label class="form-check-label" for="flexCheckChecked">
+        Final Project
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" >
+      <label class="form-check-label" for="flexCheckChecked">
+        React Native
+      </label>
+    </div>
     <div id="notes" class="container mt-5">
-        <h3>Notes</h3>
+        <h1>Notes</h1>
         <form id="notes-form">
             <div class="form-group">
                 <label for="title">Title:</label>
@@ -94,6 +135,7 @@
         </form>
         <div id="notesList" class="row mt-3"></div>
     </div>
+    
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>

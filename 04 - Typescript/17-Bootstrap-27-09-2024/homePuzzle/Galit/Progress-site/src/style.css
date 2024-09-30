@@ -98,3 +98,13 @@ h2 {
 .border-custom {
   border-color: #333 !important;
 }
+.form-check {
+  margin-left: 20vh;
+
+}
+h3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
