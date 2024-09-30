@@ -1,17 +1,19 @@
 export interface PersonalIntroduction {
   name: string;
   tagline: string;
-  images: string[];
+  image: string[];
+  learned: string;
+  git: string;
 }
 
 export const personalIntroduction: PersonalIntroduction = {
   name: "Galit",
   tagline: "Full Stack student and online Personal trainer",
-  images: [
-    "../images/Galit1.jpg",
+  learned: "HTML, CSS, SCSS, TypeScript, Vite",
+  git: "https://github.com/Galit97/Galit",
+  image:[  "../images/Galit1.jpg",
     "../images/Galit2.jpg",
-    "../images/Galit3.jpg"
-  ],
+    "../images/Galit3.jpg" ],
 };
 
 export interface Note {
@@ -35,6 +37,11 @@ export class NoteModel {
     this.saveNotes();
   }
 
+  editNote(index: number, updatedNote: Note): void {
+    this.notes[index] = updatedNote;
+    this.saveNotes();
+  }
+
   deleteNote(index: number): void {
     this.notes.splice(index, 1);
     this.saveNotes();
@@ -45,9 +52,27 @@ export class NoteModel {
   }
 }
 
-const notesModel = new NoteModel();
 
-notesModel.addNote({
-  title: "HomePuzzle",
-  note: "You need to make the homePuzzle until next Friday.",
-});
+export interface ImagePosition {
+  x: number;
+}
+
+export class GameModel {
+  private position: ImagePosition;
+
+  constructor() {
+    this.position = { x: 0 }; // Initial horizontal position
+  }
+
+  getPosition(): ImagePosition {
+    return this.position;
+  }
+
+  moveLeft(): void {
+    this.position.x = Math.max(0, this.position.x - 10); // Move left and limit to 0
+  }
+
+  moveRight(maxWidth: number): void {
+    this.position.x = Math.min(maxWidth - 100, this.position.x + 10); // Move right and limit by container
+  }
+}
