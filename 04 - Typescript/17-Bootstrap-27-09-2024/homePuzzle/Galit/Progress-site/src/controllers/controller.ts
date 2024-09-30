@@ -1,5 +1,7 @@
-import { personalIntroduction, NoteModel } from '../model/model.ts';
-import { NotesView } from '../view/view.ts';
+import { personalIntroduction, NoteModel, GameModel } from '../model/model.ts';
+import { NotesView, GameView } from '../view/view.ts';
+
+
 
 const notesModel = new NoteModel();
 const notesView = new NotesView();
@@ -112,3 +114,35 @@ notesForm.addEventListener('submit', (event) => {
   notesModel.deleteNote(index);
   notesView.displayNotes(notesModel.getNotes());
 };
+
+
+
+
+export class GameController {
+  private model: GameModel;
+  private view: GameView;
+  private containerWidth: number;
+
+  constructor(model: GameModel, view: GameView, containerWidth: number) {
+    this.model = model;
+    this.view = view;
+    this.containerWidth = containerWidth;
+
+    document.addEventListener('keydown', (event) => this.handleKeyPress(event));
+    this.updateView();
+  }
+
+  handleKeyPress(event: KeyboardEvent): void {
+    if (event.key === 'ArrowLeft') {
+      this.model.moveLeft();
+    } else if (event.key === 'ArrowRight') {
+      this.model.moveRight(this.containerWidth);
+    }
+    this.updateView();
+  }
+
+  updateView(): void {
+    const position = this.model.getPosition();
+    this.view.updateImagePosition(position.x);
+  }
+}

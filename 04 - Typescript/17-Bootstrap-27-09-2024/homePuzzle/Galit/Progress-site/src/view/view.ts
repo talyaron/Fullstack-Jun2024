@@ -54,3 +54,19 @@ export class NotesView {
     this.noteInput.value = note.note;
   }
 }
+
+export class GameView {
+  private imageElement: HTMLImageElement;
+
+  constructor(imageId: string) {
+    const img = document.getElementById(imageId) as HTMLImageElement;
+    if (!img) {
+      throw new Error('Image element not found');
+    }
+    this.imageElement = img;
+  }
+
+  updateImagePosition(x: number): void {
+    this.imageElement.style.transform = `translateX(${x}px)`; // Move the image horizontally
+  }
+}

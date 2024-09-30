@@ -51,3 +51,28 @@ export class NoteModel {
     localStorage.setItem('notes', JSON.stringify(this.notes));
   }
 }
+
+
+export interface ImagePosition {
+  x: number;
+}
+
+export class GameModel {
+  private position: ImagePosition;
+
+  constructor() {
+    this.position = { x: 0 }; // Initial horizontal position
+  }
+
+  getPosition(): ImagePosition {
+    return this.position;
+  }
+
+  moveLeft(): void {
+    this.position.x = Math.max(0, this.position.x - 10); // Move left and limit to 0
+  }
+
+  moveRight(maxWidth: number): void {
+    this.position.x = Math.min(maxWidth - 100, this.position.x + 10); // Move right and limit by container
+  }
+}
