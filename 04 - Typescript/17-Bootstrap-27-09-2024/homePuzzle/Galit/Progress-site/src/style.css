@@ -1,7 +1,4 @@
 body {
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  color: grey;
-  background-color: rgb(251, 237, 245);
   margin: 0;
   padding: 0;
 }
@@ -35,28 +32,10 @@ body {
 
 #image {
   max-width: 100%;
-  height: auto;
   border-radius: 50%;
-
-    width: 20rem; 
-    height: 20rem;
-    object-fit: cover; 
-
+  width: 50vh;
+  height: auto;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-button {
-  background-color: #f685c3;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-button:hover {
-  background-color: #f0c2db;
 }
 
 @media (max-width: 768px) {
@@ -69,43 +48,11 @@ button:hover {
   .PersonalIntroduction p {
     font-size: 1rem;
   }
-}
-.progress {
-  height: 30px;
-  border-radius: 5px;
-  background-color: rgba(248, 104, 176, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.progress-bar {
-  background-color: rgb(248, 104, 176);
-  transition: width 0.4s ease;
-  height: 100%;
-}
-
-h2 {
-  color: rgb(248, 104, 176);
-  font-size: 16px;
-  text-align: center;
-}
-
-.ProgressContainer {
-  text-align: center;
-  margin-top: 30px;
 }/*# sourceMappingURL=style.css.map */
 
-.border-custom {
-  border-color: #333 !important;
+h3 {
+  margin-left: 18vh;;
 }
 .form-check {
-  margin-left: 20vh;
-
-}
-h3 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
+  margin-left: 18vh;
 }

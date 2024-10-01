@@ -1,151 +1,102 @@
-import { personalIntroduction, NoteModel, GameModel } from '../model/model.ts';
-import { NotesView, GameView } from '../view/view.ts';
+import { personalIntroduction, GameModel } from '../model/model.ts';
+import { AboutView, GameView } from '../view/view.ts';
 
+////////// ABOUT //////////
+export const renderAboutContent = () => {
+  const aboutView = new AboutView();
+  aboutView.renderAbout(personalIntroduction);
+  aboutView.cycleImages(personalIntroduction);
+  
+  //////// PROGRESS BAR ////////
+  const totalLessons = 76;
+  let completedLessons = 21;
+  const updateProgressBar = () => {
+    const progressBar = document.getElementById('progress-bar') as HTMLElement;
+    const progressText = document.getElementById('progress-text') as HTMLElement;
+  
+    const progressPercentage = (completedLessons / totalLessons) * 100;
+    progressBar.style.width = `${progressPercentage}%`;
+    progressBar.setAttribute('aria-valuenow', `${progressPercentage}`);
+    progressBar.innerText = `${Math.round(progressPercentage)}%`;
+    progressText.innerText = `${completedLessons} out of ${totalLessons} completed`;
+  };
 
-export class Controller {
+  updateProgressBar();
+}
+
+/////////// NOTES ////////
+import { NoteModel,  Note } from '../model/model.ts';
+import { NotesView  } from '../view/view.ts';
+export class NotesController {
   private noteModel: NoteModel;
+  private notesView: NotesView;
+  private currentEditingIndex: number | null = null;
 
-  constructor() {
-    this.noteModel = new NoteModel();
+  constructor(noteModel: NoteModel, notesView: NotesView) {
+    this.noteModel = noteModel;
+    this.notesView = notesView;
+
+    this.notesView.displayNotes(this.noteModel.getNotes());
+
+    const notesForm = document.getElementById('notes-form') as HTMLFormElement;
+    notesForm.addEventListener('submit', (event) => {
+      this.handleFormSubmit(event);
+    });
+
+    (window as any).editNote = (index: number) => this.editNoteHandler(index);
+    (window as any).deleteNote = (index: number) => this.deleteNoteHandler(index);
   }
 
-  getPersonalIntroduction() {
-    return personalIntroduction;
-  }
+  private handleFormSubmit(event: Event): void {
+    event.preventDefault();
+    console.log("Form submitted");
 
-  getNotes(): Note[] {
-    return this.noteModel.getNotes();
-  }
+    const { title, note } = this.notesView.getInputs();
 
-  addNote(note: Note): void {
-    this.noteModel.addNote(note);
-  }
+    if (title && note) {
+      if (this.currentEditingIndex === null) {
+        console.log("Adding new note");
+        this.noteModel.addNote({ title, note });
+      } else {
+        console.log(`Updating note at index ${this.currentEditingIndex}`); 
+        this.noteModel.editNote(this.currentEditingIndex, { title, note });
+        this.currentEditingIndex = null;
+      }
 
-  editNote(index: number, updatedNote: Note): void {
-    this.noteModel.editNote(index, updatedNote);
-  }
-
-  deleteNote(index: number): void {
-    this.noteModel.deleteNote(index);
-  }
-}
-
-
-const notesModel = new NoteModel();
-const notesView = new NotesView();
-
-document.addEventListener('DOMContentLoaded', () => {
-  renderContent();
-  cycleImages();
-});
-
-export const renderContent = () => {
-  const titleElement = document.getElementById('name');
-  const contentElement = document.getElementById('content');
-  const learnedElement = document.getElementById('learned');
-  const gitElement = document.getElementById('git') as HTMLAnchorElement;
-  const imageElement = document.getElementById('image') as HTMLImageElement;
-
-  if (titleElement) {
-    titleElement.innerText = personalIntroduction.name;
-  } else {
-    console.error('titleElement not found');
-  }
-
-  if (contentElement) {
-    contentElement.innerText = personalIntroduction.tagline;
-  } else {
-    console.error('contentElement not found');
-  }
-
-  if (learnedElement) {
-    learnedElement.innerText = personalIntroduction.learned;
-  } else {
-    console.error('learnedElement not found');
-  }
-
-  if (gitElement) {
-    gitElement.href = personalIntroduction.git; 
-    gitElement.innerText = "Visit my GitHub";
-    gitElement.target = "_blank";
-  } else {
-    console.error('gitElement not found');
-  }
-
-  if (imageElement) {
-    imageElement.src = personalIntroduction.image[0]; 
-  } else {
-    console.error('imageElement not found');
-  }
-
-  notesView.displayNotes(notesModel.getNotes());
-}
-
-const cycleImages = () => {
-  const imageElement = document.getElementById('image') as HTMLImageElement;
-  let currentImageIndex = 0;
-
-  if (imageElement) {
-    setInterval(() => {
-      currentImageIndex = (currentImageIndex + 1) % personalIntroduction.image.length;
-      imageElement.src = personalIntroduction.image[currentImageIndex];
-    }, 1500);
-  }
-};
-
-const totalLessons = 76;
-let completedLessons = 21;
-
-const updateProgressBar = () => {
-  const progressBar = document.getElementById('progress-bar') as HTMLElement;
-  const progressText = document.getElementById('progress-text') as HTMLElement;
-
-  const progressPercentage = (completedLessons / totalLessons) * 100;
-
-  progressBar.style.width = `${progressPercentage}%`;
-  progressBar.setAttribute('aria-valuenow', `${progressPercentage}`);
-  progressBar.innerText = `${Math.round(progressPercentage)}%`;
-
-  progressText.innerText = `${completedLessons} out of ${totalLessons} completed`;
-};
-
-updateProgressBar();
-
-const notesForm = document.querySelector('#notes') as HTMLFormElement;
-let currentEditingIndex: number | null = null;
-
-notesForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-
-  const { title, note } = notesView.getInputs();
-
-  if (title && note) {
-    if (currentEditingIndex === null) {
-      notesModel.addNote({ title, note });
+      this.notesView.displayNotes(this.noteModel.getNotes());
+      this.notesView.clearInputs();
     } else {
-      notesModel.editNote(currentEditingIndex, { title, note });
-      currentEditingIndex = null;
+      console.log("Form validation failed: title or note missing");
     }
-
-    notesView.displayNotes(notesModel.getNotes());
-    notesView.clearInputs();
   }
-});
 
-(window as any).editNote = (index: number) => {
-  const note = notesModel.getNotes()[index];
-  notesView.setInputs(note);
-  currentEditingIndex = index;
-};
+  private editNoteHandler(index: number): void {
+    console.log(`Editing note at index ${index}`);
+    const note = this.noteModel.getNotes()[index];
 
-(window as any).deleteNote = (index: number) => {
-  notesModel.deleteNote(index);
-  notesView.displayNotes(notesModel.getNotes());
-};
+    if (note) {
+      this.notesView.setInputs(note);
+      this.currentEditingIndex = index;
+    } else {
+      console.log("Invalid note at index for editing:", index);
+    }
+  }
 
+  private deleteNoteHandler(index: number): void {
+    console.log(`Deleting note at index ${index}`); 
 
+    const notes = this.noteModel.getNotes();
 
+    if (notes[index]) {
+      this.noteModel.deleteNote(index);
+      this.notesView.displayNotes(this.noteModel.getNotes());
+    } else {
+      console.log("Invalid note at index for deletion:", index); 
+    }
+  }
+}
 
+////////// GAME /////////
 export class GameController {
   private model: GameModel;
   private view: GameView;
