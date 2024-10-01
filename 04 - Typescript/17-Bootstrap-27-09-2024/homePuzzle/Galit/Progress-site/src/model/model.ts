@@ -15,17 +15,27 @@ export const personalIntroduction: PersonalIntroduction = {
     "../images/Galit2.jpg",
     "../images/Galit3.jpg" ],
 };
-
 export interface Note {
   title: string;
   note: string;
 }
 
 export class NoteModel {
-  private notes: Note[];
+  private notes: Note[] = [];
 
   constructor() {
-    this.notes = JSON.parse(localStorage.getItem('notes') || '[]');
+    this.loadNotes();
+  }
+
+  private loadNotes() {
+    const savedNotes = localStorage.getItem('notes');
+    if (savedNotes) {
+      this.notes = JSON.parse(savedNotes);
+    }
+  }
+
+  private saveNotes() {
+    localStorage.setItem('notes', JSON.stringify(this.notes));
   }
 
   getNotes(): Note[] {
@@ -46,10 +56,6 @@ export class NoteModel {
     this.notes.splice(index, 1);
     this.saveNotes();
   }
-
-  private saveNotes(): void {
-    localStorage.setItem('notes', JSON.stringify(this.notes));
-  }
 }
 
 
@@ -61,7 +67,7 @@ export class GameModel {
   private position: ImagePosition;
 
   constructor() {
-    this.position = { x: 0 }; // Initial horizontal position
+    this.position = { x: 0 };
   }
 
   getPosition(): ImagePosition {
@@ -69,10 +75,10 @@ export class GameModel {
   }
 
   moveLeft(): void {
-    this.position.x = Math.max(0, this.position.x - 10); // Move left and limit to 0
+    this.position.x = Math.max(0, this.position.x - 10); 
   }
 
   moveRight(maxWidth: number): void {
-    this.position.x = Math.min(maxWidth - 100, this.position.x + 10); // Move right and limit by container
+    this.position.x = Math.min(maxWidth - 100, this.position.x + 10);
   }
 }

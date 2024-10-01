@@ -67,6 +67,6 @@ export class GameView {
   }
 
   updateImagePosition(x: number): void {
-    this.imageElement.style.transform = `translateX(${x}px)`; // Move the image horizontally
+    this.imageElement.style.transform = `translateX(${x}px)`; 
   }
 }

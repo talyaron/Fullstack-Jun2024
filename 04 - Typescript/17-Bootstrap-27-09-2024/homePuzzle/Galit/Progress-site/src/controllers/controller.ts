@@ -2,6 +2,34 @@ import { personalIntroduction, NoteModel, GameModel } from '../model/model.ts';
 import { NotesView, GameView } from '../view/view.ts';
 
 
+export class Controller {
+  private noteModel: NoteModel;
+
+  constructor() {
+    this.noteModel = new NoteModel();
+  }
+
+  getPersonalIntroduction() {
+    return personalIntroduction;
+  }
+
+  getNotes(): Note[] {
+    return this.noteModel.getNotes();
+  }
+
+  addNote(note: Note): void {
+    this.noteModel.addNote(note);
+  }
+
+  editNote(index: number, updatedNote: Note): void {
+    this.noteModel.editNote(index, updatedNote);
+  }
+
+  deleteNote(index: number): void {
+    this.noteModel.deleteNote(index);
+  }
+}
+
 
 const notesModel = new NoteModel();
 const notesView = new NotesView();
