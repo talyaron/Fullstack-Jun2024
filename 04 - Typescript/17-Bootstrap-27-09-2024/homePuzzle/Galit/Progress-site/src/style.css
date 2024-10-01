@@ -31,12 +31,13 @@ body {
 }
 
 #image {
-  max-width: 100%;
-  border-radius: 50%;
-  width: 50vh;
-  height: auto;
+  height: 40vh;
+  width: 40vh;
+  border-radius: 50%; 
+  object-fit: cover;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
+
 
 @media (max-width: 768px) {
   #app {

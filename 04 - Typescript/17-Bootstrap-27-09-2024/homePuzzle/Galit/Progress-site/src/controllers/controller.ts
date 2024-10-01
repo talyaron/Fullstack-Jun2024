@@ -25,7 +25,7 @@ export const renderAboutContent = () => {
 }
 
 /////////// NOTES ////////
-import { NoteModel,  Note } from '../model/model.ts';
+import { NoteModel} from '../model/model.ts';
 import { NotesView  } from '../view/view.ts';
 export class NotesController {
   private noteModel: NoteModel;
