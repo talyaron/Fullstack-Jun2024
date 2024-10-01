@@ -1,0 +1,36 @@
+* {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: #3f3fca;
+  height: 300px;
+  width: 200px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+.card .big {
+  font-size: 2rem;
+}
+.card .second {
+  font-size: 0.7rem;
+}
+.card .white {
+  color: white;
+}
+.card .yellow {
+  float: right;
+  color: yellow;
+  margin: 5px;
+}
+.card .img {
+  margin-bottom: 1rem;
+}
+
+head {
+  display: flex;
+  flex-direction: row;
+}

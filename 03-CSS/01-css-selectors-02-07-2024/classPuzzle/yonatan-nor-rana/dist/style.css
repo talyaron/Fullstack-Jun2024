@@ -1,0 +1,21 @@
+.box {
+  padding: 10px;
+  margin: 10px;
+  background-color: cadetblue;
+  color: white;
+  text-align: center;
+  font-size: 1.2rem;
+  direction: rtl;
+}
+
+h1 {
+  direction: rtl;
+  font-size: 1.5rem;
+  color: white;
+  font-style: normal;
+}
+
+h2 {
+  text-align: right;
+  font-size: 1rem;
+}

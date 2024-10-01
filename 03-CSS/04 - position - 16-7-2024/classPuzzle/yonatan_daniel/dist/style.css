@@ -1,0 +1,35 @@
+.bigbox {
+  border: solid 2px black;
+  padding: 6px;
+  height: 120px;
+  width: 120px;
+  rotate: 30deg;
+  margin: 50px;
+  position: relative;
+}
+.bigbox .box {
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  background-color: aqua;
+  position: absolute;
+}
+.bigbox #b2 {
+  left: 70px;
+}
+.bigbox #b3 {
+  top: 70px;
+}
+.bigbox #b4 {
+  left: 70px;
+  top: 70px;
+}
+.bigbox .red {
+  background-color: red;
+}
+.bigbox .yellow {
+  background-color: yellow;
+}
+.bigbox .green {
+  background-color: green;
+}
