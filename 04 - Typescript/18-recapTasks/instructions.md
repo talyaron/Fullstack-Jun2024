@@ -13,7 +13,7 @@ Develop a form validator class in TypeScript that uses regular expressions to va
 
 1. **TypeScript Class Structure**
    - Create a `FormValidator` class to encapsulate all validation logic.
-   - Use private static properties for regular expression patterns.
+   - Use private properties for regular expression patterns.
    - Implement public methods for each type of validation.
 
 2. **Regular Expressions (RegExp)**
