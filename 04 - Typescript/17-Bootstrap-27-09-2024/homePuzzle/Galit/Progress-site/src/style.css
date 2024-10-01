@@ -1,7 +1,7 @@
 body {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   color: grey;
-  background-color: rgb(247, 247, 247);
+  background-color: rgb(251, 237, 245);
   margin: 0;
   padding: 0;
 }
@@ -75,7 +75,8 @@ button:hover {
   border-radius: 5px;
   background-color: rgba(248, 104, 176, 0.3);
   display: flex;
-  
+  justify-content: center;
+  align-items: center;
 }
 
 .progress-bar {
