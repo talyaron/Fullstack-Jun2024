@@ -5,8 +5,7 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rana Zidan</title>
-    
-    <link rel="stylesheet" href="./src/style.css">
+    <link rel="stylesheet" href="./src/dist/style.css">
   </head>
   <body style="text-align: center;"> 
     <div class="container text-center mt-5">
@@ -18,12 +17,12 @@
   
    
       <div>
-        <button class="btn btn-primary m-2">אודותיי</button>
-        <button class="btn btn-success m-2">תיק עבודות</button>
+        <button class="btn btn-primary m-2" onclick="location.href='./src/model/aboutme.html'">אודותיי</button>
+        <button class="btn btn-success m-2" onclick="location.href='./src/view/htmlview.html'">תיק עבודות</button>
         <button class="btn btn-info m-2">צור קשר</button>
       </div>
     </div>
     
-   <script type="module" src="/src/main.ts" ></script>
+   <script type="module" src="./src/view/view.ts" ></script>
   </body>
 </html>
