@@ -1,0 +1,19 @@
+body {
+  font-family: "Inter", sans-serif;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 2rem 3rem 2rem 3rem;
+}
+.navbar .navbarItem {
+  color: #535353;
+  font-size: 0.9rem;
+  font-weight: 300;
+}
+.navbar .navbarItem:hover {
+  color: #000;
+  cursor: pointer;
+}

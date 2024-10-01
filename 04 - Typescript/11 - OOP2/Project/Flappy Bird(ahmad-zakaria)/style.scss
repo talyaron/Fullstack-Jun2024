@@ -1,0 +1,65 @@
+$bird-size: 40px;
+$pipe-width: 60px;
+$pipe-gap: 150px;
+$pipe-color: green;
+$bird-color: yellow;
+$bg-color: skyblue;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: $bg-color;
+}
+
+.game-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(to bottom, rgb(179, 229, 243), rgb(88, 217, 239));
+}
+
+#bird {
+  position: absolute;
+  width: $bird-size;
+  height: $bird-size;
+  background-color: $bird-color;
+  border-radius: 50%;
+  top: 50%;
+  left: 20%;
+}
+
+.pipe {
+  position: absolute;
+  width: $pipe-width;
+  background-color: $pipe-color;
+}
+
+.pipe-top {
+  top: 0;
+}
+
+.pipe-bottom {
+  bottom: 0;
+}
+
+#score {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 24px;
+  color: black;
+  z-index: 1;
+}
+
+
+  
+  
