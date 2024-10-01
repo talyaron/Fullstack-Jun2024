@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#navbar {
+  display: flex;
+  align-items: center;
+  margin: 1rem;
+  justify-content: center;
+  gap: 2rem;
+}
+
+#section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#onSaleSection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.continer {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px black solid;
+  width: 500px;
+  height: 550px;
+  margin: 10px;
+  gap: 1rem;
+  text-align: center;
+}
+
+.onSale {
+  background-color: red;
+}
+.onSale h4 {
+  font-weight: bold;
+  color: white;
+}

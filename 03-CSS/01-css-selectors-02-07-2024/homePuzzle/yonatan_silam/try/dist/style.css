@@ -1,0 +1,39 @@
+.itam {
+  width: 100px;
+  height: 100px;
+  background-color: blue;
+  color: white;
+  margin: 10px;
+}
+
+.co {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.co2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.co3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 400px;
+  background-color: black;
+}
+
+.blackk {
+  background-color: black;
+}
+
+.logo2 {
+  margin: 10px auto;
+}
+
+.flex {
+  display: flex;
+}
