@@ -1,7 +1,6 @@
-import { FormValidator } from "../models/formValidator";
-import { FormView } from "../views/formView";
+import { FormValidator } from "../models/FormValidator";
+import { FormView } from "../views/FormView";
 
-// controllers/FormController.ts
 export class FormController {
   private formValidator: FormValidator;
   private formView: FormView;

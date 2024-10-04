@@ -1,4 +1,3 @@
-// views/FormView.ts
 export class FormView {
   private emailInput: HTMLInputElement;
   private phoneInput: HTMLInputElement;

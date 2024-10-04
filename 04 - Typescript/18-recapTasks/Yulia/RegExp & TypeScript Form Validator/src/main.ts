@@ -1,6 +1,6 @@
-import { FormValidator } from "./models/formValidator";
-import { FormView } from "./views/formView";
-import { FormController } from "./controllers/formController";
+import { FormValidator } from "./models/FormValidator";
+import { FormView } from "./views/FormView";
+import { FormController } from "./controllers/FormController";
 
 const formValidator = new FormValidator();
 const formView = new FormView();
