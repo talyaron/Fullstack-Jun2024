@@ -1,0 +1,64 @@
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    padding-top: 20px;
+  }
+  
+  .navbar {
+    background-color: #2c3e50;
+  
+    .navbar-brand {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #ecf0f1;
+      &:hover {
+        color: #3498db;
+      }
+    }
+  
+    .nav-link {
+      color: #ecf0f1;
+      &:hover {
+        color: #3498db;
+      }
+    }
+  }
+  
+  .card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-body {
+    padding: 2rem;
+    h1 {
+      color: #2c3e50;
+    }
+    p {
+      font-size: 1.1rem;
+    }
+    .list-group-item {
+      font-size: 1rem;
+      color: #34495e;
+      &:nth-child(even) {
+        background-color: #ecf0f1;
+      }
+    }
+  }
+  
+  footer {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    text-align: center;
+    padding: 1rem;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    p {
+      margin: 0;
+    }
+}
