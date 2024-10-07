@@ -51,6 +51,6 @@ function renderWords(): void {
 
     } catch (error) {
         console.error(error);
-
+        
     }
 }

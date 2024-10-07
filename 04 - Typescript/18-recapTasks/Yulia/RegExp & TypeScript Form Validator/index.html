@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Form Validator</title>
+  <link rel="stylesheet" href="./src/style.css" />
+  <script type="module" src="./src/main.ts" defer></script>
+</head>
+
+<body>
+  <div id="app">
+    <h1>Validation Form</h1>
+    <form id="validationForm">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required />
+      <span id="emailError" class="error"></span>
+
+      <label for="phone">Phone:</label>
+      <input type="tel" id="phone" name="phone" required />
+      <span id="phoneError" class="error"></span>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required />
+      <span id="passwordError" class="error"></span>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</body>
+
+</html>
