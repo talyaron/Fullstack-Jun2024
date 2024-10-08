@@ -1,0 +1,14 @@
+body{
+    margin: 0;
+}
+
+#myForm {
+    display: flex;
+    font-size: large;
+    flex-direction: column
+  }
+  .email .password .phone-number{
+    display: flex;
+    width: 10px;
+    flex-direction: column
+  }
