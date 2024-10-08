@@ -4,11 +4,9 @@ body{
 
 #myForm {
     display: flex;
-    font-size: large;
-    flex-direction: column
-  }
-  .email .password .phone-number{
-    display: flex;
-    width: 10px;
-    flex-direction: column
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5%;
+    width: 10vw;
+    background-color: aqua;
   }
