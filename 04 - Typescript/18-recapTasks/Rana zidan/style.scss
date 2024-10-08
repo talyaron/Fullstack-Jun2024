@@ -4,9 +4,18 @@ body{
 
 #myForm {
     display: flex;
+    margin-left: 40vw;
+    margin-top: 20vh;
     flex-direction: column;
     align-items: center;
     border-radius: 5%;
-    width: 10vw;
-    background-color: aqua;
+    width: 15vw;
+    background-color: #b6a1dd;
+    margin-bottom: 10vh;
+    font-size: medium;
+  }
+
+  .button{
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
