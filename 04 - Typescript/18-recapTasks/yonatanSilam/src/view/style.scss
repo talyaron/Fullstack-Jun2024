@@ -1,0 +1,15 @@
+@import "bootstrap/scss/bootstrap";
+.mid{
+    display: flex;
+    width: 35vw;
+    height: fit-content;
+    gap: 5vh;
+    flex-direction: column;
+    border: 1px black solid;
+    justify-content: space-between;
+    padding: 10px;
+    margin-top: 10vh;
+}
+.col-auto{
+    min-width: 150px;
+}
