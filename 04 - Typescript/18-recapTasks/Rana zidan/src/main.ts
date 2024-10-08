@@ -7,7 +7,7 @@ class FormValidator {
     
     this.emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     
-    this.phonePattern = /^\+?\d{10,15}$/;
+    this.phonePattern = /^\+?\d{6,10}$/;
     
     this.passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   }
