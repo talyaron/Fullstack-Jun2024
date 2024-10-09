@@ -4,12 +4,15 @@ import viteLogo from '/vite.svg'
 import { setupCounter } from './counter.ts'
 import { renderJokes } from './View/JokeRender.ts'
 import { jokes } from './Model/Joke.ts'
+import { renderRemove } from './controllers/actions.ts'
+
 
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
     <h1>My List Jokes</h1>
     <div id="JokeList"></div>
+    <button onclick= "renderRemove" "id='remove'></button>
   </div>
 `;
 
@@ -23,6 +26,9 @@ function main(){
     console.error(error);
   }  
 }
+
+
 console.log(renderJokes(jokes));
 main();
+
 setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
