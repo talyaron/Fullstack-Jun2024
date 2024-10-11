@@ -11,6 +11,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.pink {
+  background-color: #ebacac;
+  border-color: white;
+}
+
 a {
   font-weight: 500;
   color: #ebacac;
@@ -18,7 +23,7 @@ a {
 }
 
 a:hover {
-  color: #535bf2;
+  color: #755454;
 }
 
 body {
@@ -43,7 +48,7 @@ h1 {
 }
 
 .logo {
-  height: 30vh;
+  height: 50vh;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
@@ -78,7 +83,8 @@ button {
 }
 
 button:hover {
-  border-color: #646cff;
+  border-color: #774c16;
+  background-color: #ebacac;
 }
 
 button:focus,
@@ -92,7 +98,7 @@ button:focus-visible {
     background-color: #ffffff;
   }
   a:hover {
-    color: #747bff;
+    color: #774c16;
   }
   button {
     background-color: #f9f9f9;

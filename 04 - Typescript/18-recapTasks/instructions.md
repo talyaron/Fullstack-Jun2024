@@ -19,7 +19,7 @@ Develop a form validator class in TypeScript that uses regular expressions to va
 2. **Regular Expressions (RegExp)**
    - Email validation: Use a RegExp to check for a valid email format.
    - Phone number validation: Create a RegExp to validate various phone number formats.
-   - Password validation: Implement a RegExp to ensure password strength.
+   - Password validation: Implement a RegExp to ensure password strength.  
 
 3. **Validation Methods**
    - Each method should accept a string input and return either null (for valid input) or an error message string.
