@@ -1,4 +1,11 @@
-import './style.css'
+import './style.scss'; 
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML =''
+import { ProfileModel } from './model.ts';
+import { ProfileView } from './view.ts';
+import { ProfileController } from './controller.ts';
 
+const model = new ProfileModel();
+const view = new ProfileView();
+const controller = new ProfileController(model, view);
+
+controller.init();
