@@ -29,6 +29,7 @@ export function renderForm(): string {
             <br/>
             <button class="btn" type="submit">Register</button>
             <div id="errorMessage" style="color: red;"></div>
+               <div id="successMessage" style="color: green;"></div> 
         </form>
     </div>
     `;

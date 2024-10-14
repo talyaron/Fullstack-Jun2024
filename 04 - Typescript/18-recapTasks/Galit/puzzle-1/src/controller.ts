@@ -8,29 +8,39 @@ export class UserController {
         this.validator = new FormValidator();
     }
 
-    public registerUser(data: UserRegistration): string {
+    public registerUser(data: UserRegistration): void { 
         const { email, phone, password, repeatPassword } = data;
 
+        const errorMessageDiv = document.getElementById('errorMessage');
+        const successMessageDiv = document.getElementById('successMessage');
+
+        if (errorMessageDiv) errorMessageDiv.textContent = '';
+        if (successMessageDiv) successMessageDiv.textContent = '';
+
         if (!this.validator.validateEmail(email)) {
-            return 'Invalid email format.';
+            if (errorMessageDiv) errorMessageDiv.textContent = 'Invalid email format.';
+            return;
         }
         if (!this.validator.validatePhone(phone)) {
-            return 'Invalid phone number format. Must be 10 digits.';
+            if (errorMessageDiv) errorMessageDiv.textContent = 'Invalid phone number format. Must be 10 digits.';
+            return;
         }
         if (!this.validator.validatePassword(password)) {
-            return 'Password must be at least 8 characters long and contain at least one letter and one number.';
+            if (errorMessageDiv) errorMessageDiv.textContent = 'Password must be at least 8 characters long and contain at least one letter and one number.';
+            return;
         }
         if (password !== repeatPassword) {
-            return 'Passwords do not match.';
+            if (errorMessageDiv) errorMessageDiv.textContent = 'Passwords do not match.';
+            return;
         }
 
         const user = new UserModel(data);
-        this.saveUser(user); 
-        return 'User registered successfully!';
+        this.saveUser(user);
+        
+        if (successMessageDiv) successMessageDiv.textContent = 'User registered successfully!';
     }
 
     private saveUser(user: UserModel) {
-       
         console.log('User saved:', user.getData());
     }
 }
