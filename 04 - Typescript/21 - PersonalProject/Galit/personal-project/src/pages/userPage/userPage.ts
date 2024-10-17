@@ -1,4 +1,4 @@
-import { getUserDetails } from '../../controller/userController'; // Assuming there's a function to get user details
+import { getUserDetails } from '../../controller/userController'; 
 
 export function renderUserPage(): string {
   const user = JSON.parse(localStorage.getItem('loggedInUser') || 'null');
