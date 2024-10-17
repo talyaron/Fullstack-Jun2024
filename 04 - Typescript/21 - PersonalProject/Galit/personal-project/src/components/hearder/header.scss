@@ -1,0 +1,21 @@
+header
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #3377FF; 
+    border-radius: 30px;
+
+    #search-box
+    {
+        width: 20rem;
+        height: 2rem;
+        margin-left: 2rem;
+    }
+
+    img
+    {
+        height: 2rem;
+        margin: 1rem;
+    }
+}

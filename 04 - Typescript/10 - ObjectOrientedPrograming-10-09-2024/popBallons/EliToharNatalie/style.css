@@ -1,0 +1,29 @@
+.ballon {
+  animation: mov 5s;
+  animation-iteration-count: infinite;
+  transition: transform 0.5s ease-in-out;
+  position: absolute;
+}
+
+img {
+  position: relative;
+  transition: all 0.5;
+}
+
+@keyframes mov {
+  0% {
+    top: 15px;
+  }
+  25% {
+    top: 25px;
+  }
+  50% {
+    top: 15px;
+  }
+  75% {
+    top: 25px;
+  }
+  100% {
+    top: 15px;
+  }
+}/*# sourceMappingURL=style.css.map */

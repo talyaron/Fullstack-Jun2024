@@ -15,7 +15,7 @@ var Packmen = /** @class */ (function () {
     function Packmen(imgUrl) {
         this.imgUrl = imgUrl;
     }
-    Packmen.prototype.renderPackmen = function (mainElement, initialLeft, initialTop) {
+    Packmen.prototype.renderPackmen = function (mainElement, left, top) {
         var _this = this;
         this.domElement = document.createElement('div');
         this.domElement.classList.add('packmen');
@@ -24,8 +24,8 @@ var Packmen = /** @class */ (function () {
         this.domElement.style.backgroundSize = 'cover';
         this.domElement.style.width = '100px';
         this.domElement.style.height = '100px';
-        this.domElement.style.left = initialLeft + "px";
-        this.domElement.style.top = initialTop + "px";
+        this.domElement.style.left = left + "px";
+        this.domElement.style.top = top + "px";
         mainElement.appendChild(this.domElement);
         document.addEventListener('keydown', function (event) {
             _this.positionPackmen(event);
@@ -73,6 +73,9 @@ var Packmen = /** @class */ (function () {
                 point.remove();
             }
         });
+        if (points.length === 0) {
+            winGame();
+        }
     };
     return Packmen;
 }());
@@ -134,7 +137,7 @@ var EnemyPackmen = /** @class */ (function (_super) {
         top = Math.max(0, Math.min(top, window.innerHeight - 100));
         this.movePackmen(left, top);
     };
-    EnemyPackmen.prototype.stopMoving = function () {
+    EnemyPackmen.prototype.stopMovingEnemy = function () {
         if (this.id) {
             clearInterval(this.id);
         }
@@ -166,6 +169,21 @@ function showGameOver() {
     message.style.padding = '20px';
     document.body.appendChild(message);
 }
+function winGame() {
+    var messageWinner = document.createElement('div');
+    messageWinner.innerText = 'WINNER';
+    messageWinner.style.position = 'fixed';
+    messageWinner.style.top = '50%';
+    messageWinner.style.left = '50%';
+    messageWinner.style.transform = 'translate(-50%, -50%)';
+    messageWinner.style.backgroundColor = 'green';
+    messageWinner.style.color = 'white';
+    messageWinner.style.padding = '20px';
+    document.body.appendChild(messageWinner);
+    enemy.stopMovingEnemy();
+    enemySecond.stopMovingEnemy();
+    enemyThird.stopMovingEnemy();
+}
 function checkPositionTwoPlayers(packman, enemy) {
     var packmanRect = packman.domElement.getBoundingClientRect();
     var enemyRect = enemy.domElement.getBoundingClientRect();
@@ -190,8 +208,8 @@ enemyThird.startMoving();
 setInterval(function () {
     if (checkPositionTwoPlayers(packman, enemy)) {
         showGameOver();
-        enemy.stopMoving();
-        enemySecond.stopMoving();
-        enemyThird.stopMoving();
+        enemy.stopMovingEnemy();
+        enemySecond.stopMovingEnemy();
+        enemyThird.stopMovingEnemy();
     }
 }, 100);

@@ -1,0 +1,113 @@
+#app {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #333;
+    }
+  
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      background-color: #f9f9f9;
+  
+      label {
+        font-weight: bold;
+        color: #555;
+        margin-bottom: 5px;
+      }
+  
+      input,
+      textarea {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1rem;
+        outline: none;
+        transition: border-color 0.2s;
+  
+        &:focus {
+          border-color: #ea8ce2;
+        }
+      }
+  
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+  
+      button {
+        padding: 10px;
+        background-color: #ea8ce2;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.2s;
+  
+        &:hover {
+          background-color: #e9c9e6;
+        }
+      }
+    }
+  
+    .profile-image {
+      width: 70px; 
+      height: 70px; 
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
+  
+    .edit-profile,
+    .delete-profile {
+      background-color: #ea8ce2;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+  
+    #profile-list {
+      display: flex;
+      flex-direction: row;
+      gap: 15px;
+  
+      .profile {
+        padding: 15px;
+        border-radius: 8px;
+        background-color: #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+        h3 {
+          margin-bottom: 5px;
+          font-size: 1.5rem;
+          color: #333;
+        }
+  
+        p {
+          margin: 0;
+          font-size: 1rem;
+          color: #666;
+  
+          &:not(:last-child) {
+            margin-bottom: 8px;
+          }
+        }
+      }
+    }
+  }
+  

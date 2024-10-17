@@ -1,0 +1,44 @@
+input {
+  width: 500px;
+  height: 100px;
+}
+
+#print_to_screen {
+  cursor: pointer;
+  font-size: 20px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+  color: black;
+  display: inline-block;
+  margin: 0 auto;
+  text-align: center;
+  transition: background-color 0.3s ease-in-out;
+}
+#print_to_screen h1 {
+  font-size: 2rem;
+}
+#print_to_screen h2 {
+  font-size: 1.5rem;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: black;
+  background-color: burlywood;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 auto;
+  text-align: center;
+  box-shadow: 0.2rem 0.2rem;
+  transition: background-color 0.3s ease-in-out;
+}
+
+#joke {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 20px;
+  border: 4px solid black;
+}/*# sourceMappingURL=style.css.map */

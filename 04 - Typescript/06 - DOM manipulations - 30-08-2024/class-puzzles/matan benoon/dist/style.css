@@ -1,0 +1,23 @@
+#movies {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+#movies .movie-card img {
+  width: 200px;
+  height: 300px;
+  object-fit: contain;
+}
+#movies h3 {
+  font-size: 30px;
+  font-weight: bold;
+}
+#movies p {
+  font-weight: bold;
+  font-size: 25px;
+}
+#movies .rating {
+  font-weight: bold;
+  color: #f44336;
+}

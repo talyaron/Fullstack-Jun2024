@@ -1,0 +1,126 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500;700&display=swap");
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 50px;
+  background-color: white;
+  z-index: 1000;
+}
+.navbar .navbar-left,
+.navbar .navbar-right {
+  display: flex;
+  align-items: center;
+}
+.navbar .menu-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.navbar .menu-icon div {
+  width: 24px;
+  height: 3px;
+  background-color: black;
+  margin: 3px 0;
+}
+.navbar .logo img {
+  height: 30px;
+  margin-left: 10px;
+}
+.navbar .navbar-center {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  justify-content: flex-start;
+  margin-left: 20px;
+}
+.navbar .navbar-center a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+  font-size: 12px;
+}
+.navbar .navbar-right {
+  margin-right: 10px;
+}
+.navbar .navbar-right .subscribe-button {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 12px;
+}
+.navbar .navbar-right .sign-in {
+  margin-left: 20px;
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.separator {
+  height: 130px;
+  background-color: #e8e4e4;
+}
+
+.content {
+  display: flex;
+  padding: 50px 30px;
+}
+.content .feature {
+  margin-top: 40px;
+  min-width: 600px;
+  justify-content: center;
+  align-items: center;
+}
+.content .feature .feature-category {
+  display: flex;
+  font-size: 12px;
+  font-weight: 300;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  text-decoration: underline;
+  justify-content: center;
+  align-items: center;
+}
+.content .feature .feature-title {
+  display: flex;
+  font-family: "Playfair Display", serif;
+  font-size: 50px;
+  font-weight: 300;
+  justify-content: center;
+  align-items: center;
+}
+.content .feature .feature-description {
+  display: flex;
+  font-size: 18px;
+  margin-bottom: 20px;
+  justify-content: center;
+  align-items: center;
+}
+.content .feature .feature-author {
+  display: flex;
+  font-size: 12px;
+  font-weight: 300;
+  text-transform: uppercase;
+  justify-content: center;
+  align-items: center;
+}
+.content .feature-image img {
+  max-width: 600px;
+  height: auto;
+}/*# sourceMappingURL=style.css.map */

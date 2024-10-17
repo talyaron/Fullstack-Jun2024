@@ -1,0 +1,43 @@
+.mid {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row-reverse;
+  height: auto;
+  overflow-y: visible;
+}
+.mid__articles {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  width: 65vw;
+}
+.mid__articles__article {
+  direction: rtl;
+  padding: 1rem;
+  width: 30vw;
+}
+.mid__articles__article img {
+  width: 100%;
+}
+.mid__articles__article p {
+  font-weight: bold;
+  font-size: large;
+}
+.mid__chat {
+  position: sticky;
+  top: 1rem;
+  width: 15vw;
+  direction: rtl;
+  align-self: flex-start;
+  background-color: gray;
+}
+.mid__chat__message {
+  background-color: white;
+  margin: 1rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+.mid__chat__message h3 {
+  color: red;
+}/*# sourceMappingURL=style.css.map */

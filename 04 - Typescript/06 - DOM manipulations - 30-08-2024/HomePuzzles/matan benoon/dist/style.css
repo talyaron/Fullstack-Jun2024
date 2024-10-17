@@ -1,0 +1,54 @@
+#computers {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+#computers .computer-item {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+  width: 300px;
+}
+#computers .computer-item__info {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+#computers .computer-item__title {
+  font-size: 20px;
+  font-weight: bold;
+}
+#computers .computer-item img {
+  width: 100%;
+  border-radius: 50%;
+}
+#computers .computer-item .sale {
+  background-color: red;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f1f1f1;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+}
+#navbar .logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+#navbar .nav {
+  display: flex;
+  gap: 10px;
+}
+#navbar .nav a {
+  text-decoration: none;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+}

@@ -48,12 +48,20 @@ var Box = /** @class */ (function () {
         this.domElement.style.position = "absolute";
         this.domElement.style.transform = "translate(" + box.pos.spawnPos.x + "px, " + box.pos.spawnPos.y + "px)";
         containerElement.appendChild(this.domElement);
-        /// this.pos.spawnPos=box.pos.spawnPos;
-        // this.pos.edgePos={ x: box.pos.spawnPos.x + box.width, y: box.pos.spawnPos.y + box.height }
     };
     Box.prototype.die = function (box) {
         //setting the box element in the html page
         this.domElement.remove();
+    };
+    Box.prototype.resize = function (newWidth, newHeight) {
+        this.width = newWidth;
+        this.height = newHeight;
+        this.domElement.style.width = this.width + "px";
+        this.domElement.style.height = this.height + "px";
+        this.pos.edgePos = {
+            x: this.pos.spawnPos.x + this.width,
+            y: this.pos.spawnPos.y + this.height
+        };
     };
     return Box;
 }());
@@ -63,9 +71,10 @@ var Brick = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.broken = false;
         return _this;
+        // Add method to resize the brick
     }
     Brick.prototype.paint = function () {
-        this.domElement.style.backgroundColor = "" + getColor(); // Red with 50% opacity
+        this.domElement.style.backgroundColor = "" + getColor();
     };
     return Brick;
 }(Box));
@@ -122,6 +131,9 @@ var pinBall = new playCube({ x: initialPlace * 0.5, y: 440 }, 50, 50);
 //some variables for the bricks
 var boxes = [];
 var bricks = [];
+var walls = [];
+var numberOfBrickRows = 15;
+//const numberOfBricks :Brick;
 var runOnce = false;
 //colors for bricks
 var yellow = "#FFFAFA";
@@ -130,29 +142,33 @@ var red = "#B2EBF2";
 //creates the boxes and calling the render function later
 function newBox() {
     removeBoxes(boxes);
-    //holds the size of the element container
     var containerStyle = window.getComputedStyle(containerElement);
     var containerWidth = parseFloat(containerStyle.width);
     var containerHeight = parseFloat(containerStyle.height);
-    console.log("Width:", containerWidth);
+    //walls
+    //left wall
+    var wallLeft = new Box({ x: 2, y: 0 }, 0, myScreen.viewportHeight);
+    //right wall
+    var wallRight = new Box({ x: containerWidth, y: 0 }, 0, myScreen.viewportHeight);
+    //celling wall
+    var wallTop = new Box({ x: 0, y: 2 }, containerWidth, 0);
+    boxes.push(wallLeft, wallRight, wallTop);
     // Adjust the size of boxes based on container width
-    var size = containerWidth / 20; // calculate the size relative to container width (this ratio can be adjusted)
-    // Set the number of boxes and initial offset
-    var numberOfBoxes = 15;
+    var brickWidth = containerWidth / 20; // calculate the size relative to container width
+    var brickHeight = containerHeight / 30; // adjust this ratio as needed
     var offsetX = 44;
-    var totalSpacing = containerWidth - numberOfBoxes * size - 2 * offsetX;
-    var spaceX = totalSpacing / (numberOfBoxes - 1);
-    // Adjust the size of the boxes and spacing if needed
+    var totalSpacing = containerWidth - numberOfBrickRows * brickWidth - 2 * offsetX;
+    var spaceX = totalSpacing / (numberOfBrickRows - 1);
     if (!runOnce) {
-        for (var i = 0; i < numberOfBoxes; i++) {
-            var brickRow1 = new Brick({ x: offsetX, y: 50 }, size, 25);
-            var brickRow2 = new Brick({ x: offsetX, y: 80 }, size, 25);
-            var brickRow3 = new Brick({ x: offsetX, y: 110 }, size, 25);
-            var brickRow4 = new Brick({ x: offsetX, y: 140 }, size, 25);
-            var brickRow5 = new Brick({ x: offsetX, y: 170 }, size, 25);
+        for (var i = 0; i < numberOfBrickRows; i++) {
+            var brickRow1 = new Brick({ x: offsetX, y: 50 }, brickWidth, brickHeight);
+            var brickRow2 = new Brick({ x: offsetX, y: 50 + brickHeight + 5 }, brickWidth, brickHeight);
+            var brickRow3 = new Brick({ x: offsetX, y: 50 + (brickHeight + 5) * 2 }, brickWidth, brickHeight);
+            var brickRow4 = new Brick({ x: offsetX, y: 50 + (brickHeight + 5) * 3 }, brickWidth, brickHeight);
+            var brickRow5 = new Brick({ x: offsetX, y: 50 + (brickHeight + 5) * 4 }, brickWidth, brickHeight);
             boxes.push(brickRow1, brickRow2, brickRow3, brickRow4, brickRow5);
-            // Move to the next position for the next box
-            offsetX = offsetX + size + spaceX;
+            bricks.push(brickRow1, brickRow2, brickRow3, brickRow4, brickRow5);
+            offsetX = offsetX + brickWidth + spaceX;
         }
         runOnce = true;
     }
@@ -164,14 +180,7 @@ function newBox() {
     var newBox5 = new Box({ x: 1404, y: containerHeight - 50 }, 150, 50);
     var newBox6 = new Box({ x: 1704, y: containerHeight - 50 }, 150, 50);
     var newBox7 = new Box({ x: 2004, y: containerHeight - 50 }, 150, 50);
-    //walls
-    //left wall
-    var wallLeft = new Box({ x: 2, y: 0 }, 0, myScreen.viewportHeight);
-    //right wall
-    var wallRight = new Box({ x: containerWidth, y: 0 }, 0, myScreen.viewportHeight);
-    //celling wall
-    var wallTop = new Box({ x: 0, y: 2 }, containerWidth, 0);
-    boxes.push(newBox1, newBox2, newBox3, newBox4, newBox5, newBox6, newBox7, wallLeft, wallRight, wallTop);
+    boxes.push(newBox1, newBox2, newBox3, newBox4, newBox5, newBox6, newBox7);
     //initializes the pinball
     if (!pinBall.exist) {
         renderPinBall(pinBall);
@@ -183,6 +192,28 @@ function newBox() {
 //render the pinball
 function renderPinBall(box) {
     box.spawn(box);
+}
+function updateWalls() {
+    var containerStyle = window.getComputedStyle(containerElement);
+    var containerWidth = parseFloat(containerStyle.width);
+    var containerHeight = parseFloat(containerStyle.height);
+    // Update left wall
+    //boxes[0].pos.edgePos.y = 0;
+    boxes[0].height = containerHeight;
+    console.log(boxes[0].height);
+    boxes[0].die(boxes[0]);
+    boxes[0].spawn(boxes[0]);
+    // Update right wall
+    boxes[1].pos.spawnPos.x = containerWidth;
+    //boxes[1].pos.spawnPos.y = 0;
+    boxes[1].height = containerHeight;
+    boxes[1].die(boxes[1]);
+    boxes[1].spawn(boxes[1]);
+    // Update ceiling wall
+    boxes[2].pos.edgePos.y = 2;
+    boxes[2].width = containerWidth;
+    boxes[2].die(boxes[2]);
+    boxes[2].spawn(boxes[2]);
 }
 //removes the boxes
 function removeBoxes(boxes) {
@@ -273,8 +304,6 @@ function isColliding(pinBall) {
                 box.die(box);
                 pinBall.score++;
                 console.log(pinBall.score);
-                // Call the die method on the box
-                // Remove the box from the array
                 boxes.splice(index, 1);
             }
         }
@@ -295,6 +324,28 @@ function windowResized() {
     //checks if pinball is outside the play area and brings it back inside if it is
     var containerStyle = window.getComputedStyle(containerElement);
     var containerWidth = parseFloat(containerStyle.width);
+    var containerHeight = parseFloat(containerStyle.height);
+    // Recalculate brick size
+    var brickWidth = containerWidth / 20;
+    var brickHeight = containerHeight / 30;
+    var offsetX = 44;
+    var totalSpacing = containerWidth - numberOfBrickRows * brickWidth - 2 * offsetX;
+    var spaceX = totalSpacing / (numberOfBrickRows - 1);
+    // Resize and reposition bricks
+    bricks.forEach(function (brick, index) {
+        var row = Math.floor(index / numberOfBrickRows);
+        var col = index % numberOfBrickRows;
+        brick.resize(brickWidth, brickHeight);
+        brick.pos.spawnPos = {
+            x: offsetX + col * (brickWidth + spaceX),
+            y: 50 + row * (brickHeight + 5)
+        };
+        brick.pos.edgePos = {
+            x: brick.pos.spawnPos.x + brickWidth,
+            y: brick.pos.spawnPos.y + brickHeight
+        };
+        brick.domElement.style.transform = "translate(" + brick.pos.spawnPos.x + "px, " + brick.pos.spawnPos.y + "px)";
+    });
     if (pinBall.pos.edgePos.x > containerWidth) {
         //console.log("outside");
         pinBall.pos.spawnPos.x = containerWidth - pinBall.width;
@@ -312,13 +363,14 @@ function windowResized() {
         pinBall.pos.edgePos.y = pinBall.pos.spawnPos.y + pinBall.height;
         pinBall.updateTransform();
     }
-    var windowSize = window.innerWidth;
+    var windowSizeW = window.innerWidth;
+    var windowSizeH = window.innerHeight;
     //check if the view window is resized and if it is rerender the boxes accordingly
-    if (windowSize != myScreen.viewportWidth) {
+    if (windowSizeW != myScreen.viewportWidth ||
+        windowSizeH != myScreen.viewportHeight) {
         myScreen.viewportWidth = window.innerWidth;
         myScreen.viewportHeight = window.innerHeight;
-        removeBoxes(boxes);
-        newBox();
+        updateWalls();
     }
 }
 function physics(pinBall) {
@@ -424,20 +476,22 @@ function physics(pinBall) {
             pinBall.updateTransform();
         }
         else {
-            pinBall.pos.spawnPos.y = 440;
-            pinBall.pos.edgePos.y = 440;
-            pinBall.pos.spawnPos.x = innerWidth * 0.5;
-            pinBall.pos.edgePos.x = innerWidth * 0.5;
-            pinBall.ballDirectionX = 0;
-            pinBall.ballDirectionY = 0;
-            pinBall.ballVelocityX = 0;
-            pinBall.ballVelocityY = 0;
-            pinBall.lives = 0;
-            pinBall.die(pinBall);
-            lose();
+            if (pinBall.score !== bricks.length) {
+                pinBall.pos.spawnPos.y = 440;
+                pinBall.pos.edgePos.y = 440;
+                pinBall.pos.spawnPos.x = innerWidth * 0.5;
+                pinBall.pos.edgePos.x = innerWidth * 0.5;
+                pinBall.ballDirectionX = 0;
+                pinBall.ballDirectionY = 0;
+                pinBall.ballVelocityX = 0;
+                pinBall.ballVelocityY = 0;
+                pinBall.lives = 0;
+                pinBall.die(pinBall);
+                lose();
+            }
         }
     }
-    if (pinBall.score === 75 && pinBall.exist) {
+    if (pinBall.score === bricks.length && pinBall.exist) {
         win();
         pinBall.exist = false;
     }

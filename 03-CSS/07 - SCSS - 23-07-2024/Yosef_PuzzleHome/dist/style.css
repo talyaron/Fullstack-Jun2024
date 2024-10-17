@@ -1,0 +1,133 @@
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.menu {
+  margin: 0 auto;
+  position: sticky;
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+  width: 900px;
+  height: 30px;
+  top: 0;
+}
+.menu_text {
+  margin: 0 auto;
+  font-size: 18px;
+  color: white;
+}
+
+.mevzakem {
+  margin: auto;
+  font-size: 2rem;
+  font-weight: bold;
+  background-color: red;
+  width: 90px;
+  animation: blink 1s infinite;
+}
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.prsomt_on_top {
+  display: flex;
+  margin: 0 auto;
+}
+
+.prsomt_center {
+  width: 250px;
+}
+
+.ynet_logo {
+  display: flex;
+  margin: 0 auto;
+}
+
+.main_article {
+  display: flex;
+  flex-direction: row;
+  width: 700px;
+  background-color: white;
+  align-items: center;
+  margin: 0 auto;
+  border: 2px solid red;
+}
+.main_article .main_article_image {
+  padding-left: 1rem;
+  width: 350px;
+  height: 350px;
+}
+.main_article .main_article_text {
+  padding-left: rem;
+  font-size: 25px;
+}
+
+.article_red {
+  display: flex;
+  flex-direction: row;
+  width: 300px;
+  background-color: red;
+  border: 2px solid #00ff55;
+}
+.article_red_image {
+  padding-left: 1rem;
+  width: 150px;
+  height: 150px;
+}
+.article_red_text {
+  color: white;
+  padding-left: rem;
+  font-weight: bo;
+}
+
+.article_blue {
+  display: flex;
+  flex-direction: row;
+  width: 300px;
+  background-color: #1100ff;
+  border: 2px solid #00ff2a;
+}
+
+.mevzak {
+  margin: 0 auto;
+  justify-content: space-between;
+  display: flex;
+  width: 900px;
+  height: 50px;
+  background-color: white;
+  border-color: aquamarine;
+  border: 2px solid blue;
+  animation: move-right 10s infinite linear;
+}
+@keyframes move-right {
+  from {
+    transform: translateX(1000px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+.mevzak .mevzak_time {
+  font-size: 16px;
+  padding-left: rem;
+  color: darkgray;
+  font-weight: bold;
+}
+.mevzak .mevzak_text {
+  font-size: 22px;
+  padding-left: rem;
+  color: black;
+  font-weight: bold;
+}

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + ST</title>
+  </head>
+  <body>
+    <div id="form" class="container-fluid mid">
+      <div class="row g-3 align-items-center">
+        <div class="col-auto">
+          <label for="inputemail" class="col-form-label">email:</label>
+        </div>
+        <div class="col-auto">
+          <input type="email" id="inputemail" class="form-control" aria-describedby="passwordHelpInline">
+        </div>
+        <span id="emailHelpInline" class="form-text">
+          example johnDou@something.co.il .
+        </span>
+      </div>
+      <div class="row g-3 align-items-center">
+        <div class="col-auto">
+          <label for="inputphone-number" class="col-form-label">phone number:</label>
+        </div>
+        <div class="col-auto">
+          <input type="phone-number" id="inputphone-number" class="form-control" aria-describedby="passwordHelpInline">
+        </div>
+        <span id="passwordHelpInline" class="form-text">
+          Must be 10 characters long - just numbers.
+        </span>
+      </div>
+      <div class="row g-3 align-items-center">
+        <div class="col-auto">
+          <label for="inputPassword" class="col-form-label">Password:</label>
+        </div>
+        <div class="col-auto">
+          <input type="password" id="inputPassword" class="form-control" aria-describedby="passwordHelpInline">
+        </div>
+          <span id="passwordHelpInline" class="form-text">
+            Must be 8-20 characters long.
+          </span>
+      </div>
+      <button type="submit" class="btn btn-success">submit</button>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+#field {
+  background-color: green;
+  width: 90vw;
+  height: 90vh;
+}
+#field .player {
+  position: absolute;
+  transition: all 0.3s;
+  transform: translate(-50%, -50%);
+  width: 70px;
+}/*# sourceMappingURL=style.css.map */

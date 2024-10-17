@@ -1,0 +1,14 @@
+* {
+  background-color: blue;
+  color: white;
+}
+@media (max-width: 1200px) {
+  * {
+    background-color: #00ff2a;
+  }
+}
+@media (max-width: 600px) {
+  * {
+    background-color: red;
+  }
+}

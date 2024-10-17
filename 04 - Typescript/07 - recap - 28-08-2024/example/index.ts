@@ -32,3 +32,4 @@ console.log(add2(1, 2));
 const x:number[] = [1, 2, 3, 4, 5, 6]
 const y:number[] = x.map(item => item * 2);
 console.log(y);
+

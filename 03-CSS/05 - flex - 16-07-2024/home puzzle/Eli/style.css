@@ -1,0 +1,128 @@
+body {
+  text-align: center;
+  font-size: 16;
+}
+
+.pageBox {
+  display: block;
+}
+
+.titleBox {
+  display: inline-flex;
+  background-color: white;
+  position: sticky;
+  top: 0;
+  flex-direction: row;
+}
+
+#dropMenu {
+  background-color: transparent;
+  border-color: transparent;
+  transform: rotate(90deg);
+  font-size: 2.3rem;
+}
+
+#dropMenu:hover {
+  color: goldenrod;
+  cursor: pointer;
+}
+
+#logo {
+  font-style: italic;
+  letter-spacing: 5px;
+  font-size: 2.5rem;
+  padding: 15px 10px;
+}
+
+#logo:hover {
+  cursor: pointer;
+}
+
+.menuArticle {
+  font-size: 1.3rem;
+  padding: 1vw 3vw;
+  width: 7vw;
+}
+
+.menuArticle:hover {
+  text-decoration-line: underline;
+  cursor: pointer;
+}
+
+#articlesContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#articlesContainer .title {
+  font-size: 2.4rem;
+  padding: 20px;
+}
+#articlesContainer .title:hover {
+  color: goldenrod;
+  cursor: pointer;
+}
+#articlesContainer .article {
+  border-bottom: 1px solid rgba(122, 122, 122, 0.478);
+  border-top: 1px solid rgba(122, 122, 122, 0.478);
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 50px;
+  width: 40vw;
+}
+#articlesContainer .article .headline {
+  display: flex;
+  flex-direction: column;
+  width: 40vw;
+  height: 300px;
+  overflow-y: hidden;
+}
+#articlesContainer .article .imge {
+  width: 50%;
+  padding: 0 50px;
+}
+#articlesContainer .article .imgeFash {
+  width: 100%;
+}
+#articlesContainer .article .fashionColum {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  width: 100%;
+}
+#articlesContainer .article .imgesmall {
+  width: 170px;
+  height: 240px;
+}
+#articlesContainer .article .columContainer {
+  display: flex;
+  flex-direction: row;
+}
+#articlesContainer .article .columContainer .colum {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 2vw;
+  width: 7vw;
+}
+
+.cookiesFixed {
+  position: fixed;
+  left: 40vw;
+  bottom: 0;
+  width: 20%;
+  text-align: center;
+  background-color: bisque;
+  border-radius: 20%;
+}
+
+.btnCookie {
+  margin: 10px;
+  font-size: 2rem;
+  border-color: transparent;
+  background-color: chocolate;
+  border-radius: 20%;
+}
+
+.btnCookie:hover {
+  background-color: rgb(253, 153, 82);
+}/*# sourceMappingURL=style.css.map */

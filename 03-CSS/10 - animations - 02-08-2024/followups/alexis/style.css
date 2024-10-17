@@ -1,0 +1,29 @@
+.xo {
+  position: relative;
+  animation: hello;
+  animation-duration: 6s;
+  display: flex;
+  flex-direction: column;
+}
+.xo .image {
+  width: 20vw;
+  height: auto;
+  z-index: 1000;
+}
+@keyframes hello {
+  0% {
+    left: 0vw;
+  }
+  50% {
+    left: 50vw;
+  }
+  100% {
+    left: 50vw;
+  }
+}
+.xo .skate {
+  position: relative;
+  margin-top: -120px;
+  width: 20vw;
+  height: auto;
+}/*# sourceMappingURL=style.css.map */

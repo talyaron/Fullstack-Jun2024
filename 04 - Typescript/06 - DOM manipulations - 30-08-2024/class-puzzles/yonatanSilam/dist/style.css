@@ -1,0 +1,13 @@
+.card {
+  width: 400px;
+  height: 400px;
+  text-align: center;
+  padding: 1rem;
+  margin: 1rem;
+  border: 1px solid blue;
+}
+
+#allMovies {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}

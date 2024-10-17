@@ -1,0 +1,25 @@
+.title {
+  font-size: 24px;
+  animation: fadeIn 3s;
+  text-align: center;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes loop {
+  0% {
+    transform: translate(0);
+  }
+  100% {
+    transform: translate(-50%);
+  }
+}/*# sourceMappingURL=styles.css.map */

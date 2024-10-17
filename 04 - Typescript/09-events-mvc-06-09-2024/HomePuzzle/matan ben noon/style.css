@@ -1,0 +1,83 @@
+#the-form {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+#the-form input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+#the-form input::-moz-placeholder {
+  color: #888;
+  font-style: italic;
+}
+#the-form input::placeholder {
+  color: #888;
+  font-style: italic;
+}
+#the-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+#the-form button:hover {
+  background-color: #45a049;
+}
+
+#movie-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+  padding: 20px;
+}
+#movie-list li {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  list-style: none;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+#movie-list li h2 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #333;
+}
+#movie-list li p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #666;
+}
+#movie-list li img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+#movie-list li button {
+  padding: 8px 12px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}/*# sourceMappingURL=style.css.map */

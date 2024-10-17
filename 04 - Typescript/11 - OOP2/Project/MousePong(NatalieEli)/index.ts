@@ -30,7 +30,7 @@ const mousePosition: mousePos = { x: 0, y: 0, oldX: 0, oldY: 0 };
 
 class Box {
   private id: string;
-  protected domElement: HTMLDivElement;
+  domElement: HTMLDivElement;
   private position: position;
   width: number;
   height: number;
@@ -64,19 +64,29 @@ class Box {
     this.domElement.style.position = "absolute";
     this.domElement.style.transform = `translate(${box.pos.spawnPos.x}px, ${box.pos.spawnPos.y}px)`;
     containerElement.appendChild(this.domElement);
-    /// this.pos.spawnPos=box.pos.spawnPos;
-    // this.pos.edgePos={ x: box.pos.spawnPos.x + box.width, y: box.pos.spawnPos.y + box.height }
   }
   die(box: Box) {
     //setting the box element in the html page
     this.domElement.remove();
   }
+  resize(newWidth: number, newHeight: number) {
+    this.width = newWidth;
+    this.height = newHeight;
+    this.domElement.style.width = `${this.width}px`;
+    this.domElement.style.height = `${this.height}px`;
+    this.pos.edgePos = {
+      x: this.pos.spawnPos.x + this.width,
+      y: this.pos.spawnPos.y + this.height,
+    };
+  }
 }
 class Brick extends Box {
   broken: boolean = false;
   paint() {
-    this.domElement.style.backgroundColor = `${getColor()}`; // Red with 50% opacity
+    this.domElement.style.backgroundColor = `${getColor()}`;
   }
+
+  // Add method to resize the brick
 }
 
 class playCube extends Box {
@@ -152,6 +162,9 @@ const pinBall = new playCube({ x: initialPlace * 0.5, y: 440 }, 50, 50);
 //some variables for the bricks
 const boxes: Box[] = [];
 const bricks: Brick[] = [];
+const walls: Box[] = [];
+const numberOfBrickRows = 15;
+//const numberOfBricks :Brick;
 let runOnce: boolean = false;
 
 //colors for bricks
@@ -162,45 +175,9 @@ const red = "#B2EBF2";
 //creates the boxes and calling the render function later
 function newBox() {
   removeBoxes(boxes);
-  //holds the size of the element container
   const containerStyle = window.getComputedStyle(containerElement);
   const containerWidth = parseFloat(containerStyle.width);
   const containerHeight = parseFloat(containerStyle.height);
-  console.log("Width:", containerWidth);
-
-  // Adjust the size of boxes based on container width
-  const size = containerWidth / 20; // calculate the size relative to container width (this ratio can be adjusted)
-
-  // Set the number of boxes and initial offset
-  const numberOfBoxes = 15;
-  let offsetX = 44;
-  const totalSpacing = containerWidth - numberOfBoxes * size - 2 * offsetX;
-  const spaceX = totalSpacing / (numberOfBoxes - 1);
-
-  // Adjust the size of the boxes and spacing if needed
-  if (!runOnce) {
-    for (let i = 0; i < numberOfBoxes; i++) {
-      const brickRow1 = new Brick({ x: offsetX, y: 50 }, size, 25);
-      const brickRow2 = new Brick({ x: offsetX, y: 80 }, size, 25);
-      const brickRow3 = new Brick({ x: offsetX, y: 110 }, size, 25);
-      const brickRow4 = new Brick({ x: offsetX, y: 140 }, size, 25);
-      const brickRow5 = new Brick({ x: offsetX, y: 170 }, size, 25);
-
-      boxes.push(brickRow1, brickRow2, brickRow3, brickRow4, brickRow5);
-
-      // Move to the next position for the next box
-      offsetX = offsetX + size + spaceX;
-    }
-    runOnce = true;
-  }
-  //boxes under
-  const newBox1 = new Box({ x: 204, y: containerHeight - 50 }, 150, 50);
-  const newBox2 = new Box({ x: 504, y: containerHeight - 50 }, 150, 50);
-  const newBox3 = new Box({ x: 804, y: containerHeight - 50 }, 150, 50);
-  const newBox4 = new Box({ x: 1104, y: containerHeight - 50 }, 150, 50);
-  const newBox5 = new Box({ x: 1404, y: containerHeight - 50 }, 150, 50);
-  const newBox6 = new Box({ x: 1704, y: containerHeight - 50 }, 150, 50);
-  const newBox7 = new Box({ x: 2004, y: containerHeight - 50 }, 150, 50);
 
   //walls
   //left wall
@@ -214,19 +191,61 @@ function newBox() {
   //celling wall
   const wallTop = new Box({ x: 0, y: 2 }, containerWidth, 0);
 
-  boxes.push(
-    newBox1,
-    newBox2,
-    newBox3,
-    newBox4,
-    newBox5,
-    newBox6,
-    newBox7,
-    wallLeft,
-    wallRight,
-    wallTop
-  );
+  boxes.push(wallLeft, wallRight, wallTop);
 
+  // Adjust the size of boxes based on container width
+  const brickWidth = containerWidth / 20; // calculate the size relative to container width
+  const brickHeight = containerHeight / 30; // adjust this ratio as needed
+
+  let offsetX = 44;
+  const totalSpacing =
+    containerWidth - numberOfBrickRows * brickWidth - 2 * offsetX;
+  const spaceX = totalSpacing / (numberOfBrickRows - 1);
+
+  if (!runOnce) {
+    for (let i = 0; i < numberOfBrickRows; i++) {
+      const brickRow1 = new Brick(
+        { x: offsetX, y: 50 },
+        brickWidth,
+        brickHeight
+      );
+      const brickRow2 = new Brick(
+        { x: offsetX, y: 50 + brickHeight + 5 },
+        brickWidth,
+        brickHeight
+      );
+      const brickRow3 = new Brick(
+        { x: offsetX, y: 50 + (brickHeight + 5) * 2 },
+        brickWidth,
+        brickHeight
+      );
+      const brickRow4 = new Brick(
+        { x: offsetX, y: 50 + (brickHeight + 5) * 3 },
+        brickWidth,
+        brickHeight
+      );
+      const brickRow5 = new Brick(
+        { x: offsetX, y: 50 + (brickHeight + 5) * 4 },
+        brickWidth,
+        brickHeight
+      );
+
+      boxes.push(brickRow1, brickRow2, brickRow3, brickRow4, brickRow5);
+      bricks.push(brickRow1, brickRow2, brickRow3, brickRow4, brickRow5);
+      offsetX = offsetX + brickWidth + spaceX;
+    }
+    runOnce = true;
+  }
+  //boxes under
+  const newBox1 = new Box({ x: 204, y: containerHeight - 50 }, 150, 50);
+  const newBox2 = new Box({ x: 504, y: containerHeight - 50 }, 150, 50);
+  const newBox3 = new Box({ x: 804, y: containerHeight - 50 }, 150, 50);
+  const newBox4 = new Box({ x: 1104, y: containerHeight - 50 }, 150, 50);
+  const newBox5 = new Box({ x: 1404, y: containerHeight - 50 }, 150, 50);
+  const newBox6 = new Box({ x: 1704, y: containerHeight - 50 }, 150, 50);
+  const newBox7 = new Box({ x: 2004, y: containerHeight - 50 }, 150, 50);
+
+  boxes.push(newBox1, newBox2, newBox3, newBox4, newBox5, newBox6, newBox7);
   //initializes the pinball
   if (!pinBall.exist) {
     renderPinBall(pinBall);
@@ -240,7 +259,29 @@ function newBox() {
 function renderPinBall(box: Box) {
   box.spawn(box);
 }
+function updateWalls() {
+  const containerStyle = window.getComputedStyle(containerElement);
+  const containerWidth = parseFloat(containerStyle.width);
+  const containerHeight = parseFloat(containerStyle.height);
 
+  // Update left wall
+  //boxes[0].pos.edgePos.y = 0;
+  boxes[0].height = containerHeight;
+  console.log(boxes[0].height);
+  boxes[0].die(boxes[0]);
+  boxes[0].spawn(boxes[0]);
+  // Update right wall
+  boxes[1].pos.spawnPos.x = containerWidth;
+  //boxes[1].pos.spawnPos.y = 0;
+  boxes[1].height = containerHeight;
+  boxes[1].die(boxes[1]);
+  boxes[1].spawn(boxes[1]);
+  // Update ceiling wall
+  boxes[2].pos.edgePos.y = 2;
+  boxes[2].width = containerWidth;
+  boxes[2].die(boxes[2]);
+  boxes[2].spawn(boxes[2]);
+}
 //removes the boxes
 function removeBoxes(boxes: Box[]) {
   boxes.forEach((box) => {
@@ -363,10 +404,6 @@ function isColliding(pinBall: playCube): {
         box.die(box);
         pinBall.score++;
         console.log(pinBall.score);
-
-        // Call the die method on the box
-
-        // Remove the box from the array
         boxes.splice(index, 1);
       }
     }
@@ -390,8 +427,37 @@ pinBall.gravity = false;
 
 function windowResized() {
   //checks if pinball is outside the play area and brings it back inside if it is
+
   const containerStyle = window.getComputedStyle(containerElement);
   const containerWidth = parseFloat(containerStyle.width);
+  const containerHeight = parseFloat(containerStyle.height);
+
+  // Recalculate brick size
+  const brickWidth = containerWidth / 20;
+  const brickHeight = containerHeight / 30;
+
+  let offsetX = 44;
+  const totalSpacing =
+    containerWidth - numberOfBrickRows * brickWidth - 2 * offsetX;
+  const spaceX = totalSpacing / (numberOfBrickRows - 1);
+
+  // Resize and reposition bricks
+  bricks.forEach((brick, index) => {
+    const row = Math.floor(index / numberOfBrickRows);
+    const col = index % numberOfBrickRows;
+
+    brick.resize(brickWidth, brickHeight);
+    brick.pos.spawnPos = {
+      x: offsetX + col * (brickWidth + spaceX),
+      y: 50 + row * (brickHeight + 5),
+    };
+    brick.pos.edgePos = {
+      x: brick.pos.spawnPos.x + brickWidth,
+      y: brick.pos.spawnPos.y + brickHeight,
+    };
+    brick.domElement.style.transform = `translate(${brick.pos.spawnPos.x}px, ${brick.pos.spawnPos.y}px)`;
+  });
+
   if (pinBall.pos.edgePos.x > containerWidth) {
     //console.log("outside");
     pinBall.pos.spawnPos.x = containerWidth - pinBall.width;
@@ -415,14 +481,16 @@ function windowResized() {
     pinBall.updateTransform();
   }
 
-  const windowSize = window.innerWidth;
-
+  const windowSizeW = window.innerWidth;
+  const windowSizeH = window.innerHeight;
   //check if the view window is resized and if it is rerender the boxes accordingly
-  if (windowSize != myScreen.viewportWidth) {
+  if (
+    windowSizeW != myScreen.viewportWidth ||
+    windowSizeH != myScreen.viewportHeight
+  ) {
     myScreen.viewportWidth = window.innerWidth;
     myScreen.viewportHeight = window.innerHeight;
-    removeBoxes(boxes);
-    newBox();
+    updateWalls();
   }
 }
 
@@ -555,22 +623,24 @@ function physics(pinBall: playCube) {
       pinBall.lives--;
       pinBall.updateTransform();
     } else {
-      pinBall.pos.spawnPos.y = 440;
-      pinBall.pos.edgePos.y = 440;
-      pinBall.pos.spawnPos.x = innerWidth * 0.5;
-      pinBall.pos.edgePos.x = innerWidth * 0.5;
+      if (pinBall.score !== bricks.length) {
+        pinBall.pos.spawnPos.y = 440;
+        pinBall.pos.edgePos.y = 440;
+        pinBall.pos.spawnPos.x = innerWidth * 0.5;
+        pinBall.pos.edgePos.x = innerWidth * 0.5;
 
-      pinBall.ballDirectionX = 0;
-      pinBall.ballDirectionY = 0;
+        pinBall.ballDirectionX = 0;
+        pinBall.ballDirectionY = 0;
 
-      pinBall.ballVelocityX = 0;
-      pinBall.ballVelocityY = 0;
-      pinBall.lives = 0;
-      pinBall.die(pinBall);
-      lose();
+        pinBall.ballVelocityX = 0;
+        pinBall.ballVelocityY = 0;
+        pinBall.lives = 0;
+        pinBall.die(pinBall);
+        lose();
+      }
     }
   }
-  if (pinBall.score === 75 && pinBall.exist) {
+  if (pinBall.score === bricks.length && pinBall.exist) {
     win();
     pinBall.exist = false;
   }
