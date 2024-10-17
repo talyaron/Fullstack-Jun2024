@@ -1,5 +1,5 @@
 import './header.scss'
-export function renderHeader(): string
+export function createHeader(): string
 {
     return `
     <header>
