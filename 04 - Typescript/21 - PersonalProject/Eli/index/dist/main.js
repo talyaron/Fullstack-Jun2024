@@ -1,0 +1,2 @@
+renderWelcome();
+addListeners();
