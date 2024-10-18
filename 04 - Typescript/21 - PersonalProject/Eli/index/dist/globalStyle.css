@@ -1,17 +1,24 @@
 body {
   font-family: sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-.title, h1, h2, h3 {
+.title,
+h1,
+h2,
+h3 {
   font-size: 22px;
 }
 
-.regular-text, p {
+.regular-text,
+p {
   font-size: 18px;
   margin-top: 0;
 }
 
-.note, .small-text {
+.note,
+.small-text {
   font-size: 16px;
 }
 
@@ -31,6 +38,41 @@ body {
   background-color: #99bbff;
 }
 
+#navContainer {
+  width: 20vw;
+  height: 90vh;
+  background-color: #3377ff;
+  border-radius: 20px;
+  margin-top: 5vh;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.navBtn {
+  background-color: transparent;
+  border: none;
+  margin: 0 auto;
+  margin-top: 6vh;
+  font-size: 2vw;
+  text-align: left;
+  border-radius: 20px;
+}
+.navBtn:hover {
+  background-color: rgba(255, 255, 255, 0.434);
+  transition: all 300ms;
+  transform: translateY(-2px);
+}
+
+.selected {
+  background-color: rgba(63, 64, 63, 0.591);
+  color: white;
+}
+.selected:hover {
+  background-color: rgba(63, 64, 63, 0.591);
+  transform: translateY(0);
+}
+
 .btn:active {
   background-color: #99bbff;
 }
@@ -38,7 +80,7 @@ body {
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   background-color: #e3edff;
   height: 80vh;
@@ -57,7 +99,7 @@ body {
 input {
   margin: 0 auto;
   padding: 5px;
-  border: 1px solid #4D4D4D;
+  border: 1px solid #4d4d4d;
   border-radius: 4px;
   font-size: 1rem;
   width: 35vh;
