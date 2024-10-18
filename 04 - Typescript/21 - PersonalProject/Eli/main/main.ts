@@ -5,6 +5,64 @@ const mainElement = document.getElementById("content") as HTMLElement;
 const localStorageDetail = localStorage.getItem("users");
 const users:any[] = localStorageDetail ? JSON.parse(localStorageDetail) : [];
 
+
+class FormValidator {
+  name: string;
+  email: string;
+  phoneNum: string;
+  password: string;
+  rePassword: string;
+  regN: RegExp;
+  regE: RegExp;
+  regPn: RegExp;
+  regP: RegExp;
+
+  constructor(
+    name: string,
+    email: string,
+    phoneNum: string,
+    password: string,
+    rePassword: string
+  ) {
+    this.name = name;
+    this.email = email;
+    this.phoneNum = phoneNum;
+    this.password = password;
+    this.rePassword = rePassword;
+
+    this.regN = /^[a-zA-Z\s'-]+$/;
+    this.regE = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    this.regPn = /^(?:05\d{1})\d{7}$/;
+    this.regP =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+  }
+  isNameValid() {
+    if (this.regN.test(this.name) == false) return "invalid name";
+    return null;
+  }
+  isEmailValid() {
+    if (this.regE.test(this.email) == false)
+      return "invalid email : email needs @ and a .com ending";
+    return null;
+  }
+  isPhoneNumValid() {
+    if (this.regPn.test(this.phoneNum) == false)
+      return "invalid phone number : use numbers only with the right length";
+    return null;
+  }
+  isPasswordValid() {
+    if (this.regP.test(this.password) == false)
+      return "invalid password : password requires one Uppercase letter <br> and one special letter(@#!$%#^&*)";
+    return null;
+  }
+  isRePasswordValid() {
+    if (this.rePassword !== this.password)
+      return "invalid repeat password: required to be the same as password";
+    return null;
+  }
+}
+
+
 function redirectIndex() {
   mainElement.innerHTML = `<div class="container">
     <h1>Log in to view main</h1>
@@ -98,15 +156,91 @@ const pageProfile = `<div id="leftRight" >
 <div><h1> <input type="file" id="imageInput" accept="image/*" ></h1></div>
 </div><div id ="profileRight">
 
-<div id="form">
+<div id="userForm" on >
 <h1>name: ${loggedUser.name}<h1/>
 <h1>email:  ${loggedUser.email}<h1/>
 <h1> phone number:${loggedUser.phone}<h1/>
 <h1>password: ${hiddenPassword()}<h1/>
-<button class="btn" id="editButton"><h1>edit</h1></button>
+<button class="btn" id="editButton" onclick ="editUser()"><h1>edit</h1></button>
 </div>
 </div></div>`;
 
+function checkForm(event: Event) {
+  event.preventDefault();
+
+  const formData = new FormData(event.target as HTMLFormElement);
+  const name = formData.get("name") as string;
+  const email = formData.get("email") as string;
+  const phoneNum = formData.get("phoneNum") as string;
+  const password = formData.get("password") as string;
+  const RePassword = formData.get("RePassword") as string;
+  
+
+  const formValidator = new FormValidator(
+    name,
+    email,
+    phoneNum,
+    password,
+    RePassword
+  );
+  const resultN = formValidator.isNameValid();
+  const resultE = formValidator.isEmailValid();
+  const resultPN = formValidator.isPhoneNumValid();
+  const resultP = formValidator.isPasswordValid();
+  const resultRP = formValidator.isRePasswordValid();
+
+
+
+    // Update loggedUser properties if they have values
+    console.log("aaaaa "+ resultN + name)
+    if (resultN ===null && name!=loggedUser.name) {
+      loggedUser.name = name;
+      console.log("new name "+ name + loggedUser.name)
+    }
+    if (resultE ===null && email!=loggedUser.email) {
+      loggedUser.email = email;
+    }
+    if (resultPN ===null&& phoneNum!=loggedUser.phoneNum) {
+      loggedUser.phone = phoneNum;
+    }
+    if (resultP ===null&& resultRP===null&& password!=loggedUser.password) {
+      loggedUser.password = password; 
+    }
+
+    localStorage.setItem('loggedUser', JSON.stringify(loggedUser)); 
+
+    console.log("User updated successfully:", loggedUser);
+ upDateUsers(loggedUser);
+ window.location.reload();
+}
+
+
+
+function editUser()
+{
+  const formElement = document.getElementById("userForm") as HTMLElement;
+  formElement.innerHTML=` <Form id="form" onsubmit="checkForm(event)">
+  <input type="text" name="name" id="name" placeholder="${loggedUser.name}">
+      <p id="nameDesc"></p>
+
+      <input type="text" name="email" id="email" placeholder="${loggedUser.email}">
+      <p id="emailDesc"></p>
+
+      <input type="text" name="phoneNum" id="phoneNum" placeholder="${loggedUser.phone}">
+      <p id="phoneNumDesc"></p>
+
+      <input type="password" name="password" id="password" placeholder="${hiddenPassword()}">
+      <p id="passwordDesc"></p>
+      
+      <input type="password" name="RePassword" id="RePassword" placeholder="repeat password">
+      <p id="RePasswordDesc"></p>
+
+     <br>
+
+      <input type="submit" value="Edit" class="btn">
+</Form>`;
+  console.log("eldeennene");
+}
 
 const pageCourses = `dfdfsssssssssssssssssssdf`;
 const pageZoom = `dffaaaaaaaaaaaaaaaaaad`;

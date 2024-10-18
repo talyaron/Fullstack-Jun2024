@@ -15,7 +15,7 @@
   width: 90%;
 }
 
-#form {
+#userForm {
   display: flex;
   flex-direction: column;
   width: 25vw;
@@ -24,51 +24,51 @@
   justify-content: center;
   background-color: #aab7e0;
 }
-#form h1 {
+#userForm h1 {
   font-size: 1rem;
 }
 @media (max-width: 800px) {
-  #form h1 {
+  #userForm h1 {
     font-size: 0.5rem;
   }
 }
 @media (min-width: 800px) {
-  #form h1 {
+  #userForm h1 {
     font-size: 0.7rem;
   }
 }
 @media (min-width: 1200px) {
-  #form h1 {
+  #userForm h1 {
     font-size: 1rem;
   }
 }
 @media (min-width: 2400px) {
-  #form h1 {
+  #userForm h1 {
     font-size: 1.2rem;
   }
 }
-#form button {
+#userForm button {
   font-size: 1rem;
 }
 @media (max-width: 800px) {
-  #form button {
+  #userForm button {
     font-size: 0.5rem;
     width: 10vw;
   }
 }
 @media (min-width: 800px) {
-  #form button {
+  #userForm button {
     font-size: 0.7rem;
     width: 15vw;
   }
 }
 @media (min-width: 1200px) {
-  #form button {
+  #userForm button {
     font-size: 1rem;
   }
 }
 @media (min-width: 2400px) {
-  #form button {
+  #userForm button {
     font-size: 1.2rem;
   }
 }

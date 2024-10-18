@@ -14,6 +14,46 @@ var loggedUser = localStorageUser ? JSON.parse(localStorageUser) : "";
 var mainElement = document.getElementById("content");
 var localStorageDetail = localStorage.getItem("users");
 var users = localStorageDetail ? JSON.parse(localStorageDetail) : [];
+var FormValidator = /** @class */ (function () {
+    function FormValidator(name, email, phoneNum, password, rePassword) {
+        this.name = name;
+        this.email = email;
+        this.phoneNum = phoneNum;
+        this.password = password;
+        this.rePassword = rePassword;
+        this.regN = /^[a-zA-Z\s'-]+$/;
+        this.regE = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        this.regPn = /^(?:05\d{1})\d{7}$/;
+        this.regP =
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    }
+    FormValidator.prototype.isNameValid = function () {
+        if (this.regN.test(this.name) == false)
+            return "invalid name";
+        return null;
+    };
+    FormValidator.prototype.isEmailValid = function () {
+        if (this.regE.test(this.email) == false)
+            return "invalid email : email needs @ and a .com ending";
+        return null;
+    };
+    FormValidator.prototype.isPhoneNumValid = function () {
+        if (this.regPn.test(this.phoneNum) == false)
+            return "invalid phone number : use numbers only with the right length";
+        return null;
+    };
+    FormValidator.prototype.isPasswordValid = function () {
+        if (this.regP.test(this.password) == false)
+            return "invalid password : password requires one Uppercase letter <br> and one special letter(@#!$%#^&*)";
+        return null;
+    };
+    FormValidator.prototype.isRePasswordValid = function () {
+        if (this.rePassword !== this.password)
+            return "invalid repeat password: required to be the same as password";
+        return null;
+    };
+    return FormValidator;
+}());
 function redirectIndex() {
     mainElement.innerHTML = "<div class=\"container\">\n    <h1>Log in to view main</h1>\n    <h3>you are redirected to the welcome screen</h3>\n</div>";
     setTimeout(function () {
@@ -30,7 +70,46 @@ function renderMain() {
     }
 }
 var pageDashboard = "<div id=\"userDetails\">\n  <!-- Text Section -->\n  <div id=\"text\">\n    <h1>Welcome " + loggedUser.name + "</h1>\n    <h2>" + loggedUser.name + " hi</h2>\n    <h3>" + loggedUser.email + "</h3>\n  </div>\n\n  <!-- Chart Section -->\n  <div id=\"chart\">\n    <div class=\"circle\">\n      <div class=\"innerCircle\">\n        <h1>Progress</h1>\n      </div>\n    </div>\n  </div>\n</div>\n\n<!-- Bottom Container -->\n<div id=\"bottomContainer\">\n  <!-- Bottom Left Page -->\n  <div id=\"bottomLeftPage\">\n    <div id=\"boxContainer\">\n      <div class=\"box\">\n        <h1>Last lesson<h1>\n      </div>\n      <div class=\"box\">\n        <h1>Grade<h1>\n      </div>\n      <div class=\"box\">\n         <h1>Attendance<h1>      \n      </div>\n    </div>\n     <div id=\"longBox\">\n     <h1>where is my money<h1>\n     </div>\n  </div>\n\n  <!-- Bottom Right Page -->\n  <div id=\"bottomRightPage\">\n    <div id =\"calender\">\n      <h1>Calender</h1>\n    </div>\n  </div>\n</div>\n";
-var pageProfile = "<div id=\"leftRight\" >\n<div id =\"profileLeft\">\n<div class=\"circle\"><img id=\"imagePreview\"  src=\"" + checkUserImage() + "\" alt =\"profile picture\"></div>\n<div><h1> <input type=\"file\" id=\"imageInput\" accept=\"image/*\" ></h1></div>\n</div><div id =\"profileRight\">\n\n<div id=\"form\">\n<h1>name: " + loggedUser.name + "<h1/>\n<h1>email:  " + loggedUser.email + "<h1/>\n<h1> phone number:" + loggedUser.phone + "<h1/>\n<h1>password: " + hiddenPassword() + "<h1/>\n<button class=\"btn\" id=\"editButton\"><h1>edit</h1></button>\n</div>\n</div></div>";
+var pageProfile = "<div id=\"leftRight\" >\n<div id =\"profileLeft\">\n<div class=\"circle\"><img id=\"imagePreview\"  src=\"" + checkUserImage() + "\" alt =\"profile picture\"></div>\n<div><h1> <input type=\"file\" id=\"imageInput\" accept=\"image/*\" ></h1></div>\n</div><div id =\"profileRight\">\n\n<div id=\"userForm\" on >\n<h1>name: " + loggedUser.name + "<h1/>\n<h1>email:  " + loggedUser.email + "<h1/>\n<h1> phone number:" + loggedUser.phone + "<h1/>\n<h1>password: " + hiddenPassword() + "<h1/>\n<button class=\"btn\" id=\"editButton\" onclick =\"editUser()\"><h1>edit</h1></button>\n</div>\n</div></div>";
+function checkForm(event) {
+    event.preventDefault();
+    var formData = new FormData(event.target);
+    var name = formData.get("name");
+    var email = formData.get("email");
+    var phoneNum = formData.get("phoneNum");
+    var password = formData.get("password");
+    var RePassword = formData.get("RePassword");
+    var formValidator = new FormValidator(name, email, phoneNum, password, RePassword);
+    var resultN = formValidator.isNameValid();
+    var resultE = formValidator.isEmailValid();
+    var resultPN = formValidator.isPhoneNumValid();
+    var resultP = formValidator.isPasswordValid();
+    var resultRP = formValidator.isRePasswordValid();
+    // Update loggedUser properties if they have values
+    console.log("aaaaa " + resultN + name);
+    if (resultN === null && name != loggedUser.name) {
+        loggedUser.name = name;
+        console.log("new name " + name + loggedUser.name);
+    }
+    if (resultE === null && email != loggedUser.email) {
+        loggedUser.email = email;
+    }
+    if (resultPN === null && phoneNum != loggedUser.phoneNum) {
+        loggedUser.phone = phoneNum;
+    }
+    if (resultP === null && resultRP === null && password != loggedUser.password) {
+        loggedUser.password = password;
+    }
+    localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
+    console.log("User updated successfully:", loggedUser);
+    upDateUsers(loggedUser);
+    window.location.reload();
+}
+function editUser() {
+    var formElement = document.getElementById("userForm");
+    formElement.innerHTML = " <Form id=\"form\" onsubmit=\"checkForm(event)\">\n  <input type=\"text\" name=\"name\" id=\"name\" placeholder=\"" + loggedUser.name + "\">\n      <p id=\"nameDesc\"></p>\n\n      <input type=\"text\" name=\"email\" id=\"email\" placeholder=\"" + loggedUser.email + "\">\n      <p id=\"emailDesc\"></p>\n\n      <input type=\"text\" name=\"phoneNum\" id=\"phoneNum\" placeholder=\"" + loggedUser.phone + "\">\n      <p id=\"phoneNumDesc\"></p>\n\n      <input type=\"password\" name=\"password\" id=\"password\" placeholder=\"" + hiddenPassword() + "\">\n      <p id=\"passwordDesc\"></p>\n      \n      <input type=\"password\" name=\"RePassword\" id=\"RePassword\" placeholder=\"repeat password\">\n      <p id=\"RePasswordDesc\"></p>\n\n     <br>\n\n      <input type=\"submit\" value=\"Edit\" class=\"btn\">\n</Form>";
+    console.log("eldeennene");
+}
 var pageCourses = "dfdfsssssssssssssssssssdf";
 var pageZoom = "dffaaaaaaaaaaaaaaaaaad";
 var pageForum = "dfdaaaaaaaaaaaaaaaaaf";
