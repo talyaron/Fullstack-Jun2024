@@ -1,7 +1,7 @@
 import { createContainer } from '../../components/container/container';
 import { createButton } from '../../components/button/button';
-import { renderRegister } from '../register/register';
-import { renderLogin } from '../login/login';
+import { renderRegister } from '../register/registerPage';
+import { renderLogin } from '../login/loginPage';
 import '../../components/container/container.scss';
 
 export function renderWelcomePage(): string {

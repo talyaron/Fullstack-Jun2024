@@ -7,16 +7,22 @@ export function renderRegister(): string {
   const content = `
     <h1>Register</h1>
     <form id="registerForm">
-      ${createInput("Full Name", "fullName")}
-      ${createInput("Phone", "phone")}
-      ${createInput("Email", "email")}
-      ${createInput("Password", "password")}
-      ${createInput("Repeat Password", "passwordRepeat")}
-      <div class="terms">
-        <input type="checkbox" id="terms" />
-        <label for="terms">I accept the terms and conditions</label>
-      </div>
-      ${createButton("Register", "registerButton")}
+        <label for="fullName"></label>
+                <input type="text" id="fullName" name="fullName" required placeholder="Full Name:">
+                <label for="email"></label>
+                <input type="email"  id="email" name="email" required placeholder="Email:">
+                <label for="phone"></label>
+                <input type="text" id="phone" name="phone" required placeholder="Phone:">
+                <label for="password"></label>
+                <input type="password"  id="password" name="password" required placeholder="Password:">
+                <label for="repeatPassword"></label>
+                <input type="password id="repeatPassword" name="repeatPassword" required placeholder="Repeat Password:">
+       <div class="terms">
+            <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+            <label for="agreeTerms">I agree to the  <a href="#">Terms and Conditions</a></label>
+        </div>
+            <button class="btn" type="submit">Register</button>
+                <button class="btn" type="submit">Back to login</button>
     </form>
   `;
   
@@ -40,26 +46,6 @@ function handleRegisterSubmit(event: Event) {
   const passwordRepeat = (document.querySelector('input[name="passwordRepeat"]') as HTMLInputElement).value;
   const termsAccepted = (document.querySelector('input[name="terms"]') as HTMLInputElement).checked;
 
-  // Validate phone
-  const phoneRegex = /^\d{9}$/;
-  if (!phoneRegex.test(phone)) {
-    alert("Phone number must be exactly 9 digits.");
-    return;
-  }
-
-  // Validate email
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    alert("Please enter a valid email address.");
-    return;
-  }
-
-  // Validate passwords match
-  if (password !== passwordRepeat) {
-    alert("Passwords do not match.");
-    return;
-  }
-
   if (!termsAccepted) {
     alert("You must accept the terms and conditions.");
     return;
@@ -67,10 +53,11 @@ function handleRegisterSubmit(event: Event) {
 
   try {
     registerUser(fullName, email, password, passwordRepeat, phone);
-    alert("Registration successful! You can now log in.");
-    window.location.href = "login.html";
+    
+    alert("Registration successful! You will now be redirected to the login page.");
+    
+    window.location.href = "loginPage.ts";  
   } catch (error) {
-    console.error("Error during registration:", error);
-    alert("Registration failed.");
+    alert("error!");
   }
 }
