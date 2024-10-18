@@ -15,6 +15,64 @@
   width: 90%;
 }
 
+#form {
+  display: flex;
+  flex-direction: column;
+  width: 25vw;
+  height: 50vh;
+  border-radius: 30px;
+  justify-content: center;
+  background-color: #aab7e0;
+}
+#form h1 {
+  font-size: 1rem;
+}
+@media (max-width: 800px) {
+  #form h1 {
+    font-size: 0.5rem;
+  }
+}
+@media (min-width: 800px) {
+  #form h1 {
+    font-size: 0.7rem;
+  }
+}
+@media (min-width: 1200px) {
+  #form h1 {
+    font-size: 1rem;
+  }
+}
+@media (min-width: 2400px) {
+  #form h1 {
+    font-size: 1.2rem;
+  }
+}
+#form button {
+  font-size: 1rem;
+}
+@media (max-width: 800px) {
+  #form button {
+    font-size: 0.5rem;
+    width: 10vw;
+  }
+}
+@media (min-width: 800px) {
+  #form button {
+    font-size: 0.7rem;
+    width: 15vw;
+  }
+}
+@media (min-width: 1200px) {
+  #form button {
+    font-size: 1rem;
+  }
+}
+@media (min-width: 2400px) {
+  #form button {
+    font-size: 1.2rem;
+  }
+}
+
 #text {
   width: 50%;
   height: 100%;
@@ -105,6 +163,45 @@
   align-items: center;
   color: white;
   margin-top: 5%;
+}
+
+#leftRight {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+#profileLeft {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  justify-content: center;
+}
+#profileLeft .circle {
+  margin: 0 auto;
+  width: 20vw;
+  height: 20vw;
+  background-color: #ffffff;
+  border-radius: 50%;
+  min-width: 150px;
+  min-height: 150px;
+  overflow: hidden;
+}
+#profileLeft .circle img {
+  width: 100%;
+  height: 100%;
+}
+
+#profileRight {
+  width: 70%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 #calender {

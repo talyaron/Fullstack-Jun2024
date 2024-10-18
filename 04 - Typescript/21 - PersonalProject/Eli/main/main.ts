@@ -20,8 +20,8 @@ function renderMain() {
         <div id="pageHolder">
         <nav id="navContainer">
         <div id="logo">Pedago</div>
-        <button class="navBtn selected" id="Dashboard">Dashboard</button >
-        <button class="navBtn " id="Profile">Profile</button >
+        <button class="navBtn " id="Dashboard">Dashboard</button >
+        <button class="navBtn selected" id="Profile">Profile</button >
         <button class="navBtn " id="Courses">Courses</button >
         <button class="navBtn " id="Zoom">Zoom</button >
         <button class="navBtn" id="Forum">Forum</button >
@@ -31,7 +31,7 @@ function renderMain() {
          <div id ="topBar">
          <input type="text" id="search" placeholder="search...">
          <div id="downArrow">▼</div> 
-         <div id="pfp"><img src="../assets/human.svg"></div>
+         <div id="pfp"><img id="pfpImg"src="${checkUserImage()}" alt="profile Picture"></div>
          </div>  
 
         <div class="container" id="pageContent">
@@ -88,12 +88,34 @@ const pageDashboard = `<div id="userDetails">
 </div>
 `;
 
-const pageProfile = `dfddddddddddddf`;
+const pageProfile = `<div id="leftRight">
+<div id ="profileLeft">
+<div class="circle"><img id="imagePreview"  src="${checkUserImage()}" alt ="profile picture"></div>
+<div><h1> <input type="file" id="imageInput" accept="image/*"${setTimeout(() => addPhoto(), 300)}></h1></div>
+</div><div id ="profileRight">
+
+<div id="form">
+<h1>name: ${loggedUser.name}<h1/>
+<h1>email:  ${loggedUser.email}<h1/>
+<h1> phone number:${loggedUser.phone}<h1/>
+<h1>password: ${hiddenPassword()}<h1/>
+<button class="btn" id="editButton"><h1>edit</h1></button>
+</div>
+</div></div>`;
+
+
 const pageCourses = `dfdfsssssssssssssssssssdf`;
 const pageZoom = `dffaaaaaaaaaaaaaaaaaad`;
 const pageForum = `dfdaaaaaaaaaaaaaaaaaf`;
 const pageLessons = `dfdaaaaaaaaaaaaaaf`;
+function checkUserImage():string
+{
+    if(loggedUser.img){
+        return loggedUser.img
+    }
 
+    return "../assets/human.svg";
+}
 const pages: { [key: string]: string } = {
   Dashboard: pageDashboard,
   Profile: pageProfile,
@@ -102,11 +124,53 @@ const pages: { [key: string]: string } = {
   Forum: pageForum,
   Lessons: pageLessons,
 };
+function addPhoto()
+{
+    const imageInput = document.getElementById('imageInput') as HTMLInputElement;
+    const imagePreview = document.getElementById('imagePreview') as HTMLImageElement;
+    const imgPfp =document.getElementById("pfpImg")as HTMLImageElement;
+    if (!imageInput) {
+        console.error("Image input not found!");
+        return;
+    }
+
+    // Event listener for when a user selects an image
+    imageInput.addEventListener('change', function(event) {
+        const target = event.target as HTMLInputElement; // Cast event.target to HTMLInputElement
+        if (!target.files || target.files.length === 0) return;
+
+        const file = target.files[0]; // Get the first file selected
+        if (file) {
+            const reader = new FileReader();
+
+            // Load the image as a data URL
+            reader.onload = function(e) {
+                if (e.target && e.target.result) {
+                    const imageUrl = e.target.result as string;  // Get the image URL
+                    imagePreview.src = imageUrl;  // Set the image preview source
+                    imagePreview.style.display = 'block'; // Show the preview
+                    imgPfp.src = imageUrl;
+                    // Update loggedUser.img with the uploaded image URL
+                    loggedUser.img=imageUrl;
+                    localStorage.setItem(`loggedUser`,JSON.stringify(loggedUser));
+                    console.log("Image updated for loggedUser:", loggedUser);
+                }
+            };
+
+            reader.readAsDataURL(file);  // Read the file as a data URL (base64 encoded string)
+        }
+    });
+}
+
+function hiddenPassword():string
+{
+    const asterisks = '*'.repeat(loggedUser.password.length); 
+    return asterisks;
+}
 
 function checkSelected(): string {
   const selectedPart = document.querySelector(".selected") as HTMLElement;
   const translate = selectedPart.innerText.trim();
-  console.log(translate);
   return translate;
 }
 function renderBySelected() {
@@ -117,6 +181,7 @@ function renderBySelected() {
   const selectedPageContent = pages[selectedKey];
   if (selectedKey) pageContentElement.innerHTML = selectedPageContent;
 }
+
 function addEvents() {
   const navButtons = document.querySelectorAll(
     ".navBtn"
@@ -133,14 +198,12 @@ function handleClick(event) {
   const target = event.target as HTMLElement; 
   const selectedPart = document.querySelector(".selected") as HTMLElement;
 
-  console.log(target, target.id);
   const selectedKey = checkSelected();
 
   if (target.id != selectedKey) {
     selectedPart.classList.remove("selected");
 
     target.classList.add("selected");
-    console.log("GG");
     renderBySelected();
   }
 }
