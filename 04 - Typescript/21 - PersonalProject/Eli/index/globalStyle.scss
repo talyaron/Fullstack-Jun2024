@@ -15,6 +15,7 @@ body {
 
 .regular-text, p {
     font-size: 18px; // Regular text font size
+    margin-top: 0;
 }
 
 .note, .small-text {
@@ -59,11 +60,11 @@ margin: 2vh;
 }
 input {
        margin-bottom: 1rem;
-        padding: 10px;
+        padding: 5px;
         border: 1px solid #4D4D4D;
         border-radius: 4px;
         font-size: 1rem;
         width: 35vh;
-        height: 6.5vh; 
+        height: 3.5vh; 
         box-sizing: border-box; 
 }
