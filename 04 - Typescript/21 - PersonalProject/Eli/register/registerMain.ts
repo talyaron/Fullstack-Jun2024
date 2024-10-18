@@ -60,7 +60,7 @@ class FormValidator {
   }
   isPasswordValid() {
     if (this.regP.test(this.password) == false)
-      return "invalid password : password requires one Uppercase letter and one special letter(@#!$%#^&*)";
+      return "invalid password : password requires one Uppercase letter <br> and one special letter(@#!$%#^&*)";
     return null;
   }
   isRePasswordValid() {

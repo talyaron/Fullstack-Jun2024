@@ -39,7 +39,7 @@ var FormValidator = /** @class */ (function () {
     };
     FormValidator.prototype.isPasswordValid = function () {
         if (this.regP.test(this.password) == false)
-            return "invalid password : password requires one Uppercase letter and one special letter(@#!$%#^&*)";
+            return "invalid password : password requires one Uppercase letter <br> and one special letter(@#!$%#^&*)";
         return null;
     };
     FormValidator.prototype.isRePasswordValid = function () {
