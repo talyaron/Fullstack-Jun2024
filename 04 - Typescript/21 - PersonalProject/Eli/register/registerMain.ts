@@ -74,10 +74,16 @@ const localStorageDetail = localStorage.getItem("users");
 const users:User[]=localStorageDetail ? JSON.parse(localStorageDetail) : [];
 
 const regElement = document.getElementById("content") as HTMLElement;
+const localStorageUser = localStorage.getItem("loggedUser");
+const loggedUser: User = localStorageUser ? JSON.parse(localStorageUser) : "";
 
 //////////view
 
 function renderRegister() {
+  if (loggedUser)
+    {
+      redirectMain(loggedUser);
+    }else{
   regElement.innerHTML = `<div class="container">
     <h1>Create your account</h1>
     <div id="formContainer">
@@ -98,16 +104,20 @@ function renderRegister() {
       <input type="password" name="RePassword" id="RePassword" placeholder="repeat password">
       <p id="RePasswordDesc"></p>
 
-      <h3></h3>
+     <br>
+     <label for="agree"  >
+     <input type="checkbox" id="agree" name="agree" class="checkbox">
+     I agree to the terms and conditions
+    </label>
+        <br>
 
-     
       <input type="submit" value="Register" class="btn">
       <br>
 
     </Form>
     <button class="btn" onclick="window.location.href='../login/login.html';">Login</button>    
 
-    </div>`;
+    </div>`;}
 }
 
 
@@ -123,6 +133,8 @@ function renderRegister() {
   const password = formData.get("password") as string;
   const RePassword = formData.get("RePassword") as string;
 
+  const agree = formData.get("agree") as string;
+  
   const formValidator = new FormValidator(
     name,
     email,
@@ -143,7 +155,7 @@ function renderRegister() {
   updatePasswordStatus(resultP);
   updateRePasswordStatus(resultRP);
 
-  if(!resultN&&!resultE&&!resultPN&&!resultP&&!resultRP)
+  if(!resultN&&!resultE&&!resultPN&&!resultP&&!resultRP&&agree)
   {
     addUser(name, email, phoneNum, password);
    
@@ -156,10 +168,10 @@ function addUser(name, email, phoneNum, password)
     const newUser: User = new User(name, email, phoneNum, password); 
     users.push(newUser);
     localStorage.setItem(`users`,JSON.stringify(users));
-    reDirect();
+    reDirectLogin();
 }
 
-function  reDirect()
+function  reDirectLogin()
 {
     regElement.innerHTML = `<div class="container">
     <h1>Register success! </h1>
@@ -167,6 +179,17 @@ function  reDirect()
 </div>`;
 setTimeout(function() {
     window.location.href = '../login/login.html'; 
+}, 3000);
+}
+
+function redirectMain(loggedUser)
+{
+    regElement.innerHTML = `<div class="container">
+    <h1>Welcome back ${loggedUser.name}</h1>
+    <h3>you are redirected to main</h3>
+</div>`;
+setTimeout(function() {
+    window.location.href = '../main/main.html'; 
 }, 3000);
 }
 

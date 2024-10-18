@@ -52,9 +52,16 @@ var FormValidator = /** @class */ (function () {
 var localStorageDetail = localStorage.getItem("users");
 var users = localStorageDetail ? JSON.parse(localStorageDetail) : [];
 var regElement = document.getElementById("content");
+var localStorageUser = localStorage.getItem("loggedUser");
+var loggedUser = localStorageUser ? JSON.parse(localStorageUser) : "";
 //////////view
 function renderRegister() {
-    regElement.innerHTML = "<div class=\"container\">\n    <h1>Create your account</h1>\n    <div id=\"formContainer\">\n    <Form id=\"form\" onsubmit=\"checkForm(event)\">\n\n      <input type=\"text\" name=\"name\" id=\"name\" placeholder=\"name\">\n      <p id=\"nameDesc\"></p>\n\n      <input type=\"text\" name=\"email\" id=\"email\" placeholder=\"email\">\n      <p id=\"emailDesc\"></p>\n\n      <input type=\"text\" name=\"phoneNum\" id=\"phoneNum\" placeholder=\"phone number\">\n      <p id=\"phoneNumDesc\"></p>\n\n      <input type=\"password\" name=\"password\" id=\"password\" placeholder=\"password\">\n      <p id=\"passwordDesc\"></p>\n      \n      <input type=\"password\" name=\"RePassword\" id=\"RePassword\" placeholder=\"repeat password\">\n      <p id=\"RePasswordDesc\"></p>\n\n      <h3></h3>\n\n     \n      <input type=\"submit\" value=\"Register\" class=\"btn\">\n      <br>\n\n    </Form>\n    <button class=\"btn\" onclick=\"window.location.href='../login/login.html';\">Login</button>    \n\n    </div>";
+    if (loggedUser) {
+        redirectMain(loggedUser);
+    }
+    else {
+        regElement.innerHTML = "<div class=\"container\">\n    <h1>Create your account</h1>\n    <div id=\"formContainer\">\n    <Form id=\"form\" onsubmit=\"checkForm(event)\">\n\n      <input type=\"text\" name=\"name\" id=\"name\" placeholder=\"name\">\n      <p id=\"nameDesc\"></p>\n\n      <input type=\"text\" name=\"email\" id=\"email\" placeholder=\"email\">\n      <p id=\"emailDesc\"></p>\n\n      <input type=\"text\" name=\"phoneNum\" id=\"phoneNum\" placeholder=\"phone number\">\n      <p id=\"phoneNumDesc\"></p>\n\n      <input type=\"password\" name=\"password\" id=\"password\" placeholder=\"password\">\n      <p id=\"passwordDesc\"></p>\n      \n      <input type=\"password\" name=\"RePassword\" id=\"RePassword\" placeholder=\"repeat password\">\n      <p id=\"RePasswordDesc\"></p>\n\n     <br>\n     <label for=\"agree\"  >\n     <input type=\"checkbox\" id=\"agree\" name=\"agree\" class=\"checkbox\">\n     I agree to the terms and conditions\n    </label>\n        <br>\n\n      <input type=\"submit\" value=\"Register\" class=\"btn\">\n      <br>\n\n    </Form>\n    <button class=\"btn\" onclick=\"window.location.href='../login/login.html';\">Login</button>    \n\n    </div>";
+    }
 }
 ///controllers
 function checkForm(event) {
@@ -65,6 +72,7 @@ function checkForm(event) {
     var phoneNum = formData.get("phoneNum");
     var password = formData.get("password");
     var RePassword = formData.get("RePassword");
+    var agree = formData.get("agree");
     var formValidator = new FormValidator(name, email, phoneNum, password, RePassword);
     var resultN = formValidator.isNameValid();
     var resultE = formValidator.isEmailValid();
@@ -76,7 +84,7 @@ function checkForm(event) {
     updatePhoneNumStatus(resultPN);
     updatePasswordStatus(resultP);
     updateRePasswordStatus(resultRP);
-    if (!resultN && !resultE && !resultPN && !resultP && !resultRP) {
+    if (!resultN && !resultE && !resultPN && !resultP && !resultRP && agree) {
         addUser(name, email, phoneNum, password);
     }
 }
@@ -84,12 +92,18 @@ function addUser(name, email, phoneNum, password) {
     var newUser = new User(name, email, phoneNum, password);
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
-    reDirect();
+    reDirectLogin();
 }
-function reDirect() {
+function reDirectLogin() {
     regElement.innerHTML = "<div class=\"container\">\n    <h1>Register success! </h1>\n    <h3>you are redirected to login</h3>\n</div>";
     setTimeout(function () {
         window.location.href = '../login/login.html';
+    }, 3000);
+}
+function redirectMain(loggedUser) {
+    regElement.innerHTML = "<div class=\"container\">\n    <h1>Welcome back " + loggedUser.name + "</h1>\n    <h3>you are redirected to main</h3>\n</div>";
+    setTimeout(function () {
+        window.location.href = '../main/main.html';
     }, 3000);
 }
 function updateNameStatus(result) {
