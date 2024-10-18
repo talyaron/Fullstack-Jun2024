@@ -2,6 +2,9 @@ const localStorageUser = localStorage.getItem("loggedUser");
 const loggedUser: any = localStorageUser ? JSON.parse(localStorageUser) : "";
 const mainElement = document.getElementById("content") as HTMLElement;
 
+const localStorageDetail = localStorage.getItem("users");
+const users:any[] = localStorageDetail ? JSON.parse(localStorageDetail) : [];
+
 function redirectIndex() {
   mainElement.innerHTML = `<div class="container">
     <h1>Log in to view main</h1>
@@ -26,6 +29,7 @@ function renderMain() {
         <button class="navBtn " id="Zoom">Zoom</button >
         <button class="navBtn" id="Forum">Forum</button >
         <button class="navBtn " id="Lessons">Lessons</button >
+        <button class="navBtn " id="logOut">Log Out</button >
         </nav>
          <div id="contentHolder">
          <div id ="topBar">
@@ -88,10 +92,10 @@ const pageDashboard = `<div id="userDetails">
 </div>
 `;
 
-const pageProfile = `<div id="leftRight">
+const pageProfile = `<div id="leftRight" >
 <div id ="profileLeft">
 <div class="circle"><img id="imagePreview"  src="${checkUserImage()}" alt ="profile picture"></div>
-<div><h1> <input type="file" id="imageInput" accept="image/*"${setTimeout(() => addPhoto(), 300)}></h1></div>
+<div><h1> <input type="file" id="imageInput" accept="image/*" ></h1></div>
 </div><div id ="profileRight">
 
 <div id="form">
@@ -110,8 +114,9 @@ const pageForum = `dfdaaaaaaaaaaaaaaaaaf`;
 const pageLessons = `dfdaaaaaaaaaaaaaaf`;
 function checkUserImage():string
 {
-    if(loggedUser.img){
-        return loggedUser.img
+    const loggedUsere: any = localStorageUser ? JSON.parse(localStorageUser) : "";
+    if(loggedUsere.img){
+        return loggedUsere.img
     }
 
     return "../assets/human.svg";
@@ -127,43 +132,65 @@ const pages: { [key: string]: string } = {
 function addPhoto()
 {
     const imageInput = document.getElementById('imageInput') as HTMLInputElement;
+    if(!imageInput)return;
     const imagePreview = document.getElementById('imagePreview') as HTMLImageElement;
     const imgPfp =document.getElementById("pfpImg")as HTMLImageElement;
     if (!imageInput) {
         console.error("Image input not found!");
         return;
     }
+    if(loggedUser.img){
+    imagePreview.src = loggedUser.img;}
+    else{ imagePreview.src =`../assets/human.svg`;}
 
-    // Event listener for when a user selects an image
     imageInput.addEventListener('change', function(event) {
-        const target = event.target as HTMLInputElement; // Cast event.target to HTMLInputElement
+        const target = event.target as HTMLInputElement; 
         if (!target.files || target.files.length === 0) return;
 
-        const file = target.files[0]; // Get the first file selected
+        const file = target.files[0]; 
         if (file) {
             const reader = new FileReader();
 
-            // Load the image as a data URL
             reader.onload = function(e) {
                 if (e.target && e.target.result) {
-                    const imageUrl = e.target.result as string;  // Get the image URL
-                    imagePreview.src = imageUrl;  // Set the image preview source
-                    imagePreview.style.display = 'block'; // Show the preview
+                    const imageUrl = e.target.result as string;  
+                    imagePreview.src = imageUrl;  
+                    imagePreview.style.display = 'block'; 
                     imgPfp.src = imageUrl;
-                    // Update loggedUser.img with the uploaded image URL
+                    
                     loggedUser.img=imageUrl;
                     localStorage.setItem(`loggedUser`,JSON.stringify(loggedUser));
                     console.log("Image updated for loggedUser:", loggedUser);
+                    upDateUsers(loggedUser);
                 }
             };
 
-            reader.readAsDataURL(file);  // Read the file as a data URL (base64 encoded string)
+            reader.readAsDataURL(file);  
         }
     });
 }
 
+function upDateUsers(loggedUser:any)
+{
+    const userIndex = users.findIndex(user => loggedUser.id === user.id);
+
+    if (userIndex !== -1) {
+        // Update the user's properties
+        users[userIndex] = { ...users[userIndex], ...loggedUser };
+
+        // Log the update
+        console.log(`User with id ${loggedUser.id} updated successfully.`);
+        
+        // Optionally, save the updated users array to local storage
+        localStorage.setItem('users', JSON.stringify(users));
+    } else {
+        console.log(`User with id ${loggedUser.id} not found.`);
+    }
+
+}
 function hiddenPassword():string
 {
+    if(!loggedUser.password) return"";
     const asterisks = '*'.repeat(loggedUser.password.length); 
     return asterisks;
 }
@@ -180,6 +207,7 @@ function renderBySelected() {
   const selectedKey = checkSelected();
   const selectedPageContent = pages[selectedKey];
   if (selectedKey) pageContentElement.innerHTML = selectedPageContent;
+  addPhoto();
 }
 
 function addEvents() {
@@ -198,13 +226,22 @@ function handleClick(event) {
   const target = event.target as HTMLElement; 
   const selectedPart = document.querySelector(".selected") as HTMLElement;
 
+  if(target.id===`logOut`)
+  {
+    localStorage.removeItem('loggedUser');
+    redirectIndex();
+    return;
+  }
+
   const selectedKey = checkSelected();
 
+ 
   if (target.id != selectedKey) {
     selectedPart.classList.remove("selected");
 
     target.classList.add("selected");
     renderBySelected();
+    
   }
 }
 

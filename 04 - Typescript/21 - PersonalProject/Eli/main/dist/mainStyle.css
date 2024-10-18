@@ -103,6 +103,10 @@
   align-items: center;
 }
 
+#logOut {
+  color: red;
+}
+
 .innerCircle {
   background-color: #010101;
   width: 17vh;
