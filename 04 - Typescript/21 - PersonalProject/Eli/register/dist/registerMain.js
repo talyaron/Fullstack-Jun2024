@@ -6,6 +6,7 @@ var User = /** @class */ (function () {
         this.email = email;
         this.phone = phone;
         this.password = password;
+        this.img = "";
     }
     return User;
 }());

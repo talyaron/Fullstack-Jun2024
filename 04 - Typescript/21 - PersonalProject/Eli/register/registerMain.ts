@@ -5,13 +5,16 @@ class User {
   phone: string;
   email: string;
   password: string;
+  img:string;
   constructor(name: string, email: string, phone: string, password: string) {
     this.id = `id=${crypto.randomUUID}`;
     this.name = name;
     this.email = email;
     this.phone = phone;
     this.password = password;
+    this.img="";
   }
+  
 }
 
 class FormValidator {
