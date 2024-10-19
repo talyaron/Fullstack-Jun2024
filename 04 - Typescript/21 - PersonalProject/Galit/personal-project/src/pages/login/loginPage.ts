@@ -1,45 +1,90 @@
-import { createContainer } from '../../components/container/container';
-import { createButton } from '../../components/button/button';
-import { createInput } from '../../components/input/input'; 
-import { loginUser } from '../../controller/userController';
+import { setupRegisterPageListeners, renderRegister } from '../../pages/register/registerPage';
+import { renderDashboard } from '../dashboard/dashboardPage'; 
+import { User, users } from '../../model/userModel';
 
 export function renderLogin(): string {
-  const content = `
-    <h1>Login</h1>
-    <form id="loginForm">
-      ${createInput("Email", "email")}
-      ${createInput("Password", "password")}
-      <a href="#" class="forgot-password">Forgot Password?</a>
-      ${createButton("Login", "loginButton")}
-    </form>
-  `;
+    const content = `
+        <div class="container">
+            <div class="login-container">
+                <h1>Login</h1>
+                <form id="loginForm">
+                    <label for="email"></label>
+                    <input type="email" class="input" id="email" name="email" required placeholder="Email">
+                    
+                    <label for="password"></label>
+                    <input type="password" class="input" id="password" name="password" required placeholder="Password">
+                    
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                    
+                    <div class="button-group">
+                        <button class="btn" id="loginButton" type="submit">Login</button>
+                        <button class="btn" id="backToRegister" type="button">Back to Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    `;
 
-  setTimeout(() => {
-    const loginForm = document.getElementById("loginForm");
-    if (loginForm) {
-      loginForm.addEventListener("submit", handleLoginSubmit);
+    document.body.innerHTML = content;
+
+    const savedEmail = localStorage.getItem('email');
+    const savedPassword = localStorage.getItem('password');
+
+    if (savedEmail) {
+        (document.getElementById('email') as HTMLInputElement).value = savedEmail;
     }
-  }, 0);
+    if (savedPassword) {
+        (document.getElementById('password') as HTMLInputElement).value = savedPassword;
+    }
 
-  return createContainer(content);
+    return content;
 }
 
-function handleLoginSubmit(event: Event) {
-  event.preventDefault(); 
+export function setupLoginPageListeners(): void {
+    const loginForm = document.getElementById("loginForm") as HTMLFormElement;
+    const backToRegisterButton = document.getElementById("backToRegister") as HTMLButtonElement;
 
-  const emailInput = (document.querySelector('input[name="email"]') as HTMLInputElement).value;
-  const passwordInput = (document.querySelector('input[name="password"]') as HTMLInputElement).value;
-
-  try {
-    const user = loginUser(emailInput, passwordInput);
-    if (user) {
-      localStorage.setItem('loggedInUser', JSON.stringify(user));
-      window.location.href = 'userPage.html'; // After successful login, redirect to userPage.ts
-    } else {
-      alert('Invalid login credentials');
+    if (loginForm) {
+        loginForm.addEventListener("submit", handleLoginSubmit);
     }
-  } catch (error) {
-    console.error("Error during login:", error);
-    alert('Login failed.');
-  }
+
+    if (backToRegisterButton) {
+        backToRegisterButton.addEventListener("click", () => {
+            document.body.innerHTML = renderRegister(); 
+            setupRegisterPageListeners();
+        });
+    }
+}
+
+async function handleLoginSubmit(event: Event) {
+    event.preventDefault(); 
+
+    const emailInput = (document.querySelector('input[name="email"]') as HTMLInputElement).value;
+    const passwordInput = (document.querySelector('input[name="password"]') as HTMLInputElement).value;
+
+    localStorage.setItem('email', emailInput);
+    localStorage.setItem('password', passwordInput);
+
+    try {
+        console.log("Attempting to log in with email:", emailInput); 
+
+        // Check if user exists in users array
+        const user = users.find((user: User) => user.email === emailInput && user.password === passwordInput);
+
+        if (user) {
+            localStorage.setItem('loggedInUser', JSON.stringify(user));
+            console.log("User logged in:", user);
+            
+            alert("Login successful! Redirecting to the dashboard...");
+
+            setTimeout(() => {
+                document.body.innerHTML = renderDashboard(user); 
+            }, 1000); 
+        } else {
+            throw new Error('Invalid email or password.');
+        }
+    } catch (error) {
+        console.error("Error during login:", error);
+        alert('Login failed: ' + (error as Error).message); 
+    }
 }

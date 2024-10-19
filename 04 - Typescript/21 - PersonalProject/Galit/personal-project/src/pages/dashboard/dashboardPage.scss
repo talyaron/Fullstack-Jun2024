@@ -1,0 +1,101 @@
+@import '../../components/button/button.scss';
+@import '../../components/input/input.scss';
+@import '../../components/header/header.scss';
+@import '../../components/navbar/navbar.scss';
+
+body {
+    background-color: #FBFBFD;
+}
+.dashboard-container {
+    padding: 20px;
+
+    .user-info {
+        margin-bottom: 20px;
+        padding: 15px;
+        background-color: #E3EDFF; 
+        border-radius: 8px;
+    }
+
+    .progress-circle {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: conic-gradient(#4caf50 var(--percentage), #ccc var(--percentage));
+        margin-top: 10px;
+    }
+
+    .dashboard-summary {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+
+        div {
+            flex: 1;
+            margin: 0 10px;
+            padding: 15px;
+            border: 1px solid #E3EDFF;
+            border-radius: 8px;
+            text-align: center;
+        }
+    }
+
+    .calendar-messages {
+        display: flex;
+        justify-content: space-between;
+
+        .calendar-container, .messages-container {
+            flex: 1;
+            margin: 0 10px;
+            border: 1px solid  #E3EDFF;
+            border-radius: 8px;
+        }
+        
+        .calendar {
+            border: 1px solid #E3EDFF;
+            border-radius: 8px;
+
+            .calendar-header {
+                background-color: #99BBFF;
+                padding: 10px;
+                text-align: center;
+            }
+
+            .calendar-days {
+                display: grid;
+                grid-template-columns: repeat(7, 1fr);
+                border-top: 1px solid  #E3EDFF;
+
+                .day, .date {
+                    border: 1px solid  #E3EDFF;
+                    padding: 10px;
+                    text-align: center;
+                }
+            }
+        }
+      .messages-container{
+        .messages-container ul {        
+            padding: 0;
+        }
+        .smallBtn {
+            margin-top: 1rem;
+            background-color: #3377FF;
+            width: 10vh;
+            height: 4.5vh; 
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border-radius: 15px;
+          }
+          
+          .btn:hover {
+            background-color: #99BBFF; 
+          }
+          
+          .btn:active {
+            background-color: #99BBFF; 
+          }
+          
+        }
+    }
+}

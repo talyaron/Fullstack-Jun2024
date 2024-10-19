@@ -1,25 +1,66 @@
-import { User, users, validateEmail, validatePhone } from '../model/userModel';
+import { User } from '../model/userModel';
+import { registerUser } from './userController';
 
-export function registerUser(fullName: string, email: string, password: string, passwordRepeat: string, phone: string): void {
+export function registerUser(
+  fullName: string, 
+  email: string, 
+  password: string, 
+  passwordRepeat: string, 
+  phone: string
+): void {
+  const validationErrors = validateUserInput(fullName, email, password, passwordRepeat, phone);
+  
+  if (validationErrors.length > 0) {
+    throw new Error(validationErrors.join(", "));
+  }
+
+  const newUser = userController.registerUser(fullName, email, password, passwordRepeat, phone);
+  
+  localStorage.setItem('loggedInUser', JSON.stringify(newUser));
+}
+
+export function validateUserInput(
+  fullName: string, 
+  email: string, 
+  password: string, 
+  passwordRepeat: string, 
+  phone: string
+): string[] { 
+  const errors: string[] = [];
+
+  if (!fullName) {
+    errors.push("Full Name is required.");
+  }
+
   if (!validateEmail(email)) {
-    throw new Error("Invalid email format. Please ensure it contains '@' and follows proper structure.");
+    errors.push("Invalid email format. Please ensure it contains '@' and follows proper structure.");
+  }
+
+  if (password.length < 6) {
+    errors.push("Password must be at least 6 characters long.");
   }
 
   if (password !== passwordRepeat) {
-    throw new Error("Passwords do not match.");
+    errors.push("Passwords do not match.");
   }
 
   if (!validatePhone(phone)) {
-    throw new Error("Invalid phone number. Phone number must be 10 digits.");
+    errors.push("Invalid phone number. Phone number must be exactly 10 digits.");
   }
 
-  const userExists = users.some(user => user.email === email);
-  if (userExists) {
-    throw new Error("A user with this email already exists.");
-  }
+  return errors; 
+}
 
-  const newUser = new User(fullName, email, password, phone);
-  users.push(newUser);
+export function isUserExists(email: string): boolean {
+  return User.some(User => User.email === email);
+}
 
-  localStorage.setItem('loggedInUser', JSON.stringify(newUser));
+export function validateEmail(email: string): boolean {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+export function validatePhone(phone: string): boolean {
+  const phoneRegex = /^\d{10}$/; 
+  return phoneRegex.test(phone);
 }
