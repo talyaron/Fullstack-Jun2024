@@ -18,29 +18,18 @@ export function registerUser(
     confirmPassword: string,
     phone: string
 ): User {
-    const users = loadUsers(); // Load users from localStorage
+    const users = loadUsers(); 
 
-    if (password !== confirmPassword) {
-        throw new Error("Passwords do not match.");
-    }
-
-    if (!validateEmail(email)) {
-        throw new Error("Invalid email format.");
-    }
-
-    if (!validatePhone(phone)) {
-        throw new Error("Phone number must be 10 digits.");
-    }
+    if (password !== confirmPassword) throw new Error("Passwords do not match.");
+    if (!validateEmail(email)) throw new Error("Invalid email format.");
+    if (!validatePhone(phone)) throw new Error("Phone number must be 10 digits.");
 
     const existingUser = users.find(user => user.email === email.toLowerCase());
-    if (existingUser) {
-        throw new Error("User with this email already exists.");
-    }
+    if (existingUser) throw new Error("User with this email already exists.");
 
     const newUser = new User(fullName, email.toLowerCase(), password, phone);
     users.push(newUser);
-    
-    saveUsers(users); 
+    saveUsers(users);
 
     return newUser;
 }
@@ -48,15 +37,7 @@ export function registerUser(
 export function loginUser(email: string, password: string): User | null {
     const users = loadUsers(); 
     const user = users.find(user => user.email === email.toLowerCase());
-
-    if (!user) {
-        throw new Error("User not found.");
-    }
-
-    if (user.password !== password) {
-        throw new Error("Incorrect password.");
-    }
-
+    if (!user || user.password !== password) throw new Error("Invalid email or password.");
     return user;
 }
 

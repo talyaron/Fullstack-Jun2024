@@ -12,10 +12,18 @@ const messages: Message[] = [
     { id: 2, content: 'Message from Classmate: "Let\'s study together!"', sender: 'Classmate', isRead: false },
 ];
 
+declare global {
+    interface Window {
+        editMessage: (id: number) => void;
+        removeMessage: (id: number) => void;
+    }
+}
+
 export function renderDashboard(loggedInUser: User): string {
     const content = `
         <div class="dashboard-container">
-            <header>
+        <div class="header-navbar"> 
+        <header>
                 <div id="search-box">
                     <input type="text" placeholder="Search..." />
                 </div>
@@ -35,7 +43,7 @@ export function renderDashboard(loggedInUser: User): string {
                     <img src="https://www.example.com/profile-icon.png" alt="Profile" />
                 </div>
             </nav>
-            <main>
+            </div>
                 <h1>Dashboard</h1>
                 <div class="dashboard-content">
                     <p>Welcome to your dashboard, ${loggedInUser.fullName}!</p>
@@ -83,14 +91,16 @@ export function renderDashboard(loggedInUser: User): string {
                         <button class="btn" id="add-message-button">Add Message</button>
                     </div>
                 </div>
-            </main>
+            </div>
         </div>
     `;
 
     document.body.innerHTML = content;
 
-    setupDashboardListeners();
-    setupMessageListeners();
+    document.addEventListener('DOMContentLoaded', () => {
+        setupDashboardListeners();
+        setupMessageListeners();
+    });
 
     window.editMessage = editMessage;
     window.removeMessage = removeMessage;
@@ -102,25 +112,33 @@ function renderMessages(): string {
     return messages.map(msg => `
         <div class="message">
             <input type="checkbox" id="msg-${msg.id}" ${msg.isRead ? 'checked' : ''} />
-            <label   for="msg-${msg.id}">${msg.content}</label>
+            <label for="msg-${msg.id}">${msg.content}</label>
             <button class="smallBtn" onclick="window.editMessage(${msg.id})">Edit</button>
-            <button  class="smallBtn" onclick="window.removeMessage(${msg.id})">Remove</button>
+            <button class="smallBtn" onclick="window.removeMessage(${msg.id})">Remove</button>
         </div>
     `).join('');
 }
 
 export function setupDashboardListeners(): void {
+    // Add any listeners for the dashboard here, if needed.
 }
 
 function setupMessageListeners(): void {
     const addMessageButton = document.getElementById('add-message-button') as HTMLButtonElement;
     const newMessageInput = document.getElementById('new-message') as HTMLInputElement;
 
+    if (!addMessageButton || !newMessageInput) {
+        console.error("Add message button or input not found");
+        return;
+    }
+
     addMessageButton.addEventListener('click', () => {
         const messageContent = newMessageInput.value.trim();
         if (messageContent) {
             addMessage(messageContent);
-            newMessageInput.value = '';
+            newMessageInput.value = '';  // Clear the input field after adding the message
+        } else {
+            console.error("Message content is empty");
         }
     });
 }
@@ -128,7 +146,8 @@ function setupMessageListeners(): void {
 function addMessage(content: string): void {
     const newId = messages.length ? Math.max(...messages.map(msg => msg.id)) + 1 : 1;
     messages.push({ id: newId, content, sender: 'User', isRead: false });
-    updateMessages();
+    console.log("Message added:", messages);  // Verify the message was added to the array
+    updateMessages();  // Refresh the message list after adding a new message
 }
 
 function editMessage(id: number): void {
@@ -152,5 +171,9 @@ function removeMessage(id: number): void {
 
 function updateMessages(): void {
     const messageList = document.getElementById('message-list') as HTMLElement;
-    messageList.innerHTML = renderMessages();
+    if (messageList) {
+        messageList.innerHTML = renderMessages();
+    } else {
+        console.error("Message list not found");
+    }
 }

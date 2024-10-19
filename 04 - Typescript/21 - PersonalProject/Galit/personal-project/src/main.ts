@@ -2,13 +2,11 @@ import { renderWelcomePage, setupWelcomePageListeners } from './pages/welcome/we
 import { renderRegister, setupRegisterPageListeners } from './pages/register/registerPage';
 import { renderLogin, setupLoginPageListeners } from './pages/login/loginPage'; 
 import { renderDashboard, setupDashboardListeners } from './pages/dashboard/dashboardPage'; 
-
 import './style.scss';
 import './pages/welcome/welcome.scss';
 import './pages/register/register.scss';
 import './pages/login/login.scss';
 import './pages/dashboard/dashboardPage.scss';
-
 
 const root = document.getElementById('app');
 
@@ -24,8 +22,14 @@ function loadPage() {
     root.innerHTML = renderLogin(); 
     setupLoginPageListeners(); 
   } else if (currentPage === '#dashboard') {
-    root.innerHTML = renderDashboard(loginUser);
-    setupDashboardListeners();
+    const loggedInUser = localStorage.getItem('loggedInUser');
+    if (loggedInUser) {
+      const user = JSON.parse(loggedInUser);
+      root.innerHTML = renderDashboard(user);
+      setupDashboardListeners();
+    } else {
+      window.location.hash = '#login'; 
+    }
   } else {
     root.innerHTML = renderWelcomePage();
     setupWelcomePageListeners(); 

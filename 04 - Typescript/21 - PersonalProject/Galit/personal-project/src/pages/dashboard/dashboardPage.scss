@@ -8,7 +8,9 @@ body {
 }
 .dashboard-container {
     padding: 20px;
-
+.header-navbar{
+    z-index: 100;
+}
     .user-info {
         margin-bottom: 20px;
         padding: 15px;
