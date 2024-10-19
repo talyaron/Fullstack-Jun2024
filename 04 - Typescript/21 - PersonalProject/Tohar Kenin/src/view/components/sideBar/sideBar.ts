@@ -11,8 +11,7 @@ export function renderSideBar(): string {
         </div>
             <div class="menu">
                 <a href="./index.html" class="menu-item">
-                    
-                    <img src="./logo.png">
+                    <img src="../../../assets/logo.png">
                     <h3 class="menu-item__text current">Dashboard</h1>
                         <div class="current-page-sign"></div>
                 </a>
