@@ -10,7 +10,7 @@ export function renderLogin(): string {
             <form id="loginForm">
                 <input type="email" class="input" id="email" name="email" required placeholder="Email">
                 <input type="password" class="input" id="password" name="password" required placeholder="Password">
-                <button class="btn" id="loginButton" type="submit">Login</button>
+                <a href="#forgotPassword" class="forgot-password">Forgot Password?</a>                <button class="btn" id="loginButton" type="submit">Login</button>
                 <button class="btn" id="backToRegister" type="button">Back to Register</button>
             </form>
         </div>
