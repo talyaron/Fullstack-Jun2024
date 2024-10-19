@@ -1,16 +1,18 @@
 import './sideBar.scss'
-export function renderSideBar(): string
-{
+import '../../../assets/logo.png'
+
+export function renderSideBar(): string {
+
     return `
     <aside>
-        <div id="logo">
-            <img src="../images/67411690aa8c050192d3c313d1614713.png" class="logo__img" alt="logo-image">
-            <h1 class="logo__name">BankDash.</h1>
+        <div id="logo" class="logo">
+            <img src="../../../assets/logo.png" class="logo__img" alt="logo-image">
+            <h1 class="logo__name">Academy.</h1>
         </div>
             <div class="menu">
                 <a href="./index.html" class="menu-item">
                     
-                    <img src="../images/Home-vector.svg" alt="Home-icon" class="menu-item__icon current">
+                    <img src="./logo.png">
                     <h3 class="menu-item__text current">Dashboard</h1>
                         <div class="current-page-sign"></div>
                 </a>

@@ -1,23 +1,6 @@
-.aside {
-    width: 18%;
+aside {
     border-right: 0.08rem solid #E6EFF5;
-
-    //media queries
-    @media  (max-width: 1200px) {
-        width: 22%
-    }
-    @media  (max-width: 1024px) {
-        width: 25%
-    }
-    @media  (max-width: 900px) {
-        width: 30%
-    }
-    @media (max-width: 800px) {
-        width: 33%;
-    }
-    @media (max-width: 700px) {
-        display: none;
-    }
+    height: 100vh;
 
     .logo {
         grid-column: 1;
@@ -27,16 +10,12 @@
         align-items: center;
         
         &__name {
-            color: var(--header-color);
+            color: #54387F;
             font-family: 'Mont', sans-serif;
             font-size: 25px;
             font-weight: 900;
             line-height: 31.95px;
             text-align: left;
-
-            @media (max-width: 800px) {
-                font-size: 20px;
-            }
         }
 
         &__img {
