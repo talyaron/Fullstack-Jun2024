@@ -1,70 +1,51 @@
-import { User, users, validateEmail, validatePhone } from '../model/userModel';
+import { User } from '../model/userModel';
 
-export function registerUser(fullName: string, email: string, password: string, confirmPassword: string, phone: string): string {
-    if (password !== confirmPassword) {
-        return "Passwords do not match.";
-    }
-    
-    if (!validateEmail(email)) {
-        return "Invalid email format.";
-    }
-    
-    if (!validatePhone(phone)) {
-        return "Phone number must be 10 digits.";
-    }
+const USERS_KEY = 'users';
 
-    const existingUser = users.find(user => user.email === email);
-    if (existingUser) {
-        return "User with this email already exists.";
-    }
+export function loadUsers(): User[] {
+    const usersData = localStorage.getItem(USERS_KEY);
+    return usersData ? JSON.parse(usersData) : [];
+}
 
-    const newUser = new User(fullName, email, password, phone);
+export function saveUsers(users: User[]): void {
+    localStorage.setItem(USERS_KEY, JSON.stringify(users));
+}
+
+export function registerUser(
+    fullName: string,
+    email: string,
+    password: string,
+    confirmPassword: string,
+    phone: string
+): User {
+    const users = loadUsers(); 
+
+    if (password !== confirmPassword) throw new Error("Passwords do not match.");
+    if (!validateEmail(email)) throw new Error("Invalid email format.");
+    if (!validatePhone(phone)) throw new Error("Phone number must be 10 digits.");
+
+    const existingUser = users.find(user => user.email === email.toLowerCase());
+    if (existingUser) throw new Error("User with this email already exists.");
+
+    const newUser = new User(fullName, email.toLowerCase(), password, phone);
     users.push(newUser);
+    saveUsers(users);
 
-    return "User registered successfully!";
+    return newUser;
 }
 
 export function loginUser(email: string, password: string): User | null {
-    const user = users.find(user => user.email === email);
-    if (!user) {
-        throw new Error("User not found.");
-    }
-
-    if (user.password !== password) {
-        throw new Error("Incorrect password.");
-    }
-
+    const users = loadUsers(); 
+    const user = users.find(user => user.email === email.toLowerCase());
+    if (!user || user.password !== password) throw new Error("Invalid email or password.");
     return user;
 }
 
-export function getUserByEmail(email: string): User | undefined {
-    return users.find(user => user.email === email);
+function validateEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
 }
 
-export function getUserById(id: string): User | undefined {
-    return users.find(user => user.id === id);
-}
-
-export function updateUser(id: string, updatedData: Partial<User>): string {
-    const user = users.find(user => user.id === id);
-    if (!user) {
-        throw new Error("User not found.");
-    }
-
-    user.fullName = updatedData.fullName ?? user.fullName;
-    user.email = updatedData.email ?? user.email;
-    user.phone = updatedData.phone ?? user.phone;
-    user.password = updatedData.password ?? user.password;
-
-    return "User updated successfully!";
-}
-
-export function deleteUser(id: string): string {
-    const index = users.findIndex(user => user.id === id);
-    if (index === -1) {
-        throw new Error("User not found.");
-    }
-
-    users.splice(index, 1); 
-    return "User deleted successfully!";
+function validatePhone(phone: string): boolean {
+    return /^\d{10}$/.test(phone);
 }
