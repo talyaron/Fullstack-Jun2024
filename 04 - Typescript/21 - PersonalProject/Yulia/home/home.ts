@@ -1,8 +1,8 @@
 function greetUser() {
-  const userEmail = localStorage.getItem("userEmail");
-  if (userEmail) {
+  const userData = JSON.parse(localStorage.getItem("registeredUser") || "{}");
+  if (userData.name) {
     const greetingMessage = document.createElement("h1");
-    greetingMessage.textContent = `Welcome, ${userEmail}`;
+    greetingMessage.textContent = `Welcome, ${userData.name}!`;
     document.body.appendChild(greetingMessage);
   }
 }
