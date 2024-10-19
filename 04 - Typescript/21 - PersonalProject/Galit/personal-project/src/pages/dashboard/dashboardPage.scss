@@ -8,8 +8,16 @@ body {
 }
 .dashboard-container {
     padding: 20px;
+    .logo {
+        width: 12vh;
+        height: auto;
+    }
 .header-navbar{
     z-index: 100;
+
+}
+.dashboard-content{
+    margin-top: 30vh;
 }
     .user-info {
         margin-bottom: 20px;

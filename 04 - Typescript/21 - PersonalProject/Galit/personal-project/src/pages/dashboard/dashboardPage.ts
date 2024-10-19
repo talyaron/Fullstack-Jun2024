@@ -22,16 +22,15 @@ declare global {
 export function renderDashboard(loggedInUser: User): string {
     const content = `
         <div class="dashboard-container">
-        <div class="header-navbar"> 
-        <header>
+            <header >
                 <div id="search-box">
                     <input type="text" placeholder="Search..." />
                 </div>
-                <img src="path/to/logo.png" alt="Logo" />
+                <img class="student-image" src=".././src/images/student-image.png" alt="student image" />
             </header>
             <nav class="navbar">
                 <div class="navbar-logo">
-                    <img src="path/to/logo.png" alt="Logo" />
+                    <img class="logo" src=".././src/images/logo.png" alt="Logo" />
                 </div>
                 <ul class="navbar-links">
                     <li><a href="#dashboard">Dashboard</a></li>
@@ -39,11 +38,9 @@ export function renderDashboard(loggedInUser: User): string {
                     <li><a href="#settings">Settings</a></li>
                     <li><a href="#logout">Logout</a></li>
                 </ul>
-                <div class="navbar-profile">
-                    <img src="https://www.example.com/profile-icon.png" alt="Profile" />
-                </div>
+
             </nav>
-            </div>
+            <main>
                 <h1>Dashboard</h1>
                 <div class="dashboard-content">
                     <p>Welcome to your dashboard, ${loggedInUser.fullName}!</p>
@@ -53,7 +50,6 @@ export function renderDashboard(loggedInUser: User): string {
                     <p><strong>Name:</strong> ${loggedInUser.fullName}</p>
                     <p><strong>Email:</strong> ${loggedInUser.email}</p>
                     <p><strong>Phone:</strong> ${loggedInUser.phone}</p>
-                    <div class="progress-circle" style="--percentage: 82;"></div>
                 </div>
                 <div class="dashboard-summary">
                     <div class="last-lesson">
@@ -91,19 +87,15 @@ export function renderDashboard(loggedInUser: User): string {
                         <button class="btn" id="add-message-button">Add Message</button>
                     </div>
                 </div>
-            </div>
+            </main>
         </div>
     `;
 
-    document.body.innerHTML = content;
-
-    document.addEventListener('DOMContentLoaded', () => {
-        setupDashboardListeners();
+    setTimeout(() => {
         setupMessageListeners();
-    });
-
-    window.editMessage = editMessage;
-    window.removeMessage = removeMessage;
+        window.editMessage = editMessage;
+        window.removeMessage = removeMessage;
+    }, 0);
 
     return content;
 }
@@ -119,10 +111,6 @@ function renderMessages(): string {
     `).join('');
 }
 
-export function setupDashboardListeners(): void {
-    // Add any listeners for the dashboard here, if needed.
-}
-
 function setupMessageListeners(): void {
     const addMessageButton = document.getElementById('add-message-button') as HTMLButtonElement;
     const newMessageInput = document.getElementById('new-message') as HTMLInputElement;
@@ -136,7 +124,7 @@ function setupMessageListeners(): void {
         const messageContent = newMessageInput.value.trim();
         if (messageContent) {
             addMessage(messageContent);
-            newMessageInput.value = '';  // Clear the input field after adding the message
+            newMessageInput.value = '';  
         } else {
             console.error("Message content is empty");
         }
@@ -146,8 +134,8 @@ function setupMessageListeners(): void {
 function addMessage(content: string): void {
     const newId = messages.length ? Math.max(...messages.map(msg => msg.id)) + 1 : 1;
     messages.push({ id: newId, content, sender: 'User', isRead: false });
-    console.log("Message added:", messages);  // Verify the message was added to the array
-    updateMessages();  // Refresh the message list after adding a new message
+    console.log("Message added:", messages);
+    updateMessages(); 
 }
 
 function editMessage(id: number): void {

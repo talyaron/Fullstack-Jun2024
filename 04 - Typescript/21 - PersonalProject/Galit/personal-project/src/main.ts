@@ -1,7 +1,7 @@
 import { renderWelcomePage, setupWelcomePageListeners } from './pages/welcome/welcomePage';
 import { renderRegister, setupRegisterPageListeners } from './pages/register/registerPage';
 import { renderLogin, setupLoginPageListeners } from './pages/login/loginPage'; 
-import { renderDashboard, setupDashboardListeners } from './pages/dashboard/dashboardPage'; 
+import { renderDashboard } from './pages/dashboard/dashboardPage'; 
 import './style.scss';
 import './pages/welcome/welcome.scss';
 import './pages/register/register.scss';
@@ -26,7 +26,6 @@ function loadPage() {
     if (loggedInUser) {
       const user = JSON.parse(loggedInUser);
       root.innerHTML = renderDashboard(user);
-      setupDashboardListeners();
     } else {
       window.location.hash = '#login'; 
     }
