@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./dist/register.css">
+    <title>Register Page</title>
+</head>
+<body>
+    <div class="register">
+        <h1 class="register__title">Create Account</h1>
+        <form id="registerForm" class="register__form">
+            <label class="register__label">Name:</label>
+            <input type="text" id="name" class="register__input" required>
+            <label class="register__label">Phone:</label>
+            <input type="text" id="phone" class="register__input" required>
+            <label class="register__label">Email:</label>
+            <input type="email" id="email" class="register__input" required>
+            <label class="register__label">Password:</label>
+            <input type="password" id="password" class="register__input" required>
+            <label class="register__label">Repeat Password:</label>
+            <input type="password" id="repeatPassword" class="register__input" required>
+            <button type="submit" class="register__button">Register</button>
+        </form>
+        <p class="register__message">Already have an account? <a href="../loginpage/login.html">Login here</a></p>
+    </div>
+    <script src="./dist/register.js"></script>
+</body>
+</html>
