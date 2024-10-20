@@ -1,6 +1,5 @@
 import { User } from '../../model/userModel';
-import { renderSettings } from '../settings/settingsPage';
-import {renderProfile} from '../userPage/profilePage';
+
 
 interface Message {
     id: number;

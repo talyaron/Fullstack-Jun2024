@@ -1,9 +1,5 @@
 import { User } from '../../model/userModel';
 
-function getLoggedInUser(): User | null {
-    const userData = localStorage.getItem('loggedInUser');
-    return userData ? JSON.parse(userData) : null;
-}
 
 export function renderSettings(loggedInUser: User): string {
     const content = `
