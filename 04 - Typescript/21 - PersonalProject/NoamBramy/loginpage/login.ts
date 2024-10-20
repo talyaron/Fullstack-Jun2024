@@ -1,29 +1,26 @@
-document.getElementById('loginForm')?.addEventListener('submit', function(event) {
-  event.preventDefault();
+class User {
+    email: string;
+    password: string;
+    username: string;
+    phoneNumber: string;
 
-  const email = (document.getElementById('email') as HTMLInputElement).value;
-  const password = (document.getElementById('password') as HTMLInputElement).value;
-  const keepMeLoggedIn = (document.getElementById('keepMeLoggedIn') as HTMLInputElement).checked;
+    constructor(email: string, password: string, username: string, phoneNumber: string) {
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.phoneNumber = phoneNumber;
+    }
 
-  const storedUser = localStorage.getItem(email);
-  if (storedUser) {
-      const userData = JSON.parse(storedUser);
-      if (userData.password === password) {
-          alert('Login successful!');
+    saveToLocalStorage() {
+        localStorage.setItem(this.email, JSON.stringify(this));
+    }
 
-          if (keepMeLoggedIn) {
-              localStorage.setItem('loggedInUser', email);
-          } else {
-              sessionStorage.setItem('loggedInUser', email);
-          }
-
-          setTimeout(() => {
-              window.location.href = '../dashboard/dashboard.html'; 
-          }, 500);
-      } else {
-          alert('Invalid email or password.'); 
-      }
-  } else {
-      alert('Invalid email or password.'); 
-  }
-});
+    static loadFromLocalStorage(email: string): User | null {
+        const storedUser = localStorage.getItem(email);
+        if (storedUser) {
+            const userData = JSON.parse(storedUser);
+            return new User(userData.email, userData.password, userData.username, userData.phoneNumber);
+        }
+        return null;
+    }
+}
