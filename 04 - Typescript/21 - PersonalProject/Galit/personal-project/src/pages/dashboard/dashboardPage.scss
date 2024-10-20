@@ -2,6 +2,8 @@
 @import '../../components/input/input.scss';
 @import '../../components/header/header.scss';
 @import '../../components/navbar/navbar.scss';
+@import '../../components/button/smallBtn.scss';
+
 
 body {
     background-color: #FBFBFD;
@@ -19,11 +21,21 @@ body {
 .dashboard-content{
     margin-top: 30vh;
 }
-    .user-info {
-        margin-bottom: 20px;
-        padding: 15px;
-        background-color: #E3EDFF; 
-        border-radius: 8px;
+.user-info {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #E3EDFF; 
+    border-radius: 8px;
+
+    
+    .student-image {
+        width: 20vh;
+        height: 20vh;
+        border-radius: 50%;
+        margin-right: 20px; 
+        display: flex;
+        margin-top: -22vh; 
+margin-left: 100vh;    }
     }
 
     .dashboard-summary {
@@ -77,27 +89,7 @@ body {
       .messages-container{
         .messages-container ul {        
             padding: 0;
-        }
-        .smallBtn {
-            margin-top: 1rem;
-            background-color: #3377FF;
-            width: 10vh;
-            height: 4.5vh; 
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            border-radius: 15px;
-          }
-          
-          .btn:hover {
-            background-color: #99BBFF; 
-          }
-          
-          .btn:active {
-            background-color: #99BBFF; 
-          }
-          
+        } 
         }
     }
 }
