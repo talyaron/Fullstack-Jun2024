@@ -24,7 +24,7 @@ function renderRegister() {
       <div id="formContainer">
       <Form id="form" onsubmit="checkForm(event)">
   
-        <input type="text" name="name" id="name" placeholder="name">
+        <input type="text" name="email" id="email" placeholder="email">
         <p id="nameDesc"></p>
 
         <input type="password" name="password" id="password" placeholder="password">
@@ -51,13 +51,13 @@ function checkForm(event)
     event.preventDefault();
 
     const formData = new FormData(event.target as HTMLFormElement);
-    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
     const password = formData.get("password") as string;
   
     const agree = formData.get("agree") as string;
     const sameNameUsers = users.filter((user)=>
-    user.name==name)
- const foundUser= sameNameUsers.find(user=>
+    user.email==email)
+    const foundUser= sameNameUsers.find(user=>
         user.password==password
     )
     if(foundUser)

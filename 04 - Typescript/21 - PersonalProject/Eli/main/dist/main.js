@@ -35,6 +35,10 @@ var FormValidator = /** @class */ (function () {
     FormValidator.prototype.isEmailValid = function () {
         if (this.regE.test(this.email) == false)
             return "invalid email : email needs @ and a .com ending";
+        var emailCheck = this.isEmailFree();
+        if (emailCheck) {
+            return emailCheck;
+        }
         return null;
     };
     FormValidator.prototype.isPhoneNumValid = function () {
@@ -50,6 +54,14 @@ var FormValidator = /** @class */ (function () {
     FormValidator.prototype.isRePasswordValid = function () {
         if (this.rePassword !== this.password)
             return "invalid repeat password: required to be the same as password";
+        return null;
+    };
+    FormValidator.prototype.isEmailFree = function () {
+        var _this = this;
+        var matchingMail = users.find(function (user) { return _this.email === user.email; });
+        if (matchingMail) {
+            return "This email is already registered.";
+        }
         return null;
     };
     return FormValidator;
@@ -70,7 +82,7 @@ function renderMain() {
     }
 }
 var pageDashboard = "<div id=\"userDetails\">\n  <!-- Text Section -->\n  <div id=\"text\">\n    <h1>Welcome " + loggedUser.name + "</h1>\n    <h2>" + loggedUser.name + " hi</h2>\n    <h3>" + loggedUser.email + "</h3>\n  </div>\n\n  <!-- Chart Section -->\n  <div id=\"chart\">\n    <div class=\"circle\">\n      <div class=\"innerCircle\">\n        <h1>Progress</h1>\n      </div>\n    </div>\n  </div>\n</div>\n\n<!-- Bottom Container -->\n<div id=\"bottomContainer\">\n  <!-- Bottom Left Page -->\n  <div id=\"bottomLeftPage\">\n    <div id=\"boxContainer\">\n      <div class=\"box\">\n        <h1>Last lesson<h1>\n      </div>\n      <div class=\"box\">\n        <h1>Grade<h1>\n      </div>\n      <div class=\"box\">\n         <h1>Attendance<h1>      \n      </div>\n    </div>\n     <div id=\"longBox\">\n     <h1>where is my money<h1>\n     </div>\n  </div>\n\n  <!-- Bottom Right Page -->\n  <div id=\"bottomRightPage\">\n    <div id =\"calender\">\n      <h1>Calender</h1>\n    </div>\n  </div>\n</div>\n";
-var pageProfile = "<div id=\"leftRight\" >\n<div id =\"profileLeft\">\n<div class=\"circle\"><img id=\"imagePreview\"  src=\"" + checkUserImage() + "\" alt =\"profile picture\"></div>\n<div><h1> <input type=\"file\" id=\"imageInput\" accept=\"image/*\" ></h1></div>\n</div><div id =\"profileRight\">\n\n<div id=\"userForm\" on >\n<h1>name: " + loggedUser.name + "<h1/>\n<h1>email:  " + loggedUser.email + "<h1/>\n<h1> phone number:" + loggedUser.phone + "<h1/>\n<h1>password: " + hiddenPassword() + "<h1/>\n<button class=\"btn\" id=\"editButton\" onclick =\"editUser()\"><h1>edit</h1></button>\n</div>\n</div></div>";
+var pageProfile = "<div id=\"leftRight\" >\n<div id =\"profileLeft\">\n<div class=\"circle\"><img id=\"imagePreview\"  src=\"" + checkUserImage() + "\" alt =\"profile picture\"></div>\n<div> <input type=\"file\" id=\"imageInput\" accept=\"image/*\" ></div>\n</div><div id =\"profileRight\">\n\n<div id=\"userForm\" on >\n<h1>name: " + loggedUser.name + "<h1/>\n<h1>email:  " + loggedUser.email + "<h1/>\n<h1> phone number:" + loggedUser.phone + "<h1/>\n<h1>password: " + hiddenPassword() + "<h1/>\n<button class=\"btn\" id=\"editButton\" onclick =\"editUser()\"><h1>edit</h1></button>\n</div>\n</div></div>";
 function checkForm(event) {
     event.preventDefault();
     var formData = new FormData(event.target);
@@ -94,7 +106,7 @@ function checkForm(event) {
     if (resultE === null && email != loggedUser.email) {
         loggedUser.email = email;
     }
-    if (resultPN === null && phoneNum != loggedUser.phoneNum) {
+    if (resultPN === null && phoneNum != loggedUser.phone) {
         loggedUser.phone = phoneNum;
     }
     if (resultP === null && resultRP === null && password != loggedUser.password) {
@@ -103,7 +115,11 @@ function checkForm(event) {
     localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
     console.log("User updated successfully:", loggedUser);
     upDateUsers(loggedUser);
-    window.location.reload();
+    reRenderUser();
+}
+function reRenderUser() {
+    var formElement = document.getElementById("userForm");
+    formElement.innerHTML = " <h1>name: " + loggedUser.name + "<h1/>\n  <h1>email:  " + loggedUser.email + "<h1/>\n  <h1> phone number:" + loggedUser.phone + "<h1/>\n  <h1>password: " + hiddenPassword() + "<h1/>\n  <button class=\"btn\" id=\"editButton\" onclick =\"editUser()\"><h1>edit</h1></button>";
 }
 function editUser() {
     var formElement = document.getElementById("userForm");
@@ -171,12 +187,12 @@ function addPhoto() {
 function upDateUsers(loggedUser) {
     var userIndex = users.findIndex(function (user) { return loggedUser.id === user.id; });
     if (userIndex !== -1) {
-        // Update the user's properties
+        // Update the user's properties in memory
         users[userIndex] = __assign(__assign({}, users[userIndex]), loggedUser);
-        // Log the update
-        console.log("User with id " + loggedUser.id + " updated successfully.");
         // Optionally, save the updated users array to local storage
         localStorage.setItem('users', JSON.stringify(users));
+        // Log the update
+        console.log("User with id " + loggedUser.id + " updated successfully.");
     }
     else {
         console.log("User with id " + loggedUser.id + " not found.");
