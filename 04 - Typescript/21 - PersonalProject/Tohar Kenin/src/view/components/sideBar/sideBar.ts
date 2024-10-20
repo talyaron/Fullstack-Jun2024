@@ -11,11 +11,11 @@ export function renderSideBar(): string {
             <h1 class="logo__name">Academy.</h1>
         </div>
             <div class="menu">
-                <div href="../pages/mainPage/dist/mainPage.js" class="menu-item" data-target="dashboard">
+                <a href="?dashboardParam=dashboard" class="menu-item" data-target="dashboard">
                     <img src="../../../assets/logo.png">
                     <h3 class="menu-item__text dashboard">Dashboard</h3>
-                </div>
-                <a href="?param1=login" class="menu-item" data-target="courses">
+                </a>
+                <a href="?coursesParam=courses" class="menu-item" data-target="courses">
                     <img src="../images/Glyph.svg" alt="Home-icon" class="menu-item__icon">
                     <h3 class="menu-item__text courses">Courses</h3>
                 </a>
