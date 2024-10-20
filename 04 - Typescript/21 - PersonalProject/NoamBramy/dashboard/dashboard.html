@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./dist/dashboard.css">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="dashboard">
+        <nav class="dashboard__sidebar">
+            <img src="../assets/noimage.png" alt="Profile" class="dashboard__logo">
+            <ul class="dashboard__menu">
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Courses</a></li>
+                <li><a href="#">Zoom</a></li>
+                <li><a href="#">Forum</a></li>
+                <li><a href="#">Lessons</a></li>
+            </ul>
+        </nav>
+        <div class="dashboard__navbar">
+            <div class="dashboard__search-container">
+                <input type="text" class="dashboard__search-input" placeholder="Search...">
+                <img src="../assets/noimage.png" alt="Profile" class="dashboard__profile">
+            </div>
+        </div>
+        <main class="dashboard__main">
+            <div class="dashboard__content">
+                <div class="dashboard__user-info">
+                    <div class="dashboard__profile-pic-container">
+                        <img src="../assets/noimage.png" alt="Profile" class="dashboard__profile-pic-large">
+                    </div>
+                    <p class="dashboard__info">Username: <span id="username"></span></p>
+                    <p class="dashboard__info">Email: <span id="email"></span></p>
+                    <p class="dashboard__info">Phone Number: <span id="phoneNumber"></span></p>
+                    <p class="dashboard__info">Password: <span id="password"></span></p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="./dist/dashboard.js"></script>
+</body>
+</html>
