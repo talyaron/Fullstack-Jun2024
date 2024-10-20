@@ -15,10 +15,10 @@ export function renderSideBar(): string {
                     <img src="../../../assets/logo.png">
                     <h3 class="menu-item__text dashboard">Dashboard</h3>
                 </div>
-                <div href="../pages/register/dist/registerPage.js" class="menu-item" data-target="courses">
+                <a href="?param1=login" class="menu-item" data-target="courses">
                     <img src="../images/Glyph.svg" alt="Home-icon" class="menu-item__icon">
                     <h3 class="menu-item__text courses">Courses</h3>
-                </div>
+                </a>
                 <div href="#" class="menu-item" data-target="log">
                     <img src="../images/User-Vector.svg" alt="Home-icon" class="menu-item__icon">
                     <h3 class="menu-item__text" log>Zoom</h1>

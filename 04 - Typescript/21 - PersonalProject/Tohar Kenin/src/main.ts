@@ -7,9 +7,21 @@ import {mainPage} from './view/pages/mainPage/mainPage';
 
 document.querySelector<HTMLDivElement>('#header')!.innerHTML = renderHeader();
 document.querySelector<HTMLDivElement>('#sidebar')!.innerHTML = renderSideBar();
-document.querySelector<HTMLDivElement>('#dashboard')!.innerHTML = mainPage();
+// document.querySelector<HTMLDivElement>('#dashboard')!.innerHTML = mainPage();
 
 // document.querySelector<HTMLDivElement>('#pageNavigation')!.innerHTML = navigation();
+
+console.log("first");
+const queryString = window.location.search;
+const params = new URLSearchParams(queryString);
+console.log("first",queryString);
+console.log(params);
+
+const param1 = params.get('param1');
+const param2 = params.get('param2');
+console.log(param1, param2);
+
+//continental rendering abounding to the url
 
 export function navigation(): void {
     const sidebarLinks = document.querySelectorAll('.menu-item');
