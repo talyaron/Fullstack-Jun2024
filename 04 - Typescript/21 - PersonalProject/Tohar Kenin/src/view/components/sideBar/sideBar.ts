@@ -1,5 +1,6 @@
 import './sideBar.scss'
 import '../../../assets/logo.png'
+'../pages/register/registerPage.ts'
 
 export function renderSideBar(): string {
 
@@ -10,19 +11,18 @@ export function renderSideBar(): string {
             <h1 class="logo__name">Academy.</h1>
         </div>
             <div class="menu">
-                <a href="./index.html" class="menu-item">
+                <div href="../pages/mainPage/dist/mainPage.js" class="menu-item" data-target="dashboard">
                     <img src="../../../assets/logo.png">
-                    <h3 class="menu-item__text current">Dashboard</h1>
-                        <div class="current-page-sign"></div>
-                </a>
-                <a href="../transactions/index.html" class="menu-item">
+                    <h3 class="menu-item__text dashboard">Dashboard</h3>
+                </div>
+                <div href="../pages/register/dist/registerPage.js" class="menu-item" data-target="courses">
                     <img src="../images/Glyph.svg" alt="Home-icon" class="menu-item__icon">
-                    <h3 class="menu-item__text">Courses</h1>
-                </a>
-                <a href="#" class="menu-item">
+                    <h3 class="menu-item__text courses">Courses</h3>
+                </div>
+                <div href="#" class="menu-item" data-target="log">
                     <img src="../images/User-Vector.svg" alt="Home-icon" class="menu-item__icon">
-                    <h3 class="menu-item__text">Zoom</h1>
-                </a>
+                    <h3 class="menu-item__text" log>Zoom</h1>
+                </div>
                 <a href="#" class="menu-item">
                     <img src="../images/Layer 1 1.svg" alt="Home-icon" class="menu-item__icon">
                     <h3 class="menu-item__text">Forum</h1>

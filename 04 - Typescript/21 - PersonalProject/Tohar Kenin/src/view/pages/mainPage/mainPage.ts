@@ -1,6 +1,6 @@
 import './mainpage.scss'
 export function mainPage(): string {
     return `
-        <h1>Main Page</h1>
+        <div id="dashboard">Main Page</div>
     `
 }
