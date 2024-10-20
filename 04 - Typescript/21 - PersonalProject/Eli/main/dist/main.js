@@ -14,6 +14,12 @@ var loggedUser = localStorageUser ? JSON.parse(localStorageUser) : "";
 var mainElement = document.getElementById("content");
 var localStorageDetail = localStorage.getItem("users");
 var users = localStorageDetail ? JSON.parse(localStorageDetail) : [];
+var courses = [];
+var course1 = { id: "id-" + crypto.randomUUID(), name: "Linear Algebra" };
+var course2 = { id: "id-" + crypto.randomUUID(), name: "Type Script" };
+var course3 = { id: "id-" + crypto.randomUUID(), name: "English" };
+courses.push(course1, course2, course3);
+var studentCourses = [];
 var FormValidator = /** @class */ (function () {
     function FormValidator(name, email, phoneNum, password, rePassword) {
         this.name = name;
@@ -66,6 +72,14 @@ var FormValidator = /** @class */ (function () {
     };
     return FormValidator;
 }());
+addClass(course1);
+function addClass(course) {
+    var userCourse = {
+        studentId: loggedUser.id,
+        courseId: course.id
+    };
+    studentCourses.push(userCourse);
+}
 function redirectIndex() {
     mainElement.innerHTML = "<div class=\"container\">\n    <h1>Log in to view main</h1>\n    <h3>you are redirected to the welcome screen</h3>\n</div>";
     setTimeout(function () {
@@ -77,7 +91,7 @@ function renderMain() {
         redirectIndex();
     }
     else {
-        mainElement.innerHTML = "\n        <div id=\"pageHolder\">\n        <nav id=\"navContainer\">\n        <div id=\"logo\">Pedago</div>\n        <button class=\"navBtn \" id=\"Dashboard\">Dashboard</button >\n        <button class=\"navBtn selected\" id=\"Profile\">Profile</button >\n        <button class=\"navBtn \" id=\"Courses\">Courses</button >\n        <button class=\"navBtn \" id=\"Zoom\">Zoom</button >\n        <button class=\"navBtn\" id=\"Forum\">Forum</button >\n        <button class=\"navBtn \" id=\"Lessons\">Lessons</button >\n        <button class=\"navBtn \" id=\"logOut\">Log Out</button >\n        </nav>\n         <div id=\"contentHolder\">\n         <div id =\"topBar\">\n         <input type=\"text\" id=\"search\" placeholder=\"search...\">\n         <div id=\"downArrow\">\u25BC</div> \n         <div id=\"pfp\"><img id=\"pfpImg\"src=\"" + checkUserImage() + "\" alt=\"profile Picture\"></div>\n         </div>  \n\n        <div class=\"container\" id=\"pageContent\">\n        </div> \n       </div></div> ";
+        mainElement.innerHTML = "\n        <div id=\"pageHolder\">\n        <nav id=\"navContainer\">\n        <div id=\"logo\">Pedago</div>\n        <button class=\"navBtn \" id=\"Dashboard\">Dashboard</button >\n        <button class=\"navBtn \" id=\"Profile\">Profile</button >\n        <button class=\"navBtn selected\" id=\"Courses\">Courses</button >\n        <button class=\"navBtn \" id=\"Zoom\">Zoom</button >\n        <button class=\"navBtn\" id=\"Forum\">Forum</button >\n        <button class=\"navBtn \" id=\"Lessons\">Lessons</button >\n        <button class=\"navBtn \" id=\"logOut\">Log Out</button >\n        </nav>\n         <div id=\"contentHolder\">\n         <div id =\"topBar\">\n         <input type=\"text\" id=\"search\" placeholder=\"search...\">\n         <div id=\"downArrow\">\u25BC</div> \n         <div id=\"pfp\"><img id=\"pfpImg\"src=\"" + checkUserImage() + "\" alt=\"profile Picture\"></div>\n         </div>  \n\n        <div class=\"container\" id=\"pageContent\">\n        </div> \n       </div></div> ";
         renderBySelected();
     }
 }
@@ -126,7 +140,16 @@ function editUser() {
     formElement.innerHTML = " <Form id=\"form\" onsubmit=\"checkForm(event)\">\n  <input type=\"text\" name=\"name\" id=\"name\" placeholder=\"" + loggedUser.name + "\">\n      <p id=\"nameDesc\"></p>\n\n      <input type=\"text\" name=\"email\" id=\"email\" placeholder=\"" + loggedUser.email + "\">\n      <p id=\"emailDesc\"></p>\n\n      <input type=\"text\" name=\"phoneNum\" id=\"phoneNum\" placeholder=\"" + loggedUser.phone + "\">\n      <p id=\"phoneNumDesc\"></p>\n\n      <input type=\"password\" name=\"password\" id=\"password\" placeholder=\"" + hiddenPassword() + "\">\n      <p id=\"passwordDesc\"></p>\n      \n      <input type=\"password\" name=\"RePassword\" id=\"RePassword\" placeholder=\"repeat password\">\n      <p id=\"RePasswordDesc\"></p>\n\n     <br>\n\n      <input type=\"submit\" value=\"Edit\" class=\"btn\">\n</Form>";
     console.log("eldeennene");
 }
-var pageCourses = "dfdfsssssssssssssssssssdf";
+function getCourses() {
+    var userCourseIds = studentCourses
+        .filter(function (course) { return course.studentId === loggedUser.id; }) // Filter courses for the logged user
+        .map(function (course) { return course.courseId; });
+    return courses
+        .filter(function (course) { return userCourseIds.includes(course.id); }) // Filter courses by IDs
+        .map(function (course) { return course.name; }) // Get course names
+        .join(', ');
+}
+var pageCourses = "<div id=\"userDetails\">\n  <!-- Text Section -->\n  <div id=\"text\">\n    <h1> " + loggedUser.name + " Courses:</h1>\n    <h2></h2>\n    <h3>" + getCourses() + "</h3>\n  </div>\n\n</div>\n\n<!-- Bottom Container -->\n<div id=\"bottomContainer\">\n  <!-- Bottom Left Page -->\n  <div id=\"bottomLeftPage\">\n    <div id=\"boxContainer\">\n      <div class=\"box\">\n        <h1>Last lesson<h1>\n      </div>\n      <div class=\"box\">\n        <h1>Grade<h1>\n      </div>\n      <div class=\"box\">\n         <h1>Attendance<h1>      \n      </div>\n    </div>\n  </div>\n\n  <!-- Bottom Right Page -->\n  <div id=\"bottomRightPage\">\n     <div id=\"boxContainer\">\n      <div class=\"box\">\n        <h1>Last lesson<h1>\n      </div>\n      <div class=\"box\">\n        <h1>Grade<h1>\n      </div>\n      <div class=\"box\">\n  </div>\n</div>";
 var pageZoom = "dffaaaaaaaaaaaaaaaaaad";
 var pageForum = "dfdaaaaaaaaaaaaaaaaaf";
 var pageLessons = "dfdaaaaaaaaaaaaaaf";

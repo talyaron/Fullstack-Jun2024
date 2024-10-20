@@ -1,5 +1,4 @@
 
-
 const localStorageUser = localStorage.getItem("loggedUser");
 const loggedUser: any = localStorageUser ? JSON.parse(localStorageUser) : "";
 const mainElement = document.getElementById("content") as HTMLElement;
@@ -7,6 +6,22 @@ const mainElement = document.getElementById("content") as HTMLElement;
 const localStorageDetail = localStorage.getItem("users");
 const users:any[] = localStorageDetail ? JSON.parse(localStorageDetail) : [];
 
+interface Course{
+  id:string;
+  name:string;
+}
+interface StudentCourse {
+  studentId: string;
+  courseId: string;
+}
+
+const courses: Course[]=[]
+const course1:Course={id :`id-${crypto.randomUUID()}`,name:"Linear Algebra",}
+const course2:Course={id :`id-${crypto.randomUUID()}`,name:"Type Script",}
+const course3:Course={id :`id-${crypto.randomUUID()}`,name:"English",}
+
+courses.push(course1,course2,course3);
+const studentCourses: StudentCourse[] = [];
 
 class FormValidator {
   name: string;
@@ -77,6 +92,17 @@ class FormValidator {
   }
 }
 
+addClass(course1)
+
+function addClass(course:Course)
+{
+  const userCourse: StudentCourse = {
+    studentId: loggedUser.id, // Use loggedUser.id for studentId
+    courseId: course.id, // Use course.id for courseId
+  };
+
+  studentCourses.push(userCourse);
+}
 
 function redirectIndex() {
   mainElement.innerHTML = `<div class="container">
@@ -97,8 +123,8 @@ function renderMain() {
         <nav id="navContainer">
         <div id="logo">Pedago</div>
         <button class="navBtn " id="Dashboard">Dashboard</button >
-        <button class="navBtn selected" id="Profile">Profile</button >
-        <button class="navBtn " id="Courses">Courses</button >
+        <button class="navBtn " id="Profile">Profile</button >
+        <button class="navBtn selected" id="Courses">Courses</button >
         <button class="navBtn " id="Zoom">Zoom</button >
         <button class="navBtn" id="Forum">Forum</button >
         <button class="navBtn " id="Lessons">Lessons</button >
@@ -266,8 +292,58 @@ function editUser()
 </Form>`;
   console.log("eldeennene");
 }
+function getCourses ()
+{
+  const userCourseIds = studentCourses
+    .filter(course => course.studentId === loggedUser.id) // Filter courses for the logged user
+    .map(course => course.courseId);
+    return  courses
+    .filter(course => userCourseIds.includes(course.id)) // Filter courses by IDs
+    .map(course => course.name) // Get course names
+    .join(', ');
+    
+  }
 
-const pageCourses = `dfdfsssssssssssssssssssdf`;
+const pageCourses = `<div id="userDetails">
+  <!-- Text Section -->
+  <div id="text">
+    <h1> ${loggedUser.name} Courses:</h1>
+    <h2></h2>
+    <h3>${getCourses ()}</h3>
+  </div>
+
+</div>
+
+<!-- Bottom Container -->
+<div id="bottomContainer">
+  <!-- Bottom Left Page -->
+  <div id="bottomLeftPage">
+    <div id="boxContainer">
+      <div class="box">
+        <h1>Last lesson<h1>
+      </div>
+      <div class="box">
+        <h1>Grade<h1>
+      </div>
+      <div class="box">
+         <h1>Attendance<h1>      
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Right Page -->
+  <div id="bottomRightPage">
+     <div id="boxContainer">
+      <div class="box">
+        <h1>Last lesson<h1>
+      </div>
+      <div class="box">
+        <h1>Grade<h1>
+      </div>
+      <div class="box">
+  </div>
+</div>`;
+
 const pageZoom = `dffaaaaaaaaaaaaaaaaaad`;
 const pageForum = `dfdaaaaaaaaaaaaaaaaaf`;
 const pageLessons = `dfdaaaaaaaaaaaaaaf`;
