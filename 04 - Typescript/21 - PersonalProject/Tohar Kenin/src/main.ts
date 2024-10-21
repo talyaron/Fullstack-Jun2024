@@ -10,8 +10,23 @@ import { registerPage } from './view/pages/register/registerPage';
 
 // document.querySelector<HTMLDivElement>('#pageNavigation')!.innerHTML = navigation();
 
+//renders all pages in the app 
+function renderPages():void {
 
-// document.querySelector<HTMLDivElement>('#loginContainer')!.innerHTML = loginPage();
+    document.querySelector<HTMLDivElement>('#loginContainer')!.innerHTML = loginPage();
 
-document.querySelector<HTMLDivElement>('#loginContainer')!.innerHTML = registerPage();
+    const queryString = window.location.search;
+    const params:any = new URLSearchParams(queryString);
 
+    const loginParam = params.get('loginParam');
+    const registerParam = params.get('registerParam');
+    
+    if (loginParam) {
+        document.querySelector<HTMLDivElement>('#loginContainer')!.innerHTML = loginPage();
+    }
+    else if (registerParam) {
+        document.querySelector<HTMLDivElement>('#loginContainer')!.innerHTML = registerPage();
+    }
+};
+
+renderPages();
