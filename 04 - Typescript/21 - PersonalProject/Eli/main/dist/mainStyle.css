@@ -15,6 +15,44 @@
   width: 90%;
 }
 
+#form {
+  display: flex;
+  flex-direction: column;
+  width: 25vw;
+  height: 50vh;
+  border-radius: 30px;
+  justify-content: center;
+  background-color: #aab7e0;
+}
+#form input {
+  font-size: 1rem;
+}
+@media (max-width: 800px) {
+  #form input {
+    font-size: 0.5rem;
+    width: 10vw;
+  }
+}
+@media (min-width: 800px) {
+  #form input {
+    font-size: 0.7rem;
+    width: 15vw;
+  }
+}
+@media (min-width: 1200px) {
+  #form input {
+    font-size: 1rem;
+  }
+}
+@media (min-width: 2400px) {
+  #form input {
+    font-size: 1.2rem;
+  }
+}
+#form .btn {
+  margin: 0 auto;
+}
+
 #userForm {
   display: flex;
   flex-direction: column;
@@ -195,6 +233,10 @@
   overflow: hidden;
 }
 #profileLeft .circle img {
+  width: 100%;
+  height: 100%;
+}
+#profileLeft #imageInput {
   width: 100%;
   height: 100%;
 }
