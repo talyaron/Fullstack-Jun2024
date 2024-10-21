@@ -45,7 +45,4 @@ try {
     console.error("function isnt found");
     return null
 }
-}
-
-
-createNavbar();
+};
