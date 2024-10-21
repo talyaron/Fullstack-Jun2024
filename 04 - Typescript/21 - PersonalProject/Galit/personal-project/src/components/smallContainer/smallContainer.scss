@@ -1,10 +1,11 @@
-.SmallContainer{
+.smallContainer {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: left;
+        align-items: center;
         background-color: #E3EDFF;
-        height: 80vh;
-        width: 140vh;
+        height: 83vh;
+        width: 178vh;
         border-radius: 3vh;
-}
+        transform: translate(10vh, 7.5vh);
+    }
