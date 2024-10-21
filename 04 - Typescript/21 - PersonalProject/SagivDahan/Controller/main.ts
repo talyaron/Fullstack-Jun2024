@@ -1,6 +1,9 @@
-export function createNavbar(): HTMLElement {
+ export function createNavbar(): HTMLElement {
     console.log('Creating navbar...');
     //create element of nav
+
+    //hold the element inside of the html file:
+    const containerElement = document.getElementById("navbar-container")as HTMLElement
     const navElement = document.createElement('nav');
     //craete "navbar" class
     navElement.classList.add('navbar');
@@ -30,6 +33,12 @@ export function createNavbar(): HTMLElement {
     });
 
     navElement.appendChild(ul);
+
+    //append child the created element to the one in the html 
+    //it wont show if you dont append child 
+    containerElement.appendChild(navElement);
+
+
     console.log(navElement)
     return navElement;
     

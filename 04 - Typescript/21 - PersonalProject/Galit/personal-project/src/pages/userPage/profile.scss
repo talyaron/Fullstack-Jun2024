@@ -1,0 +1,50 @@
+@import '../../components/button/button.scss';
+@import '../../components/input/input.scss';
+@import '../../components/header/header.scss';
+@import '../../components/navbar/navbar.scss';
+@import '../../components/container/container.scss';
+
+body {
+    background-color: #FBFBFD;
+}
+.profile-container {
+    padding: 20px;
+    .logo {
+        width: 12vh;
+        height: auto;
+    }
+}
+
+.container {
+    display: flex;
+margin-top: 15vh;
+margin-left: 21vh;  
+    height: 90vh;      
+    
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 35vh;       
+        align-items: flex-start; 
+        
+        .form-group {
+            margin-bottom: 1rem;
+            width: 100%;
+            
+            label {
+                margin-bottom: 0.1vh;
+                font-weight: bold;
+            }
+
+            .input {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+
+        button {
+            margin-top: 0.1vh;
+            align-self: flex-end; 
+        }
+    }
+}

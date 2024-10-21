@@ -1,9 +1,7 @@
-"use strict";
-exports.__esModule = true;
-exports.createNavbar = void 0;
 function createNavbar() {
     console.log('Creating navbar...');
     //create element of nav
+    var containerElelamnt = document.getElementById("navbar-container");
     var navElement = document.createElement('nav');
     //craete "navbar" class
     navElement.classList.add('navbar');
@@ -30,7 +28,8 @@ function createNavbar() {
         ul.appendChild(li);
     });
     navElement.appendChild(ul);
+    containerElelamnt.appendChild(navElement);
     console.log(navElement);
     return navElement;
 }
-exports.createNavbar = createNavbar;
+createNavbar();

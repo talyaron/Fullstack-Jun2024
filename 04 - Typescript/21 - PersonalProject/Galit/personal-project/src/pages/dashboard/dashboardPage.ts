@@ -1,5 +1,6 @@
 import { User } from '../../model/userModel';
 
+
 interface Message {
     id: number;
     content: string;
@@ -26,7 +27,7 @@ export function renderDashboard(loggedInUser: User): string {
                 <div id="search-box">
                     <input type="text" placeholder="Search..." />
                 </div>
-                <img class="student-image" src=".././src/images/student-image.png" alt="student image" />
+                    <img class="student-image" src="${loggedInUser.imageUrl || '.././src/images/student-image.png'}" alt="student image" />
             </header>
             <nav class="navbar">
                 <div class="navbar-logo">
@@ -38,7 +39,6 @@ export function renderDashboard(loggedInUser: User): string {
                     <li><a href="#settings">Settings</a></li>
                     <li><a href="#logout">Logout</a></li>
                 </ul>
-
             </nav>
             <main>
                 <h1>Dashboard</h1>
@@ -50,19 +50,21 @@ export function renderDashboard(loggedInUser: User): string {
                     <p><strong>Name:</strong> ${loggedInUser.fullName}</p>
                     <p><strong>Email:</strong> ${loggedInUser.email}</p>
                     <p><strong>Phone:</strong> ${loggedInUser.phone}</p>
+                    <img class="student-image" src="${loggedInUser.imageUrl || '.././src/images/student-image.png'}" alt="student image" />
+
                 </div>
                 <div class="dashboard-summary">
                     <div class="last-lesson">
                         <h2>Last Lesson</h2>
-                        <p>TypeScript</p>
+                        <p>${loggedInUser.lastLesson}</p>
                     </div>
                     <div class="grades">
-                        <h2>Grades</h2>
-                        <p>82</p>
+                        <h2>Grade</h2>
+                        <p>${loggedInUser.grade}</p>
                     </div>
                     <div class="attendance">
                         <h2>Attendance</h2>
-                        <p>Attendance Rate: 90%</p>
+                        <p>${loggedInUser.attendance}</p>
                     </div>
                 </div>
                 <div class="calendar-messages">

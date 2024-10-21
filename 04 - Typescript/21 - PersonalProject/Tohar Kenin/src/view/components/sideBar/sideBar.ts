@@ -1,33 +1,38 @@
 import './sideBar.scss'
-export function renderSideBar(): string
-{
+import logo from '../../../assets/logo.png';
+import { library, dom } from '@fortawesome/fontawesome-svg-core';
+import { faHome, faUser, faToolbox, faDisplay, faListCheck, faChartPie } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faHome, faUser, faToolbox, faDisplay, faListCheck, faChartPie);
+dom.watch();
+
+export function renderSideBar(): string {
+
     return `
     <aside>
-        <div id="logo">
-            <img src="../images/67411690aa8c050192d3c313d1614713.png" class="logo__img" alt="logo-image">
-            <h1 class="logo__name">BankDash.</h1>
+        <div id="logo" class="logo">
+            <img src=${logo} class="logo__img" alt="logo-image">
+            <h1 class="logo__name">Academy.</h1>
         </div>
             <div class="menu">
-                <a href="./index.html" class="menu-item">
-                    
-                    <img src="../images/Home-vector.svg" alt="Home-icon" class="menu-item__icon current">
-                    <h3 class="menu-item__text current">Dashboard</h1>
-                        <div class="current-page-sign"></div>
+                <a href="?dashboardParam=dashboard" class="menu-item" data-target="dashboard">
+                    <i class="fas fa-home"></i>
+                    <h3 class="menu-item__text dashboard">Dashboard</h3>
                 </a>
-                <a href="../transactions/index.html" class="menu-item">
-                    <img src="../images/Glyph.svg" alt="Home-icon" class="menu-item__icon">
-                    <h3 class="menu-item__text">Courses</h1>
+                <a href="?coursesParam=courses" class="menu-item" data-target="courses">
+                   <i class="fa-solid fa-toolbox"></i>
+                    <h3 class="menu-item__text courses">Courses</h3>
                 </a>
+                <div href="#" class="menu-item" data-target="log">
+                    <i class="fa-solid fa-display"></i>
+                    <h3 class="menu-item__text" log>Zoom</h1>
+                </div>
                 <a href="#" class="menu-item">
-                    <img src="../images/User-Vector.svg" alt="Home-icon" class="menu-item__icon">
-                    <h3 class="menu-item__text">Zoom</h1>
-                </a>
-                <a href="#" class="menu-item">
-                    <img src="../images/Layer 1 1.svg" alt="Home-icon" class="menu-item__icon">
+                    <i class="fa-solid fa-list-check"></i>
                     <h3 class="menu-item__text">Forum</h1>
                 </a>
                 <a href="#" class="menu-item">
-                    <img src="../images/credit-cerd-vector.svg" alt="Home-icon" class="menu-item__icon">
+                    <i class="fa-solid fa-chart-pie"></i>
                     <h3 class="menu-item__text">My Progress</h1>
                 </a>
         
