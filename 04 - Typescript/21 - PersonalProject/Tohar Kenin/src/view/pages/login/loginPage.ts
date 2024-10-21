@@ -1,7 +1,6 @@
 import './loginPage.scss'
 export function loginPage(): string {
 
-    handleFormLogin();
     return `
      <div class="container">
             <h1>Login</h1>
@@ -16,41 +15,44 @@ export function loginPage(): string {
     `
 };
 
-function handelLogin(): void {
-    const button = document.getElementById('loginButton');
-    console.log('login', button);
 
-    if (button) {
-        button.addEventListener('click', () => {
-        console.log('Button was pressed!');
-        });
-    };
-
-};
-
-function handleFormLogin(): void {
+export function handleFormLogin(): void {
 // Select the form element
-const form = document.getElementById('loginForm') as HTMLFormElement;
-console.log('handleForm', form);
+    const form = (document.getElementById('loginForm') as HTMLFormElement);
 
-if (form) {
-    // Add a submit event listener
-    form.addEventListener('submit', (event: Event) => {
-        event.preventDefault();  // Prevent default form submission behavior
+    if (form) {
 
-        // Get form data
-        const formData = new FormData(form);
-
-        // Access individual form values by name
-        const name = formData.get('name') as string;
-        const email = formData.get('email') as string;
-
-        // Output the form data to the console
-        console.log('Form submitted');
-        console.log('Name:', name);
-        console.log('Email:', email);
-
-        // You can now use the form data for any purpose (e.g., send it to a server)
-    });
-}
+        form.addEventListener('submit', (event: Event) => {
+            event.preventDefault();
+            
+            const formData = new FormData(form);
+            const email = formData.get('email') as string;
+            const password = formData.get('password') as string;
+            
+            if(localStorage.getItem('email') !== email) {
+                alert('Email does not exist');
+            } else if(localStorage.getItem('password') !== password) {
+                alert('Password not valid');
+            } else {
+                //todo navigation 
+            }
+        });
+    } else {
+        console.error('Login form not found in the DOM');
+    };
 };
+
+
+
+// function handelLogin(): void {
+    //     const button = document.getElementById('loginButton') as HTMLButtonElement;
+    //     const emailValue = (document.getElementById('emailx') as HTMLInputElement);
+    //     console.log('login', emailValue);
+    
+    //     if (button) {
+    //         button.addEventListener('click', () => {
+    //         console.log('Button was pressed!');
+    //         });
+    //     };
+    
+    // };

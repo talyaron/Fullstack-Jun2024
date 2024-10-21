@@ -1,4 +1,4 @@
- export function createNavbar(): HTMLElement  | null{
+export function createNavbar(): HTMLElement  | null{
 try {
         console.log('Creating navbar...');
         //create element of nav
@@ -46,3 +46,6 @@ try {
     return null
 }
 }
+
+
+createNavbar();
