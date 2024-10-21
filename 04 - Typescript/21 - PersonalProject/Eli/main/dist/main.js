@@ -91,7 +91,7 @@ function renderMain() {
         redirectIndex();
     }
     else {
-        mainElement.innerHTML = "\n        <div id=\"pageHolder\">\n        <nav id=\"navContainer\">\n        <div id=\"logo\">Pedago</div>\n        <button class=\"navBtn \" id=\"Dashboard\">Dashboard</button >\n        <button class=\"navBtn \" id=\"Profile\">Profile</button >\n        <button class=\"navBtn selected\" id=\"Courses\">Courses</button >\n        <button class=\"navBtn \" id=\"Zoom\">Zoom</button >\n        <button class=\"navBtn\" id=\"Forum\">Forum</button >\n        <button class=\"navBtn \" id=\"Lessons\">Lessons</button >\n        <button class=\"navBtn \" id=\"logOut\">Log Out</button >\n        </nav>\n         <div id=\"contentHolder\">\n         <div id =\"topBar\">\n         <input type=\"text\" id=\"search\" placeholder=\"search...\">\n         <div id=\"downArrow\">\u25BC</div> \n         <div id=\"pfp\"><img id=\"pfpImg\"src=\"" + checkUserImage() + "\" alt=\"profile Picture\"></div>\n         </div>  \n\n        <div class=\"container\" id=\"pageContent\">\n        </div> \n       </div></div> ";
+        mainElement.innerHTML = "\n        <div id=\"pageHolder\">\n        <nav id=\"navContainer\">\n        <div id=\"logo\">Pedago</div>\n        <button class=\"navBtn \" id=\"Dashboard\">Dashboard</button >\n        <button class=\"navBtn \" id=\"Profile\">Profile</button >\n        <button class=\"navBtn \" id=\"Courses\">Courses</button >\n        <button class=\"navBtn \" id=\"Zoom\">Zoom</button >\n        <button class=\"navBtn\" id=\"Forum\">Forum</button >\n        <button class=\"navBtn \" id=\"Lessons\">Lessons</button >\n        <button class=\"navBtn \" id=\"logOut\">Log Out</button >\n        </nav>\n         <div id=\"contentHolder\">\n         <div id =\"topBar\">\n         <input type=\"text\" id=\"search\" placeholder=\"search...\">\n         <div id=\"downArrow\">\u25BC</div> \n         <div id=\"pfp\"><img id=\"pfpImg\"src=\"" + checkUserImage() + "\" alt=\"profile Picture\"></div>\n         </div>  \n\n        <div class=\"container\" id=\"pageContent\">\n        </div> \n       </div></div> ";
         renderBySelected();
     }
 }
@@ -228,10 +228,34 @@ function hiddenPassword() {
     return asterisks;
 }
 function checkSelected() {
-    var selectedPart = document.querySelector(".selected");
-    var translate = selectedPart.innerText.trim();
-    return translate;
+    var localStorageSelected = localStorage.getItem("selectedPage");
+    var pageSelected = localStorageSelected ? JSON.parse(localStorageSelected) : "";
+    var selectedParts = document.querySelectorAll(".navBtn");
+    if (pageSelected) {
+        var foundPart = Array.from(selectedParts).find(function (part) { return pageSelected == part.innerHTML; });
+        if (foundPart) {
+            selectedParts.forEach(function (part) {
+                part.classList.remove("selected");
+            });
+            foundPart.classList.add("selected");
+        }
+        return pageSelected;
+    }
+    //const selectedPart = document.querySelector(".selected") as HTMLElement;
+    var keyDef = "Dashboard";
+    var defaultKey = Object.keys(pages).find(function (key) { return key === keyDef; });
+    console.log(pages[keyDef]);
+    if (defaultKey) {
+        localStorage.setItem('selectedPage', JSON.stringify(defaultKey));
+        var foundPart = Array.from(selectedParts).find(function (part) { return defaultKey == part.innerHTML; });
+        if (foundPart) {
+            foundPart.classList.add("selected");
+        }
+        return defaultKey;
+    }
+    return "Error";
 }
+//selected
 function renderBySelected() {
     var pageContentElement = document.getElementById("pageContent");
     var selectedKey = checkSelected();
@@ -251,16 +275,18 @@ function addEvents() {
 }
 function handleClick(event) {
     var target = event.target;
-    var selectedPart = document.querySelector(".selected");
+    // const selectedPart = document.querySelector(".selected") as HTMLElement;
     if (target.id === "logOut") {
         localStorage.removeItem('loggedUser');
+        localStorage.removeItem('selectedPage');
         redirectIndex();
         return;
     }
     var selectedKey = checkSelected();
     if (target.id != selectedKey) {
-        selectedPart.classList.remove("selected");
+        // selectedPart.classList.remove("selected");
         target.classList.add("selected");
+        localStorage.setItem('selectedPage', JSON.stringify(target.innerHTML));
         renderBySelected();
     }
 }
