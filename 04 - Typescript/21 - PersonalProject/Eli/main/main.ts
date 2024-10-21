@@ -124,7 +124,7 @@ function renderMain() {
         <div id="logo">Pedago</div>
         <button class="navBtn " id="Dashboard">Dashboard</button >
         <button class="navBtn " id="Profile">Profile</button >
-        <button class="navBtn selected" id="Courses">Courses</button >
+        <button class="navBtn " id="Courses">Courses</button >
         <button class="navBtn " id="Zoom">Zoom</button >
         <button class="navBtn" id="Forum">Forum</button >
         <button class="navBtn " id="Lessons">Lessons</button >
@@ -431,11 +431,47 @@ function hiddenPassword():string
 }
 
 function checkSelected(): string {
-  const selectedPart = document.querySelector(".selected") as HTMLElement;
-  const translate = selectedPart.innerText.trim();
-  return translate;
+  const localStorageSelected = localStorage.getItem("selectedPage");
+  const pageSelected:any = localStorageSelected ? JSON.parse(localStorageSelected) : "";
+  const selectedParts = document.querySelectorAll(".navBtn") as NodeListOf<HTMLElement>;
+
+  if(pageSelected)
+  {
+  const foundPart = Array.from(selectedParts).find(part => pageSelected == part.innerHTML);
+  if(foundPart)
+  {
+    selectedParts.forEach(part => {
+      part.classList.remove("selected");
+    });
+    foundPart.classList.add(`selected`)
+  }
+
+    return pageSelected;
+
+  }
+  //const selectedPart = document.querySelector(".selected") as HTMLElement;
+
+ 
+  const keyDef = "Dashboard";
+  const defaultKey = Object.keys(pages).find(key => key === keyDef);console.log(pages[keyDef] );
+ 
+  if(defaultKey)
+    {
+      localStorage.setItem('selectedPage', JSON.stringify(defaultKey)); 
+      const foundPart = Array.from(selectedParts).find(part => defaultKey == part.innerHTML);
+  if(foundPart)
+  {
+    foundPart.classList.add(`selected`)
+
+  }
+      return defaultKey;
+      
+    }
+  return "Error";
 }
+//selected
 function renderBySelected() {
+  
   const pageContentElement = document.getElementById(
     "pageContent"
   ) as HTMLElement;
@@ -459,11 +495,12 @@ function addEvents() {
 
 function handleClick(event) {
   const target = event.target as HTMLElement; 
-  const selectedPart = document.querySelector(".selected") as HTMLElement;
+ // const selectedPart = document.querySelector(".selected") as HTMLElement;
 
   if(target.id===`logOut`)
   {
     localStorage.removeItem('loggedUser');
+    localStorage.removeItem('selectedPage');
     redirectIndex();
     return;
   }
@@ -472,9 +509,11 @@ function handleClick(event) {
 
  
   if (target.id != selectedKey) {
-    selectedPart.classList.remove("selected");
+   // selectedPart.classList.remove("selected");
 
     target.classList.add("selected");
+    localStorage.setItem('selectedPage', JSON.stringify(target.innerHTML)); 
+
     renderBySelected();
     
   }
