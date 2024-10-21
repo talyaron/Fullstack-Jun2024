@@ -1,10 +1,9 @@
  export function createNavbar(): HTMLElement {
     console.log('Creating navbar...');
     //create element of nav
-
+    const navElement = document.createElement('nav');
     //hold the element inside of the html file:
     const containerElement = document.getElementById("navbar-container")as HTMLElement
-    const navElement = document.createElement('nav');
     //craete "navbar" class
     navElement.classList.add('navbar');
     //create ul element

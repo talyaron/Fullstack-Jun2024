@@ -1,8 +1,12 @@
+"use strict";
+exports.__esModule = true;
+exports.createNavbar = void 0;
 function createNavbar() {
     console.log('Creating navbar...');
     //create element of nav
-    var containerElelamnt = document.getElementById("navbar-container");
     var navElement = document.createElement('nav');
+    //hold the element inside of the html file:
+    var containerElement = document.getElementById("navbar-container");
     //craete "navbar" class
     navElement.classList.add('navbar');
     //create ul element
@@ -28,8 +32,10 @@ function createNavbar() {
         ul.appendChild(li);
     });
     navElement.appendChild(ul);
-    containerElelamnt.appendChild(navElement);
+    //append child the created element to the one in the html 
+    //it wont show if you dont append child 
+    containerElement.appendChild(navElement);
     console.log(navElement);
     return navElement;
 }
-createNavbar();
+exports.createNavbar = createNavbar;
