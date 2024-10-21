@@ -1,12 +1,13 @@
 ///////////////model
 var User = /** @class */ (function () {
     function User(name, email, phone, password) {
-        this.id = "id=" + crypto.randomUUID;
+        this.id = "id=" + crypto.randomUUID();
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
         this.img = "";
+        this.classes = [];
     }
     return User;
 }());
@@ -24,28 +25,41 @@ var FormValidator = /** @class */ (function () {
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
     }
     FormValidator.prototype.isNameValid = function () {
-        if (this.regN.test(this.name) == false)
+        if (!this.regN.test(this.name))
             return "invalid name";
         return null;
     };
     FormValidator.prototype.isEmailValid = function () {
-        if (this.regE.test(this.email) == false)
+        if (!this.regE.test(this.email)) {
             return "invalid email : email needs @ and a .com ending";
+        }
+        var emailCheck = this.isEmailFree();
+        if (emailCheck) {
+            return emailCheck;
+        }
         return null;
     };
     FormValidator.prototype.isPhoneNumValid = function () {
-        if (this.regPn.test(this.phoneNum) == false)
+        if (!this.regPn.test(this.phoneNum))
             return "invalid phone number : use numbers only with the right length";
         return null;
     };
     FormValidator.prototype.isPasswordValid = function () {
-        if (this.regP.test(this.password) == false)
+        if (!this.regP.test(this.password))
             return "invalid password : password requires one Uppercase letter <br> and one special letter(@#!$%#^&*)";
         return null;
     };
     FormValidator.prototype.isRePasswordValid = function () {
         if (this.rePassword !== this.password)
             return "invalid repeat password: required to be the same as password";
+        return null;
+    };
+    FormValidator.prototype.isEmailFree = function () {
+        var _this = this;
+        var matchingMail = users.find(function (user) { return _this.email === user.email; });
+        if (matchingMail) {
+            return "This email is already registered.";
+        }
         return null;
     };
     return FormValidator;
@@ -98,13 +112,13 @@ function addUser(name, email, phoneNum, password) {
 function reDirectLogin() {
     regElement.innerHTML = "<div class=\"container\">\n    <h1>Register success! </h1>\n    <h3>you are redirected to login</h3>\n</div>";
     setTimeout(function () {
-        window.location.href = '../login/login.html';
+        window.location.href = "../login/login.html";
     }, 3000);
 }
 function redirectMain(loggedUser) {
     regElement.innerHTML = "<div class=\"container\">\n    <h1>Welcome back " + loggedUser.name + "</h1>\n    <h3>you are redirected to main</h3>\n</div>";
     setTimeout(function () {
-        window.location.href = '../main/main.html';
+        window.location.href = "../main/main.html";
     }, 3000);
 }
 function updateNameStatus(result) {

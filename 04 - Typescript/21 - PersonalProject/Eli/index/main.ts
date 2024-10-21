@@ -1,7 +1,7 @@
 
 
 
-const viewElemant = document.getElementById("content") as HTMLElement;
+const viewElement = document.getElementById("content") as HTMLElement;
 
 const localStorageUser = localStorage.getItem("loggedUser");
 const loggedUser: any = localStorageUser ? JSON.parse(localStorageUser) : "";
@@ -9,7 +9,7 @@ const loggedUser: any = localStorageUser ? JSON.parse(localStorageUser) : "";
 function renderWelcome()
 {
     if(!loggedUser){
-    viewElemant.innerHTML=`
+    viewElement.innerHTML=`
     <div class="container">
     <h1>Welcome to Pedago!</h1>
     <div class= "btnContainer">
@@ -18,7 +18,7 @@ function renderWelcome()
     <div>
     </div>`}
     else{
-        viewElemant.innerHTML = `<div class="container">
+        viewElement.innerHTML = `<div class="container">
         <h1>Welcome back ${loggedUser.name}</h1>
         <h3>you are redirected to main</h3>
     </div>`;

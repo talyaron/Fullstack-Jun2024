@@ -1,3 +1,4 @@
+
 const localStorageUser = localStorage.getItem("loggedUser");
 const loggedUser: any = localStorageUser ? JSON.parse(localStorageUser) : "";
 const mainElement = document.getElementById("content") as HTMLElement;
@@ -5,6 +6,22 @@ const mainElement = document.getElementById("content") as HTMLElement;
 const localStorageDetail = localStorage.getItem("users");
 const users:any[] = localStorageDetail ? JSON.parse(localStorageDetail) : [];
 
+interface Course{
+  id:string;
+  name:string;
+}
+interface StudentCourse {
+  studentId: string;
+  courseId: string;
+}
+
+const courses: Course[]=[]
+const course1:Course={id :`id-${crypto.randomUUID()}`,name:"Linear Algebra",}
+const course2:Course={id :`id-${crypto.randomUUID()}`,name:"Type Script",}
+const course3:Course={id :`id-${crypto.randomUUID()}`,name:"English",}
+
+courses.push(course1,course2,course3);
+const studentCourses: StudentCourse[] = [];
 
 class FormValidator {
   name: string;
@@ -43,6 +60,12 @@ class FormValidator {
   isEmailValid() {
     if (this.regE.test(this.email) == false)
       return "invalid email : email needs @ and a .com ending";
+
+    const emailCheck = this.isEmailFree();
+    if (emailCheck) {
+      return emailCheck;
+    }
+
     return null;
   }
   isPhoneNumValid() {
@@ -60,8 +83,26 @@ class FormValidator {
       return "invalid repeat password: required to be the same as password";
     return null;
   }
+  isEmailFree() {
+    const matchingMail = users.find((user) => this.email === user.email);
+    if (matchingMail) {
+      return `This email is already registered.`;
+    }
+    return null;
+  }
 }
 
+addClass(course1)
+
+function addClass(course:Course)
+{
+  const userCourse: StudentCourse = {
+    studentId: loggedUser.id, // Use loggedUser.id for studentId
+    courseId: course.id, // Use course.id for courseId
+  };
+
+  studentCourses.push(userCourse);
+}
 
 function redirectIndex() {
   mainElement.innerHTML = `<div class="container">
@@ -82,8 +123,8 @@ function renderMain() {
         <nav id="navContainer">
         <div id="logo">Pedago</div>
         <button class="navBtn " id="Dashboard">Dashboard</button >
-        <button class="navBtn selected" id="Profile">Profile</button >
-        <button class="navBtn " id="Courses">Courses</button >
+        <button class="navBtn " id="Profile">Profile</button >
+        <button class="navBtn selected" id="Courses">Courses</button >
         <button class="navBtn " id="Zoom">Zoom</button >
         <button class="navBtn" id="Forum">Forum</button >
         <button class="navBtn " id="Lessons">Lessons</button >
@@ -153,7 +194,7 @@ const pageDashboard = `<div id="userDetails">
 const pageProfile = `<div id="leftRight" >
 <div id ="profileLeft">
 <div class="circle"><img id="imagePreview"  src="${checkUserImage()}" alt ="profile picture"></div>
-<div><h1> <input type="file" id="imageInput" accept="image/*" ></h1></div>
+<div> <input type="file" id="imageInput" accept="image/*" ></div>
 </div><div id ="profileRight">
 
 <div id="userForm" on >
@@ -200,7 +241,7 @@ function checkForm(event: Event) {
     if (resultE ===null && email!=loggedUser.email) {
       loggedUser.email = email;
     }
-    if (resultPN ===null&& phoneNum!=loggedUser.phoneNum) {
+    if (resultPN ===null&& phoneNum!=loggedUser.phone) {
       loggedUser.phone = phoneNum;
     }
     if (resultP ===null&& resultRP===null&& password!=loggedUser.password) {
@@ -211,14 +252,24 @@ function checkForm(event: Event) {
 
     console.log("User updated successfully:", loggedUser);
  upDateUsers(loggedUser);
- window.location.reload();
+ reRenderUser();
 }
 
 
+function reRenderUser()
+{
+  const formElement = document.getElementById("userForm") as HTMLElement;
+   formElement.innerHTML=` <h1>name: ${loggedUser.name}<h1/>
+  <h1>email:  ${loggedUser.email}<h1/>
+  <h1> phone number:${loggedUser.phone}<h1/>
+  <h1>password: ${hiddenPassword()}<h1/>
+  <button class="btn" id="editButton" onclick ="editUser()"><h1>edit</h1></button>`
+}
 
 function editUser()
 {
   const formElement = document.getElementById("userForm") as HTMLElement;
+
   formElement.innerHTML=` <Form id="form" onsubmit="checkForm(event)">
   <input type="text" name="name" id="name" placeholder="${loggedUser.name}">
       <p id="nameDesc"></p>
@@ -241,8 +292,58 @@ function editUser()
 </Form>`;
   console.log("eldeennene");
 }
+function getCourses ()
+{
+  const userCourseIds = studentCourses
+    .filter(course => course.studentId === loggedUser.id) // Filter courses for the logged user
+    .map(course => course.courseId);
+    return  courses
+    .filter(course => userCourseIds.includes(course.id)) // Filter courses by IDs
+    .map(course => course.name) // Get course names
+    .join(', ');
+    
+  }
 
-const pageCourses = `dfdfsssssssssssssssssssdf`;
+const pageCourses = `<div id="userDetails">
+  <!-- Text Section -->
+  <div id="text">
+    <h1> ${loggedUser.name} Courses:</h1>
+    <h2></h2>
+    <h3>${getCourses ()}</h3>
+  </div>
+
+</div>
+
+<!-- Bottom Container -->
+<div id="bottomContainer">
+  <!-- Bottom Left Page -->
+  <div id="bottomLeftPage">
+    <div id="boxContainer">
+      <div class="box">
+        <h1>Last lesson<h1>
+      </div>
+      <div class="box">
+        <h1>Grade<h1>
+      </div>
+      <div class="box">
+         <h1>Attendance<h1>      
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Right Page -->
+  <div id="bottomRightPage">
+     <div id="boxContainer">
+      <div class="box">
+        <h1>Last lesson<h1>
+      </div>
+      <div class="box">
+        <h1>Grade<h1>
+      </div>
+      <div class="box">
+  </div>
+</div>`;
+
 const pageZoom = `dffaaaaaaaaaaaaaaaaaad`;
 const pageForum = `dfdaaaaaaaaaaaaaaaaaf`;
 const pageLessons = `dfdaaaaaaaaaaaaaaf`;
@@ -306,22 +407,22 @@ function addPhoto()
 
 function upDateUsers(loggedUser:any)
 {
-    const userIndex = users.findIndex(user => loggedUser.id === user.id);
+  const userIndex = users.findIndex(user => loggedUser.id === user.id);
 
-    if (userIndex !== -1) {
-        // Update the user's properties
-        users[userIndex] = { ...users[userIndex], ...loggedUser };
-
-        // Log the update
-        console.log(`User with id ${loggedUser.id} updated successfully.`);
-        
-        // Optionally, save the updated users array to local storage
-        localStorage.setItem('users', JSON.stringify(users));
-    } else {
-        console.log(`User with id ${loggedUser.id} not found.`);
-    }
-
+  if (userIndex !== -1) {
+      // Update the user's properties in memory
+      users[userIndex] = { ...users[userIndex], ...loggedUser };
+  
+      // Optionally, save the updated users array to local storage
+      localStorage.setItem('users', JSON.stringify(users));
+  
+      // Log the update
+      console.log(`User with id ${loggedUser.id} updated successfully.`);
+  } else {
+      console.log(`User with id ${loggedUser.id} not found.`);
+  }
 }
+
 function hiddenPassword():string
 {
     if(!loggedUser.password) return"";
