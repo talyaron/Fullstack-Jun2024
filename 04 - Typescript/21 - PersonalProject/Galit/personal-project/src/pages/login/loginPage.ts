@@ -1,7 +1,5 @@
-import { setupRegisterPageListeners, renderRegister } from '../../pages/register/registerPage';
 import { renderDashboard } from '../dashboard/dashboardPage';
-import { User } from '../../model/userModel';
-import { loadUsers } from '../../controller/userController';
+import {  loginUser, saveLoggedInUser, logoutUser } from '../../controller/userController';
 
 export function renderLogin(): string {
     const content = `
@@ -10,58 +8,57 @@ export function renderLogin(): string {
             <form id="loginForm">
                 <input type="email" class="input" id="email" name="email" required placeholder="Email">
                 <input type="password" class="input" id="password" name="password" required placeholder="Password">
-                <a href="#forgotPassword" class="forgot-password">Forgot Password?</a>                <button class="btn" id="loginButton" type="submit">Login</button>
-                <button class="btn" id="backToRegister" type="button">Back to Register</button>
+                <button class="btn" id="loginButton" type="submit">Login</button>
             </form>
         </div>
     `;
 
     document.body.innerHTML = content;
 
-    const savedEmail = localStorage.getItem('email');
-    const savedPassword = localStorage.getItem('password');
+    try {
+        const savedEmail = localStorage.getItem('email');
+        const savedPassword = localStorage.getItem('password');
 
-    if (savedEmail) (document.getElementById('email') as HTMLInputElement).value = savedEmail;
-    if (savedPassword) (document.getElementById('password') as HTMLInputElement).value = savedPassword;
+        if (savedEmail) {
+            (document.getElementById('email') as HTMLInputElement).value = savedEmail;
+        }
+        if (savedPassword) {
+            (document.getElementById('password') as HTMLInputElement).value = savedPassword;
+        }
+    } catch (error) {
+        console.error('Error loading saved login information:', error);
+    }
 
     return content;
 }
 
 export function setupLoginPageListeners(): void {
-    const loginForm = document.getElementById("loginForm") as HTMLFormElement;
-    const backToRegisterButton = document.getElementById("backToRegister") as HTMLButtonElement;
+    try {
+        const loginForm = document.getElementById("loginForm") as HTMLFormElement;
 
-    if (loginForm) {
-        loginForm.addEventListener("submit", handleLoginSubmit);
-    }
-
-    if (backToRegisterButton) {
-        backToRegisterButton.addEventListener("click", () => {
-            document.body.innerHTML = renderRegister();
-            setupRegisterPageListeners();
-        });
+        if (loginForm) {
+            loginForm.addEventListener("submit", handleLoginSubmit);
+        }
+    } catch (error) {
+        console.error('Error setting up login page listeners:', error);
     }
 }
 
 async function handleLoginSubmit(event: Event) {
     event.preventDefault();
 
-    const emailInput = (document.getElementById("email") as HTMLInputElement).value;
-    const passwordInput = (document.getElementById("password") as HTMLInputElement).value;
-
-    localStorage.setItem('email', emailInput);
-    localStorage.setItem('password', passwordInput);
-
     try {
-        console.log("Attempting to log in with email:", emailInput);
-        const users = loadUsers();
-        console.log("Loaded users:", users);
-        const user = users.find((user: User) => user.email === emailInput && user.password === passwordInput);
+        const emailInput = (document.getElementById("email") as HTMLInputElement).value;
+        const passwordInput = (document.getElementById("password") as HTMLInputElement).value;
+
+        localStorage.setItem('email', emailInput);
+        localStorage.setItem('password', passwordInput);
+
+        const user = loginUser(emailInput, passwordInput);
 
         if (user) {
-            localStorage.setItem('loggedInUser', JSON.stringify(user));
+            saveLoggedInUser(user); 
             console.log("User logged in:", user);
-            alert("Login successful! Redirecting to the dashboard...");
             setTimeout(() => {
                 document.body.innerHTML = renderDashboard(user);
             }, 1000);
@@ -71,5 +68,16 @@ async function handleLoginSubmit(event: Event) {
     } catch (error) {
         console.error("Error during login:", error);
         alert('Login failed: ' + (error as Error).message);
+    }
+}
+
+export function handleLogout() {
+    try {
+        logoutUser(); 
+        window.location.hash = '#login';
+        console.log("User logged out successfully.");
+    } catch (error) {
+        console.error("Error during logout:", error);
+        alert('Logout failed. Please try again.');
     }
 }

@@ -1,5 +1,6 @@
 import { User } from '../../model/userModel';
-
+import { loadLoggedInUser, loadUsers } from '../../controller/userController';
+import { loadMessages, saveMessages } from '../../controller/registerController';
 
 interface Message {
     id: number;
@@ -8,10 +9,7 @@ interface Message {
     isRead: boolean;
 }
 
-const messages: Message[] = [
-    { id: 1, content: 'Message from Teacher: "Great job on the last assignment!"', sender: 'Teacher', isRead: false },
-    { id: 2, content: 'Message from Classmate: "Let\'s study together!"', sender: 'Classmate', isRead: false },
-];
+const messages: Message[] = loadMessages(); 
 
 declare global {
     interface Window {
@@ -23,21 +21,21 @@ declare global {
 export function renderDashboard(loggedInUser: User): string {
     const content = `
         <div class="dashboard-container">
-            <header >
+            <header>
                 <div id="search-box">
                     <input type="text" placeholder="Search..." />
                 </div>
-                    <img class="student-image" src="${loggedInUser.imageUrl || '.././src/images/student-image.png'}" alt="student image" />
+                <img class="student-image" src="${loggedInUser.imageUrl || '.././src/images/student-image.png'}" alt="student image" />
             </header>
             <nav class="navbar">
                 <div class="navbar-logo">
-                    <img class="logo" src=".././src/images/logo.png" alt="Logo" />
+                <img class="logo" src=".././src/images/logo.png" alt="Logo" />
                 </div>
                 <ul class="navbar-links">
                     <li><a href="#dashboard">Dashboard</a></li>
                     <li><a href="#profile">Profile</a></li>
                     <li><a href="#settings">Settings</a></li>
-                    <li><a href="#logout">Logout</a></li>
+                    <li><a href="#logout" id="logout-link">Logout</a></li>
                 </ul>
             </nav>
             <main>
@@ -51,7 +49,6 @@ export function renderDashboard(loggedInUser: User): string {
                     <p><strong>Email:</strong> ${loggedInUser.email}</p>
                     <p><strong>Phone:</strong> ${loggedInUser.phone}</p>
                     <img class="student-image" src="${loggedInUser.imageUrl || '.././src/images/student-image.png'}" alt="student image" />
-
                 </div>
                 <div class="dashboard-summary">
                     <div class="last-lesson">
@@ -94,76 +91,121 @@ export function renderDashboard(loggedInUser: User): string {
     `;
 
     setTimeout(() => {
-        setupMessageListeners();
-        window.editMessage = editMessage;
-        window.removeMessage = removeMessage;
+        try {
+            setupMessageListeners();
+            window.editMessage = editMessage;
+            window.removeMessage = removeMessage;
+        } catch (error) {
+            console.error('Error setting up message listeners:', error);
+        }
     }, 0);
 
     return content;
 }
+export function setupDashboardPageListeners() {
+    try {
+        const loggedInUser = loadLoggedInUser(); 
+        if (!loggedInUser) {
+            console.error('No logged in user found');
+            return;
+        }
+
+        renderDashboard(loggedInUser); 
+    } catch (error) {
+        console.error('Error setting up dashboard page listeners:', error);
+    }
+}
 
 function renderMessages(): string {
-    return messages.map(msg => `
-        <div class="message">
-            <input type="checkbox" id="msg-${msg.id}" ${msg.isRead ? 'checked' : ''} />
-            <label for="msg-${msg.id}">${msg.content}</label>
-            <button class="smallBtn" onclick="window.editMessage(${msg.id})">Edit</button>
-            <button class="smallBtn" onclick="window.removeMessage(${msg.id})">Remove</button>
-        </div>
-    `).join('');
+    try {
+        return messages.map(msg => `
+            <div class="message">
+                <input type="checkbox" id="msg-${msg.id}" ${msg.isRead ? 'checked' : ''} />
+                <label for="msg-${msg.id}">${msg.content}</label>
+                <button class="smallBtn" onclick="window.editMessage(${msg.id})">Edit</button>
+                <button class="smallBtn" onclick="window.removeMessage(${msg.id})">Remove</button>
+            </div>
+        `).join('');
+    } catch (error) {
+        console.error('Error rendering messages:', error);
+        return '';
+    }
 }
 
 function setupMessageListeners(): void {
-    const addMessageButton = document.getElementById('add-message-button') as HTMLButtonElement;
-    const newMessageInput = document.getElementById('new-message') as HTMLInputElement;
+    try {
+        const addMessageButton = document.getElementById('add-message-button') as HTMLButtonElement;
+        const newMessageInput = document.getElementById('new-message') as HTMLInputElement;
 
-    if (!addMessageButton || !newMessageInput) {
-        console.error("Add message button or input not found");
-        return;
-    }
-
-    addMessageButton.addEventListener('click', () => {
-        const messageContent = newMessageInput.value.trim();
-        if (messageContent) {
-            addMessage(messageContent);
-            newMessageInput.value = '';  
-        } else {
-            console.error("Message content is empty");
+        if (!addMessageButton || !newMessageInput) {
+            console.error("Add message button or input not found");
+            return;
         }
-    });
+
+        addMessageButton.addEventListener('click', () => {
+            const messageContent = newMessageInput.value.trim();
+            if (messageContent) {
+                addMessage(messageContent);
+                newMessageInput.value = '';  
+            } else {
+                console.error("Message content is empty");
+            }
+        });
+    } catch (error) {
+        console.error('Error setting up message listeners:', error);
+    }
 }
 
 function addMessage(content: string): void {
-    const newId = messages.length ? Math.max(...messages.map(msg => msg.id)) + 1 : 1;
-    messages.push({ id: newId, content, sender: 'User', isRead: false });
-    console.log("Message added:", messages);
-    updateMessages(); 
+    try {
+        const newId = messages.length ? Math.max(...messages.map(msg => msg.id)) + 1 : 1;
+        messages.push({ id: newId, content, sender: 'User', isRead: false });
+        saveMessages(messages);
+        console.log("Message added:", messages);
+        updateMessages(); 
+    } catch (error) {
+        console.error('Error adding message:', error);
+    }
 }
 
 function editMessage(id: number): void {
-    const message = messages.find(msg => msg.id === id);
-    if (message) {
-        const newContent = prompt('Edit Message:', message.content);
-        if (newContent !== null) {
-            message.content = newContent.trim();
-            updateMessages();
+    try {
+        const message = messages.find(msg => msg.id === id);
+        if (message) {
+            const newContent = prompt('Edit Message:', message.content);
+            if (newContent !== null) {
+                message.content = newContent.trim();
+                saveMessages(messages);
+                updateMessages();
+            }
         }
+    } catch (error) {
+        console.error('Error editing message:', error);
     }
 }
 
 function removeMessage(id: number): void {
-    const index = messages.findIndex(msg => msg.id === id);
-    if (index !== -1) {
-        messages.splice(index, 1);
-        updateMessages();
+    try {
+        const index = messages.findIndex(msg => msg.id === id);
+        if (index !== -1) {
+            messages.splice(index, 1);
+            saveMessages(messages);
+            updateMessages();
+        }
+    } catch (error) {
+        console.error('Error removing message:', error);
     }
 }
 
 function updateMessages(): void {
-    const messageList = document.getElementById('message-list') as HTMLElement;
-    if (messageList) {
-        messageList.innerHTML = renderMessages();
-    } else {
-        console.error("Message list not found");
+    try {
+        const messageList = document.getElementById('message-list') as HTMLElement;
+        if (messageList) {
+            messageList.innerHTML = renderMessages();
+        } else {
+            console.error("Message list not found");
+        }
+    } catch (error) {
+        console.error('Error updating messages:', error);
     }
 }

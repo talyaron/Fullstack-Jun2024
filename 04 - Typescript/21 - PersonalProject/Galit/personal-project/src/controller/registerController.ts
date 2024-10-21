@@ -1,28 +1,32 @@
 
-export function validateUserInput(
-  fullName: string, 
-  email: string, 
-  password: string, 
-  passwordRepeat: string, 
-  phone: string
-): string[] { 
-  const errors: string[] = [];
-
-  if (!fullName) errors.push("Full Name is required.");
-  if (!validateEmail(email)) errors.push("Invalid email format.");
-  if (password.length < 6) errors.push("Password must be at least 6 characters long.");
-  if (password !== passwordRepeat) errors.push("Passwords do not match.");
-  if (!validatePhone(phone)) errors.push("Invalid phone number.");
-
-  return errors; 
+interface Message {
+    id: number;
+    content: string;
+    sender: string;
+    isRead: boolean;
 }
 
-function validateEmail(email: string): boolean {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
+const MESSAGES_KEY = 'messages';
+
+const defaultMessages: Message[] = [
+    { id: 1, content: 'Message from Teacher: "Great job on the last assignment!"', sender: 'Teacher', isRead: false },
+    { id: 2, content: 'Message from Classmate: "Let\'s study together!"', sender: 'Classmate', isRead: false },
+];
+
+export function loadMessages(): Message[] {
+    try {
+        const messagesData = localStorage.getItem(MESSAGES_KEY);
+        return messagesData ? JSON.parse(messagesData) : defaultMessages;
+    } catch (error) {
+        console.error("Error loading messages from localStorage:", error);
+        return defaultMessages;
+    }
 }
 
-function validatePhone(phone: string): boolean {
-  const phoneRegex = /^\d{10}$/; 
-  return phoneRegex.test(phone);
+export function saveMessages(messages: Message[]): void {
+    try {
+        localStorage.setItem(MESSAGES_KEY, JSON.stringify(messages));
+    } catch (error) {
+        console.error("Error saving messages to localStorage:", error);
+    }
 }

@@ -25,18 +25,26 @@ export function renderRegister(): string {
 }
 
 export function setupRegisterPageListeners(): void {
-    const registerForm = document.getElementById("registerForm") as HTMLFormElement;
-    const backToLoginButton = document.getElementById("backToLogin") as HTMLButtonElement;
+    try {
+        const registerForm = document.getElementById("registerForm") as HTMLFormElement;
+        const backToLoginButton = document.getElementById("backToLogin") as HTMLButtonElement;
 
-    if (registerForm) {
-        registerForm.addEventListener("submit", handleRegisterSubmit);
-    }
+        if (registerForm) {
+            registerForm.addEventListener("submit", handleRegisterSubmit);
+        }
 
-    if (backToLoginButton) {
-        backToLoginButton.addEventListener("click", () => {
-            document.body.innerHTML = renderLogin(); 
-            setupLoginPageListeners(); 
-        });
+        if (backToLoginButton) {
+            backToLoginButton.addEventListener("click", () => {
+                try {
+                    document.body.innerHTML = renderLogin(); 
+                    setupLoginPageListeners(); 
+                } catch (error) {
+                    console.error("Error loading login page:", error);
+                }
+            });
+        }
+    } catch (error) {
+        console.error("Error setting up register page listeners:", error);
     }
 }
 
@@ -65,5 +73,6 @@ function handleRegisterSubmit(event: Event): void {
         }, 1000); 
     } catch (error) {
         alert("Registration failed: " + (error as Error).message);
+        console.error("Error during registration:", error);
     }
 }
