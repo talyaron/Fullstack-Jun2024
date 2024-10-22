@@ -1,5 +1,6 @@
 import './registerPage.scss'
 import { User } from '../../../models/users';
+import { mainPageRender } from '../../../main';
 
 export function registerPage(): string
 {
@@ -47,17 +48,34 @@ export function handleFormRegister(): void {
                 } else {
                     const user = new User(userName, email, password, phoneNumber);
                     setUserToLocalStorage(user);
-                    //todo - navigation and insert to local storage
+                    const newUrl = '?signupBtn=SignupBtn';
+                    window.location.href = newUrl; 
                 }
-
             });
         } else {
             console.error('Login form not found in the DOM');
         };
     };
 
-
-
-    function setUserToLocalStorage(user: User): void {
-
+function setUserToLocalStorage(user: User): void {
+    try {
+        localStorage.setItem('User', JSON.stringify(user));
+        localStorage.setItem('isLoggedIn', 'true');
+    } catch (error) {
+        alert("Registration failed: " + (error as Error).message);
+        console.error("Error during registration:", error);
+    }
     };
+
+// Function called after page reload
+// export function checkRegisterParamAndRender(): void {
+//     const queryString = window.location.search;
+//     const params = new URLSearchParams(queryString);
+    
+//     const registerPressed = params.get('signupBtn');
+//     if (registerPressed) {
+//         mainPageRender();
+//     }
+// }
+
+// checkRegisterParamAndRender();

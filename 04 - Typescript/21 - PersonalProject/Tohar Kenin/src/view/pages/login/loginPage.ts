@@ -1,4 +1,5 @@
 import './loginPage.scss'
+import { mainPageRender } from '../../../main';
 export function loginPage(): string {
 
     return `
@@ -15,44 +16,43 @@ export function loginPage(): string {
     `
 };
 
-
 export function handleFormLogin(): void {
-// Select the form element
-    const form = (document.getElementById('loginForm') as HTMLFormElement);
-
+    // Select the form element
+    const form = document.getElementById('loginForm') as HTMLFormElement;
+    
     if (form) {
-
         form.addEventListener('submit', (event: Event) => {
-            event.preventDefault();
+            event.preventDefault(); 
             
             const formData = new FormData(form);
             const email = formData.get('email') as string;
             const password = formData.get('password') as string;
             
-            if(localStorage.getItem('email') !== email) {
+            //Validation with localStorage
+            if (localStorage.getItem('email') !== email) {
                 alert('Email does not exist');
-            } else if(localStorage.getItem('password') !== password) {
+            } else if (localStorage.getItem('password') !== password) {
                 alert('Password not valid');
             } else {
-                //todo navigation 
+            console.log(email + ', ' + password);
+                const newUrl = '?loginBtn=loginBtn';
+                window.location.href = newUrl; 
             }
         });
     } else {
         console.error('Login form not found in the DOM');
-    };
-};
+    }
+}
 
-
-
-// function handelLogin(): void {
-    //     const button = document.getElementById('loginButton') as HTMLButtonElement;
-    //     const emailValue = (document.getElementById('emailx') as HTMLInputElement);
-    //     console.log('login', emailValue);
+// Function called after page reload
+// export function checkLoginParamAndRender(): void {
+//     const queryString = window.location.search;
+//     const params = new URLSearchParams(queryString);
     
-    //     if (button) {
-    //         button.addEventListener('click', () => {
-    //         console.log('Button was pressed!');
-    //         });
-    //     };
-    
-    // };
+//     const loginPressed = params.get('loginBtn');
+//     if (loginPressed) {
+//         mainPageRender();
+//     }
+// }
+
+// checkLoginParamAndRender();
