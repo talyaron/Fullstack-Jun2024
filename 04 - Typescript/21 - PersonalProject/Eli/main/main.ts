@@ -16,12 +16,15 @@ interface StudentCourse {
 }
 
 const courses: Course[]=[]
-const course1:Course={id :`id-${crypto.randomUUID()}`,name:"Linear Algebra",}
-const course2:Course={id :`id-${crypto.randomUUID()}`,name:"Type Script",}
-const course3:Course={id :`id-${crypto.randomUUID()}`,name:"English",}
+const course1:Course={id :`id-1`,name:"Linear Algebra",}
+const course2:Course={id :`id-2`,name:"Type Script",}
+const course3:Course={id :`id-3`,name:"English",}
 
 courses.push(course1,course2,course3);
-const studentCourses: StudentCourse[] = [];
+
+const localStorageCourses = localStorage.getItem("studentCourses");
+const studentCourses: StudentCourse[] = localStorageCourses ? JSON.parse(localStorageCourses) : [];
+
 
 class FormValidator {
   name: string;
@@ -92,16 +95,43 @@ class FormValidator {
   }
 }
 
-addClass(course1)
+
 
 function addClass(course:Course)
 {
+  const alreadyIn=studentCourses.find(c=>c.courseId==course.id)
+
+  if(alreadyIn)
+   {  console.log(alreadyIn.courseId);
+     return;}
   const userCourse: StudentCourse = {
     studentId: loggedUser.id, // Use loggedUser.id for studentId
     courseId: course.id, // Use course.id for courseId
   };
-
+  
   studentCourses.push(userCourse);
+  localStorage.setItem("studentCourses",JSON.stringify(studentCourses));
+  console.log(studentCourses);
+  window.location.reload();
+ 
+}
+
+function removeClass(course:Course)
+{
+  const foundClass=studentCourses.findIndex(c=>c.courseId==course.id)
+
+  if(foundClass===-1)
+   {  
+    console.log("no class was found")
+     return;
+    }
+ 
+  
+  studentCourses.splice(foundClass,1);
+  localStorage.setItem("studentCourses",JSON.stringify(studentCourses));
+  console.log(studentCourses);
+  window.location.reload();
+ 
 }
 
 function redirectIndex() {
@@ -314,39 +344,51 @@ const pageCourses = `<div id="userDetails">
 
 </div>
 
-<!-- Bottom Container -->
 <div id="bottomContainer">
-  <!-- Bottom Left Page -->
-  <div id="bottomLeftPage">
-    <div id="boxContainer">
-      <div class="box">
-        <h1>Last lesson<h1>
-      </div>
-      <div class="box">
-        <h1>Grade<h1>
-      </div>
-      <div class="box">
-         <h1>Attendance<h1>      
-      </div>
-    </div>
-  </div>
 
-  <!-- Bottom Right Page -->
-  <div id="bottomRightPage">
-     <div id="boxContainer">
-      <div class="box">
-        <h1>Last lesson<h1>
-      </div>
-      <div class="box">
-        <h1>Grade<h1>
-      </div>
-      <div class="box">
-  </div>
+<div id="longBoxContainer">
+     </div>
 </div>`;
 
 const pageZoom = `dffaaaaaaaaaaaaaaaaaad`;
 const pageForum = `dfdaaaaaaaaaaaaaaaaaf`;
 const pageLessons = `dfdaaaaaaaaaaaaaaf`;
+
+function getUserCoursesHtml()
+{
+  const courseHolderElement = document.getElementById("longBoxContainer")as HTMLElement;
+  if (!courseHolderElement) return;
+
+  const userCourseIds = studentCourses
+  .filter(course => course.studentId === loggedUser.id) 
+  .map(course => course.courseId);
+  const userCourse  =courses
+  .filter(course => userCourseIds.includes(course.id)) 
+  courseHolderElement.innerHTML="";
+  courses.forEach(c => {
+    // Check if the current course `c` is in `userCourse`
+    const isUserCourse = userCourse.some(course => course.id === c.id);
+  
+    if (isUserCourse) {
+      const div = document.createElement('div');
+      div.id = "longBox";
+      div.classList.add("colored");
+      div.innerHTML = `<h1>${c.name}</h1>`;
+      div.addEventListener('click', () => removeClass(c)); // Passing the course object directly
+      courseHolderElement.appendChild(div);
+      
+    }else{
+      const div = document.createElement('div');
+      div.id = "longBox";
+      div.innerHTML = `<h1>${c.name}</h1>`;
+      div.addEventListener('click', () => addClass(c)); // Passing the course object directly
+      courseHolderElement.appendChild(div);
+      }}
+  )
+ // console.log(userCourse);
+  
+}
+
 function checkUserImage():string
 {
     const loggedUsere: any = localStorageUser ? JSON.parse(localStorageUser) : "";
@@ -479,6 +521,7 @@ function renderBySelected() {
   const selectedPageContent = pages[selectedKey];
   if (selectedKey) pageContentElement.innerHTML = selectedPageContent;
   addPhoto();
+ getUserCoursesHtml();
 }
 
 function addEvents() {

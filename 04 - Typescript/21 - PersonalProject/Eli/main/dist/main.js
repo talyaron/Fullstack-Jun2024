@@ -15,11 +15,12 @@ var mainElement = document.getElementById("content");
 var localStorageDetail = localStorage.getItem("users");
 var users = localStorageDetail ? JSON.parse(localStorageDetail) : [];
 var courses = [];
-var course1 = { id: "id-" + crypto.randomUUID(), name: "Linear Algebra" };
-var course2 = { id: "id-" + crypto.randomUUID(), name: "Type Script" };
-var course3 = { id: "id-" + crypto.randomUUID(), name: "English" };
+var course1 = { id: "id-1", name: "Linear Algebra" };
+var course2 = { id: "id-2", name: "Type Script" };
+var course3 = { id: "id-3", name: "English" };
 courses.push(course1, course2, course3);
-var studentCourses = [];
+var localStorageCourses = localStorage.getItem("studentCourses");
+var studentCourses = localStorageCourses ? JSON.parse(localStorageCourses) : [];
 var FormValidator = /** @class */ (function () {
     function FormValidator(name, email, phoneNum, password, rePassword) {
         this.name = name;
@@ -72,13 +73,31 @@ var FormValidator = /** @class */ (function () {
     };
     return FormValidator;
 }());
-addClass(course1);
 function addClass(course) {
+    var alreadyIn = studentCourses.find(function (c) { return c.courseId == course.id; });
+    if (alreadyIn) {
+        console.log(alreadyIn.courseId);
+        return;
+    }
     var userCourse = {
         studentId: loggedUser.id,
         courseId: course.id
     };
     studentCourses.push(userCourse);
+    localStorage.setItem("studentCourses", JSON.stringify(studentCourses));
+    console.log(studentCourses);
+    window.location.reload();
+}
+function removeClass(course) {
+    var foundClass = studentCourses.findIndex(function (c) { return c.courseId == course.id; });
+    if (foundClass === -1) {
+        console.log("no class was found");
+        return;
+    }
+    studentCourses.splice(foundClass, 1);
+    localStorage.setItem("studentCourses", JSON.stringify(studentCourses));
+    console.log(studentCourses);
+    window.location.reload();
 }
 function redirectIndex() {
     mainElement.innerHTML = "<div class=\"container\">\n    <h1>Log in to view main</h1>\n    <h3>you are redirected to the welcome screen</h3>\n</div>";
@@ -149,10 +168,41 @@ function getCourses() {
         .map(function (course) { return course.name; }) // Get course names
         .join(', ');
 }
-var pageCourses = "<div id=\"userDetails\">\n  <!-- Text Section -->\n  <div id=\"text\">\n    <h1> " + loggedUser.name + " Courses:</h1>\n    <h2></h2>\n    <h3>" + getCourses() + "</h3>\n  </div>\n\n</div>\n\n<!-- Bottom Container -->\n<div id=\"bottomContainer\">\n  <!-- Bottom Left Page -->\n  <div id=\"bottomLeftPage\">\n    <div id=\"boxContainer\">\n      <div class=\"box\">\n        <h1>Last lesson<h1>\n      </div>\n      <div class=\"box\">\n        <h1>Grade<h1>\n      </div>\n      <div class=\"box\">\n         <h1>Attendance<h1>      \n      </div>\n    </div>\n  </div>\n\n  <!-- Bottom Right Page -->\n  <div id=\"bottomRightPage\">\n     <div id=\"boxContainer\">\n      <div class=\"box\">\n        <h1>Last lesson<h1>\n      </div>\n      <div class=\"box\">\n        <h1>Grade<h1>\n      </div>\n      <div class=\"box\">\n  </div>\n</div>";
+var pageCourses = "<div id=\"userDetails\">\n  <!-- Text Section -->\n  <div id=\"text\">\n    <h1> " + loggedUser.name + " Courses:</h1>\n    <h2></h2>\n    <h3>" + getCourses() + "</h3>\n  </div>\n\n</div>\n\n<div id=\"bottomContainer\">\n\n<div id=\"longBoxContainer\">\n     </div>\n</div>";
 var pageZoom = "dffaaaaaaaaaaaaaaaaaad";
 var pageForum = "dfdaaaaaaaaaaaaaaaaaf";
 var pageLessons = "dfdaaaaaaaaaaaaaaf";
+function getUserCoursesHtml() {
+    var courseHolderElement = document.getElementById("longBoxContainer");
+    if (!courseHolderElement)
+        return;
+    var userCourseIds = studentCourses
+        .filter(function (course) { return course.studentId === loggedUser.id; })
+        .map(function (course) { return course.courseId; });
+    var userCourse = courses
+        .filter(function (course) { return userCourseIds.includes(course.id); });
+    courseHolderElement.innerHTML = "";
+    courses.forEach(function (c) {
+        // Check if the current course `c` is in `userCourse`
+        var isUserCourse = userCourse.some(function (course) { return course.id === c.id; });
+        if (isUserCourse) {
+            var div = document.createElement('div');
+            div.id = "longBox";
+            div.classList.add("colored");
+            div.innerHTML = "<h1>" + c.name + "</h1>";
+            div.addEventListener('click', function () { return removeClass(c); }); // Passing the course object directly
+            courseHolderElement.appendChild(div);
+        }
+        else {
+            var div = document.createElement('div');
+            div.id = "longBox";
+            div.innerHTML = "<h1>" + c.name + "</h1>";
+            div.addEventListener('click', function () { return addClass(c); }); // Passing the course object directly
+            courseHolderElement.appendChild(div);
+        }
+    });
+    // console.log(userCourse);
+}
 function checkUserImage() {
     var loggedUsere = localStorageUser ? JSON.parse(localStorageUser) : "";
     if (loggedUsere.img) {
@@ -263,6 +313,7 @@ function renderBySelected() {
     if (selectedKey)
         pageContentElement.innerHTML = selectedPageContent;
     addPhoto();
+    getUserCoursesHtml();
 }
 function addEvents() {
     var navButtons = document.querySelectorAll(".navBtn");

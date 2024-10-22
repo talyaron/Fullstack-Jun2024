@@ -241,6 +241,18 @@
   height: 100%;
 }
 
+#longBoxContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+  justify-content: space-evenly;
+}
+#longBoxContainer .colored {
+  background-color: #0d5873;
+  color: black;
+}
+
 #profileRight {
   width: 70%;
   height: 100%;
