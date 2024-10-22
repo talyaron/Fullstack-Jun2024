@@ -93,3 +93,7 @@ export function setupProfilePageListeners() {
         console.error('Error setting up profile page listeners:', error);
     }
 }
+
+export function getUserProfile(): any {
+    return JSON.parse(localStorage.getItem('loggedInUser') || '{}');
+}

@@ -1,5 +1,8 @@
 import { renderDashboard } from '../dashboard/dashboardPage';
-import {  loginUser, saveLoggedInUser, logoutUser } from '../../controller/userController';
+import { loginUser, saveLoggedInUser, logoutUser } from '../../controller/userController';
+import { loadPage } from '../../main';
+import { getUserSettings } from '../settings/settingsPage';
+import {  getUserProfile } from '../userPage/profilePage';
 
 export function renderLogin(): string {
     const content = `
@@ -9,6 +12,7 @@ export function renderLogin(): string {
                 <input type="email" class="input" id="email" name="email" required placeholder="Email">
                 <input type="password" class="input" id="password" name="password" required placeholder="Password">
                 <button class="btn" id="loginButton" type="submit">Login</button>
+                <button class="btn" id="welcomeButton" type="button">Back</button> <!-- Back button -->
             </form>
         </div>
     `;
@@ -35,9 +39,17 @@ export function renderLogin(): string {
 export function setupLoginPageListeners(): void {
     try {
         const loginForm = document.getElementById("loginForm") as HTMLFormElement;
+        const welcomeButton = document.getElementById("welcomeButton") as HTMLButtonElement;
 
         if (loginForm) {
             loginForm.addEventListener("submit", handleLoginSubmit);
+        }
+
+        if (welcomeButton) {
+            welcomeButton.addEventListener("click", () => {
+                window.location.hash = '#welcome';
+                loadPage();  
+            });
         }
     } catch (error) {
         console.error('Error setting up login page listeners:', error);
@@ -59,6 +71,7 @@ async function handleLoginSubmit(event: Event) {
         if (user) {
             saveLoggedInUser(user); 
             console.log("User logged in:", user);
+
             setTimeout(() => {
                 document.body.innerHTML = renderDashboard(user);
             }, 1000);
@@ -71,10 +84,23 @@ async function handleLoginSubmit(event: Event) {
     }
 }
 
+
+
+
+
 export function handleLogout() {
     try {
+        const userProfile = getUserProfile();  
+        const userSettings = getUserSettings();  
+
+        if (userProfile || userSettings) {
+            localStorage.setItem('loggedInUser', JSON.stringify(userProfile));
+            localStorage.setItem('userSettings', JSON.stringify(userSettings));
+        }
+
         logoutUser(); 
-        window.location.hash = '#login';
+        window.location.hash = '#login';  
+        loadPage();  
         console.log("User logged out successfully.");
     } catch (error) {
         console.error("Error during logout:", error);
