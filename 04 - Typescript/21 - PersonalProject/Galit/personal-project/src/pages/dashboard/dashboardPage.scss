@@ -96,11 +96,13 @@ margin-left: 100vh;    }
 
 
 
+
+
 //// Tablet ////
 @media (max-width: 1024px) {
     .dashboard-container {
         margin-left: 5vh;
-        margin-top: 15vh;
+        margin-top: -15vh;
         width: 85vw;
     }
 
@@ -140,7 +142,8 @@ margin-left: 100vh;    }
 @media (max-width: 768px) {
     .dashboard-container {
         padding: 10px;
-        margin-top: 210vh;
+        margin-top: 180vh;
+        margin-left: 0vh;
 
         .dashboard-content {
             margin-top: 10vh;
@@ -153,15 +156,16 @@ margin-left: 100vh;    }
             .student-image {
                 margin-left: 0;
                 margin-top: 0;
-                width: 15vh;
-                height: 15vh;
+                width: 10vh;
+                height: 10vh;
             }
         }
 
         .dashboard-summary,
         .calendar-messages {
             flex-direction: column;
-            justify-content: center;
+            justify-content:right;
+            margin-left: -4vh;
         }
 
         .dashboard-summary div,
