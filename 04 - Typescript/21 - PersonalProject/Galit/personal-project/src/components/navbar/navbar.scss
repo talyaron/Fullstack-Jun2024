@@ -46,3 +46,66 @@
   cursor: pointer;
   margin-top: auto;
 }
+//// Tablet ////
+
+@media (max-width: 1024px) {
+  .navbar {
+    width: 15vh; 
+    padding: 0.5rem 0;
+  }
+
+  .navbar-logo img {
+    height: 5vh; 
+  }
+
+  .navbar-links li {
+    margin: 1rem 0; 
+  }
+
+  .navbar-links a {
+    font-size: 1.1rem; 
+  }
+
+  .navbar-profile img {
+    height: 5vh; 
+  }
+}
+
+//// Phone ////
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    width: 130vw; 
+    height: auto;
+    margin-top: 5rem; 
+    padding: 1rem 0; 
+    position: fixed;
+  }
+
+  .navbar-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    width: 100%; 
+  }
+
+  .navbar-links li {
+    margin: 0.5rem 0; 
+    width: 100%;
+    text-align: center; 
+  }
+
+  .navbar-links a {
+    width: 100%; 
+    text-align: center; 
+  }
+
+  .navbar-profile img {
+    height: 3vh;
+    margin: 0.5rem 0; 
+
+  }
+}

@@ -10,7 +10,7 @@ header {
     padding: 1rem 2rem;
     z-index: 200; 
     border-radius: 8px;
-}
+
 
 #search-box {
     margin-bottom: 1rem;
@@ -52,4 +52,56 @@ header img {
 #search-box input:focus {
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
     outline: none;
+}
+}
+
+//// tablet ////
+@media (max-width: 1024px) {
+    header {
+        left: 15vh;
+        width: 75%;
+        padding: 0.8rem 1.5rem; 
+    }
+
+    #search-box {
+        width: 30vh;
+        height: 5.5vh;
+    }
+
+    header img {
+        height: 3rem; 
+    }
+
+    #search-box input {
+        font-size: 0.9rem;
+    }
+    header img {
+       width: 6vh;
+       height: 6vh;
+       border-radius: 50%;
+       margin-right: 2vh;
+            }
+}
+
+/// Phone ///
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 130vw;
+        left: 0;
+        padding: 0.5rem;
+        position: fixed;
+    }
+
+    #search-box {
+        width: 80vw;
+        height: 5vh;
+        margin-bottom: 1rem;
+    }
+
+    header img {
+display: none;
+    }
 }
