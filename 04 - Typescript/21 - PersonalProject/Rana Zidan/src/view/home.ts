@@ -1,12 +1,16 @@
-import { backToRegister, renderLogin } from "./logIn";
+import'../Design/home.scss';
+import { backToHome, renderLogin } from "./logIn";
 import { backToLogIn, renderRegister } from "./Register";
+
 
 export function renderHome(): string {
     const content=`
-    <div>
-    <h1>Welcome</h1>
-    <button id="logInButton">Log In</button> 
-     <button id="RegisterButton">Register</button>
+    <div class="home-page">
+        <h1 class="text">Welcome</h1></br>
+        <div class="button-container">
+            <button id="logInButton">Log In</button> 
+            <button id="RegisterButton">Register</button>
+        </div>
     </div>
      `
     return content;
@@ -17,7 +21,7 @@ export function clickLOgIn():void{
     if(button1){
         button1.addEventListener('click',()=>{
             document.body.innerHTML= renderLogin();
-            backToRegister()
+            backToHome();
           
         })
     }
@@ -28,10 +32,11 @@ export function clickRegister():void{
     if(button2){
         button2.addEventListener('click',()=>{
             document.body.innerHTML= renderRegister();
-            backToLogIn()
+            backToLogIn();
           
         })
     }
 };
+
 
 

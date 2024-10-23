@@ -1,0 +1,21 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f7f7;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  button {
+    border: none;
+    border-radius: 8px;
+    background-color: #4159f1;
+    color: rgba(0, 0, 0, 0.797);
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #7b8ce8;
+  }
+  

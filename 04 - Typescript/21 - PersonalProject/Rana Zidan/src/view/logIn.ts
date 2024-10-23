@@ -1,27 +1,35 @@
-import { backToLogIn, renderRegister } from "./Register";
+import '../Design/login.scss';
+import { clickLOgIn, clickRegister, renderHome } from './home';
 
-export function renderLogin(): string{
-const logIncontent=`
-<h1>Log In</h1>
-<form>
-<input type="text" name="email" id="email" required placeholder="Email:">
-<input type="text" name="password" id="password" required placeholder="Password:">
-  <a href="#forgotPassword" class="forgot-password">Forgot Password?</a> 
-    <button class="btn" id="loginButton" type="submit">Submit</button>
-    <button class="btn" id="backToRegister" type="button">Back to Register</button>
-</form>
-`
+export function renderLogin(): string {
+    const logIncontent = `
+    <div class="login-page">
+        <h1>Log In</h1></br>
+        <form class="form-login">
+            <input type="text" name="email" id="email" required placeholder="Email:"></br>
+            <input type="text" name="password" id="password" required placeholder="Password:"></br>
+            <a href="#forgotPassword" class="forgot-password">Forgot Password?</a></br>
+            <button class="btn" id="loginButton" type="submit">Submit</button>
+            <button class="btn" id="backToHome" type="button">Back to Home</button>
+        </form>
+    </div>
+    `;
 
-return logIncontent;
-};
+    setTimeout(() => { 
+        backToHome();
+    }, 0);
 
-export function backToRegister():void{
-    const back1=document.getElementById('backToRegister') as HTMLButtonElement;
-    if(back1){
-        back1.addEventListener('click',()=>{
-            document.body.innerHTML= renderRegister();
-            backToLogIn();
-        })
+    return logIncontent;
+}
+
+export function backToHome(): void {
+    const back1 = document.getElementById('backToHome') as HTMLButtonElement;
+    if (back1) {
+        back1.addEventListener('click', () => {
+            document.body.innerHTML = renderHome();
+            clickLOgIn();  
+            clickRegister(); 
+        });
     }
-    
 };
+
