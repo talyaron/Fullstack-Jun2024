@@ -8,7 +8,7 @@ export function renderHome(): string {
     <div class="home-page">
         <h1 class="text">Welcome</h1></br>
         <div class="button-container">
-            <button id="logInButton">Log In</button> 
+            <button id="logInButton1">Log In</button> 
             <button id="RegisterButton">Register</button>
         </div>
     </div>
@@ -17,7 +17,7 @@ export function renderHome(): string {
 };
 
 export function clickLOgIn():void{
-    const button1=document.getElementById('logInButton') as HTMLButtonElement;
+    const button1=document.getElementById('logInButton1') as HTMLButtonElement;
     if(button1){
         button1.addEventListener('click',()=>{
             document.body.innerHTML= renderLogin();
@@ -37,6 +37,5 @@ export function clickRegister():void{
         })
     }
 };
-
 
 

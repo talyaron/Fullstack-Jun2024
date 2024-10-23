@@ -1,3 +1,4 @@
+import { userPage } from '../controller/userPage';
 import '../Design/register.scss';
 import { backToHome, renderLogin } from './logIn';
 
@@ -15,75 +16,95 @@ export function renderRegister(): string {
                 <input type="checkbox" id="rememberMe" name="rememberMe">
                 <label for="rememberMe">Remember me</label>
             </div></br>
-            <button class="btn" id="submitButton" type="submit">Submit</button>
+            <button class="btn" id="submitButton2" type="submit">Submit</button>
             <button class="btn" id="backToLogin" type="button">Back to Login</button></br>
         </form>
     </div>
+
     `;
 
+  
     document.body.innerHTML = Registercontent;
-
-    validateForm();
-    backToLogIn();
+    
+   
+    setTimeout(() => {
+        validateForm();
+        backToLogIn();
+    }, 0);
 
     return Registercontent;
 }
 
 export function validateForm(): void {
     const form = document.getElementById('registerForm') as HTMLFormElement;
+    if (!form) {
+        console.error('Form element not found');
+        return;
+    }
 
-    form.addEventListener('submit', (event) => {
-        event.preventDefault(); 
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
 
-        const fullName = document.getElementById('fullName') as HTMLInputElement;
-        const email = document.getElementById('email') as HTMLInputElement;
-        const phone = document.getElementById('phone') as HTMLInputElement;
-        const password = document.getElementById('password') as HTMLInputElement;
-        const repeatPassword = document.getElementById('repeatPassword') as HTMLInputElement;
-        const rememberMe = document.getElementById('rememberMe') as HTMLInputElement;
+        const fullName = (document.getElementById('fullName') as HTMLInputElement)?.value;
+        const email = (document.getElementById('email') as HTMLInputElement)?.value;
+        const phone = (document.getElementById('phone') as HTMLInputElement)?.value;
+        const password = (document.getElementById('password') as HTMLInputElement)?.value;
+        const repeatPassword = (document.getElementById('repeatPassword') as HTMLInputElement)?.value;
+        const rememberMe = (document.getElementById('rememberMe') as HTMLInputElement)?.checked;
 
-        if (!rememberMe.checked) {
-            alert('Please check the "Remember me" box before submitting.');
-            return; 
+        if (!fullName || !email || !phone || !password || !repeatPassword) {
+            alert('כל השדות הם חובה');
+            return;
+        }
+
+        if (!rememberMe) {
+            alert('אנא סמן את תיבת "זכור אותי" לפני ההרשמה.');
+            return;
         }
 
         const phoneRegex = /^0\d{9}$/;
-        if (!phoneRegex.test(phone.value)) {
-            alert('Phone number must be exactly 10 digits and start with 0.');
+        if (!phoneRegex.test(phone)) {
+            alert('מספר הטלפון חייב להכיל בדיוק 10 ספרות ולהתחיל ב-0');
             return;
         }
 
-       
-        if (password.value !== repeatPassword.value) {
-            alert('Passwords do not match.');
+        if (password !== repeatPassword) {
+            alert('הסיסמאות אינן תואמות');
             return;
         }
 
-      
         const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-        if (!passwordRegex.test(password.value)) {
-            alert('Password must contain at least 8 characters, including letters and numbers.');
+        if (!passwordRegex.test(password)) {
+            alert('הסיסמה חייבת להכיל לפחות 8 תווים, כולל אותיות ומספרים');
             return;
         }
 
-        
-        if (rememberMe.checked) {
-            localStorage.setItem('fullName', fullName.value);
-            localStorage.setItem('email', email.value);
-            localStorage.setItem('password', password.value);
-        }
+        try {
+           
+            localStorage.setItem('fullName', fullName);
+            localStorage.setItem('email', email);
+            localStorage.setItem('password', password);
+            localStorage.setItem('phone', phone);
 
-   
-        document.body.innerHTML = renderLogin();
-        backToHome();
-    }); 
+           
+            document.body.innerHTML = userPage();
+            backToHome();
+        } catch (error) {
+            console.error('Error saving data:', error);
+            alert('אירעה שגיאה בשמירת הנתונים. אנא נסה שוב.');
+        }
+    });
 }
 
 export function backToLogIn(): void {
-    const back2 = document.getElementById('backToLogin') as HTMLButtonElement;
-    if (back2) {
-        back2.addEventListener('click', () => {
+    const backButton = document.getElementById('backToLogin');
+    if (backButton) {
+        backButton.addEventListener('click', () => {
             document.body.innerHTML = renderLogin();
+            backToHome(); 
         });
+    } else {
+        console.error('Back button not found');
     }
-}
+};
+
