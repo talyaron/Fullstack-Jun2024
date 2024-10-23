@@ -93,3 +93,86 @@ margin-left: 100vh;    }
         }
     }
 }
+
+
+
+
+
+//// Tablet ////
+@media (max-width: 1024px) {
+    .dashboard-container {
+        margin-left: 5vh;
+        margin-top: -15vh;
+        width: 85vw;
+    }
+
+
+    .user-info {
+        display: flex;
+        flex-direction: column; 
+        align-items: center;
+        text-align: center;
+        margin-bottom: 20px;
+        padding: 15px;
+        background-color: #E3EDFF; 
+        border-radius: 8px;
+
+          .student-image {
+   display: none !important;
+        }
+
+    }
+
+    .dashboard-summary {
+        flex-direction: column;
+        margin-left: 10vh;
+    }
+
+    .calendar-messages {
+        flex-direction: column;
+        margin-left: 10vh;
+    }
+
+    .dashboard-content {
+        width: 100%;
+    }
+}
+
+//// Phone ////
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 10px;
+        margin-top: 180vh;
+        margin-left: 0vh;
+
+        .dashboard-content {
+            margin-top: 10vh;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .student-image {
+                margin-left: 0;
+                margin-top: 0;
+                width: 10vh;
+                height: 10vh;
+            }
+        }
+
+        .dashboard-summary,
+        .calendar-messages {
+            flex-direction: column;
+            justify-content:right;
+            margin-left: -4vh;
+        }
+
+        .dashboard-summary div,
+        .calendar-container,
+        .messages-container {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    }
+}

@@ -112,3 +112,7 @@ export function setupSettingsPageListeners(loggedInUser: User) {
     console.error('Error setting up settings page listeners:', error);
   }
 }
+
+export function getUserSettings(): any {
+  return JSON.parse(localStorage.getItem('userSettings') || '{}');
+}

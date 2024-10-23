@@ -26,7 +26,7 @@ function handleLogout() {
     }
 }
 
-function loadPage() {
+export function loadPage() {
     try {
         if (!root) return;
 
@@ -36,21 +36,24 @@ function loadPage() {
         if (currentPage === '#register') {
             root.innerHTML = renderRegister();
             setupRegisterPageListeners();
-        } else if (currentPage === '#login' || !loggedInUser) { 
+        } else if (currentPage === '#login') {
             root.innerHTML = renderLogin();
             setupLoginPageListeners();
-        } else if (currentPage === '#dashboard') {
+        } else if (loggedInUser && currentPage === '#dashboard') {
             root.innerHTML = renderDashboard(loggedInUser);
             setupDashboardPageListeners();
-        } else if (currentPage === '#profile') {
+        } else if (loggedInUser && currentPage === '#profile') {
             root.innerHTML = renderProfile(loggedInUser);
             setupProfilePageListeners();
-        } else if (currentPage === '#settings') {
+        } else if (loggedInUser && currentPage === '#settings') {
             root.innerHTML = renderSettings(loggedInUser);
             setupSettingsPageListeners(loggedInUser);
-        } else {
+        } else if (currentPage === '' || currentPage === '#welcome') { 
             root.innerHTML = renderWelcomePage();
             setupWelcomePageListeners();
+        } else if (!loggedInUser) { 
+            root.innerHTML = renderLogin();
+            setupLoginPageListeners();
         }
 
         const logoutLink = document.getElementById('logout-link');
@@ -64,5 +67,9 @@ function loadPage() {
 }
 
 window.addEventListener('hashchange', loadPage);
+
+if (!window.location.hash) {
+    window.location.hash = '#welcome';
+}
 
 loadPage();

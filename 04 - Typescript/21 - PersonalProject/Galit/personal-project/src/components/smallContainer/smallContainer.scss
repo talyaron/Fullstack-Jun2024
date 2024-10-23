@@ -9,3 +9,28 @@
         border-radius: 3vh;
         transform: translate(10vh, 7.5vh);
     }
+
+    //// phone ////
+
+@media (max-width: 768px) {
+    .smallContainer {
+      height: 80vh;
+      width: 70vw;
+      max-width: 130vh;
+      margin-top: 200vh; 
+      margin-left: -10vh;
+    }
+  }
+  
+  //// tablet ////
+  @media (max-width: 1024px) {
+    .smallContainer {
+      height: 90vh;
+      width: 70vw; 
+      max-width: 768px;
+      min-width: 400px;
+      margin-top: 70vh; 
+      margin-left: -20vh;
+      
+    }
+  }

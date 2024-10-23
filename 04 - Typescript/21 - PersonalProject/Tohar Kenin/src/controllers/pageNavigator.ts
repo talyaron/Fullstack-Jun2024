@@ -1,8 +1,8 @@
 import { dashboard } from '../view/pages/dashboard/dashboard';
 import { coursesPage } from '../view/pages/courses/coursesPage';
 
-export function navigation():string {
 
+export function navigation():string {
     const queryString = window.location.search;
     const params:any = new URLSearchParams(queryString);
     let page:string = '';
@@ -11,12 +11,13 @@ export function navigation():string {
 
     switch (true) {
         case dashboardParam !== null:
-            console.log("DB",dashboardParam);
             page = dashboard();
             break;
         case coursesParam !== null:
-            console.log("C",coursesParam);
             page = coursesPage();
+            break;
+        default:
+            page = dashboard();
             break;
     }
     return page;

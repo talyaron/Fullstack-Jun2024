@@ -1,5 +1,5 @@
 import { User } from '../../model/userModel';
-import { loadLoggedInUser, loadUsers } from '../../controller/userController';
+import { loadLoggedInUser } from '../../controller/userController';
 import { loadMessages, saveMessages } from '../../controller/registerController';
 
 interface Message {

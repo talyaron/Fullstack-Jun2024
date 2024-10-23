@@ -35,3 +35,22 @@ body {
         }
     }
 }
+
+
+
+//// Tablet ////
+@media (max-width: 1024px) {
+    .profile-update-form {
+        padding: 10px;
+        margin-top: 100vh; 
+    }
+}
+
+//// Phone ////
+@media (max-width: 768px) {
+    .profile-update-form {
+        padding: 10px;
+        margin-top: 400vh; 
+        width: 100vh;
+    }
+}
