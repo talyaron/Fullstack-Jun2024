@@ -14,10 +14,17 @@ var loggedUser = localStorageUser ? JSON.parse(localStorageUser) : "";
 var mainElement = document.getElementById("content");
 var localStorageDetail = localStorage.getItem("users");
 var users = localStorageDetail ? JSON.parse(localStorageDetail) : [];
+var Course = /** @class */ (function () {
+    function Course(id, name) {
+        this.id = id;
+        this.name = name;
+    }
+    return Course;
+}());
 var courses = [];
-var course1 = { id: "id-1", name: "Linear Algebra" };
-var course2 = { id: "id-2", name: "Type Script" };
-var course3 = { id: "id-3", name: "English" };
+var course1 = new Course("id-1", "Linear Algebra");
+var course2 = new Course("id-2", "Type Script");
+var course3 = new Course("id-3", "English");
 courses.push(course1, course2, course3);
 var localStorageCourses = localStorage.getItem("studentCourses");
 var studentCourses = localStorageCourses ? JSON.parse(localStorageCourses) : [];
@@ -114,7 +121,7 @@ function renderMain() {
         renderBySelected();
     }
 }
-var pageDashboard = "<div id=\"userDetails\">\n  <!-- Text Section -->\n  <div id=\"text\">\n    <h1>Welcome " + loggedUser.name + "</h1>\n    <h2>" + loggedUser.name + " hi</h2>\n    <h3>" + loggedUser.email + "</h3>\n  </div>\n\n  <!-- Chart Section -->\n  <div id=\"chart\">\n    <div class=\"circle\">\n      <div class=\"innerCircle\">\n        <h1>Progress</h1>\n      </div>\n    </div>\n  </div>\n</div>\n\n<!-- Bottom Container -->\n<div id=\"bottomContainer\">\n  <!-- Bottom Left Page -->\n  <div id=\"bottomLeftPage\">\n    <div id=\"boxContainer\">\n      <div class=\"box\">\n        <h1>Last lesson<h1>\n      </div>\n      <div class=\"box\">\n        <h1>Grade<h1>\n      </div>\n      <div class=\"box\">\n         <h1>Attendance<h1>      \n      </div>\n    </div>\n     <div id=\"longBox\">\n     <h1>where is my money<h1>\n     </div>\n  </div>\n\n  <!-- Bottom Right Page -->\n  <div id=\"bottomRightPage\">\n    <div id =\"calender\">\n      <h1>Calender</h1>\n    </div>\n  </div>\n</div>\n";
+var pageDashboard = "<div id=\"userDetails\">\n  <!-- Text Section -->\n  <div id=\"text\">\n    <h1>Welcome " + loggedUser.name + "</h1>\n    <h2>" + loggedUser.name + " hi</h2>\n    <h3>" + loggedUser.email + "</h3>\n  </div>\n\n  <!-- Chart Section -->\n  <div id=\"chart\">\n    <div class=\"circle\">\n      <div class=\"innerCircle\">\n        <h1>Progress</h1>\n      </div>\n    </div>\n  </div>\n</div>\n\n<!-- Bottom Container -->\n<div id=\"bottomContainer\">\n  <!-- Bottom Left Page -->\n  <div id=\"bottomLeftPage\">\n    <div id=\"boxContainer\">\n      <div class=\"box\">\n        <h1>Last lesson<h1>\n        <h2 class =\"hideAble\">23/10</h2>\n      </div>\n      <div class=\"box\">\n        <h1>Grade<h1>\n        <h2 class =\"hideAble\">A*</h2>\n      </div>\n      <div class=\"box\">\n         <h1>Attendance<h1>   \n          <h2 class =\"hideAble\">23/23</h2>   \n      </div>\n    </div>\n     <div id=\"longBox\">\n     <h1>where is my money<h1>\n     </div>\n  </div>\n\n  <!-- Bottom Right Page -->\n  <div id=\"bottomRightPage\">\n    <div id =\"calender\">\n      <h1>Calender</h1>\n    </div>\n  </div>\n</div>\n";
 var pageProfile = "<div id=\"leftRight\" >\n<div id =\"profileLeft\">\n<div class=\"circle\"><img id=\"imagePreview\"  src=\"" + checkUserImage() + "\" alt =\"profile picture\"></div>\n<div> <input type=\"file\" id=\"imageInput\" accept=\"image/*\" ></div>\n</div><div id =\"profileRight\">\n\n<div id=\"userForm\" on >\n<h1>name: " + loggedUser.name + "<h1/>\n<h1>email:  " + loggedUser.email + "<h1/>\n<h1> phone number:" + loggedUser.phone + "<h1/>\n<h1>password: " + hiddenPassword() + "<h1/>\n<button class=\"btn\" id=\"editButton\" onclick =\"editUser()\"><h1>edit</h1></button>\n</div>\n</div></div>";
 function checkForm(event) {
     event.preventDefault();
@@ -168,7 +175,7 @@ function getCourses() {
         .map(function (course) { return course.name; }) // Get course names
         .join(', ');
 }
-var pageCourses = "<div id=\"userDetails\">\n  <!-- Text Section -->\n  <div id=\"text\">\n    <h1> " + loggedUser.name + " Courses:</h1>\n    <h2></h2>\n    <h3>" + getCourses() + "</h3>\n  </div>\n\n</div>\n\n<div id=\"bottomContainer\">\n\n<div id=\"longBoxContainer\">\n     </div>\n</div>";
+var pageCourses = "<div id=\"userDetails\">\n  <div id=\"textFull\">\n\n    <h1> " + loggedUser.name + " Courses:</h1>\n    <h2></h2>\n    <h3>" + getCourses() + "</h3>\n  </div>\n\n</div>\n\n<div id=\"bottomContainer\">\n\n<div id=\"longBoxContainer\">\n     </div>\n</div>";
 var pageZoom = "dffaaaaaaaaaaaaaaaaaad";
 var pageForum = "dfdaaaaaaaaaaaaaaaaaf";
 var pageLessons = "dfdaaaaaaaaaaaaaaf";
@@ -271,6 +278,16 @@ function upDateUsers(loggedUser) {
         console.log("User with id " + loggedUser.id + " not found.");
     }
 }
+function showHidden() {
+    var hiddenElement = document.querySelectorAll(".hideAble");
+    if (!hiddenElement)
+        return;
+    if (studentCourses.length > 0) {
+        hiddenElement.forEach(function (element) {
+            element.classList.remove("hideAble");
+        });
+    }
+}
 function hiddenPassword() {
     if (!loggedUser.password)
         return "";
@@ -314,6 +331,7 @@ function renderBySelected() {
         pageContentElement.innerHTML = selectedPageContent;
     addPhoto();
     getUserCoursesHtml();
+    showHidden();
 }
 function addEvents() {
     var navButtons = document.querySelectorAll(".navBtn");

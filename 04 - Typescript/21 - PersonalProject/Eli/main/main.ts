@@ -6,9 +6,15 @@ const mainElement = document.getElementById("content") as HTMLElement;
 const localStorageDetail = localStorage.getItem("users");
 const users:any[] = localStorageDetail ? JSON.parse(localStorageDetail) : [];
 
-interface Course{
+class Course{
   id:string;
   name:string;
+  lastLesson:string;
+  constructor(id:string,name:string)
+  {
+    this.id=id;
+    this.name=name;
+  }
 }
 interface StudentCourse {
   studentId: string;
@@ -16,9 +22,9 @@ interface StudentCourse {
 }
 
 const courses: Course[]=[]
-const course1:Course={id :`id-1`,name:"Linear Algebra",}
-const course2:Course={id :`id-2`,name:"Type Script",}
-const course3:Course={id :`id-3`,name:"English",}
+const course1= new Course(`id-1`,"Linear Algebra");
+const course2= new Course(`id-2`,"Type Script");
+const course3= new Course(`id-3`,"English");
 
 courses.push(course1,course2,course3);
 
@@ -199,12 +205,15 @@ const pageDashboard = `<div id="userDetails">
     <div id="boxContainer">
       <div class="box">
         <h1>Last lesson<h1>
+        <h2 class ="hideAble">23/10</h2>
       </div>
       <div class="box">
         <h1>Grade<h1>
+        <h2 class ="hideAble">A*</h2>
       </div>
       <div class="box">
-         <h1>Attendance<h1>      
+         <h1>Attendance<h1>   
+          <h2 class ="hideAble">23/23</h2>   
       </div>
     </div>
      <div id="longBox">
@@ -335,8 +344,8 @@ function getCourses ()
   }
 
 const pageCourses = `<div id="userDetails">
-  <!-- Text Section -->
-  <div id="text">
+  <div id="textFull">
+
     <h1> ${loggedUser.name} Courses:</h1>
     <h2></h2>
     <h3>${getCourses ()}</h3>
@@ -464,7 +473,16 @@ function upDateUsers(loggedUser:any)
       console.log(`User with id ${loggedUser.id} not found.`);
   }
 }
-
+function showHidden()
+{ const hiddenElement = document.querySelectorAll(".hideAble") as NodeListOf<HTMLElement>;
+  if(!hiddenElement)return;
+  if(studentCourses.length>0)
+  {
+    hiddenElement.forEach(element=>{
+      element.classList.remove("hideAble");
+    })
+  }
+}
 function hiddenPassword():string
 {
     if(!loggedUser.password) return"";
@@ -522,6 +540,7 @@ function renderBySelected() {
   if (selectedKey) pageContentElement.innerHTML = selectedPageContent;
   addPhoto();
  getUserCoursesHtml();
+ showHidden();
 }
 
 function addEvents() {

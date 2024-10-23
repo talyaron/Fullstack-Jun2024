@@ -9,10 +9,24 @@
   flex-direction: column;
   width: 80vw;
 }
+@media (max-width: 800px) {
+  #contentHolder {
+    width: 95vw;
+  }
+}
 #contentHolder .container {
   margin: 3vh auto;
   margin-left: 2vw;
   width: 90%;
+}
+@media (max-width: 800px) {
+  #contentHolder .container {
+    width: 100%;
+  }
+}
+
+.hideAble {
+  display: none;
 }
 
 #form {
@@ -24,18 +38,25 @@
   justify-content: center;
   background-color: #aab7e0;
 }
+@media (max-width: 800px) {
+  #form {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+}
 #form input {
   font-size: 1rem;
 }
 @media (max-width: 800px) {
   #form input {
-    font-size: 0.5rem;
-    width: 10vw;
+    font-size: 0.7rem;
+    width: 90%;
   }
 }
 @media (min-width: 800px) {
   #form input {
-    font-size: 0.7rem;
+    font-size: 0.9rem;
     width: 15vw;
   }
 }
@@ -62,12 +83,20 @@
   justify-content: center;
   background-color: #aab7e0;
 }
+@media (max-width: 800px) {
+  #userForm {
+    width: 70%;
+    margin: 0;
+    padding: 0;
+  }
+}
 #userForm h1 {
   font-size: 1rem;
 }
 @media (max-width: 800px) {
   #userForm h1 {
-    font-size: 0.5rem;
+    font-size: 0.7rem;
+    width: 100%;
   }
 }
 @media (min-width: 800px) {
@@ -91,7 +120,7 @@
 @media (max-width: 800px) {
   #userForm button {
     font-size: 0.5rem;
-    width: 10vw;
+    width: 50%;
   }
 }
 @media (min-width: 800px) {
@@ -109,6 +138,20 @@
   #userForm button {
     font-size: 1.2rem;
   }
+}
+
+#textFull {
+  width: 100%;
+  height: 100%;
+  color: #4d4d4d;
+  display: flex;
+  flex-direction: column;
+}
+#textFull h2 {
+  margin: 0;
+}
+#textFull h3 {
+  margin: 0;
 }
 
 #text {
@@ -191,6 +234,15 @@
   width: 30%;
   height: 100%;
   border-radius: 20px;
+}
+#boxContainer .box h2 {
+  font-size: 5vw;
+  margin: 0;
+}
+@media (max-width: 800px) {
+  #boxContainer .box h1 {
+    font-size: 1rem;
+  }
 }
 
 #longBox {
@@ -296,6 +348,11 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+@media (max-width: 800px) {
+  #topBar {
+    width: 95vw;
+  }
 }
 
 #search {
