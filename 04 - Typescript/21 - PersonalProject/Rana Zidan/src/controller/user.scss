@@ -1,0 +1,214 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f7f7;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.userpage {
+    display: flex;
+    background-color: #f0f0f0;
+    width: 100vw;
+    height: 100vh;
+
+    .sidebar {
+        background-color: #007bff;
+        color: white;
+        width: 6vw;
+        padding: 20px;
+        text-align: center;
+
+        .logo {
+            width: 10vw;
+            height: 10vh;
+            margin-left: -2vw;
+            margin-top: -2vh;
+        }
+
+        .menu-item {
+            margin: 15px 0;
+            cursor: pointer;
+
+            &.active {
+                font-weight: bold;
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .main-content {
+        flex: 1;
+        padding: 20px;
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .search-input {
+                padding: 10px;
+                width: 20%;
+                border-radius: 3%;
+            }
+
+            .user-image {
+                width: 5vw;
+                height: 10vh;
+                border-radius: 50%;
+                margin-right: 2vw;
+            }
+        }
+
+        .user-details {
+            background-color: #e9ecef;
+            border-radius: 3%;
+            padding: 15px;
+            margin: 20px 0;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        .course-list {
+            margin: 20px 0;
+
+            .course-list-button {
+                padding: 10px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                cursor: pointer;
+                margin-bottom: 10px;
+                margin-left: 1.5vw;
+            }
+
+            .course-item {
+                background-color: #fff;
+                padding: 10px;
+                margin: 5px 0;
+                border: 1px solid #ddd;
+                width: 8vw;
+            }
+        }
+    }
+}
+
+.calendar {
+    margin-top: 20px;
+
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 5vw); 
+        gap: 1vh;
+        margin-left: 25vw;
+        margin-top: -15vh;
+
+        .day {
+            font-weight: bold;
+            text-align: center;
+            background-color: #007bff;
+            color: white;
+            gap: 1vh;
+            width: 5vw;  
+            height: 5vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+
+        .date {
+            background-color: #f0f0f0;
+            text-align: center;
+            width: 5vw;  
+            height: 5vh; 
+            border: 1px solid #ddd;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            transition: background-color 0.3s;
+
+            &:hover {
+                background-color: #e0e0e0; 
+            }
+        }
+    }
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    color: #007bff;
+    margin-top: -30vh;
+    margin-left: 70vw;
+    width: 8vw;
+    height: 3vh;
+
+    .zoom {
+        margin-bottom: 10px;
+        background-color: #007bff;
+        border-radius: 1%;
+    }  
+
+    .whatsApp {
+        margin-bottom: 10px;
+        background-color: #007bff;
+        border-radius: 1%;
+    }
+
+    .google {
+        background-color: #007bff;  
+        border-radius: 1%;
+    }
+}
+
+
+@media (max-width: 1024px) { 
+    .userpage {
+        flex-direction: column; 
+        width: 100vw; 
+        margin-left: 0; 
+
+        .sidebar {
+            width: 100%; 
+            padding: 15px; 
+        }
+
+        .main-content {
+            padding: 15px; 
+        }
+
+        .calendar {
+            .calendar-grid {
+                margin-left: 0; 
+                margin-top: 0; 
+                gap: 0.5vh; 
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) { 
+    .userpage {
+        .sidebar {
+            padding: 10px; 
+        }
+
+        .main-content {
+            padding: 10px; 
+
+            .header {
+                flex-direction: column; 
+                align-items: flex-start; 
+            }
+
+            .search-input {
+                width: 100%; 
+            }
+        }
+
+        .buttons {
+            margin-left: 0;
+            margin-top: 0;
+        }
+    }
+}
