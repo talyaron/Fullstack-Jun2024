@@ -1,12 +1,13 @@
 ///////////////model
 var User = /** @class */ (function () {
     function User(name, email, phone, password) {
-        this.id = "id=" + crypto.randomUUID;
+        this.id = "id=" + crypto.randomUUID();
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
         this.img = "";
+        this.classes = [];
     }
     return User;
 }());

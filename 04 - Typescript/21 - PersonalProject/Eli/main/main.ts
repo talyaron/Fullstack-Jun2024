@@ -105,26 +105,26 @@ class FormValidator {
 
 function addClass(course:Course)
 {
-  const alreadyIn=studentCourses.find(c=>c.courseId==course.id)
+  const alreadyIn=loggedUser.classes.find(c=>c.id==course.id)
+ 
 
   if(alreadyIn)
    {  console.log(alreadyIn.courseId);
      return;}
-  const userCourse: StudentCourse = {
-    studentId: loggedUser.id, // Use loggedUser.id for studentId
-    courseId: course.id, // Use course.id for courseId
-  };
   
-  studentCourses.push(userCourse);
-  localStorage.setItem("studentCourses",JSON.stringify(studentCourses));
-  console.log(studentCourses);
+  loggedUser.classes.push(course)
+ // studentCourses.push(userCourse);
+ upDateUsers(loggedUser);
+  //localStorage.setItem("studentCourses",JSON.stringify(studentCourses));
+  localStorage.setItem(`loggedUser`,JSON.stringify(loggedUser));
+
   window.location.reload();
  
 }
 
 function removeClass(course:Course)
 {
-  const foundClass=studentCourses.findIndex(c=>c.courseId==course.id)
+  const foundClass=loggedUser.classes.findIndex(c=>c.id==course.id)
 
   if(foundClass===-1)
    {  
@@ -133,9 +133,9 @@ function removeClass(course:Course)
     }
  
   
-  studentCourses.splice(foundClass,1);
-  localStorage.setItem("studentCourses",JSON.stringify(studentCourses));
-  console.log(studentCourses);
+    loggedUser.classes.splice(foundClass,1);
+    upDateUsers(loggedUser);
+    localStorage.setItem(`loggedUser`,JSON.stringify(loggedUser));
   window.location.reload();
  
 }
@@ -333,13 +333,7 @@ function editUser()
 }
 function getCourses ()
 {
-  const userCourseIds = studentCourses
-    .filter(course => course.studentId === loggedUser.id) // Filter courses for the logged user
-    .map(course => course.courseId);
-    return  courses
-    .filter(course => userCourseIds.includes(course.id)) // Filter courses by IDs
-    .map(course => course.name) // Get course names
-    .join(', ');
+    return  loggedUser.classes.map(course => course.name).join(', ');
     
   }
 
@@ -368,15 +362,12 @@ function getUserCoursesHtml()
   const courseHolderElement = document.getElementById("longBoxContainer")as HTMLElement;
   if (!courseHolderElement) return;
 
-  const userCourseIds = studentCourses
-  .filter(course => course.studentId === loggedUser.id) 
-  .map(course => course.courseId);
-  const userCourse  =courses
-  .filter(course => userCourseIds.includes(course.id)) 
+  
+ 
   courseHolderElement.innerHTML="";
   courses.forEach(c => {
     // Check if the current course `c` is in `userCourse`
-    const isUserCourse = userCourse.some(course => course.id === c.id);
+    const isUserCourse = loggedUser.classes.some(course => course.id === c.id);
   
     if (isUserCourse) {
       const div = document.createElement('div');
@@ -476,7 +467,7 @@ function upDateUsers(loggedUser:any)
 function showHidden()
 { const hiddenElement = document.querySelectorAll(".hideAble") as NodeListOf<HTMLElement>;
   if(!hiddenElement)return;
-  if(studentCourses.length>0)
+  if(loggedUser.classes.length>0)
   {
     hiddenElement.forEach(element=>{
       element.classList.remove("hideAble");

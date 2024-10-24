@@ -6,13 +6,15 @@ class User {
   email: string;
   password: string;
   img:string;
+  classes:string[];
   constructor(name: string, email: string, phone: string, password: string) {
-    this.id = `id=${crypto.randomUUID}`;
+    this.id = `id=${crypto.randomUUID()}`;
     this.name = name;
     this.email = email;
     this.phone = phone;
     this.password = password;
     this.img="";
+    this.classes=[];
   }
   
 }

@@ -81,29 +81,27 @@ var FormValidator = /** @class */ (function () {
     return FormValidator;
 }());
 function addClass(course) {
-    var alreadyIn = studentCourses.find(function (c) { return c.courseId == course.id; });
+    var alreadyIn = loggedUser.classes.find(function (c) { return c.id == course.id; });
     if (alreadyIn) {
         console.log(alreadyIn.courseId);
         return;
     }
-    var userCourse = {
-        studentId: loggedUser.id,
-        courseId: course.id
-    };
-    studentCourses.push(userCourse);
-    localStorage.setItem("studentCourses", JSON.stringify(studentCourses));
-    console.log(studentCourses);
+    loggedUser.classes.push(course);
+    // studentCourses.push(userCourse);
+    upDateUsers(loggedUser);
+    //localStorage.setItem("studentCourses",JSON.stringify(studentCourses));
+    localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
     window.location.reload();
 }
 function removeClass(course) {
-    var foundClass = studentCourses.findIndex(function (c) { return c.courseId == course.id; });
+    var foundClass = loggedUser.classes.findIndex(function (c) { return c.id == course.id; });
     if (foundClass === -1) {
         console.log("no class was found");
         return;
     }
-    studentCourses.splice(foundClass, 1);
-    localStorage.setItem("studentCourses", JSON.stringify(studentCourses));
-    console.log(studentCourses);
+    loggedUser.classes.splice(foundClass, 1);
+    upDateUsers(loggedUser);
+    localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
     window.location.reload();
 }
 function redirectIndex() {
@@ -167,13 +165,7 @@ function editUser() {
     console.log("eldeennene");
 }
 function getCourses() {
-    var userCourseIds = studentCourses
-        .filter(function (course) { return course.studentId === loggedUser.id; }) // Filter courses for the logged user
-        .map(function (course) { return course.courseId; });
-    return courses
-        .filter(function (course) { return userCourseIds.includes(course.id); }) // Filter courses by IDs
-        .map(function (course) { return course.name; }) // Get course names
-        .join(', ');
+    return loggedUser.classes.map(function (course) { return course.name; }).join(', ');
 }
 var pageCourses = "<div id=\"userDetails\">\n  <div id=\"textFull\">\n\n    <h1> " + loggedUser.name + " Courses:</h1>\n    <h2></h2>\n    <h3>" + getCourses() + "</h3>\n  </div>\n\n</div>\n\n<div id=\"bottomContainer\">\n\n<div id=\"longBoxContainer\">\n     </div>\n</div>";
 var pageZoom = "dffaaaaaaaaaaaaaaaaaad";
@@ -183,15 +175,10 @@ function getUserCoursesHtml() {
     var courseHolderElement = document.getElementById("longBoxContainer");
     if (!courseHolderElement)
         return;
-    var userCourseIds = studentCourses
-        .filter(function (course) { return course.studentId === loggedUser.id; })
-        .map(function (course) { return course.courseId; });
-    var userCourse = courses
-        .filter(function (course) { return userCourseIds.includes(course.id); });
     courseHolderElement.innerHTML = "";
     courses.forEach(function (c) {
         // Check if the current course `c` is in `userCourse`
-        var isUserCourse = userCourse.some(function (course) { return course.id === c.id; });
+        var isUserCourse = loggedUser.classes.some(function (course) { return course.id === c.id; });
         if (isUserCourse) {
             var div = document.createElement('div');
             div.id = "longBox";
@@ -282,7 +269,7 @@ function showHidden() {
     var hiddenElement = document.querySelectorAll(".hideAble");
     if (!hiddenElement)
         return;
-    if (studentCourses.length > 0) {
+    if (loggedUser.classes.length > 0) {
         hiddenElement.forEach(function (element) {
             element.classList.remove("hideAble");
         });
