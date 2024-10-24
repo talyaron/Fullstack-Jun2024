@@ -1,7 +1,7 @@
-import './style.css'
+
+import "./style.scss"; 
 import { clickLOgIn, clickRegister, renderHome } from './view/home';
-
-
+import { backToHome } from "./view/logIn";
 
 
 
@@ -9,10 +9,10 @@ import { clickLOgIn, clickRegister, renderHome } from './view/home';
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
     ${renderHome()}
+   
   </div>
 `
 clickLOgIn();
 clickRegister();
-
-
+backToHome();
 
