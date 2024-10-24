@@ -13,17 +13,17 @@ function renderRegister() {
         redirect(loggedUser);
     }
     else {
-        regElement.innerHTML = "<div class=\"container\">\n      <h1>Login</h1>\n      <div id=\"formContainer\">\n      <Form id=\"form\" onsubmit=\"checkForm(event)\">\n  \n        <input type=\"text\" name=\"email\" id=\"email\" placeholder=\"email\">\n        <p id=\"nameDesc\"></p>\n\n        <input type=\"password\" name=\"password\" id=\"password\" placeholder=\"password\">\n        <p id=\"passwordDesc\"></p>\n  \n        <br>\n        <label for=\"agree\"  >\n        <input type=\"checkbox\" id=\"agree\" name=\"agree\" class=\"checkbox\">\n        Keep me logged in\n        </label>\n\n        <br>\n  \n        <input type=\"submit\" value=\"Login\" class=\"btn\">\n        <br>\n  \n      </Form>\n      <button class=\"btn\" onclick=\"window.location.href='../register/register.html';\">Register</button>    \n  \n      </div>";
+        regElement.innerHTML = "<div class=\"container\">\n      <h1>Login</h1>\n      <div id=\"formContainer\">\n      <Form id=\"form\" onsubmit=\"checkForm(event)\">\n  \n        <input type=\"text\" name=\"name\" id=\"name\" placeholder=\"name\">\n        <p id=\"nameDesc\"></p>\n\n        <input type=\"password\" name=\"password\" id=\"password\" placeholder=\"password\">\n        <p id=\"passwordDesc\"></p>\n  \n        <br>\n        <label for=\"agree\"  >\n        <input type=\"checkbox\" id=\"agree\" name=\"agree\" class=\"checkbox\">\n        Keep me logged in\n        </label>\n\n        <br>\n  \n        <input type=\"submit\" value=\"Login\" class=\"btn\">\n        <br>\n  \n      </Form>\n      <button class=\"btn\" onclick=\"window.location.href='../register/register.html';\">Register</button>    \n  \n      </div>";
     }
 }
 function checkForm(event) {
     event.preventDefault();
     var formData = new FormData(event.target);
-    var email = formData.get("email");
+    var name = formData.get("name");
     var password = formData.get("password");
     var agree = formData.get("agree");
     var sameNameUsers = users.filter(function (user) {
-        return user.email == email;
+        return user.name == name;
     });
     var foundUser = sameNameUsers.find(function (user) {
         return user.password == password;
