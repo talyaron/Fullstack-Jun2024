@@ -1,6 +1,7 @@
+import { userPage } from '../controller/userPage';
 import '../Design/login.scss';
 import { clickLOgIn, clickRegister, renderHome } from './home';
-import { userPage } from '../controller/userPage';
+
 
 export function renderLogin(): string {
     const logIncontent = `
@@ -9,7 +10,7 @@ export function renderLogin(): string {
         <form class="form-login" id="loginForm">
             <input type="text" name="email" id="email" required placeholder="Email:"></br>
             <input type="password" name="password" id="password" required placeholder="Password:"></br>
-            <a href="#forgotPassword" class="forgot-password">Forgot Password?</a></br>
+            <a href="./home.ts" class="forgot-password">Forgot Password?</a></br>
             <button class="btn" id="loginButton" type="submit">Submit</button>
             <button class="btn" id="backToHome" type="button">Back to Home</button>
         </form>

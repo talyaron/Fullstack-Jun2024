@@ -17,7 +17,7 @@ body {
         background-color: #007bff;
         color: white;
         width: 6vw;
-        padding: 20px;
+        padding: 2vh 1vw;
         text-align: center;
 
         .logo {
@@ -28,19 +28,31 @@ body {
         }
 
         .menu-item {
-            margin: 15px 0;
+            margin: 1.5vh 0;
             cursor: pointer;
 
             &.active {
                 font-weight: bold;
-                text-decoration: underline;
+                
+             
             }
         }
     }
 
+    .menu-Logout#Logout {
+        cursor: pointer;
+        color: white;  /* שומר על הצבע המקורי */
+        display: block; /* שומר על התצוגה כמו div */
+    }
+    
+    /* אם אתה רוצה להסיר את הקו התחתון של הלינק */
+    .menu-item#Logout:hover {
+        text-decoration: none;
+    }
+
     .main-content {
         flex: 1;
-        padding: 20px;
+        padding: 2vh 2vw;
 
         .header {
             display: flex;
@@ -48,9 +60,9 @@ body {
             align-items: center;
 
             .search-input {
-                padding: 10px;
-                width: 20%;
-                border-radius: 3%;
+                padding: 1vh 1vw;
+                width: 20vw;
+                border-radius: 0.5vw;
             }
 
             .user-image {
@@ -63,30 +75,30 @@ body {
 
         .user-details {
             background-color: #e9ecef;
-            border-radius: 3%;
-            padding: 15px;
-            margin: 20px 0;
+            border-radius: 0.5vw;
+            padding: 1.5vh 1.5vw;
+            margin: 2vh 0;
             font-family: Verdana, Geneva, Tahoma, sans-serif;
         }
 
         .course-list {
-            margin: 20px 0;
+            margin: 2vh 0;
 
             .course-list-button {
-                padding: 10px;
+                padding: 1vh 1vw;
                 background-color: #007bff;
                 color: white;
                 border: none;
                 cursor: pointer;
-                margin-bottom: 10px;
+                margin-bottom: 1vh;
                 margin-left: 1.5vw;
             }
 
             .course-item {
                 background-color: #fff;
-                padding: 10px;
-                margin: 5px 0;
-                border: 1px solid #ddd;
+                padding: 1vh 1vw;
+                margin: 0.5vh 0;
+                border: 0.1vw solid #ddd;
                 width: 8vw;
             }
         }
@@ -94,14 +106,14 @@ body {
 }
 
 .calendar {
-    margin-top: 20px;
+    margin-top: 2vh;
 
     .calendar-grid {
         display: grid;
-        grid-template-columns: repeat(7, 5vw); 
+        grid-template-columns: repeat(7, 5vw);
         gap: 1vh;
         margin-left: 25vw;
-        margin-top: -15vh;
+        margin-top: -7vh;
 
         .day {
             font-weight: bold;
@@ -109,26 +121,26 @@ body {
             background-color: #007bff;
             color: white;
             gap: 1vh;
-            width: 5vw;  
-            height: 5vh; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
+            width: 5vw;
+            height: 5vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .date {
             background-color: #f0f0f0;
             text-align: center;
-            width: 5vw;  
-            height: 5vh; 
-            border: 1px solid #ddd;
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
+            width: 5vw;
+            height: 5vh;
+            border: 0.1vw solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: background-color 0.3s;
 
             &:hover {
-                background-color: #e0e0e0; 
+                background-color: #e0e0e0;
             }
         }
     }
@@ -144,71 +156,83 @@ body {
     height: 3vh;
 
     .zoom {
-        margin-bottom: 10px;
+        margin-bottom: 1vh;
         background-color: #007bff;
-        border-radius: 1%;
-    }  
+        border-radius: 0.2vw;
+    }
 
     .whatsApp {
-        margin-bottom: 10px;
+        margin-bottom: 1vh;
         background-color: #007bff;
-        border-radius: 1%;
+        border-radius: 0.2vw;
     }
 
     .google {
-        background-color: #007bff;  
-        border-radius: 1%;
+        background-color: #007bff;
+        border-radius: 0.2vw;
     }
 }
 
-
-@media (max-width: 1024px) { 
+@media (max-width: 1024px) {
     .userpage {
-        flex-direction: column; 
-        width: 100vw; 
-        margin-left: 0; 
+        flex-direction: column;
+        width: 100vw;
+        margin-left: 0;
 
         .sidebar {
-            width: 100%; 
-            padding: 15px; 
+            width: 100vw;
+            padding: 1.5vh 1.5vw;
         }
 
         .main-content {
-            padding: 15px; 
+            padding: 1.5vh 1.5vw;
         }
 
         .calendar {
             .calendar-grid {
-                margin-left: 0; 
-                margin-top: 0; 
-                gap: 0.5vh; 
+                margin-left: 0;
+                margin-top: 0;
+                gap: 0.5vh;
             }
         }
     }
 }
 
-@media (max-width: 768px) { 
+@media (max-width: 768px) {
     .userpage {
         .sidebar {
-            padding: 10px; 
+            padding: 1vh 1vw;
         }
 
         .main-content {
-            padding: 10px; 
+            padding: 1vh 1vw;
 
             .header {
-                flex-direction: column; 
-                align-items: flex-start; 
+                flex-direction: column;
+                align-items: flex-start;
             }
 
             .search-input {
-                width: 100%; 
+                width: 90vw;
             }
         }
 
         .buttons {
             margin-left: 0;
             margin-top: 0;
+            width: 90vw;
+        }
+
+        .calendar {
+            .calendar-grid {
+                grid-template-columns: repeat(7, 12vw);
+                margin-left: 5vw;
+                
+                .day, .date {
+                    width: 12vw;
+                    height: 5vh;
+                }
+            }
         }
     }
 }

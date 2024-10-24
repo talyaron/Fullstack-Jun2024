@@ -2,11 +2,19 @@ import './user.scss';
 import logoImage from '../images/logo1.png'; 
 import studentImage from '../images/student.png'; 
 
+interface Information {
+    name: string | null;
+    email: string | null;
+    welcomeMessage: string;
+}
+
+
+
 export const userPage = () => {
-    const userDetails = {
+    const userDetails: Information = {
         name: localStorage.getItem('fullName'),
         email: localStorage.getItem('email'),
-        welcomeMessage: "Welcome back!"
+        welcomeMessage: "Welcome back!",
     };
 
     return `
@@ -17,7 +25,7 @@ export const userPage = () => {
                 <div class="menu-item active">courses</div>
                 <div class="menu-item">zoom</div>
                 <div class="menu-item">forum</div>
-                <div class="menu-item">lessons</div>
+                <a href="/login.html" class="menu-Logout" id="Logout" style="text-decoration: none;">Logout</a>
             </div>
             <div class="main-content">
                 <div class="header">
@@ -25,6 +33,7 @@ export const userPage = () => {
                     <img src="${studentImage}" alt="User Image" class="user-image" />
                 </div>
                 <div class="user-details">
+                <h3>User Information</h3>
                     <p>Name: ${userDetails.name}</p>
                     <p>Email: ${userDetails.email}</p>
                     <p>${userDetails.welcomeMessage}</p>
