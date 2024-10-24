@@ -175,6 +175,7 @@ function handleRegister (event : any){
             username_error.innerHTML = '';
             password_error.innerHTML = '';
             matchpassword_error.innerHTML = '';
+            
         } catch (error) {
             
         }
