@@ -1,0 +1,141 @@
+.navbarContainer{
+    display: grid;
+    background-color: rgb(255, 255, 255);
+    grid-column-gap: 1em;
+    grid-row-gap: 1em;
+    padding: 20px;
+    
+
+    grid-template-columns: 20% 80%;
+    font: 1em sans-serif;
+
+    .navbar{
+
+        padding: 20px;
+        background-color:  var(--button_color);
+        display: grid;
+        .logo{
+            img{
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        nav{
+          font-size: 2rem;  
+          list-style-type: none;
+
+          a{
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+       
+            &:hover{
+                background-color: darkgray;
+                transition: background-color 0.3s ease-in-out;
+            } 
+            
+            @media (max-width: 700px) {
+    
+                    font-size: 0.5em; /* הקטנת גודל טקסט למסמארטפונים */
+        
+
+                }
+
+            
+            }
+          }
+        }           
+    }
+
+    .headerDashbord{
+        // background-color: aqua;
+        display: grid;
+        gap: 10px;
+        padding-right: 40px;
+
+        @media (max-width: 700px) {
+            
+                gap: 5px; 
+
+        }
+
+        .header{
+            background-color: rgb(226, 202, 202);
+            display: flex;
+            height: 90px;
+            justify-content: center;
+            align-items: center;
+
+
+            form{
+                display: flex;
+                align-items: center;
+                padding: 10px;
+                gap: 10px;;
+                width: 100%;
+                margin: 10px;
+                font-size: 1.5em;
+
+
+                
+                input{
+                    padding: 10px;
+                    margin: 10px;
+                    border-radius: 5px;
+                    border: none;
+                    outline: none;
+                }
+                button{
+                    padding: 10px;
+                    margin: 10px;
+                    border-radius: 5px;
+                    border: none;
+                    background-color: var(--button_color);
+                    color: white;
+                    cursor: pointer; 
+            }
+            p{
+                font: 1.5em sans-serif;
+                margin-left: 30%;;
+                
+            }
+
+            img{
+                height: 60px;
+                padding: 10px;
+
+                
+            }
+        }
+
+        
+    }
+    .dashbord{
+        background-color: rgb(236, 221, 221);
+        height: 450px;
+        padding: 10px;
+
+        h2{
+            font-size: 2vw; /* גודל הגופן משתנה בהתאם לרוחב החלון */
+            max-width: 100%; /* רוחב מקסימלי */
+            word-wrap: break-word; /* שבירת מילים אם יש צורך */
+        }
+
+        button{
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: var(--button_color);
+            color: white;
+            cursor: pointer;
+        }
+
+        img{
+            width: 20%;
+            height: auto;
+            margin: 10px;
+        }
+
+}
+    }

@@ -1,0 +1,115 @@
+@charset "UTF-8";
+.navbarContainer {
+  display: grid;
+  background-color: white;
+  grid-column-gap: 1em;
+  grid-row-gap: 1em;
+  padding: 20px;
+  grid-template-columns: 20% 80%;
+  font: 1em sans-serif;
+}
+.navbarContainer .navbar {
+  padding: 20px;
+  background-color: var(--button_color);
+  display: grid;
+}
+.navbarContainer .navbar .logo img {
+  width: 100%;
+  height: auto;
+}
+.navbarContainer .navbar nav {
+  font-size: 2rem;
+  list-style-type: none;
+}
+.navbarContainer .navbar nav a {
+  color: white;
+  text-decoration: none;
+}
+.navbarContainer .navbar nav a:hover {
+  background-color: darkgray;
+  transition: background-color 0.3s ease-in-out;
+}
+@media (max-width: 700px) {
+  .navbarContainer .navbar nav a {
+    font-size: 0.5em;
+    /* הקטנת גודל טקסט למסמארטפונים */
+  }
+}
+
+.headerDashbord {
+  display: grid;
+  gap: 10px;
+  padding-right: 40px;
+}
+@media (max-width: 700px) {
+  .headerDashbord {
+    gap: 5px;
+  }
+}
+.headerDashbord .header {
+  background-color: #e2caca;
+  display: flex;
+  height: 90px;
+  justify-content: center;
+  align-items: center;
+}
+.headerDashbord .header form {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  width: 100%;
+  margin: 10px;
+  font-size: 1.5em;
+}
+.headerDashbord .header form input {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+}
+.headerDashbord .header form button {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--button_color);
+  color: white;
+  cursor: pointer;
+}
+.headerDashbord .header form p {
+  font: 1.5em sans-serif;
+  margin-left: 30%;
+}
+.headerDashbord .header form img {
+  height: 60px;
+  padding: 10px;
+}
+.headerDashbord .dashbord {
+  background-color: #ecdddd;
+  height: 450px;
+  padding: 10px;
+}
+.headerDashbord .dashbord h2 {
+  font-size: 2vw;
+  /* גודל הגופן משתנה בהתאם לרוחב החלון */
+  max-width: 100%;
+  /* רוחב מקסימלי */
+  word-wrap: break-word;
+  /* שבירת מילים אם יש צורך */
+}
+.headerDashbord .dashbord button {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--button_color);
+  color: white;
+  cursor: pointer;
+}
+.headerDashbord .dashbord img {
+  width: 20%;
+  height: auto;
+  margin: 10px;
+}

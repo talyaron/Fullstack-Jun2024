@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./dist/userMenu.css">
+    <link rel="stylesheet" href="../dist/style.css">
+    <script src="./dist/userMenu.js" defer></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="navbarContainer">
+        <div class="navbar">
+            <div class="logo"><a href="/Personal_project22/index.html"><img src="../pictures/welcome.png"></a></div>
+            <nav><a href="" onclick="renderProfilePage(event)">My Profile</a></nav>
+            <nav>
+                <a href="" onclick="renderCoursesPage(event)">Courses</a>
+            </nav>
+            <nav><a href="" onclick="renderZoomPage(event)">Zoom</a></nav>
+            <nav><a href="" onclick="renderForumPage(event)">Forum</a></nav>
+            <nav><a href="" onclick="renderLessonsPage(event)">Lessons</a></nav>
+            <nav><a href="/Personal_project22/index.html">Log off</a></nav>
+        </div>
+        <div class="headerDashbord">
+            <div class="header">
+                <form action="/search" method="get">
+                    <input type="search" placeholder="Search here" aria-label="Search">
+                    <button type="submit">Search</button>
+                    <p id="welcome"></p>
+                    <img src="../pictures/profile.png" alt="">
+                </form>
+            </div>
+            <div id="dashbord" class="dashbord"></div>
+        </div>
+    </div>
+
+</body>
+</html>
