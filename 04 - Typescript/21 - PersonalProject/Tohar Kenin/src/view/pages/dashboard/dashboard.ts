@@ -1,5 +1,5 @@
 import './dashboard.scss'
-import {userDtails } from '../../components/userDetails/userDtails';
+import {userDtails } from '../../components/userDetails/userDtailes';
 export function dashboard(): string {
     return `
         <div class="page">
