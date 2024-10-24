@@ -1,29 +1,66 @@
-//model
+// Model - check if user is logged in
+function isUserLoggedIn(): boolean {
+    const user = localStorage.getItem('user');
+    return user !== null;
+}
 
-//view
+// View - display user's name and email
+function displayUserDetails() {
+    const userString = localStorage.getItem('user');
+    if (userString) {
+        const user = JSON.parse(userString);
 
-//render sidebar to dom
+        if (user.name && user.email) {
+            const userInfoParagraph = document.createElement('p');
+            userInfoParagraph.textContent = `Welcome ${user.name}!, Your Email is: ${user.email}`;
+            userInfoParagraph.classList.add("userinfo");
+            document.body.appendChild(userInfoParagraph);
+        } else {
+            console.error('User data is incomplete or corrupted');
+        }
+    } else {
+        console.error('No user data found in localStorage');
+    }
+}
+
+// Controller - redirect to login if not logged in
+function redirectToLoginIfNotLoggedIn() {
+    if (!isUserLoggedIn()) {
+        console.log('User not logged in, redirecting to login page...');
+        window.location.href = 'login.html';
+    } else {
+        console.log('User is logged in, displaying details...');
+        displayUserDetails();
+    }
+}
+
+// Existing view and controller functions
+
+// View - render sidebar to DOM
 function addSidebarToPage() {
     const sidebar = createSidebar();
     document.body.appendChild(sidebar);
 }
-addSidebarToPage();
 
-//controller
-//sidebar create function
+const userInfoParagraph = document.createElement("h1")
+userInfoParagraph.innerHTML = "User Details";
+userInfoParagraph.classList.add("userinfop");
+document.body.appendChild(userInfoParagraph);
+
+// Controller - create sidebar function
 function createSidebar(): HTMLElement {
-    //sidebar div
+    // Sidebar div
     const sidebar = document.createElement('div');
-    //add sidebar div element to class "sidebar"
     sidebar.className = 'sidebar';
 
-    //sidebar header
+    // Sidebar header
     const title = document.createElement('h2');
-    title.textContent = 'Menu';
+    title.textContent = 'Dashboard Page';
     sidebar.appendChild(title);
+
     const menu = document.createElement('ul');
 
-    //array of links and etc..
+    // Array of links and etc..
     const items = [
         { name: 'Dashboard', link: './home.html' },
         { name: 'Profile', link: 'Profile.html' },
@@ -43,7 +80,27 @@ function createSidebar(): HTMLElement {
         listItem.appendChild(anchor);
         menu.appendChild(listItem);
     });
+
     sidebar.appendChild(menu);
     return sidebar;
 }
 
+// View - create header function
+function createHeader(): HTMLElement {
+    const searchInput = document.createElement("input");
+    searchInput.type = "search";
+    searchInput.classList.add("header__input");
+    searchInput.placeholder = "Search";
+    document.body.appendChild(searchInput);
+    return searchInput;
+}
+
+// Run after DOM content is fully loaded
+window.addEventListener('DOMContentLoaded', () => {
+    // Check login status when the page loads
+    redirectToLoginIfNotLoggedIn();
+
+    // Render the sidebar and header after user verification
+    addSidebarToPage();
+    createHeader();
+});
