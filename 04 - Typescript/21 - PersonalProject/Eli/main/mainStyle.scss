@@ -1,3 +1,78 @@
+#calender {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  
+  .calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); // 7 columns, each taking an equal fraction of the container
+    grid-auto-rows: 1fr; // Make rows automatically fill available space
+    gap: 0.05rem; // Small gap between boxes
+    width: 100%; // Fill the container's width
+    height: 100%; // Fill the container's height
+    background-color: #3498db;
+    border-radius: 8px;
+
+    .day {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #2ecc71;
+      color: #fff;
+      font-size: 1vw; // Adjust font-size based on viewport
+      border-radius: 4px;
+      padding: 0.2rem;
+    }
+
+    .header {
+      background-color: darken(#3498db, 10%);
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 1vw; // Adjust font-size based on viewport
+      color: #fff;
+    }
+
+    .empty {
+      background-color: lighten(#3498db, 20%);
+    }
+  }
+}
+
+#problem {
+  width: 100%;
+  height: 100%; /* Keep the height as 100% of its container */
+  overflow: hidden; /* This will cut off anything that exceeds the height */
+justify-content: center;
+  img {
+    width: 90%; /* Ensure the image width fills the container */
+    height: 115%; /* Make the image 120% of the container’s height */
+   // object-fit: cover; /* Ensures the image scales proportionally */
+  }
+}
+@keyframes slide {
+  0% {
+    transform: translateX(-130%); /* Start at the left */
+  }
+ 
+  100% {
+    transform: translateX(130%); /* Move to the right */
+  }
+}
+
+.movingText {
+  width: 100%; /* The text will move across the entire container */
+  overflow: hidden; /* Hide the text when it moves outside the container */
+  white-space: nowrap; /* Prevent text from wrapping */
+  
+  h1 {
+    display: inline-block; /* Ensure the text block behaves like an inline element */
+    animation: slide 8s linear infinite; /* Move the text from left to right continuously */
+  }
+}
+
+
 #pageHolder {
   display: flex;
   flex-direction: row;
@@ -289,7 +364,6 @@
   border-radius: 20px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: center;
   color: white;
 }
