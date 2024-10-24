@@ -1,38 +1,111 @@
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #3377FF;
-    padding: 1rem 2rem;
-    height: 10vh;
+  position: fixed; 
+  top: 0;
+  left: 0; 
+  height: 100vh; 
+  width: 20vh;
+  background-color: #3377FF;
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  padding: 1rem 0;
+  z-index: 100;
+  border-radius: 8px;
+}
+
+.navbar-logo img {
+  height: 6vh;
+  margin-bottom: 1rem;
+}
+
+.navbar-links {
+  display: flex;
+  flex-direction: column; 
+  list-style: none;
+  padding: 0;
+}
+
+.navbar-links li {
+  margin: 1.5rem 0;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.navbar-links a:hover {
+  color: #99BBFF;
+}
+
+.navbar-profile img {
+  height: 6vh;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: auto;
+}
+//// Tablet ////
+
+@media (max-width: 1024px) {
+  .navbar {
+    width: 15vh; 
+    padding: 0.5rem 0;
   }
-  
+
   .navbar-logo img {
-    height: 6vh;
+    height: 5vh; 
   }
-  
+
+  .navbar-links li {
+    margin: 1rem 0; 
+  }
+
+  .navbar-links a {
+    font-size: 1.1rem; 
+  }
+
+  .navbar-profile img {
+    height: 5vh; 
+  }
+}
+
+//// Phone ////
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    width: 100vw; 
+    height: auto;
+    margin-top: 5rem; 
+    padding: 1rem 0; 
+    position: fixed;
+  }
+
   .navbar-links {
     display: flex;
-    list-style: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    width: 100%; 
   }
-  
+
   .navbar-links li {
-    margin: 0 1.5rem;
+    margin: 0.5rem 0; 
+    width: 100%;
+    text-align: center; 
   }
-  
+
   .navbar-links a {
-    text-decoration: none;
-    color: white;
-    font-size: 1.2rem;
-    transition: color 0.3s ease;
+    width: 100%; 
+    text-align: center; 
   }
-  
-  .navbar-links a:hover {
-    color: #99BBFF;
-  }
-  
+
   .navbar-profile img {
-    height: 6vh;
-    border-radius: 50%;
-    cursor: pointer;
+    height: 3vh;
+    margin: 0.5rem 0; 
+
   }
+}

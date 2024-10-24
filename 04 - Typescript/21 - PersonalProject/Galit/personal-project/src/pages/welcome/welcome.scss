@@ -1,11 +1,13 @@
+@import '../../components/button/button.scss';
+@import '../../components/container/container.scss';
+
 body {
     background-color: #FBFBFD;
     display: flex; 
     justify-content: center; 
     align-items: center; 
-    height: 100vh;
     margin: 0; 
-}
+
 
 h1 {
     font-size: 2rem;
@@ -13,4 +15,4 @@ h1 {
     color: #4D4D4D;
     font-family: sans-serif;
 }
-
+}
