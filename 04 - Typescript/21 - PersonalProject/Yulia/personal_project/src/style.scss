@@ -1,3 +1,4 @@
+// Global variables
 $MainBackgroundColor: #f0f4f8;
 $PrimaryColor: #007bff;
 $SecondaryColor: #add8e6;
@@ -14,22 +15,28 @@ body {
     background-color: $MainBackgroundColor;
     font-family: Arial, sans-serif;
 }
+
+#app {
+    padding: 20px; 
+}
+
 .form-container {
     background-color: $SecondaryColor;
     border-radius: 15px;
     padding: 20px;
-    width: 300px;
-    margin: auto;
+    width: 300px; 
+    margin: 0 auto; 
     display: flex;
     flex-direction: column;
     align-items: center;
 
     &__input {
-        width: 100%;
+        width: 100%; 
         padding: 10px;
         margin-bottom: 10px;
         border-radius: 5px;
         border: 1px solid #ccc;
+        box-sizing: border-box; 
     }
 
     &__checkbox-label {
@@ -39,7 +46,7 @@ body {
     }
 
     &__button {
-        width: 100%;
+        width: 100%; 
         padding: 10px;
         margin-bottom: 10px;
         background-color: $PrimaryColor;
@@ -47,6 +54,7 @@ body {
         border: none;
         border-radius: 5px;
         cursor: pointer;
+        box-sizing: border-box; 
 
         &:hover {
             background-color: $AccentColor;
