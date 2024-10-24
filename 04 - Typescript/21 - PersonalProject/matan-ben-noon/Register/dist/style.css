@@ -1,0 +1,139 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f2f5;
+  font-family: "Arial", sans-serif;
+}
+
+.register-container {
+  background-color: #E3EDFF;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  text-align: center;
+}
+.register-container .register__logo {
+  display: flex;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -30px;
+  margin-bottom: -50px;
+}
+.register-container__title {
+  margin-bottom: 20px;
+  font-size: 2.2rem;
+  color: #333;
+  font-weight: bold;
+  font-family: "Georgia", serif;
+}
+
+.register-form__input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+.register-form__button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  color: white;
+  background-color: #3377FF;
+  transition: background-color 0.3s ease;
+}
+.register-form__button--register:hover {
+  background-color: #0056b3;
+}
+.register-form__title {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: #333;
+}
+.register-form__error {
+  color: red;
+  margin-bottom: 15px;
+}
+.register-form__success {
+  color: green;
+  margin-top: 15px;
+  font-size: 1rem;
+}
+.register-form__courses-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.register-form__checkbox-label {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+  width: 45%;
+  cursor: pointer;
+}
+.register-form__checkbox-label input[type=checkbox] {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  accent-color: #3377FF;
+}
+.register-form__checkbox-label span {
+  font-size: 16px;
+  color: #333;
+}
+
+/* media */
+@media (max-width: 768px) {
+  .register-container {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .register-form__input {
+    font-size: 14px;
+    padding: 10px;
+  }
+  .register-form__button {
+    font-size: 14px;
+    padding: 10px;
+  }
+  .register-form__title {
+    font-size: 1.8rem;
+  }
+  .register-form__checkbox-label {
+    width: 100%;
+  }
+}
+@media (max-width: 480px) {
+  .register-container {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .register-form__input {
+    font-size: 12px;
+    padding: 8px;
+  }
+  .register-form__button {
+    font-size: 12px;
+    padding: 8px;
+  }
+  .register-form__title {
+    font-size: 1.6rem;
+  }
+  .register-form__checkbox-label {
+    width: 100%;
+  }
+}
