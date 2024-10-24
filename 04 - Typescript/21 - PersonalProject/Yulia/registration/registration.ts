@@ -1,4 +1,3 @@
-
 // Declaration of functions for TypeScript to avoid errors
 declare function logToConsoleAndLocalStorage(message: string): void;
 declare function saveRegistrationData(
@@ -87,7 +86,6 @@ function createRegisterForm(): HTMLFormElement {
   formElement.appendChild(repeatPasswordInput);
   formElement.appendChild(agreeLabel);
   formElement.appendChild(submitButton);
-
   // Create "Go to Login" button and append it to the form
   const goToLoginButton = document.createElement("button");
   goToLoginButton.textContent = "Go to Login";

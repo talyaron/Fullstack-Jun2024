@@ -14,12 +14,20 @@ var loggedUser = localStorageUser ? JSON.parse(localStorageUser) : "";
 var mainElement = document.getElementById("content");
 var localStorageDetail = localStorage.getItem("users");
 var users = localStorageDetail ? JSON.parse(localStorageDetail) : [];
+var Course = /** @class */ (function () {
+    function Course(id, name) {
+        this.id = id;
+        this.name = name;
+    }
+    return Course;
+}());
 var courses = [];
-var course1 = { id: "id-" + crypto.randomUUID(), name: "Linear Algebra" };
-var course2 = { id: "id-" + crypto.randomUUID(), name: "Type Script" };
-var course3 = { id: "id-" + crypto.randomUUID(), name: "English" };
+var course1 = new Course("id-1", "Linear Algebra");
+var course2 = new Course("id-2", "Type Script");
+var course3 = new Course("id-3", "English");
 courses.push(course1, course2, course3);
-var studentCourses = [];
+var localStorageCourses = localStorage.getItem("studentCourses");
+var studentCourses = localStorageCourses ? JSON.parse(localStorageCourses) : [];
 var FormValidator = /** @class */ (function () {
     function FormValidator(name, email, phoneNum, password, rePassword) {
         this.name = name;
@@ -72,13 +80,29 @@ var FormValidator = /** @class */ (function () {
     };
     return FormValidator;
 }());
-addClass(course1);
 function addClass(course) {
-    var userCourse = {
-        studentId: loggedUser.id,
-        courseId: course.id
-    };
-    studentCourses.push(userCourse);
+    var alreadyIn = loggedUser.classes.find(function (c) { return c.id == course.id; });
+    if (alreadyIn) {
+        console.log(alreadyIn.courseId);
+        return;
+    }
+    loggedUser.classes.push(course);
+    // studentCourses.push(userCourse);
+    upDateUsers(loggedUser);
+    //localStorage.setItem("studentCourses",JSON.stringify(studentCourses));
+    localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
+    window.location.reload();
+}
+function removeClass(course) {
+    var foundClass = loggedUser.classes.findIndex(function (c) { return c.id == course.id; });
+    if (foundClass === -1) {
+        console.log("no class was found");
+        return;
+    }
+    loggedUser.classes.splice(foundClass, 1);
+    upDateUsers(loggedUser);
+    localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
+    window.location.reload();
 }
 function redirectIndex() {
     mainElement.innerHTML = "<div class=\"container\">\n    <h1>Log in to view main</h1>\n    <h3>you are redirected to the welcome screen</h3>\n</div>";
@@ -95,7 +119,7 @@ function renderMain() {
         renderBySelected();
     }
 }
-var pageDashboard = "<div id=\"userDetails\">\n  <!-- Text Section -->\n  <div id=\"text\">\n    <h1>Welcome " + loggedUser.name + "</h1>\n    <h2>" + loggedUser.name + " hi</h2>\n    <h3>" + loggedUser.email + "</h3>\n  </div>\n\n  <!-- Chart Section -->\n  <div id=\"chart\">\n    <div class=\"circle\">\n      <div class=\"innerCircle\">\n        <h1>Progress</h1>\n      </div>\n    </div>\n  </div>\n</div>\n\n<!-- Bottom Container -->\n<div id=\"bottomContainer\">\n  <!-- Bottom Left Page -->\n  <div id=\"bottomLeftPage\">\n    <div id=\"boxContainer\">\n      <div class=\"box\">\n        <h1>Last lesson<h1>\n      </div>\n      <div class=\"box\">\n        <h1>Grade<h1>\n      </div>\n      <div class=\"box\">\n         <h1>Attendance<h1>      \n      </div>\n    </div>\n     <div id=\"longBox\">\n     <h1>where is my money<h1>\n     </div>\n  </div>\n\n  <!-- Bottom Right Page -->\n  <div id=\"bottomRightPage\">\n    <div id =\"calender\">\n      <h1>Calender</h1>\n    </div>\n  </div>\n</div>\n";
+var pageDashboard = "<div id=\"userDetails\">\n  <!-- Text Section -->\n  <div id=\"text\">\n    <h1>Welcome " + loggedUser.name + "</h1>\n    <h2>" + loggedUser.name + " hi</h2>\n    <h3>" + loggedUser.email + "</h3>\n  </div>\n\n  <!-- Chart Section -->\n  <div id=\"chart\">\n    <div class=\"circle\">\n      <div class=\"innerCircle\">\n        <h1>Progress</h1>\n      </div>\n    </div>\n  </div>\n</div>\n\n<!-- Bottom Container -->\n<div id=\"bottomContainer\">\n  <!-- Bottom Left Page -->\n  <div id=\"bottomLeftPage\">\n    <div id=\"boxContainer\">\n      <div class=\"box\">\n        <h1>Last lesson<h1>\n        <h2 class =\"hideAble\">23/10</h2>\n      </div>\n      <div class=\"box\">\n        <h1>Grade<h1>\n        <h2 class =\"hideAble\">A*</h2>\n      </div>\n      <div class=\"box\">\n         <h1>Attendance<h1>   \n          <h2 class =\"hideAble\">23/23</h2>   \n      </div>\n    </div>\n     <div id=\"longBox\">\n     <h1>where is my money<h1>\n     </div>\n  </div>\n\n  <!-- Bottom Right Page -->\n  <div id=\"bottomRightPage\">\n    <div id =\"calender\">\n      <h1>Calender</h1>\n    </div>\n  </div>\n</div>\n";
 var pageProfile = "<div id=\"leftRight\" >\n<div id =\"profileLeft\">\n<div class=\"circle\"><img id=\"imagePreview\"  src=\"" + checkUserImage() + "\" alt =\"profile picture\"></div>\n<div> <input type=\"file\" id=\"imageInput\" accept=\"image/*\" ></div>\n</div><div id =\"profileRight\">\n\n<div id=\"userForm\" on >\n<h1>name: " + loggedUser.name + "<h1/>\n<h1>email:  " + loggedUser.email + "<h1/>\n<h1> phone number:" + loggedUser.phone + "<h1/>\n<h1>password: " + hiddenPassword() + "<h1/>\n<button class=\"btn\" id=\"editButton\" onclick =\"editUser()\"><h1>edit</h1></button>\n</div>\n</div></div>";
 function checkForm(event) {
     event.preventDefault();
@@ -141,18 +165,38 @@ function editUser() {
     console.log("eldeennene");
 }
 function getCourses() {
-    var userCourseIds = studentCourses
-        .filter(function (course) { return course.studentId === loggedUser.id; }) // Filter courses for the logged user
-        .map(function (course) { return course.courseId; });
-    return courses
-        .filter(function (course) { return userCourseIds.includes(course.id); }) // Filter courses by IDs
-        .map(function (course) { return course.name; }) // Get course names
-        .join(', ');
+    return loggedUser.classes.map(function (course) { return course.name; }).join(', ');
 }
-var pageCourses = "<div id=\"userDetails\">\n  <!-- Text Section -->\n  <div id=\"text\">\n    <h1> " + loggedUser.name + " Courses:</h1>\n    <h2></h2>\n    <h3>" + getCourses() + "</h3>\n  </div>\n\n</div>\n\n<!-- Bottom Container -->\n<div id=\"bottomContainer\">\n  <!-- Bottom Left Page -->\n  <div id=\"bottomLeftPage\">\n    <div id=\"boxContainer\">\n      <div class=\"box\">\n        <h1>Last lesson<h1>\n      </div>\n      <div class=\"box\">\n        <h1>Grade<h1>\n      </div>\n      <div class=\"box\">\n         <h1>Attendance<h1>      \n      </div>\n    </div>\n  </div>\n\n  <!-- Bottom Right Page -->\n  <div id=\"bottomRightPage\">\n     <div id=\"boxContainer\">\n      <div class=\"box\">\n        <h1>Last lesson<h1>\n      </div>\n      <div class=\"box\">\n        <h1>Grade<h1>\n      </div>\n      <div class=\"box\">\n  </div>\n</div>";
+var pageCourses = "<div id=\"userDetails\">\n  <div id=\"textFull\">\n\n    <h1> " + loggedUser.name + " Courses:</h1>\n    <h2></h2>\n    <h3>" + getCourses() + "</h3>\n  </div>\n\n</div>\n\n<div id=\"bottomContainer\">\n\n<div id=\"longBoxContainer\">\n     </div>\n</div>";
 var pageZoom = "dffaaaaaaaaaaaaaaaaaad";
 var pageForum = "dfdaaaaaaaaaaaaaaaaaf";
 var pageLessons = "dfdaaaaaaaaaaaaaaf";
+function getUserCoursesHtml() {
+    var courseHolderElement = document.getElementById("longBoxContainer");
+    if (!courseHolderElement)
+        return;
+    courseHolderElement.innerHTML = "";
+    courses.forEach(function (c) {
+        // Check if the current course `c` is in `userCourse`
+        var isUserCourse = loggedUser.classes.some(function (course) { return course.id === c.id; });
+        if (isUserCourse) {
+            var div = document.createElement('div');
+            div.id = "longBox";
+            div.classList.add("colored");
+            div.innerHTML = "<h1>" + c.name + "</h1>";
+            div.addEventListener('click', function () { return removeClass(c); }); // Passing the course object directly
+            courseHolderElement.appendChild(div);
+        }
+        else {
+            var div = document.createElement('div');
+            div.id = "longBox";
+            div.innerHTML = "<h1>" + c.name + "</h1>";
+            div.addEventListener('click', function () { return addClass(c); }); // Passing the course object directly
+            courseHolderElement.appendChild(div);
+        }
+    });
+    // console.log(userCourse);
+}
 function checkUserImage() {
     var loggedUsere = localStorageUser ? JSON.parse(localStorageUser) : "";
     if (loggedUsere.img) {
@@ -221,6 +265,16 @@ function upDateUsers(loggedUser) {
         console.log("User with id " + loggedUser.id + " not found.");
     }
 }
+function showHidden() {
+    var hiddenElement = document.querySelectorAll(".hideAble");
+    if (!hiddenElement)
+        return;
+    if (loggedUser.classes.length > 0) {
+        hiddenElement.forEach(function (element) {
+            element.classList.remove("hideAble");
+        });
+    }
+}
 function hiddenPassword() {
     if (!loggedUser.password)
         return "";
@@ -263,6 +317,8 @@ function renderBySelected() {
     if (selectedKey)
         pageContentElement.innerHTML = selectedPageContent;
     addPhoto();
+    getUserCoursesHtml();
+    showHidden();
 }
 function addEvents() {
     var navButtons = document.querySelectorAll(".navBtn");

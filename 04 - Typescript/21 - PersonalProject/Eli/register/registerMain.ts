@@ -1,11 +1,11 @@
 ///////////////model
-  class User {
+class User {
   id: string;
   name: string;
   phone: string;
   email: string;
   password: string;
-  img: string;
+  img:string;
   classes:string[];
   constructor(name: string, email: string, phone: string, password: string) {
     this.id = `id=${crypto.randomUUID()}`;
@@ -13,12 +13,13 @@
     this.email = email;
     this.phone = phone;
     this.password = password;
-    this.img = "";
+    this.img="";
     this.classes=[];
   }
+  
 }
 
- class FormValidator {
+class FormValidator {
   name: string;
   email: string;
   phoneNum: string;
@@ -49,29 +50,21 @@
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
   }
   isNameValid() {
-    if (!this.regN.test(this.name)) return "invalid name";
+    if (this.regN.test(this.name) == false) return "invalid name";
     return null;
   }
   isEmailValid() {
-    if (!this.regE.test(this.email)) {
+    if (this.regE.test(this.email) == false)
       return "invalid email : email needs @ and a .com ending";
-    }
-
-    const emailCheck = this.isEmailFree();
-    if (emailCheck) {
-      return emailCheck;
-    }
-
     return null;
   }
   isPhoneNumValid() {
-    if (!this.regPn.test(this.phoneNum))
+    if (this.regPn.test(this.phoneNum) == false)
       return "invalid phone number : use numbers only with the right length";
-
     return null;
   }
   isPasswordValid() {
-    if (!this.regP.test(this.password))
+    if (this.regP.test(this.password) == false)
       return "invalid password : password requires one Uppercase letter <br> and one special letter(@#!$%#^&*)";
     return null;
   }
@@ -80,17 +73,10 @@
       return "invalid repeat password: required to be the same as password";
     return null;
   }
-  isEmailFree() {
-    const matchingMail = users.find((user) => this.email === user.email);
-    if (matchingMail) {
-      return `This email is already registered.`;
-    }
-    return null;
-  }
 }
 
 const localStorageDetail = localStorage.getItem("users");
-const users: User[] = localStorageDetail ? JSON.parse(localStorageDetail) : [];
+const users:User[]=localStorageDetail ? JSON.parse(localStorageDetail) : [];
 
 const regElement = document.getElementById("content") as HTMLElement;
 const localStorageUser = localStorage.getItem("loggedUser");
@@ -99,10 +85,11 @@ const loggedUser: User = localStorageUser ? JSON.parse(localStorageUser) : "";
 //////////view
 
 function renderRegister() {
-  if (loggedUser) {
-    redirectMain(loggedUser);
-  } else {
-    regElement.innerHTML = `<div class="container">
+  if (loggedUser)
+    {
+      redirectMain(loggedUser);
+    }else{
+  regElement.innerHTML = `<div class="container">
     <h1>Create your account</h1>
     <div id="formContainer">
     <Form id="form" onsubmit="checkForm(event)">
@@ -135,13 +122,13 @@ function renderRegister() {
     </Form>
     <button class="btn" onclick="window.location.href='../login/login.html';">Login</button>    
 
-    </div>`;
-  }
+    </div>`;}
 }
+
 
 ///controllers
 
-function checkForm(event: Event) {
+ function checkForm(event: Event) {
   event.preventDefault();
 
   const formData = new FormData(event.target as HTMLFormElement);
@@ -152,7 +139,7 @@ function checkForm(event: Event) {
   const RePassword = formData.get("RePassword") as string;
 
   const agree = formData.get("agree") as string;
-
+  
   const formValidator = new FormValidator(
     name,
     email,
@@ -173,36 +160,42 @@ function checkForm(event: Event) {
   updatePasswordStatus(resultP);
   updateRePasswordStatus(resultRP);
 
-  if (!resultN && !resultE && !resultPN && !resultP && !resultRP && agree) {
+  if(!resultN&&!resultE&&!resultPN&&!resultP&&!resultRP&&agree)
+  {
     addUser(name, email, phoneNum, password);
-  }
+   
+
+ }
 }
 
-function addUser(name, email, phoneNum, password) {
-  const newUser: User = new User(name, email, phoneNum, password);
-  users.push(newUser);
-  localStorage.setItem(`users`, JSON.stringify(users));
-  reDirectLogin();
+function addUser(name, email, phoneNum, password)
+{
+    const newUser: User = new User(name, email, phoneNum, password); 
+    users.push(newUser);
+    localStorage.setItem(`users`,JSON.stringify(users));
+    reDirectLogin();
 }
 
-function reDirectLogin() {
-  regElement.innerHTML = `<div class="container">
+function  reDirectLogin()
+{
+    regElement.innerHTML = `<div class="container">
     <h1>Register success! </h1>
     <h3>you are redirected to login</h3>
 </div>`;
-  setTimeout(function () {
-    window.location.href = "../login/login.html";
-  }, 3000);
+setTimeout(function() {
+    window.location.href = '../login/login.html'; 
+}, 3000);
 }
 
-function redirectMain(loggedUser) {
-  regElement.innerHTML = `<div class="container">
+function redirectMain(loggedUser)
+{
+    regElement.innerHTML = `<div class="container">
     <h1>Welcome back ${loggedUser.name}</h1>
     <h3>you are redirected to main</h3>
 </div>`;
-  setTimeout(function () {
-    window.location.href = "../main/main.html";
-  }, 3000);
+setTimeout(function() {
+    window.location.href = '../main/main.html'; 
+}, 3000);
 }
 
 function updateNameStatus(result: string | null) {

@@ -1,0 +1,140 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f2f5;
+  font-family: 'sans-serif';
+}
+
+.login {
+  background-color: #E3EDFF;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  text-align: center;
+
+  .login__logo {
+    display: flex;
+    width: 200px;
+    margin-left: 74px;
+    margin-top: -30px;
+    margin-bottom: -50px;
+  }
+
+  &__title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    font-size: 2rem;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+
+  &__button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    margin-bottom: 10px;
+
+    &--login {
+      background-color: #3377FF;
+    }
+
+    &--login:hover {
+      background-color: #0056b3;
+    }
+
+    &--register {
+      background-color: #28a745;
+    }
+
+    &--register:hover {
+      background-color: #218838;
+    }
+  }
+}
+
+/* media */
+@media (max-width: 768px) {
+  .login {
+    width: 100%;
+    padding: 20px;
+
+    .login__logo {
+      width: 150px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    &__title {
+      font-size: 1.8rem;
+    }
+  }
+
+  .login-form {
+    &__input {
+      font-size: 14px;
+      padding: 8px;
+    }
+
+    &__button {
+      font-size: 14px;
+      padding: 8px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .login {
+    width: 100%;
+    padding: 15px;
+
+    .login__logo {
+      width: 120px;
+    }
+
+    &__title {
+      font-size: 1.6rem;
+    }
+  }
+
+  .login-form {
+    &__input {
+      font-size: 12px;
+      padding: 8px;
+    }
+
+    &__button {
+      font-size: 12px;
+      padding: 8px;
+    }
+  }
+}

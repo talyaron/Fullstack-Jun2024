@@ -6,9 +6,15 @@ const mainElement = document.getElementById("content") as HTMLElement;
 const localStorageDetail = localStorage.getItem("users");
 const users:any[] = localStorageDetail ? JSON.parse(localStorageDetail) : [];
 
-interface Course{
+class Course{
   id:string;
   name:string;
+  lastLesson:string;
+  constructor(id:string,name:string)
+  {
+    this.id=id;
+    this.name=name;
+  }
 }
 interface StudentCourse {
   studentId: string;
@@ -16,12 +22,15 @@ interface StudentCourse {
 }
 
 const courses: Course[]=[]
-const course1:Course={id :`id-${crypto.randomUUID()}`,name:"Linear Algebra",}
-const course2:Course={id :`id-${crypto.randomUUID()}`,name:"Type Script",}
-const course3:Course={id :`id-${crypto.randomUUID()}`,name:"English",}
+const course1= new Course(`id-1`,"Linear Algebra");
+const course2= new Course(`id-2`,"Type Script");
+const course3= new Course(`id-3`,"English");
 
 courses.push(course1,course2,course3);
-const studentCourses: StudentCourse[] = [];
+
+const localStorageCourses = localStorage.getItem("studentCourses");
+const studentCourses: StudentCourse[] = localStorageCourses ? JSON.parse(localStorageCourses) : [];
+
 
 class FormValidator {
   name: string;
@@ -92,16 +101,43 @@ class FormValidator {
   }
 }
 
-addClass(course1)
+
 
 function addClass(course:Course)
 {
-  const userCourse: StudentCourse = {
-    studentId: loggedUser.id, // Use loggedUser.id for studentId
-    courseId: course.id, // Use course.id for courseId
-  };
+  const alreadyIn=loggedUser.classes.find(c=>c.id==course.id)
+ 
 
-  studentCourses.push(userCourse);
+  if(alreadyIn)
+   {  console.log(alreadyIn.courseId);
+     return;}
+  
+  loggedUser.classes.push(course)
+ // studentCourses.push(userCourse);
+ upDateUsers(loggedUser);
+  //localStorage.setItem("studentCourses",JSON.stringify(studentCourses));
+  localStorage.setItem(`loggedUser`,JSON.stringify(loggedUser));
+
+  window.location.reload();
+ 
+}
+
+function removeClass(course:Course)
+{
+  const foundClass=loggedUser.classes.findIndex(c=>c.id==course.id)
+
+  if(foundClass===-1)
+   {  
+    console.log("no class was found")
+     return;
+    }
+ 
+  
+    loggedUser.classes.splice(foundClass,1);
+    upDateUsers(loggedUser);
+    localStorage.setItem(`loggedUser`,JSON.stringify(loggedUser));
+  window.location.reload();
+ 
 }
 
 function redirectIndex() {
@@ -169,12 +205,15 @@ const pageDashboard = `<div id="userDetails">
     <div id="boxContainer">
       <div class="box">
         <h1>Last lesson<h1>
+        <h2 class ="hideAble">23/10</h2>
       </div>
       <div class="box">
         <h1>Grade<h1>
+        <h2 class ="hideAble">A*</h2>
       </div>
       <div class="box">
-         <h1>Attendance<h1>      
+         <h1>Attendance<h1>   
+          <h2 class ="hideAble">23/23</h2>   
       </div>
     </div>
      <div id="longBox">
@@ -294,19 +333,13 @@ function editUser()
 }
 function getCourses ()
 {
-  const userCourseIds = studentCourses
-    .filter(course => course.studentId === loggedUser.id) // Filter courses for the logged user
-    .map(course => course.courseId);
-    return  courses
-    .filter(course => userCourseIds.includes(course.id)) // Filter courses by IDs
-    .map(course => course.name) // Get course names
-    .join(', ');
+    return  loggedUser.classes.map(course => course.name).join(', ');
     
   }
 
 const pageCourses = `<div id="userDetails">
-  <!-- Text Section -->
-  <div id="text">
+  <div id="textFull">
+
     <h1> ${loggedUser.name} Courses:</h1>
     <h2></h2>
     <h3>${getCourses ()}</h3>
@@ -314,39 +347,48 @@ const pageCourses = `<div id="userDetails">
 
 </div>
 
-<!-- Bottom Container -->
 <div id="bottomContainer">
-  <!-- Bottom Left Page -->
-  <div id="bottomLeftPage">
-    <div id="boxContainer">
-      <div class="box">
-        <h1>Last lesson<h1>
-      </div>
-      <div class="box">
-        <h1>Grade<h1>
-      </div>
-      <div class="box">
-         <h1>Attendance<h1>      
-      </div>
-    </div>
-  </div>
 
-  <!-- Bottom Right Page -->
-  <div id="bottomRightPage">
-     <div id="boxContainer">
-      <div class="box">
-        <h1>Last lesson<h1>
-      </div>
-      <div class="box">
-        <h1>Grade<h1>
-      </div>
-      <div class="box">
-  </div>
+<div id="longBoxContainer">
+     </div>
 </div>`;
 
 const pageZoom = `dffaaaaaaaaaaaaaaaaaad`;
 const pageForum = `dfdaaaaaaaaaaaaaaaaaf`;
 const pageLessons = `dfdaaaaaaaaaaaaaaf`;
+
+function getUserCoursesHtml()
+{
+  const courseHolderElement = document.getElementById("longBoxContainer")as HTMLElement;
+  if (!courseHolderElement) return;
+
+  
+ 
+  courseHolderElement.innerHTML="";
+  courses.forEach(c => {
+    // Check if the current course `c` is in `userCourse`
+    const isUserCourse = loggedUser.classes.some(course => course.id === c.id);
+  
+    if (isUserCourse) {
+      const div = document.createElement('div');
+      div.id = "longBox";
+      div.classList.add("colored");
+      div.innerHTML = `<h1>${c.name}</h1>`;
+      div.addEventListener('click', () => removeClass(c)); // Passing the course object directly
+      courseHolderElement.appendChild(div);
+      
+    }else{
+      const div = document.createElement('div');
+      div.id = "longBox";
+      div.innerHTML = `<h1>${c.name}</h1>`;
+      div.addEventListener('click', () => addClass(c)); // Passing the course object directly
+      courseHolderElement.appendChild(div);
+      }}
+  )
+ // console.log(userCourse);
+  
+}
+
 function checkUserImage():string
 {
     const loggedUsere: any = localStorageUser ? JSON.parse(localStorageUser) : "";
@@ -422,7 +464,16 @@ function upDateUsers(loggedUser:any)
       console.log(`User with id ${loggedUser.id} not found.`);
   }
 }
-
+function showHidden()
+{ const hiddenElement = document.querySelectorAll(".hideAble") as NodeListOf<HTMLElement>;
+  if(!hiddenElement)return;
+  if(loggedUser.classes.length>0)
+  {
+    hiddenElement.forEach(element=>{
+      element.classList.remove("hideAble");
+    })
+  }
+}
 function hiddenPassword():string
 {
     if(!loggedUser.password) return"";
@@ -479,6 +530,8 @@ function renderBySelected() {
   const selectedPageContent = pages[selectedKey];
   if (selectedKey) pageContentElement.innerHTML = selectedPageContent;
   addPhoto();
+ getUserCoursesHtml();
+ showHidden();
 }
 
 function addEvents() {
