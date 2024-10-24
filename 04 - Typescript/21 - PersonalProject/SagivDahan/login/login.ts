@@ -9,22 +9,19 @@ document.body.appendChild(logintxt);
 logintxt.classList.add("login__inputs__p")
 const loginpage = document.getElementById("login");
 
-//login inputs
-//email
-const emailInput = document.createElement("input");
-emailInput.type = "text";
-emailInput.placeholder = "Email";
-emailInput.classList.add("login__inputs");
-emailInput.classList.add("login__inputs__email")
-document.body.appendChild(emailInput);
-
-//password
-const passInput = document.createElement("input");
-passInput.type = "number";
-passInput.placeholder = "Password";
-passInput.classList.add("login__inputs");
-passInput.classList.add("login__inputs__password")
-document.body.appendChild(passInput);
+//function to create input fields
+function createInput(type: string, placeholder: string, className: string): HTMLInputElement {
+    const input = document.createElement("input");
+    input.type = type;
+    input.placeholder = placeholder;
+    input.className = className;
+    document.body.appendChild(input);
+    return input;
+}
+//email input
+const emailInput = createInput("text", "Email", "login__inputs login__inputs__email");
+//password input
+const passInput = createInput("password", "Password", "login__inputs login__inputs__password");
 
 //checkbox
 const checkbox = document.createElement("input");
@@ -46,3 +43,20 @@ loginBtn.setAttribute('id', 'login-btn');
 document.body.appendChild(loginBtn);
 
 //Controller
+
+loginBtn.addEventListener('click', () => {
+    const email = emailInput.value;
+    const password = passInput.value;
+
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+        const user: { email: string; password: string } = JSON.parse(storedUser);
+        if (email === user.email && password === user.password) {
+            window.location.href = '../home/home.html'; 
+        } else {
+            alert("Invalid email or password");
+        }
+    } else {
+        alert("No user found. Please register first.");
+    }
+});
