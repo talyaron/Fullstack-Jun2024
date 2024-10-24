@@ -21,10 +21,10 @@ export const userPage = () => {
         <div class="userpage">
             <div class="sidebar">
                 <img src="${logoImage}" alt="Logo" class="logo" /> 
-                <div class="menu-item">my account</div>
-                <div class="menu-item active">courses</div>
-                <div class="menu-item">zoom</div>
-                <div class="menu-item">forum</div>
+                <div class="menu-item" style="padding-bottom: 2vh;">My Account</div>
+                <div class="menu-item active">Courses</div>
+                <div class="menu-item">Zoom</div>
+                <div class="menu-item">Forum</div>
                 <a href="/login.html" class="menu-Logout" id="Logout" style="text-decoration: none;">Logout</a>
             </div>
             <div class="main-content">
@@ -40,11 +40,11 @@ export const userPage = () => {
                 </div>
                 <div class="course-list">
                     <button class="course-list-button">Courses List</button>
-                    <div class="course-item">1. Databases</div>
+                    <div class="course-item">1. Html</div>
                     <div class="course-item">2. Algorithms</div>
                     <div class="course-item">3. Data Science</div>
-                    <div class="course-item">4. Data Science</div>
-                    <div class="course-item">5. Data Science</div>
+                    <div class="course-item">4. Databases</div>
+                    <div class="course-item">5. Java Script</div>
                 </div>
                 <div class="buttons">
                 <button class="zoom">Zoom</button>

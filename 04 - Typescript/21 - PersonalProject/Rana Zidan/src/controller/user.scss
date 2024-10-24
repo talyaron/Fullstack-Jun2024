@@ -30,6 +30,7 @@ body {
         .menu-item {
             margin: 1.5vh 0;
             cursor: pointer;
+            padding-bottom: 2vh;
 
             &.active {
                 font-weight: bold;
@@ -41,11 +42,10 @@ body {
 
     .menu-Logout#Logout {
         cursor: pointer;
-        color: white;  /* שומר על הצבע המקורי */
-        display: block; /* שומר על התצוגה כמו div */
+        color: white;  
+        display: block; 
     }
     
-    /* אם אתה רוצה להסיר את הקו התחתון של הלינק */
     .menu-item#Logout:hover {
         text-decoration: none;
     }
