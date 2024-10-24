@@ -175,6 +175,14 @@ function handleRegister (event : any){
             username_error.innerHTML = '';
             password_error.innerHTML = '';
             matchpassword_error.innerHTML = '';
+
+            name.value = '';
+            lastname.value = '';
+            email.value = '';
+            phone.value = '';
+            username.value = '';
+            password.value = '';
+            repeatpassword.value = '';
             
         } catch (error) {
             
