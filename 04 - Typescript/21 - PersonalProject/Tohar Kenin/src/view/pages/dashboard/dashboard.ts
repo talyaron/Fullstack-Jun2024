@@ -27,10 +27,8 @@ export function dashboard(): string {
                                 </div>
                             </div>
                 </div>
-         </div>
-        <div id="dashboard">Dashboard</div>
-    `
-};
+         </div> `
+}
 
 
 //render the user's courses

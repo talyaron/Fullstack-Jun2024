@@ -1,6 +1,6 @@
 import './courses.scss'
 import { courses } from '../../../models/Course';
-export function coursesPage() {
+export function coursesPage():string {
 
         return courses.map(course => `
             <div class="course">
