@@ -1,6 +1,5 @@
 import './registerPage.scss'
 import { User } from '../../../models/users';
-import { mainPageRender } from '../../../main';
 
 export function registerPage(): string
 {
@@ -65,17 +64,4 @@ function setUserToLocalStorage(user: User): void {
         alert("Registration failed: " + (error as Error).message);
         console.error("Error during registration:", error);
     }
-    };
-
-// Function called after page reload
-// export function checkRegisterParamAndRender(): void {
-//     const queryString = window.location.search;
-//     const params = new URLSearchParams(queryString);
-    
-//     const registerPressed = params.get('signupBtn');
-//     if (registerPressed) {
-//         mainPageRender();
-//     }
-// }
-
-// checkRegisterParamAndRender();
+};
