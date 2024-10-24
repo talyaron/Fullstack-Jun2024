@@ -100,12 +100,17 @@ function handleLogIn(event : any){
 }
 }
 
-
+function handleBackButton(event : any){
+    window.location.href = '../welcome/welcome.html';
+}
 
 function main(){
     renderLogIn(logInOptions);
     const logIn = document.getElementById('btn-0') as HTMLButtonElement;
+    const backButton = document.querySelector('.logIn__backImg') as HTMLButtonElement;
     logIn.addEventListener('click',handleLogIn);
+    backButton.addEventListener('click',handleBackButton);
+
 }
 
 main();

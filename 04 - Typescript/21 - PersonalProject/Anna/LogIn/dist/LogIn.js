@@ -74,9 +74,14 @@ function handleLogIn(event) {
         passwordError.innerHTML = 'Invalid username or password';
     }
 }
+function handleBackButton(event) {
+    window.location.href = '../welcome/welcome.html';
+}
 function main() {
     renderLogIn(logInOptions);
     var logIn = document.getElementById('btn-0');
+    var backButton = document.querySelector('.logIn__backImg');
     logIn.addEventListener('click', handleLogIn);
+    backButton.addEventListener('click', handleBackButton);
 }
 main();

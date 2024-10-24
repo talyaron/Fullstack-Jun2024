@@ -17,11 +17,15 @@ body {
     margin: 30vh auto 0 auto;
     justify-content: center;
     animation: fadeInAnimation 5s;
+    align-items: center;
   }
   .welcome__logo {
-    background-image: url("../IMAGE/logo.png");
+    background-image: url("./logo.png");
     background-repeat: no-repeat;
-    height: 50px;
+    background-position: center;
+    background-size: cover;
+    width: 60%;
+    height: 50%;
   }
   .welcome__title {
     font-size: 22px;
@@ -73,13 +77,17 @@ body {
     border: 2px solid transparent;
     font-size: 8px;
   }
-  .welcome__options #btn-0 {
-    background-color: green;
-  }
-  .welcome__options #btn-1 {
-    background-color: red;
-  }
 }
+#btn-0 {
+  background-color: #5271ff;
+  color: white;
+}
+
+#btn-1 {
+  background-color: #f8dc62;
+  color: white;
+}
+
 @keyframes fadeInAnimation {
   0% {
     opacity: 0;

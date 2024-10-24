@@ -16,11 +16,12 @@ body{
 
     &__nav{
         #logo{
-            background-image: url('./dist/logo.png');
+            background-image: url('./logo.png');
             background-repeat: no-repeat;
-            height: 50px;
-            width: 50px;
-            z-index: 3;
+            background-position: center;
+            background-size: cover;
+            width: 10vw;
+            height: 10vh;
         }
         display: flex;
         flex-direction: column;

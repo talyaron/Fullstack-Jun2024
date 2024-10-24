@@ -194,12 +194,18 @@ function isEmailExists(emailToCheck: string): boolean {
     return users.some((user: User) => user.email === emailToCheck);
 }
 
+function handleBackButton(event:any){
+    window.location.href = '../welcome/welcome.html';
+}
+
 
 const Users : User [] = [];
 
 function main(){
     renderRegister();
     const form = document.getElementById('form') as HTMLFormElement;
+    const backButton = document.querySelector('.register__img') as HTMLButtonElement;
     form.addEventListener('submit',handleRegister);
+    backButton.addEventListener('click',handleBackButton);
 }
 main();

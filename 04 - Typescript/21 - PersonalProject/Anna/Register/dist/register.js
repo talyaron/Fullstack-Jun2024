@@ -130,10 +130,15 @@ function isEmailExists(emailToCheck) {
     var users = JSON.parse(localStorage.getItem('users') || '[]');
     return users.some(function (user) { return user.email === emailToCheck; });
 }
+function handleBackButton(event) {
+    window.location.href = '../welcome/welcome.html';
+}
 var Users = [];
 function main() {
     renderRegister();
     var form = document.getElementById('form');
+    var backButton = document.querySelector('.register__img');
     form.addEventListener('submit', handleRegister);
+    backButton.addEventListener('click', handleBackButton);
 }
 main();

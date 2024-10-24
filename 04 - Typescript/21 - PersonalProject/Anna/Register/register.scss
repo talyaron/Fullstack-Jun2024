@@ -10,7 +10,7 @@ body{
     background-color: white;
     margin: 20vh auto 0 auto;
     width: 35vw;
-    height: 75vh;
+    height: 80vh;
     border: 5px solid transparent;
     border-radius: 5px;
     display: flex;
@@ -18,7 +18,14 @@ body{
     gap: 10px;
     animation: fadeInAnimation 3s;
 
-
+    &__img{
+        background-image: url('./arrow.png');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        width: 100px;
+        height: 250px;
+    }
     
     &__title{
         font-size: 22px;
