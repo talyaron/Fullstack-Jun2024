@@ -53,6 +53,9 @@ p {
   max-width: 300px;
   display: flex;
   flex-direction: column;
+  @media (max-width: 800px) {
+  display: none;
+  }
 }
 
 .navBtn
