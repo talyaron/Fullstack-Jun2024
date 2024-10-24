@@ -1,14 +1,17 @@
 @charset "UTF-8";
 .navbarContainer {
   display: grid;
-  background-color: white;
-  grid-column-gap: 1em;
-  grid-row-gap: 1em;
-  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+  grid-template-columns: 20% 80%;
   grid-template-columns: 20% 80%;
   font: 1em sans-serif;
 }
 .navbarContainer .navbar {
+  max-width: 100%;
+  overflow: hidden;
   padding: 20px;
   background-color: var(--button_color);
   display: grid;
@@ -47,6 +50,8 @@
   }
 }
 .headerDashbord .header {
+  max-width: 100%;
+  overflow: hidden;
   background-color: #e2caca;
   display: flex;
   height: 90px;
@@ -56,11 +61,13 @@
 .headerDashbord .header form {
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 10px;
   gap: 10px;
   width: 100%;
   margin: 10px;
   font-size: 1.5em;
+  flex-wrap: wrap;
 }
 .headerDashbord .header form input {
   padding: 10px;
@@ -79,12 +86,14 @@
   cursor: pointer;
 }
 .headerDashbord .header form p {
-  font: 1.5em sans-serif;
-  margin-left: 30%;
+  font: 1em sans-serif;
+  margin: 0;
+  flex: 1;
 }
 .headerDashbord .header form img {
   height: 60px;
   padding: 10px;
+  flex: 0 0 auto;
 }
 .headerDashbord .dashbord {
   background-color: #ecdddd;
@@ -95,7 +104,6 @@
   font-size: 2vw;
   /* גודל הגופן משתנה בהתאם לרוחב החלון */
   max-width: 100%;
-  /* רוחב מקסימלי */
   word-wrap: break-word;
   /* שבירת מילים אם יש צורך */
 }
@@ -112,4 +120,15 @@
   width: 20%;
   height: auto;
   margin: 10px;
+}
+
+@media (max-width: 700px) {
+  .navbar {
+    grid-template-columns: 1fr;
+    font-size: 0.8em;
+  }
+
+  .header {
+    flex-direction: column;
+  }
 }
