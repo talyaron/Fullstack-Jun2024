@@ -1,0 +1,41 @@
+@import "../../../style.scss";
+
+.topbar {
+    width: calc(100% - 35px);
+    background-color: $PrimaryColor;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px;
+    border-radius: 30px;
+    position: fixed;
+    top: 0;
+    left: 10px;
+    right: 10px;
+    z-index: 1;
+
+    &__logo {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        img {
+            height: 40px;
+            width: auto;
+        }
+    }
+
+    &__search {
+        width: 300px;
+        height: 40px;
+        padding: 0 15px;
+        font-size: 16px;
+        border: 1px solid $TextColor;
+        border-radius: 20px;
+        text-align: left;
+
+        &::placeholder {
+            color: $TextColor;
+        }
+    }
+}

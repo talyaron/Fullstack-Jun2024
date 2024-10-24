@@ -14,7 +14,6 @@ export function navigation():string {
             page = dashboard();
             break;
         case coursesParam !== null:
-            console.log('in courses page');
             page = coursesPage();
             break;
         default:

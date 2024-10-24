@@ -81,29 +81,27 @@ var FormValidator = /** @class */ (function () {
     return FormValidator;
 }());
 function addClass(course) {
-    var alreadyIn = studentCourses.find(function (c) { return c.courseId == course.id; });
+    var alreadyIn = loggedUser.classes.find(function (c) { return c.id == course.id; });
     if (alreadyIn) {
         console.log(alreadyIn.courseId);
         return;
     }
-    var userCourse = {
-        studentId: loggedUser.id,
-        courseId: course.id
-    };
-    studentCourses.push(userCourse);
-    localStorage.setItem("studentCourses", JSON.stringify(studentCourses));
-    console.log(studentCourses);
+    loggedUser.classes.push(course);
+    // studentCourses.push(userCourse);
+    upDateUsers(loggedUser);
+    //localStorage.setItem("studentCourses",JSON.stringify(studentCourses));
+    localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
     window.location.reload();
 }
 function removeClass(course) {
-    var foundClass = studentCourses.findIndex(function (c) { return c.courseId == course.id; });
+    var foundClass = loggedUser.classes.findIndex(function (c) { return c.id == course.id; });
     if (foundClass === -1) {
         console.log("no class was found");
         return;
     }
-    studentCourses.splice(foundClass, 1);
-    localStorage.setItem("studentCourses", JSON.stringify(studentCourses));
-    console.log(studentCourses);
+    loggedUser.classes.splice(foundClass, 1);
+    upDateUsers(loggedUser);
+    localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
     window.location.reload();
 }
 function redirectIndex() {
@@ -121,7 +119,7 @@ function renderMain() {
         renderBySelected();
     }
 }
-var pageDashboard = "<div id=\"userDetails\">\n  <!-- Text Section -->\n  <div id=\"text\">\n    <h1>Welcome " + loggedUser.name + "</h1>\n    <h2>" + loggedUser.name + " hi</h2>\n    <h3>" + loggedUser.email + "</h3>\n  </div>\n\n  <!-- Chart Section -->\n  <div id=\"chart\">\n    <div class=\"circle\">\n      <div class=\"innerCircle\">\n        <h1>Progress</h1>\n      </div>\n    </div>\n  </div>\n</div>\n\n<!-- Bottom Container -->\n<div id=\"bottomContainer\">\n  <!-- Bottom Left Page -->\n  <div id=\"bottomLeftPage\">\n    <div id=\"boxContainer\">\n      <div class=\"box\">\n        <h1>Last lesson<h1>\n        <h2 class =\"hideAble\">23/10</h2>\n      </div>\n      <div class=\"box\">\n        <h1>Grade<h1>\n        <h2 class =\"hideAble\">A*</h2>\n      </div>\n      <div class=\"box\">\n         <h1>Attendance<h1>   \n          <h2 class =\"hideAble\">23/23</h2>   \n      </div>\n    </div>\n     <div id=\"longBox\">\n     <h1>where is my money<h1>\n     </div>\n  </div>\n\n  <!-- Bottom Right Page -->\n  <div id=\"bottomRightPage\">\n    <div id =\"calender\">\n      <h1>Calender</h1>\n    </div>\n  </div>\n</div>\n";
+var pageDashboard = "<div id=\"userDetails\">\n  <!-- Text Section -->\n  <div id=\"text\">\n    <h1>Welcome " + loggedUser.name + "</h1>\n    <h2>" + loggedUser.name + " hi</h2>\n    <h3>" + loggedUser.email + "</h3>\n  </div>\n\n  <!-- Chart Section -->\n  <div id=\"chart\">\n    <div class=\"circle\">\n      <div class=\"innerCircle\">\n        <h1>Progress</h1>\n      </div>\n    </div>\n  </div>\n</div>\n\n<!-- Bottom Container -->\n<div id=\"bottomContainer\">\n  <!-- Bottom Left Page -->\n  <div id=\"bottomLeftPage\">\n    <div id=\"boxContainer\">\n      <div class=\"box\">\n        <h1>Last lesson<h1>\n        <h2 class =\"hideAble\">23/10</h2>\n      </div>\n      <div class=\"box\">\n        <h1>Grade<h1>\n        <h2 class =\"hideAble\">A*</h2>\n      </div>\n      <div class=\"box\">\n         <h1>Attendance<h1>   \n          <h2 class =\"hideAble\">23/23</h2>   \n      </div>\n    </div>\n     <div id=\"longBox\"class =\"movingText\">\n     <h1 >Happy Holidays from the team at pedago <h1>\n     </div>\n  </div>\n\n  <!-- Bottom Right Page -->\n  <div id=\"bottomRightPage\">\n    <div id =\"calender\">\n    <div class=\"calendar\">\n  <div class=\"day header\">Sun</div>\n  <div class=\"day header\">Mon</div>\n  <div class=\"day header\">Tue</div>\n  <div class=\"day header\">Wed</div>\n  <div class=\"day header\">Thu</div>\n  <div class=\"day header\">Fri</div>\n  <div class=\"day header\">Sat</div>\n\n  <!-- Empty slots before the 1st of the month -->\n  <div class=\"day empty\"></div>\n  <div class=\"day empty\"></div>\n  <div class=\"day empty\"></div>\n\n  <!-- Days of the month -->\n  <div class=\"day\">1</div>\n  <div class=\"day\">2</div>\n  <div class=\"day\">3</div>\n  <div class=\"day\">4</div>\n  <div class=\"day\">5</div>\n  <div class=\"day\">6</div>\n  <div class=\"day\">7</div>\n  <div class=\"day\">8</div>\n  <div class=\"day\">9</div>\n  <div class=\"day\">10</div>\n  <div class=\"day\">11</div>\n  <div class=\"day\">12</div>\n  <div class=\"day\">13</div>\n  <div class=\"day\">14</div>\n  <div class=\"day\">15</div>\n  <div class=\"day\">16</div>\n  <div class=\"day\">17</div>\n  <div class=\"day\">18</div>\n  <div class=\"day\">19</div>\n  <div class=\"day\">20</div>\n  <div class=\"day\">21</div>\n  <div class=\"day\">22</div>\n  <div class=\"day\">23</div>\n  <div class=\"day\">24</div>\n  <div class=\"day\">25</div>\n  <div class=\"day\">26</div>\n  <div class=\"day\">27</div>\n  <div class=\"day\">28</div>\n  <div class=\"day\">29</div>\n  <div class=\"day\">30</div>\n</div>\n     \n    </div>\n  </div>\n</div>\n";
 var pageProfile = "<div id=\"leftRight\" >\n<div id =\"profileLeft\">\n<div class=\"circle\"><img id=\"imagePreview\"  src=\"" + checkUserImage() + "\" alt =\"profile picture\"></div>\n<div> <input type=\"file\" id=\"imageInput\" accept=\"image/*\" ></div>\n</div><div id =\"profileRight\">\n\n<div id=\"userForm\" on >\n<h1>name: " + loggedUser.name + "<h1/>\n<h1>email:  " + loggedUser.email + "<h1/>\n<h1> phone number:" + loggedUser.phone + "<h1/>\n<h1>password: " + hiddenPassword() + "<h1/>\n<button class=\"btn\" id=\"editButton\" onclick =\"editUser()\"><h1>edit</h1></button>\n</div>\n</div></div>";
 function checkForm(event) {
     event.preventDefault();
@@ -167,31 +165,22 @@ function editUser() {
     console.log("eldeennene");
 }
 function getCourses() {
-    var userCourseIds = studentCourses
-        .filter(function (course) { return course.studentId === loggedUser.id; }) // Filter courses for the logged user
-        .map(function (course) { return course.courseId; });
-    return courses
-        .filter(function (course) { return userCourseIds.includes(course.id); }) // Filter courses by IDs
-        .map(function (course) { return course.name; }) // Get course names
-        .join(', ');
+    return loggedUser.classes.map(function (course) { return course.name; }).join(', ');
 }
 var pageCourses = "<div id=\"userDetails\">\n  <div id=\"textFull\">\n\n    <h1> " + loggedUser.name + " Courses:</h1>\n    <h2></h2>\n    <h3>" + getCourses() + "</h3>\n  </div>\n\n</div>\n\n<div id=\"bottomContainer\">\n\n<div id=\"longBoxContainer\">\n     </div>\n</div>";
-var pageZoom = "dffaaaaaaaaaaaaaaaaaad";
-var pageForum = "dfdaaaaaaaaaaaaaaaaaf";
-var pageLessons = "dfdaaaaaaaaaaaaaaf";
+var pageZoom = "<div id =\"problem\"><img  src=\"https://img.freepik.com/free-vector/realistic-construction-sign-background_23-2148166586.jpg?t=st=1729804522~exp=1729808122~hmac=df1a43761b458663842fe4598765feb973cb954c1093dbf25ce4dd6f9139447e&w=1380\"alt =\"work in progress sign\"> </div>";
+var pageForum = "<div id =\"problem\"><img  src=\"https://img.freepik.com/free-vector/realistic-construction-sign-background_23-2148166586.jpg?t=st=1729804522~exp=1729808122~hmac=df1a43761b458663842fe4598765feb973cb954c1093dbf25ce4dd6f9139447e&w=1380\"alt =\"work in progress sign\"> </div>";
+;
+var pageLessons = "<div id =\"problem\"><img  src=\"https://img.freepik.com/free-vector/realistic-construction-sign-background_23-2148166586.jpg?t=st=1729804522~exp=1729808122~hmac=df1a43761b458663842fe4598765feb973cb954c1093dbf25ce4dd6f9139447e&w=1380\"alt =\"work in progress sign\"> </div>";
+;
 function getUserCoursesHtml() {
     var courseHolderElement = document.getElementById("longBoxContainer");
     if (!courseHolderElement)
         return;
-    var userCourseIds = studentCourses
-        .filter(function (course) { return course.studentId === loggedUser.id; })
-        .map(function (course) { return course.courseId; });
-    var userCourse = courses
-        .filter(function (course) { return userCourseIds.includes(course.id); });
     courseHolderElement.innerHTML = "";
     courses.forEach(function (c) {
         // Check if the current course `c` is in `userCourse`
-        var isUserCourse = userCourse.some(function (course) { return course.id === c.id; });
+        var isUserCourse = loggedUser.classes.some(function (course) { return course.id === c.id; });
         if (isUserCourse) {
             var div = document.createElement('div');
             div.id = "longBox";
@@ -282,7 +271,7 @@ function showHidden() {
     var hiddenElement = document.querySelectorAll(".hideAble");
     if (!hiddenElement)
         return;
-    if (studentCourses.length > 0) {
+    if (loggedUser.classes.length > 0) {
         hiddenElement.forEach(function (element) {
             element.classList.remove("hideAble");
         });

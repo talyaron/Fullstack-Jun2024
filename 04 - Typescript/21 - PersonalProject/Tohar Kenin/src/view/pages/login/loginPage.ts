@@ -1,4 +1,5 @@
 import './loginPage.scss'
+import { mainPageRender } from '../../../main';
 export function loginPage(): string {
 
     return `
@@ -33,6 +34,7 @@ export function handleFormLogin(): void {
             } else if (localStorage.getItem('password') !== password) {
                 alert('Password not valid');
             } else {
+            console.log(email + ', ' + password);
                 const newUrl = '?loginBtn=loginBtn';
                 window.location.href = newUrl; 
             }
@@ -40,4 +42,17 @@ export function handleFormLogin(): void {
     } else {
         console.error('Login form not found in the DOM');
     }
-};
+}
+
+// Function called after page reload
+// export function checkLoginParamAndRender(): void {
+//     const queryString = window.location.search;
+//     const params = new URLSearchParams(queryString);
+    
+//     const loginPressed = params.get('loginBtn');
+//     if (loginPressed) {
+//         mainPageRender();
+//     }
+// }
+
+// checkLoginParamAndRender();

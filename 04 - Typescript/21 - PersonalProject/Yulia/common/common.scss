@@ -1,3 +1,9 @@
+$MainBackgroundColor: #f0f4f8;
+$PrimaryColor: #007bff;
+$SecondaryColor: #add8e6;
+$TextColor: #ffffff;
+$AccentColor: #0056b3;
+
 body {
     margin: 0;
     padding: 0;
@@ -5,60 +11,45 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f4f8;
+    background-color: $MainBackgroundColor;
     font-family: Arial, sans-serif;
 }
-
-/* Main container for form elements */
 .form-container {
-    width: 80%;
-    max-width: 400px;
-    padding: 20px;
-    background-color: #add8e6;
+    background-color: $SecondaryColor;
     border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+    margin: auto;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    align-items: center;
 
-    /* Input fields */
     &__input {
         width: 100%;
         padding: 10px;
-        border: 1px solid #ccc;
+        margin-bottom: 10px;
         border-radius: 5px;
-        box-sizing: border-box;
-        margin: 10px 0;
+        border: 1px solid #ccc;
     }
 
-    /* Label and checkbox for "Keep me logged in" */
     &__checkbox-label {
         display: flex;
         align-items: center;
-        gap: 10px;
+        margin-bottom: 20px;
     }
 
-    /* Buttons styling */
     &__button {
+        width: 100%;
         padding: 10px;
-        background-color: #007bff;
-        color: white;
+        margin-bottom: 10px;
+        background-color: $PrimaryColor;
+        color: $TextColor;
         border: none;
         border-radius: 5px;
         cursor: pointer;
-        font-size: 16px;
-        width: 100%;
 
         &:hover {
-            background-color: #0056b3;
+            background-color: $AccentColor;
         }
-    }
-
-    /* Specific spacing for form elements */
-    form {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        /* Adds space between form elements */
     }
 }

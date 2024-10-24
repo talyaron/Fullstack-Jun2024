@@ -105,26 +105,26 @@ class FormValidator {
 
 function addClass(course:Course)
 {
-  const alreadyIn=studentCourses.find(c=>c.courseId==course.id)
+  const alreadyIn=loggedUser.classes.find(c=>c.id==course.id)
+ 
 
   if(alreadyIn)
    {  console.log(alreadyIn.courseId);
      return;}
-  const userCourse: StudentCourse = {
-    studentId: loggedUser.id, // Use loggedUser.id for studentId
-    courseId: course.id, // Use course.id for courseId
-  };
   
-  studentCourses.push(userCourse);
-  localStorage.setItem("studentCourses",JSON.stringify(studentCourses));
-  console.log(studentCourses);
+  loggedUser.classes.push(course)
+ // studentCourses.push(userCourse);
+ upDateUsers(loggedUser);
+  //localStorage.setItem("studentCourses",JSON.stringify(studentCourses));
+  localStorage.setItem(`loggedUser`,JSON.stringify(loggedUser));
+
   window.location.reload();
  
 }
 
 function removeClass(course:Course)
 {
-  const foundClass=studentCourses.findIndex(c=>c.courseId==course.id)
+  const foundClass=loggedUser.classes.findIndex(c=>c.id==course.id)
 
   if(foundClass===-1)
    {  
@@ -133,9 +133,9 @@ function removeClass(course:Course)
     }
  
   
-  studentCourses.splice(foundClass,1);
-  localStorage.setItem("studentCourses",JSON.stringify(studentCourses));
-  console.log(studentCourses);
+    loggedUser.classes.splice(foundClass,1);
+    upDateUsers(loggedUser);
+    localStorage.setItem(`loggedUser`,JSON.stringify(loggedUser));
   window.location.reload();
  
 }
@@ -216,15 +216,61 @@ const pageDashboard = `<div id="userDetails">
           <h2 class ="hideAble">23/23</h2>   
       </div>
     </div>
-     <div id="longBox">
-     <h1>where is my money<h1>
+     <div id="longBox"class ="movingText">
+     <h1 >Happy Holidays from the team at pedago <h1>
      </div>
   </div>
 
   <!-- Bottom Right Page -->
   <div id="bottomRightPage">
     <div id ="calender">
-      <h1>Calender</h1>
+    <div class="calendar">
+  <div class="day header">Sun</div>
+  <div class="day header">Mon</div>
+  <div class="day header">Tue</div>
+  <div class="day header">Wed</div>
+  <div class="day header">Thu</div>
+  <div class="day header">Fri</div>
+  <div class="day header">Sat</div>
+
+  <!-- Empty slots before the 1st of the month -->
+  <div class="day empty"></div>
+  <div class="day empty"></div>
+  <div class="day empty"></div>
+
+  <!-- Days of the month -->
+  <div class="day">1</div>
+  <div class="day">2</div>
+  <div class="day">3</div>
+  <div class="day">4</div>
+  <div class="day">5</div>
+  <div class="day">6</div>
+  <div class="day">7</div>
+  <div class="day">8</div>
+  <div class="day">9</div>
+  <div class="day">10</div>
+  <div class="day">11</div>
+  <div class="day">12</div>
+  <div class="day">13</div>
+  <div class="day">14</div>
+  <div class="day">15</div>
+  <div class="day">16</div>
+  <div class="day">17</div>
+  <div class="day">18</div>
+  <div class="day">19</div>
+  <div class="day">20</div>
+  <div class="day">21</div>
+  <div class="day">22</div>
+  <div class="day">23</div>
+  <div class="day">24</div>
+  <div class="day">25</div>
+  <div class="day">26</div>
+  <div class="day">27</div>
+  <div class="day">28</div>
+  <div class="day">29</div>
+  <div class="day">30</div>
+</div>
+     
     </div>
   </div>
 </div>
@@ -333,13 +379,7 @@ function editUser()
 }
 function getCourses ()
 {
-  const userCourseIds = studentCourses
-    .filter(course => course.studentId === loggedUser.id) // Filter courses for the logged user
-    .map(course => course.courseId);
-    return  courses
-    .filter(course => userCourseIds.includes(course.id)) // Filter courses by IDs
-    .map(course => course.name) // Get course names
-    .join(', ');
+    return  loggedUser.classes.map(course => course.name).join(', ');
     
   }
 
@@ -359,24 +399,21 @@ const pageCourses = `<div id="userDetails">
      </div>
 </div>`;
 
-const pageZoom = `dffaaaaaaaaaaaaaaaaaad`;
-const pageForum = `dfdaaaaaaaaaaaaaaaaaf`;
-const pageLessons = `dfdaaaaaaaaaaaaaaf`;
+const pageZoom = `<div id ="problem"><img  src="https://img.freepik.com/free-vector/realistic-construction-sign-background_23-2148166586.jpg?t=st=1729804522~exp=1729808122~hmac=df1a43761b458663842fe4598765feb973cb954c1093dbf25ce4dd6f9139447e&w=1380"alt ="work in progress sign"> </div>`;
+const pageForum =`<div id ="problem"><img  src="https://img.freepik.com/free-vector/realistic-construction-sign-background_23-2148166586.jpg?t=st=1729804522~exp=1729808122~hmac=df1a43761b458663842fe4598765feb973cb954c1093dbf25ce4dd6f9139447e&w=1380"alt ="work in progress sign"> </div>`;;
+const pageLessons = `<div id ="problem"><img  src="https://img.freepik.com/free-vector/realistic-construction-sign-background_23-2148166586.jpg?t=st=1729804522~exp=1729808122~hmac=df1a43761b458663842fe4598765feb973cb954c1093dbf25ce4dd6f9139447e&w=1380"alt ="work in progress sign"> </div>`;;
 
 function getUserCoursesHtml()
 {
   const courseHolderElement = document.getElementById("longBoxContainer")as HTMLElement;
   if (!courseHolderElement) return;
 
-  const userCourseIds = studentCourses
-  .filter(course => course.studentId === loggedUser.id) 
-  .map(course => course.courseId);
-  const userCourse  =courses
-  .filter(course => userCourseIds.includes(course.id)) 
+  
+ 
   courseHolderElement.innerHTML="";
   courses.forEach(c => {
     // Check if the current course `c` is in `userCourse`
-    const isUserCourse = userCourse.some(course => course.id === c.id);
+    const isUserCourse = loggedUser.classes.some(course => course.id === c.id);
   
     if (isUserCourse) {
       const div = document.createElement('div');
@@ -476,7 +513,7 @@ function upDateUsers(loggedUser:any)
 function showHidden()
 { const hiddenElement = document.querySelectorAll(".hideAble") as NodeListOf<HTMLElement>;
   if(!hiddenElement)return;
-  if(studentCourses.length>0)
+  if(loggedUser.classes.length>0)
   {
     hiddenElement.forEach(element=>{
       element.classList.remove("hideAble");

@@ -16,7 +16,7 @@ export function renderSideBar(): string {
         </div>
             <div class="menu">
                 <a href="?dashboardParam=dashboard" class="menu-item" data-target="dashboard">
-                    <i class="fas fa-home"></i>
+                    <i class="fa-solid fa-home"></i>
                     <h3 class="menu-item__text dashboard">Dashboard</h3>
                 </a>
                 <a href="?coursesParam=courses" class="menu-item" data-target="courses">

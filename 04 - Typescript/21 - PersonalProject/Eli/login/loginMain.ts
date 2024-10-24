@@ -57,7 +57,7 @@ function checkForm(event)
     const agree = formData.get("agree") as string;
     const sameNameUsers = users.filter((user)=>
     user.email==email)
-    const foundUser= sameNameUsers.find(user=>
+ const foundUser= sameNameUsers.find(user=>
         user.password==password
     )
     if(foundUser)

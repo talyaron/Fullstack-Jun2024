@@ -6,7 +6,6 @@ export class Course {
         this.id = crypto.randomUUID();
         this.name = name;
     }
-
 }
 
 export const courses: Course[] = [
@@ -16,4 +15,4 @@ export const courses: Course[] = [
     new Course("Biology"),
     new Course("Chemistry"),
     new Course("English"),
-]
+];

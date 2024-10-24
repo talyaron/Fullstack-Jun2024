@@ -10,29 +10,6 @@
         color: #828282;
 
     }
-
-    .profileButton {
-        display: inline-block;
-        outline: none;
-        cursor: pointer;
-        font-weight: 500;
-        border-radius: 3px;
-        padding: 0 15px;
-        border-radius: 4px;
-        color: rgb(255, 0, 230);
-        background: transparent;
-        line-height: 1.15;
-        font-size: 14px;
-        height: 36px;
-        word-spacing: 0px;
-        letter-spacing: .0892857143em;
-        text-decoration: none;
-        text-transform: uppercase;
-        min-width: 10rem;
-        border: 1px solid rgb(255, 0, 230);
-        text-align: center;
-        transition: background 280ms cubic-bezier(0.4, 0, 0.2, 1);
-    }
     
     .profileBtn:hover{
         background: rgb(255, 0, 230);

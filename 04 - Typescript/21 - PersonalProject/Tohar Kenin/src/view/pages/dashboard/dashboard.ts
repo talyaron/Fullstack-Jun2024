@@ -1,16 +1,8 @@
 import './dashboard.scss'
-import { userDtails } from '../../components/userDetails/userDtails'
-import { library, dom } from '@fortawesome/fontawesome-svg-core';
-import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
-
-library.add( faCircleNotch );
-dom.watch();
-
-
+import {userDtails } from '../../components/userDetails/userDtails';
 export function dashboard(): string {
     return `
         <div class="page">
-      
                 <div class="row">
                     <div class="profile topic">
                         <h1 class="title">Profile</h1>
@@ -31,11 +23,30 @@ export function dashboard(): string {
                             <div class="topic">
                             <h1 class="title">Courses</h1>
                                 <div class="container">
-                                    <h1>Course</h1>
+                                    ${usersCoursesRender()}
                                 </div>
                             </div>
                 </div>
          </div>
-
+        <div id="dashboard">Dashboard</div>
     `
-}
+};
+
+
+//render the user's courses
+function usersCoursesRender(): string {
+
+    const storedUser:any = localStorage.getItem('User');
+    const userObject = JSON.parse(storedUser);
+    const userCourses = userObject.courses;
+    
+    if (userCourses.length > 0) {
+        return `
+            <h3 class="userCourses">${userCourses}</h3>
+        `
+    }
+
+    return `
+        <h3 class="userCourses">No courses yet</h3>
+    `
+};

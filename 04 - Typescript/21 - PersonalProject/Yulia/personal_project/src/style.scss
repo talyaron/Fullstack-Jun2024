@@ -1,0 +1,63 @@
+// Global variables
+$MainBackgroundColor: #f0f4f8;
+$PrimaryColor: #007bff;
+$SecondaryColor: #add8e6;
+$TextColor: #ffffff;
+$AccentColor: #0056b3;
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: $MainBackgroundColor;
+    font-family: Arial, sans-serif;
+}
+
+#app {
+    padding: 20px; 
+}
+
+.form-container {
+    background-color: $SecondaryColor;
+    border-radius: 15px;
+    padding: 20px;
+    width: 300px; 
+    margin: 0 auto; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__input {
+        width: 100%; 
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box; 
+    }
+
+    &__checkbox-label {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    &__button {
+        width: 100%; 
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: $PrimaryColor;
+        color: $TextColor;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        box-sizing: border-box; 
+
+        &:hover {
+            background-color: $AccentColor;
+        }
+    }
+}

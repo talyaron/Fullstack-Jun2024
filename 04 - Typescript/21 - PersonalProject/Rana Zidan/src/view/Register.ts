@@ -1,3 +1,4 @@
+
 import { userPage } from '../controller/userPage';
 import '../Design/register.scss';
 import { backToHome, renderLogin } from '../view/logIn';
