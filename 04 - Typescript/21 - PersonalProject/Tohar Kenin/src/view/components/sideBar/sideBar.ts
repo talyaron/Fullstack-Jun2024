@@ -12,7 +12,7 @@ export function renderSideBar(): string {
     <aside>
         <div id="logo" class="logo">
             <img src=${logo} class="logo__img" alt="logo-image">
-            <h1 class="logo__name">Academy.</h1>
+            <h1 class="logo__name">Online Academy</h1>
         </div>
             <div class="menu">
                 <a href="?dashboardParam=dashboard" class="menu-item" data-target="dashboard">

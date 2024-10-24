@@ -10,8 +10,10 @@ export class Course {
 }
 
 export const courses: Course[] = [
-    new Course("Algebra Linear"),
-    new Course("Geometry"),
-    new Course("Arts"),
-
+    new Course("Math"),
+    new Course("Algebra"),
+    new Course("Accounting"),
+    new Course("Biology"),
+    new Course("Chemistry"),
+    new Course("English"),
 ]
