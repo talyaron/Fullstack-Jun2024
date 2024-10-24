@@ -119,8 +119,6 @@ function registerUser(name, phone, email, password) {
   try {
     var user = new User(name, phone, email, password);
     users.push(user);
-    console.log(users);
-    console.log(counterUser);
     counterUser++;
     console.log("now user number : " + new_user);
     new_user++;
@@ -129,7 +127,8 @@ function registerUser(name, phone, email, password) {
   } catch (error) {
     console.error(error);
   }
-}
+} // controller
+
 
 function continueBtn() {
   try {
