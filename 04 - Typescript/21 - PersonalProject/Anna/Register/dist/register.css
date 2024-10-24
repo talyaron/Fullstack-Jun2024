@@ -1,0 +1,124 @@
+body {
+  background: linear-gradient(to right, #8ABEFF, #5271ff, #5170FF);
+  color: #4D4D4D;
+  font-size: 18px;
+}
+
+@media screen and (min-width: 500px) {
+  .register {
+    background-color: white;
+    margin: 20vh auto 0 auto;
+    width: 35vw;
+    height: 75vh;
+    border: 5px solid transparent;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    animation: fadeInAnimation 3s;
+  }
+  .register__title {
+    font-size: 22px;
+    text-align: center;
+  }
+  .register #form {
+    padding-left: 10%;
+    align-items: center;
+  }
+  .register #form label {
+    font-size: 16px;
+  }
+  .register #form button {
+    width: 100px;
+    height: 40px;
+    background-color: #5170FF;
+    color: white;
+    border-radius: 4px;
+    border: solid transparent;
+    align-self: center;
+    margin-left: 35%;
+  }
+  .register #form label {
+    font-size: 16px;
+  }
+  .register #form input {
+    margin-top: 5px;
+    width: 90%;
+    height: 20px;
+    border: 2px solid lightgrey;
+    border-radius: 4px;
+  }
+  .register #form span {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  .register #form .input-group {
+    margin-top: 5px;
+  }
+  .register #form #success {
+    color: green;
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .register {
+    background-color: white;
+    margin: 20vh auto 0 auto;
+    width: 35vw;
+    height: 70vh;
+    border: 5px solid transparent;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    animation: fadeInAnimation 3s;
+  }
+  .register__title {
+    font-size: 11px;
+    text-align: center;
+  }
+  .register #form {
+    padding-left: 10%;
+    align-items: center;
+  }
+  .register #form label {
+    font-size: 8px;
+  }
+  .register #form button {
+    width: 50px;
+    height: 20px;
+    background-color: #5170FF;
+    color: white;
+    border-radius: 4px;
+    border: solid transparent;
+    align-self: center;
+    font-size: 8px;
+    margin-left: 25%;
+  }
+  .register #form label {
+    font-size: 8px;
+  }
+  .register #form input {
+    width: 90%;
+    height: 10px;
+    border: 1px solid lightgrey;
+    border-radius: 4px;
+  }
+  .register #form span {
+    color: red;
+    font-size: 7px;
+  }
+  .register #form #success {
+    color: green;
+    font-size: 7px;
+  }
+}
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
