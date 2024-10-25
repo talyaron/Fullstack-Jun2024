@@ -33,7 +33,7 @@ create a new file tsconfig.json in the root folder
 
 ## Create a src folder
 Create a src folder in the root folder
-create a new file index.ts in the src folder
+create a new file ```server.ts``` in the src folder
 
 
 ## Add dev script to package.json
