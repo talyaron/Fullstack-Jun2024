@@ -1,0 +1,131 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f4f8;
+  font-family: Arial, sans-serif;
+}
+
+#app {
+  padding: 20px;
+}
+
+.form-container {
+  background-color: #add8e6;
+  border-radius: 15px;
+  padding: 20px;
+  width: 300px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form-container__input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+.form-container__checkbox-label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.form-container__button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.form-container__button:hover {
+  background-color: #0056b3;
+}
+
+.profile-section {
+  background-color: #add8e6;
+  border-radius: 30px;
+  padding: 20px;
+  margin-top: 80px;
+  margin-bottom: 20px;
+  margin-left: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profile-section__greeting {
+  font-size: 25px;
+  color: #007bff;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.profile-section__content {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+}
+.profile-section__image {
+  width: 150px;
+  height: 150px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+.profile-section__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.profile-section__info-item {
+  margin: 10px 0;
+  font-size: 20px;
+}
+.profile-section__edit-button {
+  background-color: #007bff;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  width: auto;
+  align-self: flex-start;
+}
+.profile-section__edit-button:hover {
+  background-color: #0056b3;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  align-items: flex-start;
+}
+.edit-form__input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+.edit-form__button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.edit-form__button:hover {
+  background-color: #0056b3;
+}/*# sourceMappingURL=ProfileSection.css.map */

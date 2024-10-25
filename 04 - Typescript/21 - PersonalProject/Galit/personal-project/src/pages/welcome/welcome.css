@@ -64,4 +64,17 @@
     max-width: 768px;
     min-width: 400px;
   }
-}/*# sourceMappingURL=style.css.map */
+}
+body {
+  background-color: #FBFBFD;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+body h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #4D4D4D;
+  font-family: sans-serif;
+}/*# sourceMappingURL=welcome.css.map */

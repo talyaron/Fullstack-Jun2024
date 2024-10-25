@@ -1,0 +1,24 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #9783A9;
+  padding: 5px;
+  border-right: 0.08rem solid #E6EFF5;
+}
+header #search-bar {
+  background-color: "#F5F7FA";
+  border: none;
+  outline: none;
+  display: inline-block;
+  height: 34px;
+  border-radius: 22px;
+  width: 16rem;
+  box-sizing: border-box;
+  padding: 0 2rem;
+}
+header .user-img {
+  border-radius: 50%;
+  width: 2.8rem;
+  height: 2.8rem;
+  margin: 0 1.3rem 0 1.3rem;
+}/*# sourceMappingURL=header.css.map */

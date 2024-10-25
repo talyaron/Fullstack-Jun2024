@@ -1,0 +1,102 @@
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f3f7f7;
+}
+
+.register-page {
+  background-color: #E3EDFF;
+  height: 80vh;
+  width: 70vw;
+  text-align: center;
+  border-radius: 3vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-page h1 {
+  font-size: 6vh;
+  margin-bottom: 3vh;
+  color: #333;
+  text-align: center;
+}
+
+input {
+  width: 15vw;
+  height: 5vh;
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 5px;
+  font-weight: bold;
+  box-shadow: 15px;
+  border: 10px;
+}
+
+.form-register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register-page button {
+  width: 13vw;
+  padding: 1.5vh 2vw;
+  font-size: 2vh;
+  margin: 1vh;
+  border: none;
+  border-radius: 10px;
+  background-color: #3377FF;
+  color: rgba(255, 255, 255, 0.797);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.register-page button:hover {
+  background-color: #99BBFF;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 1vh 0;
+}
+
+.remember-me input[type=checkbox] {
+  margin-right: 0.2vw;
+  width: 2vw;
+  height: 2vh;
+}
+
+.remember-me label {
+  font-size: 2vh;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* Tablet Responsiveness */
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 5vh;
+  }
+  button {
+    width: 30vw;
+    padding: 1.2vh 2vw;
+  }
+}
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 6vh;
+  }
+  button {
+    width: 70vw;
+    padding: 2vh 3vw;
+    font-size: 3vh;
+  }
+}/*# sourceMappingURL=register.css.map */
