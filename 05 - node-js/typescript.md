@@ -6,7 +6,7 @@ Create relevant folder.
 ```npm init --y```  this will create a package.json file
 
 ## Install Typescript
-```npm i -D typescript tsc ts-node nodemon @types/node```
+```npm i -D typescript ts-node nodemon @types/node```
 
 ## Create a tsconfig.json file
 create a new file tsconfig.json in the root folder
