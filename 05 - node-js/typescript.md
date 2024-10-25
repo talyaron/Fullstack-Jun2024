@@ -43,3 +43,11 @@ create a new file index.ts in the src folder
   }
 ```
 
+## Add Express
+To install express run the following commands
+
+```npm i express```
+
+```npm i -D @types/express```
+
+
