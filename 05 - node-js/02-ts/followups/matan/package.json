@@ -5,7 +5,7 @@
   
     "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
-      "dev": "/05 - node-js/02-ts/followups/matan/src/server.ts"
+      "dev": "nodemon src/server.ts"
     }
   ,
   "keywords": [],
