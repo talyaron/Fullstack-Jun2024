@@ -6,6 +6,7 @@ https://app.diagrams.net/#G1jd0xeMbHbQoIkC4Dy0RhWC5wYfja-AOD#%7B%22pageId%22%3A%
 Connect data between the pages using local storage
 
 ## Score
+
 1) correct usage of join tables, and classes, and interfaces - 20 points
 2) clear and readable code - 10 points
 3) use local storage - 10 points
