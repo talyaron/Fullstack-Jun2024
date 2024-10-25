@@ -8,15 +8,17 @@ page1.append(container);
 side.classList.add("side");
 container.classList.add("container");
 container.classList.add("playwrite");
+page2.classList.add("playwrite");
 
-const head = renderingDetails();
-const summary = renderingSummary();
-const careers = renderingCareers();
+// const head = renderingDetails();
+// const summary = renderingSummary();
+// const careers = renderingCareers();
 
-function renderingTheFirstPage() {
-  page1.innerHTML = ${container};
-}
-renderingTheFirstPage();
+renderingCareers()
+renderingDetails()
+renderingSummary()
+
+
 
 function handleClickFirstPage() {
   page1.classList.add("hidden");
@@ -115,11 +117,12 @@ Haifa, Haifa District, Israel · On-siteHaifa, Haifa District, Israel · On-site
 
 function renderingTheSecondPage() {
   page2.innerHTML = `
-    <div class="container">
+    <div class="container2">
         <h1>bye</h1>
+            <button class="btn" onClick = "onBackClick()">Back</button>
+
     </div>
     
-    <button class="btn" onClick = "onBackClick()">Back</button>
 
 
     

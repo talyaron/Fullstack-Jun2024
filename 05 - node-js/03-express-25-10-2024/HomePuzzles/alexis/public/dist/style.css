@@ -31,7 +31,7 @@
   border-color: pink;
 }
 
-btn::hover {
+.btn:hover {
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -51,7 +51,7 @@ btn::hover {
   align-items: center;
   width: 40vw;
   height: inherit;
-  padding: 1vh;
+  padding: 5vh;
   box-shadow: 2px 2px 10px black;
   /* offset-x offset-y blur-radius color */
   margin: 1vh;
@@ -109,4 +109,14 @@ h1 {
 
 h6 {
   color: #847c7c;
+}
+
+.container2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f7eaeb;
+  color: #9e7676;
+  padding: 1vw;
 }

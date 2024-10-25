@@ -7,17 +7,13 @@ page1.append(container);
 side.classList.add("side");
 container.classList.add("container");
 container.classList.add("playwrite");
-var head = renderingDetails();
-var summary = renderingSummary();
-var careers = renderingCareers();
-function renderingTheFirstPage() {
-    page1.innerHTML = $;
-    {
-        container;
-    }
-    ;
-}
-renderingTheFirstPage();
+page2.classList.add("playwrite");
+// const head = renderingDetails();
+// const summary = renderingSummary();
+// const careers = renderingCareers();
+renderingCareers();
+renderingDetails();
+renderingSummary();
 function handleClickFirstPage() {
     page1.classList.add("hidden");
     page2.classList.remove("hidden");
@@ -42,7 +38,7 @@ function renderingCareers() {
     career.innerHTML = "\n\n      \n      \n      <div class=\"career\">\n        <h1>Work Experience</h1>\n        <div class=\"job\">\n          <h3>Accountant</h3>\n          <p class=\"faded\">Fattal Hotels \u00B7 Full-time</p>\n          <p>\n            Jul 2023 - Present \u00B7 1 yr 4 mosJul 2023 to Present \u00B7 1 yr 4 mos\n            Haifa, Haifa District, Israel \u00B7 HybridHaifa, Haifa District, Israel\n            \u00B7 Hybrid\n          </p>\n          <h6>\n            Skills: Accounting \u00B7 Management Control \u00B7 Networking \u00B7 Hebrew \u00B7\n            Analytical Capability \u00B7 Communication\n          </h6>\n        </div>\n      \n\n            <div class=\"job\">\n              <h3>Administrative Manager\n</h3>\n              <p class=\"faded\">Matav \u00B7 Full-time\n</p>\n              <p>\n               Jan 2023 - Aug 2023 \u00B7 8 mosJan 2023 to Aug 2023 \u00B7 8 mos\nHaifa, Haifa District, Israel \u00B7 On-siteHaifa, Haifa District, Israel \u00B7 On-site\n              </p>\n              <h6>\n               Skills: Auditing \u00B7 Accounting \u00B7 Microsoft Excel \u00B7 Debt Management \u00B7 Quality Assurance \u00B7 Writing \u00B7 Operations Management \u00B7 Management Control \u00B7 Account Management \u00B7 Data Analysis \u00B7 Analytical Skills \u00B7 Microsoft Word \u00B7 Networking \u00B7 Hebrew \u00B7 Microsoft Office \u00B7 Cash Collection \u00B7 Analytical Capability \u00B7 Research \u00B7 Finance \u00B7 Communication\n\n              </h6>\n            </div>\n                <div class=\"job\">\n                  <h3>        Administration Assistant\n</h3>\n                  <p class=\"faded\">Sheleg Lavan \u00B7 Full-time\n</p>\n                  <p>\n                    Oct 2021 - Jan 2023 \u00B7 1 yr 4 mosOct 2021 to Jan 2023 \u00B7 1 yr 4 mos\nHaifa, Haifa District, Israel \u00B7 On-siteHaifa, Haifa District, Israel \u00B7 On-site\n\n                  </p>\n                  <h6>\n                    Skills: Microsoft PowerPoint \u00B7 Microsoft Excel \u00B7 English \u00B7 Quality Assurance \u00B7 Writing \u00B7 Operations Management \u00B7 Account Management \u00B7 Microsoft Word \u00B7 Microsoft Outlook \u00B7 Networking \u00B7 Hebrew \u00B7 Microsoft Office \u00B7 Research \u00B7 Communication\n\n                  </h6>\n                </div>\n      </div>\n    ";
 }
 function renderingTheSecondPage() {
-    page2.innerHTML = "\n    <div class=\"container\">\n        <h1>bye</h1>\n    </div>\n    \n    <button class=\"btn\" onClick = \"onBackClick()\">Back</button>\n\n\n    \n    ";
+    page2.innerHTML = "\n    <div class=\"container2\">\n        <h1>bye</h1>\n            <button class=\"btn\" onClick = \"onBackClick()\">Back</button>\n\n    </div>\n    \n\n\n    \n    ";
 }
 function handleClickSecondPage() {
     page1.classList.remove("hidden");
