@@ -1,23 +1,24 @@
 {
-  "name": "ranaz",
+  "name": "noambramy",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/server.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
-    "@types/express": "^5.0.0",
     "@types/node": "^22.7.9",
     "nodemon": "^3.1.7",
     "ts-node": "^10.9.2",
+    "tsc": "^2.0.4",
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "express": "^4.21.1"
+    "@types/express": "^5.0.0",
+    "express": "^4.21.1",
+    "import": "^0.0.6"
   }
 }
