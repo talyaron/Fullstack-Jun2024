@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+  background-color: #99BBFF;
+  width: 70vw;
+  position: absolute;
+  left: 15vw;
+  top: 17vh;
+  border-radius: 2%;
+}
+.home__title {
+  font-size: 2rem;
+  right: 0vw;
+  top: 0vh;
+  position: relative;
+}
+.home__message {
+  margin: 20px 0;
+  font-size: 1.5rem;
+}
+.home__loginbutton {
+  padding: 0.8rem;
+  border: none;
+  background-color: #3377FF;
+  border-radius: 20vh;
+  width: 10vw;
+  cursor: pointer;
+  transition: 0.3s ease all;
+  position: relative;
+  left: 1vw;
+}
+.home__loginbutton a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+}
+.home__loginbutton:hover {
+  background-color: rgb(98, 128, 187);
+  transform: translateX(0.2vw);
+}
+.home__registerbutton {
+  padding: 0.8rem;
+  border: none;
+  color: white;
+  background-color: #3377FF;
+  border-radius: 20vh;
+  cursor: pointer;
+  transition: 0.3s ease all;
+  width: 10vw;
+}
+.home__registerbutton a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+}
+.home__registerbutton:hover {
+  background-color: rgb(98, 128, 187);
+  transform: translateX(0.2vw);
+}/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,80 @@
+.btn {
+  margin-top: 1rem;
+  background-color: #3377FF;
+  width: 30vh;
+  height: 6.5vh;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 15px;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn:hover {
+  background-color: #99BBFF;
+}
+
+.btn:active {
+  background-color: #99BBFF;
+}
+
+@media (max-width: 1024px) {
+  .btn {
+    width: 25vh;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+@media (max-width: 768px) {
+  .btn {
+    width: 20vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 18px;
+  }
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #E3EDFF;
+  height: 90vh;
+  width: 180vh;
+  border-radius: 3vh;
+}
+
+@media (max-width: 768px) {
+  .container {
+    height: 80vh;
+    width: 70vw;
+    max-width: 450px;
+    min-width: 200px;
+  }
+}
+@media (max-width: 1024px) {
+  .container {
+    height: 90vh;
+    width: 70vw;
+    max-width: 768px;
+    min-width: 400px;
+  }
+}
+body {
+  background-color: #FBFBFD;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+body h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #4D4D4D;
+  font-family: sans-serif;
+}/*# sourceMappingURL=welcome.css.map */

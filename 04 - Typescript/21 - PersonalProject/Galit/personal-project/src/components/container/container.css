@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #E3EDFF;
+  height: 90vh;
+  width: 180vh;
+  border-radius: 3vh;
+}
+
+@media (max-width: 768px) {
+  .container {
+    height: 80vh;
+    width: 70vw;
+    max-width: 450px;
+    min-width: 200px;
+  }
+}
+@media (max-width: 1024px) {
+  .container {
+    height: 90vh;
+    width: 70vw;
+    max-width: 768px;
+    min-width: 400px;
+  }
+}/*# sourceMappingURL=container.css.map */

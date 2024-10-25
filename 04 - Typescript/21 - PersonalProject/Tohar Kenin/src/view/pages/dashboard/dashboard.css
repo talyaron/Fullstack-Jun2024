@@ -1,0 +1,60 @@
+.page {
+  align-items: center;
+}
+.page .row {
+  display: flex;
+  flex-direction: row;
+  gap: 5%;
+  padding-inline: 3%;
+}
+.page .row .title {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 26.63px;
+  text-align: left;
+  color: var(--header-color);
+  margin-left: 1.5rem;
+}
+.page .row .container {
+  width: 28vw;
+  height: 40vh;
+  border-radius: 2rem;
+  margin-top: 0.4rem;
+  border-radius: 25px;
+  background-color: #fff;
+  left: 0.1rem;
+  background-color: #ebe3f5;
+}
+.page .row .container .fa-circle-notch {
+  width: 2.8rem;
+  height: 2.8rem;
+  margin: 0 1.3rem 0 1.3rem;
+}
+.page .row2 {
+  padding-inline: 3%;
+  margin-bottom: 10rem;
+}
+.page .row2 .title {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 26.63px;
+  text-align: left;
+  color: var(--header-color);
+  margin-left: 1.5rem;
+}
+.page .row2 .container {
+  width: 60vw;
+  height: 60vh;
+  border-radius: 2rem;
+  margin-top: 0.4rem;
+  border-radius: 25px;
+  background-color: #fff;
+  left: 0.1rem;
+  background-color: #ebe3f5;
+}
+
+.userCourses {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #828282;
+}/*# sourceMappingURL=dashboard.css.map */

@@ -1,0 +1,49 @@
+p {
+  font-size: 1rem;
+}
+@media (max-width: 800px) {
+  p {
+    font-size: 0.5rem;
+  }
+}
+@media (min-width: 800px) {
+  p {
+    font-size: 0.7rem;
+  }
+}
+@media (min-width: 2400px) {
+  p {
+    font-size: 1rem;
+  }
+}
+
+label {
+  margin: 0;
+}
+
+.checkbox {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+@media (max-width: 800px) {
+  .checkbox {
+    font-size: 0.7rem;
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+}
+@media (min-width: 800px) {
+  .checkbox {
+    font-size: 0.9rem;
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+}
+@media (min-width: 2400px) {
+  .checkbox {
+    font-size: 1.1rem;
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+}/*# sourceMappingURL=registerStyle.css.map */

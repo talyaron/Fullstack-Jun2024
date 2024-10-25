@@ -1,0 +1,93 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f4f8;
+  font-family: Arial, sans-serif;
+}
+
+#app {
+  padding: 20px;
+}
+
+.form-container {
+  background-color: #add8e6;
+  border-radius: 15px;
+  padding: 20px;
+  width: 300px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form-container__input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+.form-container__checkbox-label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.form-container__button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.form-container__button:hover {
+  background-color: #0056b3;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #007bff;
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 30px;
+  position: fixed;
+  top: 80px;
+  bottom: 20px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.sidebar__logo {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+.sidebar__menu {
+  list-style: none;
+  padding: 0;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.sidebar__menu-item {
+  text-align: center;
+  margin: 10px 0;
+  font-size: 30px;
+}
+.sidebar__menu-item a {
+  text-decoration: none;
+  color: #ffffff;
+}
+.sidebar__menu-item a:hover {
+  text-decoration: underline;
+}/*# sourceMappingURL=SideBarStyle.css.map */
