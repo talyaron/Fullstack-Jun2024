@@ -33,10 +33,14 @@ function checkMailAvailability(email) {
 function renderRegister() {
   var _a;
 
-  var registerElement = document.querySelector('#app');
-  if (!registerElement) throw new Error('Register element not found');
-  registerElement.innerHTML = "\n        <form id=\"register\"\">\n            <h1>Register</h1>\n            <input type=\"text\" id=\"username\" placeholder=\"Username\">\n            <input type=\"email\" id=\"email\" placeholder=\"Email\">\n            <input type=\"phone\" id=\"phone\" placeholder=\"Phone number\">\n            <input type=\"password\" id=\"password\" placeholder=\"Password\">\n            <input type=\"validate_password\" id=\"validate_password\" placeholder=\"validate Password\"\n            <input type=\"submit\">Register</button>\n        </form>\n    ";
-  (_a = document.querySelector('#register')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', register);
+  try {
+    var registerElement = document.querySelector('#app');
+    if (!registerElement) throw new Error('Register element not found');
+    registerElement.innerHTML = "\n            <form id=\"register\"\">\n                <h1>Register</h1>\n                <input type=\"text\" id=\"username\" placeholder=\"Username\">\n                <input type=\"email\" id=\"email\" placeholder=\"Email\">\n                <input type=\"phone\" id=\"phone\" placeholder=\"Phone number\">\n                <input type=\"password\" id=\"password\" placeholder=\"Password\">\n                <input type=\"password\" id=\"validate_password\" placeholder=\"validate Password\">\n                <input type=\"submit\" value=\"register\">\n            </form>\n        ";
+    (_a = document.querySelector('#register')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', register);
+  } catch (error) {
+    console.log(error);
+  }
 } // controller
 
 
@@ -58,6 +62,6 @@ function register(event) {
       password: event.target.password.value
     });
     alert('Registration successful');
-    this.router.navigate('/login');
+    window.location.href = '../login/login.html';
   }
 }
