@@ -118,7 +118,12 @@ Haifa, Haifa District, Israel · On-siteHaifa, Haifa District, Israel · On-site
 function renderingTheSecondPage() {
   page2.innerHTML = `
     <div class="container2">
-        <h1>bye</h1>
+           <div class="contacts">
+    <div class="box">Phone: 0538999886</div>
+    <div class="box">E-Mail: <a href="mailto:gog20@icloud.com">gog20@icloud.com</a></div>
+    <div class="box">Adress: Haifa, Israel</div>
+    <div class="box">LinkedIn: <a href="https://www.linkedin.com/in/alexis-vishnevezky/">www.linkedin.com/in/alexis-vishnevezky</a></div>
+    </div>
             <button class="btn" onClick = "onBackClick()">Back</button>
 
     </div>
