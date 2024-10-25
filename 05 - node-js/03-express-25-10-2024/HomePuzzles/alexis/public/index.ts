@@ -71,9 +71,9 @@ function renderingCareers() {
           <h3>Accountant</h3>
           <p class="faded">Fattal Hotels · Full-time</p>
           <p>
-            Jul 2023 - Present · 1 yr 4 mosJul 2023 to Present · 1 yr 4 mos
-            Haifa, Haifa District, Israel · HybridHaifa, Haifa District, Israel
-            · Hybrid
+            Jul 2023 - Present · 1 yr 4 mos </p> <p>
+            Haifa, Haifa District, Israel · Hybrid
+            
           </p>
           <h6>
             Skills: Accounting · Management Control · Networking · Hebrew ·
@@ -88,8 +88,8 @@ function renderingCareers() {
               <p class="faded">Matav · Full-time
 </p>
               <p>
-               Jan 2023 - Aug 2023 · 8 mosJan 2023 to Aug 2023 · 8 mos
-Haifa, Haifa District, Israel · On-siteHaifa, Haifa District, Israel · On-site
+               Jan 2023 - Aug 2023 · 8 mos</p> <p>
+Haifa, Haifa District, Israel · On-site
               </p>
               <h6>
                Skills: Auditing · Accounting · Microsoft Excel · Debt Management · Quality Assurance · Writing · Operations Management · Management Control · Account Management · Data Analysis · Analytical Skills · Microsoft Word · Networking · Hebrew · Microsoft Office · Cash Collection · Analytical Capability · Research · Finance · Communication
@@ -102,8 +102,8 @@ Haifa, Haifa District, Israel · On-siteHaifa, Haifa District, Israel · On-site
                   <p class="faded">Sheleg Lavan · Full-time
 </p>
                   <p>
-                    Oct 2021 - Jan 2023 · 1 yr 4 mosOct 2021 to Jan 2023 · 1 yr 4 mos
-Haifa, Haifa District, Israel · On-siteHaifa, Haifa District, Israel · On-site
+                    Oct 2021 - Jan 2023 · 1 yr 4 mos</p> <p>
+Haifa, Haifa District, Israel · On-site
 
                   </p>
                   <h6>
