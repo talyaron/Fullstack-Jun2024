@@ -7,4 +7,3 @@ console.log("YosefIB* is here");
 var x = 5;
 console.log(x * 2);
 console.dir(x);
-console.log(process);
