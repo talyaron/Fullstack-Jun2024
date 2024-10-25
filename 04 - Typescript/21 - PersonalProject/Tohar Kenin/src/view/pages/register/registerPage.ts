@@ -66,16 +66,3 @@ function setUserToLocalStorage(user: User): void {
         console.error("Error during registration:", error);
     }
     };
-
-// Function called after page reload
-// export function checkRegisterParamAndRender(): void {
-//     const queryString = window.location.search;
-//     const params = new URLSearchParams(queryString);
-    
-//     const registerPressed = params.get('signupBtn');
-//     if (registerPressed) {
-//         mainPageRender();
-//     }
-// }
-
-// checkRegisterParamAndRender();
