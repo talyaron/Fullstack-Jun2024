@@ -14,9 +14,9 @@ page2.classList.add("playwrite");
 // const summary = renderingSummary();
 // const careers = renderingCareers();
 
-renderingCareers()
-renderingDetails()
 renderingSummary()
+renderingDetails()
+renderingCareers()
 
 
 

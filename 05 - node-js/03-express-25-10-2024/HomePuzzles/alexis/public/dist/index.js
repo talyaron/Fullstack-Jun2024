@@ -11,9 +11,9 @@ page2.classList.add("playwrite");
 // const head = renderingDetails();
 // const summary = renderingSummary();
 // const careers = renderingCareers();
-renderingCareers();
-renderingDetails();
 renderingSummary();
+renderingDetails();
+renderingCareers();
 function handleClickFirstPage() {
     page1.classList.add("hidden");
     page2.classList.remove("hidden");
