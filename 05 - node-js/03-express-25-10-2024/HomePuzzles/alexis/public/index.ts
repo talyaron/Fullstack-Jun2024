@@ -35,7 +35,7 @@ function renderingDetails() {
 
   header.innerHTML = `
     <div class="header">
-        <img class="img" src="../public/images/me.jpg" alt="Alexis Vishnevezky" />
+        <img class="img" src="./images/me.jpg" alt="Alexis Vishnevezky" />
         <h1>Alexis Vishnevezky</h1>
         <p>|   Accountant   |   24y   |   Haifa District/Israel   |</p>
         <button class="btn" onClick = "onContactsClick()">Contacts</button>

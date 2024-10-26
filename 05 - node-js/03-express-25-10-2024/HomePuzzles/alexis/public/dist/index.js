@@ -25,7 +25,7 @@ function onContactsClick() {
 function renderingDetails() {
     var header = document.createElement("div");
     container.append(header);
-    header.innerHTML = "\n    <div class=\"header\">\n        <img class=\"img\" src=\"../public/images/me.jpg\" alt=\"Alexis Vishnevezky\" />\n        <h1>Alexis Vishnevezky</h1>\n        <p>|   Accountant   |   24y   |   Haifa District/Israel   |</p>\n        <button class=\"btn\" onClick = \"onContactsClick()\">Contacts</button>\n      </div>";
+    header.innerHTML = "\n    <div class=\"header\">\n        <img class=\"img\" src=\"./images/me.jpg\" alt=\"Alexis Vishnevezky\" />\n        <h1>Alexis Vishnevezky</h1>\n        <p>|   Accountant   |   24y   |   Haifa District/Israel   |</p>\n        <button class=\"btn\" onClick = \"onContactsClick()\">Contacts</button>\n      </div>";
 }
 function renderingSummary() {
     var summ = document.createElement("div");
