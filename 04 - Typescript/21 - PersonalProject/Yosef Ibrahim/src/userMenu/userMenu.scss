@@ -104,12 +104,24 @@
                     font: 1em sans-serif;
                     margin: 0; 
                     flex: 1; 
+                    @media (max-width: 700px) {
+    
+                        display: none !important;
+            
+    
+                    }
                 }
         
                 img {
                     height: 60px;
                     padding: 10px;
                     flex: 0 0 auto; // מונע מהתמונה להצטמצם
+                    @media (max-width: 700px) {
+    
+                        display: none !important;
+            
+    
+                    }
                 }
             }
         }
