@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  font-size: 17px;
+  font-family: "Inter", sans-serif;
+  box-sizing: border-box;
+}
+
+#app {
+  display: flex;
+  flex-direction: row;
+}
+#app #main {
+  width: 82%;
+}
+#app #sidebar {
+  width: 18%;
+}
+
+#loginContainer {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}/*# sourceMappingURL=main.css.map */

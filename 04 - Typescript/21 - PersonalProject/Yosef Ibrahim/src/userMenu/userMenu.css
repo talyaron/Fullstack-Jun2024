@@ -1,0 +1,130 @@
+@charset "UTF-8";
+.navbarContainer {
+  display: grid;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+  grid-template-columns: 20% 80%;
+  grid-template-columns: 20% 80%;
+  font: 1em sans-serif;
+}
+.navbarContainer .navbar {
+  max-width: 100%;
+  overflow: hidden;
+  padding: 20px;
+  background-color: var(--button_color);
+  display: grid;
+}
+.navbarContainer .navbar .logo img {
+  width: 100%;
+  height: auto;
+}
+.navbarContainer .navbar nav {
+  font-size: 2rem;
+  list-style-type: none;
+}
+.navbarContainer .navbar nav a {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+}
+.navbarContainer .navbar nav a:hover {
+  background-color: darkgray;
+  transition: background-color 0.3s ease-in-out;
+}
+@media (max-width: 700px) {
+  .navbarContainer .navbar nav a {
+    font-size: 0.5em; /* הקטנת גודל טקסט למסמארטפונים */
+  }
+}
+
+.headerDashbord {
+  display: grid;
+  gap: 10px;
+  padding-right: 40px;
+}
+@media (max-width: 700px) {
+  .headerDashbord {
+    gap: 5px;
+  }
+}
+.headerDashbord .header {
+  max-width: 100%;
+  overflow: hidden;
+  background-color: rgb(226, 202, 202);
+  display: flex;
+  height: 90px;
+  justify-content: center;
+  align-items: center;
+}
+.headerDashbord .header form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  gap: 10px;
+  width: 100%;
+  margin: 10px;
+  font-size: 1.5em;
+  flex-wrap: wrap;
+}
+.headerDashbord .header form input {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+}
+.headerDashbord .header form button {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--button_color);
+  color: white;
+  cursor: pointer;
+}
+.headerDashbord .header form p {
+  font: 1em sans-serif;
+  margin: 0;
+  flex: 1;
+}
+.headerDashbord .header form img {
+  height: 60px;
+  padding: 10px;
+  flex: 0 0 auto;
+}
+.headerDashbord .dashbord {
+  background-color: rgb(236, 221, 221);
+  height: 450px;
+  padding: 10px;
+}
+.headerDashbord .dashbord h2 {
+  font-size: 2vw; /* גודל הגופן משתנה בהתאם לרוחב החלון */
+  max-width: 100%;
+  word-wrap: break-word; /* שבירת מילים אם יש צורך */
+}
+.headerDashbord .dashbord button {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--button_color);
+  color: white;
+  cursor: pointer;
+}
+.headerDashbord .dashbord img {
+  width: 20%;
+  height: auto;
+  margin: 10px;
+}
+
+@media (max-width: 700px) {
+  .navbar {
+    grid-template-columns: 1fr;
+    font-size: 0.8em;
+  }
+  .header {
+    flex-direction: column;
+  }
+}/*# sourceMappingURL=userMenu.css.map */

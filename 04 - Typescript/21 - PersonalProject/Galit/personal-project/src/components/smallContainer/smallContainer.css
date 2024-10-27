@@ -1,0 +1,31 @@
+.smallContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #E3EDFF;
+  height: 83vh;
+  width: 178vh;
+  border-radius: 3vh;
+  transform: translate(10vh, 7.5vh);
+}
+
+@media (max-width: 768px) {
+  .smallContainer {
+    height: 80vh;
+    width: 70vw;
+    max-width: 130vh;
+    margin-top: 200vh;
+    margin-left: -10vh;
+  }
+}
+@media (max-width: 1024px) {
+  .smallContainer {
+    height: 90vh;
+    width: 70vw;
+    max-width: 768px;
+    min-width: 400px;
+    margin-top: 70vh;
+    margin-left: -20vh;
+  }
+}/*# sourceMappingURL=smallContainer.css.map */

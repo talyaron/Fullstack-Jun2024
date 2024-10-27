@@ -1,0 +1,17 @@
+.smallBtn {
+  margin-top: 1rem;
+  background-color: #3377FF;
+  width: 10vh;
+  height: 4.5vh;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 15px;
+}
+.smallBtn .btn:hover {
+  background-color: #99BBFF;
+}
+.smallBtn .btn:active {
+  background-color: #99BBFF;
+}/*# sourceMappingURL=smallBtn.css.map */

@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+      "target": "es6",
+      "module": "commonjs",
+      "outDir": "./dist",
+      "rootDir": "./server",
+      "strict": true,
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "resolveJsonModule": true,
+      "sourceMap": true
+    },
+    "include": ["server/**/*"],
+    "exclude": ["node_modules", "**/*.spec.ts"]
+  }
