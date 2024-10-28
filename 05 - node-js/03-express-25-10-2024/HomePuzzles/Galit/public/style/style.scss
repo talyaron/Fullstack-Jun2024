@@ -1,0 +1,116 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #fad6e9;
+    color: rgb(102, 102, 102);
+    padding: 1rem;
+    text-align: center;
+
+    nav {
+        h1 {
+            margin:3vh;
+        }
+        
+        a {
+            color: rgb(102, 102, 102);
+
+            margin: 0 1rem;
+            text-decoration: none;
+            
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+section {
+    padding: 2rem;
+    text-align: center;
+    max-width: 600px; 
+    margin: auto;
+
+    h2 {
+        margin-bottom: 1rem;
+        color: rgb(102, 102, 102);
+
+    }
+
+    .profile-image {
+        width: 150px;    
+        height: 150px;
+        border-radius: 50%;
+        margin-top: 1rem;
+    }
+
+    p {
+        margin-top: 0.5rem;
+        max-width: 80vh;
+        margin-left: auto;
+        margin-right: auto;
+        color: rgb(102, 102, 102);
+
+    }
+    .links{
+        display: flex;   
+        gap: 15px;   
+        justify-content: center; 
+    }
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        row-gap: 5vh;    
+        column-gap: 20vh;
+        padding: 2vh;
+        justify-items: center;
+    }
+    
+    .gallery a {
+        display: block;  
+    }
+    
+    .gallery img {
+        width: 50vh;         
+        height: auto;      
+        border-radius: 8px;  
+        transition: transform 0.3s ease; 
+    }
+    
+    .gallery img:hover {
+        transform: scale(1.05); 
+    }
+    .project-link span {
+        display: block;
+        margin-top: 8px; 
+        font-size: 16px;   
+        color:rgb(102, 102, 102);     
+        font-weight: bold;
+    }
+}
+
+footer {
+    background-color: #fad6e9;
+    color: rgb(102, 102, 102);
+    padding: 1rem;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    header, section, footer {
+        padding: 1rem;
+    }
+
+    nav {
+        a {
+            display: block;
+            margin: 0.5rem 0;
+        }
+    }
+}
