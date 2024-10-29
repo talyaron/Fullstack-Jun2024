@@ -53,7 +53,7 @@ In addition, I have good experience with tools such as (GTM and GA).</p>
             <li>Full Stack Course at INT College.</li>
             <li>Started a Bachelor's Degree in Computer Science.</li>
             <li>Advanced Udemy Course for Knowledge Enrichment.</li>
-            <li>Blog Site Management</li>
+            <li>Proficiency and speed in coding</li>
             <ul>
             </br>
             <h4>External Courses:</h4>
@@ -83,7 +83,11 @@ In addition, I have good experience with tools such as (GTM and GA).</p>
           </ul>
         </section>
       </div>
+      <div>
+      <img class="imgF" src="images/feather1.png" alt="Profile Picture">
     </div>
+    </div>
+    
   `;
 }
 

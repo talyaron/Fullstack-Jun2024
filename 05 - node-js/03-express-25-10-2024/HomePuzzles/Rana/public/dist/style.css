@@ -152,3 +152,9 @@ ul li {
 .link:hover {
   color: #7d5e3b;
 }
+
+.imgF {
+  margin-left: 50vw;
+  margin-top: -300px;
+  display: flex;
+}
