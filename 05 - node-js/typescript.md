@@ -3,7 +3,7 @@
 ## Create a new project
 Create relevant folder.
 
-```npm init --y```  this will create a package.json file
+```npm init --y```  this will create a ```package.json``` file
 
 ## Install Typescript
 ```npm i -D typescript ts-node nodemon @types/node```
