@@ -23,6 +23,17 @@ app.get('/main', function (req, res) {
 app.get('/about', function (req, res) {
     res.send("<h1 style='color: green'>About us</h1>");
 });
+//route
+app.get('/api/get-hello', function (req, res) {
+    try {
+        // setTimeout(() => {
+        res.send({ message: "Hello from express" });
+        // }, 3000);
+    }
+    catch (error) {
+        console.error(error);
+    }
+});
 app.listen(port, function () {
     console.log("Example app listening on port " + port);
 });

@@ -30,6 +30,18 @@ app.get('/about', (req, res) => {
     res.send("<h1 style='color: green'>About us</h1>")
 })
 
+//route
+app.get('/api/get-hello', (req, res)=>{
+
+    try{
+        // setTimeout(() => {
+        res.send({message: "Hello from express"});
+        // }, 3000);
+    } catch(error){
+        console.error(error);
+    }
+})
+
 
 
 app.listen(port, () => {
