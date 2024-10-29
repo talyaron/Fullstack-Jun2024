@@ -54,7 +54,7 @@ app.get('/api/countUp', (req, res)=>{
 
     try{
         // setTimeout(() => {
-        res.send({message: ``});
+        res.send({message: `e`});
         // }, 3000);
     } catch(error){
         console.error(error);

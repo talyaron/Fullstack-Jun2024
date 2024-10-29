@@ -46,7 +46,7 @@ app.get('/api/rng', function (req, res) {
 app.get('/api/countUp', function (req, res) {
     try {
         // setTimeout(() => {
-        res.send({ message: "" });
+        res.send({ message: "e" });
         // }, 3000);
     }
     catch (error) {
