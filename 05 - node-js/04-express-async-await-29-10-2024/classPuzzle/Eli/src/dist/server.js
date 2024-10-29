@@ -33,10 +33,20 @@ app.get('/api/get-hello', function (req, res) {
     }
 });
 //route
-app.get('/api/PushBye', function (req, res) {
+app.get('/api/rng', function (req, res) {
     try {
         // setTimeout(() => {
-        res.send({ message: "bye from express " + x });
+        res.send({ message: "is your random number :)" });
+        // }, 3000);
+    }
+    catch (error) {
+        console.error(error);
+    }
+});
+app.get('/api/countUp', function (req, res) {
+    try {
+        // setTimeout(() => {
+        res.send({ message: "e" });
         // }, 3000);
     }
     catch (error) {

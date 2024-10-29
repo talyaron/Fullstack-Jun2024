@@ -40,17 +40,26 @@ app.get('/api/get-hello', (req, res)=>{
     }
 })
 //route
-app.get('/api/PushBye', (req, res)=>{
+app.get('/api/rng', (req, res)=>{
 
     try{
         // setTimeout(() => {
-        res.send({message: `bye from express ${x}`});
+        res.send({message: `is your random number :)`});
         // }, 3000);
     } catch(error){
         console.error(error);
     }
 })
+app.get('/api/countUp', (req, res)=>{
 
+    try{
+        // setTimeout(() => {
+        res.send({message: `e`});
+        // }, 3000);
+    } catch(error){
+        console.error(error);
+    }
+})
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
