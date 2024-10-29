@@ -1,23 +1,26 @@
-// let height = 40;
+ let height = 40;
+ let all_post_inputs = [];
 
-// function enter_clicked(): void {
-//     console.log("asd");
-//     try{
-//     const input = document.getElementById("post_input");
-//     if (!input) return console.log("error");
+ function enter_clicked(): void {
+     
+     try{
+     const input = document.getElementById("post_input");
+     if (!input) return console.log("error");
+     input.addEventListener('keydown', function(event) {
+         if (event.key == 'Enter'){
+            all_post_inputs.push(input.value);
+            console.log(all_post_inputs);
+             input.value = "";
+         }
+     });
 
-//     input.addEventListener('keydown', function(event) {
+ }}
+     catch(error){
+         console.error(error);
+     }
+ 
 
-//     if (event.key == 'Enter'){
-//         height += 10;
-//         input.style.height = `${height}px`;
-// })}
-//     catch(error){
-//         console.error(error);
-//     }
-// }
-
-// enter_clicked();
+ enter_clicked();
 
 async function all_post(){
     try

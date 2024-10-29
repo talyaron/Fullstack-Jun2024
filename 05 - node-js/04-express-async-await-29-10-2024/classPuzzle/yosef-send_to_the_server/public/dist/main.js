@@ -1,4 +1,3 @@
-// let height = 40;
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,21 +34,29 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-// function enter_clicked(): void {
-//     console.log("asd");
-//     try{
-//     const input = document.getElementById("post_input");
-//     if (!input) return console.log("error");
-//     input.addEventListener('keydown', function(event) {
-//     if (event.key == 'Enter'){
-//         height += 10;
-//         input.style.height = `${height}px`;
-// })}
-//     catch(error){
-//         console.error(error);
-//     }
-// }
-// enter_clicked();
+var height = 40;
+var all_post_inputs = [];
+function enter_clicked() {
+    try {
+        var input_1 = document.getElementById("post_input");
+        if (!input_1)
+            return console.log("error");
+        input_1.addEventListener('keydown', function (event) {
+            if (event.key == 'Enter') {
+                all_post_inputs.push(input_1.value);
+                console.log(all_post_inputs);
+                input_1.value = "";
+            }
+        });
+    }
+    finally { }
+}
+try {
+}
+catch (error) {
+    console.error(error);
+}
+enter_clicked();
 function all_post() {
     return __awaiter(this, void 0, void 0, function () {
         var response, data, show, error_1;
