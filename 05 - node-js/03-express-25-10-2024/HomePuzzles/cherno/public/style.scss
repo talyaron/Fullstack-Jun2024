@@ -1,0 +1,72 @@
+:root
+{
+    --background_color: #14342B;
+    --text_color: #14342B;
+    --primary_bold_color: #BAB700;
+    --secondary_bold_color: #BBDFC5;
+    --highlight_color: #FF579F;
+}
+
+body
+{
+    background-color: var(--background_color);
+    color: var(--text_color);
+    font-family: "Delius", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.title 
+{
+    color: var(--primary_bold_color);
+    font-weight: bold;
+    text-align: let;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    margin-top: 4rem;
+    padding: 2rem;
+    
+    &__text 
+    {
+        display: flex;
+        flex-direction: row;
+
+        &__bold
+        {
+            color: var(--secondary_bold_color);
+            font-weight: bold;
+            margin: 0 1rem;
+            transition: 1s ease;
+        }
+    }
+}
+
+#content 
+{
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    padding: 2rem;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    transition: opacity 0.5s ease;
+    opacity: 0;
+
+    p 
+    {
+        font-size: 1.5rem;
+        line-height: 1.8;
+        margin: 0;
+        padding: 1rem;
+        width: 15vw;
+        height: 100%;
+        border-radius: 1rem;
+        background-color: var(--secondary_bold_color);
+    }
+}
+
+#content.fade-in 
+{
+    opacity: 1;
+}

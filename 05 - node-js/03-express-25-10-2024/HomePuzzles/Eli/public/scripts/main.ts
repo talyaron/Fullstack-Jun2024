@@ -1,6 +1,3 @@
-import "./style.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap";
 
 const contentA = `
     <h1>Welcome to my site</h1>
@@ -14,7 +11,7 @@ const contentB = `
      <h2>Scss project : 
      </h2>
         <h4>Created a site using scss and html only with responsive design and animations</h4>
-      <img src="ScssImage.png" alt="scss site" class="img-fluid"></img>
+      <img src="./assetss/ScssImage.png" alt="scss site" class="img-fluid"></img>
       <p>scss site project</p>
         <h2>Game Project:
      </h2>
@@ -23,7 +20,7 @@ const contentB = `
    you lose a life. Players start with three lives, and if all lives are lost, 
    the game ends, displaying the final score. It's a fun 
    mix of strategy and quick reflexes. </h4>
-  <img src=" GameProj.png" alt="game site" class="img-fluid"></img>
+  <img src=" ./assetss/GameProj.png" alt="game site" class="img-fluid"></img>
   <p>game project</p>
     </ul> 
   `;
