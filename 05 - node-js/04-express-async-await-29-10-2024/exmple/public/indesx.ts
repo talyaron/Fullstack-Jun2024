@@ -9,6 +9,7 @@ async function getHello() {
         console.timeEnd('fetching hello');
 
         const {message} = data;
+        // const message = data.message;
         if(!message) throw new Error('No message found');
 
         const messageElement = document.querySelector("#message");
