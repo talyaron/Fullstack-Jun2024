@@ -44,7 +44,7 @@ app.get('/api/rng', (req, res)=>{
 
     try{
         // setTimeout(() => {
-        res.send({message: `bye from express ${x}`});
+        res.send({message: `is your random number :)`});
         // }, 3000);
     } catch(error){
         console.error(error);
@@ -54,7 +54,7 @@ app.get('/api/countUp', (req, res)=>{
 
     try{
         // setTimeout(() => {
-        res.send({message: `is your random number :)`});
+        res.send({message: ``});
         // }, 3000);
     } catch(error){
         console.error(error);

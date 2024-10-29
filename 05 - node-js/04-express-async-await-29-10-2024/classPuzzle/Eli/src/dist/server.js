@@ -36,7 +36,7 @@ app.get('/api/get-hello', function (req, res) {
 app.get('/api/rng', function (req, res) {
     try {
         // setTimeout(() => {
-        res.send({ message: "bye from express " + x });
+        res.send({ message: "is your random number :)" });
         // }, 3000);
     }
     catch (error) {
@@ -46,7 +46,7 @@ app.get('/api/rng', function (req, res) {
 app.get('/api/countUp', function (req, res) {
     try {
         // setTimeout(() => {
-        res.send({ message: "is your random number :)" });
+        res.send({ message: "" });
         // }, 3000);
     }
     catch (error) {
