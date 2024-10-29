@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 function getDetails() {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, message, id, detailsElement, error_1;
+        var response, data, detailsElement, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -47,14 +47,12 @@ function getDetails() {
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
-                    message = data.message;
-                    id = data.id;
-                    if (!message && !id)
-                        throw new Error("Please Check Message or id is not found from data.");
+                    if (!data.user || !data.age || !data.city || !data.country || !data.state)
+                        throw new Error("Please check the details something wrong");
                     detailsElement = document.querySelector(".details");
                     if (!detailsElement)
                         throw new Error("Details Element not found please check that right now !");
-                    detailsElement.innerHTML = "Message From Server: " + message + ", \n ID From Server: " + id;
+                    detailsElement.innerHTML = "User: " + data.user + ", Age: " + data.age + " City: " + data.city + " Country: " + data.country + " State: " + data.state;
                     return [3 /*break*/, 4];
                 case 3:
                     error_1 = _a.sent();

@@ -9,7 +9,7 @@ console.log(x);
 app.use(express_1["default"].static('public'));
 app.get('/api/details', function (req, res) {
     try {
-        res.send({ message: "Hello, Testing", id: "0123456789" });
+        res.send({ user: "Noam", age: 17, country: "Israel", state: "HaDarom", city: "Ashkelon" });
     }
     catch (error) {
         console.error(error);

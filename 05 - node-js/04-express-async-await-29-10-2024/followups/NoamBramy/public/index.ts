@@ -2,16 +2,10 @@ async function getDetails() {
   try {
     const response = await fetch("/api/details")
     const data = await response.json()
-  
-    const {message} = data
-    const {id} = data
-
-    if(!message && !id) throw new Error("Please Check Message or id is not found from data.")
-  
-  
+    if(!data.user || !data.age || !data.city || !data.country || !data.state) throw new Error("Please check the details something wrong")
     const detailsElement = document.querySelector(".details") as HTMLDivElement
     if(!detailsElement) throw new Error("Details Element not found please check that right now !")
-      detailsElement.innerHTML = `Message From Server: ${message}, \n ID From Server: ${id}`
+      detailsElement.innerHTML = `User: ${data.user}, Age: ${data.age} City: ${data.city} Country: ${data.country} State: ${data.state}`
     } catch (error) {
     console.error(error)
   }
