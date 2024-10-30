@@ -55,7 +55,7 @@ app.post("/api/send-word", upload.single('img'), function (req, res) {
         else {
             res.status(400).json({ error: 'No image uploaded.' });
             var newPost = { word: word, img: img }; // Create a new post object
-            words.push(newPost);
+            words.unshift(newPost);
         }
     }
     catch (error) {
