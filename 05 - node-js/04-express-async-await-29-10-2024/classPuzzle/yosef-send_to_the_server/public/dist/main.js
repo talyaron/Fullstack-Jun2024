@@ -45,18 +45,29 @@ function enter_clicked() {
                 if (!input_1)
                     return [2 /*return*/, console.log("error")];
                 input_1.addEventListener('keydown', function (event) {
-                    if (event.key == 'Enter') {
-                        all_post_inputs.push(input_1.value);
-                        console.log(all_post_inputs);
-                        input_1.value = "";
-                        fetch('http://localhost:3000/api/post', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ all_post_inputs: all_post_inputs }) // המרה ל-JSON
+                    return __awaiter(this, void 0, void 0, function () {
+                        var response;
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0:
+                                    if (!(event.key == 'Enter')) return [3 /*break*/, 2];
+                                    all_post_inputs.push(input_1.value);
+                                    console.log(all_post_inputs);
+                                    input_1.value = "";
+                                    return [4 /*yield*/, fetch('http://localhost:3000/api/send2-word', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json'
+                                            },
+                                            body: JSON.stringify({ all_post_inputs: all_post_inputs })
+                                        })];
+                                case 1:
+                                    response = _a.sent();
+                                    _a.label = 2;
+                                case 2: return [2 /*return*/];
+                            }
                         });
-                    }
+                    });
                 });
             }
             catch (error) {
@@ -69,12 +80,12 @@ function enter_clicked() {
 enter_clicked();
 function all_post() {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, show, error_1;
+        var response, data, show, message, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/get-all_post')];
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/get-words')];
                 case 1:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
@@ -83,7 +94,8 @@ function all_post() {
                     show = document.getElementById("show_all_post");
                     if (!show)
                         throw new Error('No show_all_post element found');
-                    show.innerHTML = data;
+                    message = data.message;
+                    show.innerHTML = message;
                     return [3 /*break*/, 4];
                 case 3:
                     error_1 = _a.sent();

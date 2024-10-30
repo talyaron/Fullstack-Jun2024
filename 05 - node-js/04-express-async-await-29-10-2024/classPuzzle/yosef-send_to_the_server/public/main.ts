@@ -7,20 +7,23 @@
      const input = document.getElementById("post_input");
      if (!input) return console.log("error");
 
-     input.addEventListener('keydown', function(event) {
+     input.addEventListener('keydown',async function(event) {
          if (event.key == 'Enter'){
             all_post_inputs.push(input.value);
             console.log(all_post_inputs);
              input.value = "";
 
-           fetch('http://localhost:3000/api/post', {
+             const response = await fetch('http://localhost:3000/api/send2-word', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({all_post_inputs}) // המרה ל-JSON
-                })
-         }})}
+                body: JSON.stringify({all_post_inputs}) 
+            });
+
+         }
+         
+        }}
 
      catch(error){
          console.error(error);
@@ -33,14 +36,14 @@
 async function all_post(){
     try
     {
-        const response = await fetch('http://localhost:3000/api/get-all_post')
+        const response = await fetch('http://localhost:3000/api/get-words');
         const data = await response.json();
      
         const show = document.getElementById("show_all_post");
         if(!show) throw new Error('No show_all_post element found');
 
-        
-        show.innerHTML = data;
+        const {message} = data;
+        show.innerHTML = message;
              
 
     }
