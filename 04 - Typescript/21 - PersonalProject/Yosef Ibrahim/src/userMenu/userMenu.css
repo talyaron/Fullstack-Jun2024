@@ -89,10 +89,20 @@
   margin: 0;
   flex: 1;
 }
+@media (max-width: 700px) {
+  .headerDashbord .header form p {
+    display: none !important;
+  }
+}
 .headerDashbord .header form img {
   height: 60px;
   padding: 10px;
   flex: 0 0 auto;
+}
+@media (max-width: 700px) {
+  .headerDashbord .header form img {
+    display: none !important;
+  }
 }
 .headerDashbord .dashbord {
   background-color: rgb(236, 221, 221);
