@@ -35,6 +35,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var gameCanvas = document.getElementById("canvas");
+var elementSize = gameCanvas.getBoundingClientRect();
+var width = elementSize.width;
+var height = elementSize.height;
 var usersLength = 0;
 var Player = /** @class */ (function () {
     function Player(playing, id, lastContacted, pos) {
@@ -60,13 +63,52 @@ var Player = /** @class */ (function () {
         gameCanvas.appendChild(this.boxHtmlElement);
     };
     Player.prototype.moveME = function () { };
+    Player.prototype.translatePosition = function () {
+        this.boxHtmlElement.style.left = this.pos.x + "px";
+        this.boxHtmlElement.style.top = this.pos.y + "px";
+        updateServerPos(this.id, this.pos);
+    };
     return Player;
 }());
+var playerContainer = [];
 //const boxes:Box[] =[];
 requestAccess();
+function updateServerPos(playerId, newPosition) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, result, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/movePlayer", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                playerId: playerId,
+                                pos: newPosition
+                            })
+                        })];
+                case 1:
+                    response = _a.sent();
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    result = _a.sent();
+                    console.log("Server response:", result);
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_1 = _a.sent();
+                    console.error("Error updating position:", error_1);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
 function requestAccess() {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, message, newUser, newPlayer, error_1;
+        var response, data, message, newUser, newPlayer, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -86,50 +128,11 @@ function requestAccess() {
                         return [2 /*return*/];
                     //const messageElement = document.querySelector("#message");
                     //  if(!messageElement) throw new Error('No message element found');
-                    document.addEventListener('keydown', handleCLick);
+                    document.addEventListener("keydown", handleCLick);
                     console.log(message, "wwwwww", newUser.id);
                     newPlayer = new Player(true, newUser.id, 0, newUser.pos);
+                    playerContainer.push(newPlayer);
                     getPositions();
-                    return [3 /*break*/, 4];
-                case 3:
-                    error_1 = _a.sent();
-                    console.error(error_1);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
-            }
-        });
-    });
-}
-setInterval(getPositions, 300);
-function handleCLick(event) {
-    var keyPressed = event.key;
-    if (keyPressed == "s") {
-        console.log("שמו שמים!!!");
-    }
-}
-function getPositions() {
-    return __awaiter(this, void 0, void 0, function () {
-        var response, data, message, users, error_2;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch("http://localhost:3000/api/getUsers")];
-                case 1:
-                    response = _a.sent();
-                    return [4 /*yield*/, response.json()];
-                case 2:
-                    data = _a.sent();
-                    message = data.message;
-                    users = data.users;
-                    // const message = data.message;
-                    if (!message)
-                        throw new Error("No message found");
-                    if (!users)
-                        return [2 /*return*/];
-                    //const messageElement = document.querySelector("#message");
-                    //  if(!messageElement) throw new Error('No message element found');
-                    usersLength = users.length;
                     return [3 /*break*/, 4];
                 case 3:
                     error_2 = _a.sent();
@@ -140,14 +143,66 @@ function getPositions() {
         });
     });
 }
-function moveDown() {
+setInterval(getPositions, 300);
+function handleCLick(event) {
+    var keyPressed = event.key;
+    if (keyPressed == "s" && height > playerContainer[0].pos.y + playerContainer[0].size.y) {
+        playerContainer[0].pos.y += 50;
+        playerContainer[0].translatePosition();
+    }
+    if (keyPressed == "w" && playerContainer[0].pos.y > 0) {
+        playerContainer[0].pos.y -= 50;
+        playerContainer[0].translatePosition();
+    }
+}
+function getPositions() {
     return __awaiter(this, void 0, void 0, function () {
+        var response, data, message, users, error_3;
         return __generator(this, function (_a) {
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/getUsers")];
+                case 1:
+                    response = _a.sent();
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    data = _a.sent();
+                    message = data.message, users = data.users;
+                    if (!message)
+                        throw new Error("No message found");
+                    if (!users)
+                        return [2 /*return*/];
+                    console.log(users);
+                    users.forEach(function (serverPlayer) {
+                        // Find if the player already exists in the local playerContainer
+                        var localPlayer = playerContainer.find(function (player) { return player.id === serverPlayer.id; });
+                        if (localPlayer) {
+                            localPlayer.pos = serverPlayer.pos;
+                            localPlayer.translatePosition();
+                        }
+                        else {
+                            if (playerContainer.length < 2) {
+                                var newPlayer = new Player(false, serverPlayer.id, 0, serverPlayer.pos);
+                                playerContainer.push(newPlayer);
+                            }
+                        }
+                    });
+                    console.log(playerContainer);
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_3 = _a.sent();
+                    console.error(error_3);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
         });
     });
 }
-function createBoxes(x, y, id) {
+function moveDown() {
+    return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {
+        return [2 /*return*/];
+    }); });
 }
-function drawAll() {
-}
+function createBoxes(x, y, id) { }
+function drawAll() { }

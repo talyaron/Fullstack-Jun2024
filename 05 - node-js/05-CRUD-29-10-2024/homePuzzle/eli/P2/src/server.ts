@@ -1,6 +1,7 @@
 import express from "express";
 const app = express();
 const port = process.env.PORT || 3000;
+app.use(express.json()); // To parse JSON bodies
 
 console.log("Hi from typescript");
 type Vector = {
@@ -53,18 +54,32 @@ app.get("/api/getNewUser", (req, res) => {
     console.error(error);
   }
 });
-app.post("/api/moveDown", (req, res) => {
-    try {
-   
-    
-      res.send({ message: "created new user",  users });
- 
-  
-    } catch (error) {
-      console.error(error);
-    }
-  });
 
+
+app.post("/api/movePlayer", (req, res) => {
+    try {
+        const { playerId, pos } = req.body;
+        
+        // Find the player by their id in the users array
+        const user = users.find(user => user.id === playerId);
+        
+        if (user) {
+            // Update the player's position
+            user.pos = pos;
+
+           // console.log(`Player ${playerId} moved to new position:`, pos);
+            //console.log(users); // Log the updated users array for debugging
+            
+            res.send({ message: "Player position updated", playerId, pos });
+        } else {
+            // If no player is found with that id
+            res.status(404).send({ message: "Player not found" });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: "Error processing move" });
+    }
+});
 app.get("/api/getUsers", (req, res) => {
     try {
       res.send({ message: "here are the users", users });
