@@ -1,41 +1,49 @@
 import express from 'express';
 const app = express()
-const port = process.env.PORT || 3000
+const port = 3000
 let public_array : string[] = [];
+let deleted_clicked = false;
 
 app.use(express.json()); //middleware to get data from the body
 app.use(express.static('public')) //middleware
 
-app.get('/api/get-words', (req, res) => {
-    try{
-        // send to the client all information from public array - with foreach method
-    
-        // let x = "";
-        // public_array.forEach((post) => {
-        //     x=(JSON.stringify(post)); // מדפיס את האובייקט כולו כמחרוזת JSON
-        // });
-        // res.send(x.toString); // ��שלח את המי��פו���� כו��ו ללקו�� בתו�� ��רי��ה HTTP ��ק��
-        
-    }
-    catch(error){
-        console.log(error);
-        res.status(500).send("Internal  Server Error");
-    }
-});
-
-app.post("/api/send2-words", (request:any, res:any) => {
-    try{
-    let newPost = request.body;
-    console.log("word post received")
-    console.log(newPost);
-    public_array.push(newPost);
-    res.send("post created successfully");
-    }
-    catch(error){
+app.get("/api/get-words", (req, res) => {
+    try {
+        const x = public_array.join(", "); // חיבור המערך למחרוזת אחת
+        res.send({ message: x }); // שלח את המידע כאובייקט JSON
+        console.log(x);
+    } catch (error) {
         console.log(error);
         res.status(500).send("Internal Server Error");
     }
 });
+
+
+
+app.post("/api/send-words", (request: any, res: any) => {
+    try {
+        const newPost = request.body.all_post_inputs; // גישה ל-all_post_inputs
+        console.log("word post received");
+        console.log(newPost);
+        public_array.push(...newPost); // הוספת המילים למערך
+        res.send("post created successfully");
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+app.delete("/api/clear-words", (req, res) => {
+    try {
+        public_array = []; // נקה את המערך
+        res.send("All words cleared successfully");
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
