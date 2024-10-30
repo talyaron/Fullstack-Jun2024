@@ -65,7 +65,8 @@ function submitted(event) {
         });
     });
 }
-setInterval(renderWords, 600);
+setInterval(renderWords, 1200);
+var oldDataLength = 0;
 function renderWords() {
     return __awaiter(this, void 0, void 0, function () {
         var response, data, message, messageElement_1, msgArray, error_2;
@@ -82,19 +83,30 @@ function renderWords() {
                     data = _a.sent();
                     console.log(data);
                     message = data.message;
-                    messageElement_1 = document.querySelector("#message");
-                    if (!messageElement_1)
-                        throw new Error('No message element found');
-                    //  console.log(data);
-                    messageElement_1.innerHTML = "";
-                    msgArray = message;
-                    if (!message)
-                        throw new Error('No message found');
-                    msgArray.forEach(function (e) {
-                        var newPost = document.createElement("div");
-                        newPost.innerHTML = "\n          <h1>" + e.word + "</h1>\n          <img src=\"http://localhost:3000/uploads/" + e.img + "\" alt=\"img the poster\" onerror=\"this.onerror=null; this.src='path/to/default/image.jpg';\">\n      ";
-                        messageElement_1.appendChild(newPost);
-                    });
+                    if (oldDataLength !== message.length) {
+                        messageElement_1 = document.querySelector("#message");
+                        if (!messageElement_1)
+                            throw new Error('No message element found');
+                        //  console.log(data);
+                        messageElement_1.innerHTML = "";
+                        msgArray = message;
+                        if (!message)
+                            throw new Error('No message found');
+                        msgArray.forEach(function (e) {
+                            var newPost = document.createElement("div");
+                            newPost.id = "postContainer";
+                            if (e.img) {
+                                newPost.classList.add("red");
+                                newPost.innerHTML = "\n          <h1 id=\"text\">" + e.word + "</h1>\n          <img id=\"img\" src=\"http://localhost:3000/uploads/" + e.img + "\" alt=\"img the poster\" \">\n      ";
+                            }
+                            else {
+                                newPost.classList.add("blue");
+                                newPost.innerHTML = "\n        <h1 id=\"bigText\">" + e.word + "</h1>\n    ";
+                            }
+                            messageElement_1.appendChild(newPost);
+                        });
+                        oldDataLength = message.length;
+                    }
                     return [3 /*break*/, 4];
                 case 3:
                     error_2 = _a.sent();

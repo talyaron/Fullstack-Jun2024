@@ -47,13 +47,15 @@ app.post("/api/send-word", upload.single('img'), function (req, res) {
         if (img) {
             console.log("Received word: " + word + ", Image: " + img);
             var newPost = { word: word, img: img }; // Create a new post object
-            words.push(newPost);
+            words.unshift(newPost);
             // Here you would typically save newPost to a database or an array
             console.log(newPost); // Log the new post for debugging
             res.json({ message: 'Word and image uploaded successfully!', newPost: newPost });
         }
         else {
             res.status(400).json({ error: 'No image uploaded.' });
+            var newPost = { word: word, img: img }; // Create a new post object
+            words.push(newPost);
         }
     }
     catch (error) {
