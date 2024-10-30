@@ -36,21 +36,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 function submitted(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var word, img, response, data, error_1;
+        var formData, response, data, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
                     event.preventDefault();
-                    word = event.target.word.value;
-                    img = event.target.img.value;
-                    console.log(word);
+                    formData = new FormData(event.target);
                     return [4 /*yield*/, fetch("http://localhost:3000/api/send-word", {
                             method: "POST",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({ word: word, img: img })
+                            // No need to set Content-Type; FormData will automatically set it
+                            body: formData
                         })];
                 case 1:
                     response = _a.sent();
@@ -58,7 +54,7 @@ function submitted(event) {
                 case 2:
                     data = _a.sent();
                     console.log(data);
-                    renderWords();
+                    renderWords(); // Call this to refresh the display after submission
                     return [3 /*break*/, 4];
                 case 3:
                     error_1 = _a.sent();
@@ -72,7 +68,7 @@ function submitted(event) {
 setInterval(renderWords, 600);
 function renderWords() {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, message, messageElement, error_2;
+        var response, data, message, messageElement_1, msgArray, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -86,13 +82,19 @@ function renderWords() {
                     data = _a.sent();
                     console.log(data);
                     message = data.message;
+                    messageElement_1 = document.querySelector("#message");
+                    if (!messageElement_1)
+                        throw new Error('No message element found');
+                    //  console.log(data);
+                    messageElement_1.innerHTML = "";
+                    msgArray = message;
                     if (!message)
                         throw new Error('No message found');
-                    messageElement = document.querySelector("#message");
-                    if (!messageElement)
-                        throw new Error('No message element found');
-                    console.log(data);
-                    messageElement.innerHTML = message;
+                    msgArray.forEach(function (e) {
+                        var newPost = document.createElement("div");
+                        newPost.innerHTML = "\n          <h1>" + e.word + "</h1>\n          <img src=\"http://localhost:3000/uploads/" + e.img + "\" alt=\"img the poster\" onerror=\"this.onerror=null; this.src='path/to/default/image.jpg';\">\n      ";
+                        messageElement_1.appendChild(newPost);
+                    });
                     return [3 /*break*/, 4];
                 case 3:
                     error_2 = _a.sent();
