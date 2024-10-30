@@ -1,14 +1,45 @@
 import express from 'express';
 const app = express()
 const port = process.env.PORT || 3000
+let public_array : string[] = [];
 
-console.log("Hi from typescript");
-
-const x: number = 5;
-console.log(x);
+app.use(express.json());
 
 
 app.use(express.static('public')) //middleware
+
+app.get('/api/get-all_post', (req, res) => {
+    try{
+        // send to the client all information from public array - with foreach method
+    
+        let x = "";
+        public_array.forEach((post) => {
+            x=(JSON.stringify(post)); // מדפיס את האובייקט כולו כמחרוזת JSON
+        });
+        res.send(x.toString); // ��שלח את המי��פו���� כו��ו ללקו�� בתו�� ��רי��ה HTTP ��ק��
+        
+    }
+    catch(error){
+        console.log(error);
+        res.status(500).send("Internal Server Error");
+    }
+
+})
+
+app.post('/api/post', (request, res) => {
+    let newPost = request.body;
+    console.log("word post received")
+    console.log(newPost);
+    public_array.push(newPost);
+    res.send("post created successfully");
+
+});
+
+
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+});
+
 
 //get = a method of http
 //route '/' 
@@ -31,16 +62,16 @@ app.use(express.static('public')) //middleware
 // })
 
 //route
-// app.get('/api/get-hello', (x, y)=>{
+app.get('/api/get-hello', (x, y)=>{
 
-//     try{
-//         // setTimeout(() => {
-//         y.send({message: "Hello from express"});
-//         // }, 3000);
-//     } catch(error){
-//         console.error(error);
-//     }
-// })
+    try{
+        // setTimeout(() => {
+        y.send({message: "Hello from express"});
+        // }, 3000);
+    } catch(error){
+        console.error(error);
+    }
+})
 
 //server
 // app.get('/api/get-randomNumber', (request, res)=>{
@@ -50,27 +81,3 @@ app.use(express.static('public')) //middleware
 //         res.send(`<h1> your random number ${randomNumber}</h1>`);
 // });
 
-app.get('/api/get-all_post', (request, res)=>{
-
-   
-    let all_post = new Array;
-    let text = "";
-    for(let i = 0; i < 10; i++){
-        all_post.push({id: i, title: `post ${i}`, content: `content ${i}`});
-        text = text + `the id = ${i}` + `the title is : ${i} `+ `the content is : ${i}` + `<br />`; 
-    }
-    res.json(text);
-});
-
-app.post('/api/post', (request, res) => {
-    let newPost = request.body;
-    console.log(newPost);
-    res.send("post created successfully");
-});
-
-
-
-
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-});

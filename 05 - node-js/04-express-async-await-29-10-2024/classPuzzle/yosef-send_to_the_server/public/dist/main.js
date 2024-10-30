@@ -37,24 +37,34 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var height = 40;
 var all_post_inputs = [];
 function enter_clicked() {
-    try {
-        var input_1 = document.getElementById("post_input");
-        if (!input_1)
-            return console.log("error");
-        input_1.addEventListener('keydown', function (event) {
-            if (event.key == 'Enter') {
-                all_post_inputs.push(input_1.value);
-                console.log(all_post_inputs);
-                input_1.value = "";
+    return __awaiter(this, void 0, void 0, function () {
+        var input_1;
+        return __generator(this, function (_a) {
+            try {
+                input_1 = document.getElementById("post_input");
+                if (!input_1)
+                    return [2 /*return*/, console.log("error")];
+                input_1.addEventListener('keydown', function (event) {
+                    if (event.key == 'Enter') {
+                        all_post_inputs.push(input_1.value);
+                        console.log(all_post_inputs);
+                        input_1.value = "";
+                        fetch('http://localhost:3000/api/post', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ all_post_inputs: all_post_inputs }) // המרה ל-JSON
+                        });
+                    }
+                });
             }
+            catch (error) {
+                console.error(error);
+            }
+            return [2 /*return*/];
         });
-    }
-    finally { }
-}
-try {
-}
-catch (error) {
-    console.error(error);
+    });
 }
 enter_clicked();
 function all_post() {
@@ -70,7 +80,6 @@ function all_post() {
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
-                    console.log(data);
                     show = document.getElementById("show_all_post");
                     if (!show)
                         throw new Error('No show_all_post element found');
