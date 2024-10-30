@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./dist/style.css">
+    <script src="./dist/client.js" defer></script>
+</head>
+<body>
+    <h1>Instagram App</h1>
+    <div class="post-container" id="posts"></div>
+    <form onsubmit="handleSendForm(event)">
+        <input type="text" name="title" placeholder="what your title today?">
+        <input type="text" name="text" placeholder="write something...">
+        <input type="text" name="image" placeholder="Image URL">
+
+        <button type="submit">Send</button>
+    </form>
+</body>
+</html>
