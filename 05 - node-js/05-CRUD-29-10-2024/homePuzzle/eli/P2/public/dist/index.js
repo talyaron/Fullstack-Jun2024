@@ -143,7 +143,7 @@ function requestAccess() {
         });
     });
 }
-setInterval(getPositions, 300);
+setInterval(getPositions, 16);
 function handleCLick(event) {
     var keyPressed = event.key;
     if (keyPressed == "s" && height > playerContainer[0].pos.y + playerContainer[0].size.y) {

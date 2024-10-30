@@ -99,7 +99,7 @@ async function requestAccess() {
   }
 }
 
-setInterval(getPositions, 300);
+setInterval(getPositions, 16);
 
 function handleCLick(event) {
   const keyPressed = event.key;
