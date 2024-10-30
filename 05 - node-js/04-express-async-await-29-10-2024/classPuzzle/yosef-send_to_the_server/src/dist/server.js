@@ -4,28 +4,34 @@ var express_1 = require("express");
 var app = express_1["default"]();
 var port = process.env.PORT || 3000;
 var public_array = [];
-app.use(express_1["default"].json());
+app.use(express_1["default"].json()); //middleware to get data from the body
 app.use(express_1["default"].static('public')); //middleware
-app.get('/api/get-all_post', function (req, res) {
+app.get('/api/get-words', function (req, res) {
     try {
         // send to the client all information from public array - with foreach method
-        var x_1 = "";
-        public_array.forEach(function (post) {
-            x_1 = (JSON.stringify(post)); // מדפיס את האובייקט כולו כמחרוזת JSON
-        });
-        res.send(x_1.toString); // ��שלח את המי��פו���� כו��ו ללקו�� בתו�� ��רי��ה HTTP ��ק��
+        // let x = "";
+        // public_array.forEach((post) => {
+        //     x=(JSON.stringify(post)); // מדפיס את האובייקט כולו כמחרוזת JSON
+        // });
+        // res.send(x.toString); // ��שלח את המי��פו���� כו��ו ללקו�� בתו�� ��רי��ה HTTP ��ק��
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).send("Internal  Server Error");
+    }
+});
+app.post("/api/send2-words", function (request, res) {
+    try {
+        var newPost = request.body;
+        console.log("word post received");
+        console.log(newPost);
+        public_array.push(newPost);
+        res.send("post created successfully");
     }
     catch (error) {
         console.log(error);
         res.status(500).send("Internal Server Error");
     }
-});
-app.post('/api/post', function (request, res) {
-    var newPost = request.body;
-    console.log("word post received");
-    console.log(newPost);
-    public_array.push(newPost);
-    res.send("post created successfully");
 });
 app.listen(port, function () {
     console.log("Example app listening on port " + port);
@@ -46,17 +52,16 @@ app.listen(port, function () {
 // app.get('/about', (req, res) => {
 //     res.send("<h1 style='color: green'>About us</h1>")
 // })
-//route
-app.get('/api/get-hello', function (x, y) {
-    try {
-        // setTimeout(() => {
-        y.send({ message: "Hello from express" });
-        // }, 3000);
-    }
-    catch (error) {
-        console.error(error);
-    }
-});
+// //route
+// app.get('/api/get-hello', (x, y)=>{
+//     try{
+//         // setTimeout(() => {
+//         y.send({message: "Hello from express"});
+//         // }, 3000);
+//     } catch(error){
+//         console.error(error);
+//     }
+// })
 //server
 // app.get('/api/get-randomNumber', (request, res)=>{
 //        let randomNumber = Math.random();
