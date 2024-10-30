@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+h1 {
+    color: #333;
+    position: absolute;
+    left: 50%;
+    top: 0vh;
+    transform: translateX(-50%);
+    font-size: 2em;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 2px;
+    background: linear-gradient(90deg, #ff5858, #f09819);
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+        text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+    }
+}
+
+form {
+    position: absolute;
+    top: 30vh;
+    left: 22%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25vw;
+    padding: 2em;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+
+    input {
+        width: 100%;
+        padding: 0.8em;
+        margin-bottom: 1em;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1em;
+        transition: border-color 0.3s;
+
+        &:focus {
+            border-color: #8ca6db;
+            outline: none;
+            box-shadow: 0 0 8px rgba(140, 166, 219, 0.2);
+        }
+    }
+
+    button {
+        padding: 0.8em 2em;
+        font-size: 1em;
+        color: #fff;
+        background-color: #4a90e2;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.1s;
+
+        &:hover {
+            background-color: #357ABD;
+        }
+
+        &:active {
+            transform: scale(0.98);
+        }
+    }
+}
+
+
+.post-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10vh;
+
+    .post {
+        width: 11vw;
+        background-color: #fff; 
+        border-radius: 10px;
+        padding: 1em; 
+        margin-bottom: 3vh;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); 
+        text-align: center; 
+
+        h2 {
+            margin-bottom: 0.5em; 
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        p {
+            margin-bottom: 1em; 
+            font-size: 1em; 
+            color: #666;
+        }
+
+        img {
+            width: 100%; 
+            border-radius: 8px; 
+            object-fit: cover; 
+            max-height: 300px;
+        }
+    }
+}
