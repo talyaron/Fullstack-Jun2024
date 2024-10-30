@@ -36,6 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var height = 40;
 var all_post_inputs = [];
+var deleted_clicked = false;
 function enter_clicked() {
     return __awaiter(this, void 0, void 0, function () {
         var input_1;
@@ -51,10 +52,15 @@ function enter_clicked() {
                             switch (_a.label) {
                                 case 0:
                                     if (!(event.key == 'Enter')) return [3 /*break*/, 2];
+                                    if (deleted_clicked) {
+                                        deleted_clicked = false;
+                                        all_post_inputs = all_post_inputs.slice(0, -1);
+                                    }
                                     all_post_inputs.push(input_1.value);
                                     console.log(all_post_inputs);
                                     input_1.value = "";
-                                    return [4 /*yield*/, fetch('http://localhost:3000/api/send2-word', {
+                                    i;
+                                    return [4 /*yield*/, fetch('http://localhost:3000/api/send-words', {
                                             method: 'POST',
                                             headers: {
                                                 'Content-Type': 'application/json'
@@ -100,6 +106,33 @@ function all_post() {
                 case 3:
                     error_1 = _a.sent();
                     console.error(error_1);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+function clearData() {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, message, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/clear-words', {
+                            method: 'DELETE'
+                        })];
+                case 1:
+                    response = _a.sent();
+                    return [4 /*yield*/, response.text()];
+                case 2:
+                    message = _a.sent();
+                    console.log("maseese from massage");
+                    console.log(message);
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_2 = _a.sent();
+                    console.error(error_2);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
