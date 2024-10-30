@@ -1,7 +1,7 @@
 {
-  "name": "cherno",
+  "name": "yosef-send_to_the_server",
   "version": "1.0.0",
-  "main": "src/server.ts",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/server.ts"
@@ -10,14 +10,12 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "devDependencies": {
+  "dependencies": {
     "@types/express": "^5.0.0",
-    "@types/node": "^22.8.1",
+    "@types/node": "^22.8.4",
+    "express": "^4.21.1",
     "nodemon": "^3.1.7",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
-  },
-  "dependencies": {
-    "express": "^4.21.1"
   }
 }
