@@ -1,26 +1,4 @@
-// async function handleSendWord(ev){
-//     try {
-//         ev.preventDefault();
-
-//         const word = ev.target.word.value;
-//         console.log(word);
-
-//         const response = await fetch('http://localhost:3000/api/send-word', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             },
-//             body: JSON.stringify({word}) //data to send (to string format) )
-//         });
-//         const data = await response.json();
-//         console.log(data);
-//     } catch (error) {
-//         console.error(error);
-//     }
-// }
-
 function renderCreatePost(): void {
-    // const app = document.querySelector('#app');
 
     const form = 
         `<form id="uploadForm" onsubmit="handleCreatePost(event)">

@@ -1,6 +1,3 @@
-// async function handleSendWord(ev){
-//     try {
-//         ev.preventDefault();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -37,23 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-//         const word = ev.target.word.value;
-//         console.log(word);
-//         const response = await fetch('http://localhost:3000/api/send-word', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             },
-//             body: JSON.stringify({word}) //data to send (to string format) )
-//         });
-//         const data = await response.json();
-//         console.log(data);
-//     } catch (error) {
-//         console.error(error);
-//     }
-// }
 function renderCreatePost() {
-    // const app = document.querySelector('#app');
     var form = "<form id=\"uploadForm\" onsubmit=\"handleCreatePost(event)\">\n            <input type=\"file\" name=\"image\" id=\"imageUpload\" name=\"imageUpload\" accept=\"image/*\">\n            <input type=\"text\" name=\"caption\" placeholder=\"wright a caption...\">\n            <button type=\"submit\">Post</button>\n        </form>";
     document.querySelector('#app').innerHTML = form;
 }
