@@ -12,7 +12,18 @@ body {
 {
     background-color: blue;
 }
-#box
+.box
 {
-    background-color: rgb(180, 69, 54);
+    //background-color: blue;
+    background-size: 110% 140%;   /* Stretches the image to fill the element */
+    background-position: center;  /* Centers the image within the element */
+    background-repeat: no-repeat; /* Prevents repeating */
+}
+#green
+{
+    background-image: url('https://i.ibb.co/j4bVBR2/tank3.png');
+}
+#yellow
+{
+    background-image: url('https://i.ibb.co/y6sfWFJ/tank5.png');
 }

@@ -34,74 +34,29 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var height = 40;
-var all_post_inputs = [];
-var deleted_clicked = false;
-function enter_clicked() {
+function getPosts() {
     return __awaiter(this, void 0, void 0, function () {
-        var input_1;
-        return __generator(this, function (_a) {
-            try {
-                input_1 = document.getElementById("post_input");
-                if (!input_1)
-                    return [2 /*return*/, console.log("error")];
-                input_1.addEventListener('keydown', function (event) {
-                    return __awaiter(this, void 0, void 0, function () {
-                        var response;
-                        return __generator(this, function (_a) {
-                            switch (_a.label) {
-                                case 0:
-                                    if (!(event.key == 'Enter')) return [3 /*break*/, 2];
-                                    if (deleted_clicked) {
-                                        deleted_clicked = false;
-                                        all_post_inputs = all_post_inputs.slice(0, -1);
-                                    }
-                                    all_post_inputs.push(input_1.value);
-                                    console.log(all_post_inputs);
-                                    input_1.value = "";
-                                    i;
-                                    return [4 /*yield*/, fetch('http://localhost:3000/api/send-words', {
-                                            method: 'POST',
-                                            headers: {
-                                                'Content-Type': 'application/json'
-                                            },
-                                            body: JSON.stringify({ all_post_inputs: all_post_inputs })
-                                        })];
-                                case 1:
-                                    response = _a.sent();
-                                    _a.label = 2;
-                                case 2: return [2 /*return*/];
-                            }
-                        });
-                    });
-                });
-            }
-            catch (error) {
-                console.error(error);
-            }
-            return [2 /*return*/];
-        });
-    });
-}
-enter_clicked();
-function all_post() {
-    return __awaiter(this, void 0, void 0, function () {
-        var response, data, show, message, error_1;
+        var response, posts, postsContainer_1, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/get-words')];
+                    return [4 /*yield*/, fetch('/api/get-posts')];
                 case 1:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
                 case 2:
-                    data = _a.sent();
-                    show = document.getElementById("show_all_post");
-                    if (!show)
-                        throw new Error('No show_all_post element found');
-                    message = data.message;
-                    show.innerHTML = message;
+                    posts = _a.sent();
+                    postsContainer_1 = document.querySelector("#posts");
+                    if (!postsContainer_1)
+                        throw new Error('No posts container found');
+                    postsContainer_1.innerHTML = '';
+                    posts.forEach(function (post) {
+                        var postElement = document.createElement("div");
+                        postElement.innerHTML = "\n                <h2>" + post.title + "</h2>\n                <p>" + post.text + "</p>\n                <img src=\"" + post.image + "\" alt=\"" + post.title + "\" />\n            ";
+                        postElement.classList.add("post");
+                        postsContainer_1.appendChild(postElement);
+                    });
                     return [3 /*break*/, 4];
                 case 3:
                     error_1 = _a.sent();
@@ -112,29 +67,42 @@ function all_post() {
         });
     });
 }
-function clearData() {
+getPosts();
+function handleSendForm(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var response, message, error_2;
+        var title, text, image, response, data, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/clear-words', {
-                            method: 'DELETE'
+                    _a.trys.push([0, 4, , 5]);
+                    event.preventDefault();
+                    title = event.target.title.value;
+                    text = event.target.text.value;
+                    image = event.target.image.value;
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/send-form', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ title: title, text: text, image: image })
                         })];
                 case 1:
                     response = _a.sent();
-                    return [4 /*yield*/, response.text()];
+                    if (!response.ok)
+                        throw new Error('Failed to send post data');
+                    return [4 /*yield*/, response.json()];
                 case 2:
-                    message = _a.sent();
-                    console.log("maseese from massage");
-                    console.log(message);
-                    return [3 /*break*/, 4];
+                    data = _a.sent();
+                    console.log(data);
+                    return [4 /*yield*/, getPosts()];
                 case 3:
+                    _a.sent();
+                    return [3 /*break*/, 5];
+                case 4:
                     error_2 = _a.sent();
                     console.error(error_2);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
             }
         });
     });
