@@ -42,6 +42,9 @@ class Player {
     console.log("hello?");
     this.boxHtmlElement = document.createElement("div") as HTMLElement;
     this.boxHtmlElement.classList.add("box");
+    if(playerContainer.length<1){
+    this.boxHtmlElement.id= "yellow";}
+    else this.boxHtmlElement.id= "green";
     this.boxHtmlElement.style.position = "absolute";
     this.boxHtmlElement.style.transform = `translate(${this.pos.x}px, ${this.pos.y}px) rotate(${this.angle}rad)`;
     this.boxHtmlElement.style.height = `${this.size.y}px`;
