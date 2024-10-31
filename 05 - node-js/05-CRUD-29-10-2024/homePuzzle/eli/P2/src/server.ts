@@ -12,9 +12,11 @@ type Vector = {
 class User {
   id: string;
   pos: Vector;
-  constructor(pos: Vector) {
+  angle:number;
+  constructor(pos: Vector,angle:number) {
     this.id = `id=${crypto.randomUUID()}`;
     this.pos = pos;
+    this.angle=angle;
   }
 }
 setInterval(updateServer,300)
@@ -43,7 +45,7 @@ app.get("/api/getNewUser", (req, res) => {
 
     // }, 3000);
     if(users.length<2){
-    const newUser = new User({ x: x, y: 100 });
+    const newUser = new User({ x: x, y: 100 },0);
      x = 1600;
      
     users.push(newUser);
@@ -58,19 +60,18 @@ app.get("/api/getNewUser", (req, res) => {
 
 app.post("/api/movePlayer", (req, res) => {
     try {
-        const { playerId, pos } = req.body;
+        const { playerId, pos, angle } = req.body;
         
-        // Find the player by their id in the users array
         const user = users.find(user => user.id === playerId);
         
         if (user) {
             // Update the player's position
             user.pos = pos;
-
+            user.angle = angle;
            // console.log(`Player ${playerId} moved to new position:`, pos);
             //console.log(users); // Log the updated users array for debugging
             
-            res.send({ message: "Player position updated", playerId, pos });
+            res.send({ message: "Player position updated", playerId, pos,angle });
         } else {
             // If no player is found with that id
             res.status(404).send({ message: "Player not found" });
@@ -80,6 +81,7 @@ app.post("/api/movePlayer", (req, res) => {
         res.status(500).send({ message: "Error processing move" });
     }
 });
+
 app.get("/api/getUsers", (req, res) => {
     try {
       res.send({ message: "here are the users", users });

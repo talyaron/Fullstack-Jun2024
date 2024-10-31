@@ -46,6 +46,11 @@ var Player = /** @class */ (function () {
         this.lastContacted = lastContacted;
         this.size = { x: 100, y: 100 };
         this.pos = pos;
+        this.velocity = { x: 0, y: 0 };
+        this.angle = 0;
+        this.speed = 0;
+        this.maxSpeed = 5;
+        this.acceleration = 0.2;
         this.createElement();
         console.log("eldenRing");
     }
@@ -54,8 +59,7 @@ var Player = /** @class */ (function () {
         this.boxHtmlElement = document.createElement("div");
         this.boxHtmlElement.classList.add("box");
         this.boxHtmlElement.style.position = "absolute";
-        this.boxHtmlElement.style.left = this.pos.x + "px";
-        this.boxHtmlElement.style.top = this.pos.y + "px";
+        this.boxHtmlElement.style.transform = "translate(" + this.pos.x + "px, " + this.pos.y + "px) rotate(" + this.angle + "rad)";
         this.boxHtmlElement.style.height = this.size.y + "px";
         this.boxHtmlElement.style.width = this.size.x + "px";
         if (!gameCanvas)
@@ -64,16 +68,15 @@ var Player = /** @class */ (function () {
     };
     Player.prototype.moveME = function () { };
     Player.prototype.translatePosition = function () {
-        this.boxHtmlElement.style.left = this.pos.x + "px";
-        this.boxHtmlElement.style.top = this.pos.y + "px";
-        updateServerPos(this.id, this.pos);
+        this.boxHtmlElement.style.transform = "translate(" + this.pos.x + "px, " + this.pos.y + "px) rotate(" + this.angle + "rad)";
+        updateServerPos(this.id, this.pos, this.angle);
     };
     return Player;
 }());
 var playerContainer = [];
 //const boxes:Box[] =[];
 requestAccess();
-function updateServerPos(playerId, newPosition) {
+function updateServerPos(playerId, newPosition, newAngle) {
     return __awaiter(this, void 0, void 0, function () {
         var response, result, error_1;
         return __generator(this, function (_a) {
@@ -87,7 +90,8 @@ function updateServerPos(playerId, newPosition) {
                             },
                             body: JSON.stringify({
                                 playerId: playerId,
-                                pos: newPosition
+                                pos: newPosition,
+                                angle: newAngle
                             })
                         })];
                 case 1:
@@ -128,7 +132,8 @@ function requestAccess() {
                         return [2 /*return*/];
                     //const messageElement = document.querySelector("#message");
                     //  if(!messageElement) throw new Error('No message element found');
-                    document.addEventListener("keydown", handleCLick);
+                    document.addEventListener("keydown", handKeydown);
+                    document.addEventListener("keyup", handKeyUp);
                     console.log(message, "wwwwww", newUser.id);
                     newPlayer = new Player(true, newUser.id, 0, newUser.pos);
                     playerContainer.push(newPlayer);
@@ -143,18 +148,62 @@ function requestAccess() {
         });
     });
 }
+var keys = {
+    w: false,
+    s: false,
+    a: false,
+    d: false
+};
 setInterval(getPositions, 16);
-function handleCLick(event) {
-    var keyPressed = event.key;
-    if (keyPressed == "s" && height > playerContainer[0].pos.y + playerContainer[0].size.y) {
-        playerContainer[0].pos.y += 50;
-        playerContainer[0].translatePosition();
-    }
-    if (keyPressed == "w" && playerContainer[0].pos.y > 0) {
-        playerContainer[0].pos.y -= 50;
-        playerContainer[0].translatePosition();
-    }
+function handKeydown(event) {
+    if (event.key in keys)
+        keys[event.key] = true;
 }
+function handKeyUp(event) {
+    if (event.key in keys)
+        keys[event.key] = false;
+}
+function updatePos() {
+    // Forward and reverse acceleration
+    if (playerContainer.length < 1)
+        return;
+    if (keys.w) {
+        playerContainer[0].speed += playerContainer[0].acceleration;
+    }
+    if (keys.s) {
+        playerContainer[0].speed -= playerContainer[0].acceleration;
+    }
+    // Apply friction
+    playerContainer[0].speed *= (1 - .1);
+    // Cap speed
+    playerContainer[0].speed = Math.max(Math.min(playerContainer[0].speed, playerContainer[0].maxSpeed), -playerContainer[0].maxSpeed);
+    // Turning (rotation)
+    if (!keys.s) {
+        if (keys.a)
+            playerContainer[0].angle -= 0.02; // turn left
+        if (keys.d)
+            playerContainer[0].angle += 0.02; // turn right
+    }
+    else {
+        if (keys.a)
+            playerContainer[0].angle += 0.02; // turn left
+        if (keys.d)
+            playerContainer[0].angle -= 0.02; // turn right
+    }
+    // Calculate velocity based on angle and speed
+    playerContainer[0].velocity.x = Math.cos(playerContainer[0].angle) * playerContainer[0].speed;
+    playerContainer[0].velocity.y = Math.sin(playerContainer[0].angle) * playerContainer[0].speed;
+    // Update position
+    playerContainer[0].pos.x += playerContainer[0].velocity.x;
+    playerContainer[0].pos.y += playerContainer[0].velocity.y;
+    // Call a function to update the  playerContainer[0].'s position on screen
+    playerContainer[0].translatePosition();
+}
+function gameLoop() {
+    updatePos();
+    requestAnimationFrame(gameLoop);
+}
+gameLoop();
 function getPositions() {
     return __awaiter(this, void 0, void 0, function () {
         var response, data, message, users, error_3;
@@ -179,6 +228,7 @@ function getPositions() {
                         var localPlayer = playerContainer.find(function (player) { return player.id === serverPlayer.id; });
                         if (localPlayer) {
                             localPlayer.pos = serverPlayer.pos;
+                            localPlayer.angle = serverPlayer.angle;
                             localPlayer.translatePosition();
                         }
                         else {
@@ -199,10 +249,3 @@ function getPositions() {
         });
     });
 }
-function moveDown() {
-    return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {
-        return [2 /*return*/];
-    }); });
-}
-function createBoxes(x, y, id) { }
-function drawAll() { }
