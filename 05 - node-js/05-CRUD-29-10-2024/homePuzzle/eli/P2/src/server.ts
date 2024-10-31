@@ -8,6 +8,43 @@ type Vector = {
   x: number;
   y: number;
 };
+class Bullet {
+  id: string;
+  pos: Vector;
+  angle: number;
+  speed: number;
+  velocity:Vector;
+  // Additional properties like max speed and other attributes can be added here
+
+  constructor(id:string,pos: Vector, angle: number) {
+      this.id = id;
+      this.pos = pos;
+      this.angle = angle;
+      this.speed = 10; // Set a default speed for the bullet
+      this.velocity = {
+        x: Math.cos(this.angle) * this.speed,
+        y: Math.sin(this.angle) * this.speed
+    };
+  }
+
+  updatePosition(deltaTime: number) {
+    // Update position based on angle and speed
+    this.pos.x += this.velocity.x * (deltaTime / 16.7); // divide by 1000 for milliseconds to seconds
+    this.pos.y += this.velocity.y * (deltaTime / 16.7);
+  }
+}
+const bullets: Bullet[] = [];
+
+app.post("/api/createBullet", (req, res) => {
+  const { pos, angle } = req.body;
+  const newBullet = new Bullet( `bullet=${crypto.randomUUID()}`, pos, angle );
+  bullets.push(newBullet);
+  res.send({ message: "Bullet created", bullet: newBullet });
+});
+
+app.get("/api/getBullets", (req, res) => {
+  res.send({ bullets });
+});
 
 class User {
   id: string;
@@ -19,12 +56,20 @@ class User {
     this.angle=angle;
   }
 }
-setInterval(updateServer,300)
-function updateServer()
-{
-   // if(users[0])
-  //  users[0].pos.y +=15;
-}
+
+let lastUpdate = Date.now();
+
+setInterval(() => {
+  const now = Date.now();
+  const deltaTime = now - lastUpdate;
+  lastUpdate = now;
+
+  bullets.forEach(bullet => bullet.updatePosition(deltaTime));
+
+  // Emit the updated bullet positions to clients (optional: with socket.io)
+  // io.emit("updateBullets", bullets);
+}, 16); 
+
 app.use(express.static("public")); //middleware
 
 

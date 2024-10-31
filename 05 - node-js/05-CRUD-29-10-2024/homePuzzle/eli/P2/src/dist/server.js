@@ -5,6 +5,35 @@ var app = express_1["default"]();
 var port = process.env.PORT || 3000;
 app.use(express_1["default"].json()); // To parse JSON bodies
 console.log("Hi from typescript");
+var Bullet = /** @class */ (function () {
+    // Additional properties like max speed and other attributes can be added here
+    function Bullet(id, pos, angle) {
+        this.id = id;
+        this.pos = pos;
+        this.angle = angle;
+        this.speed = 10; // Set a default speed for the bullet
+        this.velocity = {
+            x: Math.cos(this.angle) * this.speed,
+            y: Math.sin(this.angle) * this.speed
+        };
+    }
+    Bullet.prototype.updatePosition = function (deltaTime) {
+        // Update position based on angle and speed
+        this.pos.x += this.velocity.x * (deltaTime / 16.7); // divide by 1000 for milliseconds to seconds
+        this.pos.y += this.velocity.y * (deltaTime / 16.7);
+    };
+    return Bullet;
+}());
+var bullets = [];
+app.post("/api/createBullet", function (req, res) {
+    var _a = req.body, pos = _a.pos, angle = _a.angle;
+    var newBullet = new Bullet("bullet=" + crypto.randomUUID(), pos, angle);
+    bullets.push(newBullet);
+    res.send({ message: "Bullet created", bullet: newBullet });
+});
+app.get("/api/getBullets", function (req, res) {
+    res.send({ bullets: bullets });
+});
 var User = /** @class */ (function () {
     function User(pos, angle) {
         this.id = "id=" + crypto.randomUUID();
@@ -13,11 +42,15 @@ var User = /** @class */ (function () {
     }
     return User;
 }());
-setInterval(updateServer, 300);
-function updateServer() {
-    // if(users[0])
-    //  users[0].pos.y +=15;
-}
+var lastUpdate = Date.now();
+setInterval(function () {
+    var now = Date.now();
+    var deltaTime = now - lastUpdate;
+    lastUpdate = now;
+    bullets.forEach(function (bullet) { return bullet.updatePosition(deltaTime); });
+    // Emit the updated bullet positions to clients (optional: with socket.io)
+    // io.emit("updateBullets", bullets);
+}, 16);
 app.use(express_1["default"].static("public")); //middleware
 //get = a method of http
 //route '/'

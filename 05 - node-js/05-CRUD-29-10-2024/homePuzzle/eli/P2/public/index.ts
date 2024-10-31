@@ -9,6 +9,94 @@ const width = elementSize.width;
 const height = elementSize.height;
 
 let usersLength = 0;
+
+class Bullet {
+  id: string;
+  velocity: vector; 
+  speed: number; 
+  maxSpeed: number;
+  acceleration: number;
+  angle: number; 
+  pos: vector;
+  size: vector;
+  boxHtmlElement: HTMLElement;
+
+  constructor(id:string,pos: vector, angle: number) {
+    this.id=id;
+    this.pos = pos;
+    this.maxSpeed = 10;
+    this.acceleration = 0.3;
+    this.velocity = { x: 0, y: 0 };
+    this.angle = angle; // Set the angle to the bullet's angle
+    this.speed = this.maxSpeed; // Set initial speed to maxSpeed
+    this.size = { x: 40, y: 20 }; // Define bullet size
+    this.createElement();
+  }
+
+  createElement() {
+    this.boxHtmlElement = document.createElement("div") as HTMLElement;
+    this.boxHtmlElement.classList.add("bullet"); // Use a different class for bullets
+    this.boxHtmlElement.style.position = "absolute";
+    this.boxHtmlElement.style.transform = `translate(${this.pos.x}px, ${this.pos.y}px) rotate(${this.angle}rad)`;
+    this.boxHtmlElement.style.height = `${this.size.y}px`;
+    this.boxHtmlElement.style.width = `${this.size.x}px`;
+    gameCanvas.appendChild(this.boxHtmlElement);
+  }
+
+  updatePosition() {
+    // Update the position based on speed and angle
+    this.pos.x += this.speed * Math.cos(this.angle);
+    this.pos.y += this.speed * Math.sin(this.angle);
+    this.boxHtmlElement.style.transform = `translate(${this.pos.x}px, ${this.pos.y}px) rotate(${this.angle}rad)`;
+  }
+
+  // Check if the bullet is out of bounds
+  isOutOfBounds(canvasWidth: number, canvasHeight: number): boolean {
+    return (
+      this.pos.x < 0 || 
+      this.pos.x > canvasWidth || 
+      this.pos.y < 0 || 
+      this.pos.y > canvasHeight
+    );
+  }
+}
+function fetchBullets() {
+  fetch("/api/getBullets")
+  .then(response => response.json())
+  .then(data => {
+       bullets = data.bullets.map(b => new Bullet(b.id, b.pos, b.angle));
+      renderBullets();
+  });
+}
+function updateBullets() {
+  bullets.forEach(bullet => bullet.updatePosition());
+  renderBullets();
+}
+let  bullets:Bullet[]=[];
+function renderBullets() {
+  // Get the canvas element
+
+  // Clear existing bullets from the canvas
+  const existingBullets = gameCanvas.getElementsByClassName("bullet");
+  while (existingBullets.length > 0) {
+      existingBullets[0].remove(); // Remove each existing bullet element
+  }
+
+  // Create and position new bullet elements
+  bullets.forEach(bullet => {
+      const bulletElement = document.createElement("div");
+      bulletElement.classList.add("bullet");
+      bulletElement.style.position = "absolute";
+      bulletElement.style.transform = `translate(${bullet.pos.x}px, ${bullet.pos.y}px) rotate(${bullet.angle}rad)`;
+      bulletElement.style.width = "40px"; // Set bullet width
+      bulletElement.style.height = "20px"; // Set bullet height
+      bulletElement.style.backgroundColor = "red"; // Set bullet color
+      bulletElement.style.borderRadius = "50%"; // Make it round
+
+      // Append the bullet element to the canvas
+      gameCanvas.appendChild(bulletElement);
+  });
+}
 class Player {
   playing: boolean;
   id: string;
@@ -22,6 +110,7 @@ class Player {
   pos: vector;
   size: vector;
   boxHtmlElement: HTMLElement;
+ 
   constructor(playing, id, lastContacted, pos) {
     this.playing = playing;
     this.id = id;
@@ -34,7 +123,6 @@ class Player {
     this.maxSpeed=5;
     this.acceleration=0.2;
     this.createElement();
-    console.log("eldenRing");
 
   }
 
@@ -43,8 +131,8 @@ class Player {
     this.boxHtmlElement = document.createElement("div") as HTMLElement;
     this.boxHtmlElement.classList.add("box");
     if(playerContainer.length<1){
-    this.boxHtmlElement.id= "yellow";}
-    else this.boxHtmlElement.id= "green";
+    this.boxHtmlElement.id= "green";}
+    else this.boxHtmlElement.id= "yellow";
     this.boxHtmlElement.style.position = "absolute";
     this.boxHtmlElement.style.transform = `translate(${this.pos.x}px, ${this.pos.y}px) rotate(${this.angle}rad)`;
     this.boxHtmlElement.style.height = `${this.size.y}px`;
@@ -115,6 +203,42 @@ class Player {
 
     return edges.map((edge) => ({ x: -edge.y, y: edge.x })); // Get perpendicular (normal) for each edge
   }
+
+  fireBullet() {
+    // Calculate the position in front of the tank
+    const bulletPos = {
+      x: this.pos.x + 20 * Math.cos(this.angle), // Spawn in front of the player
+      y: this.pos.y + 20 * Math.sin(this.angle)
+  };
+
+  // Send a POST request to create a bullet on the server
+  fetch('/api/createBullet', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+          pos: bulletPos,
+          angle: this.angle
+      }),
+  })
+  .then(response => response.json())
+  .then(data => {
+      console.log(data.message, data.bullet);
+      // Optionally, create a bullet element in the client UI as well
+      if (data.bullet) {
+        const newBullet = new Bullet(data.bullet.id, data.bullet.pos, data.bullet.angle);
+        // Optionally, you can push the new bullet into an array to manage bullets
+        bullets.push(newBullet);
+    }
+  })
+  .catch(error => console.error('Error creating bullet:', error));
+}
+
+  // Add a method to update bullets
+  
+  
+
 }
 const playerContainer: Player[] = [];
 //const boxes:Box[] =[];
@@ -134,10 +258,23 @@ async function updateServerPos(playerId: string, newPosition: vector,newAngle:nu
       });
   
       const result = await response.json();
-      console.log("Server response:", result);
+     // console.log("Server response:", result);
     } catch (error) {
       console.error("Error updating position:", error);
     }
+  }
+
+  let waitTime= 10;
+  let canShoot=true
+  setInterval(slowTime,300);
+  function slowTime()
+  {
+    if(waitTime>=1){
+    waitTime-=1;}
+    else {canShoot=true
+      waitTime=10;
+    }
+
   }
 async function requestAccess() {
   try {
@@ -158,7 +295,7 @@ async function requestAccess() {
     //  if(!messageElement) throw new Error('No message element found');
     document.addEventListener("keydown", handKeydown);
     document.addEventListener("keyup", handKeyUp);
-    console.log(message, "wwwwww", newUser.id);
+   // console.log(message, "wwwwww", newUser.id);
 
     const newPlayer = new Player(true, newUser.id, 0, newUser.pos);
     playerContainer.push(newPlayer);
@@ -173,7 +310,8 @@ let keys = {
   w: false,
   s: false,
   a: false,
-  d: false
+  d: false,
+  g:false
 };
 setInterval(getPositions, 16);
 
@@ -237,7 +375,15 @@ function updatePos() {
   // Boundary checks
   const tankWidth = playerContainer[0].size.x;
   const tankHeight = playerContainer[0].size.y;
+  if (keys.g) {
+    console.log("space");
+    if(canShoot==true){
+    playerContainer[0].fireBullet();
+    canShoot=false;
+  } // Fire a bullet from the tank
+  }
 
+  // Update bullet positions
   // Check for boundaries
   if (newPosX < 0) {
     playerContainer[0].pos.x = 0; // Prevent moving left
@@ -260,6 +406,8 @@ function updatePos() {
 
 
 function gameLoop() {
+  updateBullets(); 
+ //   renderBullets(); 
   updatePos();
   requestAnimationFrame(gameLoop);
 }
@@ -275,8 +423,8 @@ async function getPositions() {
   
       if (!message) throw new Error("No message found");
       if (!users) return;
-  
-      console.log(users);
+      fetchBullets();
+     // console.log(users);
   
       users.forEach(serverPlayer => {
         // Find if the player already exists in the local playerContainer
@@ -293,7 +441,7 @@ async function getPositions() {
         }
       });
   
-      console.log(playerContainer);
+     // console.log(playerContainer);
     } catch (error) {
       console.error(error);
     }
