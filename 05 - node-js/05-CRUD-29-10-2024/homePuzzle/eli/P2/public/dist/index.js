@@ -44,7 +44,7 @@ var Player = /** @class */ (function () {
         this.playing = playing;
         this.id = id;
         this.lastContacted = lastContacted;
-        this.size = { x: 100, y: 100 };
+        this.size = { x: 100, y: 80 };
         this.pos = pos;
         this.velocity = { x: 0, y: 0 };
         this.angle = 0;
@@ -70,6 +70,57 @@ var Player = /** @class */ (function () {
     Player.prototype.translatePosition = function () {
         this.boxHtmlElement.style.transform = "translate(" + this.pos.x + "px, " + this.pos.y + "px) rotate(" + this.angle + "rad)";
         updateServerPos(this.id, this.pos, this.angle);
+    };
+    Player.prototype.getVertices = function () {
+        var cos = Math.cos(this.angle);
+        var sin = Math.sin(this.angle);
+        var halfWidth = this.size.x / 2;
+        var halfHeight = this.size.y / 2;
+        return [
+            { x: this.pos.x + cos * -halfWidth - sin * -halfHeight, y: this.pos.y + sin * -halfWidth + cos * -halfHeight },
+            { x: this.pos.x + cos * halfWidth - sin * -halfHeight, y: this.pos.y + sin * halfWidth + cos * -halfHeight },
+            { x: this.pos.x + cos * halfWidth - sin * halfHeight, y: this.pos.y + sin * halfWidth + cos * halfHeight },
+            { x: this.pos.x + cos * -halfWidth - sin * halfHeight, y: this.pos.y + sin * -halfWidth + cos * halfHeight },
+        ];
+    };
+    // Helper: Project vertices onto an axis and return min and max projection values
+    Player.prototype.projectOntoAxis = function (vertices, axis) {
+        var min = Infinity;
+        var max = -Infinity;
+        for (var _i = 0, vertices_1 = vertices; _i < vertices_1.length; _i++) {
+            var vertex = vertices_1[_i];
+            var projection = vertex.x * axis.x + vertex.y * axis.y; // Dot product
+            min = Math.min(min, projection);
+            max = Math.max(max, projection);
+        }
+        return { min: min, max: max };
+    };
+    // Check collision with another rectangle using SAT
+    Player.prototype.checkCollision = function (other) {
+        var axes = this.getAxes(other);
+        for (var _i = 0, axes_1 = axes; _i < axes_1.length; _i++) {
+            var axis = axes_1[_i];
+            var projectionA = this.projectOntoAxis(this.getVertices(), axis);
+            var projectionB = this.projectOntoAxis(other.getVertices(), axis);
+            if (projectionA.max < projectionB.min || projectionB.max < projectionA.min) {
+                // No overlap on this axis, so no collision
+                return false;
+            }
+        }
+        // Overlaps on all axes means there is a collision
+        return true;
+    };
+    // Helper: Get the axes (normals to edges) for both rectangles
+    Player.prototype.getAxes = function (other) {
+        var verticesA = this.getVertices();
+        var verticesB = other.getVertices();
+        var edges = [
+            { x: verticesA[1].x - verticesA[0].x, y: verticesA[1].y - verticesA[0].y },
+            { x: verticesA[1].x - verticesA[3].x, y: verticesA[1].y - verticesA[3].y },
+            { x: verticesB[1].x - verticesB[0].x, y: verticesB[1].y - verticesB[0].y },
+            { x: verticesB[1].x - verticesB[3].x, y: verticesB[1].y - verticesB[3].y },
+        ];
+        return edges.map(function (edge) { return ({ x: -edge.y, y: edge.x }); }); // Get perpendicular (normal) for each edge
     };
     return Player;
 }());
@@ -164,20 +215,34 @@ function handKeyUp(event) {
         keys[event.key] = false;
 }
 function updatePos() {
-    // Forward and reverse acceleration
     if (playerContainer.length < 1)
         return;
-    if (keys.w) {
-        playerContainer[0].speed += playerContainer[0].acceleration;
+    // Check collision between the first two tanks (if they exist)
+    var colliding = false;
+    if (playerContainer.length > 1) {
+        colliding = playerContainer[0].checkCollision(playerContainer[1]);
+        console.log("Collision detected:", colliding);
     }
-    if (keys.s) {
-        playerContainer[0].speed -= playerContainer[0].acceleration;
+    // Forward and reverse acceleration
+    if (!colliding || (colliding && keys.s)) {
+        // Allow forward movement only if there is no collision
+        if (keys.w && !colliding) {
+            playerContainer[0].speed += playerContainer[0].acceleration;
+        }
+        // Always allow reverse movement (backward)
+        if (keys.s) {
+            playerContainer[0].speed -= playerContainer[0].acceleration;
+        }
     }
-    // Apply friction
-    playerContainer[0].speed *= (1 - .1);
-    // Cap speed
+    else {
+        // Stop forward movement on collision
+        playerContainer[0].speed = 0;
+    }
+    // Apply friction to gradually reduce speed over time
+    playerContainer[0].speed *= 0.9;
+    // Cap speed to the tank's maximum and minimum allowed speeds
     playerContainer[0].speed = Math.max(Math.min(playerContainer[0].speed, playerContainer[0].maxSpeed), -playerContainer[0].maxSpeed);
-    // Turning (rotation)
+    // Turning (rotation) is always allowed
     if (!keys.s) {
         if (keys.a)
             playerContainer[0].angle -= 0.02; // turn left
@@ -185,19 +250,38 @@ function updatePos() {
             playerContainer[0].angle += 0.02; // turn right
     }
     else {
+        // Reverse rotation if moving backward
         if (keys.a)
-            playerContainer[0].angle += 0.02; // turn left
+            playerContainer[0].angle += 0.02;
         if (keys.d)
-            playerContainer[0].angle -= 0.02; // turn right
+            playerContainer[0].angle -= 0.02;
     }
-    // Calculate velocity based on angle and speed
-    playerContainer[0].velocity.x = Math.cos(playerContainer[0].angle) * playerContainer[0].speed;
-    playerContainer[0].velocity.y = Math.sin(playerContainer[0].angle) * playerContainer[0].speed;
-    // Update position
-    playerContainer[0].pos.x += playerContainer[0].velocity.x;
-    playerContainer[0].pos.y += playerContainer[0].velocity.y;
-    // Call a function to update the  playerContainer[0].'s position on screen
-    playerContainer[0].translatePosition();
+    // Calculate new position based on speed and angle
+    var newPosX = playerContainer[0].pos.x + playerContainer[0].speed * Math.cos(playerContainer[0].angle);
+    var newPosY = playerContainer[0].pos.y + playerContainer[0].speed * Math.sin(playerContainer[0].angle);
+    // Boundary checks
+    var tankWidth = playerContainer[0].size.x;
+    var tankHeight = playerContainer[0].size.y;
+    // Check for boundaries
+    if (newPosX < 0) {
+        playerContainer[0].pos.x = 0; // Prevent moving left
+    }
+    else if (newPosX + tankWidth > width) {
+        playerContainer[0].pos.x = width - tankWidth; // Prevent moving right
+    }
+    else {
+        playerContainer[0].pos.x = newPosX; // Update position if within bounds
+    }
+    if (newPosY < 0) {
+        playerContainer[0].pos.y = 0; // Prevent moving up
+    }
+    else if (newPosY + tankHeight > height) {
+        playerContainer[0].pos.y = height - tankHeight; // Prevent moving down
+    }
+    else {
+        playerContainer[0].pos.y = newPosY; // Update position if within bounds
+    }
+    playerContainer[0].translatePosition(); // Update the HTML element position
 }
 function gameLoop() {
     updatePos();
