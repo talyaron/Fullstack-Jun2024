@@ -50,12 +50,11 @@ function getRandomNum() {
                     data = _a.sent();
                     randomNum = Math.floor(Math.random() * 1000) + 1;
                     if (!randomNum)
-                        throw new Error('No number found');
+                        throw new Error('No message found');
                     messageElement = document.getElementById("number");
                     if (!messageElement)
                         throw new Error('No message element found');
                     messageElement.innerHTML = "" + randomNum;
-                    console.log(randomNum);
                     return [3 /*break*/, 4];
                 case 3:
                     error_1 = _a.sent();
