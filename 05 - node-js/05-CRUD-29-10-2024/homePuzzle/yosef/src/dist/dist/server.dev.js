@@ -1,39 +1,58 @@
 "use strict";
+
 exports.__esModule = true;
+
 var express_1 = require("express");
+
 var app = express_1["default"]();
 var port = 3000;
 var public_array = [];
+var deleted_clicked = false;
 app.use(express_1["default"].json()); //middleware to get data from the body
-app.use(express_1["default"].static('public')); //middleware
+
+app.use(express_1["default"]["static"]('public')); //middleware
+
 app.get("/api/get-words", function (req, res) {
-    try {
-        var x = public_array.join(", "); // חיבור המערך למחרוזת אחת
-        res.send({ message: x }); // שלח את המידע כאובייקט JSON
-        console.log(x);
-    }
-    catch (error) {
-        console.log(error);
-        res.status(500).send("Internal Server Error");
-    }
+  try {
+    var x = public_array.join(", "); // חיבור המערך למחרוזת אחת
+
+    res.send({
+      message: x
+    }); // שלח את המידע כאובייקט JSON
+
+    console.log(x);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 app.post("/api/send-words", function (request, res) {
-    try {
-        var newPost = request.body.all_post_inputs; // גישה ל-all_post_inputs
-        console.log("word post received");
-        console.log(newPost);
-        public_array.push.apply(public_array, newPost); // הוספת המילים למערך
-        res.send("post created successfully");
-    }
-    catch (error) {
-        console.log(error);
-        res.status(500).send("Internal Server Error");
-    }
+  try {
+    var newPost = request.body.all_post_inputs; // גישה ל-all_post_inputs
+
+    console.log("word post received");
+    console.log(newPost);
+    public_array.push.apply(public_array, newPost); // הוספת המילים למערך
+
+    res.send("post created successfully");
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+app["delete"]("/api/clear-words", function (req, res) {
+  try {
+    public_array = []; // נקה את המערך
+
+    res.send("All words cleared successfully");
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 app.listen(port, function () {
-    console.log("Example app listening on port " + port);
-});
-//get = a method of http
+  console.log("Example app listening on port " + port);
+}); //get = a method of http
 //route '/' 
 //req = request
 //res = response
