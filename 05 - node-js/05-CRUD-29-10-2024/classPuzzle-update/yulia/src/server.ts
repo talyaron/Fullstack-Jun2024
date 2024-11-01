@@ -32,8 +32,6 @@ app.post("/api/add-post", (req: any, res: any) => {
   const id = crypto.randomUUID();
   posts.push({ id, title, text, imageURL });
 
-  console.log("Current posts:", posts);
-
   res.status(201).json({ message: "Post added successfully" });
 });
 
