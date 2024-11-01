@@ -1,26 +1,25 @@
 "use strict";
 exports.__esModule = true;
 var express_1 = require("express");
+var body_parser_1 = require("body-parser");
 var app = express_1["default"]();
 var port = process.env.PORT || 3000;
-app.use(express_1["default"].json()); //middleware to get data from the body
-app.use(express_1["default"].static('public')); //middleware
 var posts = [];
-// route to send something to the server
-app.post("/api/post", function (req, res) {
-    try {
-        var data = req.body;
-        if (!data.posts)
-            throw new Error("No post found");
-        posts.push('f', data.post);
-        console.log(data);
-        res.send({ message: "Post created", data: data });
+app.use(body_parser_1["default"].json());
+app.use(express_1["default"].static('public'));
+app.post('/api/add-post', function (req, res) {
+    var _a = req.body, title = _a.title, text = _a.text, imageURL = _a.imageURL;
+    console.log('Received POST request:', req.body); // הצגת פרטי הבקשה בקונסול
+    if (!title || !text || !imageURL) {
+        return res.status(400).json({ error: "All fields (title, text, imageURL) are required" });
     }
-    catch (error) {
-        console.error(error);
-        res.status(500).send({ message: "Error" });
-    }
+    posts.push({ title: title, text: text, imageURL: imageURL });
+    console.log('Current posts:', posts);
+    res.status(201).json({ message: "Post added successfully" });
+});
+app.get('/api/get-posts', function (req, res) {
+    res.json({ posts: posts });
 });
 app.listen(port, function () {
-    console.log("Example app listening on port " + port);
+    console.log("Server listening on port " + port);
 });
