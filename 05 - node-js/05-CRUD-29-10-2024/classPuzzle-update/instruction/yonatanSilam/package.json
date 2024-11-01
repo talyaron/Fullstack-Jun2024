@@ -2,7 +2,7 @@
   "name": "galit",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/server.ts",
   "scripts": {
     "dev": "nodemon src/server.ts"
   },
