@@ -153,10 +153,35 @@ function handleEditTitle(id) {
             var title = titleElement_1.innerText;
             console.log("New title:", title);
             titleElement_1.contentEditable = 'false';
+            updatePosts(title, id);
             //how to update the title in the server
         });
     }
     catch (error) {
         console.error('Error:', error);
     }
+}
+function updatePosts(title, id) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, error_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/update-post', {
+                            method: 'PATCH',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ title: title, id: id })
+                        })];
+                case 1:
+                    response = _a.sent();
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_3 = _a.sent();
+                    console.error("Error fetching posts:", error_3);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
 }
