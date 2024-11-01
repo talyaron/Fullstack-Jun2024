@@ -33,17 +33,17 @@ app.get('/api/get-posts', (req, res) => {
 
 
 
-function addPost(id:string, title:string, text:string, image:string){
+function addPost({id, title, text, image}: Posts): Posts{
     return {id, title, text, image}
 }
 
 
 app.post("/api/send-form", (req, res) => {
     try {
-        const data = req.body;
-        if (!data.title || !data.text || !data.image) throw new Error("Missing post data");
+        const {title, text, image} = req.body;
+        if (!title || !text || !image) throw new Error("Missing post data");
 
-        posts.push(addPost(crypto.randomUUID(), data.title, data.text, data.image));
+        posts.push(addPost({id:crypto.randomUUID(), title, text, image}));
         console.log(posts);
 
         res.send({ message: "Post successfully received", posts });

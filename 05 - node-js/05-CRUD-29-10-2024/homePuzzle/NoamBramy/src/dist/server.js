@@ -22,15 +22,16 @@ app.get('/api/get-posts', function (req, res) {
         res.status(500).send('Error retrieving posts');
     }
 });
-function addPost(id, title, text, image) {
+function addPost(_a) {
+    var id = _a.id, title = _a.title, text = _a.text, image = _a.image;
     return { id: id, title: title, text: text, image: image };
 }
 app.post("/api/send-form", function (req, res) {
     try {
-        var data = req.body;
-        if (!data.title || !data.text || !data.image)
+        var _a = req.body, title = _a.title, text = _a.text, image = _a.image;
+        if (!title || !text || !image)
             throw new Error("Missing post data");
-        posts.push(addPost(crypto.randomUUID(), data.title, data.text, data.image));
+        posts.push(addPost({ id: crypto.randomUUID(), title: title, text: text, image: image }));
         console.log(posts);
         res.send({ message: "Post successfully received", posts: posts });
     }

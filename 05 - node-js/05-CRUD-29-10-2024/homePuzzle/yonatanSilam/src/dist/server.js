@@ -19,7 +19,7 @@ app.post("/api/send-post", function (req, res) {
         if (!imageUrl || !text)
             throw new Error("Missing imageUrl or text");
         var newPost = { imageUrl: imageUrl, text: text };
-        allPosts.push(newPost);
+        allPosts.push(newPost); //?
         res.send({ message: "Post received", allPosts: allPosts });
     }
     catch (error) {
