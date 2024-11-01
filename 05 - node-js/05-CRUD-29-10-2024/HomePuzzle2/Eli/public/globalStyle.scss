@@ -1,0 +1,56 @@
+body{
+    margin: 0 auto;
+    padding: 0;
+}
+
+#page
+{
+    background-color: rgba(0, 255, 255, 0.182);
+    display: flex;
+   // height: 100vh;
+}
+#form
+{
+    display: flex;
+    flex-direction: column;
+    width: 25vw;
+    height: 40vh;
+    margin: 0 auto;
+    justify-content: space-evenly;
+    background-color: rgba(114, 186, 186, 0.644);
+    margin-top: 2vh;
+    border-radius: 20px;
+    border: solid 1px black;
+    text-align: center;
+    input{
+        width: 80%;
+        height: 10%;
+        margin: 0 auto;
+        border-radius: 20px;
+        border: solid 1px black;
+        text-align: center;
+    }
+    #imagInputLabel
+    {  width: 80%;
+        height: 10%;
+        margin: 0 auto;
+        border-radius: 20px;
+        border: solid 1px black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.807);
+        &:hover
+        {
+            height: calc(10% - 2px);
+         font-size: 1.2rem;
+            border-radius: 20%;
+            border-right: 1px solid gray;
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+            border-left:1px solid gray;
+            transition: all 0.3s;      
+            background: linear-gradient(to right, rgb(228, 228, 228) 0%, rgba(255, 255, 255, 0.8) 15%,95%, rgb(228, 228, 228) 100%);          }
+    }
+   
+}

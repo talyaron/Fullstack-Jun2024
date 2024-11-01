@@ -4,6 +4,7 @@ var express_1 = require("express");
 var app = express_1["default"]();
 var port = process.env.PORT || 3000;
 app.use(express_1["default"].json()); // To parse JSON bodies
+app.use(express_1["default"].static("public")); //middleware
 console.log("Hi from typescript");
 var Bullet = /** @class */ (function () {
     // Additional properties like max speed and other attributes can be added here
@@ -51,7 +52,6 @@ setInterval(function () {
     // Emit the updated bullet positions to clients (optional: with socket.io)
     // io.emit("updateBullets", bullets);
 }, 16);
-app.use(express_1["default"].static("public")); //middleware
 app.post('/api/deleteBullet', function (req, res) {
     try {
         var index_1 = req.body.index;

@@ -2,6 +2,7 @@ import express from "express";
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(express.json()); // To parse JSON bodies
+app.use(express.static("public")); //middleware
 
 console.log("Hi from typescript");
 type Vector = {
@@ -70,7 +71,6 @@ setInterval(() => {
   // io.emit("updateBullets", bullets);
 }, 16); 
 
-app.use(express.static("public")); //middleware
 
 
 
