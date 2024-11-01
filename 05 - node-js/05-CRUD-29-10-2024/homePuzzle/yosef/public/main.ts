@@ -1,6 +1,5 @@
  let height = 40;
  let all_post_inputs = [];
- let deleted_clicked = false;
 
  async function enter_clicked(): void 
  {
@@ -14,11 +13,7 @@
                 {
                   if (event.key == 'Enter')
                     {
-                        if (deleted_clicked)
-                            {
-                                deleted_clicked = false;
-                                all_post_inputs = all_post_inputs.slice(0, -1);
-                            }
+                    
                         all_post_inputs.push(input.value);
                         console.log(all_post_inputs);
                         input.value = "";
@@ -64,20 +59,6 @@ async function all_post(){
         {
         console.error(error);
         }   
-}
-
-async function clearData() {
-    try {
-        const response = await fetch('http://localhost:3000/api/clear-words', {
-            method: 'DELETE', // או 'GET', תלוי במה שבחרת
-        });
-
-        const message = await response.text(); // אם אתה שולח טקסט פשוט
-        console.log("maseese from massage")
-        console.log(message);
-    } catch (error) {
-        console.error(error);
-    }
 }
 
 
