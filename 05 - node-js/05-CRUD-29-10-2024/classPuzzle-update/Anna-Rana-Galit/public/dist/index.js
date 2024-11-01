@@ -48,7 +48,7 @@ function handleSendPost(event) {
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 4, , 5]);
-                    console.log('Sending post:', { title: title, text: text, imageURL: imageURL }); // Debug log
+                    console.log('Sending post:', { title: title, text: text, imageURL: imageURL });
                     return [4 /*yield*/, fetch('http://localhost:3000/api/add-post', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
@@ -146,3 +146,22 @@ function handleEditTitle(id) {
         console.error('Error:', error);
     }
 }
+function handleEditText(id) {
+    try {
+        console.log("Edit Text:", id);
+        var textElement_1 = document.getElementById("text-" + id);
+        if (!textElement_1)
+            throw new Error('Text element not found');
+        textElement_1.contentEditable = 'true';
+        textElement_1.focus();
+        textElement_1.addEventListener("blur", function (event) {
+            var text = textElement_1.innerText;
+            console.log("New text:", text);
+            textElement_1.contentEditable = 'false';
+        });
+    }
+    catch (error) {
+        console.error('Error:', error);
+    }
+}
+// function handleDeletePost 

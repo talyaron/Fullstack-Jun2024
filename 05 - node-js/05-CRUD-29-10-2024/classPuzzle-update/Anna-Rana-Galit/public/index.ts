@@ -16,7 +16,7 @@ async function handleSendPost(event: Event) {
     const imageURL = (form.elements.namedItem('imageURL') as HTMLInputElement).value;
 
     try {
-        console.log('Sending post:', { title, text, imageURL });  // Debug log
+        console.log('Sending post:', { title, text, imageURL });  
 
         const response = await fetch('http://localhost:3000/api/add-post', {
             method: 'POST',
@@ -117,3 +117,33 @@ function handleEditTitle(id: string) {
     }
 
 }
+
+
+
+
+
+function handleEditText(id: string) {
+    try {
+        console.log("Edit Text:", id);
+        const textElement = document.getElementById(`text-${id}`);
+        if (!textElement) throw new Error('Text element not found');
+        textElement.contentEditable = 'true';
+        textElement.focus();
+        textElement.addEventListener("blur", (event) => {
+            
+                const text = textElement.innerText;
+                console.log( "New text:", text);
+                textElement.contentEditable = 'false';
+
+        });
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+
+}
+
+
+// function handleDeletePost 
+
+
