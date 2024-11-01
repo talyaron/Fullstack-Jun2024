@@ -20,7 +20,7 @@ app.post("/api/add-post", function (req, res) {
     console.log("Current posts:", posts);
     res.status(201).json({ message: "Post added successfully" });
 });
-app.post("/api/update-post", function (req, res) {
+app.patch("/api/update-post", function (req, res) {
     var _a = req.body, pId = _a.pId, title = _a.title;
     console.log("Received POST request:", req.body);
     if (!title || !pId) {
@@ -35,7 +35,7 @@ app.post("/api/update-post", function (req, res) {
     console.log("Current posts:", posts);
     res.status(201).json({ message: "Post added successfully" });
 });
-app.post("/api/delete-post", function (req, res) {
+app["delete"]("/api/delete-post", function (req, res) {
     var pId = req.body.pId;
     console.log("Received POST request:", req.body);
     if (!pId) {

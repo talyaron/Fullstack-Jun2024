@@ -111,7 +111,7 @@ function updatePosts(pId, title) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     return [4 /*yield*/, fetch('http://localhost:3000/api/update-post', {
-                            method: 'POST',
+                            method: 'PATCH',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ pId: pId, title: title })
                         })];
@@ -138,7 +138,7 @@ function deletePost(pId) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     return [4 /*yield*/, fetch('http://localhost:3000/api/delete-post', {
-                            method: 'POST',
+                            method: 'DELETE',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ pId: pId })
                         })];

@@ -32,7 +32,7 @@ app.post("/api/add-post", (req: any, res: any) => {
 
   res.status(201).json({ message: "Post added successfully" });
 });
-app.post("/api/update-post", (req: any, res: any) => {
+app.patch("/api/update-post", (req: any, res: any) => {
   const { pId, title } = req.body;
 
   console.log("Received POST request:", req.body);
@@ -52,7 +52,7 @@ app.post("/api/update-post", (req: any, res: any) => {
 });
 
 
-app.post("/api/delete-post", (req: any, res: any) => {
+app.delete("/api/delete-post", (req: any, res: any) => {
     const { pId } = req.body;
   
     console.log("Received POST request:", req.body);

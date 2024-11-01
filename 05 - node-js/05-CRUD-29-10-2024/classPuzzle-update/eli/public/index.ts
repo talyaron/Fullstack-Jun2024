@@ -58,7 +58,7 @@ async function updatePosts(pId,title) {
     try {
 
         const response = await fetch('http://localhost:3000/api/update-post', {
-            method: 'POST',
+            method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ pId,title}),
         });
@@ -77,7 +77,7 @@ async function deletePost(pId) {
     try {
 
         const response = await fetch('http://localhost:3000/api/delete-post', {
-            method: 'POST',
+            method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ pId}),
         });
