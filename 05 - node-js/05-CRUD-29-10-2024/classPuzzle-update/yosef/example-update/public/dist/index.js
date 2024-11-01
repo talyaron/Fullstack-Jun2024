@@ -49,7 +49,7 @@ function handleSendPost(event) {
                 case 1:
                     _a.trys.push([1, 4, , 5]);
                     console.log('Sending post:', { title: title, text: text, imageURL: imageURL }); // Debug log
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/add-post', {
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/add-posts', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ title: title, text: text, imageURL: imageURL })
@@ -142,21 +142,34 @@ function renderPost(post) {
     }
 }
 function handleEditTitle(id) {
-    try {
-        console.log("Edit title:", id);
-        var titleElement_1 = document.getElementById("title-" + id);
-        if (!titleElement_1)
-            throw new Error('Title element not found');
-        titleElement_1.contentEditable = 'true';
-        titleElement_1.focus();
-        titleElement_1.addEventListener("blur", function (event) {
-            var title = titleElement_1.innerText;
-            console.log("New title:", title);
-            titleElement_1.contentEditable = 'false';
-            //how to update the title in the server
+    return __awaiter(this, void 0, void 0, function () {
+        var titleElement_1;
+        return __generator(this, function (_a) {
+            try {
+                console.log("Edit title:", id);
+                titleElement_1 = document.getElementById("title-" + id);
+                if (!titleElement_1)
+                    throw new Error('Title element not found');
+                titleElement_1.contentEditable = 'true';
+                titleElement_1.focus();
+                titleElement_1.addEventListener("blur", function (event) {
+                    var title = titleElement_1.innerText;
+                    console.log("New title:", title);
+                    titleElement_1.contentEditable = 'false';
+                    //how to update the title in the server
+                    var response = fetch('http://localhost:3000/api/update', {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ id: id, title: title })
+                    });
+                    if (!response)
+                        throw new Error('Failed to update title');
+                });
+            }
+            catch (error) {
+                console.error('Error:', error);
+            }
+            return [2 /*return*/];
         });
-    }
-    catch (error) {
-        console.error('Error:', error);
-    }
+    });
 }
