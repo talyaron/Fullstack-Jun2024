@@ -16,7 +16,7 @@ async function handleSendPost(event: Event) {
     const imageURL = (form.elements.namedItem('imageURL') as HTMLInputElement).value;
 
     try {
-        console.log('Sending post:', { title, text, imageURL });  // Debug log
+        console.log('Sending post:', { title, text, imageURL });  
 
         const response = await fetch('http://localhost:3000/api/add-post', {
             method: 'POST',
@@ -59,28 +59,12 @@ function savePostsToLocalStorage(posts: any[]) {
     localStorage.setItem('posts', JSON.stringify(posts));
 }
 
-
 function loadPostsFromLocalStorage(): any[] {
     const posts = localStorage.getItem('posts');
     return posts ? JSON.parse(posts) : [];
 }
 
-// async function handleSendPost(event: Event) {
-//     event.preventDefault();
-//     const form = event.target as HTMLFormElement;
 
-//     const title = (form.elements.namedItem('title') as HTMLInputElement).value;
-//     const text = (form.elements.namedItem('text') as HTMLInputElement).value;
-//     const imageURL = (form.elements.namedItem('imageURL') as HTMLInputElement).value;
-
-//     const newPost = { title, text, imageURL };
-//     const posts = loadPostsFromLocalStorage();
-//     posts.push(newPost);
-//     savePostsToLocalStorage(posts);
-
-//     form.reset();
-//     renderPosts();
-// }
 
 function renderPosts(posts: Post[]) {
 
@@ -125,9 +109,7 @@ function handleEditTitle(id: string) {
                 const title = titleElement.innerText;
                 console.log("New title:", title);
                 titleElement.contentEditable = 'false';
-                updatePosts(title,id);
 
-                //how to update the title in the server
         });
 
     } catch (error) {
@@ -135,15 +117,33 @@ function handleEditTitle(id: string) {
     }
 
 }
-async function updatePosts(title:string,id:string) {
-    try {
 
-        const response = await fetch('http://localhost:3000/api/update-post', {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title,id}),
+
+
+
+
+function handleEditText(id: string) {
+    try {
+        console.log("Edit Text:", id);
+        const textElement = document.getElementById(`text-${id}`);
+        if (!textElement) throw new Error('Text element not found');
+        textElement.contentEditable = 'true';
+        textElement.focus();
+        textElement.addEventListener("blur", (event) => {
+            
+                const text = textElement.innerText;
+                console.log( "New text:", text);
+                textElement.contentEditable = 'false';
+
         });
+
     } catch (error) {
-        console.error("Error fetching posts:", error);
+        console.error('Error:', error);
     }
+
 }
+
+
+// function handleDeletePost 
+
+

@@ -18,7 +18,7 @@ async function handleSendPost(event: Event) {
     try {
         console.log('Sending post:', { title, text, imageURL });  // Debug log
 
-        const response = await fetch('http://localhost:3000/api/add-post', {
+        const response = await fetch('http://localhost:3000/api/add-posts', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ title, text, imageURL }),
@@ -112,7 +112,7 @@ function renderPost(post: Post) {
     }
 }
 
-function handleEditTitle(id: string) {
+async function handleEditTitle(id: string) {
     try {
         console.log("Edit title:", id);
         const titleElement = document.getElementById(`title-${id}`);
@@ -126,6 +126,16 @@ function handleEditTitle(id: string) {
                 titleElement.contentEditable = 'false';
 
                 //how to update the title in the server
+                
+                const response = fetch('http://localhost:3000/api/update', {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id, title }),
+                });
+                if (!response) throw new Error('Failed to update title');
+
+                
+
         });
 
     } catch (error) {

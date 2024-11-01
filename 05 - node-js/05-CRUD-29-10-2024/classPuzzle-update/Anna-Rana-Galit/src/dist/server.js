@@ -29,14 +29,13 @@ app.get('/api/get-posts', function (req, res) {
 app.listen(port, function () {
     console.log("Server listening on port " + port);
 });
-//updates the post's title
-app.patch('/api/update-posts', function (req, res) {
-    var _a = req.body, title = _a.title, id = _a.id;
-    var postId = id;
-    var post = posts.find(function (id) { return id.id === postId; });
+app.put('/api/edit-post', function (req, res) {
+    var _a = req.body, id = _a.id, title = _a.title, text = _a.text;
+    var post = posts.find(function (p) { return p.id === id; });
     if (!post) {
-        return res.status(404).json({ message: 'Post not found' });
+        return res.status(404).json({ error: "Post not found" });
     }
     post.title = title;
-    return res.json({ message: 'Title updated successfully', post: post });
+    post.text = text;
+    res.status(200).json({ message: "Post updated successfully" });
 });

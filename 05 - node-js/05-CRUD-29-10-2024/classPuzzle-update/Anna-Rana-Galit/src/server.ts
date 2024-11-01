@@ -1,11 +1,11 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { randomBytes } from 'crypto';
+import { randomBytes } from 'crypto';  
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-const posts: Array<{ title: string, text: string, imageURL: string, id:string }> = [];
+const posts: Array<{ title: string, text: string, imageURL: string, id: string }> = [];
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
@@ -36,15 +36,17 @@ app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 });
 
-//updates the post's title
-app.patch('/api/update-posts', (req: any, res:any) => {
-    const { title, id } = req.body;
-    const postId = id;
 
-    const post = posts.find(id => id.id === postId);
+app.put('/api/edit-post', (req:any, res:any) => {
+    const { id, title, text } = req.body;
+    const post = posts.find(p => p.id === id);
+
     if (!post) {
-        return res.status(404).json({ message: 'Post not found' });
+        return res.status(404).json({ error: "Post not found" });
     }
+
     post.title = title;
-    return res.json({ message: 'Title updated successfully', post });
+    post.text = text;
+
+    res.status(200).json({ message: "Post updated successfully" });
 });
