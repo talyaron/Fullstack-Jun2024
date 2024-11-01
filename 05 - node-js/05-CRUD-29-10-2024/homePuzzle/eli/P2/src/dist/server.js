@@ -3,19 +3,54 @@ exports.__esModule = true;
 var express_1 = require("express");
 var app = express_1["default"]();
 var port = process.env.PORT || 3000;
+app.use(express_1["default"].json()); // To parse JSON bodies
 console.log("Hi from typescript");
+var Bullet = /** @class */ (function () {
+    // Additional properties like max speed and other attributes can be added here
+    function Bullet(id, pos, angle) {
+        this.id = id;
+        this.pos = pos;
+        this.angle = angle;
+        this.speed = 10; // Set a default speed for the bullet
+        this.velocity = {
+            x: Math.cos(this.angle) * this.speed,
+            y: Math.sin(this.angle) * this.speed
+        };
+    }
+    Bullet.prototype.updatePosition = function (deltaTime) {
+        // Update position based on angle and speed
+        this.pos.x += this.velocity.x * (deltaTime / 16.7); // divide by 1000 for milliseconds to seconds
+        this.pos.y += this.velocity.y * (deltaTime / 16.7);
+    };
+    return Bullet;
+}());
+var bullets = [];
+app.post("/api/createBullet", function (req, res) {
+    var _a = req.body, pos = _a.pos, angle = _a.angle;
+    var newBullet = new Bullet("bullet=" + crypto.randomUUID(), pos, angle);
+    bullets.push(newBullet);
+    res.send({ message: "Bullet created", bullet: newBullet });
+});
+app.get("/api/getBullets", function (req, res) {
+    res.send({ bullets: bullets });
+});
 var User = /** @class */ (function () {
-    function User(pos) {
+    function User(pos, angle) {
         this.id = "id=" + crypto.randomUUID();
         this.pos = pos;
+        this.angle = angle;
     }
     return User;
 }());
-setInterval(updateServer, 300);
-function updateServer() {
-    // if(users[0])
-    //  users[0].pos.y +=15;
-}
+var lastUpdate = Date.now();
+setInterval(function () {
+    var now = Date.now();
+    var deltaTime = now - lastUpdate;
+    lastUpdate = now;
+    bullets.forEach(function (bullet) { return bullet.updatePosition(deltaTime); });
+    // Emit the updated bullet positions to clients (optional: with socket.io)
+    // io.emit("updateBullets", bullets);
+}, 16);
 app.use(express_1["default"].static("public")); //middleware
 //get = a method of http
 //route '/'
@@ -30,7 +65,7 @@ app.get("/api/getNewUser", function (req, res) {
         // setTimeout(() => {
         // }, 3000);
         if (users.length < 2) {
-            var newUser = new User({ x: x, y: 100 });
+            var newUser = new User({ x: x, y: 100 }, 0);
             x = 1600;
             users.push(newUser);
             res.send({ message: "created new user", newUser: newUser });
@@ -42,12 +77,26 @@ app.get("/api/getNewUser", function (req, res) {
         console.error(error);
     }
 });
-app.post("/api/moveDown", function (req, res) {
+app.post("/api/movePlayer", function (req, res) {
     try {
-        res.send({ message: "created new user", users: users });
+        var _a = req.body, playerId_1 = _a.playerId, pos = _a.pos, angle = _a.angle;
+        var user = users.find(function (user) { return user.id === playerId_1; });
+        if (user) {
+            // Update the player's position
+            user.pos = pos;
+            user.angle = angle;
+            // console.log(`Player ${playerId} moved to new position:`, pos);
+            //console.log(users); // Log the updated users array for debugging
+            res.send({ message: "Player position updated", playerId: playerId_1, pos: pos, angle: angle });
+        }
+        else {
+            // If no player is found with that id
+            res.status(404).send({ message: "Player not found" });
+        }
     }
     catch (error) {
         console.error(error);
+        res.status(500).send({ message: "Error processing move" });
     }
 });
 app.get("/api/getUsers", function (req, res) {
