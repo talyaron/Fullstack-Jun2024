@@ -29,7 +29,7 @@ async function handleSendPost(event: Event) {
         console.log('Post added successfully!');
 
         form.reset();
-        await fetchPosts();
+        fetchPosts();
 
     } catch (error) {
         console.error('Error sending post:', error);
@@ -40,6 +40,7 @@ async function fetchPosts() {
     try {
 
         const response = await fetch('http://localhost:3000/api/get-posts');
+        if(!response.ok) throw new Error('Failed to fetch posts');
         const data = await response.json();
 
         const feedElement = document.getElementById("feed");

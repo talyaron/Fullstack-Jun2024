@@ -90,8 +90,6 @@ function fetchPosts() {
                     feedElement = document.getElementById("feed");
                     if (!feedElement)
                         throw new Error("Feed element not found");
-                    if (data.posts.length === 0)
-                        return [2 /*return*/];
                     renderPosts(data.posts);
                     return [3 /*break*/, 4];
                 case 3:
@@ -128,6 +126,11 @@ function renderPosts(posts) {
     var feedElement = document.getElementById("feed");
     if (!feedElement)
         throw new Error("Feed element not found");
+    console.log(posts);
+    if (posts.length === 0) {
+        feedElement.innerHTML = "";
+        return;
+    }
     var htmlPosts = posts
         .map(function (post) {
         return renderPost(post);
@@ -138,7 +141,7 @@ function renderPosts(posts) {
 }
 function renderPost(post) {
     try {
-        var html = "\n            <div class=\"post\">\n                <h3 id=\"title-" + post.id + "\">" + post.title + "</h3>\n                <button onclick=\"handleEditTitle('" + post.id + "')\">Edit</button>\n                <button>Delete</button>\n                <img src=\"" + post.imageURL + "\" alt=\"Image\" />\n                <p>" + post.text + "</p>\n            </div>\n        ";
+        var html = "\n            <div class=\"post\">\n                <h3 id=\"title-" + post.id + "\">" + post.title + "</h3>\n                <button onclick=\"handleEditTitle('" + post.id + "')\">Edit</button>\n                <button onclick=\"handleDeletePost('" + post.id + "')\">Delete</button>\n                <img src=\"" + post.imageURL + "\" alt=\"Image\" />\n                <p>" + post.text + "</p>\n            </div>\n        ";
         return html;
     }
     catch (error) {
@@ -185,4 +188,32 @@ function handleEditTitle(id) {
             }
         });
     }); });
+}
+function handleDeletePost(id) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, error_4;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/delete-post", {
+                            method: "DELETE",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ id: id })
+                        })];
+                case 1:
+                    response = _a.sent();
+                    if (!response.ok)
+                        throw new Error("Failed to delete post");
+                    console.log("Post deleted successfully on the server");
+                    fetchPosts();
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_4 = _a.sent();
+                    console.error("Error deleting post:", error_4);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
 }
