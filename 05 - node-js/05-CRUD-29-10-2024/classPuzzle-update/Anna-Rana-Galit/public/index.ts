@@ -82,24 +82,20 @@ function renderPosts(posts: Post[]) {
 }
 
 function renderPost(post: Post) {
-    try {
-        const html = `
-        <div class="post">
-            <h3 id="title-${post.id}">${post.title}</h3><button onclick="handleEditTitle('${post.id}')" >Edit</button><button>Delete</button>
+    return `
+        <div class="post" id="post-${post.id}">
+            <h3 id="title-${post.id}">${post.title}</h3>
+            <button onclick="handleEditTitle('${post.id}')">Edit</button>
+            <button onclick="handleDeletePost('${post.id}')">Delete</button>
             <img src="${post.imageURL}" alt="Image" />
-            <p>${post.text}</p>
+            <p id="text-${post.id}">${post.text}</p>
         </div>
-        `;
-        return html;
-    } catch (error) {
-        console.error('Error:', error);
-
-    }
+    `;
 }
 
 function handleEditTitle(id: string) {
     try {
-        console.log("Edit title:", id);
+        console.log("post id:", id);
         const titleElement = document.getElementById(`title-${id}`);
         if (!titleElement) throw new Error('Title element not found');
         titleElement.contentEditable = 'true';
@@ -119,31 +115,21 @@ function handleEditTitle(id: string) {
 }
 
 
-
-
-
-function handleEditText(id: string) {
+async function handleDeletePost(id: string) {
     try {
-        console.log("Edit Text:", id);
-        const textElement = document.getElementById(`text-${id}`);
-        if (!textElement) throw new Error('Text element not found');
-        textElement.contentEditable = 'true';
-        textElement.focus();
-        textElement.addEventListener("blur", (event) => {
-            
-                const text = textElement.innerText;
-                console.log( "New text:", text);
-                textElement.contentEditable = 'false';
-
+        const response = await fetch(`http://localhost:3000/api/delete-post`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id }),
         });
 
+        if (!response.ok) throw new Error('Failed to delete post');
+        console.log(`Post with ID ${id} deleted successfully`);
+        await fetchPosts(); 
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error deleting post:', error);
     }
-
 }
 
-
-// function handleDeletePost 
 
 
