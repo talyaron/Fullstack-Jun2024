@@ -37,14 +37,21 @@ app.listen(port, () => {
 });
 
 //updates the post's title
-app.patch('/api/update-posts', (req: any, res:any) => {
-    const { title, id } = req.body;
-    const postId = id;
+app.patch('/api/update-post', (req: any, res:any) => {
 
-    const post = posts.find(id => id.id === postId);
-    if (!post) {
-        return res.status(404).json({ message: 'Post not found' });
-    }
-    post.title = title;
-    return res.json({ message: 'Title updated successfully', post });
+    try {
+        const { title, id } = req.body;
+        const postId = id;
+
+        const post = posts.find(id => id.id === postId);
+        if (!post) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
+        post.title = title;
+        return res.json({ message: 'Title updated successfully', post });
+    
+    } catch(error) {
+        console.error("Error in /api/update-post:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    } 
 });
