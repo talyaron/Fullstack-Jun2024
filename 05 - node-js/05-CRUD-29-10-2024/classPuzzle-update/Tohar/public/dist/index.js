@@ -157,7 +157,7 @@ function handleFetchEditedTitle(id, title) {
                 case 0: return [4 /*yield*/, fetch('http://localhost:3000/api/update-post', {
                         method: 'PATCH',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({})
+                        body: JSON.stringify({ id: id, title: title })
                     })];
                 case 1:
                     response = _a.sent();

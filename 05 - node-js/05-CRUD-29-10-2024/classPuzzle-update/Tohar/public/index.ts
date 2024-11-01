@@ -122,7 +122,7 @@ async function handleFetchEditedTitle(id: string, title:string) {
     const response = await fetch('http://localhost:3000/api/update-post', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({}),
+        body: JSON.stringify({id, title}),
     });
 
     if (!response.ok) {
