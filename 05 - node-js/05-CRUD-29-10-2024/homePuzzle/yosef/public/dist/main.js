@@ -60,7 +60,6 @@ function enter_clicked() {
                                             headers: {
                                                 'Content-Type': 'application/json'
                                             },
-                                            wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww: wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww,
                                             body: JSON.stringify({ all_post_inputs: all_post_inputs })
                                         })];
                                 case 1:

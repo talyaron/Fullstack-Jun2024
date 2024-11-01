@@ -24,7 +24,7 @@ i
                             headers: 
                                    {
                                 'Content-Type': 'application/json'
-                                    },wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+                                    },
                             body: JSON.stringify({all_post_inputs}) 
                         });
 
