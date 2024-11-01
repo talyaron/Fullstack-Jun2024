@@ -20,7 +20,7 @@ app.post("/api/add-post", function (req, res) {
     console.log("Current posts:", posts);
     res.status(201).json({ message: "Post added successfully" });
 });
-app.post("/api/update-posts", function (req, res) {
+app.post("/api/update-post", function (req, res) {
     var _a = req.body, pId = _a.pId, title = _a.title;
     console.log("Received POST request:", req.body);
     if (!title || !pId) {
@@ -31,6 +31,21 @@ app.post("/api/update-posts", function (req, res) {
     var foundPost = posts.find(function (post) { return post.id === pId; });
     if (foundPost) {
         foundPost.title = title;
+    }
+    console.log("Current posts:", posts);
+    res.status(201).json({ message: "Post added successfully" });
+});
+app.post("/api/delete-post", function (req, res) {
+    var pId = req.body.pId;
+    console.log("Received POST request:", req.body);
+    if (!pId) {
+        return res
+            .status(400)
+            .json({ error: "All fields (id) are required" });
+    }
+    var indexOfPost = posts.findIndex(function (post) { return post.id === pId; });
+    if (indexOfPost !== -1) {
+        posts.splice(indexOfPost, 1);
     }
     console.log("Current posts:", posts);
     res.status(201).json({ message: "Post added successfully" });

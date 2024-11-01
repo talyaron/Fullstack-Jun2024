@@ -92,7 +92,7 @@ function fetchPosts() {
                     if (data.posts.length === 0)
                         return [2 /*return*/];
                     renderPosts(data.posts);
-                    return [3 /*break*/, 4];
+                    return [2 /*return*/, data.posts];
                 case 3:
                     error_2 = _a.sent();
                     console.error("Error fetching posts:", error_2);
@@ -110,7 +110,7 @@ function updatePosts(pId, title) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/update-posts', {
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/update-post', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ pId: pId, title: title })
@@ -124,6 +124,33 @@ function updatePosts(pId, title) {
                 case 2:
                     error_3 = _a.sent();
                     console.error("Error fetching posts:", error_3);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+function deletePost(pId) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, error_4;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/delete-post', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ pId: pId })
+                        })];
+                case 1:
+                    response = _a.sent();
+                    if (response.ok) {
+                        console.log("deleted successfully");
+                    }
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_4 = _a.sent();
+                    console.error("Error fetching posts:", error_4);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
@@ -148,8 +175,22 @@ function renderPosts(posts) {
 }
 function renderPost(post) {
     try {
-        var html = "\n        <div class=\"post\">\n            <h3 id=\"title-" + post.id + "\">" + post.title + "</h3><button onclick=\"handleEditTitle('" + post.id + "')\" >Edit</button><button>Delete</button>\n            <img src=\"" + post.imageURL + "\" alt=\"Image\" />\n            <p>" + post.text + "</p>\n        </div>\n        ";
+        var html = "\n        <div class=\"post\" id=\"" + post.id + "\">\n            <h3 id=\"title-" + post.id + "\">" + post.title + "</h3><button onclick=\"handleEditTitle('" + post.id + "')\" >Edit</button><button onclick=\"handleDeletePost('" + post.id + "')\">Delete</button>\n            <img src=\"" + post.imageURL + "\" alt=\"Image\" />\n            <p>" + post.text + "</p>\n        </div>\n        ";
         return html;
+    }
+    catch (error) {
+        console.error('Error:', error);
+    }
+}
+function handleDeletePost(id) {
+    try {
+        console.log("Delete Post:", id);
+        var postElement = document.getElementById(id);
+        if (!postElement)
+            throw new Error('Title element not found');
+        console.log(postElement);
+        postElement.remove();
+        deletePost(id);
     }
     catch (error) {
         console.error('Error:', error);

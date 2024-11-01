@@ -32,7 +32,7 @@ app.post("/api/add-post", (req: any, res: any) => {
 
   res.status(201).json({ message: "Post added successfully" });
 });
-app.post("/api/update-posts", (req: any, res: any) => {
+app.post("/api/update-post", (req: any, res: any) => {
   const { pId, title } = req.body;
 
   console.log("Received POST request:", req.body);
@@ -50,6 +50,27 @@ app.post("/api/update-posts", (req: any, res: any) => {
 
   res.status(201).json({ message: "Post added successfully" });
 });
+
+
+app.post("/api/delete-post", (req: any, res: any) => {
+    const { pId } = req.body;
+  
+    console.log("Received POST request:", req.body);
+  
+    if (!pId) {
+      return res
+        .status(400)
+        .json({ error: "All fields (id) are required" });
+    }
+    const indexOfPost = posts.findIndex((post) => post.id === pId);
+    if (indexOfPost !== -1) { 
+      posts.splice(indexOfPost, 1);
+    }
+    console.log("Current posts:", posts);
+  
+    res.status(201).json({ message: "Post added successfully" });
+  });
+
 app.get("/api/get-posts", (req, res) => {
   res.json({ posts });
 });

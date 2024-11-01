@@ -47,6 +47,7 @@ async function fetchPosts() {
         if (data.posts.length === 0) return;
 
         renderPosts(data.posts);
+        return data.posts;
     } catch (error) {
         console.error("Error fetching posts:", error);
     }
@@ -56,7 +57,7 @@ fetchPosts();
 async function updatePosts(pId,title) {
     try {
 
-        const response = await fetch('http://localhost:3000/api/update-posts', {
+        const response = await fetch('http://localhost:3000/api/update-post', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ pId,title}),
@@ -71,6 +72,27 @@ async function updatePosts(pId,title) {
         console.error("Error fetching posts:", error);
     }
 }
+
+async function deletePost(pId) {
+    try {
+
+        const response = await fetch('http://localhost:3000/api/delete-post', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pId}),
+        });
+
+        if(response.ok)
+        {
+            console.log("deleted successfully")
+        }
+        
+    } catch (error) {
+        console.error("Error fetching posts:", error);
+    }
+}
+
+
 
 function savePostsToLocalStorage(posts: any[]) {
     localStorage.setItem('posts', JSON.stringify(posts));
@@ -100,8 +122,8 @@ function renderPosts(posts: Post[]) {
 function renderPost(post: Post) {
     try {
         const html = `
-        <div class="post">
-            <h3 id="title-${post.id}">${post.title}</h3><button onclick="handleEditTitle('${post.id}')" >Edit</button><button>Delete</button>
+        <div class="post" id="${post.id}">
+            <h3 id="title-${post.id}">${post.title}</h3><button onclick="handleEditTitle('${post.id}')" >Edit</button><button onclick="handleDeletePost('${post.id}')">Delete</button>
             <img src="${post.imageURL}" alt="Image" />
             <p>${post.text}</p>
         </div>
@@ -111,6 +133,20 @@ function renderPost(post: Post) {
         console.error('Error:', error);
 
     }
+}
+function handleDeletePost(id: string) {
+    try {
+        console.log("Delete Post:", id);
+        
+        const postElement = document.getElementById(id);
+        if (!postElement) throw new Error('Title element not found');
+        console.log(postElement);
+        postElement.remove();
+        deletePost(id);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+
 }
 
 function handleEditTitle(id: string) {
