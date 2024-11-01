@@ -96,7 +96,13 @@ function renderBullets() {
         existingBullets[0].remove(); // Remove each existing bullet element
     }
     // Create and position new bullet elements
-    bullets.forEach(function (bullet) {
+    var toRemove = [];
+    bullets.forEach(function (bullet, index) {
+        if (bullet.pos.x < 0 || bullet.pos.x > width || bullet.pos.y < 0 || bullet.pos.y > height) {
+            console.log("past my prime");
+            deleteBullet(bullet, index);
+            return;
+        }
         var bulletElement = document.createElement("div");
         bulletElement.classList.add("bullet");
         bulletElement.style.position = "absolute";
@@ -107,6 +113,39 @@ function renderBullets() {
         bulletElement.style.borderRadius = "50%"; // Make it round
         // Append the bullet element to the canvas
         gameCanvas.appendChild(bulletElement);
+    });
+}
+function deleteBullet(bullet, index) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, fetch('/api/deleteBullet', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                index: index,
+                                bullet: bullet
+                            })
+                        })];
+                case 1:
+                    response = _a.sent();
+                    // Optionally handle non-OK responses
+                    if (!response.ok) {
+                        throw new Error("Server responded with status: " + response.status);
+                    }
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_1 = _a.sent();
+                    console.error('Error deleting bullet:', error_1);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
     });
 }
 var Player = /** @class */ (function () {
@@ -231,7 +270,7 @@ var playerContainer = [];
 requestAccess();
 function updateServerPos(playerId, newPosition, newAngle) {
     return __awaiter(this, void 0, void 0, function () {
-        var response, result, error_1;
+        var response, result, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -254,8 +293,8 @@ function updateServerPos(playerId, newPosition, newAngle) {
                     result = _a.sent();
                     return [3 /*break*/, 4];
                 case 3:
-                    error_1 = _a.sent();
-                    console.error("Error updating position:", error_1);
+                    error_2 = _a.sent();
+                    console.error("Error updating position:", error_2);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
@@ -276,7 +315,7 @@ function slowTime() {
 }
 function requestAccess() {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, message, newUser, newPlayer, error_2;
+        var response, data, message, newUser, newPlayer, error_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -303,8 +342,8 @@ function requestAccess() {
                     getPositions();
                     return [3 /*break*/, 4];
                 case 3:
-                    error_2 = _a.sent();
-                    console.error(error_2);
+                    error_3 = _a.sent();
+                    console.error(error_3);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
@@ -413,7 +452,7 @@ function gameLoop() {
 gameLoop();
 function getPositions() {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, message, users, error_3;
+        var response, data, message, users, error_4;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -448,8 +487,8 @@ function getPositions() {
                     });
                     return [3 /*break*/, 4];
                 case 3:
-                    error_3 = _a.sent();
-                    console.error(error_3);
+                    error_4 = _a.sent();
+                    console.error(error_4);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
