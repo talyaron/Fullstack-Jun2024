@@ -1,6 +1,6 @@
 # Instagram Puzzle 2
 
-Use the previous puzzle as a base and add the following features:
+Use the previous home puzzle as a base and add the following features:
 
 
 1) Level 1 (up to 90 points)
