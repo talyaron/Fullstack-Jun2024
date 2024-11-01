@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unstagram</title>
+    <link rel="stylesheet" href="./dist/indexStyle.css">
+    <link rel="stylesheet" href="./dist/globalStyle.css">
+    <script src="./dist/index.js" defer></script>
+</head>
+<body>
+    <form id="form" onsubmit="checkForm()">
+        <input type="text" name="title" id="title" placeholder="Title your post">
+        <input type="text" name="article" id="article" placeholder="Describe your post">
+        <input type="file" hidden  name="image" id="image" placeholder="upload image" >
+        <label for="image" id="imagInputLabel">Upload Image</label>
+        <input type="submit" name="submit" id="submit">
+    </form>
+    <div id="feed"></div>
+</body>
+</html>
