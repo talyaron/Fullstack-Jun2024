@@ -128,7 +128,7 @@ async function handleEditTitle(id: string) {
                 //how to update the title in the server
                 
                 const response = fetch('http://localhost:3000/api/update', {
-                    method: 'PUT',
+                    method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id, title }),
                 });

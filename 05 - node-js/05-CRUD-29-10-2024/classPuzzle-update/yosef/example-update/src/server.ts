@@ -26,12 +26,12 @@ app.post('/api/add-posts', (req: any, res: any) => {
     res.status(201).json({ message: "Post added successfully" });
 });
 
-app.put('/api/get-posts', (req, res) => {
+app.get('/api/get-posts', (req, res) => {
     res.json({ posts });
 });
 
 
-app.put('/api/update', (req: any, res: any) => {
+app.patch('/api/update', (req: any, res: any) => {
     const { id, title } = req.body;
     
     const post = posts.find(p => p.id === id);

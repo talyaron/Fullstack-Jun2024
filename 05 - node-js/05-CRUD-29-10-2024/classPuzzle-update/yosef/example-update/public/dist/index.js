@@ -158,7 +158,7 @@ function handleEditTitle(id) {
                     titleElement_1.contentEditable = 'false';
                     //how to update the title in the server
                     var response = fetch('http://localhost:3000/api/update', {
-                        method: 'PUT',
+                        method: 'PATCH',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ id: id, title: title })
                     });

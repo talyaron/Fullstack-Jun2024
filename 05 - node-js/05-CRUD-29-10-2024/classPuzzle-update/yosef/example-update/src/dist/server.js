@@ -18,10 +18,10 @@ app.post('/api/add-posts', function (req, res) {
     console.log('Current posts:', posts);
     res.status(201).json({ message: "Post added successfully" });
 });
-app.put('/api/get-posts', function (req, res) {
+app.get('/api/get-posts', function (req, res) {
     res.json({ posts: posts });
 });
-app.put('/api/update', function (req, res) {
+app.patch('/api/update', function (req, res) {
     var _a = req.body, id = _a.id, title = _a.title;
     var post = posts.find(function (p) { return p.id === id; });
     if (post) {
