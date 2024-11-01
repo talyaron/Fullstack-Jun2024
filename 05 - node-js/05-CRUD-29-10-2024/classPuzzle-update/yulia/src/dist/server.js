@@ -28,9 +28,11 @@ app.get("/api/get-posts", function (req, res) {
     res.json({ posts: posts });
 });
 // renew the title of a post
-app.put("/api/update-title", function (req, res) {
+app.patch("/api/update-title", function (req, res) {
     console.log("Received request to update title");
     var _a = req.body, id = _a.id, title = _a.title;
+    if (!id || !title)
+        throw new Error("id and title are required");
     var post = posts.find(function (post) { return post.id === id; });
     if (!post) {
         console.log("Post not found with id:", id);

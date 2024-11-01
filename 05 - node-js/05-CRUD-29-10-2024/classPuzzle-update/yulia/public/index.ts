@@ -130,7 +130,7 @@ function handleEditTitle(id: string) {
 
     try {
       const response = await fetch("http://localhost:3000/api/update-title", {
-        method: "PUT",
+        method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id, title }),
       });

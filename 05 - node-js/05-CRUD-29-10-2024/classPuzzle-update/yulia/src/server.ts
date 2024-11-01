@@ -43,10 +43,11 @@ app.get("/api/get-posts", (req, res) => {
 });
 
 // renew the title of a post
-app.put("/api/update-title", (req: any, res: any) => {
+app.patch("/api/update-title", (req: any, res: any) => {
   console.log("Received request to update title");
 
   const { id, title } = req.body;
+  if(!id || !title)  throw new Error("id and title are required");
 
   const post = posts.find((post) => post.id === id);
   if (!post) {

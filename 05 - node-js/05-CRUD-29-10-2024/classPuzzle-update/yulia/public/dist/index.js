@@ -167,7 +167,7 @@ function handleEditTitle(id) {
                 case 1:
                     _a.trys.push([1, 3, , 4]);
                     return [4 /*yield*/, fetch("http://localhost:3000/api/update-title", {
-                            method: "PUT",
+                            method: "PATCH",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({ id: id, title: title })
                         })];
