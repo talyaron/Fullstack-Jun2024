@@ -83,13 +83,21 @@ function renderBullets() {
   }
 
   // Create and position new bullet elements
-  bullets.forEach(bullet => {
+  const toRemove = [];
+  bullets.forEach((bullet ,index)=> {
+    if(bullet.pos.x<0 ||bullet.pos.x>width||bullet.pos.y<0||bullet.pos.y>height)
+      {
+     console.log("past my prime");
+    deleteBullet(bullet,index);
+     return;
+      }
       const bulletElement = document.createElement("div");
       bulletElement.classList.add("bullet");
       bulletElement.style.position = "absolute";
       bulletElement.style.transform = `translate(${bullet.pos.x}px, ${bullet.pos.y}px) rotate(${bullet.angle}rad)`;
       bulletElement.style.width = "40px"; // Set bullet width
       bulletElement.style.height = "20px"; // Set bullet height
+      
       bulletElement.style.backgroundColor = "red"; // Set bullet color
       bulletElement.style.borderRadius = "50%"; // Make it round
 
@@ -97,6 +105,30 @@ function renderBullets() {
       gameCanvas.appendChild(bulletElement);
   });
 }
+
+async function deleteBullet(bullet: Bullet, index: number) {
+  try {
+    // Send a POST request to delete a bullet on the server
+    const response = await fetch('/api/deleteBullet', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        index: index,
+        bullet: bullet
+      }),
+    });
+    
+    // Optionally handle non-OK responses
+    if (!response.ok) {
+      throw new Error(`Server responded with status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error('Error deleting bullet:', error);
+  }
+}
+
 class Player {
   playing: boolean;
   id: string;
