@@ -34,76 +34,50 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var height = 40;
-var all_post_inputs = [];
-function enter_clicked() {
-    return __awaiter(this, void 0, void 0, function () {
-        var input_1;
-        return __generator(this, function (_a) {
-            try {
-                input_1 = document.getElementById("post_input");
-                if (!input_1)
-                    return [2 /*return*/, console.log("error")];
-                input_1.addEventListener('keydown', function (event) {
-                    return __awaiter(this, void 0, void 0, function () {
-                        var response;
-                        return __generator(this, function (_a) {
-                            switch (_a.label) {
-                                case 0:
-                                    if (!(event.key == 'Enter')) return [3 /*break*/, 2];
-                                    all_post_inputs.push(input_1.value);
-                                    console.log(all_post_inputs);
-                                    input_1.value = "";
-                                    i;
-                                    return [4 /*yield*/, fetch('http://localhost:3000/api/send-words', {
-                                            method: 'POST',
-                                            headers: {
-                                                'Content-Type': 'application/json'
-                                            },
-                                            body: JSON.stringify({ all_post_inputs: all_post_inputs })
-                                        })];
-                                case 1:
-                                    response = _a.sent();
-                                    _a.label = 2;
-                                case 2: return [2 /*return*/];
-                            }
-                        });
-                    });
-                });
-            }
-            catch (error) {
-                console.error(error);
-            }
-            return [2 /*return*/];
-        });
-    });
+function renderCreatePost() {
+    var form = "<form id=\"uploadForm\" onsubmit=\"handleCreatePost(event)\">\n            <input type=\"file\" name=\"image\" id=\"imageUpload\" name=\"imageUpload\" accept=\"image/*\">\n            <input type=\"text\" name=\"caption\" placeholder=\"wright a caption...\">\n            <button type=\"submit\">Post</button>\n        </form>";
+    document.querySelector('#app').innerHTML = form;
 }
-enter_clicked();
-function all_post() {
+;
+function handleCreatePost(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, show, message, error_1;
+        var postCaption, postImage, posts, response, data, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/get-words')];
+                    event.preventDefault();
+                    postCaption = event.target.caption.value;
+                    postImage = event.target.image.files[0];
+                    if (!postImage) {
+                        console.error("Please select an image.");
+                        return [2 /*return*/];
+                    }
+                    posts = [];
+                    posts.push({ image: postCaption, caption: postImage });
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/post', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ posts: posts })
+                        })];
                 case 1:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
-                    show = document.getElementById("show_all_post");
-                    if (!show)
-                        throw new Error('No show_all_post element found');
-                    message = data.message;
-                    show.innerHTML = message;
+                    console.log(data);
                     return [3 /*break*/, 4];
                 case 3:
                     error_1 = _a.sent();
                     console.error(error_1);
+                    console.error('Here is the error');
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
         });
     });
 }
+;
+renderCreatePost();

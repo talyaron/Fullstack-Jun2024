@@ -2,7 +2,6 @@ import express from 'express';
 const app = express()
 const port = 3000
 let public_array : string[] = [];
-let deleted_clicked = false;
 
 app.use(express.json()); //middleware to get data from the body
 app.use(express.static('public')) //middleware
@@ -27,16 +26,6 @@ app.post("/api/send-words", (request: any, res: any) => {
         console.log(newPost);
         public_array.push(...newPost); // הוספת המילים למערך
         res.send("post created successfully");
-    } catch (error) {
-        console.log(error);
-        res.status(500).send("Internal Server Error");
-    }
-});
-
-app.delete("/api/clear-words", (req, res) => {
-    try {
-        public_array = []; // נקה את המערך
-        res.send("All words cleared successfully");
     } catch (error) {
         console.log(error);
         res.status(500).send("Internal Server Error");
