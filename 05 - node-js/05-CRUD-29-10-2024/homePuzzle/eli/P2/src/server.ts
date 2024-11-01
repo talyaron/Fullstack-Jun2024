@@ -73,6 +73,27 @@ setInterval(() => {
 app.use(express.static("public")); //middleware
 
 
+
+
+app.post('/api/deleteBullet', (req, res) => {
+  try {
+  const {  index  } = req.body;
+  console.log(index);
+  const bulletID = bullets.findIndex(bull => bull.id === index);
+  
+  if (index!=-1) {
+      // Update the player's position
+     bullets.splice(bulletID,1);
+      res.send({ message: "bullet Deleted" });
+  } else {
+      // If no player is found with that id
+      res.status(404).send({ message: "bullet not found" });
+  }
+} catch (error) {
+  console.error(error);
+  res.status(500).send({ message: "Error processing move" });
+}
+});
 //get = a method of http
 //route '/'
 
@@ -127,28 +148,7 @@ app.post("/api/movePlayer", (req, res) => {
     }
 });
 
-app.post("/api/deleteBullet", (req, res) => {
-  try {
-      const { bullet, id } = req.body;
-      
-      const bulletI = bullets.find(bull => bull.id === id);
-      
-      if (bulletI) {
-          // Update the player's position
-         bullets.splice(id);
-         // console.log(`Player ${playerId} moved to new position:`, pos);
-          //console.log(users); // Log the updated users array for debugging
-          
-          res.send({ message: "bulletDeleted", bullet,bullets });
-      } else {
-          // If no player is found with that id
-          res.status(404).send({ message: "bullet not found" });
-      }
-  } catch (error) {
-      console.error(error);
-      res.status(500).send({ message: "Error processing move" });
-  }
-});
+
 
 app.get("/api/getUsers", (req, res) => {
     try {

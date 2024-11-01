@@ -42,31 +42,32 @@ function handleSendPost(event) {
                 case 0:
                     event.preventDefault();
                     form = event.target;
-                    title = form.elements.namedItem('title').value;
-                    text = form.elements.namedItem('text').value;
-                    imageURL = form.elements.namedItem('imageURL').value;
+                    title = form.elements.namedItem("title").value;
+                    text = form.elements.namedItem("text").value;
+                    imageURL = form.elements.namedItem("imageURL")
+                        .value;
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 4, , 5]);
-                    console.log('Sending post:', { title: title, text: text, imageURL: imageURL }); // Debug log
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/add-posts', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
+                    console.log("Sending post:", { title: title, text: text, imageURL: imageURL }); // Debug log
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/add-post", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({ title: title, text: text, imageURL: imageURL })
                         })];
                 case 2:
                     response = _a.sent();
                     if (!response.ok)
-                        throw new Error('Failed to add post');
-                    console.log('Post added successfully!');
-                    form.reset(); // מוחק כל השדות שהכנסו בטופס
+                        throw new Error("Failed to add post");
+                    console.log("Post added successfully!");
+                    form.reset();
                     return [4 /*yield*/, fetchPosts()];
                 case 3:
                     _a.sent();
                     return [3 /*break*/, 5];
                 case 4:
                     error_1 = _a.sent();
-                    console.error('Error sending post:', error_1);
+                    console.error("Error sending post:", error_1);
                     return [3 /*break*/, 5];
                 case 5: return [2 /*return*/];
             }
@@ -80,7 +81,7 @@ function fetchPosts() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/get-posts')];
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/get-posts")];
                 case 1:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
@@ -89,8 +90,6 @@ function fetchPosts() {
                     feedElement = document.getElementById("feed");
                     if (!feedElement)
                         throw new Error("Feed element not found");
-                    if (data.posts.length === 0)
-                        return [2 /*return*/];
                     renderPosts(data.posts);
                     return [3 /*break*/, 4];
                 case 3:
@@ -104,10 +103,10 @@ function fetchPosts() {
 }
 fetchPosts();
 function savePostsToLocalStorage(posts) {
-    localStorage.setItem('posts', JSON.stringify(posts));
+    localStorage.setItem("posts", JSON.stringify(posts));
 }
 function loadPostsFromLocalStorage() {
-    var posts = localStorage.getItem('posts');
+    var posts = localStorage.getItem("posts");
     return posts ? JSON.parse(posts) : [];
 }
 // async function handleSendPost(event: Event) {
@@ -124,52 +123,97 @@ function loadPostsFromLocalStorage() {
 //     renderPosts();
 // }
 function renderPosts(posts) {
-    var feedElement = document.getElementById('feed');
+    var feedElement = document.getElementById("feed");
     if (!feedElement)
-        throw new Error('Feed element not found');
-    var htmlPosts = posts.map(function (post) {
+        throw new Error("Feed element not found");
+    console.log(posts);
+    if (posts.length === 0) {
+        feedElement.innerHTML = "";
+        return;
+    }
+    var htmlPosts = posts
+        .map(function (post) {
         return renderPost(post);
-    }).filter(function (post) { return post !== null; }).join('');
+    })
+        .filter(function (post) { return post !== null; })
+        .join("");
     feedElement.innerHTML = htmlPosts;
 }
 function renderPost(post) {
     try {
-        var html = "\n        <div class=\"post\">\n            <h3 id=\"title-" + post.id + "\">" + post.title + "</h3><button onclick=\"handleEditTitle('" + post.id + "')\" >Edit</button><button>Delete</button>\n            <img src=\"" + post.imageURL + "\" alt=\"Image\" />\n            <p>" + post.text + "</p>\n        </div>\n        ";
+        var html = "\n            <div class=\"post\">\n                <h3 id=\"title-" + post.id + "\">" + post.title + "</h3>\n                <button onclick=\"handleEditTitle('" + post.id + "')\">Edit</button>\n                <button onclick=\"handleDeletePost('" + post.id + "')\">Delete</button>\n                <img src=\"" + post.imageURL + "\" alt=\"Image\" />\n                <p>" + post.text + "</p>\n            </div>\n        ";
         return html;
     }
     catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
     }
 }
 function handleEditTitle(id) {
-    return __awaiter(this, void 0, void 0, function () {
-        var titleElement_1;
+    var _this = this;
+    console.log("Function handleEditTitle called for post:", id);
+    var titleElement = document.getElementById("title-" + id);
+    if (!titleElement) {
+        console.error("Title element not found");
+        return;
+    }
+    titleElement.contentEditable = "true";
+    titleElement.focus();
+    titleElement.addEventListener("blur", function () { return __awaiter(_this, void 0, void 0, function () {
+        var title, response, error_3;
         return __generator(this, function (_a) {
-            try {
-                console.log("Edit title:", id);
-                titleElement_1 = document.getElementById("title-" + id);
-                if (!titleElement_1)
-                    throw new Error('Title element not found');
-                titleElement_1.contentEditable = 'true';
-                titleElement_1.focus();
-                titleElement_1.addEventListener("blur", function (event) {
-                    var title = titleElement_1.innerText;
-                    console.log("New title:", title);
-                    titleElement_1.contentEditable = 'false';
-                    //how to update the title in the server
-                    var response = fetch('http://localhost:3000/api/update', {
-                        method: 'PATCH',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ id: id, title: title })
-                    });
-                    if (!response)
-                        throw new Error('Failed to update title');
-                });
+            switch (_a.label) {
+                case 0:
+                    title = titleElement.innerText;
+                    console.log("New title after edit:", title);
+                    titleElement.contentEditable = "false";
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/update-title", {
+                            method: "PATCH",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ id: id, title: title })
+                        })];
+                case 2:
+                    response = _a.sent();
+                    if (!response.ok)
+                        throw new Error("Failed to update title");
+                    console.log("Title updated successfully on the server");
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_3 = _a.sent();
+                    console.error("Error updating title on server:", error_3);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
-            catch (error) {
-                console.error('Error:', error);
+        });
+    }); });
+}
+function handleDeletePost(id) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, error_4;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/delete-post", {
+                            method: "DELETE",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ id: id })
+                        })];
+                case 1:
+                    response = _a.sent();
+                    if (!response.ok)
+                        throw new Error("Failed to delete post");
+                    console.log("Post deleted successfully on the server");
+                    fetchPosts();
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_4 = _a.sent();
+                    console.error("Error deleting post:", error_4);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
-            return [2 /*return*/];
         });
     });
 }

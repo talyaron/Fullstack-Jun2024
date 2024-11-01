@@ -52,6 +52,26 @@ setInterval(function () {
     // io.emit("updateBullets", bullets);
 }, 16);
 app.use(express_1["default"].static("public")); //middleware
+app.post('/api/deleteBullet', function (req, res) {
+    try {
+        var index_1 = req.body.index;
+        console.log(index_1);
+        var bulletID = bullets.findIndex(function (bull) { return bull.id === index_1; });
+        if (index_1 != -1) {
+            // Update the player's position
+            bullets.splice(bulletID, 1);
+            res.send({ message: "bullet Deleted" });
+        }
+        else {
+            // If no player is found with that id
+            res.status(404).send({ message: "bullet not found" });
+        }
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).send({ message: "Error processing move" });
+    }
+});
 //get = a method of http
 //route '/'
 //req = request
@@ -92,27 +112,6 @@ app.post("/api/movePlayer", function (req, res) {
         else {
             // If no player is found with that id
             res.status(404).send({ message: "Player not found" });
-        }
-    }
-    catch (error) {
-        console.error(error);
-        res.status(500).send({ message: "Error processing move" });
-    }
-});
-app.post("/api/deleteBullet", function (req, res) {
-    try {
-        var _a = req.body, bullet = _a.bullet, id_1 = _a.id;
-        var bulletI = bullets.find(function (bull) { return bull.id === id_1; });
-        if (bulletI) {
-            // Update the player's position
-            bullets.splice(id_1);
-            // console.log(`Player ${playerId} moved to new position:`, pos);
-            //console.log(users); // Log the updated users array for debugging
-            res.send({ message: "bulletDeleted", bullet: bullet, bullets: bullets });
-        }
-        else {
-            // If no player is found with that id
-            res.status(404).send({ message: "bullet not found" });
         }
     }
     catch (error) {
