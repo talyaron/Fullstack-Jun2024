@@ -59,6 +59,7 @@ function savePostsToLocalStorage(posts: any[]) {
     localStorage.setItem('posts', JSON.stringify(posts));
 }
 
+
 function loadPostsFromLocalStorage(): any[] {
     const posts = localStorage.getItem('posts');
     return posts ? JSON.parse(posts) : [];
@@ -124,6 +125,7 @@ function handleEditTitle(id: string) {
                 const title = titleElement.innerText;
                 console.log("New title:", title);
                 titleElement.contentEditable = 'false';
+                updatePosts(title,id);
 
                 //how to update the title in the server
         });
@@ -132,4 +134,16 @@ function handleEditTitle(id: string) {
         console.error('Error:', error);
     }
 
+}
+async function updatePosts(title:string,id:string) {
+    try {
+
+        const response = await fetch('http://localhost:3000/api/update-post', {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title,id}),
+        });
+    } catch (error) {
+        console.error("Error fetching posts:", error);
+    }
 }

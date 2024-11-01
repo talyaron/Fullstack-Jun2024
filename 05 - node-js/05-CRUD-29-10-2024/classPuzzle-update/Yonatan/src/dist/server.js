@@ -18,6 +18,19 @@ app.post('/api/add-post', function (req, res) {
     console.log('Current posts:', posts);
     res.status(201).json({ message: "Post added successfully" });
 });
+app.patch('/api/update-post', function (req, res) {
+    var _a = req.body, title = _a.title, id = _a.id;
+    var post = posts.find(function (post) { return post.id == id; });
+    if (!post || post == undefined)
+        throw new Error('not find post');
+    post.title = title;
+    console.log('Received POST request:', req.body);
+    if (!title) {
+        return res.status(400).json({ error: "title are required" });
+    }
+    console.log('Current posts:', posts);
+    res.status(201).json({ message: "Post change successfully" });
+});
 app.get('/api/get-posts', function (req, res) {
     res.json({ posts: posts });
 });

@@ -74,60 +74,36 @@ function updateBullets() {
 }
 let  bullets:Bullet[]=[];
 function renderBullets() {
-  // Get the canvas element
 
-  // Clear existing bullets from the canvas
   const existingBullets = gameCanvas.getElementsByClassName("bullet");
   while (existingBullets.length > 0) {
-      existingBullets[0].remove(); // Remove each existing bullet element
+      existingBullets[0].remove(); 
   }
 
-  // Create and position new bullet elements
-  const toRemove = [];
-  bullets.forEach((bullet ,index)=> {
-    if(bullet.pos.x<0 ||bullet.pos.x>width||bullet.pos.y<0||bullet.pos.y>height)
-      {
-     console.log("past my prime");
-    deleteBullet(bullet,index);
-     return;
-      }
-      const bulletElement = document.createElement("div");
-      bulletElement.classList.add("bullet");
-      bulletElement.style.position = "absolute";
-      bulletElement.style.transform = `translate(${bullet.pos.x}px, ${bullet.pos.y}px) rotate(${bullet.angle}rad)`;
-      bulletElement.style.width = "40px"; // Set bullet width
-      bulletElement.style.height = "20px"; // Set bullet height
-      
-      bulletElement.style.backgroundColor = "red"; // Set bullet color
-      bulletElement.style.borderRadius = "50%"; // Make it round
 
-      // Append the bullet element to the canvas
-      gameCanvas.appendChild(bulletElement);
+  bullets.forEach((bullet, index) => {
+    if (bullet.pos.x < 0 || bullet.pos.x > width || bullet.pos.y < 0 || bullet.pos.y > height) {
+     // console.log("Bullet out of bounds, deleting...");
+      
+      deleteBullet(bullet, index); 
+      console.log(bullets);
+      return; 
+    }
+    
+
+    const bulletElement = document.createElement("div");
+    bulletElement.classList.add("bullet");
+    bulletElement.style.position = "absolute";
+    bulletElement.style.transform = `translate(${bullet.pos.x}px, ${bullet.pos.y}px) rotate(${bullet.angle}rad)`;
+    bulletElement.style.width = "40px"; 
+    bulletElement.style.height = "20px"; 
+    bulletElement.style.borderRadius = "20%"; 
+
+    // Append the bullet element to the canvas
+    gameCanvas.appendChild(bulletElement);
   });
 }
 
-async function deleteBullet(bullet: Bullet, index: number) {
-  try {
-    // Send a POST request to delete a bullet on the server
-    const response = await fetch('/api/deleteBullet', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        index: index,
-        bullet: bullet
-      }),
-    });
-    
-    // Optionally handle non-OK responses
-    if (!response.ok) {
-      throw new Error(`Server responded with status: ${response.status}`);
-    }
-  } catch (error) {
-    console.error('Error deleting bullet:', error);
-  }
-}
 
 class Player {
   playing: boolean;
@@ -440,11 +416,38 @@ function updatePos() {
 function gameLoop() {
   updateBullets(); 
  //   renderBullets(); 
+
   updatePos();
   requestAnimationFrame(gameLoop);
 }
 
 gameLoop();
+
+async function deleteBullet(bullet:Bullet, index: number) {
+  try {
+    // Send a POST request to delete a bullet on the server
+    const response = await fetch('/api/deleteBullet', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        index: index, // Use bullet's unique identifier, not its index in the array
+      }),
+    });
+    
+    // Optionally handle non-OK responses
+    if (!response.ok) {
+      throw new Error(`Server responded with status: ${response.status}`);
+    }else{ 
+      const data = await response.json();
+      console.log(data.message);
+    }
+  } catch (error) {
+    console.error('Error deleting bullet:', error);
+  }
+}
+
 async function getPositions() {
     try {
       // Call the server to get users

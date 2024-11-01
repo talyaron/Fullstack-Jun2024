@@ -16,7 +16,7 @@ async function handleSendPost(event: Event) {
     const imageURL = (form.elements.namedItem('imageURL') as HTMLInputElement).value;
 
     try {
-        console.log('Sending post:', { title, text, imageURL });  // Debug log
+        console.log('Sending post:', { title, text, imageURL });  
 
         const response = await fetch('http://localhost:3000/api/add-post', {
             method: 'POST',
@@ -64,22 +64,7 @@ function loadPostsFromLocalStorage(): any[] {
     return posts ? JSON.parse(posts) : [];
 }
 
-// async function handleSendPost(event: Event) {
-//     event.preventDefault();
-//     const form = event.target as HTMLFormElement;
 
-//     const title = (form.elements.namedItem('title') as HTMLInputElement).value;
-//     const text = (form.elements.namedItem('text') as HTMLInputElement).value;
-//     const imageURL = (form.elements.namedItem('imageURL') as HTMLInputElement).value;
-
-//     const newPost = { title, text, imageURL };
-//     const posts = loadPostsFromLocalStorage();
-//     posts.push(newPost);
-//     savePostsToLocalStorage(posts);
-
-//     form.reset();
-//     renderPosts();
-// }
 
 function renderPosts(posts: Post[]) {
 
@@ -125,7 +110,6 @@ function handleEditTitle(id: string) {
                 console.log("New title:", title);
                 titleElement.contentEditable = 'false';
 
-                //how to update the title in the server
         });
 
     } catch (error) {
@@ -133,3 +117,33 @@ function handleEditTitle(id: string) {
     }
 
 }
+
+
+
+
+
+function handleEditText(id: string) {
+    try {
+        console.log("Edit Text:", id);
+        const textElement = document.getElementById(`text-${id}`);
+        if (!textElement) throw new Error('Text element not found');
+        textElement.contentEditable = 'true';
+        textElement.focus();
+        textElement.addEventListener("blur", (event) => {
+            
+                const text = textElement.innerText;
+                console.log( "New text:", text);
+                textElement.contentEditable = 'false';
+
+        });
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+
+}
+
+
+// function handleDeletePost 
+
+

@@ -48,7 +48,7 @@ function handleSendPost(event) {
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 4, , 5]);
-                    console.log('Sending post:', { title: title, text: text, imageURL: imageURL }); // Debug log
+                    console.log('Sending post:', { title: title, text: text, imageURL: imageURL });
                     return [4 /*yield*/, fetch('http://localhost:3000/api/add-post', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
@@ -110,19 +110,6 @@ function loadPostsFromLocalStorage() {
     var posts = localStorage.getItem('posts');
     return posts ? JSON.parse(posts) : [];
 }
-// async function handleSendPost(event: Event) {
-//     event.preventDefault();
-//     const form = event.target as HTMLFormElement;
-//     const title = (form.elements.namedItem('title') as HTMLInputElement).value;
-//     const text = (form.elements.namedItem('text') as HTMLInputElement).value;
-//     const imageURL = (form.elements.namedItem('imageURL') as HTMLInputElement).value;
-//     const newPost = { title, text, imageURL };
-//     const posts = loadPostsFromLocalStorage();
-//     posts.push(newPost);
-//     savePostsToLocalStorage(posts);
-//     form.reset();
-//     renderPosts();
-// }
 function renderPosts(posts) {
     var feedElement = document.getElementById('feed');
     if (!feedElement)
@@ -153,10 +140,28 @@ function handleEditTitle(id) {
             var title = titleElement_1.innerText;
             console.log("New title:", title);
             titleElement_1.contentEditable = 'false';
-            //how to update the title in the server
         });
     }
     catch (error) {
         console.error('Error:', error);
     }
 }
+function handleEditText(id) {
+    try {
+        console.log("Edit Text:", id);
+        var textElement_1 = document.getElementById("text-" + id);
+        if (!textElement_1)
+            throw new Error('Text element not found');
+        textElement_1.contentEditable = 'true';
+        textElement_1.focus();
+        textElement_1.addEventListener("blur", function (event) {
+            var text = textElement_1.innerText;
+            console.log("New text:", text);
+            textElement_1.contentEditable = 'false';
+        });
+    }
+    catch (error) {
+        console.error('Error:', error);
+    }
+}
+// function handleDeletePost 
