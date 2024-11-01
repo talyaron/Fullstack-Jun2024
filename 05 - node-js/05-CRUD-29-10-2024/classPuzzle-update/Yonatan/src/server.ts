@@ -26,6 +26,23 @@ app.post('/api/add-post', (req: any, res: any) => {
     res.status(201).json({ message: "Post added successfully" });
 });
 
+
+app.patch('/api/update-post', (req: any, res: any) => {
+    const { title , id} = req.body;
+    const post=posts.find(post=>post.id==id);
+    if(!post || post==undefined)throw new Error('not find post')
+    post.title=title;
+    console.log('Received POST request:', req.body);  
+
+    if (!title) {
+        return res.status(400).json({ error: "title are required" });
+    }
+
+    console.log('Current posts:', posts); 
+
+    res.status(201).json({ message: "Post change successfully" });
+});
+
 app.get('/api/get-posts', (req, res) => {
     res.json({ posts });
 });
