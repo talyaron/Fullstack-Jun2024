@@ -7,6 +7,7 @@ body {
   height: 1000px;
   background-color: rgba(126, 108, 78, 0.235);
   margin: 0 auto;
+  overflow: hidden;
 }
 
 #playerBox {
@@ -20,6 +21,13 @@ body {
   /* Centers the image within the element */
   background-repeat: no-repeat;
   /* Prevents repeating */
+}
+
+.bullet {
+  background-image: url("https://i.ibb.co/JyvBMh8/bullet.png");
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 #green {
