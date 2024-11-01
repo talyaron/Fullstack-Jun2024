@@ -20,7 +20,6 @@ app.post("/api/add-post", function (req, res) {
     }
     var id = crypto_1["default"].randomUUID();
     posts.push({ id: id, title: title, text: text, imageURL: imageURL });
-    console.log("Current posts:", posts);
     res.status(201).json({ message: "Post added successfully" });
 });
 // get all posts
