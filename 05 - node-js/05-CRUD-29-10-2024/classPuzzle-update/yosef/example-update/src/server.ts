@@ -9,7 +9,7 @@ let posts: Array<{ title: string, text: string, imageURL: string, id:string }> =
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-app.post('/api/add-post', (req: any, res: any) => {
+app.post('/api/add-posts', (req: any, res: any) => {
     const { title, text, imageURL } = req.body;
     
     console.log('Received POST request:', req.body);  

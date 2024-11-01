@@ -7,7 +7,7 @@ var port = process.env.PORT || 3000;
 var posts = [];
 app.use(body_parser_1["default"].json());
 app.use(express_1["default"].static('public'));
-app.post('/api/add-post', function (req, res) {
+app.post('/api/add-posts', function (req, res) {
     var _a = req.body, title = _a.title, text = _a.text, imageURL = _a.imageURL;
     console.log('Received POST request:', req.body);
     if (!title || !text || !imageURL) {

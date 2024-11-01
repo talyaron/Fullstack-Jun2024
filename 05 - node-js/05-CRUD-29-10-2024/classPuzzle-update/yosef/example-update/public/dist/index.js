@@ -49,7 +49,7 @@ function handleSendPost(event) {
                 case 1:
                     _a.trys.push([1, 4, , 5]);
                     console.log('Sending post:', { title: title, text: text, imageURL: imageURL }); // Debug log
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/add-post', {
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/add-posts', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ title: title, text: text, imageURL: imageURL })
@@ -158,11 +158,12 @@ function handleEditTitle(id) {
                     titleElement_1.contentEditable = 'false';
                     //how to update the title in the server
                     var response = fetch('http://localhost:3000/api/update', {
-                        method: 'update',
+                        method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ id: id, title: title })
                     });
-                    console.log("asds");
+                    if (!response)
+                        throw new Error('Failed to update title');
                 });
             }
             catch (error) {

@@ -18,7 +18,7 @@ async function handleSendPost(event: Event) {
     try {
         console.log('Sending post:', { title, text, imageURL });  // Debug log
 
-        const response = await fetch('http://localhost:3000/api/add-post', {
+        const response = await fetch('http://localhost:3000/api/add-posts', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ title, text, imageURL }),
@@ -128,11 +128,13 @@ async function handleEditTitle(id: string) {
                 //how to update the title in the server
                 
                 const response = fetch('http://localhost:3000/api/update', {
-                    method: 'update',
+                    method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id, title }),
                 });
-console.log("asds");
+                if (!response) throw new Error('Failed to update title');
+
+                
 
         });
 
