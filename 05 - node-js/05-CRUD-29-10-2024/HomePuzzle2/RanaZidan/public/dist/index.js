@@ -42,23 +42,24 @@ function handleSendPost(event) {
                 case 0:
                     event.preventDefault();
                     form = event.target;
-                    title = form.elements.namedItem('title').value;
-                    text = form.elements.namedItem('text').value;
-                    imageURL = form.elements.namedItem('imageURL').value;
+                    title = form.elements.namedItem("title").value;
+                    text = form.elements.namedItem("text").value;
+                    imageURL = form.elements.namedItem("imageURL")
+                        .value;
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 4, , 5]);
-                    console.log('Sending post:', { title: title, text: text, imageURL: imageURL }); // Debug log
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/add-post', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
+                    console.log("Sending post:", { title: title, text: text, imageURL: imageURL });
+                    return [4 /*yield*/, fetch("http://localhost:3001/api/add-post", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({ title: title, text: text, imageURL: imageURL })
                         })];
                 case 2:
                     response = _a.sent();
                     if (!response.ok)
-                        throw new Error('Failed to add post');
-                    console.log('Post added successfully!');
+                        throw new Error("Failed to add post");
+                    console.log("Post added successfully!");
                     form.reset();
                     return [4 /*yield*/, fetchPosts()];
                 case 3:
@@ -66,7 +67,7 @@ function handleSendPost(event) {
                     return [3 /*break*/, 5];
                 case 4:
                     error_1 = _a.sent();
-                    console.error('Error sending post:', error_1);
+                    console.error("Error sending post:", error_1);
                     return [3 /*break*/, 5];
                 case 5: return [2 /*return*/];
             }
@@ -80,7 +81,7 @@ function fetchPosts() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/get-posts')];
+                    return [4 /*yield*/, fetch("http://localhost:3001/api/get-posts")];
                 case 1:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
@@ -89,7 +90,7 @@ function fetchPosts() {
                     feedElement_1 = document.getElementById("feed");
                     if (!feedElement_1)
                         throw new Error("Feed element not found");
-                    feedElement_1.innerHTML = '';
+                    feedElement_1.innerHTML = "";
                     data.posts.forEach(function (post) {
                         var postElement = document.createElement("div");
                         postElement.className = "post";
@@ -108,21 +109,22 @@ function fetchPosts() {
 }
 fetchPosts();
 function savePostsToLocalStorage(posts) {
-    localStorage.setItem('posts', JSON.stringify(posts));
+    localStorage.setItem("posts", JSON.stringify(posts));
 }
 function loadPostsFromLocalStorage() {
-    var posts = localStorage.getItem('posts');
+    var posts = localStorage.getItem("posts");
     return posts ? JSON.parse(posts) : [];
 }
-function handleSendPost(event) {
+function handleSendPost1(event) {
     return __awaiter(this, void 0, void 0, function () {
         var form, title, text, imageURL, newPost, posts;
         return __generator(this, function (_a) {
             event.preventDefault();
             form = event.target;
-            title = form.elements.namedItem('title').value;
-            text = form.elements.namedItem('text').value;
-            imageURL = form.elements.namedItem('imageURL').value;
+            title = form.elements.namedItem("title").value;
+            text = form.elements.namedItem("text").value;
+            imageURL = form.elements.namedItem("imageURL")
+                .value;
             newPost = { title: title, text: text, imageURL: imageURL };
             posts = loadPostsFromLocalStorage();
             posts.push(newPost);
@@ -135,15 +137,20 @@ function handleSendPost(event) {
 }
 function renderPosts() {
     var posts = loadPostsFromLocalStorage();
-    var feedElement = document.getElementById('feed');
+    var feedElement = document.getElementById("feed");
     if (!feedElement)
-        throw new Error('Feed element not found');
-    feedElement.innerHTML = '';
-    posts.forEach(function (post) {
-        var postElement = document.createElement('div');
-        postElement.className = 'post';
-        postElement.innerHTML = "\n            <h3>" + post.title + "</h3>\n            <img src=\"" + post.imageURL + "\" alt=\"Image\" />\n            <p>" + post.text + "</p>\n        ";
+        throw new Error("Feed element not found");
+    feedElement.innerHTML = "";
+    posts.forEach(function (post, index) {
+        var postElement = document.createElement("div");
+        postElement.className = "post";
+        postElement.innerHTML = "\n      <h3>" + post.title + "</h3>\n      <img src=\"" + post.imageURL + "\" alt=\"Image\" />\n      <p>" + post.text + "</p>\n      <button class=\"delete-button\" onclick=\"handleDeletePost(" + index + ")\">Delete</button>\n    ";
         feedElement.appendChild(postElement);
     });
 }
-renderPosts();
+function handleDeletePost(index) {
+    var posts = loadPostsFromLocalStorage();
+    posts.splice(index, 1);
+    savePostsToLocalStorage(posts);
+    renderPosts();
+}

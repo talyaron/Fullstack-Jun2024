@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 const posts: Array<{ title: string, text: string, imageURL: string }> = [];
 
@@ -25,7 +25,7 @@ app.post('/api/add-post', (req: any, res: any) => {
     res.status(201).json({ message: "Post added successfully" });
 });
 
-app.get('/api/get-posts', (req, res) => {
+app.get('/api/get-posts', (req:any, res:any) => {
     res.json({ posts });
 });
 

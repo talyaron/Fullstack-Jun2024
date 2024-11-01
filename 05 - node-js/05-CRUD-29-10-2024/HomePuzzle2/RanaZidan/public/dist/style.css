@@ -37,12 +37,14 @@ button {
 
 button:hover {
   background-color: #007bb5;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 #feed {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1vh;
+  text-decoration: underline;
 }
 
 .post {
@@ -61,4 +63,21 @@ button:hover {
   height: 50vh;
   border-radius: 5px;
   margin-top: 10px;
+}
+
+.delete-button {
+  background-color: #007bb5;
+  color: #fff;
+  border: none;
+  width: 13vw;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none !important;
+  transition: background-color 0.3s ease;
+}
+.delete-button:hover {
+  background-color: #0095f6;
 }
