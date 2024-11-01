@@ -1,4 +1,3 @@
- let height = 40;
  let all_post_inputs = [];
 
  async function enter_clicked(): void 
@@ -6,14 +5,13 @@
      
      try
         {
-            const input = document.getElementById("post_input");
+            const input = document. getElementById("post_input");
             if (!input) return console.log("error");
 
             input.addEventListener('keydown', async function(event) 
                 {
                   if (event.key == 'Enter')
                     {
-                    
                         all_post_inputs.push(input.value);
                         console.log(all_post_inputs);
                         input.value = "";

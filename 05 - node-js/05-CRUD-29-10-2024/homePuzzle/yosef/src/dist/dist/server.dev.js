@@ -7,7 +7,6 @@ var express_1 = require("express");
 var app = express_1["default"]();
 var port = 3000;
 var public_array = [];
-var deleted_clicked = false;
 app.use(express_1["default"].json()); //middleware to get data from the body
 
 app.use(express_1["default"]["static"]('public')); //middleware
@@ -35,16 +34,6 @@ app.post("/api/send-words", function (request, res) {
     public_array.push.apply(public_array, newPost); // הוספת המילים למערך
 
     res.send("post created successfully");
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Internal Server Error");
-  }
-});
-app["delete"]("/api/clear-words", function (req, res) {
-  try {
-    public_array = []; // נקה את המערך
-
-    res.send("All words cleared successfully");
   } catch (error) {
     console.log(error);
     res.status(500).send("Internal Server Error");
