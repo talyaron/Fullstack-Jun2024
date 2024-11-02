@@ -32,11 +32,89 @@ var storage = multer_1["default"].diskStorage({
     }
 });
 var upload = multer_1["default"]({ storage: storage });
+var infoValidator = /** @class */ (function () {
+    function infoValidator() {
+        this.regN = /^[a-zA-Z\s'-]+$/;
+        this.regE = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        this.regP =
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    }
+    infoValidator.prototype.isNameValid = function (name) {
+        if (this.regN.test(name) == false)
+            return "invalid name";
+        return "";
+    };
+    infoValidator.prototype.isEmailValid = function (email) {
+        var emailExist = users.some(function (user) { return email === user.email; });
+        if (this.regE.test(email) == false)
+            return "invalid email : email needs @ and a .com ending";
+        if (emailExist)
+            return "invalid email : email already exists!";
+        return "";
+    };
+    infoValidator.prototype.isPasswordValid = function (password) {
+        if (this.regP.test(password) == false)
+            return "invalid password : password requires one Uppercase letter <br> and one special letter(@#!$%#^&*)";
+        return "";
+    };
+    infoValidator.prototype.isRePasswordValid = function (rePassword, password) {
+        if (rePassword !== password)
+            return "invalid repeat password: required to be the same as password";
+        return "";
+    };
+    return infoValidator;
+}());
+var User = /** @class */ (function () {
+    function User(email, name, password) {
+        this.id = crypto.randomUUID();
+        this.email = email;
+        this.name = name;
+        this.password = password;
+    }
+    User.prototype.assignKey = function () {
+        this.key = "key=" + crypto.randomUUID();
+    };
+    return User;
+}());
 var posts = [];
 var users = [];
+var infoValidation = new infoValidator();
 app.get("/api/get-posts", function (reg, res) {
     try {
         res.json({ posts: posts });
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            res.status(500).json({ error: error.message });
+        }
+        else {
+            res.status(500).json({ error: 'An unknown error occurred.' });
+        }
+    }
+});
+app.post("/api/register-user", function (req, res) {
+    try {
+        var _a = req.body, name = _a.name, email = _a.email, password = _a.password, rePassword = _a.rePassword;
+        var isNameInValid = infoValidation.isNameValid(name);
+        var isEmailInValid = infoValidation.isEmailValid(email);
+        var isPasswordInValid = infoValidation.isPasswordValid(password);
+        var isRepassWordInValid = infoValidation.isRePasswordValid(rePassword, password);
+        //console.log("Password Validation Result:", isPasswordInValid, `${password}`); // This will show on the server console
+        // Check if all validations passed
+        if (!isNameInValid && !isEmailInValid && !isPasswordInValid && !isRepassWordInValid) {
+            var newUser = new User(email, name, password);
+            users.push(newUser);
+            res.json({ message: "user info valid on server creating user!", users: users });
+        }
+        else {
+            res.json({
+                error: "Some discrepancies occurred",
+                isNameInValid: isNameInValid,
+                isEmailInValid: isEmailInValid,
+                isPasswordInValid: isPasswordInValid,
+                isRepassWordInValid: isRepassWordInValid
+            });
+        }
     }
     catch (error) {
         if (error instanceof Error) {

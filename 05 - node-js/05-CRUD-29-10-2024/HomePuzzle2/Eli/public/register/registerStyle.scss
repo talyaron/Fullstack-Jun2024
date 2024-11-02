@@ -1,16 +1,15 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: rgb(14, 14, 78);
 }
 #formContainer {
-  width: 60vw;
+  width: 80vw;
   height: 100vh;
   margin: 0 auto;
-  background-color: rgb(46, 85, 153);
- 
+    overflow: hidden;
   
   form {
+    z-index: 1;
     display: flex;
     flex-direction: column;
     width: 50%;
@@ -27,15 +26,28 @@ body {
     top:-130vh;
     input {
       width: 80%;
-      height: 10%;
+      height: 7%;
       font-size: 2rem;
       text-align: center;
       margin: 0 auto;
       border-radius: 20px;
       border: solid 2px black;
     }
+    span{
+      font-size: 1.4rem;
+      text-align: center;
+      margin-top: -2vh;
+    }
   }
-
+  #submit
+  {
+      &:hover{
+          color: white;
+          scale: 1.2;
+          background-color: rgba(241, 241, 241, 0.696);
+          transition: all .3s;
+      }
+  }
   #checkbox-container {
     display: flex;
     align-items: center;
@@ -56,7 +68,38 @@ body {
       margin: 0;
       padding: 0;
     }
+   
   }
+  button{
+    width: 80%;
+    height: 10%;
+    font-size: 2rem;
+    border-radius: 20px;
+    border: solid 5px rgb(92, 157, 210);
+    text-align: center;
+    position: relative;
+    bottom:-30vh;
+    left: 10%;
+    border-bottom-color:white; 
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+ //   background-color: rgb(92, 157, 210);
+    animation: scrollUp 3s  ease-in ;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    &:hover{
+        color: white;
+        scale: 1.2;
+        background-color: rgb(30, 133, 165);
+        transition: all .3s;
+    }
+  }
+}
+@keyframes scrollUp {
+  
+    100%{
+        bottom:-10vh;
+    }
 }
 @keyframes scrollDown {
     100%{

@@ -1,16 +1,16 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #0e0e4e;
 }
 
 #formContainer {
-  width: 60vw;
+  width: 80vw;
   height: 100vh;
   margin: 0 auto;
-  background-color: #2e5599;
+  overflow: hidden;
 }
 #formContainer form {
+  z-index: 1;
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -28,12 +28,23 @@ body {
 }
 #formContainer form input {
   width: 80%;
-  height: 10%;
+  height: 7%;
   font-size: 2rem;
   text-align: center;
   margin: 0 auto;
   border-radius: 20px;
   border: solid 2px black;
+}
+#formContainer form span {
+  font-size: 1.4rem;
+  text-align: center;
+  margin-top: -2vh;
+}
+#formContainer #submit:hover {
+  color: white;
+  scale: 1.2;
+  background-color: rgba(241, 241, 241, 0.696);
+  transition: all 0.3s;
 }
 #formContainer #checkbox-container {
   display: flex;
@@ -53,7 +64,35 @@ body {
   margin: 0;
   padding: 0;
 }
+#formContainer button {
+  width: 80%;
+  height: 10%;
+  font-size: 2rem;
+  border-radius: 20px;
+  border: solid 5px #5c9dd2;
+  text-align: center;
+  position: relative;
+  bottom: -30vh;
+  left: 10%;
+  border-bottom-color: white;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  animation: scrollUp 3s ease-in;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+}
+#formContainer button:hover {
+  color: white;
+  scale: 1.2;
+  background-color: #1e85a5;
+  transition: all 0.3s;
+}
 
+@keyframes scrollUp {
+  100% {
+    bottom: -10vh;
+  }
+}
 @keyframes scrollDown {
   100% {
     top: 0;

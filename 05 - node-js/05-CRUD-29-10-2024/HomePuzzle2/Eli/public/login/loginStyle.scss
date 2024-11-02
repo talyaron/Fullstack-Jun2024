@@ -1,14 +1,12 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: rgb(14, 14, 78);
 
 }
 #formContainer {
   width: 60vw;
   height: 100vh;
   margin: 0 auto;
-  background-color: rgb(46, 85, 153);
     overflow: hidden;
   
   form {
@@ -69,20 +67,20 @@ body {
    
   }
   button{
-    width: 100%;
+    width: 80%;
     height: 10%;
     font-size: 2rem;
     border-radius: 20px;
     border: solid 5px rgb(92, 157, 210);
     text-align: center;
     position: relative;
-    bottom: -5%;
-    left:-100vw;
-    border-top-left-radius: 0;
+    bottom:-30vh;
+    left: 10%;
+    border-bottom-color:white; 
     border-bottom-left-radius: 0;
-    border-left-color: white;
+    border-bottom-right-radius: 0;
  //   background-color: rgb(92, 157, 210);
-    animation: scrollRight 2s  ease-in ;
+    animation: scrollUp 3s  ease-in ;
     animation-fill-mode: forwards;
     animation-iteration-count: 1;
     &:hover{
@@ -93,17 +91,10 @@ body {
     }
   }
 }
-@keyframes scrollRight {
-    99%{
-        border-top-right-radius: 20px;
-        border-bottom-right-radius:20px;
-        border-right-color: rgb(92, 157, 210);
-    }
+@keyframes scrollUp {
+  
     100%{
-        left:0;
-        border-right-color: white;
-        border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+        bottom:-10vh;
     }
 }
 @keyframes scrollDown {

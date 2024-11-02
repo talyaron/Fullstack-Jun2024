@@ -6,6 +6,7 @@ app.use(express.static("public"));
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs'; 
+
 //npm i multer...
 //npm i --save-dev @types/multer
 
@@ -36,6 +37,42 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+class infoValidator {
+  regN: RegExp;
+  regE: RegExp;
+  regP: RegExp;
+
+  constructor(
+  ) {
+    this.regN = /^[a-zA-Z\s'-]+$/;
+    this.regE = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    this.regP =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+     
+  }
+  isNameValid(name:string) {
+    if (this.regN.test(name) == false) return "invalid name";
+    return "";
+  }
+  isEmailValid(email:string) {
+    const emailExist = users.some(user=>email===user.email)
+    if (this.regE.test(email) == false)
+      return "invalid email : email needs @ and a .com ending";
+    if(emailExist)
+      return  "invalid email : email already exists!";
+    return  "";
+  }
+  isPasswordValid(password:string) {
+    if (this.regP.test(password) == false)
+      return "invalid password : password requires one Uppercase letter <br> and one special letter(@#!$%#^&*)";
+    return  "";
+  }
+  isRePasswordValid(rePassword:string,password:string) {
+    if (rePassword !== password)
+      return "invalid repeat password: required to be the same as password";
+    return  "";
+  }
+}
 
 interface PostRequestBody {
     word: string;
@@ -48,17 +85,28 @@ interface Post {
   img: string;
 }
 
-interface User {
+class User {
   id:string;
   email:string;
   name: string;
   password:string;
   key?: string;
+  constructor(email:string,name:string,password:string)
+  {
+    this.id=crypto.randomUUID();
+    this.email=email;
+    this.name=name;
+    this.password=password;
+  }
+  assignKey(){
+    this.key= `key=${crypto.randomUUID()}`;
+  }
 }
 
 
 const posts:Post[]=[];
 const users:User[]=[];
+const infoValidation: infoValidator = new infoValidator();
 
 app.get("/api/get-posts",(reg,res)=>
 {
@@ -72,6 +120,41 @@ try {
         res.status(500).json({ error: 'An unknown error occurred.' });
     }
 }
+});
+
+app.post("/api/register-user", (req, res) => {
+  try {
+    const { name, email, password, rePassword } = req.body;
+
+    const isNameInValid = infoValidation.isNameValid(name);
+    const isEmailInValid = infoValidation.isEmailValid(email);
+    const isPasswordInValid = infoValidation.isPasswordValid(password);
+    const isRepassWordInValid = infoValidation.isRePasswordValid(rePassword, password);
+    
+    //console.log("Password Validation Result:", isPasswordInValid, `${password}`); // This will show on the server console
+
+    // Check if all validations passed
+    if (!isNameInValid && !isEmailInValid && !isPasswordInValid && !isRepassWordInValid) {
+      const newUser = new User(email,name,password);
+      users.push(newUser);
+      res.json({ message: "user info valid on server creating user!" ,users});
+     
+    } else {
+      res.json({
+        error: "Some discrepancies occurred",
+        isNameInValid,
+        isEmailInValid,
+        isPasswordInValid,
+        isRepassWordInValid,
+      });
+    }
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      res.status(500).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: 'An unknown error occurred.' });
+    }
+  }
 });
 
 app.post("/api/add-post", upload.single('image'), (req: express.Request<{}, PostRequestBody>, res: express.Response) => {
