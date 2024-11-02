@@ -41,8 +41,17 @@ interface Post {
   img: string;
 }
 
-const posts:Post[]=[];
+interface User {
+  id:string;
+  email:string;
+  name: string;
+  password:string;
+  key?: string;
+}
 
+
+const posts:Post[]=[];
+const users:User[]=[];
 
 app.get("/api/get-posts",(reg,res)=>
 {

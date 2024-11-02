@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unstagram</title>
+    <link rel="stylesheet" href="./dist/loginStyle.css">
+    <link rel="stylesheet" href="../dist/globalStyle.css">
+    <script src="./dist/login.js" defer></script>
+</head>
+<body>
+    <div id="formContainer">
+         <form onsubmit="login">
+         <input type="text" name="email" id="email" placeholder="enter email">
+         <input type="password" name="password" id="password" placeholder="enter password">
+         <div id="checkbox-container">
+         <input type="checkbox" name="keepLogin" id="keepLogin" placeholder="keep me logged in"> 
+         <span>keep me logged in</span>
+         </div>
+         <input type="submit" name="submit" id="submit" placeholder="submit">
+        </form>
+    </div>
+</body>
+</html>

@@ -16,7 +16,9 @@ async function checkForm(event) {
   }
 }
 setInterval(getPosts,300)
+
 let postLength = 0;
+
 async function getPosts() {
   try {
     const response = await fetch("http://localhost:3000/api/get-posts", {});

@@ -27,6 +27,7 @@ var storage = multer_1["default"].diskStorage({
 });
 var upload = multer_1["default"]({ storage: storage });
 var posts = [];
+var users = [];
 app.get("/api/get-posts", function (reg, res) {
     try {
         res.json({ posts: posts });
