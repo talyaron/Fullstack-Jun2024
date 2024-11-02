@@ -35,3 +35,27 @@
   height: 80%;
   width: 100%;
 }
+
+#pageTitle {
+  width: fit-content;
+  height: fit-content;
+  margin: 0 auto;
+  font-size: 4rem;
+  background: linear-gradient(45deg, #F58529, #DD2A7B, #8134B8, #515BD4);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  padding: 10px;
+  padding-bottom: 0;
+}
+
+#logOut {
+  width: 20vw;
+  height: 5vh;
+  position: sticky;
+  left: 0;
+  top: calc( 100vh - 5vh);
+  font-size: 1.2rem;
+  color: red;
+}

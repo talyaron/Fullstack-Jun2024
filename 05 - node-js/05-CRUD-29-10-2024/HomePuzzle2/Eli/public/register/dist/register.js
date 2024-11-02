@@ -122,7 +122,7 @@ function updateStatus(resultN, resultE, resultP, resultRP, agree) {
 }
 function checkFormInServer(formData) {
     return __awaiter(this, void 0, void 0, function () {
-        var name, email, password, rePassword, response, data, error_1;
+        var name, email, password, rePassword, response, data, error, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -143,6 +143,13 @@ function checkFormInServer(formData) {
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
+                    error = data.error;
+                    if (error) {
+                        alert(error);
+                    }
+                    else {
+                        userCreatedDirectToLogin();
+                    }
                     console.log(data);
                     return [3 /*break*/, 4];
                 case 3:
@@ -151,6 +158,20 @@ function checkFormInServer(formData) {
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
+        });
+    });
+}
+function userCreatedDirectToLogin() {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            if (firstTime > 0)
+                return [2 /*return*/];
+            document.body.innerHTML = " <div class=\"redirect-container\">\n          <div class=\"redirect-message\">\n           <h1>Register Success!</h1>\n            <h2>Redirecting...</h2>\n            <p>Please wait while we take you to the login page.</p>\n          </div>\n          <div class=\"spinner-container\">\n            <div class=\"spinner\"></div>\n          </div>\n        </div>";
+            setTimeout(function () {
+                window.location.href = "http://localhost:3000/login";
+            }, 2000);
+            firstTime = 1;
+            return [2 /*return*/];
         });
     });
 }

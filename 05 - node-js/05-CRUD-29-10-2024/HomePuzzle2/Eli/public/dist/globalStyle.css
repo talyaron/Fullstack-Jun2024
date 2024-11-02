@@ -16,7 +16,6 @@ body {
   margin: 0 auto;
   justify-content: space-evenly;
   background: linear-gradient(to right, #8ab7f1 0%, rgba(233, 240, 255, 0.8) 15%, 95%, #8ab7f1 100%);
-  margin-top: 2vh;
   border-radius: 20px;
   border: solid 1px black;
   text-align: center;

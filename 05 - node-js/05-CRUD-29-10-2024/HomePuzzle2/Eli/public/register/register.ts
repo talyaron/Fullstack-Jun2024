@@ -133,8 +133,32 @@ async function checkFormInServer(formData) {
       body: JSON.stringify({ name, email, password, rePassword }),
     });
     const data = await response.json();
+    const error = data.error;
+    if(error){
+    alert(error)       
+    }else{
+        userCreatedDirectToLogin();
+    }
     console.log(data);
   } catch (error) {
     console.error(error);
   }
+}
+async function userCreatedDirectToLogin()
+{
+    if (firstTime > 0) return;
+    document.body.innerHTML = ` <div class="redirect-container">
+          <div class="redirect-message">
+           <h1>Register Success!</h1>
+            <h2>Redirecting...</h2>
+            <p>Please wait while we take you to the login page.</p>
+          </div>
+          <div class="spinner-container">
+            <div class="spinner"></div>
+          </div>
+        </div>`;
+    setTimeout(() => {
+      window.location.href = "http://localhost:3000/login";
+    }, 2000);
+    firstTime = 1
 }

@@ -34,16 +34,62 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var loggedIn = false;
+var localStorageDetail = localStorage.getItem("key");
+var key = localStorageDetail ? JSON.parse(localStorageDetail) : "";
+checkKey();
+function checkKey() {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, data, message, tGetPosts, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 5, , 6]);
+                    if (!(key.length > 1)) return [3 /*break*/, 3];
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/check-key", { method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            }, body: JSON.stringify({ key: key })
+                        })];
+                case 1:
+                    response = _a.sent();
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    data = _a.sent();
+                    message = data.message;
+                    //console.log(message);
+                    if (!data.error) {
+                        console.log(message);
+                        getPosts();
+                        tGetPosts = setInterval(getPosts, 300);
+                        return [2 /*return*/];
+                    }
+                    console.log(data);
+                    localStorage.removeItem("key");
+                    redirectToLogin();
+                    return [3 /*break*/, 4];
+                case 3:
+                    redirectToLogin();
+                    _a.label = 4;
+                case 4: return [3 /*break*/, 6];
+                case 5:
+                    error_1 = _a.sent();
+                    console.error(error_1);
+                    return [3 /*break*/, 6];
+                case 6: return [2 /*return*/];
+            }
+        });
+    });
+}
 function checkForm(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var formData, response, data, error_1;
+        var formData, response, data, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
                     event.preventDefault();
                     formData = new FormData(event.target);
+                    formData.append("key", key);
                     return [4 /*yield*/, fetch("http://localhost:3000/api/add-post", {
                             method: "POST",
                             body: formData
@@ -56,41 +102,68 @@ function checkForm(event) {
                     console.log(data);
                     return [3 /*break*/, 4];
                 case 3:
-                    error_1 = _a.sent();
-                    console.error(error_1);
+                    error_2 = _a.sent();
+                    console.error(error_2);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
         });
     });
 }
-setInterval(getPosts, 300);
 var postLength = 0;
+function logOut() {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, data, message, error_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/log-out", { method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            }, body: JSON.stringify({ key: key })
+                        })];
+                case 1:
+                    response = _a.sent();
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    data = _a.sent();
+                    message = data.message;
+                    console.log(message);
+                    localStorage.removeItem("key");
+                    redirectToLogin();
+                    console.log(data);
+                    return [2 /*return*/];
+                case 3:
+                    error_3 = _a.sent();
+                    console.error(error_3);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
 function redirectToLogin() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            if (postLength > 0)
+            if (postLength < 0)
                 return [2 /*return*/];
             document.body.innerHTML = " <div class=\"redirect-container\">\n    <div class=\"redirect-message\">\n      <h2>Redirecting...</h2>\n      <p>Please wait while we take you to the login page.</p>\n    </div>\n    <div class=\"spinner-container\">\n      <div class=\"spinner\"></div>\n    </div>\n  </div>";
             setTimeout(function () {
                 window.location.href = "http://localhost:3000/login";
             }, 2000);
-            postLength = 1;
+            postLength = -1;
             return [2 /*return*/];
         });
     });
 }
 function getPosts() {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, posts, error_2;
+        var response, data, posts, error_4;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    if (!loggedIn) {
-                        redirectToLogin();
-                        return [2 /*return*/];
-                    }
                     return [4 /*yield*/, fetch("http://localhost:3000/api/get-posts", {})];
                 case 1:
                     response = _a.sent();
@@ -104,8 +177,8 @@ function getPosts() {
                     }
                     return [3 /*break*/, 4];
                 case 3:
-                    error_2 = _a.sent();
-                    console.error(error_2);
+                    error_4 = _a.sent();
+                    console.error(error_4);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }

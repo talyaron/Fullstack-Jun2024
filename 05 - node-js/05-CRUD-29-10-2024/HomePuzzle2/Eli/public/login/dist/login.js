@@ -34,6 +34,47 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var localStorageDetail = localStorage.getItem("key");
+var key = localStorageDetail ? JSON.parse(localStorageDetail) : "";
+checkKey();
+function checkKey() {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, data, message, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 4, , 5]);
+                    if (!(key.length > 1)) return [3 /*break*/, 3];
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/check-key", { method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            }, body: JSON.stringify({ key: key })
+                        })];
+                case 1:
+                    response = _a.sent();
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    data = _a.sent();
+                    message = data.message;
+                    //console.log(message);
+                    if (!data.error) {
+                        goToMain();
+                        console.log(message);
+                        return [2 /*return*/];
+                    }
+                    localStorage.removeItem("key");
+                    console.log(data);
+                    _a.label = 3;
+                case 3: return [3 /*break*/, 5];
+                case 4:
+                    error_1 = _a.sent();
+                    console.error(error_1);
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
+            }
+        });
+    });
+}
 var firstTime = 0;
 function toRegister(event) {
     return __awaiter(this, void 0, void 0, function () {
@@ -49,3 +90,49 @@ function toRegister(event) {
         });
     });
 }
+function login(event) {
+    return __awaiter(this, void 0, void 0, function () {
+        var form, email, password, response, data, key_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    event.preventDefault();
+                    form = new FormData(event.target);
+                    email = form.get("email");
+                    password = form.get("password");
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/account-login", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({ email: email, password: password })
+                        })];
+                case 1:
+                    response = _a.sent();
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    data = _a.sent();
+                    console.log(data);
+                    if (!data.error) {
+                        key_1 = data.key;
+                        localStorage.setItem("key", JSON.stringify(key_1));
+                        goToMain();
+                    }
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+function goToMain() {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            document.body.innerHTML = " <div class=\"redirect-container\">\n  <div class=\"redirect-message\">\n   <h1>Login Success!</h1>\n    <h2>Redirecting...</h2>\n    <p>Please wait while we take you to the main page.</p>\n  </div>\n  <div class=\"spinner-container\">\n    <div class=\"spinner\"></div>\n  </div>\n</div>";
+            setTimeout(function () {
+                window.location.href = "http://localhost:3000/index";
+            }, 2000);
+            return [2 /*return*/];
+        });
+    });
+}
+//const localStorageDetail = localStorage.getItem("users");
+//const users:User[]=localStorageDetail ? JSON.parse(localStorageDetail) : [];

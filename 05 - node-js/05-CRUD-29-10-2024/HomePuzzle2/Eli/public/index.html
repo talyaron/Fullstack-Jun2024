@@ -9,6 +9,8 @@
     <script src="./dist/index.js" defer></script>
 </head>
 <body>
+    <h1 id="pageTitle">Unstagram</h1>
+    <button id="logOut" onclick="logOut()">Log Out</button>
     <form id="form" onsubmit="checkForm(event)">
         <input type="text" name="title" id="title" placeholder="Title your post">
         <input type="text" name="description" id="description" placeholder="Describe your post">
@@ -17,6 +19,5 @@
         <input type="submit" name="submit" id="submit">
     </form>
     <div id="feed"></div>
-    <a href="./login/login.html"> to login</a>
 </body>
 </html>

@@ -1,16 +1,41 @@
+const localStorageDetail = localStorage.getItem("key");
+const key:string=localStorageDetail ? JSON.parse(localStorageDetail) : "";
 
+checkKey();
 
-const loggedIn= false;
-
-
-
-
+async function checkKey() {
+  try {
+    if (key.length>1) {
+    const response = await fetch(`http://localhost:3000/api/check-key`,
+      {method :"POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ key }),
+      });
+    const data = await response.json();
+    const { message }=data;
+    //console.log(message);
+    if(!data.error)
+    {
+      console.log (message)
+      getPosts();
+    const tGetPosts=  setInterval(getPosts,300)
+      return;
+    }
+    console.log (data);
+    localStorage.removeItem("key");
+    redirectToLogin();
+    } else  redirectToLogin();
+  } catch (error) {
+    console.error(error);
+  }
+}
 async function checkForm(event) {
   try {
     event.preventDefault();
-
     const formData = new FormData(event.target); // Create a FormData object
-    
+    formData.append("key", key);
     const response = await fetch("http://localhost:3000/api/add-post", {
       method: "POST",
 
@@ -22,12 +47,33 @@ async function checkForm(event) {
     console.error(error);
   }
 }
-setInterval(getPosts,300)
+
 
 let postLength = 0;
 
+async function logOut()
+{
+  try {
+    const response = await fetch(`http://localhost:3000/api/log-out`,
+      {method :"POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ key }),
+      });
+    const data = await response.json();
+    const { message }=data;
+      console.log (message)
+      localStorage.removeItem("key");
+      redirectToLogin();
+      console.log (data);
+      return;
+  } catch (error) {
+    console.error(error);
+  }
+}
 async function redirectToLogin() {
-    if(postLength>0) return;
+    if(postLength<0) return;
     document.body.innerHTML=` <div class="redirect-container">
     <div class="redirect-message">
       <h2>Redirecting...</h2>
@@ -40,15 +86,11 @@ async function redirectToLogin() {
     setTimeout(() => {
         window.location.href = "http://localhost:3000/login";
     }, 2000); 
-     postLength = 1;
+     postLength = -1;
 }
 
 async function getPosts() {
   try {
-    if (!loggedIn){ 
-        redirectToLogin();
-        return;
-    }
     const response = await fetch("http://localhost:3000/api/get-posts", {});
     const data = await response.json();
    const { posts } = data;
