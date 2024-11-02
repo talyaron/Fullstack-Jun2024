@@ -1,25 +1,33 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { randomBytes } from 'crypto';
+import { randomBytes } from 'crypto'; 
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-const posts: Array<{ title: string, text: string, imageURL: string, id:string }> = [];
+// const posts: Array<{ caption: string, imageURL: string, id:string }> = [];
+
+type Post = {
+    caption: string,
+    imageURL: string, 
+    id:string
+}
+
+const posts: Post[] = [];
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
 app.post('/api/add-post', (req:any, res: any) => {
     try {
-        const { title, text, imageURL } = req.body;
+        const { caption, imageURL } = req.body;
 
-        if (!title || !text || !imageURL) {
+        if ( !caption || !imageURL) {
             return res.status(400).json({ error: "All fields (title, text, imageURL) are required" });
         }
 
         const id = randomBytes(16).toString("hex"); 
-        posts.push({ id, title, text, imageURL });
+        posts.push({ id, caption, imageURL });
 
         res.status(201).json({ message: "Post added successfully" });
     } catch (error) {
@@ -40,15 +48,15 @@ app.listen(port, () => {
 app.patch('/api/update-post', (req: any, res:any) => {
 
     try {
-        const { title, id } = req.body;
+        const { caption, id } = req.body;
         const postId = id;
 
         const post = posts.find(id => id.id === postId);
         if (!post) {
             return res.status(404).json({ message: 'Post not found' });
         }
-        post.title = title;
-        return res.json({ message: 'Title updated successfully', post });
+        post.caption = caption;
+        return res.json({ message: 'Caption updated successfully', post });
     
     } catch(error) {
         console.error("Error in /api/update-post:", error);
@@ -57,4 +65,25 @@ app.patch('/api/update-post', (req: any, res:any) => {
 });
 
 
+app.delete('/api/delete-post', (req: any, res: any) => {
+    try {
+        const { id } = req.body;
+        const postId = id;
+
+        const index = posts.findIndex(id => id.id === postId);
+        console.log('index', index)
+        if (index === -1) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
+        
+        posts.splice(index, 1);
+        
+        //find the post in the array and delete it
+        return res.json({ message: 'Post deleted successfully', posts });
+    
+    } catch(error) {
+        console.error("Error in /api/update-post:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    } 
+});
 
