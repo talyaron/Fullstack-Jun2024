@@ -15,7 +15,7 @@ body {
   height: 40vh;
   margin: 0 auto;
   justify-content: space-evenly;
-  background-color: rgba(114, 186, 186, 0.644);
+  background: linear-gradient(to right, #8ab7f1 0%, rgba(233, 240, 255, 0.8) 15%, 95%, #8ab7f1 100%);
   margin-top: 2vh;
   border-radius: 20px;
   border: solid 1px black;
@@ -23,13 +23,28 @@ body {
 }
 #form input {
   width: 80%;
+  font-size: 1.2rem;
   height: 10%;
   margin: 0 auto;
-  border-radius: 20px;
+  border-radius: 10px;
   border: solid 1px black;
   text-align: center;
 }
-#form #imagInputLabel {
+#form #submit {
+  background-color: #4382c5;
+  color: white;
+  font-size: 1rem;
+}
+#form #submit:hover {
+  font-size: 1.2rem;
+  background-color: #26415d;
+  transition: all 0.3s;
+}
+#form #description {
+  height: 12%;
+  font-size: 1rem;
+}
+#form #imageInputLabel {
   width: 80%;
   height: 10%;
   margin: 0 auto;
@@ -40,7 +55,7 @@ body {
   align-items: center;
   background-color: rgba(255, 255, 255, 0.807);
 }
-#form #imagInputLabel:hover {
+#form #imageInputLabel:hover {
   height: calc(10% - 2px);
   font-size: 1.2rem;
   border-radius: 20%;

@@ -9,11 +9,11 @@
     <script src="./dist/index.js" defer></script>
 </head>
 <body>
-    <form id="form" onsubmit="checkForm()">
+    <form id="form" onsubmit="checkForm(event)">
         <input type="text" name="title" id="title" placeholder="Title your post">
-        <input type="text" name="article" id="article" placeholder="Describe your post">
+        <input type="text" name="description" id="description" placeholder="Describe your post">
         <input type="file" hidden  name="image" id="image" placeholder="upload image" >
-        <label for="image" id="imagInputLabel">Upload Image</label>
+        <label for="image" id="imageInputLabel">Upload Image</label>
         <input type="submit" name="submit" id="submit">
     </form>
     <div id="feed"></div>
