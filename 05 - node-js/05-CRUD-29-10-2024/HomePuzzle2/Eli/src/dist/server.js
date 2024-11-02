@@ -16,6 +16,12 @@ if (!fs_1["default"].existsSync(uploadsDir)) {
     fs_1["default"].mkdirSync(uploadsDir, { recursive: true });
 }
 app.use('/uploads', express_1["default"].static(uploadsDir));
+app.get('/register', function (req, res) {
+    res.sendFile(path_1["default"].join(__dirname, '../public/register', 'register.html'));
+});
+app.get('/login', function (req, res) {
+    res.sendFile(path_1["default"].join(__dirname, '../public/login', 'login.html'));
+});
 var storage = multer_1["default"].diskStorage({
     destination: function (req, file, cb) {
         cb(null, uploadsDir);

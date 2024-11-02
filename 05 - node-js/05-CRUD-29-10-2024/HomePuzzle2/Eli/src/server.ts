@@ -17,6 +17,13 @@ if (!fs.existsSync(uploadsDir)) {
 }
 app.use('/uploads', express.static(uploadsDir));
 
+app.get('/register', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/register', 'register.html'));
+});
+
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/login', 'login.html'));
+});
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

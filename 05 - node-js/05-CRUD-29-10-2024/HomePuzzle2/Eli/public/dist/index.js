@@ -34,6 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var loggedIn = false;
 function checkForm(event) {
     return __awaiter(this, void 0, void 0, function () {
         var formData, response, data, error_1;
@@ -65,6 +66,20 @@ function checkForm(event) {
 }
 setInterval(getPosts, 300);
 var postLength = 0;
+function redirectToLogin() {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            if (postLength > 0)
+                return [2 /*return*/];
+            document.body.innerHTML = " <div class=\"redirect-container\">\n    <div class=\"redirect-message\">\n      <h2>Redirecting...</h2>\n      <p>Please wait while we take you to the login page.</p>\n    </div>\n    <div class=\"spinner-container\">\n      <div class=\"spinner\"></div>\n    </div>\n  </div>";
+            setTimeout(function () {
+                window.location.href = "http://localhost:3000/login";
+            }, 2000);
+            postLength = 1;
+            return [2 /*return*/];
+        });
+    });
+}
 function getPosts() {
     return __awaiter(this, void 0, void 0, function () {
         var response, data, posts, error_2;
@@ -72,6 +87,10 @@ function getPosts() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
+                    if (!loggedIn) {
+                        redirectToLogin();
+                        return [2 /*return*/];
+                    }
                     return [4 /*yield*/, fetch("http://localhost:3000/api/get-posts", {})];
                 case 1:
                     response = _a.sent();
