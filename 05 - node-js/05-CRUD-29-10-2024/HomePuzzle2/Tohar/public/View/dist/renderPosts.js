@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,8 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
-exports.fetchPosts = void 0;
+;
 function fetchPosts() {
     return __awaiter(this, void 0, void 0, function () {
         var response, data, feedElement, error_1;
@@ -64,7 +62,6 @@ function fetchPosts() {
         });
     });
 }
-exports.fetchPosts = fetchPosts;
 ;
 function renderPosts(posts) {
     var feedElement = document.getElementById('feed');
@@ -78,6 +75,7 @@ function renderPosts(posts) {
 ;
 function renderPost(post) {
     try {
+        // changeFileToImage();
         var html = "\n        <div class=\"post\">\n            <img src=\"" + post.imageURL + "\" alt=\"Image\" />\n            <h3 id=\"caption-" + post.id + "\">" + post.caption + "</h3>\n            <button onclick=\"handleEditCaption('" + post.id + "')\" >Edit</button>\n            <button onclick=\"handlDeletePost('" + post.id + "')\">Delete</button>\n            <button onclick=\"handlEditImage\">Change Image</button>\n            <p>" + post.caption + "</p>\n        </div>\n        ";
         return html;
     }
@@ -85,3 +83,83 @@ function renderPost(post) {
         console.error('Error:', error);
     }
 }
+function handleEditCaption(id) {
+    try {
+        var captionElement_1 = document.getElementById("caption-" + id);
+        if (!captionElement_1)
+            throw new Error('Caption element not found');
+        captionElement_1.contentEditable = 'true';
+        captionElement_1.focus();
+        captionElement_1.addEventListener("blur", function (event) {
+            var caption = captionElement_1.innerText;
+            captionElement_1.contentEditable = 'false';
+            fetchEditedTitle(id, caption);
+        });
+    }
+    catch (error) {
+        console.error('Error:', error);
+    }
+}
+;
+function fetchEditedTitle(id, caption) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, data;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, fetch('http://localhost:3000/api/update-post', {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ id: id, caption: caption })
+                    })];
+                case 1:
+                    response = _a.sent();
+                    if (!response.ok) {
+                        console.error("Failed to update title:", response.statusText);
+                        return [2 /*return*/];
+                    }
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    data = _a.sent();
+                    console.log(data, 'success');
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+;
+function handleDeletePost(id) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, data, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/delete-post', {
+                            method: 'DELETE',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ id: id })
+                        })];
+                case 1:
+                    response = _a.sent();
+                    console.log('in delete');
+                    if (!response.ok) {
+                        console.error("Failed to update title:", response.statusText);
+                        return [2 /*return*/];
+                    }
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    data = _a.sent();
+                    console.log(data, 'success');
+                    fetchPosts();
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_2 = _a.sent();
+                    console.error('Error:', error_2);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+;
+// module.exports = {renderPost, handleEditCaption, handleDeletePost}

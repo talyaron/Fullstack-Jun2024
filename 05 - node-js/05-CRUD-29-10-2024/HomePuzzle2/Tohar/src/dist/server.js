@@ -6,8 +6,35 @@ var crypto_1 = require("crypto");
 var app = express_1["default"]();
 var port = process.env.PORT || 3000;
 var posts = [];
+var users = [];
 app.use(body_parser_1["default"].json());
 app.use(express_1["default"].static('public'));
+app.post('/api/add-user', function (req, res) {
+    try {
+        var _a = req.body, userName = _a.userName, email = _a.email, password = _a.password, phoneNumber = _a.phoneNumber;
+        if (!userName || !email || !password || !phoneNumber) {
+            return res.status(400).json({ error: "All fields are required" });
+        }
+        var id = crypto_1.randomBytes(16).toString("hex");
+        var posts_1 = [];
+        users.push({ userName: userName, id: id, email: email, password: password, phoneNumber: phoneNumber, posts: posts_1 });
+        res.status(201).json({ message: "User added successfully" });
+    }
+    catch (error) {
+        res.status(500).json({ error: "An error occurred while adding the user" });
+    }
+});
+app.get('/api/get-users', function (req, res) {
+    res.json({ users: users });
+});
+app.get('/api/user-exists', function (req, res) {
+    var email = req.body.email;
+    if (!email) {
+        return res.status(400).json({ error: "Email is required" });
+    }
+    var userExists = users.some(function (user) { return user.email === email; });
+    res.json({ exists: userExists });
+});
 app.post('/api/add-post', function (req, res) {
     try {
         var _a = req.body, caption = _a.caption, imageURL = _a.imageURL;

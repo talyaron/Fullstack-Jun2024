@@ -1,4 +1,12 @@
-export async function fetchPosts() {
+interface Post {
+    caption: string;
+    imageURL: string;
+    id: string;
+    editTitle?: boolean;
+    editText?: boolean;
+};
+
+async function fetchPosts() {
     try {
 
         const response = await fetch('http://localhost:3000/api/get-posts');
@@ -27,6 +35,8 @@ function renderPosts(posts: Post[]) {
 
 function renderPost(post: Post) {
     try {
+        // changeFileToImage();
+
         const html = `
         <div class="post">
             <img src="${post.imageURL}" alt="Image" />
@@ -37,8 +47,74 @@ function renderPost(post: Post) {
             <p>${post.caption}</p>
         </div>
         `;
+
+        
         return html;
     } catch (error) {
         console.error('Error:', error);
     }
 }
+
+function handleEditCaption(id: string) {
+    try {
+        const captionElement = document.getElementById(`caption-${id}`);
+        if (!captionElement) throw new Error('Caption element not found');
+        captionElement.contentEditable = 'true';
+        captionElement.focus();
+        captionElement.addEventListener("blur", (event) => {
+            
+                const caption = captionElement.innerText;
+                captionElement.contentEditable = 'false';
+
+                fetchEditedTitle(id, caption);
+        });
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+
+};
+
+async function fetchEditedTitle(id: string, caption:string) {
+    
+    const response = await fetch('http://localhost:3000/api/update-post', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({id, caption}),
+    });
+
+    if (!response.ok) {
+        console.error("Failed to update title:", response.statusText);
+        return;
+    }
+
+    const data = await response.json();
+    console.log(data, 'success');
+};
+
+
+async function handleDeletePost(id: string) {
+    
+
+    try {
+        const response = await fetch('http://localhost:3000/api/delete-post', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({id}),
+            
+        });
+        console.log('in delete');
+        if (!response.ok) {
+            console.error("Failed to update title:", response.statusText);
+            return;
+        }
+        const data = await response.json();
+        console.log(data, 'success');
+        fetchPosts();
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
+
+
+// module.exports = {renderPost, handleEditCaption, handleDeletePost}

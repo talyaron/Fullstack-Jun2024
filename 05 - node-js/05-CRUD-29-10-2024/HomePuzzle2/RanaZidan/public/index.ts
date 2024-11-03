@@ -76,7 +76,7 @@ async function handleDeletePost(index: number) {
 
       if (!response.ok) throw new Error('Failed to delete post');
       console.log("deleted successfully");
-      await fetchPosts();
+      fetchPosts();
     } catch (error) {
       console.error('Error deleting post:', error);
     }
@@ -115,7 +115,7 @@ async function fetchPosts() {
       </button>
     </div>
     <input type="text" id="image-${index}" class="image-url-input" value="${post.imageURL}" style="display: none;" onchange="updateImage(${index})" />
-
+    </br>
     <div class="field-container">
       <p class="post-text" id="text-${index}">${post.text}</p>
     </div>
