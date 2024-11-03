@@ -57,6 +57,7 @@ function handleSendPost1(event) {
                     response = _a.sent();
                     if (!response.ok)
                         throw new Error("Failed to add post");
+                    console.log("Post added successfully!");
                     form.reset();
                     return [4 /*yield*/, fetchPosts()];
                 case 3:
@@ -88,6 +89,7 @@ function handleUpdatePost(index, field, value) {
                     response = _b.sent();
                     if (!response.ok)
                         throw new Error('Failed to update post');
+                    console.log("updating post at index", index);
                     updateLocalPost(index, field, value);
                     return [3 /*break*/, 3];
                 case 2:
@@ -132,6 +134,7 @@ function handleDeletePost(index) {
                     response = _a.sent();
                     if (!response.ok)
                         throw new Error('Failed to delete post');
+                    console.log("deleted successfully");
                     return [4 /*yield*/, fetchPosts()];
                 case 3:
                     _a.sent();
