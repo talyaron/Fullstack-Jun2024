@@ -144,15 +144,15 @@ function renderPosts(posts) {
       if (post.img) {
         postElement.innerHTML = `<div id="${post.id}" class="post">
        <div id="name"><h1>${post.creatorName}<h1></div>
-      <div id="text"> <h1> ${post.title} </h1>  <p> ${post.description} </p>  </div>  <img id ="img" src="http://localhost:3000/uploads/${post.img}">  </div>   `;
+      <div id="text"> <h1 id="title-${post.id}"> ${post.title} </h1>  <p> ${post.description} </p>  </div> 
+       <img id ="img-${post.id}" src="http://localhost:3000/uploads/${post.img}">  </div>   `;
       } else {
         postElement.innerHTML = `<div id="${post.id}" class="post">
            <div id="name"><h1>${post.creatorName}<h1></div>
-     <div id="bigText"> <h1> ${post.title} </h1>  <p> ${post.description} </p> </div> `;
+     <div id="bigText"> <h1 id="title-${post.id}"> ${post.title} </h1>  <p id="desc-${post.id}"> ${post.description} </p> </div> `;
       }
       if (post.userMade) {
         const interactButtons = document.createElement("div") as HTMLElement;
-        const id:string =post.id;
         interactButtons.id = "interactButtons";
         createButtons(interactButtons,post.id);
         postElement.appendChild(interactButtons);
@@ -163,9 +163,72 @@ function renderPosts(posts) {
     console.error("Error fetching posts:", error);
   }
 }
-function updatePost(id)
-{
-  console.log("aaaaaaaaaaa");
+function updatePost(id) {
+  try {
+    const buttonUpdate = document.getElementById(`update-${id}`) as HTMLElement;
+    if (!buttonUpdate) throw new Error("No update button found");
+    
+    buttonUpdate.innerText = "Save";
+    
+    const titleElement = document.getElementById(`title-${id}`) as HTMLElement;
+    if (!titleElement) throw new Error("Title element not found");
+    titleElement.contentEditable = 'true';
+    titleElement.focus();
+
+    const descElement = document.getElementById(`desc-${id}`) as HTMLElement;
+    if (!descElement) throw new Error("Description element not found");
+    descElement.contentEditable = 'true';
+
+    const imgElement = document.getElementById(`img-${id}`) as HTMLImageElement; 
+    const imgSrc = imgElement ? imgElement.src : ''; 
+
+
+    const handleUpdateClick = () => {
+      const title = titleElement.innerText;
+      const desc = descElement.innerText;
+      const img = imgElement ? imgElement.src : ''; 
+
+      updatePostServer(id, title, desc, img);
+    };
+
+    buttonUpdate.removeEventListener("click", handleUpdateClick); 
+    buttonUpdate.addEventListener("click", handleUpdateClick);
+
+    titleElement.addEventListener("blur", handleUpdateClick);
+    descElement.addEventListener("blur", handleUpdateClick);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+async function updatePostServer(id, title, desc, img) {
+  try {
+    console.log("Updating post:", id);
+    
+    const response = await fetch(`http://localhost:3000/api/update-post`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id, title, desc, img }),  
+    });
+
+    if (!response.ok) {
+      console.error("Network response was not ok");
+      return;
+    }
+    
+    const data = await response.json();
+    const { message, error } = data;
+
+    if (!error) {
+      console.log("Post updated!");
+    } else {
+      console.log("Something went wrong:", error);
+    }
+  } catch (error) {
+    console.error("Error in updatedPost function:", error);
+  }
 }
 
 function createButtons(parent,id) {
@@ -174,14 +237,11 @@ function createButtons(parent,id) {
   buttonRemove.id = `remove-${id}`;
   buttonRemove.innerText = "Remove";
 
-
   const buttonUpdate = document.createElement("button");
   buttonUpdate.className = "updateBtn";
   buttonUpdate.id = `update-${id}`;
   buttonUpdate.innerText = "update";
 
-
-  
   buttonRemove.addEventListener("click", () => removePost(id));
 
   buttonUpdate.addEventListener("click", () => updatePost(id));

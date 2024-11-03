@@ -272,6 +272,34 @@ app.post("/api/get-posts", function (req, res) {
         }
     }
 });
+app.post("/api/update-post", function (req, res) {
+    try {
+        var _a = req.body, id_1 = _a.id, title = _a.title, desc = _a.desc, img = _a.img;
+        var foundPost = posts.find(function (post) { return post.id === id_1; });
+        if (!foundPost) {
+            res.json({ error: "No such post found" });
+            return;
+        }
+        if (title !== foundPost.title) {
+            foundPost.title = title;
+        }
+        if (desc !== foundPost.description) {
+            foundPost.description = desc;
+        }
+        if (img) {
+            foundPost.img = img;
+        }
+        res.json({ message: "Updated Post " + foundPost.id });
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            res.status(500).json({ error: error.message });
+        }
+        else {
+            res.status(500).json({ error: "An unknown error occurred." });
+        }
+    }
+});
 app.post("/api/remove-post", function (req, res) {
     try {
         var postId_1 = req.body.postId;

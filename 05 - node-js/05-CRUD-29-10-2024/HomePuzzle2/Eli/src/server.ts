@@ -299,6 +299,38 @@ app.post("/api/get-posts", (req, res) => {
   }
 });
 
+app.post("/api/update-post", (req, res) => {
+  try {
+    const { id, title, desc, img } = req.body;
+
+    const foundPost = posts.find((post) => post.id === id);
+    if (!foundPost) {
+      res.json({ error: "No such post found" });
+      return;
+    }
+
+    if (title !== foundPost.title) {
+      foundPost.title = title;
+    }
+
+    if (desc !== foundPost.description) {
+      foundPost.description = desc;
+    }
+
+    if (img) {
+      foundPost.img = img; 
+    }
+
+    res.json({ message: `Updated Post ${foundPost.id}` });
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: "An unknown error occurred." });
+    }
+  }
+});
+
 app.post("/api/remove-post", (req, res) => {
   try {
     const { postId } = req.body;  

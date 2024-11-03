@@ -228,14 +228,13 @@ function renderPosts(posts) {
             }
             var postElement = document.createElement("div");
             if (post.img) {
-                postElement.innerHTML = "<div id=\"" + post.id + "\" class=\"post\">\n       <div id=\"name\"><h1>" + post.creatorName + "<h1></div>\n      <div id=\"text\"> <h1> " + post.title + " </h1>  <p> " + post.description + " </p>  </div>  <img id =\"img\" src=\"http://localhost:3000/uploads/" + post.img + "\">  </div>   ";
+                postElement.innerHTML = "<div id=\"" + post.id + "\" class=\"post\">\n       <div id=\"name\"><h1>" + post.creatorName + "<h1></div>\n      <div id=\"text\"> <h1 id=\"title-" + post.id + "\"> " + post.title + " </h1>  <p> " + post.description + " </p>  </div> \n       <img id =\"img-" + post.id + "\" src=\"http://localhost:3000/uploads/" + post.img + "\">  </div>   ";
             }
             else {
-                postElement.innerHTML = "<div id=\"" + post.id + "\" class=\"post\">\n           <div id=\"name\"><h1>" + post.creatorName + "<h1></div>\n     <div id=\"bigText\"> <h1> " + post.title + " </h1>  <p> " + post.description + " </p> </div> ";
+                postElement.innerHTML = "<div id=\"" + post.id + "\" class=\"post\">\n           <div id=\"name\"><h1>" + post.creatorName + "<h1></div>\n     <div id=\"bigText\"> <h1 id=\"title-" + post.id + "\"> " + post.title + " </h1>  <p id=\"desc-" + post.id + "\"> " + post.description + " </p> </div> ";
             }
             if (post.userMade) {
                 var interactButtons = document.createElement("div");
-                var id = post.id;
                 interactButtons.id = "interactButtons";
                 createButtons(interactButtons, post.id);
                 postElement.appendChild(interactButtons);
@@ -248,7 +247,77 @@ function renderPosts(posts) {
     }
 }
 function updatePost(id) {
-    console.log("aaaaaaaaaaa");
+    try {
+        var buttonUpdate = document.getElementById("update-" + id);
+        if (!buttonUpdate)
+            throw new Error("No update button found");
+        buttonUpdate.innerText = "Save";
+        var titleElement_1 = document.getElementById("title-" + id);
+        if (!titleElement_1)
+            throw new Error("Title element not found");
+        titleElement_1.contentEditable = 'true';
+        titleElement_1.focus();
+        var descElement_1 = document.getElementById("desc-" + id);
+        if (!descElement_1)
+            throw new Error("Description element not found");
+        descElement_1.contentEditable = 'true';
+        var imgElement_1 = document.getElementById("img-" + id);
+        var imgSrc = imgElement_1 ? imgElement_1.src : '';
+        var handleUpdateClick = function () {
+            var title = titleElement_1.innerText;
+            var desc = descElement_1.innerText;
+            var img = imgElement_1 ? imgElement_1.src : '';
+            updatePostServer(id, title, desc, img);
+        };
+        buttonUpdate.removeEventListener("click", handleUpdateClick);
+        buttonUpdate.addEventListener("click", handleUpdateClick);
+        titleElement_1.addEventListener("blur", handleUpdateClick);
+        descElement_1.addEventListener("blur", handleUpdateClick);
+    }
+    catch (error) {
+        console.error("Error:", error);
+    }
+}
+function updatePostServer(id, title, desc, img) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, data, message, error, error_5;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    console.log("Updating post:", id);
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/update-post", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({ id: id, title: title, desc: desc, img: img })
+                        })];
+                case 1:
+                    response = _a.sent();
+                    if (!response.ok) {
+                        console.error("Network response was not ok");
+                        return [2 /*return*/];
+                    }
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    data = _a.sent();
+                    message = data.message, error = data.error;
+                    if (!error) {
+                        console.log("Post updated!");
+                    }
+                    else {
+                        console.log("Something went wrong:", error);
+                    }
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_5 = _a.sent();
+                    console.error("Error in updatedPost function:", error_5);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
 }
 function createButtons(parent, id) {
     var buttonRemove = document.createElement("button");
@@ -266,7 +335,7 @@ function createButtons(parent, id) {
 }
 function removePost(postId) {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, message, error, error_5;
+        var response, data, message, error, error_6;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -297,8 +366,8 @@ function removePost(postId) {
                     }
                     return [3 /*break*/, 4];
                 case 3:
-                    error_5 = _a.sent();
-                    console.error("Error in removePost function:", error_5);
+                    error_6 = _a.sent();
+                    console.error("Error in removePost function:", error_6);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
