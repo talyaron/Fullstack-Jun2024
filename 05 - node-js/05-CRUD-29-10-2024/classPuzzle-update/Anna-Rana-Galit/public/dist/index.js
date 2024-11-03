@@ -120,17 +120,11 @@ function renderPosts(posts) {
     feedElement.innerHTML = htmlPosts;
 }
 function renderPost(post) {
-    try {
-        var html = "\n        <div class=\"post\">\n            <h3 id=\"title-" + post.id + "\">" + post.title + "</h3><button onclick=\"handleEditTitle('" + post.id + "')\" >Edit</button><button>Delete</button>\n            <img src=\"" + post.imageURL + "\" alt=\"Image\" />\n            <p>" + post.text + "</p>\n        </div>\n        ";
-        return html;
-    }
-    catch (error) {
-        console.error('Error:', error);
-    }
+    return "\n        <div class=\"post\" id=\"post-" + post.id + "\">\n            <h3 id=\"title-" + post.id + "\">" + post.title + "</h3>\n            <button onclick=\"handleEditTitle('" + post.id + "')\">Edit</button>\n            <button onclick=\"handleDeletePost('" + post.id + "')\">Delete</button>\n            <img src=\"" + post.imageURL + "\" alt=\"Image\" />\n            <p id=\"text-" + post.id + "\">" + post.text + "</p>\n        </div>\n    ";
 }
 function handleEditTitle(id) {
     try {
-        console.log("Edit title:", id);
+        console.log("post id:", id);
         var titleElement_1 = document.getElementById("title-" + id);
         if (!titleElement_1)
             throw new Error('Title element not found');
@@ -146,22 +140,33 @@ function handleEditTitle(id) {
         console.error('Error:', error);
     }
 }
-function handleEditText(id) {
-    try {
-        console.log("Edit Text:", id);
-        var textElement_1 = document.getElementById("text-" + id);
-        if (!textElement_1)
-            throw new Error('Text element not found');
-        textElement_1.contentEditable = 'true';
-        textElement_1.focus();
-        textElement_1.addEventListener("blur", function (event) {
-            var text = textElement_1.innerText;
-            console.log("New text:", text);
-            textElement_1.contentEditable = 'false';
+function handleDeletePost(id) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, error_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/delete-post", {
+                            method: 'DELETE',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ id: id })
+                        })];
+                case 1:
+                    response = _a.sent();
+                    if (!response.ok)
+                        throw new Error('Failed to delete post');
+                    console.log("Post with ID " + id + " deleted successfully");
+                    return [4 /*yield*/, fetchPosts()];
+                case 2:
+                    _a.sent();
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_3 = _a.sent();
+                    console.error('Error deleting post:', error_3);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
         });
-    }
-    catch (error) {
-        console.error('Error:', error);
-    }
+    });
 }
-// function handleDeletePost 
