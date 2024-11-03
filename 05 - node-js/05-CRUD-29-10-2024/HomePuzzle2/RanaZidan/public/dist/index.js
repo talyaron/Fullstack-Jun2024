@@ -57,6 +57,7 @@ function handleSendPost1(event) {
                     response = _a.sent();
                     if (!response.ok)
                         throw new Error("Failed to add post");
+                    console.log("Post added successfully!");
                     form.reset();
                     return [4 /*yield*/, fetchPosts()];
                 case 3:
@@ -88,6 +89,7 @@ function handleUpdatePost(index, field, value) {
                     response = _b.sent();
                     if (!response.ok)
                         throw new Error('Failed to update post');
+                    console.log("updating post at index", index);
                     updateLocalPost(index, field, value);
                     return [3 /*break*/, 3];
                 case 2:
@@ -121,10 +123,10 @@ function handleDeletePost(index) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    if (!confirm('Are you sure you want to delete this post?')) return [3 /*break*/, 5];
+                    if (!confirm('Are you sure you want to delete this post?')) return [3 /*break*/, 4];
                     _a.label = 1;
                 case 1:
-                    _a.trys.push([1, 4, , 5]);
+                    _a.trys.push([1, 3, , 4]);
                     return [4 /*yield*/, fetch("http://localhost:3000/api/delete-post/" + index, {
                             method: 'DELETE'
                         })];
@@ -132,15 +134,14 @@ function handleDeletePost(index) {
                     response = _a.sent();
                     if (!response.ok)
                         throw new Error('Failed to delete post');
-                    return [4 /*yield*/, fetchPosts()];
+                    console.log("deleted successfully");
+                    fetchPosts();
+                    return [3 /*break*/, 4];
                 case 3:
-                    _a.sent();
-                    return [3 /*break*/, 5];
-                case 4:
                     error_3 = _a.sent();
                     console.error('Error deleting post:', error_3);
-                    return [3 /*break*/, 5];
-                case 5: return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     });
@@ -165,7 +166,7 @@ function fetchPosts() {
                     data.posts.forEach(function (post, index) {
                         var postElement = document.createElement("div");
                         postElement.className = "post";
-                        postElement.innerHTML = "\n  <div class=\"post-content\">\n    <div class=\"field-container\">\n      <h3 class=\"post-title\" id=\"title-" + index + "\">" + post.title + "</h3>\n    </div>\n    <div class=\"edit-button-container\">\n      <button class=\"edit-button\" onclick=\"makeEditable('title-" + index + "', " + index + ", 'title')\">\n        Edit\n      </button>\n    </div>\n\n    <div class=\"field-container\">\n      <img id=\"image-display-" + index + "\" src=\"" + post.imageURL + "\" alt=\"Post image\" />\n    </div>\n    <div class=\"edit-button-container\">\n      <button class=\"edit-button\" onclick=\"toggleImageInput(" + index + ")\">\n        Edit\n      </button>\n    </div>\n    <input type=\"text\" id=\"image-" + index + "\" class=\"image-url-input\" value=\"" + post.imageURL + "\" style=\"display: none;\" onchange=\"updateImage(" + index + ")\" />\n\n    <div class=\"field-container\">\n      <p class=\"post-text\" id=\"text-" + index + "\">" + post.text + "</p>\n    </div>\n    <div class=\"edit-button-container\">\n      <button class=\"edit-button\" onclick=\"makeEditable('text-" + index + "', " + index + ", 'text')\">\n        Edit\n      </button>\n    </div>\n    </br>\n    <button class=\"delete-button\" onclick=\"handleDeletePost(" + index + ")\">Delete</button>\n  </div>\n";
+                        postElement.innerHTML = "\n  <div class=\"post-content\">\n    <div class=\"field-container\">\n      <h3 class=\"post-title\" id=\"title-" + index + "\">" + post.title + "</h3>\n    </div>\n    <div class=\"edit-button-container\">\n      <button class=\"edit-button\" onclick=\"makeEditable('title-" + index + "', " + index + ", 'title')\">\n        Edit\n      </button>\n    </div>\n\n    <div class=\"field-container\">\n      <img id=\"image-display-" + index + "\" src=\"" + post.imageURL + "\" alt=\"Post image\" />\n    </div>\n    <div class=\"edit-button-container\">\n      <button class=\"edit-button\" onclick=\"toggleImageInput(" + index + ")\">\n        Edit\n      </button>\n    </div>\n    <input type=\"text\" id=\"image-" + index + "\" class=\"image-url-input\" value=\"" + post.imageURL + "\" style=\"display: none;\" onchange=\"updateImage(" + index + ")\" />\n    </br>\n    <div class=\"field-container\">\n      <p class=\"post-text\" id=\"text-" + index + "\">" + post.text + "</p>\n    </div>\n    <div class=\"edit-button-container\">\n      <button class=\"edit-button\" onclick=\"makeEditable('text-" + index + "', " + index + ", 'text')\">\n        Edit\n      </button>\n    </div>\n    </br>\n    <button class=\"delete-button\" onclick=\"handleDeletePost(" + index + ")\">Delete</button>\n  </div>\n";
                         feedElement_1.appendChild(postElement);
                     });
                     return [3 /*break*/, 4];
