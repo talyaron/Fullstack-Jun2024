@@ -81,22 +81,10 @@ var User = /** @class */ (function () {
 }());
 var posts = [];
 var users = [];
-var admin = new User("Cartoon123", "elden", "Cartoon123");
-users.push(admin);
+var admin = new User("admin", "admin", "admin");
+var admin2 = new User("admin2", "admin2", "admin2");
+users.push(admin, admin2);
 var infoValidation = new infoValidator();
-app.get("/api/get-posts", function (reg, res) {
-    try {
-        res.json({ posts: posts });
-    }
-    catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({ error: error.message });
-        }
-        else {
-            res.status(500).json({ error: "An unknown error occurred." });
-        }
-    }
-});
 app.post("/api/log-out", function (req, res) {
     try {
         var key_1 = req.body.key;
@@ -122,9 +110,9 @@ app.post("/api/log-out", function (req, res) {
 app.post("/api/check-key", function (req, res) {
     try {
         var key_2 = req.body.key;
-        var foundEmail = users.some(function (user) { return key_2 === user.key; });
+        var foundEmail = users.find(function (user) { return key_2 === user.key; });
         if (foundEmail) {
-            res.json({ message: "logging success!", key: key_2 });
+            res.json({ message: "logging success!", key: key_2, name: foundEmail.name });
             console.log("Valid Key");
             return;
         }
@@ -147,8 +135,6 @@ app.post("/api/register-user", function (req, res) {
         var isEmailInValid = infoValidation.isEmailValid(email);
         var isPasswordInValid = infoValidation.isPasswordValid(password);
         var isRepassWordInValid = infoValidation.isRePasswordValid(rePassword, password);
-        //console.log("Password Validation Result:", isPasswordInValid, `${password}`); // This will show on the server console
-        // Check if all validations passed
         if (!isNameInValid &&
             !isEmailInValid &&
             !isPasswordInValid &&
@@ -195,10 +181,10 @@ app.post("/api/account-login", function (req, res) {
                 return;
             }
             else
-                res.json({ error: "wrong password", email: email_1 });
+                res.json({ error: "wrong password", email: email_1, message: "wrong email or password" });
         }
         else
-            res.json({ error: "no such email", email: email_1 });
+            res.json({ error: "no such email", email: email_1, message: "wrong email or password" });
     }
     catch (error) {
         if (error instanceof Error) {
@@ -223,6 +209,7 @@ app.post("/api/add-post", upload.single("image"), function (req, res) {
             return;
         }
         var creatorId = postCreator.id;
+        var creatorName = postCreator.name;
         if (img) {
             console.log("Received word: " + title + " " + description + ", Image: " + img);
             var newPost = {
@@ -230,7 +217,8 @@ app.post("/api/add-post", upload.single("image"), function (req, res) {
                 title: title,
                 description: description,
                 img: img,
-                creatorId: creatorId
+                creatorId: creatorId,
+                creatorName: creatorName
             }; // Create a new post object
             posts.unshift(newPost);
             // Here you would typically save newPost to a database or an array
@@ -244,10 +232,36 @@ app.post("/api/add-post", upload.single("image"), function (req, res) {
                 title: title,
                 description: description,
                 img: img,
-                creatorId: creatorId
+                creatorId: creatorId,
+                creatorName: creatorName
             }; // Create a new post object
             posts.unshift(newPost);
         }
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            res.status(500).json({ error: error.message });
+        }
+        else {
+            res.status(500).json({ error: "An unknown error occurred." });
+        }
+    }
+});
+app.post("/api/get-posts", function (req, res) {
+    try {
+        var key_4 = req.body.key;
+        var keyOfUser_1 = users.find(function (user) { return user.key === key_4; });
+        if (!keyOfUser_1) {
+            res.json({ error: "invalid key", throwAway: "bad key" });
+            return;
+        }
+        var postsOfAll = posts.map(function (post) { if (post.creatorId === keyOfUser_1.id) {
+            post.userMade = true;
+        }
+        else {
+            post.userMade = false;
+        } return post; });
+        res.json({ postsOfAll: postsOfAll });
     }
     catch (error) {
         if (error instanceof Error) {

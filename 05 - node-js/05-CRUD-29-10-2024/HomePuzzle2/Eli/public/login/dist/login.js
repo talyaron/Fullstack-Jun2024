@@ -92,7 +92,7 @@ function toRegister(event) {
 }
 function login(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var form, email, password, response, data, key_1;
+        var form, email, password, response, data, key_1, error, errorDesc;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -117,6 +117,11 @@ function login(event) {
                         key_1 = data.key;
                         localStorage.setItem("key", JSON.stringify(key_1));
                         goToMain();
+                    }
+                    else {
+                        error = data.message;
+                        errorDesc = document.getElementById("errorDesc");
+                        errorDesc.innerText = error;
                     }
                     return [2 /*return*/];
             }

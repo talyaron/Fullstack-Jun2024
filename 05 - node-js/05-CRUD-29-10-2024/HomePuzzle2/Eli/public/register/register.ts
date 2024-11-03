@@ -135,7 +135,8 @@ async function checkFormInServer(formData) {
     const data = await response.json();
     const error = data.error;
     if(error){
-    alert(error)       
+      const errorHtmlElement= document.getElementById("errorDesc") as HTMLElement;
+      errorHtmlElement.innerHTML=error;
     }else{
         userCreatedDirectToLogin();
     }

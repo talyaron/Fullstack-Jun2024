@@ -122,7 +122,7 @@ function updateStatus(resultN, resultE, resultP, resultRP, agree) {
 }
 function checkFormInServer(formData) {
     return __awaiter(this, void 0, void 0, function () {
-        var name, email, password, rePassword, response, data, error, error_1;
+        var name, email, password, rePassword, response, data, error, errorHtmlElement, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -145,7 +145,8 @@ function checkFormInServer(formData) {
                     data = _a.sent();
                     error = data.error;
                     if (error) {
-                        alert(error);
+                        errorHtmlElement = document.getElementById("errorDesc");
+                        errorHtmlElement.innerHTML = error;
                     }
                     else {
                         userCreatedDirectToLogin();

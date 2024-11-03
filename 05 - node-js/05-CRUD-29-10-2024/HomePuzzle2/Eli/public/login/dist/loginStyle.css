@@ -9,6 +9,10 @@ body {
   margin: 0 auto;
   overflow: hidden;
 }
+#formContainer span {
+  margin: 0 auto;
+  font-size: 1.2rem;
+}
 #formContainer form {
   z-index: 1;
   display: flex;

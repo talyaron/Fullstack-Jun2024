@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
   width: 40vw;
-  height: 75vh;
+  height: 85vh;
   margin: 1vw;
   justify-content: space-evenly;
   align-items: center;
@@ -21,8 +21,13 @@
   width: 100%;
   text-align: center;
 }
+.post #name {
+  height: 10%;
+  width: 100%;
+  margin: 0;
+}
 .post #bigText {
-  height: 100%;
+  height: 80%;
   width: 100%;
   text-align: center;
   display: flex;
@@ -50,12 +55,94 @@
   padding-bottom: 0;
 }
 
+#helloUser {
+  width: 20vw;
+  height: 5vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  font-size: 1.2rem;
+  color: white;
+  background-color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  border-bottom-right-radius: 8px;
+  border-top-right-radius: 8px;
+  animation: slideIn 0.4s ease forwards;
+}
+#helloUser h1 {
+  margin: 0;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+#viewSwitcher {
+  width: 20vw;
+  height: 5vh;
+  position: fixed;
+  left: 0;
+  top: 6vh;
+  font-size: 1.2rem;
+  color: white;
+  background-color: #333;
+  text-align: center;
+  line-height: 5vh;
+  cursor: pointer;
+  transition: top 0.5s ease, background-color 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  animation: slideIn 0.6s ease forwards;
+}
+#viewSwitcher:hover {
+  background-color: #444;
+  color: #55a1ff;
+}
+#viewSwitcher:active {
+  transform: scale(0.98);
+}
+#viewSwitcher:hover {
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4);
+}
+
 #logOut {
   width: 20vw;
   height: 5vh;
-  position: sticky;
+  position: fixed;
   left: 0;
-  top: calc( 100vh - 5vh);
+  top: 12vh;
   font-size: 1.2rem;
-  color: red;
+  color: white;
+  background-color: #333;
+  text-align: center;
+  line-height: 5vh;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.3);
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  animation: slideIn 0.8s ease forwards;
+}
+#logOut:hover {
+  background-color: #444;
+  color: #ff5555;
+}
+#logOut:active {
+  transform: scale(0.98);
+}
+#logOut:hover {
+  box-shadow: 0px -6px 12px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes slideIn {
+  from {
+    left: -20vw;
+  }
+  to {
+    left: 0;
+  }
 }

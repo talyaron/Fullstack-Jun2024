@@ -39,7 +39,7 @@ var key = localStorageDetail ? JSON.parse(localStorageDetail) : "";
 checkKey();
 function checkKey() {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, message, tGetPosts, error_1;
+        var response, data, message, name, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -56,11 +56,13 @@ function checkKey() {
                 case 2:
                     data = _a.sent();
                     message = data.message;
+                    name = data.name;
                     //console.log(message);
                     if (!data.error) {
                         console.log(message);
                         getPosts();
-                        tGetPosts = setInterval(getPosts, 300);
+                        setInterval(getPosts, 300);
+                        sayHelloToUser(name);
                         return [2 /*return*/];
                     }
                     console.log(data);
@@ -80,6 +82,11 @@ function checkKey() {
         });
     });
 }
+function sayHelloToUser(name) {
+    var helloElement = document.getElementById("helloUser-text");
+    helloElement.innerText = "Hello " + name;
+}
+var postLength = 0;
 function checkForm(event) {
     return __awaiter(this, void 0, void 0, function () {
         var formData, response, data, error_2;
@@ -110,7 +117,17 @@ function checkForm(event) {
         });
     });
 }
-var postLength = 0;
+var selfPost = false;
+function switchView() {
+    updated = true;
+    var switchViewButton = document.getElementById("viewSwitcher");
+    selfPost = !selfPost;
+    if (!selfPost) {
+        switchViewButton.innerText = "see only your posts";
+    }
+    else
+        switchViewButton.innerText = "see all posts";
+}
 function logOut() {
     return __awaiter(this, void 0, void 0, function () {
         var response, data, message, error_3;
@@ -157,23 +174,31 @@ function redirectToLogin() {
         });
     });
 }
+var updated = false;
 function getPosts() {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, posts, error_4;
+        var response, data, postsOfAll, error_4;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch("http://localhost:3000/api/get-posts", {})];
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/get-posts", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({ key: key })
+                        })];
                 case 1:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
-                    posts = data.posts;
-                    if (postLength !== posts.length) {
-                        renderPosts(posts);
-                        postLength = posts.length;
+                    postsOfAll = data.postsOfAll;
+                    if (postLength !== postsOfAll.length || updated == true) {
+                        renderPosts(postsOfAll);
+                        postLength = postsOfAll.length;
+                        updated = false;
                     }
                     return [3 /*break*/, 4];
                 case 3:
@@ -192,12 +217,17 @@ function renderPosts(posts) {
         if (!postsElement_1)
             throw new Error("Element with ID 'feed' not found.");
         posts.forEach(function (post) {
+            console.log("hello" + post.userMade);
+            if (selfPost === true && !post.userMade) {
+                console.log("skipped" + post.name);
+                return;
+            }
             var postElement = document.createElement("div");
             if (post.img) {
-                postElement.innerHTML = "<div id=\"" + post.id + "\" class=\"post\">\n      <div id=\"text\"> <h1> " + post.title + " </h1>  <p> " + post.description + " </p>  </div>  <img id =\"img\" src=\"http://localhost:3000/uploads/" + post.img + "\">  </div>   ";
+                postElement.innerHTML = "<div id=\"" + post.id + "\" class=\"post\">\n       <div id=\"name\"><h1>" + post.creatorName + "<h1></div>\n      <div id=\"text\"> <h1> " + post.title + " </h1>  <p> " + post.description + " </p>  </div>  <img id =\"img\" src=\"http://localhost:3000/uploads/" + post.img + "\">  </div>   ";
             }
             else {
-                postElement.innerHTML = "<div id=\"" + post.id + "\" class=\"post\">\n     <div id=\"bigText\"> <h1> " + post.title + " </h1>  <p> " + post.description + " </p> </div> ";
+                postElement.innerHTML = "<div id=\"" + post.id + "\" class=\"post\">\n           <div id=\"name\"><h1>" + post.creatorName + "<h1></div>\n     <div id=\"bigText\"> <h1> " + post.title + " </h1>  <p> " + post.description + " </p> </div> ";
             }
             postsElement_1.appendChild(postElement);
         });

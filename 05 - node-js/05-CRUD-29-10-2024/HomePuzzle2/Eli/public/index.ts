@@ -15,12 +15,14 @@ async function checkKey() {
       });
     const data = await response.json();
     const { message }=data;
+    const { name }=data;
     //console.log(message);
     if(!data.error)
     {
       console.log (message)
       getPosts();
-    const tGetPosts=  setInterval(getPosts,300)
+     setInterval(getPosts,300)
+     sayHelloToUser(name);
       return;
     }
     console.log (data);
@@ -31,6 +33,14 @@ async function checkKey() {
     console.error(error);
   }
 }
+function  sayHelloToUser(name:string)
+{
+  const helloElement =document.getElementById("helloUser-text") as HTMLElement;
+  helloElement.innerText=`Hello ${name}`;
+}
+let postLength = 0;
+
+
 async function checkForm(event) {
   try {
     event.preventDefault();
@@ -48,8 +58,17 @@ async function checkForm(event) {
   }
 }
 
+let selfPost=false;
 
-let postLength = 0;
+function switchView()
+{  updated=true;
+  const switchViewButton =document.getElementById("viewSwitcher") as HTMLElement;
+  selfPost=!selfPost;
+  if(!selfPost)
+  {
+    switchViewButton.innerText="see only your posts"
+  }else switchViewButton.innerText="see all posts"
+}
 
 async function logOut()
 {
@@ -72,6 +91,7 @@ async function logOut()
     console.error(error);
   }
 }
+
 async function redirectToLogin() {
     if(postLength<0) return;
     document.body.innerHTML=` <div class="redirect-container">
@@ -88,15 +108,23 @@ async function redirectToLogin() {
     }, 2000); 
      postLength = -1;
 }
+let updated=false
 
 async function getPosts() {
   try {
-    const response = await fetch("http://localhost:3000/api/get-posts", {});
+    const response = await fetch("http://localhost:3000/api/get-posts", {
+      method:"POST",
+      headers:{     
+             "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ key }),
+    });
     const data = await response.json();
-   const { posts } = data;
-   if(postLength!==posts.length){
-    renderPosts(posts);
-    postLength=posts.length;
+   const { postsOfAll } = data;
+   if(postLength!==postsOfAll.length||updated==true){
+    renderPosts(postsOfAll);
+    postLength=postsOfAll.length;
+    updated=false;
   }
    // console.log(posts);
   } catch (error) {
@@ -104,20 +132,24 @@ async function getPosts() {
   }
 }
 
+
 function renderPosts(posts) {
   try {
     const postsElement = document.getElementById("feed") as HTMLElement;
     postsElement.innerHTML="";
     if (!postsElement) throw new Error("Element with ID 'feed' not found.");
     posts.forEach(post => {
+      console.log(`hello${post.userMade}`);
+      if (selfPost===true &&!post.userMade){console.log(`skipped${post.name}`); return;}
       const postElement= document.createElement("div") as HTMLElement;
       if(post.img){
-    
       postElement.innerHTML=`<div id="${post.id}" class="post">
+       <div id="name"><h1>${post.creatorName}<h1></div>
       <div id="text"> <h1> ${post.title} </h1>  <p> ${post.description} </p>  </div>  <img id ="img" src="http://localhost:3000/uploads/${post.img}">  </div>   `;
     }
       else{
          postElement.innerHTML=`<div id="${post.id}" class="post">
+           <div id="name"><h1>${post.creatorName}<h1></div>
      <div id="bigText"> <h1> ${post.title} </h1>  <p> ${post.description} </p> </div> `;
       }
       postsElement.appendChild( postElement);

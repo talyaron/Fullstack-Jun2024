@@ -65,6 +65,10 @@ async function login(event) {
     const { key } = data;
     localStorage.setItem(`key`, JSON.stringify(key));
     goToMain();
+  }else{
+    const error = data.message;
+    const errorDesc = document.getElementById("errorDesc") as HTMLElement;
+    errorDesc.innerText=error;
   }
 }
 async function goToMain() {

@@ -88,6 +88,8 @@ interface Post {
   description: string;
   img: string;
   creatorId:string;
+  creatorName:string;
+  userMade?: boolean;
 }
 
 class User {
@@ -109,21 +111,12 @@ class User {
 
 const posts: Post[] = [];
 const users: User[] = [];
-const admin:User= new User("Cartoon123","elden","Cartoon123" );
-users.push(admin);
+const admin:User= new User("admin","admin","admin" );
+const admin2:User= new User("admin2","admin2","admin2" );
+users.push(admin,admin2);
 const infoValidation: infoValidator = new infoValidator();
 
-app.get("/api/get-posts", (reg, res) => {
-  try {
-    res.json({ posts });
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      res.status(500).json({ error: error.message });
-    } else {
-      res.status(500).json({ error: "An unknown error occurred." });
-    }
-  }
-});
+
 app.post(`/api/log-out`, (req, res) => {
   try {
     const { key } = req.body;
@@ -144,13 +137,15 @@ app.post(`/api/log-out`, (req, res) => {
     }
   }
 });
+
+
 app.post(`/api/check-key`, (req, res) => {
   try {
     const { key } = req.body;
-    const foundEmail = users.some((user) => key === user.key);
+    const foundEmail = users.find((user) => key === user.key);
 
         if(foundEmail){
-        res.json({ message: "logging success!", key });
+        res.json({ message: "logging success!", key,name: foundEmail.name});
         console.log( "Valid Key");
         return;
       } else res.json({ error: "Invalid Key" });
@@ -175,10 +170,6 @@ app.post("/api/register-user", (req, res) => {
       rePassword,
       password
     );
-
-    //console.log("Password Validation Result:", isPasswordInValid, `${password}`); // This will show on the server console
-
-    // Check if all validations passed
     if (
       !isNameInValid &&
       !isEmailInValid &&
@@ -225,8 +216,8 @@ app.post(`/api/account-login`, (req, res) => {
         console.log(foundEmail.name, "was given this key:", key);
         return;
 
-      } else res.json({ error: "wrong password", email });
-    } else res.json({ error: "no such email", email });
+      } else res.json({ error: "wrong password", email, message: "wrong email or password", });
+    } else res.json({ error: "no such email", email ,message: "wrong email or password",});
 
   } catch (error: unknown) {
     if (error instanceof Error) {
@@ -251,6 +242,7 @@ app.post(
     const postCreator= users.find(user=>key===user.key)
     if(!postCreator) {  res.json({message:"invalid user key no post made"});return;}
     const creatorId =postCreator.id;
+    const creatorName=postCreator.name;
       if (img) {
         console.log(`Received word: ${title} ${description}, Image: ${img}`);
         const newPost = {
@@ -258,7 +250,9 @@ app.post(
           title,
           description,
           img,
-          creatorId
+          creatorId,
+          creatorName,
+          
         }; // Create a new post object
         posts.unshift(newPost);
 
@@ -274,6 +268,8 @@ app.post(
           description,
           img,
           creatorId,
+          creatorName,
+       
         }; // Create a new post object
         posts.unshift(newPost);
       }
@@ -286,6 +282,22 @@ app.post(
     }
   }
 );
+
+app.post("/api/get-posts", (req, res) => {
+  try {
+    const { key } =req.body;
+    const keyOfUser = users.find(user=>user.key===key)
+    if(!keyOfUser){ res.json({error:"invalid key",throwAway:"bad key"}); return;}
+    const postsOfAll = posts.map(post=>{if(post.creatorId===keyOfUser.id){post.userMade=true}else{post.userMade=false}return post;})
+    res.json({ postsOfAll });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      res.status(500).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: "An unknown error occurred." });
+    }
+  }
+});
 
 app.listen(port, () => {
   console.log(`Example unstagram app listening on port ${port}`);
