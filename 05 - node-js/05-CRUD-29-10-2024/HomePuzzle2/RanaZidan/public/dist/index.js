@@ -48,7 +48,6 @@ function handleSendPost1(event) {
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 4, , 5]);
-                    console.log("Sending post:", { title: title, text: text, imageURL: imageURL });
                     return [4 /*yield*/, fetch("http://localhost:3000/api/add-post", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
@@ -58,7 +57,6 @@ function handleSendPost1(event) {
                     response = _a.sent();
                     if (!response.ok)
                         throw new Error("Failed to add post");
-                    console.log("Post added successfully!");
                     form.reset();
                     return [4 /*yield*/, fetchPosts()];
                 case 3:
@@ -73,9 +71,83 @@ function handleSendPost1(event) {
         });
     });
 }
+function handleUpdatePost(index, field, value) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, error_2;
+        var _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _b.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/update-post/" + index, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify((_a = {}, _a[field] = value, _a))
+                        })];
+                case 1:
+                    response = _b.sent();
+                    if (!response.ok)
+                        throw new Error('Failed to update post');
+                    updateLocalPost(index, field, value);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_2 = _b.sent();
+                    console.error('Error updating post:', error_2);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+function updateLocalPost(index, field, value) {
+    var elementId = field + "-" + index;
+    var element = document.getElementById(elementId);
+    if (!element)
+        return;
+    if (field === 'imageURL') {
+        var imgElement = document.getElementById("image-display-" + index);
+        if (imgElement) {
+            imgElement.src = value;
+        }
+        element.value = value;
+    }
+    else {
+        element.textContent = value;
+    }
+}
+function handleDeletePost(index) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, error_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    if (!confirm('Are you sure you want to delete this post?')) return [3 /*break*/, 5];
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 4, , 5]);
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/delete-post/" + index, {
+                            method: 'DELETE'
+                        })];
+                case 2:
+                    response = _a.sent();
+                    if (!response.ok)
+                        throw new Error('Failed to delete post');
+                    return [4 /*yield*/, fetchPosts()];
+                case 3:
+                    _a.sent();
+                    return [3 /*break*/, 5];
+                case 4:
+                    error_3 = _a.sent();
+                    console.error('Error deleting post:', error_3);
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
+            }
+        });
+    });
+}
 function fetchPosts() {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, feedElement_1, error_2;
+        var response, data, feedElement_1, error_4;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -93,58 +165,80 @@ function fetchPosts() {
                     data.posts.forEach(function (post, index) {
                         var postElement = document.createElement("div");
                         postElement.className = "post";
-                        postElement.innerHTML = "\n        <h3>" + post.title + "</h3>\n        <img src=\"" + post.imageURL + "\" alt=\"Post image\" />\n        <p>" + post.text + "</p>\n        <button class=\"delete-button\" onclick=\"handleDeletePost(" + index + ")\">Delete</button>\n      ";
+                        postElement.innerHTML = "\n  <div class=\"post-content\">\n    <div class=\"field-container\">\n      <h3 class=\"post-title\" id=\"title-" + index + "\">" + post.title + "</h3>\n    </div>\n    <div class=\"edit-button-container\">\n      <button class=\"edit-button\" onclick=\"makeEditable('title-" + index + "', " + index + ", 'title')\">\n        Edit\n      </button>\n    </div>\n\n    <div class=\"field-container\">\n      <img id=\"image-display-" + index + "\" src=\"" + post.imageURL + "\" alt=\"Post image\" />\n    </div>\n    <div class=\"edit-button-container\">\n      <button class=\"edit-button\" onclick=\"toggleImageInput(" + index + ")\">\n        Edit\n      </button>\n    </div>\n    <input type=\"text\" id=\"image-" + index + "\" class=\"image-url-input\" value=\"" + post.imageURL + "\" style=\"display: none;\" onchange=\"updateImage(" + index + ")\" />\n\n    <div class=\"field-container\">\n      <p class=\"post-text\" id=\"text-" + index + "\">" + post.text + "</p>\n    </div>\n    <div class=\"edit-button-container\">\n      <button class=\"edit-button\" onclick=\"makeEditable('text-" + index + "', " + index + ", 'text')\">\n        Edit\n      </button>\n    </div>\n    </br>\n    <button class=\"delete-button\" onclick=\"handleDeletePost(" + index + ")\">Delete</button>\n  </div>\n";
                         feedElement_1.appendChild(postElement);
                     });
                     return [3 /*break*/, 4];
                 case 3:
-                    error_2 = _a.sent();
-                    console.error("Error fetching posts:", error_2);
+                    error_4 = _a.sent();
+                    console.error("Error fetching posts:", error_4);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
         });
     });
 }
-function handleDeletePost(index) {
-    return __awaiter(this, void 0, void 0, function () {
-        var response, errorData, error_3;
+function makeEditable(elementId, index, field) {
+    var _this = this;
+    var element = document.getElementById(elementId);
+    if (!element)
+        return;
+    var currentText = field === 'imageURL' ?
+        element.value :
+        element.textContent || '';
+    var input = document.createElement('input');
+    input.type = 'text';
+    input.value = currentText;
+    input.className = 'edit-input';
+    input.onblur = function () { return __awaiter(_this, void 0, void 0, function () {
+        var img;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 5, , 6]);
-                    return [4 /*yield*/, fetch("http://localhost:3000/api/delete-post/" + index, {
-                            method: 'DELETE'
-                        })];
+                case 0: return [4 /*yield*/, handleUpdatePost(index, field, input.value)];
                 case 1:
-                    response = _a.sent();
-                    if (!!response.ok) return [3 /*break*/, 3];
-                    return [4 /*yield*/, response.json()];
-                case 2:
-                    errorData = _a.sent();
-                    throw new Error(errorData.error || 'Failed to delete post');
-                case 3:
-                    console.log('Post deleted successfully!');
-                    return [4 /*yield*/, fetchPosts()];
-                case 4:
                     _a.sent();
-                    return [3 /*break*/, 6];
-                case 5:
-                    error_3 = _a.sent();
-                    console.error('Error deleting post:', error_3);
-                    return [3 /*break*/, 6];
-                case 6: return [2 /*return*/];
+                    if (field === 'imageURL') {
+                        element.value = input.value;
+                        element.style.display = 'none';
+                        img = document.getElementById("image-display-" + index);
+                        if (img) {
+                            img.src = input.value;
+                        }
+                    }
+                    else {
+                        element.textContent = input.value;
+                    }
+                    element.style.display = 'block';
+                    return [2 /*return*/];
             }
         });
-    });
+    }); };
+    if (field === 'imageURL') {
+        element.style.display = 'none';
+        var imageInput = document.getElementById("image-" + index);
+        if (imageInput) {
+            imageInput.style.display = 'block';
+            imageInput.focus();
+        }
+    }
+    else {
+        element.textContent = '';
+        element.appendChild(input);
+        input.focus();
+    }
 }
-function savePostsToLocalStorage(posts) {
-    localStorage.setItem("posts", JSON.stringify(posts));
+function toggleImageInput(index) {
+    var imageInput = document.getElementById("image-" + index);
+    imageInput.style.display = imageInput.style.display === 'none' ? 'block' : 'none';
+    if (imageInput.style.display === 'block') {
+        imageInput.focus();
+    }
 }
-function loadPostsFromLocalStorage() {
-    var posts = localStorage.getItem("posts");
-    return posts ? JSON.parse(posts) : [];
+function updateImage(index) {
+    var imageInput = document.getElementById("image-" + index);
+    var img = document.getElementById("image-display-" + index);
+    if (img) {
+        img.src = imageInput.value;
+    }
 }
-document.addEventListener('DOMContentLoaded', function () {
-    fetchPosts();
-});
+document.addEventListener('DOMContentLoaded', fetchPosts);

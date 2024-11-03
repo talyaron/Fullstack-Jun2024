@@ -60,11 +60,37 @@ button:hover {
     text-align: center;
 }
 
+
+
+
+.edit-button {
+    width: 3vw;
+    padding: 2px 8px;
+    font-size: 12px;
+    background-color: #007bb5;
+    border: 1px solid #477ac6;
+    border-radius: 4px;
+    text-decoration: none !important;  
+}
+
+.edit-button:hover {
+    background-color: #477ac6;
+}
+
+.post-title, .post-text {
+    margin: 0;
+    flex-grow: 1;
+    align-items: center; 
+}
+
+
+
 .post img {
     width: 50vh;
-height: 50vh;
+    height: 50vh;
     border-radius: 5px;
     margin-top: 10px;
+    align-items: center;
 }
 
 .delete-button {
