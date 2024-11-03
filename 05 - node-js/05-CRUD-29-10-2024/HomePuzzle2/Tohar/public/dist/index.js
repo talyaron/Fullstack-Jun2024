@@ -34,6 +34,82 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+;
+var User = /** @class */ (function () {
+    function User(userName, email, password, phoneNumber, id, posts) {
+        id ? this.id = id : this.id = crypto.randomUUID();
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+    }
+    ;
+    return User;
+}());
+;
+function renderLoginPage() {
+    var loginForm = "\n     <div class=\"container\">\n            <h1>Login</h1>\n            <form id=\"loginForm\">\n                <input type=\"email\" class=\"input\" id=\"email\" name=\"email\" required placeholder=\"Email\">\n                <input type=\"password\" class=\"input\" id=\"password\" name=\"password\" required placeholder=\"Password\">\n                <a href=\"#forgotPassword\" class=\"forgotPsw\">Forgot Password?</a>                \n                <button class=\"loginBtn\" id=\"loginButton\" type=\"submit\">Login</button>\n                <a class=\"signupBtn\" id=\"button\" onclick=\"navigataToSignup()\">SIGN UP</a>\n            </form>\n            \n        </div>\n    ";
+    var loginPageElement = document.querySelector('#loginPage');
+    if (!loginPageElement)
+        throw new Error('Login page not found');
+    loginPageElement.innerHTML = loginForm;
+    handleFormLogin();
+}
+;
+function handleFormLogin() {
+    return __awaiter(this, void 0, void 0, function () {
+        var form, response, data;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    form = document.getElementById('loginForm');
+                    console.log('form', form);
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/get-posts')];
+                case 1:
+                    response = _a.sent();
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    data = _a.sent();
+                    if (form) {
+                        form.addEventListener('submit', function (event) {
+                            event.preventDefault();
+                            var formData = new FormData(form);
+                            var email = formData.get('email');
+                            var password = formData.get('password');
+                            console.log('users', data.users);
+                            //Validation with localStorage
+                            // if (localStorage.getItem('email') !== email) {
+                            //     alert('Email does not exist');
+                            // } else if (localStorage.getItem('password') !== password) {
+                            //     alert('Password not valid');
+                            // } else {
+                            // console.log(email + ', ' + password);
+                            //     const newUrl = '?loginBtn=loginBtn';
+                            //     window.location.href = newUrl; 
+                            // }
+                        });
+                    }
+                    else {
+                        console.error('Login form not found in the DOM');
+                    }
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+;
+function navigataToSignup() {
+    console.log('in navigata to sign');
+    window.location.href = "./signup/signup.html";
+}
+renderLoginPage();
+function renderMainPage() {
+    var html = "\n    <h1>New Post</h1>\n    <form onsubmit=\"handleCreatePost(event)\">\n        <input type=\"text\" name=\"caption\" placeholder=\"Write a caption...\" required>\n        <input type=\"url\" name=\"imageURL\" placeholder=\"Enter image URL\" required>\n        <button type=\"submit\">Post</button>\n    </form>\n    ";
+    // <input type="file" name="image" id="imageUpload" name="imageUpload" accept="image/*">
+    document.querySelector('#main').innerHTML = html;
+}
+;
+renderMainPage();
 function handleCreatePost(event) {
     return __awaiter(this, void 0, void 0, function () {
         var form, caption, imageURL, response, error_1;
@@ -72,7 +148,7 @@ function handleCreatePost(event) {
 }
 function fetchPosts() {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, feedElement, error_2;
+        var response, data, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -83,9 +159,8 @@ function fetchPosts() {
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
-                    feedElement = document.getElementById("feed");
-                    if (!feedElement)
-                        throw new Error("Feed element not found");
+                    // const feedElement = document.getElementById("feed");
+                    // if (!feedElement) throw new Error("Feed element not found");
                     renderPosts(data.posts);
                     return [3 /*break*/, 4];
                 case 3:
@@ -110,6 +185,7 @@ function renderPosts(posts) {
 ;
 function renderPost(post) {
     try {
+        // changeFileToImage();
         var html = "\n        <div class=\"post\">\n            <img src=\"" + post.imageURL + "\" alt=\"Image\" />\n            <h3 id=\"caption-" + post.id + "\">" + post.caption + "</h3>\n            <button onclick=\"handleEditCaption('" + post.id + "')\" >Edit</button>\n            <button onclick=\"handlDeletePost('" + post.id + "')\">Delete</button>\n            <button onclick=\"handlEditImage\">Change Image</button>\n            <p>" + post.caption + "</p>\n        </div>\n        ";
         return html;
     }
