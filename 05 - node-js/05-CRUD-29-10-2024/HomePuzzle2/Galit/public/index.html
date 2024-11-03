@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram</title>
+    <link rel="stylesheet" href="./dist/style.css">
+    <script src="./dist/index.js" defer></script>
+</head>
+<body> 
+    <h1>Upload New Post</h1>
+    <form onsubmit="handleSendPost(event)">
+        <input type="text" name="title" placeholder="Post title" required>
+        <input type="text" name="text" placeholder="Write a caption..." required>
+        <input type="file" name="image" accept="image/*" required />
+        <button type="submit">Post</button>
+    </form>
+    
+    <h2>Feed</h2>
+    <div id="feed"></div>
+
+</body>
+</html>
