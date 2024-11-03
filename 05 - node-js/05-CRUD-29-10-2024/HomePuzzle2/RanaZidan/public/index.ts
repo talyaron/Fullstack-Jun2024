@@ -1,16 +1,23 @@
-async function handleSendPost(event: Event) {
+
+interface Post {
+  title: string;
+  text: string;
+  imageURL: string;
+}
+
+
+async function handleSendPost1(event: Event) {
   event.preventDefault();
   const form = event.target as HTMLFormElement;
 
   const title = (form.elements.namedItem("title") as HTMLInputElement).value;
   const text = (form.elements.namedItem("text") as HTMLInputElement).value;
-  const imageURL = (form.elements.namedItem("imageURL") as HTMLInputElement)
-    .value;
+  const imageURL = (form.elements.namedItem("imageURL") as HTMLInputElement).value;
 
   try {
     console.log("Sending post:", { title, text, imageURL }); 
 
-    const response = await fetch("http://localhost:3001/api/add-post", {
+    const response = await fetch("http://localhost:3000/api/add-post", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title, text, imageURL }),
@@ -29,87 +36,58 @@ async function handleSendPost(event: Event) {
 
 async function fetchPosts() {
   try {
-    const response = await fetch("http://localhost:3001/api/get-posts");
+    const response = await fetch("http://localhost:3000/api/get-posts");
     const data = await response.json();
-    
     const feedElement = document.getElementById("feed");
     if (!feedElement) throw new Error("Feed element not found");
 
     feedElement.innerHTML = "";
-    data.posts.forEach(
-      (post: { title: string; text: string; imageURL: string }) => {
-        const postElement = document.createElement("div");
-        postElement.className = "post";
+    data.posts.forEach((post: Post, index: number) => {
+      const postElement = document.createElement("div");
+      postElement.className = "post";
 
-        postElement.innerHTML = `
-                <h3>${post.title}</h3>
-                <img src="${post.imageURL}" alt="Image" />
-                <p>${post.text}</p>
-            `;
+      postElement.innerHTML = `
+        <h3>${post.title}</h3>
+        <img src="${post.imageURL}" alt="Post image" />
+        <p>${post.text}</p>
+        <button class="delete-button" onclick="handleDeletePost(${index})">Delete</button>
+      `;
 
-        feedElement.appendChild(postElement);
-      }
-    );
+      feedElement.appendChild(postElement);
+    });
   } catch (error) {
     console.error("Error fetching posts:", error);
   }
 }
 
-fetchPosts();
+async function handleDeletePost(index: number) {
+  try {
+    const response = await fetch(`http://localhost:3000/api/delete-post/${index}`, {
+      method: 'DELETE'
+    });
 
-function savePostsToLocalStorage(posts: any[]) {
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to delete post');
+    }
+
+    console.log('Post deleted successfully!');
+    await fetchPosts(); 
+  } catch (error) {
+    console.error('Error deleting post:', error);
+  }
+}
+
+function savePostsToLocalStorage(posts: Post[]) {
   localStorage.setItem("posts", JSON.stringify(posts));
 }
 
-function loadPostsFromLocalStorage(): any[] {
+function loadPostsFromLocalStorage(): Post[] {
   const posts = localStorage.getItem("posts");
   return posts ? JSON.parse(posts) : [];
 }
 
-async function handleSendPost1(event: Event) {
-  event.preventDefault();
-  const form = event.target as HTMLFormElement;
 
-  const title = (form.elements.namedItem("title") as HTMLInputElement).value;
-  const text = (form.elements.namedItem("text") as HTMLInputElement).value;
-  const imageURL = (form.elements.namedItem("imageURL") as HTMLInputElement)
-    .value;
-
-  const newPost = { title, text, imageURL };
-  const posts = loadPostsFromLocalStorage();
-  posts.push(newPost);
-  savePostsToLocalStorage(posts);
-
-  form.reset();
-  renderPosts();
-}
-
-function renderPosts() {
-  const posts = loadPostsFromLocalStorage();
-  const feedElement = document.getElementById("feed");
-  if (!feedElement) throw new Error("Feed element not found");
-
-  feedElement.innerHTML = "";
-  posts.forEach((post, index) => {
-    const postElement = document.createElement("div");
-    postElement.className = "post";
-
-    postElement.innerHTML = `
-      <h3>${post.title}</h3>
-      <img src="${post.imageURL}" alt="Image" />
-      <p>${post.text}</p>
-      <button class="delete-button" onclick="handleDeletePost(${index})">Delete</button>
-    `;
-    
-    feedElement.appendChild(postElement);
-  });
-}
-
-function handleDeletePost(index: number) {
-  const posts = loadPostsFromLocalStorage();
-  posts.splice(index, 1); 
-  savePostsToLocalStorage(posts); 
-  renderPosts(); 
-}
-
-
+document.addEventListener('DOMContentLoaded', () => {
+  fetchPosts();
+});

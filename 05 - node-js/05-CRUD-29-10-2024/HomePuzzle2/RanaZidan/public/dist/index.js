@@ -34,7 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-function handleSendPost(event) {
+function handleSendPost1(event) {
     return __awaiter(this, void 0, void 0, function () {
         var form, title, text, imageURL, response, error_1;
         return __generator(this, function (_a) {
@@ -44,13 +44,12 @@ function handleSendPost(event) {
                     form = event.target;
                     title = form.elements.namedItem("title").value;
                     text = form.elements.namedItem("text").value;
-                    imageURL = form.elements.namedItem("imageURL")
-                        .value;
+                    imageURL = form.elements.namedItem("imageURL").value;
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 4, , 5]);
                     console.log("Sending post:", { title: title, text: text, imageURL: imageURL });
-                    return [4 /*yield*/, fetch("http://localhost:3001/api/add-post", {
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/add-post", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({ title: title, text: text, imageURL: imageURL })
@@ -81,7 +80,7 @@ function fetchPosts() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch("http://localhost:3001/api/get-posts")];
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/get-posts")];
                 case 1:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
@@ -91,10 +90,10 @@ function fetchPosts() {
                     if (!feedElement_1)
                         throw new Error("Feed element not found");
                     feedElement_1.innerHTML = "";
-                    data.posts.forEach(function (post) {
+                    data.posts.forEach(function (post, index) {
                         var postElement = document.createElement("div");
                         postElement.className = "post";
-                        postElement.innerHTML = "\n                <h3>" + post.title + "</h3>\n                <img src=\"" + post.imageURL + "\" alt=\"Image\" />\n                <p>" + post.text + "</p>\n            ";
+                        postElement.innerHTML = "\n        <h3>" + post.title + "</h3>\n        <img src=\"" + post.imageURL + "\" alt=\"Post image\" />\n        <p>" + post.text + "</p>\n        <button class=\"delete-button\" onclick=\"handleDeletePost(" + index + ")\">Delete</button>\n      ";
                         feedElement_1.appendChild(postElement);
                     });
                     return [3 /*break*/, 4];
@@ -107,7 +106,38 @@ function fetchPosts() {
         });
     });
 }
-fetchPosts();
+function handleDeletePost(index) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, errorData, error_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 5, , 6]);
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/delete-post/" + index, {
+                            method: 'DELETE'
+                        })];
+                case 1:
+                    response = _a.sent();
+                    if (!!response.ok) return [3 /*break*/, 3];
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    errorData = _a.sent();
+                    throw new Error(errorData.error || 'Failed to delete post');
+                case 3:
+                    console.log('Post deleted successfully!');
+                    return [4 /*yield*/, fetchPosts()];
+                case 4:
+                    _a.sent();
+                    return [3 /*break*/, 6];
+                case 5:
+                    error_3 = _a.sent();
+                    console.error('Error deleting post:', error_3);
+                    return [3 /*break*/, 6];
+                case 6: return [2 /*return*/];
+            }
+        });
+    });
+}
 function savePostsToLocalStorage(posts) {
     localStorage.setItem("posts", JSON.stringify(posts));
 }
@@ -115,42 +145,6 @@ function loadPostsFromLocalStorage() {
     var posts = localStorage.getItem("posts");
     return posts ? JSON.parse(posts) : [];
 }
-function handleSendPost1(event) {
-    return __awaiter(this, void 0, void 0, function () {
-        var form, title, text, imageURL, newPost, posts;
-        return __generator(this, function (_a) {
-            event.preventDefault();
-            form = event.target;
-            title = form.elements.namedItem("title").value;
-            text = form.elements.namedItem("text").value;
-            imageURL = form.elements.namedItem("imageURL")
-                .value;
-            newPost = { title: title, text: text, imageURL: imageURL };
-            posts = loadPostsFromLocalStorage();
-            posts.push(newPost);
-            savePostsToLocalStorage(posts);
-            form.reset();
-            renderPosts();
-            return [2 /*return*/];
-        });
-    });
-}
-function renderPosts() {
-    var posts = loadPostsFromLocalStorage();
-    var feedElement = document.getElementById("feed");
-    if (!feedElement)
-        throw new Error("Feed element not found");
-    feedElement.innerHTML = "";
-    posts.forEach(function (post, index) {
-        var postElement = document.createElement("div");
-        postElement.className = "post";
-        postElement.innerHTML = "\n      <h3>" + post.title + "</h3>\n      <img src=\"" + post.imageURL + "\" alt=\"Image\" />\n      <p>" + post.text + "</p>\n      <button class=\"delete-button\" onclick=\"handleDeletePost(" + index + ")\">Delete</button>\n    ";
-        feedElement.appendChild(postElement);
-    });
-}
-function handleDeletePost(index) {
-    var posts = loadPostsFromLocalStorage();
-    posts.splice(index, 1);
-    savePostsToLocalStorage(posts);
-    renderPosts();
-}
+document.addEventListener('DOMContentLoaded', function () {
+    fetchPosts();
+});
