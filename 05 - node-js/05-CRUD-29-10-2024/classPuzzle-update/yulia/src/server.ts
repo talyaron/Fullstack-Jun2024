@@ -59,6 +59,24 @@ app.patch("/api/update-title", (req: any, res: any) => {
   res.status(200).json({ message: "Title updated successfully" });
 });
 
+app.delete("/api/delete-post", (req: any, res: any) => {
+  try {
+    const {id} = req.body;
+    if (!id) throw new Error("id is required");
+
+    const index = posts.findIndex((post) => post.id === id);
+    if (index === -1) {
+      console.log("Post not found with id:", id);
+      return res.status(404).json({ error: "Post not found" });
+    }
+    posts.splice(index, 1);
+    res.status(200).json({ message: "Post deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    res.status(500).json({ error: "Failed to delete post" });
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);

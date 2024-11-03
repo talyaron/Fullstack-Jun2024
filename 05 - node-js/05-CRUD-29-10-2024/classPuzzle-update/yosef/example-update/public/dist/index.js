@@ -59,7 +59,7 @@ function handleSendPost(event) {
                     if (!response.ok)
                         throw new Error('Failed to add post');
                     console.log('Post added successfully!');
-                    form.reset();
+                    form.reset(); // מוחק כל השדות שהכנסו בטופס
                     return [4 /*yield*/, fetchPosts()];
                 case 3:
                     _a.sent();

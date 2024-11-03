@@ -30,13 +30,19 @@ app.listen(port, function () {
     console.log("Server listening on port " + port);
 });
 //updates the post's title
-app.patch('/api/update-posts', function (req, res) {
-    var _a = req.body, title = _a.title, id = _a.id;
-    var postId = id;
-    var post = posts.find(function (id) { return id.id === postId; });
-    if (!post) {
-        return res.status(404).json({ message: 'Post not found' });
+app.patch('/api/update-post', function (req, res) {
+    try {
+        var _a = req.body, title = _a.title, id = _a.id;
+        var postId_1 = id;
+        var post = posts.find(function (id) { return id.id === postId_1; });
+        if (!post) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
+        post.title = title;
+        return res.json({ message: 'Title updated successfully', post: post });
     }
-    post.title = title;
-    return res.json({ message: 'Title updated successfully', post: post });
+    catch (error) {
+        console.error("Error in /api/update-post:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
 });

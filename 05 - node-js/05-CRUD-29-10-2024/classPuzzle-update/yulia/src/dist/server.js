@@ -41,6 +41,24 @@ app.patch("/api/update-title", function (req, res) {
     console.log("Updated post title:", post);
     res.status(200).json({ message: "Title updated successfully" });
 });
+app["delete"]("/api/delete-post", function (req, res) {
+    try {
+        var id_1 = req.body.id;
+        if (!id_1)
+            throw new Error("id is required");
+        var index = posts.findIndex(function (post) { return post.id === id_1; });
+        if (index === -1) {
+            console.log("Post not found with id:", id_1);
+            return res.status(404).json({ error: "Post not found" });
+        }
+        posts.splice(index, 1);
+        res.status(200).json({ message: "Post deleted successfully" });
+    }
+    catch (error) {
+        console.error("Error deleting post:", error);
+        res.status(500).json({ error: "Failed to delete post" });
+    }
+});
 app.listen(port, function () {
     console.log("Server listening on port " + port);
 });

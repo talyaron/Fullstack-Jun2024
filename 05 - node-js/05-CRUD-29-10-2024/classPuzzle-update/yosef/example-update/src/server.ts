@@ -41,6 +41,7 @@ app.patch('/api/update', (req: any, res: any) => {
         console.log('Updated post:', post);
         res.status(200).json({ message: "Post updated successfully" });
         console.log("Post updated successfully");
+        console.log(posts)
     }
     else {
         res.status(404).json({ error: "Post not found" });

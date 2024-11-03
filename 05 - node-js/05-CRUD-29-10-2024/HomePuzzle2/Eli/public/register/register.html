@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unstagram</title>
+    <link rel="stylesheet" href="./dist/registerStyle.css">
+    <link rel="stylesheet" href="../dist/globalStyle.css">
+    <script src="./dist/register.js" defer></script>
+</head>
+<body>
+    <div id="formContainer">
+         <form onsubmit="checkForm(event)">
+         <input type="text" name="name"  placeholder="enter user name">
+         <span id="nameDesc"></span>
+         <input type="text" name="email"  placeholder="enter email">
+         <span id="emailDesc"></span>
+         <input type="password" name="password"  placeholder="enter password">
+         <span id="passwordDesc"></span>
+         <input type="password" name="rePassword"  placeholder="renter password">
+         <span id="rePasswordDesc"></span>
+         <div id="checkbox-container">
+         <input type="checkbox" name="agree"  > 
+         <span id="agreeDesc">agree to terms and conditions</span>
+         </div>
+         <input type="submit" name="submit" id="submit" placeholder="submit">
+        </form>
+        <button id="loginBtn" onclick="toLogin()">Login</button>
+    </div>
+</body>
+</html>

@@ -47,8 +47,8 @@ function handleSendPost(event) {
                     imageURL = form.elements.namedItem('imageURL').value;
                     _a.label = 1;
                 case 1:
-                    _a.trys.push([1, 4, , 5]);
-                    console.log('Sending post:', { title: title, text: text, imageURL: imageURL }); // Debug log
+                    _a.trys.push([1, 3, , 4]);
+                    console.log('Sending post:', { title: title, text: text, imageURL: imageURL });
                     return [4 /*yield*/, fetch('http://localhost:3000/api/add-post', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
@@ -60,15 +60,13 @@ function handleSendPost(event) {
                         throw new Error('Failed to add post');
                     console.log('Post added successfully!');
                     form.reset();
-                    return [4 /*yield*/, fetchPosts()];
+                    fetchPosts();
+                    return [3 /*break*/, 4];
                 case 3:
-                    _a.sent();
-                    return [3 /*break*/, 5];
-                case 4:
                     error_1 = _a.sent();
                     console.error('Error sending post:', error_1);
-                    return [3 /*break*/, 5];
-                case 5: return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     });
@@ -131,7 +129,6 @@ function renderPost(post) {
 }
 function handleEditTitle(id) {
     try {
-        console.log("Edit title:", id);
         var titleElement_1 = document.getElementById("title-" + id);
         if (!titleElement_1)
             throw new Error('Title element not found');
@@ -139,7 +136,6 @@ function handleEditTitle(id) {
         titleElement_1.focus();
         titleElement_1.addEventListener("blur", function (event) {
             var title = titleElement_1.innerText;
-            console.log("New title:", title);
             titleElement_1.contentEditable = 'false';
             handleFetchEditedTitle(id, title);
         });
@@ -157,7 +153,7 @@ function handleFetchEditedTitle(id, title) {
                 case 0: return [4 /*yield*/, fetch('http://localhost:3000/api/update-post', {
                         method: 'PATCH',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({})
+                        body: JSON.stringify({ id: id, title: title })
                     })];
                 case 1:
                     response = _a.sent();

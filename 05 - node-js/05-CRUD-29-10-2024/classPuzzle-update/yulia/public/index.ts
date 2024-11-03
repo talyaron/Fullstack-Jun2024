@@ -45,7 +45,7 @@ async function fetchPosts() {
 
     const feedElement = document.getElementById("feed");
     if (!feedElement) throw new Error("Feed element not found");
-    if (data.posts.length === 0) return;
+
 
     renderPosts(data.posts);
   } catch (error) {
@@ -84,6 +84,11 @@ function loadPostsFromLocalStorage(): any[] {
 function renderPosts(posts: Post[]) {
   const feedElement = document.getElementById("feed");
   if (!feedElement) throw new Error("Feed element not found");
+console.log(posts);
+  if(posts.length === 0) {
+    feedElement.innerHTML = "";
+    return;
+  }
 
   const htmlPosts = posts
     .map((post) => {
@@ -101,7 +106,7 @@ function renderPost(post: Post) {
             <div class="post">
                 <h3 id="title-${post.id}">${post.title}</h3>
                 <button onclick="handleEditTitle('${post.id}')">Edit</button>
-                <button>Delete</button>
+                <button onclick="handleDeletePost('${post.id}')">Delete</button>
                 <img src="${post.imageURL}" alt="Image" />
                 <p>${post.text}</p>
             </div>
@@ -141,4 +146,21 @@ function handleEditTitle(id: string) {
       console.error("Error updating title on server:", error);
     }
   });
+}
+
+async function handleDeletePost(id:string){
+  try {
+    const response = await fetch("http://localhost:3000/api/delete-post", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
+
+    if (!response.ok) throw new Error("Failed to delete post");
+    console.log("Post deleted successfully on the server");
+
+    fetchPosts();
+  } catch (error) {
+   console.error("Error deleting post:", error); 
+  }
 }
