@@ -45,10 +45,12 @@ function checkKey() {
                 case 0:
                     _a.trys.push([0, 5, , 6]);
                     if (!(key.length > 1)) return [3 /*break*/, 3];
-                    return [4 /*yield*/, fetch("http://localhost:3000/api/check-key", { method: "POST",
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/check-key", {
+                            method: "POST",
                             headers: {
                                 "Content-Type": "application/json"
-                            }, body: JSON.stringify({ key: key })
+                            },
+                            body: JSON.stringify({ key: key })
                         })];
                 case 1:
                     response = _a.sent();
@@ -135,10 +137,12 @@ function logOut() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch("http://localhost:3000/api/log-out", { method: "POST",
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/log-out", {
+                            method: "POST",
                             headers: {
                                 "Content-Type": "application/json"
-                            }, body: JSON.stringify({ key: key })
+                            },
+                            body: JSON.stringify({ key: key })
                         })];
                 case 1:
                     response = _a.sent();
@@ -168,7 +172,7 @@ function redirectToLogin() {
             document.body.innerHTML = " <div class=\"redirect-container\">\n    <div class=\"redirect-message\">\n      <h2>Redirecting...</h2>\n      <p>Please wait while we take you to the login page.</p>\n    </div>\n    <div class=\"spinner-container\">\n      <div class=\"spinner\"></div>\n    </div>\n  </div>";
             setTimeout(function () {
                 window.location.href = "http://localhost:3000/login";
-            }, 2000);
+            }, 500);
             postLength = -1;
             return [2 /*return*/];
         });
@@ -229,12 +233,77 @@ function renderPosts(posts) {
             else {
                 postElement.innerHTML = "<div id=\"" + post.id + "\" class=\"post\">\n           <div id=\"name\"><h1>" + post.creatorName + "<h1></div>\n     <div id=\"bigText\"> <h1> " + post.title + " </h1>  <p> " + post.description + " </p> </div> ";
             }
+            if (post.userMade) {
+                var interactButtons = document.createElement("div");
+                var id = post.id;
+                interactButtons.id = "interactButtons";
+                createButtons(interactButtons, post.id);
+                postElement.appendChild(interactButtons);
+            }
             postsElement_1.appendChild(postElement);
         });
     }
     catch (error) {
         console.error("Error fetching posts:", error);
     }
+}
+function updatePost(id) {
+    console.log("aaaaaaaaaaa");
+}
+function createButtons(parent, id) {
+    var buttonRemove = document.createElement("button");
+    buttonRemove.className = "removeBtn";
+    buttonRemove.id = "remove-" + id;
+    buttonRemove.innerText = "Remove";
+    var buttonUpdate = document.createElement("button");
+    buttonUpdate.className = "updateBtn";
+    buttonUpdate.id = "update-" + id;
+    buttonUpdate.innerText = "update";
+    buttonRemove.addEventListener("click", function () { return removePost(id); });
+    buttonUpdate.addEventListener("click", function () { return updatePost(id); });
+    parent.appendChild(buttonUpdate);
+    parent.appendChild(buttonRemove);
+}
+function removePost(postId) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, data, message, error, error_5;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    console.log("Removing post:", postId);
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/remove-post", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({ postId: postId })
+                        })];
+                case 1:
+                    response = _a.sent();
+                    if (!response.ok) {
+                        console.error("Network response was not ok");
+                        return [2 /*return*/];
+                    }
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    data = _a.sent();
+                    message = data.message, error = data.error;
+                    if (!error) {
+                        console.log("Post Removed!");
+                    }
+                    else {
+                        console.log("Something went wrong:", error);
+                    }
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_5 = _a.sent();
+                    console.error("Error in removePost function:", error_5);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
 }
 var imageInput = document.getElementById("image");
 console.log(imageInput);

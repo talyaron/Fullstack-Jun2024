@@ -272,6 +272,27 @@ app.post("/api/get-posts", function (req, res) {
         }
     }
 });
+app.post("/api/remove-post", function (req, res) {
+    try {
+        var postId_1 = req.body.postId;
+        var foundPostIndex = posts.findIndex(function (post) { return post.id === postId_1; });
+        if (foundPostIndex !== -1) {
+            posts.splice(foundPostIndex, 1);
+            res.json({ message: "Post removed successfully" });
+        }
+        else {
+            res.status(404).json({ error: "Post not found" });
+        }
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            res.status(500).json({ error: error.message });
+        }
+        else {
+            res.status(500).json({ error: "An unknown error occurred." });
+        }
+    }
+});
 app.listen(port, function () {
     console.log("Example unstagram app listening on port " + port);
 });
