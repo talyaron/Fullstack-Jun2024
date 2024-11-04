@@ -228,7 +228,7 @@ function renderPosts(posts) {
             }
             var postElement = document.createElement("div");
             if (post.img) {
-                postElement.innerHTML = "<div id=\"" + post.id + "\" class=\"post\">\n       <div id=\"name\"><h1>" + post.creatorName + "<h1></div>\n      <div id=\"text\"> <h1 id=\"title-" + post.id + "\"> " + post.title + " </h1>  <p> " + post.description + " </p>  </div> \n       <img id =\"img-" + post.id + "\" src=\"http://localhost:3000/uploads/" + post.img + "\">  </div>   ";
+                postElement.innerHTML = "<div id=\"" + post.id + "\" class=\"post\">\n       <div id=\"name\"><h1>" + post.creatorName + "<h1></div>\n      <div id=\"text\"> <h1 id=\"title-" + post.id + "\"> " + post.title + " </h1>  <p  id=\"desc-" + post.id + "\"> " + post.description + " </p>  </div> \n      <div id=\"wrap-img-" + post.id + "\" class=\"imgWrap\"> <img id =\"img-" + post.id + "\" class=\"img\" src=\"" + post.img + "\"></div></div>";
             }
             else {
                 postElement.innerHTML = "<div id=\"" + post.id + "\" class=\"post\">\n           <div id=\"name\"><h1>" + post.creatorName + "<h1></div>\n     <div id=\"bigText\"> <h1 id=\"title-" + post.id + "\"> " + post.title + " </h1>  <p id=\"desc-" + post.id + "\"> " + post.description + " </p> </div> ";
@@ -248,10 +248,10 @@ function renderPosts(posts) {
 }
 function updatePost(id) {
     try {
-        var buttonUpdate = document.getElementById("update-" + id);
-        if (!buttonUpdate)
+        var buttonUpdate_1 = document.getElementById("update-" + id);
+        if (!buttonUpdate_1)
             throw new Error("No update button found");
-        buttonUpdate.innerText = "Save";
+        buttonUpdate_1.innerText = "Save";
         var titleElement_1 = document.getElementById("title-" + id);
         if (!titleElement_1)
             throw new Error("Title element not found");
@@ -261,18 +261,42 @@ function updatePost(id) {
         if (!descElement_1)
             throw new Error("Description element not found");
         descElement_1.contentEditable = 'true';
-        var imgElement_1 = document.getElementById("img-" + id);
-        var imgSrc = imgElement_1 ? imgElement_1.src : '';
-        var handleUpdateClick = function () {
+        var imgWrapElement_1 = document.getElementById("wrap-img-" + id);
+        var oldText_1 = imgWrapElement_1 ? imgWrapElement_1.innerHTML : "";
+        //const imgSrc = imgElement ? imgElement.src : ''; 
+        if (imgWrapElement_1) {
+            imgWrapElement_1.innerHTML = "   <input type=\"text\" id=\"imgLink\" name=\"imgLink\" placeholder=\"image link\">\n   ";
+        }
+        else
+            console.log("noWrap");
+        var imgUpload_1 = document.getElementById("imgLink");
+        if (!imgUpload_1)
+            console.log("non img");
+        var handleUpdateClick_1 = function () {
             var title = titleElement_1.innerText;
             var desc = descElement_1.innerText;
-            var img = imgElement_1 ? imgElement_1.src : '';
+            // console.log(imgUpload.value);
+            var img = imgUpload_1 ? imgUpload_1.value : "";
+            //  console.log(imgUpload.value);
             updatePostServer(id, title, desc, img);
+            buttonUpdate_1.removeEventListener("click", handleUpdateClick_1);
+            if (imgWrapElement_1) {
+                if (img) {
+                    imgWrapElement_1.innerHTML = " <img id =\"img-" + id + "\" class=\"img\" src=\"" + img + "\">\n     ";
+                }
+                else {
+                    imgWrapElement_1.innerHTML = oldText_1;
+                }
+            }
+            buttonUpdate_1.innerText = "update";
+            descElement_1.contentEditable = 'false';
+            titleElement_1.contentEditable = 'false';
+            buttonUpdate_1.addEventListener("click", function () { return updatePost(id); });
         };
-        buttonUpdate.removeEventListener("click", handleUpdateClick);
-        buttonUpdate.addEventListener("click", handleUpdateClick);
-        titleElement_1.addEventListener("blur", handleUpdateClick);
-        descElement_1.addEventListener("blur", handleUpdateClick);
+        buttonUpdate_1.removeEventListener("click", updatePost);
+        buttonUpdate_1.addEventListener("click", handleUpdateClick_1);
+        //titleElement.addEventListener("blur", handleUpdateClick);
+        // descElement.addEventListener("blur", handleUpdateClick);
     }
     catch (error) {
         console.error("Error:", error);
@@ -303,6 +327,7 @@ function updatePostServer(id, title, desc, img) {
                 case 2:
                     data = _a.sent();
                     message = data.message, error = data.error;
+                    console.log(message);
                     if (!error) {
                         console.log("Post updated!");
                     }
