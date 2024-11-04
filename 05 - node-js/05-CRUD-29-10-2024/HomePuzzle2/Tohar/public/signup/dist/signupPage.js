@@ -35,11 +35,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 function renderSignupPage() {
-    var signupForm = "\n        <div class=\"container\">\n            <h1>Register</h1>\n            <form id=\"registerForm\" onsubmit=\"handleFormRegister(event)>\n                <input type=\"text\" class=\"input\" id=\"userName\" name=\"userName\" required placeholder=\"User Name\">\n                <input type=\"email\" class=\"input\" id=\"email\" name=\"email\" required placeholder=\"Email\">\n                <input type=\"text\" class=\"input\" id=\"phone\" name=\"phone\" required placeholder=\"Phone Number\">\n                <input type=\"password\" class=\"input\" id=\"password\" name=\"password\" required placeholder=\"Password\"> \n                <input type=\"password\" class=\"input\" id=\"pswConfirm\" name=\"pswConfirm\" required placeholder=\"Confirm Password\">\n                <div class=\"termsWrapper\">\n                    <input type=\"checkbox\" id=\"agreeTerms\" name=\"agreeTerms\" required>\n                    <h3 class=\"agreeTerms\">I agree to the Terms and Conditions</h3>\n                </div>\n                <button class=\"signupBtn\" id=\"registerButton\" type=\"submit\">Register</button>\n                <a href=\"../index.html\" class=\"loginNavBtn\" id=\"backToLogin\" type=\"button\">Back to Login Page</a>\n            </form>\n        </div>\n    ";
-    var signupPageElement = document.querySelector('#signupPage');
-    if (!signupPageElement)
-        throw new Error('Login page not found');
-    signupPageElement.innerHTML = signupForm;
+    var signupForm = "\n        <div class=\"container\">\n            <h1>Register</h1>\n            <form onsubmit=\"handleFormRegister(event)\">\n                <input type=\"text\" class=\"input\" id=\"userName\" name=\"userName\" required placeholder=\"User Name\">\n                <input type=\"email\" class=\"input\" id=\"email\" name=\"email\" required placeholder=\"Email\">\n                <input type=\"text\" class=\"input\" id=\"phone\" name=\"phone\" required placeholder=\"Phone Number\">\n                <input type=\"password\" class=\"input\" id=\"password\" name=\"password\" required placeholder=\"Password\"> \n                <input type=\"password\" class=\"input\" id=\"pswConfirm\" name=\"pswConfirm\" required placeholder=\"Confirm Password\">\n                <div class=\"termsWrapper\">\n                    <input type=\"checkbox\" id=\"agreeTerms\" name=\"agreeTerms\" required>\n                    <h3 class=\"agreeTerms\">I agree to the Terms and Conditions</h3>\n                </div>\n                <button class=\"signupBtn\" id=\"registerButton\" type=\"submit\">Register</button>\n                <a href=\"../index.html\" class=\"loginNavBtn\" id=\"backToLogin\" type=\"button\">Back to Login Page</a>\n            </form>\n        </div>\n    ";
+    document.querySelector('#signupPage').innerHTML = signupForm;
 }
 ;
 function handleFormRegister(event) {
@@ -50,11 +47,12 @@ function handleFormRegister(event) {
                 case 0:
                     event.preventDefault();
                     form = event.target;
-                    userName = document.getElementById('userName').value;
-                    email = document.getElementById('email').value;
-                    password = document.getElementById('password').value;
-                    phoneNumber = document.getElementById('phone').value;
-                    pswConfirm = document.getElementById('pswConfirm').value;
+                    userName = form.elements.namedItem('userName').value;
+                    email = form.elements.namedItem('email').value;
+                    password = form.elements.namedItem('password').value;
+                    phoneNumber = form.elements.namedItem('phone').value;
+                    pswConfirm = form.elements.namedItem('pswConfirm').value;
+                    console.log('Register', userName, email, password, phoneNumber, pswConfirm);
                     if (!(password !== pswConfirm)) return [3 /*break*/, 1];
                     alert('Passwords do not match! Please try again');
                     return [3 /*break*/, 3];
@@ -80,7 +78,7 @@ function userExists(email) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch("http://localhost:3000/api/user-exists" + encodeURIComponent(email))];
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/user-exists?email=" + encodeURIComponent(email))];
                 case 1:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
@@ -113,6 +111,7 @@ function addUser(userName, phoneNumber, email, password) {
                     if (!response.ok)
                         throw new Error('Failed to add user');
                     console.log('User added successfully!');
+                    window.location.href = "../postsPage/postsPage.html";
                     return [3 /*break*/, 3];
                 case 2:
                     error_2 = _a.sent();

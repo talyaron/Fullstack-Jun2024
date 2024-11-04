@@ -1,0 +1,12 @@
+h1 {
+  color: steelblue;
+  background-color: lightcoral;
+  font-family: "Times New Roman", Times, serif;
+  font-size: large;
+}
+
+#message {
+  color: darkorange;
+  background-color: lightgreen;
+  font-size: 3rem;
+}/*# sourceMappingURL=style.css.map */

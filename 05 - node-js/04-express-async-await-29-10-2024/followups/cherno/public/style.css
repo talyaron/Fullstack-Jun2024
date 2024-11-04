@@ -1,4 +1,9 @@
 h1 {
   color: red;
   background-color: yellow;
+}
+
+#message {
+  color: #ffffff;
+  font-size: 3rem;
 }/*# sourceMappingURL=style.css.map */
