@@ -188,7 +188,7 @@ function checkedLoggedUsers()
         timeLogOut(user.userID)
 
       } else {
-        console.log("Less than 5 minutes have passed for this user.");
+     //   console.log("Less than 5 minutes have passed for this user.");
       }
     }
   });
@@ -196,14 +196,17 @@ function checkedLoggedUsers()
 
 function timeLogOut(userID:string)
 {
+  
  const foundUser = users.find(user=>user.id=userID)
- const foundUserIndex = users.findIndex(user=>user.id=userID)
+ const foundUserIndex = loggedUsers.findIndex(user=>user.userID=userID)
  if(!foundUser){ console.log("no such user"); return;}
  if (foundUserIndex!==-1)
  {
   foundUser.key="";
-  users.splice(foundUserIndex,1);
+  loggedUsers.splice(foundUserIndex,1);
  }
+
+ 
 }
 
 app.post("/api/register-user", (req, res) => {

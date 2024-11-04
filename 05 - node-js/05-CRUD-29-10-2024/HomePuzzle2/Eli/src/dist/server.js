@@ -149,21 +149,21 @@ function checkedLoggedUsers() {
                 timeLogOut(user.userID);
             }
             else {
-                console.log("Less than 5 minutes have passed for this user.");
+                //   console.log("Less than 5 minutes have passed for this user.");
             }
         }
     });
 }
 function timeLogOut(userID) {
     var foundUser = users.find(function (user) { return user.id = userID; });
-    var foundUserIndex = users.findIndex(function (user) { return user.id = userID; });
+    var foundUserIndex = loggedUsers.findIndex(function (user) { return user.userID = userID; });
     if (!foundUser) {
         console.log("no such user");
         return;
     }
     if (foundUserIndex !== -1) {
         foundUser.key = "";
-        users.splice(foundUserIndex, 1);
+        loggedUsers.splice(foundUserIndex, 1);
     }
 }
 app.post("/api/register-user", function (req, res) {
