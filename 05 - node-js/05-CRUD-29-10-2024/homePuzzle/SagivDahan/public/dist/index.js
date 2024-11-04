@@ -34,110 +34,94 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-function handleSendPost(event) {
+var _a;
+//function that send the post information to the server
+function sendPostToServer() {
     return __awaiter(this, void 0, void 0, function () {
-        var form, title, text, imageURL, newPost, posts, response, error_1;
+        var title, description, username, imgUrl, id, post, response, data, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    // prevent refresh the page on click send in the form
-                    event.preventDefault();
-                    form = event.target;
-                    title = form.elements.namedItem('title').value;
-                    text = form.elements.namedItem('text').value;
-                    imageURL = form.elements.namedItem('imageURL').value;
-                    newPost = { id: Date.now(), title: title, text: text, imageURL: imageURL };
-                    posts = loadPostsFromLocalStorage();
-                    // push new post to array
-                    posts.push(newPost);
-                    // save the new information in the local storage
-                    savePostsToLocalStorage(posts);
+                    title = document.getElementById("form__title").value;
+                    description = document.getElementById("form__description").value;
+                    username = document.getElementById("form__username").value;
+                    imgUrl = document.getElementById("form__imgurl").value;
+                    id = crypto.randomUUID();
+                    post = { id: id, title: title, description: description, username: username, imgUrl: imgUrl };
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 4, , 5]);
-                    console.log('Sending post:', newPost);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/add-post', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            // compile the information to json
-                            body: JSON.stringify(newPost)
+                    return [4 /*yield*/, fetch("/api/add-post", {
+                            //request method
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            //convert the data to json
+                            body: JSON.stringify({ post: post })
                         })];
                 case 2:
                     response = _a.sent();
-                    if (!response.ok)
-                        throw new Error('Failed to add post');
-                    console.log('Post added successfully!');
-                    // clear the form after successfully request
-                    form.reset();
-                    return [4 /*yield*/, fetchPosts()];
+                    return [4 /*yield*/, response.json()];
                 case 3:
-                    _a.sent(); // update the feed after new post
-                    renderPosts(); // render posts from localstorage
+                    data = _a.sent();
+                    if (response.ok) {
+                        savePostToLocalStorage(post);
+                        renderPost(post);
+                        console.log("Post uploaded successfully:", data.message);
+                    }
+                    else {
+                        console.error("Error:", data.message);
+                    }
                     return [3 /*break*/, 5];
                 case 4:
                     error_1 = _a.sent();
-                    console.error('Error sending post:', error_1);
+                    console.error(("Failed to send post to the server."), error_1);
                     return [3 /*break*/, 5];
                 case 5: return [2 /*return*/];
             }
         });
     });
 }
-// fetch posts function from the server
-function fetchPosts() {
+function savePostToLocalStorage(post) {
+    var posts = JSON.parse(localStorage.getItem("posts") || "[]");
+    posts.push(post);
+    localStorage.setItem("posts", JSON.stringify(posts));
+}
+function renderPost(post) {
+    var postContainer = document.getElementById("posts");
+    var postElement = document.createElement("div");
+    postElement.className = "post";
+    postElement.innerHTML = "<h2>" + post.title + "</h2>, <p>" + post.description + "</p>, <p>posted by: " + post.username + "</p>, <img src=\"" + post.imgUrl + "\" alt=\"Post Image\"> ";
+    postContainer === null || postContainer === void 0 ? void 0 : postContainer.appendChild(postElement);
+}
+(_a = document.getElementById("send")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", sendPostToServer);
+function loadPosts() {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, feedElement_1, error_2;
+        var response, data, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/get-posts')];
+                    return [4 /*yield*/, fetch("/api/get-posts")];
                 case 1:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
-                    feedElement_1 = document.getElementById("feed");
-                    if (!feedElement_1)
-                        throw new Error("Feed element not found");
-                    feedElement_1.innerHTML = ''; // מאפס את התוכן הקודם של הפיד
                     data.posts.forEach(function (post) {
-                        var postElement = document.createElement("div");
-                        postElement.className = "post";
-                        postElement.innerHTML = "\n                <h3>" + post.title + "</h3>\n                <img src=\"" + post.imageURL + "\" alt=\"Image\" />\n                <p>" + post.text + "</p>\n                <button onclick=\"editPost(" + post.id + ", '" + post.title + "', '" + post.text + "', '" + post.imageURL + "')\">Edit</button>\n            ";
-                        feedElement_1.appendChild(postElement);
+                        renderPost(post);
+                        savePostToLocalStorage(post);
                     });
                     return [3 /*break*/, 4];
                 case 3:
                     error_2 = _a.sent();
-                    console.error("Error fetching posts:", error_2);
+                    console.error("Failed to load posts:", error_2);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
         });
     });
 }
-// save posts in the localstorage
-function savePostsToLocalStorage(posts) {
-    localStorage.setItem('posts', JSON.stringify(posts));
-}
-// load posts from the local storage function
-function loadPostsFromLocalStorage() {
-    var posts = localStorage.getItem('posts');
-    return posts ? JSON.parse(posts) : []; // ממיר את המחרוזת לפורמט אובייקט
-}
-// render posts from the local storage function
-function renderPosts() {
-    var posts = loadPostsFromLocalStorage();
-    var feedElement = document.getElementById('feed');
-    if (!feedElement)
-        throw new Error('Feed element not found');
-    feedElement.innerHTML = '';
-    posts.forEach(function (post) {
-        var postElement = document.createElement('div');
-        postElement.className = 'post';
-        postElement.innerHTML = "\n            <h3>" + post.title + "</h3>\n            <img src=\"" + post.imageURL + "\" alt=\"Image\" />\n            <p>" + post.text + "</p>\n            <button onclick=\"editPost(" + post.id + ", '" + post.title + "', '" + post.text + "', '" + post.imageURL + "')\">Edit</button>\n        ";
-        feedElement.appendChild(postElement);
-    });
-}
-renderPosts();
+// קריאת הפונקציה עם עליית הדף
+window.addEventListener("load", loadPosts);
