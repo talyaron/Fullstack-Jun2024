@@ -20,6 +20,7 @@ app.post('/api/add-post', (req: any, res: any) => {
     }
 
     posts.push({ title, text, imageURL });
+    console.log("Post added successfully");
     res.status(201).json({ message: "Post added successfully" });
 });
 
@@ -40,7 +41,7 @@ app.put('/api/update-post/:index', (req: any, res: any) => {
     if (title) posts[index].title = title;
     if (text) posts[index].text = text;
     if (imageURL) posts[index].imageURL = imageURL;
-
+    console.log("Post updated successfully!")
     res.status(200).json({ message: "Post updated successfully" });
 });
 
@@ -53,6 +54,7 @@ app.delete('/api/delete-post/:index', (req: any, res: any) => {
     }
 
     posts.splice(index, 1);
+    console.log("deleted successfully");
     res.status(200).json({ message: "Post deleted successfully" });
 });
 

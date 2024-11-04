@@ -5,18 +5,57 @@ import { randomBytes } from 'crypto';
 const app = express();
 const port = process.env.PORT || 3000;
 
-// const posts: Array<{ caption: string, imageURL: string, id:string }> = [];
-
 type Post = {
     caption: string,
     imageURL: string, 
     id:string
+};
+
+type User = {
+    userName: string;
+    id : string;
+    email: string;
+    password: string;
+    phoneNumber?: string;
+    posts: Post[];
 }
 
 const posts: Post[] = [];
+const users: User[] = [];
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
+
+app.post('/api/add-user', (req: any, res: any) => {
+    try {
+        const {  userName, email, password, phoneNumber } = req.body;
+
+        if ( !userName || !email || !password || !phoneNumber) {
+            return res.status(400).json({ error: "All fields are required" });
+        }
+
+        const id = randomBytes(16).toString("hex"); 
+        const posts: Post[] = [];
+        users.push({userName, id, email, password, phoneNumber, posts});
+        res.status(201).json({ message: "User added successfully" });
+    } catch (error) {
+        res.status(500).json({ error: "An error occurred while adding the user" });
+    }
+});
+
+app.get('/api/get-users', (req, res) => {
+    res.json({ users })
+});
+
+app.get('/api/user-exists', (req:any, res:any) => {
+    const { email } = req.body;
+
+    if (!email) {
+        return res.status(400).json({ error: "Email is required" });
+    }
+    const userExists = users.some(user => user.email === email);
+    res.json({ exists: userExists });
+});
 
 app.post('/api/add-post', (req:any, res: any) => {
     try {
@@ -77,7 +116,7 @@ app.delete('/api/delete-post', (req: any, res: any) => {
         }
         
         posts.splice(index, 1);
-        
+
         //find the post in the array and delete it
         return res.json({ message: 'Post deleted successfully', posts });
     

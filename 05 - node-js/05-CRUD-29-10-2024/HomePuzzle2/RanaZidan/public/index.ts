@@ -18,8 +18,9 @@ async function handleSendPost1(event: Event) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title, text, imageURL }),
     });
-
+   
     if (!response.ok) throw new Error("Failed to add post");
+    console.log("Post added successfully!");
     form.reset();
     await fetchPosts();
   } catch (error) {
@@ -29,18 +30,22 @@ async function handleSendPost1(event: Event) {
 
 async function handleUpdatePost(index: number, field: 'title' | 'text' | 'imageURL', value: string) {
   try {
+    
     const response = await fetch(`http://localhost:3000/api/update-post/${index}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ [field]: value })
+      
     });
-
+    
     if (!response.ok) throw new Error('Failed to update post');
+    console.log("updating post at index",index);
 
     updateLocalPost(index, field, value);
   } catch (error) {
     console.error('Error updating post:', error);
   }
+
 }
 
 function updateLocalPost(index: number, field: 'title' | 'text' | 'imageURL', value: string) {
@@ -70,7 +75,8 @@ async function handleDeletePost(index: number) {
       });
 
       if (!response.ok) throw new Error('Failed to delete post');
-      await fetchPosts();
+      console.log("deleted successfully");
+      fetchPosts();
     } catch (error) {
       console.error('Error deleting post:', error);
     }
@@ -109,7 +115,7 @@ async function fetchPosts() {
       </button>
     </div>
     <input type="text" id="image-${index}" class="image-url-input" value="${post.imageURL}" style="display: none;" onchange="updateImage(${index})" />
-
+    </br>
     <div class="field-container">
       <p class="post-text" id="text-${index}">${post.text}</p>
     </div>

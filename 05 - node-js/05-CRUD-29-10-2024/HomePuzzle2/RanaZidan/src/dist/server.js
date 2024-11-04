@@ -15,6 +15,7 @@ app.post('/api/add-post', function (req, res) {
         return res.status(400).json({ error: "All fields are required" });
     }
     posts.push({ title: title, text: text, imageURL: imageURL });
+    console.log("Post added successfully");
     res.status(201).json({ message: "Post added successfully" });
 });
 app.get('/api/get-posts', function (req, res) {
@@ -32,6 +33,7 @@ app.put('/api/update-post/:index', function (req, res) {
         posts[index].text = text;
     if (imageURL)
         posts[index].imageURL = imageURL;
+    console.log("Post updated successfully!");
     res.status(200).json({ message: "Post updated successfully" });
 });
 app["delete"]('/api/delete-post/:index', function (req, res) {
@@ -40,6 +42,7 @@ app["delete"]('/api/delete-post/:index', function (req, res) {
         return res.status(400).json({ error: "Invalid index" });
     }
     posts.splice(index, 1);
+    console.log("deleted successfully");
     res.status(200).json({ message: "Post deleted successfully" });
 });
 app.listen(port, function () {
