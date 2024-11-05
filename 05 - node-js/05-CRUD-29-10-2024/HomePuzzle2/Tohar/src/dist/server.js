@@ -110,13 +110,14 @@ app.patch('/api/update-post', function (req, res) {
 });
 app.patch('/api/update-post-image', function (req, res) {
     try {
-        var _a = req.body, imageURL = _a.imageURL, id = _a.id;
+        var _a = req.body, image = _a.image, id = _a.id;
         var postId_2 = id;
+        console.log('id', id);
         var post = posts.find(function (id) { return id.id === postId_2; });
         if (!post) {
             return res.status(404).json({ message: 'Post not found' });
         }
-        post.imageURL = imageURL;
+        post.imageURL = image;
         return res.json({ message: 'image updated successfully', post: post });
     }
     catch (error) {

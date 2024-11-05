@@ -4,6 +4,7 @@ interface Post {
     id: string;
     editTitle?: boolean;
     editText?: boolean;
+    editImage?: boolean;
 };
 
 class User {

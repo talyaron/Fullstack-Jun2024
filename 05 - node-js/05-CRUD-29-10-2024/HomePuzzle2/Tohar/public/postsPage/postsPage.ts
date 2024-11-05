@@ -1,3 +1,4 @@
+
 function renderMainPage() {
 
     const html = `
@@ -10,6 +11,7 @@ function renderMainPage() {
     `
     // <input type="file" name="image" id="imageUpload" name="imageUpload" accept="image/*">
     document.querySelector<HTMLDivElement>('#main')!.innerHTML = html;
+    
 };
 
 renderMainPage();
@@ -75,13 +77,13 @@ function renderPost(post: Post) {
         // changeFileToImage();
 
         const html = `
-        <div class="post">
-            <img src="${post.imageURL}" alt="Image" />
+        <div class="post" id="post">
+            <img src="${post.imageURL}" id="imageURL-${post.id}" alt="inputImage" />
             <h3 id="caption-${post.id}">${post.caption}</h3>
             <button onclick="handleEditCaption('${post.id}')" >Edit</button>
             <button onclick="handlDeletePost('${post.id}')">Delete</button>
-            <button onclick="handlEditImage('${post.id}')">Change Image</button>
-            <p>${post.caption}</p>
+            <button onclick="handleEditImage('${post.id}')">Change Image</button>
+            <div id="editImageInput"></div>
         </div>
         `;
 
@@ -130,11 +132,17 @@ async function fetchEditedCaption(id: string, caption:string) {
 };
 
 
-function handleEditImage(id: string) {
+function handleEditImage(id: string, imageURL: string) {
     try {
         const imageElement = document.getElementById(`imageURL-${id}`);
         if (!imageElement) throw new Error('image element not found');
-       //todo : input url 
+        
+        const inputUrlElement = `
+        <input id="imageInput" type="url" name="editImageURL" placeholder="Enter image URL" require>
+        <button onclick="changeImage(id)">Edit</button>
+        `
+
+        document.querySelector<HTMLDivElement>('#editImageInput')!.innerHTML = inputUrlElement;
 
     } catch (error) {
         console.error('Error:', error);
@@ -142,14 +150,34 @@ function handleEditImage(id: string) {
 
 };
 
-async function fetchEditedImage(id:string, image:string) {
-    //todo: fetch image 
+function changeImage(id: string) {
+    const inputValue = (document.getElementById('imageInput') as HTMLInputElement).value;
+    if(!inputValue) throw new Error('image input not found');
+
+    document.querySelector<HTMLDivElement>('#editImageInput')!.innerHTML = '';
+
+    fethcChangeImage(inputValue, id);
+}
+
+async function fethcChangeImage(image:string, id:string) {
+    
+    const response = await fetch('http://localhost:3000/api/update-post-image', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({image, id}),
+    });
+
+    if (!response.ok) {
+        console.error("Failed to update image:", response.statusText);
+        return;
+    }
+
+    const data = await response.json();
+    console.log(data, 'success');
 }
 
 
 async function handlDeletePost(id: string) {
-    
-
     try {
         const response = await fetch('http://localhost:3000/api/delete-post', {
             method: 'DELETE',
