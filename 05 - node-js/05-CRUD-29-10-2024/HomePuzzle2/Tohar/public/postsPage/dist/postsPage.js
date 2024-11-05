@@ -117,7 +117,7 @@ function renderPosts(posts) {
 function renderPost(post) {
     try {
         // changeFileToImage();
-        var html = "\n        <div class=\"post\">\n            <img src=\"" + post.imageURL + "\" alt=\"Image\" />\n            <h3 id=\"caption-" + post.id + "\">" + post.caption + "</h3>\n            <button onclick=\"handleEditCaption('" + post.id + "')\" >Edit</button>\n            <button onclick=\"handlDeletePost('" + post.id + "')\">Delete</button>\n            <button onclick=\"handlEditImage('" + post.id + "')\">Change Image</button>\n            <p>" + post.caption + "</p>\n        </div>\n        ";
+        var html = "\n        <div class=\"post\" id=\"post\">\n            <img src=\"" + post.imageURL + "\" id=\"imageURL-" + post.id + "\" alt=\"inputImage\" />\n            <h3 id=\"caption-" + post.id + "\">" + post.caption + "</h3>\n            <button onclick=\"handleEditCaption('" + post.id + "')\" >Edit</button>\n            <button onclick=\"handlDeletePost('" + post.id + "')\">Delete</button>\n            <button onclick=\"handleEditImage('" + post.id + "')\">Change Image</button>\n            <div id=\"editImageInput\"></div>\n        </div>\n        ";
         return html;
     }
     catch (error) {
@@ -169,22 +169,48 @@ function fetchEditedCaption(id, caption) {
     });
 }
 ;
-function handleEditImage(id) {
+function handleEditImage(id, imageURL) {
     try {
         var imageElement = document.getElementById("imageURL-" + id);
         if (!imageElement)
             throw new Error('image element not found');
-        //todo : input url 
+        var inputUrlElement = "\n        <input id=\"imageInput\" type=\"url\" name=\"editImageURL\" placeholder=\"Enter image URL\" require>\n        <button onclick=\"changeImage(id)\">Edit</button>\n        ";
+        document.querySelector('#editImageInput').innerHTML = inputUrlElement;
     }
     catch (error) {
         console.error('Error:', error);
     }
 }
 ;
-function fetchEditedImage(id, image) {
+function changeImage(id) {
+    var inputValue = document.getElementById('imageInput').value;
+    if (!inputValue)
+        throw new Error('image input not found');
+    document.querySelector('#editImageInput').innerHTML = '';
+    fethcChangeImage(inputValue, id);
+}
+function fethcChangeImage(image, id) {
     return __awaiter(this, void 0, void 0, function () {
+        var response, data;
         return __generator(this, function (_a) {
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, fetch('http://localhost:3000/api/update-post-image', {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ image: image, id: id })
+                    })];
+                case 1:
+                    response = _a.sent();
+                    if (!response.ok) {
+                        console.error("Failed to update image:", response.statusText);
+                        return [2 /*return*/];
+                    }
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    data = _a.sent();
+                    console.log(data, 'success');
+                    return [2 /*return*/];
+            }
         });
     });
 }
