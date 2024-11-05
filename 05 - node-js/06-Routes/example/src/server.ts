@@ -12,7 +12,7 @@ app.use(express.json()); // takes the header of the request and if it is json it
 app.use(express.static('public'));
 
 //routesD
-import usersRoutes from './routes/usersRoutes';
+import usersRoutes from './routes/postssRoutes';
 app.use("/api/users", usersRoutes);
 
 
