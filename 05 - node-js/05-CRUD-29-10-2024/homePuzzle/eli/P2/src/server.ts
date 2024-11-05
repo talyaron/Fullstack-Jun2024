@@ -16,13 +16,15 @@ class Bullet {
   angle: number;
   speed: number;
   velocity:Vector;
+  cID:string;
   // Additional properties like max speed and other attributes can be added here
 
-  constructor(id:string,pos: Vector, angle: number) {
+  constructor(id:string,pos: Vector, angle: number,cID:string) {
       this.id = id;
       this.pos = pos;
       this.angle = angle;
       this.speed = 10; // Set a default speed for the bullet
+      this.cID=cID;
       this.velocity = {
         x: Math.cos(this.angle) * this.speed,
         y: Math.sin(this.angle) * this.speed
@@ -38,9 +40,11 @@ class Bullet {
 const bullets: Bullet[] = [];
 
 app.post("/api/createBullet", (req, res) => {
-  const { pos, angle } = req.body;
-  const newBullet = new Bullet( `bullet=${crypto.randomUUID()}`, pos, angle );
+  const { pos, angle, id } = req.body;
+  const cID=id;
+  const newBullet = new Bullet( `bullet=${crypto.randomUUID()}`, pos, angle ,cID);
   bullets.push(newBullet);
+  console.log("dsdds",cID)
   res.send({ message: "Bullet created", bullet: newBullet });
 });
 

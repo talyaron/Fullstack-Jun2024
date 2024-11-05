@@ -20,8 +20,8 @@ class Bullet {
   pos: vector;
   size: vector;
   boxHtmlElement: HTMLElement;
-
-  constructor(id:string,pos: vector, angle: number) {
+  myCreatorID:string
+  constructor(id:string,pos: vector, angle: number,cID:string) {
     this.id=id;
     this.pos = pos;
     this.maxSpeed = 10;
@@ -30,6 +30,7 @@ class Bullet {
     this.angle = angle; // Set the angle to the bullet's angle
     this.speed = this.maxSpeed; // Set initial speed to maxSpeed
     this.size = { x: 40, y: 20 }; // Define bullet size
+    this.myCreatorID= cID;
     this.createElement();
   }
 
@@ -48,15 +49,19 @@ class Bullet {
     this.pos.x += this.speed * Math.cos(this.angle);
     this.pos.y += this.speed * Math.sin(this.angle);
     this.boxHtmlElement.style.transform = `translate(${this.pos.x}px, ${this.pos.y}px) rotate(${this.angle}rad)`;
-    //help me make check if its colliding with the tanks
+
+    // Check for collision with other tanks
     if (playerContainer.length > 1) {
-    const colide =  this.checkCollision(playerContainer[1]);
-    if(colide){
-     console.log("HIT!",colide);
-   
-     killUser(playerContainer[1].id)}
-    }
-  
+        playerContainer.forEach(player => {
+            if (player.id === this.myCreatorID) return;
+
+            const collide = this.checkCollision(player);
+            if (collide) {
+                console.log("HIT!", collide);
+                killUser(player.id); 
+            }
+        });
+      }
   }
 
   projectOntoAxis(vertices: { x: number; y: number }[], axis: { x: number; y: number }) {
@@ -73,7 +78,7 @@ class Bullet {
   // Check collision with another rectangle using SAT
   checkCollision(other: Player): boolean {
     const axes = this.getAxes(other);
-
+    if(this.myCreatorID===other.id) {return false;}
     for (const axis of axes) {
       const projectionA = this.projectOntoAxis(this.getVertices(), axis);
       const projectionB = this.projectOntoAxis(other.getVertices(), axis);
@@ -127,7 +132,7 @@ function fetchBullets() {
   fetch("/api/getBullets")
   .then(response => response.json())
   .then(data => {
-       bullets = data.bullets.map(b => new Bullet(b.id, b.pos, b.angle));
+       bullets = data.bullets.map(b => new Bullet(b.id, b.pos, b.angle,b.myCreatorID));
       renderBullets();
   });
 }
@@ -153,7 +158,6 @@ function renderBullets() {
       return; 
     }
     
-
     const bulletElement = document.createElement("div");
     bulletElement.classList.add("bullet");
     bulletElement.style.position = "absolute";
@@ -275,11 +279,11 @@ class Player {
     return edges.map((edge) => ({ x: -edge.y, y: edge.x })); // Get perpendicular (normal) for each edge
   }
 
-  fireBullet() {
+  fireBullet(id:string) {
     // Calculate the position in front of the tank
     const bulletPos = {
-      x: this.pos.x + 20 * Math.cos(this.angle), // Spawn in front of the player
-      y: this.pos.y + 20 * Math.sin(this.angle)
+      x: this.pos.x + 150 * Math.cos(this.angle), // Spawn in front of the player
+      y: this.pos.y + 150 * Math.sin(this.angle)
   };
 
   // Send a POST request to create a bullet on the server
@@ -290,7 +294,8 @@ class Player {
       },
       body: JSON.stringify({
           pos: bulletPos,
-          angle: this.angle
+          angle: this.angle,
+          id : id,
       }),
   })
   .then(response => response.json())
@@ -298,7 +303,7 @@ class Player {
       console.log(data.message, data.bullet);
       // Optionally, create a bullet element in the client UI as well
       if (data.bullet) {
-        const newBullet = new Bullet(data.bullet.id, data.bullet.pos, data.bullet.angle);
+        const newBullet = new Bullet(data.bullet.id, data.bullet.pos, data.bullet.angle,data.bullet.cID);
         // Optionally, you can push the new bullet into an array to manage bullets
         bullets.push(newBullet);
     }
@@ -331,7 +336,6 @@ async function updateServerPos(playerId: string, newPosition: vector,newAngle:nu
      const { dead }=result;
      if (dead)
      {
-     
       userDead(playerId);
      }
     } catch (error) {
@@ -446,23 +450,43 @@ function updatePos() {
   let colliding = false;
   if (playerContainer.length > 1) {
     colliding = playerContainer[0].checkCollision(playerContainer[1]);
-    if(colliding)
-    console.log("Collision detected:", colliding);
+    if (colliding) {
+      console.log("Collision detected:", colliding);
+
+      // Push tanks apart slightly to avoid sticking
+      const overlapX = (playerContainer[0].pos.x - playerContainer[1].pos.x) * 0.1;
+      const overlapY = (playerContainer[0].pos.y - playerContainer[1].pos.y) * 0.1;
+
+      playerContainer[0].pos.x += overlapX;
+      playerContainer[0].pos.y += overlapY;
+      
+      playerContainer[1].pos.x -= overlapX;
+      playerContainer[1].pos.y -= overlapY;
+
+      // Reduce speed for both tanks on collision to simulate bounce
+      playerContainer[0].speed *= 0.5;
+      playerContainer[1].speed *= 0.5;
+    }
   }
- const dead= playerContainer[0].dead;
+
+  const dead = playerContainer[0].dead;
+
   // Forward and reverse acceleration
   if (!colliding || (colliding && keys.s)) {
-    // Allow forward movement only if there is no collision
-    if (keys.w && !colliding&&!dead) {
+    if (keys.w && !dead) {
       playerContainer[0].speed += playerContainer[0].acceleration;
+      if (colliding) { 
+        playerContainer[0].speed = 0; // Stop further forward movement if colliding
+      }
     }
-    // Always allow reverse movement (backward)
-    if (keys.s&&!colliding&&!dead) {
+    if (keys.s && !dead) {
       playerContainer[0].speed -= playerContainer[0].acceleration;
+      if (colliding) { 
+        playerContainer[0].speed = 0; // Stop further backward movement if colliding
+      }
     }
   } else {
-    // Stop forward movement on collision
-    playerContainer[0].speed = 0;
+    playerContainer[0].speed = 0; // Stop forward movement on collision
   }
 
   // Apply friction to gradually reduce speed over time
@@ -476,49 +500,52 @@ function updatePos() {
 
   // Turning (rotation) is always allowed
   if (!keys.s) {
-    if (keys.a&&!colliding&&!dead) playerContainer[0].angle -= 0.02; // turn left
-    if (keys.d&&!colliding&&!dead) playerContainer[0].angle += 0.02; // turn right
+    if (keys.a && !colliding && !dead) playerContainer[0].angle -= 0.02; // turn left
+    if (keys.d && !colliding && !dead) playerContainer[0].angle += 0.02; // turn right
   } else {
-    // Reverse rotation if moving backward
-    if (keys.a&&!colliding&&!dead) playerContainer[0].angle += 0.02; 
-    if (keys.d&&!colliding&&!dead) playerContainer[0].angle -= 0.02; 
+    if (keys.a && !colliding && !dead) playerContainer[0].angle += 0.02; // reverse turn
+    if (keys.d && !colliding && !dead) playerContainer[0].angle -= 0.02;
   }
 
   // Calculate new position based on speed and angle
   const newPosX = playerContainer[0].pos.x + playerContainer[0].speed * Math.cos(playerContainer[0].angle);
   const newPosY = playerContainer[0].pos.y + playerContainer[0].speed * Math.sin(playerContainer[0].angle);
 
-  // Boundary checks
-  const tankWidth = playerContainer[0].size.x;
-  const tankHeight = playerContainer[0].size.y;
-  if (keys.g) {
-    console.log("space");
-    if(canShoot==true){
-    playerContainer[0].fireBullet();
-    canShoot=false;
-  } // Fire a bullet from the tank
+  // Boundary checks for collision with another tank
+  if (colliding) {
+    playerContainer[0].pos.x -= playerContainer[0].speed * Math.cos(playerContainer[0].angle);
+    playerContainer[0].pos.y -= playerContainer[0].speed * Math.sin(playerContainer[0].angle);
+  } else {
+    // Boundary checks with screen edges
+    const tankWidth = playerContainer[0].size.x;
+    const tankHeight = playerContainer[0].size.y;
+
+    if (newPosX < 0) {
+      playerContainer[0].pos.x = 0;
+    } else if (newPosX + tankWidth > width) {
+      playerContainer[0].pos.x = width - tankWidth;
+    } else {
+      playerContainer[0].pos.x = newPosX;
+    }
+
+    if (newPosY < 0) {
+      playerContainer[0].pos.y = 0;
+    } else if (newPosY + tankHeight > height) {
+      playerContainer[0].pos.y = height - tankHeight;
+    } else {
+      playerContainer[0].pos.y = newPosY;
+    }
   }
 
-  // Update bullet positions
-  // Check for boundaries
-  if (newPosX < 0) {
-    playerContainer[0].pos.x = 0; // Prevent moving left
-  } else if (newPosX + tankWidth > width) {
-    playerContainer[0].pos.x = width - tankWidth; // Prevent moving right
-  } else {
-    playerContainer[0].pos.x = newPosX; // Update position if within bounds
-  }
-
-  if (newPosY < 0) {
-    playerContainer[0].pos.y = 0; // Prevent moving up
-  } else if (newPosY + tankHeight > height) {
-    playerContainer[0].pos.y = height - tankHeight; // Prevent moving down
-  } else {
-    playerContainer[0].pos.y = newPosY; // Update position if within bounds
+  // Shooting
+  if (keys.g && canShoot) {
+    playerContainer[0].fireBullet(playerContainer[0].id);
+    canShoot = false;
   }
 
   playerContainer[0].translatePosition(); // Update the HTML element position
 }
+
 
 
 function gameLoop() {

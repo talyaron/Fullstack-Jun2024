@@ -8,11 +8,12 @@ app.use(express_1["default"].static("public")); //middleware
 console.log("Hi from typescript");
 var Bullet = /** @class */ (function () {
     // Additional properties like max speed and other attributes can be added here
-    function Bullet(id, pos, angle) {
+    function Bullet(id, pos, angle, cID) {
         this.id = id;
         this.pos = pos;
         this.angle = angle;
         this.speed = 10; // Set a default speed for the bullet
+        this.cID = cID;
         this.velocity = {
             x: Math.cos(this.angle) * this.speed,
             y: Math.sin(this.angle) * this.speed
@@ -27,9 +28,11 @@ var Bullet = /** @class */ (function () {
 }());
 var bullets = [];
 app.post("/api/createBullet", function (req, res) {
-    var _a = req.body, pos = _a.pos, angle = _a.angle;
-    var newBullet = new Bullet("bullet=" + crypto.randomUUID(), pos, angle);
+    var _a = req.body, pos = _a.pos, angle = _a.angle, id = _a.id;
+    var cID = id;
+    var newBullet = new Bullet("bullet=" + crypto.randomUUID(), pos, angle, cID);
     bullets.push(newBullet);
+    console.log("dsdds", cID);
     res.send({ message: "Bullet created", bullet: newBullet });
 });
 app.get("/api/getBullets", function (req, res) {
