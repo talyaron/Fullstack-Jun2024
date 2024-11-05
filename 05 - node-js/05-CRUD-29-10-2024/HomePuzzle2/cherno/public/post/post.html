@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../dist/style.css">
+    <script src="./dist/post.js" defer></script>
+</head>
+<body>
+    <div id="app">
+        <form id="post_form" onsubmit="post(event)">
+            <input type="text" id="title" placeholder="Title">
+            <input type="text" id="text" placeholder="Text">
+            <input type="file" id="image" accept="image/*" placeholder="Add Image">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
