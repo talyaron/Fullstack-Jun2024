@@ -49,7 +49,7 @@ function handleSendPost(event) {
                 case 1:
                     _a.trys.push([1, 4, , 5]);
                     console.log('Sending post:', { title: title, text: text, imageURL: imageURL }); // Debug log
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/add-post', {
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/users/add-post', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ title: title, text: text, imageURL: imageURL })
@@ -80,7 +80,7 @@ function fetchPosts() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/get-posts')];
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/users/get-posts')];
                 case 1:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
@@ -110,7 +110,7 @@ function updatePosts(pId, title) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/update-post', {
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/users/update-post', {
                             method: 'PATCH',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ pId: pId, title: title })
@@ -137,7 +137,7 @@ function deletePost(pId) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/delete-post', {
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/users/delete-post', {
                             method: 'DELETE',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ pId: pId })

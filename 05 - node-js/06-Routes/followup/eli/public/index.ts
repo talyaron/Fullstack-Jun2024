@@ -18,7 +18,7 @@ async function handleSendPost(event: Event) {
     try {
         console.log('Sending post:', { title, text, imageURL });  // Debug log
 
-        const response = await fetch('http://localhost:3000/api/add-post', {
+        const response = await fetch('http://localhost:3000/api/users/add-post', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ title, text, imageURL }),
@@ -39,7 +39,7 @@ async function handleSendPost(event: Event) {
 async function fetchPosts() {
     try {
 
-        const response = await fetch('http://localhost:3000/api/get-posts');
+        const response = await fetch('http://localhost:3000/api/users/get-posts');
         const data = await response.json();
 
         const feedElement = document.getElementById("feed");
@@ -57,7 +57,7 @@ fetchPosts();
 async function updatePosts(pId,title) {
     try {
 
-        const response = await fetch('http://localhost:3000/api/update-post', {
+        const response = await fetch('http://localhost:3000/api/users/update-post', {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ pId,title}),
@@ -76,7 +76,7 @@ async function updatePosts(pId,title) {
 async function deletePost(pId) {
     try {
 
-        const response = await fetch('http://localhost:3000/api/delete-post', {
+        const response = await fetch('http://localhost:3000/api/users/delete-post', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ pId}),
