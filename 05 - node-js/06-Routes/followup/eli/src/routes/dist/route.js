@@ -3,7 +3,7 @@ exports.__esModule = true;
 var express_1 = require("express");
 var router = express_1["default"].Router();
 var model_1 = require("../model/model");
-router.post("/api/add-post", function (req, res) {
+router.post("/add-post", function (req, res) {
     var _a = req.body, title = _a.title, text = _a.text, imageURL = _a.imageURL;
     console.log("Received POST request:", req.body);
     if (!title || !text || !imageURL) {
@@ -16,7 +16,7 @@ router.post("/api/add-post", function (req, res) {
     console.log("Current posts:", model_1.posts);
     res.status(201).json({ message: "Post added successfully" });
 });
-router.patch("/api/update-post", function (req, res) {
+router.patch("/update-post", function (req, res) {
     var _a = req.body, pId = _a.pId, title = _a.title;
     console.log("Received POST request:", req.body);
     if (!title || !pId) {
@@ -31,7 +31,7 @@ router.patch("/api/update-post", function (req, res) {
     console.log("Current posts:", model_1.posts);
     res.status(201).json({ message: "Post added successfully" });
 });
-router["delete"]("/api/delete-post", function (req, res) {
+router["delete"]("/delete-post", function (req, res) {
     var pId = req.body.pId;
     console.log("Received POST request:", req.body);
     if (!pId) {
@@ -46,7 +46,7 @@ router["delete"]("/api/delete-post", function (req, res) {
     console.log("Current posts:", model_1.posts);
     res.status(201).json({ message: "Post added successfully" });
 });
-router.get("/api/get-posts", function (req, res) {
+router.get("/get-posts", function (req, res) {
     res.json({ posts: model_1.posts });
 });
 exports["default"] = router;
