@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Puzzle</title>
+    <link rel="stylesheet" href="./dist/style.css">
+    <script src="./dist/index.js" defer></script>
+</head>
+
+<body>
+    <h1>Instagram Puzzle</h1>
+
+    <form id="postForm">
+        <input type="text" id="title" placeholder="Title" required />
+        <textarea id="text" placeholder="Write your post..." required></textarea>
+        <input type="url" id="imageUrl" placeholder="Image URL" required />
+        <button type="submit">Post</button>
+    </form>
+
+    <div id="postsContainer"></div>
+</body>
+
+</html>

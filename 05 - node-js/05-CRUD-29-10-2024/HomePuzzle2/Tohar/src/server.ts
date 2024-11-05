@@ -155,14 +155,15 @@ app.patch('/api/update-post', (req: any, res:any) => {
 app.patch('/api/update-post-image', (req: any, res:any) => {
 
     try {
-        const { imageURL, id } = req.body;
+        const { image, id } = req.body;
         const postId = id;
+        console.log('id', id);
 
         const post = posts.find(id => id.id === postId);
         if (!post) {
             return res.status(404).json({ message: 'Post not found' });
         }
-        post.imageURL = imageURL;
+        post.imageURL = image;
         return res.json({ message: 'image updated successfully', post });
     
     } catch(error) {

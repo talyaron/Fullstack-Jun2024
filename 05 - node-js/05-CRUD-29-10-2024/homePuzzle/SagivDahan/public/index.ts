@@ -50,7 +50,7 @@ function renderPost(post: any){
     postElement.innerHTML = `<h2>${post.title}</h2>, <p>${post.description}</p>, <p>posted by: ${post.username}</p>, <img src="${post.imgUrl}" alt="Post Image"> `;
     postContainer?.appendChild(postElement);
 }
-
+//add event listener to buttun "send"
 document.getElementById("send")?.addEventListener("click", sendPostToServer);
 
 

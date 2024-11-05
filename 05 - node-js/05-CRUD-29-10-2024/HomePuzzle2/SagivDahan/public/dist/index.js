@@ -35,71 +35,137 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var _a;
+var editingPostId = null;
 //function that send the post information to the server
 function sendPostToServer() {
+    var _a;
     return __awaiter(this, void 0, void 0, function () {
         var title, description, username, imgUrl, id, post, response, data, error_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
                     title = document.getElementById("form__title").value;
                     description = document.getElementById("form__description").value;
                     username = document.getElementById("form__username").value;
                     imgUrl = document.getElementById("form__imgurl").value;
-                    id = crypto.randomUUID();
+                    id = editingPostId || crypto.randomUUID();
                     post = { id: id, title: title, description: description, username: username, imgUrl: imgUrl };
-                    _a.label = 1;
+                    _b.label = 1;
                 case 1:
-                    _a.trys.push([1, 4, , 5]);
-                    return [4 /*yield*/, fetch("/api/add-post", {
-                            //request method
-                            method: "POST",
+                    _b.trys.push([1, 4, , 5]);
+                    return [4 /*yield*/, fetch(editingPostId ? "/api/update-post/" + id : "/api/add-post", {
+                            method: editingPostId ? "PUT" : "POST",
                             headers: {
                                 "Content-Type": "application/json"
                             },
-                            //convert the data to json
                             body: JSON.stringify({ post: post })
                         })];
                 case 2:
-                    response = _a.sent();
+                    response = _b.sent();
                     return [4 /*yield*/, response.json()];
                 case 3:
-                    data = _a.sent();
+                    data = _b.sent();
                     if (response.ok) {
                         savePostToLocalStorage(post);
+                        if (editingPostId) {
+                            (_a = document.getElementById(editingPostId)) === null || _a === void 0 ? void 0 : _a.remove();
+                        }
                         renderPost(post);
-                        console.log("Post uploaded successfully:", data.message);
+                        console.log("Post processed successfully:", data.message);
+                        editingPostId = null;
+                        resetForm();
                     }
                     else {
                         console.error("Error:", data.message);
                     }
                     return [3 /*break*/, 5];
                 case 4:
-                    error_1 = _a.sent();
-                    console.error(("Failed to send post to the server."), error_1);
+                    error_1 = _b.sent();
+                    console.error("Failed to process post:", error_1);
                     return [3 /*break*/, 5];
                 case 5: return [2 /*return*/];
             }
         });
     });
 }
+function editPost(post) {
+    editingPostId = post.id;
+    document.getElementById("form__title").value = post.title;
+    document.getElementById("form__description").value = post.description;
+    document.getElementById("form__username").value = post.username;
+    document.getElementById("form__imgurl").value = post.imgUrl;
+}
 function savePostToLocalStorage(post) {
     var posts = JSON.parse(localStorage.getItem("posts") || "[]");
-    posts.push(post);
+    var existingPostIndex = posts.findIndex(function (p) { return p.id === post.id; });
+    if (existingPostIndex !== -1) {
+        posts[existingPostIndex] = post;
+    }
+    else {
+        posts.push(post);
+    }
     localStorage.setItem("posts", JSON.stringify(posts));
 }
 function renderPost(post) {
-    var postContainer = document.getElementById("posts");
-    var postElement = document.createElement("div");
-    postElement.className = "post";
-    postElement.innerHTML = "<h2>" + post.title + "</h2>, <p>" + post.description + "</p>, <p>posted by: " + post.username + "</p>, <img src=\"" + post.imgUrl + "\" alt=\"Post Image\"> ";
-    postContainer === null || postContainer === void 0 ? void 0 : postContainer.appendChild(postElement);
+    var _a, _b;
+    var postElement = document.getElementById(post.id);
+    if (!postElement) {
+        postElement = document.createElement("div");
+        postElement.className = "post";
+        postElement.id = post.id;
+        var postContainer = document.getElementById("posts");
+        postContainer === null || postContainer === void 0 ? void 0 : postContainer.appendChild(postElement);
+    }
+    postElement.innerHTML = "\n        <h2>" + post.title + "</h2>\n        <p>" + post.description + "</p>\n        <p>Posted by: " + post.username + "</p>\n        <img src=\"" + post.imgUrl + "\" alt=\"Post Image\">\n        <button class=\"edit-button\">Edit Post</button>\n        <button class=\"delete-button\">Delete Post</button>";
+    (_a = postElement.querySelector(".delete-button")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", function () {
+        deletePost(post.id, postElement);
+    });
+    (_b = postElement.querySelector(".edit-button")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", function () {
+        editPost(post);
+    });
 }
 //add event listener to buttun "send"
 (_a = document.getElementById("send")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", sendPostToServer);
-function loadPosts() {
+function deletePost(postId, postElement) {
     return __awaiter(this, void 0, void 0, function () {
         var response, data, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 5, , 6]);
+                    return [4 /*yield*/, fetch("/api/delete-post/" + postId, {
+                            method: "DELETE"
+                        })];
+                case 1:
+                    response = _a.sent();
+                    if (!response.ok) return [3 /*break*/, 2];
+                    removePostFromLocalStorage(postId);
+                    postElement.remove();
+                    console.log("Post deleted successfully.");
+                    return [3 /*break*/, 4];
+                case 2: return [4 /*yield*/, response.json()];
+                case 3:
+                    data = _a.sent();
+                    console.error("Error deleting post:", data.message);
+                    _a.label = 4;
+                case 4: return [3 /*break*/, 6];
+                case 5:
+                    error_2 = _a.sent();
+                    console.error("Failed to delete post:", error_2);
+                    return [3 /*break*/, 6];
+                case 6: return [2 /*return*/];
+            }
+        });
+    });
+}
+function removePostFromLocalStorage(postId) {
+    var posts = JSON.parse(localStorage.getItem("posts") || "[]");
+    var updatedPosts = posts.filter(function (post) { return post.id !== postId; });
+    localStorage.setItem("posts", JSON.stringify(updatedPosts));
+}
+function loadPosts() {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, data, error_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -116,13 +182,18 @@ function loadPosts() {
                     });
                     return [3 /*break*/, 4];
                 case 3:
-                    error_2 = _a.sent();
-                    console.error("Failed to load posts:", error_2);
+                    error_3 = _a.sent();
+                    console.error("Failed to load posts:", error_3);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
         });
     });
 }
-// קריאת הפונקציה עם עליית הדף
+function resetForm() {
+    document.getElementById("form__title").value = '';
+    document.getElementById("form__description").value = '';
+    document.getElementById("form__username").value = '';
+    document.getElementById("form__imgurl").value = '';
+}
 window.addEventListener("load", loadPosts);
