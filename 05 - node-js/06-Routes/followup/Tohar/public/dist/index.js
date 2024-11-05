@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,7 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-;
+exports.__esModule = true;
 function renderMainPage() {
     var html = "\n    <h1>New Post</h1>\n    <form onsubmit=\"handleCreatePost(event)\">\n        <input type=\"text\" name=\"caption\" placeholder=\"Write a caption...\" required>\n        <input type=\"url\" name=\"imageURL\" placeholder=\"Enter image URL\" required>\n        <button type=\"submit\">Post</button>\n    </form>\n    ";
     document.querySelector('#main').innerHTML = html;
