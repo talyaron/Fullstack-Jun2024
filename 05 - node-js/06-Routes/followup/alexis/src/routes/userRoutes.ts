@@ -1,5 +1,6 @@
 import { error } from "console";
 import express from "express";
+import { posts } from "../models/userModel";
 
 const router = express.Router();
 
