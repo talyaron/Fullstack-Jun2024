@@ -52,17 +52,20 @@ async function login(event) {
   const form = new FormData(event.target);
   const email = form.get("email");
   const password = form.get("password");
+  const keepLogin = form.get("keepLogin");
   const response = await fetch(`http://localhost:3000/api/account-login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ email, password, keepLogin}),
   });
   const data = await response.json();
   console.log(data);
   if (!data.error) {
     const { key } = data;
+    const { message } = data;
+   // console.log(message);
     localStorage.setItem(`key`, JSON.stringify(key));
     goToMain();
   }else{

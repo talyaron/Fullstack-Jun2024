@@ -49,7 +49,7 @@ body {
     height: 12%;
     font-size: 1rem;
   }
-  #imageInputLabel {
+  .imageInputLabel {
     width: 80%;
     height: 10%;
     margin: 0 auto;
@@ -78,6 +78,8 @@ body {
     }
   }
 }
+
+
 .redirect-container {
     display: flex;
     flex-direction: column;

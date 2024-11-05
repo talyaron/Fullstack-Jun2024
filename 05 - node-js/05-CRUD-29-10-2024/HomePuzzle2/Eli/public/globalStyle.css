@@ -1,0 +1,110 @@
+body {
+  margin: 0 auto;
+  padding: 0;
+}
+
+#page {
+  background-color: rgba(0, 255, 255, 0.182);
+  display: flex;
+}
+
+#form {
+  display: flex;
+  flex-direction: column;
+  width: 25vw;
+  height: 40vh;
+  margin: 0 auto;
+  justify-content: space-evenly;
+  background: linear-gradient(to right, rgb(138, 183, 241) 0%, rgba(233, 240, 255, 0.8) 15%, 95%, rgb(138, 183, 241) 100%);
+  border-radius: 20px;
+  border: solid 1px black;
+  text-align: center;
+}
+#form input {
+  width: 80%;
+  font-size: 1.2rem;
+  height: 10%;
+  margin: 0 auto;
+  border-radius: 10px;
+  border: solid 1px black;
+  text-align: center;
+}
+#form #submit {
+  background-color: rgb(67, 130, 197);
+  color: white;
+  font-size: 1rem;
+}
+#form #submit:hover {
+  font-size: 1.2rem;
+  background-color: rgb(38, 65, 93);
+  transition: all 0.3s;
+}
+#form #description {
+  height: 12%;
+  font-size: 1rem;
+}
+#form #imageInputLabel {
+  width: 80%;
+  height: 10%;
+  margin: 0 auto;
+  border-radius: 20px;
+  border: solid 1px black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.807);
+}
+#form #imageInputLabel:hover {
+  height: calc(10% - 2px);
+  font-size: 1.2rem;
+  border-radius: 20%;
+  border-right: 1px solid gray;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  border-left: 1px solid gray;
+  transition: all 0.3s;
+  background: linear-gradient(to right, rgb(228, 228, 228) 0%, rgba(255, 255, 255, 0.8) 15%, 95%, rgb(228, 228, 228) 100%);
+}
+
+.redirect-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  color: #333;
+  text-align: center;
+}
+
+.redirect-message h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.redirect-message p {
+  font-size: 1rem;
+  color: #666;
+}
+
+.spinner-container {
+  margin-top: 20px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  border-top: 5px solid #333;
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg); /* Start at 0 degrees */
+  }
+  to {
+    transform: rotate(360deg); /* End at 360 degrees */
+  }
+}/*# sourceMappingURL=globalStyle.css.map */

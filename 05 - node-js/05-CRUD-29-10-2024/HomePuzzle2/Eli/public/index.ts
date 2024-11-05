@@ -144,8 +144,8 @@ function renderPosts(posts) {
       if (post.img) {
         postElement.innerHTML = `<div id="${post.id}" class="post">
        <div id="name"><h1>${post.creatorName}<h1></div>
-      <div id="text"> <h1 id="title-${post.id}"> ${post.title} </h1>  <p> ${post.description} </p>  </div> 
-       <img id ="img-${post.id}" src="http://localhost:3000/uploads/${post.img}">  </div>   `;
+      <div id="text"> <h1 id="title-${post.id}"> ${post.title} </h1>  <p  id="desc-${post.id}"> ${post.description} </p>  </div> 
+      <div id="wrap-img-${post.id}" class="imgWrap"> <img id ="img-${post.id}" class="img" src="${post.img}"></div></div>`;
       } else {
         postElement.innerHTML = `<div id="${post.id}" class="post">
            <div id="name"><h1>${post.creatorName}<h1></div>
@@ -179,23 +179,45 @@ function updatePost(id) {
     if (!descElement) throw new Error("Description element not found");
     descElement.contentEditable = 'true';
 
-    const imgElement = document.getElementById(`img-${id}`) as HTMLImageElement; 
-    const imgSrc = imgElement ? imgElement.src : ''; 
+    const imgWrapElement = document.getElementById(`wrap-img-${id}`) as HTMLElement; 
+    const oldText= imgWrapElement?imgWrapElement.innerHTML:"";
+//const imgSrc = imgElement ? imgElement.src : ''; 
+    if(imgWrapElement){
+      imgWrapElement.innerHTML=`   <input type="text" id="imgLink" name="imgLink" placeholder="image link">
+   `;}else console.log("noWrap")
 
+   const imgUpload = document.getElementById(`imgLink`) as HTMLInputElement; 
+   if (!imgUpload)  console.log("non img");
 
     const handleUpdateClick = () => {
       const title = titleElement.innerText;
       const desc = descElement.innerText;
-      const img = imgElement ? imgElement.src : ''; 
-
+      
+      
+     // console.log(imgUpload.value);
+ 
+     const  img = imgUpload ?imgUpload.value: ``;
+    //  console.log(imgUpload.value);
       updatePostServer(id, title, desc, img);
+      buttonUpdate.removeEventListener("click", handleUpdateClick);
+
+      if(imgWrapElement){
+        if(img){
+        imgWrapElement.innerHTML=` <img id ="img-${id}" class="img" src="${img}">
+     `;}else{imgWrapElement.innerHTML=oldText;}}
+
+      buttonUpdate.innerText="update";
+      descElement.contentEditable = 'false';
+      titleElement.contentEditable = 'false';
+
+      buttonUpdate.addEventListener("click", () => updatePost(id));
     };
 
-    buttonUpdate.removeEventListener("click", handleUpdateClick); 
+    buttonUpdate.removeEventListener("click", updatePost); 
     buttonUpdate.addEventListener("click", handleUpdateClick);
 
-    titleElement.addEventListener("blur", handleUpdateClick);
-    descElement.addEventListener("blur", handleUpdateClick);
+    //titleElement.addEventListener("blur", handleUpdateClick);
+   // descElement.addEventListener("blur", handleUpdateClick);
   } catch (error) {
     console.error("Error:", error);
   }
@@ -220,7 +242,7 @@ async function updatePostServer(id, title, desc, img) {
     
     const data = await response.json();
     const { message, error } = data;
-
+    console.log(message);
     if (!error) {
       console.log("Post updated!");
     } else {

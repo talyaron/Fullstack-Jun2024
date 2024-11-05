@@ -37,24 +37,73 @@ app.post('/api/add-user', (req: any, res: any) => {
         const id = randomBytes(16).toString("hex"); 
         const posts: Post[] = [];
         users.push({userName, id, email, password, phoneNumber, posts});
+        console.log(users);
         res.status(201).json({ message: "User added successfully" });
     } catch (error) {
         res.status(500).json({ error: "An error occurred while adding the user" });
     }
 });
 
-app.get('/api/get-users', (req, res) => {
-    res.json({ users })
+app.post('/api/login', (req: any, res: any) => {
+    try {
+        const {email, password } = req.body;
+
+        const user = users.find(user => user.email === email);
+
+        if (!user) {
+            return res.status(400).json({ error: "User not found" });
+        }
+
+        if(user.password !== password) {
+            return res.status(400).json({ error: "Incorrect password" });
+        }
+
+    } catch (error) {
+        console.error("Error in /api/login:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+
+// app.get('/api/get-user', (req:any, res:any) => {
+
+//     const { email } = req.query;
+//     const user = users.find(user => user.email === email);
+
+//     if (!user) {
+//         return res.status(400).json({ error: "User not found" });
+//     }
+
+//     res.json(user);
+
+// });
+app.get('/api/get-user', (req:any, res:any) => {
+
+    const { email, password } = req.query;
+    const user = users.find(user => user.email === email);
+    
+    if (!user) {
+        return res.status(400).json({ error: "User not found" });
+    }
+    const passwordNotCorrect = user.password !== password;
+    if(user.password !== password) {
+        return res.status(400).json({ error: "Incorrect password" });
+    }
+
+    res.json({ exists: passwordNotCorrect });
+
 });
 
 app.get('/api/user-exists', (req:any, res:any) => {
-    const { email } = req.body;
+    const { email } = req.query;
 
     if (!email) {
         return res.status(400).json({ error: "Email is required" });
     }
     const userExists = users.some(user => user.email === email);
+    console.log('userExists', userExists);
     res.json({ exists: userExists });
+    
 });
 
 app.post('/api/add-post', (req:any, res: any) => {
@@ -83,7 +132,7 @@ app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 });
 
-//updates the post's title
+//updates the post's caption
 app.patch('/api/update-post', (req: any, res:any) => {
 
     try {
@@ -96,6 +145,26 @@ app.patch('/api/update-post', (req: any, res:any) => {
         }
         post.caption = caption;
         return res.json({ message: 'Caption updated successfully', post });
+    
+    } catch(error) {
+        console.error("Error in /api/update-post:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    } 
+});
+
+app.patch('/api/update-post-image', (req: any, res:any) => {
+
+    try {
+        const { image, id } = req.body;
+        const postId = id;
+        console.log('id', id);
+
+        const post = posts.find(id => id.id === postId);
+        if (!post) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
+        post.imageURL = image;
+        return res.json({ message: 'image updated successfully', post });
     
     } catch(error) {
         console.error("Error in /api/update-post:", error);
