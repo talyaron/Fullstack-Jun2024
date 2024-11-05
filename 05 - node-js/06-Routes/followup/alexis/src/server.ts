@@ -4,6 +4,10 @@ import bodyParser from 'body-parser';
 const app = express();
 const port = process.env.PORT || 3000;
 
+import userRoutes from './routes/userRoutes';
+
+app.use("/api/users", userRoutes);
+
 const posts: Array<{ title: string, text: string, imageURL: string, id:string }> = [];
 
 app.use(bodyParser.json());

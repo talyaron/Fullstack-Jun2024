@@ -4,6 +4,8 @@ var express_1 = require("express");
 var body_parser_1 = require("body-parser");
 var app = express_1["default"]();
 var port = process.env.PORT || 3000;
+var userRoutes_1 = require("./routes/userRoutes");
+app.use("/api/users", userRoutes_1["default"]);
 var posts = [];
 app.use(body_parser_1["default"].json());
 app.use(express_1["default"].static('public'));
