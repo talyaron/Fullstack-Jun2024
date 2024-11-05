@@ -9,33 +9,36 @@ var posts = [];
 app.use(body_parser_1["default"].json());
 app.use(express_1["default"].static('public'));
 app.post('/api/add-post', function (req, res) {
-    try {
-        var _a = req.body, title = _a.title, text = _a.text, imageURL = _a.imageURL;
-        if (!title || !text || !imageURL) {
-            return res.status(400).json({ error: "All fields (title, text, imageURL) are required" });
-        }
-        var id = crypto_1.randomBytes(16).toString("hex");
-        posts.push({ id: id, title: title, text: text, imageURL: imageURL });
-        res.status(201).json({ message: "Post added successfully" });
+    var _a = req.body, title = _a.title, text = _a.text, imageURL = _a.imageURL;
+    if (!title || !text || !imageURL) {
+        return res.status(400).json({ error: "All fields (title, text, imageURL) are required" });
     }
-    catch (error) {
-        console.error("Error in /api/add-post:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
+    var id = crypto_1.randomBytes(16).toString("hex");
+    posts.push({ id: id, title: title, text: text, imageURL: imageURL });
+    res.status(201).json({ message: "Post added successfully" });
 });
 app.get('/api/get-posts', function (req, res) {
     res.json({ posts: posts });
 });
-app.listen(port, function () {
-    console.log("Server listening on port " + port);
-});
 app.put('/api/edit-post', function (req, res) {
-    var _a = req.body, id = _a.id, title = _a.title, text = _a.text;
+    var _a = req.body, id = _a.id, title = _a.title;
     var post = posts.find(function (p) { return p.id === id; });
     if (!post) {
         return res.status(404).json({ error: "Post not found" });
     }
-    post.title = title;
-    post.text = text;
+    if (title !== undefined)
+        post.title = title;
     res.status(200).json({ message: "Post updated successfully" });
+});
+app["delete"]('/api/delete-post', function (req, res) {
+    var id = req.body.id;
+    var index = posts.findIndex(function (p) { return p.id === id; });
+    if (index === -1) {
+        return res.status(404).json({ error: "Post not found" });
+    }
+    posts.splice(index, 1);
+    res.status(200).json({ message: "Post deleted successfully" });
+});
+app.listen(port, function () {
+    console.log("Server listening on port " + port);
 });

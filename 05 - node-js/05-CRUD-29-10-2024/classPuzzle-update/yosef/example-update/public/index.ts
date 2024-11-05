@@ -28,7 +28,7 @@ async function handleSendPost(event: Event) {
 
         console.log('Post added successfully!');
 
-        form.reset();
+        form.reset(); // מוחק כל השדות שהכנסו בטופס
         await fetchPosts();
 
     } catch (error) {

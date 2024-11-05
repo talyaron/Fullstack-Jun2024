@@ -9,10 +9,10 @@
 </head>
 <body>
     <div id="app">
-        <form id="post_form" onsubmit="trySubmit(event)">
+        <form id="post_form" onsubmit="post(event)">
             <input type="text" id="title" placeholder="Title">
             <input type="text" id="text" placeholder="Text">
-            <input type="text" id="image" placeholder="Image">
+            <input type="file" id="image" accept="image/*" placeholder="Add Image">
             <button type="submit">Submit</button>
         </form>
     </div>

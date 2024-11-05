@@ -8,15 +8,14 @@
     <script src="./dist/index.js" defer></script>
 </head>
 <body>
-    <h1>Upload New Post</h1>
-    <form onsubmit="handleSendPost(event)">
-        <input type="text" name="title" placeholder="Post title" required>
-        <input type="text" name="text" placeholder="Write a caption..." required>
-        <input type="url" name="imageURL" placeholder="Enter image URL" required>
-        <button type="submit">Post</button>
-    </form>
-    
-    <h2>Feed</h2>
-    <div id="feed"></div>
+    <div class="form" id="form">
+        <input type="text" placeholder="Post Title" id="form__title">
+        <input type="text" placeholder="description" id="form__description">
+        <input type="text" placeholder="Username" id="form__username">
+        <input type="url" placeholder="Image Url" id="form__imgurl">
+    </div>
+    <button id="send">Upload Post</button>
+
+    <div id="posts"></div>
 </body>
 </html>

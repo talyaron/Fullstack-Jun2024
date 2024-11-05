@@ -16,7 +16,7 @@ async function handleSendPost(event: Event) {
     const imageURL = (form.elements.namedItem('imageURL') as HTMLInputElement).value;
 
     try {
-        console.log('Sending post:', { title, text, imageURL });  // Debug log
+        console.log('Sending post:', { title, text, imageURL });
 
         const response = await fetch('http://localhost:3000/api/add-post', {
             method: 'POST',
@@ -29,7 +29,7 @@ async function handleSendPost(event: Event) {
         console.log('Post added successfully!');
 
         form.reset();
-        await fetchPosts();
+        fetchPosts();
 
     } catch (error) {
         console.error('Error sending post:', error);
@@ -97,7 +97,6 @@ function renderPost(post: Post) {
 
 function handleEditTitle(id: string) {
     try {
-        console.log("Edit title:", id);
         const titleElement = document.getElementById(`title-${id}`);
         if (!titleElement) throw new Error('Title element not found');
         titleElement.contentEditable = 'true';
@@ -105,7 +104,6 @@ function handleEditTitle(id: string) {
         titleElement.addEventListener("blur", (event) => {
             
                 const title = titleElement.innerText;
-                console.log("New title:", title);
                 titleElement.contentEditable = 'false';
 
                 handleFetchEditedTitle(id, title);
@@ -118,11 +116,11 @@ function handleEditTitle(id: string) {
 };
 
 async function handleFetchEditedTitle(id: string, title:string) {
-
+    
     const response = await fetch('http://localhost:3000/api/update-post', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({}),
+        body: JSON.stringify({id, title}),
     });
 
     if (!response.ok) {
