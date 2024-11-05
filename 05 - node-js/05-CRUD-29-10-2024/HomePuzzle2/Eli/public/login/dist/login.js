@@ -92,7 +92,7 @@ function toRegister(event) {
 }
 function login(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var form, email, password, response, data, key_1, error, errorDesc;
+        var form, email, password, keepLogin, response, data, key_1, message, error, errorDesc;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -100,12 +100,13 @@ function login(event) {
                     form = new FormData(event.target);
                     email = form.get("email");
                     password = form.get("password");
+                    keepLogin = form.get("keepLogin");
                     return [4 /*yield*/, fetch("http://localhost:3000/api/account-login", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json"
                             },
-                            body: JSON.stringify({ email: email, password: password })
+                            body: JSON.stringify({ email: email, password: password, keepLogin: keepLogin })
                         })];
                 case 1:
                     response = _a.sent();
@@ -115,6 +116,8 @@ function login(event) {
                     console.log(data);
                     if (!data.error) {
                         key_1 = data.key;
+                        message = data.message;
+                        // console.log(message);
                         localStorage.setItem("key", JSON.stringify(key_1));
                         goToMain();
                     }

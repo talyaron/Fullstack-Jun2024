@@ -81,6 +81,7 @@ var User = /** @class */ (function () {
 }());
 var posts = [];
 var users = [];
+var loggedUsers = [];
 var admin = new User("admin", "admin", "admin");
 var admin2 = new User("admin2", "admin2", "admin2");
 users.push(admin, admin2);
@@ -128,6 +129,43 @@ app.post("/api/check-key", function (req, res) {
         }
     }
 });
+setInterval(checkedLoggedUsers, 3000);
+function checkedLoggedUsers() {
+    var timeNow = new Date();
+    if (loggedUsers.length === 0)
+        return;
+    loggedUsers.forEach(function (user) {
+        if (user.remember)
+            return;
+        var userTimeLeft = user.date.getTime() - timeNow.getTime();
+        ;
+        if (isNaN(userTimeLeft)) {
+            console.error("Invalid date calculation");
+        }
+        else {
+            //  console.log(`User time left in milliseconds: ${userTimeLeft}`);
+            if (userTimeLeft > 300000) {
+                console.log("5 minutes have passed for this user.");
+                timeLogOut(user.userID);
+            }
+            else {
+                //   console.log("Less than 5 minutes have passed for this user.");
+            }
+        }
+    });
+}
+function timeLogOut(userID) {
+    var foundUser = users.find(function (user) { return user.id = userID; });
+    var foundUserIndex = loggedUsers.findIndex(function (user) { return user.userID = userID; });
+    if (!foundUser) {
+        console.log("no such user");
+        return;
+    }
+    if (foundUserIndex !== -1) {
+        foundUser.key = "";
+        loggedUsers.splice(foundUserIndex, 1);
+    }
+}
 app.post("/api/register-user", function (req, res) {
     try {
         var _a = req.body, name = _a.name, email = _a.email, password = _a.password, rePassword = _a.rePassword;
@@ -141,6 +179,7 @@ app.post("/api/register-user", function (req, res) {
             !isRepassWordInValid) {
             var newUser = new User(email, name, password);
             users.push(newUser);
+            newUser.remember = false;
             res.json({ message: "user info valid on server creating user!", users: users });
         }
         else {
@@ -169,14 +208,22 @@ app.post("/api/register-user", function (req, res) {
 });
 app.post("/api/account-login", function (req, res) {
     try {
-        var _a = req.body, email_1 = _a.email, password = _a.password;
+        var _a = req.body, email_1 = _a.email, password = _a.password, keepLogin = _a.keepLogin;
         var foundEmail = users.find(function (user) { return email_1 === user.email; });
         if (foundEmail) {
             var foundPassword = foundEmail.password === password;
             if (foundPassword) {
                 foundEmail.assignKey();
+                if (keepLogin) {
+                    foundEmail.remember = true;
+                }
+                else {
+                    foundEmail.remember = false;
+                }
+                var loggedUser = { userID: foundEmail.id, date: new Date(), remember: keepLogin };
+                loggedUsers.push(loggedUser);
                 var key = foundEmail.key;
-                res.json({ message: "logging success!", key: key });
+                res.json({ message: "logging success! --" + keepLogin, key: key });
                 console.log(foundEmail.name, "was given this key:", key);
                 return;
             }
@@ -212,11 +259,12 @@ app.post("/api/add-post", upload.single("image"), function (req, res) {
         var creatorName = postCreator.name;
         if (img) {
             console.log("Received word: " + title + " " + description + ", Image: " + img);
+            var fullBodyImg = "http://localhost:3000/uploads/" + img;
             var newPost = {
                 id: "id=" + crypto.randomUUID(),
                 title: title,
                 description: description,
-                img: img,
+                img: fullBodyImg,
                 creatorId: creatorId,
                 creatorName: creatorName
             }; // Create a new post object
@@ -286,10 +334,10 @@ app.post("/api/update-post", function (req, res) {
         if (desc !== foundPost.description) {
             foundPost.description = desc;
         }
-        if (img) {
+        if (img && foundPost.img !== img) {
             foundPost.img = img;
         }
-        res.json({ message: "Updated Post " + foundPost.id });
+        res.json({ message: "Updated Post " + foundPost.id + " " + foundPost.img + " - " + img + " " });
     }
     catch (error) {
         if (error instanceof Error) {

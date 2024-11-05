@@ -1,3 +1,4 @@
+import { error } from "console";
 import express from "express";
 const app = express();
 const port = process.env.PORT || 3000;
@@ -15,13 +16,15 @@ class Bullet {
   angle: number;
   speed: number;
   velocity:Vector;
+  cID:string;
   // Additional properties like max speed and other attributes can be added here
 
-  constructor(id:string,pos: Vector, angle: number) {
+  constructor(id:string,pos: Vector, angle: number,cID:string) {
       this.id = id;
       this.pos = pos;
       this.angle = angle;
       this.speed = 10; // Set a default speed for the bullet
+      this.cID=cID;
       this.velocity = {
         x: Math.cos(this.angle) * this.speed,
         y: Math.sin(this.angle) * this.speed
@@ -37,9 +40,11 @@ class Bullet {
 const bullets: Bullet[] = [];
 
 app.post("/api/createBullet", (req, res) => {
-  const { pos, angle } = req.body;
-  const newBullet = new Bullet( `bullet=${crypto.randomUUID()}`, pos, angle );
+  const { pos, angle, id } = req.body;
+  const cID=id;
+  const newBullet = new Bullet( `bullet=${crypto.randomUUID()}`, pos, angle ,cID);
   bullets.push(newBullet);
+  console.log("dsdds",cID)
   res.send({ message: "Bullet created", bullet: newBullet });
 });
 
@@ -51,10 +56,12 @@ class User {
   id: string;
   pos: Vector;
   angle:number;
+  dead:boolean;
   constructor(pos: Vector,angle:number) {
     this.id = `id=${crypto.randomUUID()}`;
     this.pos = pos;
     this.angle=angle;
+    this.dead=false;
   }
 }
 
@@ -136,8 +143,10 @@ app.post("/api/movePlayer", (req, res) => {
             user.angle = angle;
            // console.log(`Player ${playerId} moved to new position:`, pos);
             //console.log(users); // Log the updated users array for debugging
-            
-            res.send({ message: "Player position updated", playerId, pos,angle });
+            const dead =user.dead;
+            if(!dead){
+            res.send({ message: "Player position updated", playerId, pos,angle });}
+            else {  res.send({ message: "user is dead!", playerId, pos,angle,dead });}
         } else {
             // If no player is found with that id
             res.status(404).send({ message: "Player not found" });
@@ -148,7 +157,17 @@ app.post("/api/movePlayer", (req, res) => {
     }
 });
 
-
+app.post("/api/killUser", (req, res) => {
+  try {
+    const { id }= req.body;
+    const userFound= users.find(user=>id===user.id)
+    if (!userFound)  {res.send({ error: "user not found" ,message:"user not found :O"});return;}
+      userFound.dead=true;
+      res.send({ message: `user died${userFound.id}` });
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 app.get("/api/getUsers", (req, res) => {
     try {

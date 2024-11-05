@@ -92,12 +92,19 @@ interface Post {
   userMade?: boolean;
 }
 
+interface loggedUser {
+  userID:string;
+  date:Date;
+  remember:string;
+}
+
 class User {
   id: string;
   email: string;
   name: string;
   password: string;
   key?: string;
+  remember?: boolean;
   constructor(email: string, name: string, password: string) {
     this.id = crypto.randomUUID();
     this.email = email;
@@ -111,6 +118,9 @@ class User {
 
 const posts: Post[] = [];
 const users: User[] = [];
+const loggedUsers:loggedUser[]=[];
+
+
 const admin:User= new User("admin","admin","admin" );
 const admin2:User= new User("admin2","admin2","admin2" );
 users.push(admin,admin2);
@@ -143,7 +153,7 @@ app.post(`/api/check-key`, (req, res) => {
   try {
     const { key } = req.body;
     const foundEmail = users.find((user) => key === user.key);
-
+    
         if(foundEmail){
         res.json({ message: "logging success!", key,name: foundEmail.name});
         console.log( "Valid Key");
@@ -158,6 +168,46 @@ app.post(`/api/check-key`, (req, res) => {
     }
   }
 });
+
+
+setInterval(checkedLoggedUsers,3000);
+function checkedLoggedUsers()
+{ const timeNow = new Date();
+  if(loggedUsers.length===0)return;
+  loggedUsers.forEach(user=>
+  {
+    if(user.remember) return;
+    const userTimeLeft = user.date.getTime() - timeNow.getTime();  ;  
+    if (isNaN(userTimeLeft)) {
+      console.error("Invalid date calculation");
+    } else {
+    //  console.log(`User time left in milliseconds: ${userTimeLeft}`);
+
+      if (userTimeLeft > 300000) {
+        console.log("5 minutes have passed for this user.");
+        timeLogOut(user.userID)
+
+      } else {
+     //   console.log("Less than 5 minutes have passed for this user.");
+      }
+    }
+  });
+}
+
+function timeLogOut(userID:string)
+{
+  
+ const foundUser = users.find(user=>user.id=userID)
+ const foundUserIndex = loggedUsers.findIndex(user=>user.userID=userID)
+ if(!foundUser){ console.log("no such user"); return;}
+ if (foundUserIndex!==-1)
+ {
+  foundUser.key="";
+  loggedUsers.splice(foundUserIndex,1);
+ }
+
+ 
+}
 
 app.post("/api/register-user", (req, res) => {
   try {
@@ -178,6 +228,8 @@ app.post("/api/register-user", (req, res) => {
     ) {
       const newUser = new User(email, name, password);
       users.push(newUser);
+      newUser.remember=false;
+
       res.json({ message: "user info valid on server creating user!", users });
     } else {
       if (isEmailInValid) {
@@ -203,7 +255,7 @@ app.post("/api/register-user", (req, res) => {
 
 app.post(`/api/account-login`, (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password ,keepLogin} = req.body;
     const foundEmail = users.find((user) => email === user.email);
 
     if (foundEmail) {
@@ -211,8 +263,13 @@ app.post(`/api/account-login`, (req, res) => {
 
       if (foundPassword) {
         foundEmail.assignKey();
+        if(keepLogin)
+        { foundEmail.remember=true;
+        }else{foundEmail.remember=false;}
+          const loggedUser ={userID:foundEmail.id,date: new Date(),remember:keepLogin}
+      loggedUsers.push(loggedUser);
         const key = foundEmail.key;
-        res.json({ message: "logging success!", key });
+        res.json({ message: `logging success! --${keepLogin}`, key, });
         console.log(foundEmail.name, "was given this key:", key);
         return;
 
@@ -245,11 +302,12 @@ app.post(
     const creatorName=postCreator.name;
       if (img) {
         console.log(`Received word: ${title} ${description}, Image: ${img}`);
+        const fullBodyImg=`http://localhost:3000/uploads/${img}`
         const newPost = {
           id: `id=${crypto.randomUUID()}`,
           title,
           description,
-          img,
+          img:fullBodyImg,
           creatorId,
           creatorName,
           
@@ -317,11 +375,11 @@ app.post("/api/update-post", (req, res) => {
       foundPost.description = desc;
     }
 
-    if (img) {
+    if (img&&foundPost.img !==img) {
       foundPost.img = img; 
     }
 
-    res.json({ message: `Updated Post ${foundPost.id}` });
+    res.json({ message: `Updated Post ${foundPost.id} ${foundPost.img} - ${img} ` });
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).json({ error: error.message });

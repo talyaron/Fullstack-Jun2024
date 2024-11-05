@@ -1,97 +1,72 @@
-async function handleSendPost(event: Event) {
-    // prevent refresh the page on click send in the form
-    event.preventDefault();
-    const form = event.target as HTMLFormElement;
-
-    // get form information
-    const title = (form.elements.namedItem('title') as HTMLInputElement).value;
-    const text = (form.elements.namedItem('text') as HTMLInputElement).value;
-    const imageURL = (form.elements.namedItem('imageURL') as HTMLInputElement).value;
-
-    // יצירת מזהה ייחודי לפוסט
-    const newPost = { id: Date.now(), title, text, imageURL }; // המזהה הוא timestamp
-    // load files from the local storage
-    const posts = loadPostsFromLocalStorage();
-    // push new post to array
-    posts.push(newPost);
-    // save the new information in the local storage
-    savePostsToLocalStorage(posts);
-
+//function that send the post information to the server
+async function sendPostToServer(){
+    //variable of the form title
+    const title = (document.getElementById("form__title") as HTMLInputElement).value;
+    // variable of the form description
+    const description = (document.getElementById("form__description") as HTMLInputElement).value;
+    // variable of the form username
+    const username = (document.getElementById("form__username") as HTMLInputElement).value;
+    // variable of the form image url
+    const imgUrl = (document.getElementById("form__imgurl") as HTMLInputElement).value;
+    // variable of the form id
+    const id = crypto.randomUUID();
+    // variable of the post
+    const post = {id, title, description, username, imgUrl};
     try {
-        console.log('Sending post:', newPost);
-        // send post request to the server
-        const response = await fetch('http://localhost:3000/api/add-post', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            // compile the information to json
-            body: JSON.stringify(newPost),
-        });
-        if (!response.ok) throw new Error('Failed to add post');
-        console.log('Post added successfully!'); 
-        // clear the form after successfully request
-        form.reset();
-        await fetchPosts();  // update the feed after new post
-        renderPosts(); // render posts from localstorage
-    } catch (error) {
-        console.error('Error sending post:', error);
-    }
-}
-
-// fetch posts function from the server
-async function fetchPosts() {
-    try {
-        const response = await fetch('http://localhost:3000/api/get-posts');
+        //request route to:
+        const response = await fetch("/api/add-post", {
+            //request method
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            //convert the data to json
+            body: JSON.stringify({ post }),
+        })
         const data = await response.json();
+        if (response.ok){
+            savePostToLocalStorage(post);
+            renderPost(post);
+            console.log("Post uploaded successfully:", data.message);
+        } else {
+            console.error("Error:", data.message);
+        }
 
-        const feedElement = document.getElementById("feed");
-        if (!feedElement) throw new Error("Feed element not found");
-
-        feedElement.innerHTML = '';  // מאפס את התוכן הקודם של הפיד
-        data.posts.forEach((post: { id: number, title: string, text: string, imageURL: string }) => {
-            const postElement = document.createElement("div");
-            postElement.className = "post";
-            postElement.innerHTML = `
-                <h3>${post.title}</h3>
-                <img src="${post.imageURL}" alt="Image" />
-                <p>${post.text}</p>
-                <button onclick="editPost(${post.id}, '${post.title}', '${post.text}', '${post.imageURL}')">Edit</button>
-            `;
-            feedElement.appendChild(postElement);
-        });
     } catch (error) {
-        console.error("Error fetching posts:", error);
+        console.error(("Failed to send post to the server."), error)
     }
 }
 
-// save posts in the localstorage
-function savePostsToLocalStorage(posts: any[]) {
-    localStorage.setItem('posts', JSON.stringify(posts));
+function savePostToLocalStorage(post: any) {
+    const posts = JSON.parse(localStorage.getItem("posts") || "[]");
+    posts.push(post);
+    localStorage.setItem("posts", JSON.stringify(posts));
 }
 
-// load posts from the local storage function
-function loadPostsFromLocalStorage(): any[] {
-    const posts = localStorage.getItem('posts');
-    return posts ? JSON.parse(posts) : [];  // ממיר את המחרוזת לפורמט אובייקט
+function renderPost(post: any){
+    const postContainer = document.getElementById("posts");
+    const postElement = document.createElement("div");
+    postElement.className = "post";
+    postElement.innerHTML = `<h2>${post.title}</h2>, <p>${post.description}</p>, <p>posted by: ${post.username}</p>, <img src="${post.imgUrl}" alt="Post Image"> `;
+    postContainer?.appendChild(postElement);
 }
 
-// render posts from the local storage function
-function renderPosts() {
-    const posts = loadPostsFromLocalStorage();
-    const feedElement = document.getElementById('feed');
-    if (!feedElement) throw new Error('Feed element not found');
+document.getElementById("send")?.addEventListener("click", sendPostToServer);
 
-    feedElement.innerHTML = ''; 
-    posts.forEach((post) => {
-        const postElement = document.createElement('div');
-        postElement.className = 'post';
-        postElement.innerHTML = `
-            <h3>${post.title}</h3>
-            <img src="${post.imageURL}" alt="Image" />
-            <p>${post.text}</p>
-            <button onclick="editPost(${post.id}, '${post.title}', '${post.text}', '${post.imageURL}')">Edit</button>
-        `;
-        feedElement.appendChild(postElement); 
-    });
+
+async function loadPosts() {
+    try {
+        const response = await fetch("/api/get-posts");
+        const data = await response.json();
+        
+        data.posts.forEach((post: any) => {
+            renderPost(post);
+            savePostToLocalStorage(post);
+        });
+    } catch (error) {
+        console.error("Failed to load posts:", error);
+    }
 }
 
-renderPosts();
+// קריאת הפונקציה עם עליית הדף
+window.addEventListener("load", loadPosts);

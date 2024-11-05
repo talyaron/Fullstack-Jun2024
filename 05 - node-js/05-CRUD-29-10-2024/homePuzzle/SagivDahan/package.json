@@ -1,8 +1,9 @@
 {
-  "name": "galit",
+  "name": "Sagiv",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "dev": "nodemon src/server.ts"
   },
