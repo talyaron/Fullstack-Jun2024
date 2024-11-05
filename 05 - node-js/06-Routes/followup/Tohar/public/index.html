@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Instagram</title>
     <link rel="stylesheet" href="./dist/style.css">
-    <script src="./dist/indesx.js" defer></script>
+    <script src="./dist/index.js" defer></script>
 </head>
-<body>
-    <h1>Hi all</h1>
-    <a href="register/register.html">Register</a>
-    <div id="message"></div>
-    <form onsubmit="handleSendWord(event)">
-        <input type="text" name="word" placeholder="add word">
-        <button type="submit">Send</button>
+<body> 
+    <h1>Upload New Post</h1>
+    <form onsubmit="handleSendPost(event)">
+        <input type="caption" name="caption" placeholder="Write a caption..." required>
+        <input type="url" id="imageURL" placeholder="Enter Image URL..." required>
+        <button type="submit">Post</button>
     </form>
+    
+    <h2>Feed</h2>
+    <div id="feed"></div>
+
 </body>
 </html>
