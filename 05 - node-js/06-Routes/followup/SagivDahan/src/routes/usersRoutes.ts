@@ -1,15 +1,8 @@
 import express from 'express';
-import bodyParser from 'body-parser';
+import { posts } from '../models/userModels';
+const router = express.Router();
 
-const app = express();
-const port = process.env.PORT || 3000;
-
-const posts: Array<{ title: string, text: string, imageURL: string, id:string }> = [];
-
-app.use(bodyParser.json());
-app.use(express.static('public'));
-
-app.post('/api/add-post', (req: any, res: any) => {
+router.post('/add-post', (req: any, res: any) => {
     const { title, text, imageURL } = req.body;
     
     console.log('Received POST request:', req.body);  
@@ -26,10 +19,8 @@ app.post('/api/add-post', (req: any, res: any) => {
     res.status(201).json({ message: "Post added successfully" });
 });
 
-app.get('/api/get-posts', (req, res) => {
+router.get('/get-posts', (req, res) => {
     res.json({ posts });
 });
 
-app.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
-});
+export default router;
