@@ -48,8 +48,71 @@ class Bullet {
     this.pos.x += this.speed * Math.cos(this.angle);
     this.pos.y += this.speed * Math.sin(this.angle);
     this.boxHtmlElement.style.transform = `translate(${this.pos.x}px, ${this.pos.y}px) rotate(${this.angle}rad)`;
+    //help me make check if its colliding with the tanks
+    if (playerContainer.length > 1) {
+    const colide =  this.checkCollision(playerContainer[1]);
+    if(colide){
+     console.log("HIT!",colide);
+   
+     killUser(playerContainer[1].id)}
+    }
+  
   }
 
+  projectOntoAxis(vertices: { x: number; y: number }[], axis: { x: number; y: number }) {
+    let min = Infinity;
+    let max = -Infinity;
+    for (const vertex of vertices) {
+      const projection = vertex.x * axis.x + vertex.y * axis.y; // Dot product
+      min = Math.min(min, projection);
+      max = Math.max(max, projection);
+    }
+    return { min, max };
+  }
+
+  // Check collision with another rectangle using SAT
+  checkCollision(other: Player): boolean {
+    const axes = this.getAxes(other);
+
+    for (const axis of axes) {
+      const projectionA = this.projectOntoAxis(this.getVertices(), axis);
+      const projectionB = this.projectOntoAxis(other.getVertices(), axis);
+
+      if (projectionA.max < projectionB.min || projectionB.max < projectionA.min) {
+        // No overlap on this axis, so no collision
+        return false;
+      }
+    }
+    // Overlaps on all axes means there is a collision
+    return true;
+  }
+  getVertices(): { x: number; y: number }[] {
+    const cos = Math.cos(this.angle);
+    const sin = Math.sin(this.angle);
+    const halfWidth = this.size.x / 2;
+    const halfHeight = this.size.y / 2;
+
+    return [
+      { x: this.pos.x + cos * -halfWidth - sin * -halfHeight, y: this.pos.y + sin * -halfWidth + cos * -halfHeight },
+      { x: this.pos.x + cos * halfWidth - sin * -halfHeight, y: this.pos.y + sin * halfWidth + cos * -halfHeight },
+      { x: this.pos.x + cos * halfWidth - sin * halfHeight, y: this.pos.y + sin * halfWidth + cos * halfHeight },
+      { x: this.pos.x + cos * -halfWidth - sin * halfHeight, y: this.pos.y + sin * -halfWidth + cos * halfHeight },
+    ];
+  }
+  // Helper: Get the axes (normals to edges) for both rectangles
+  getAxes(other: Player): { x: number; y: number }[] {
+    const verticesA = this.getVertices();
+    const verticesB = other.getVertices();
+
+    const edges = [
+      { x: verticesA[1].x - verticesA[0].x, y: verticesA[1].y - verticesA[0].y },
+      { x: verticesA[1].x - verticesA[3].x, y: verticesA[1].y - verticesA[3].y },
+      { x: verticesB[1].x - verticesB[0].x, y: verticesB[1].y - verticesB[0].y },
+      { x: verticesB[1].x - verticesB[3].x, y: verticesB[1].y - verticesB[3].y },
+    ];
+
+    return edges.map((edge) => ({ x: -edge.y, y: edge.x })); // Get perpendicular (normal) for each edge
+  }
   // Check if the bullet is out of bounds
   isOutOfBounds(canvasWidth: number, canvasHeight: number): boolean {
     return (
@@ -114,11 +177,11 @@ class Player {
   speed: number; // initial speed
   maxSpeed: number;
   acceleration:number;
-  Id: string;
   pos: vector;
   size: vector;
   boxHtmlElement: HTMLElement;
- 
+  dead:boolean;
+
   constructor(playing, id, lastContacted, pos) {
     this.playing = playing;
     this.id = id;
@@ -130,8 +193,8 @@ class Player {
     this.speed=0;
     this.maxSpeed=5;
     this.acceleration=0.2;
+    this.dead=false;
     this.createElement();
-
   }
 
   createElement() {
@@ -243,11 +306,9 @@ class Player {
   .catch(error => console.error('Error creating bullet:', error));
 }
 
-  // Add a method to update bullets
-  
-  
-
 }
+
+
 const playerContainer: Player[] = [];
 //const boxes:Box[] =[];
 requestAccess();
@@ -267,6 +328,12 @@ async function updateServerPos(playerId: string, newPosition: vector,newAngle:nu
   
       const result = await response.json();
      // console.log("Server response:", result);
+     const { dead }=result;
+     if (dead)
+     {
+     
+      userDead(playerId);
+     }
     } catch (error) {
       console.error("Error updating position:", error);
     }
@@ -284,6 +351,46 @@ async function updateServerPos(playerId: string, newPosition: vector,newAngle:nu
     }
 
   }
+ function userDead(playerId)
+ {
+  console.log("i died");
+  const foundDeadUser =playerContainer.find(player=>playerId===player.id);
+  if(!foundDeadUser){ console.log("no such user on client!");return;}
+  foundDeadUser.dead =true;
+  changeColor(foundDeadUser);
+ }
+function changeColor(user:Player)
+{
+  user.boxHtmlElement.id="gray";
+}
+
+  async function killUser(id) {
+    try {
+      const response = await fetch("http://localhost:3000/api/killUser",
+        {
+          method:"POST",
+          headers:{
+             "Content-Type": "application/json"
+          },
+          body:JSON.stringify({ id }),
+        });
+      //console.log(response);
+      const data = await response.json();
+      // console.log(data);
+      // console.timeEnd("getNewUser");
+  
+      const { message } = data;
+      // const message = data.message;
+
+      console.log(message);
+
+      //  accessGranted(newUser.pos.x,newUser.pos.y,newUser.id)
+      //  messageElement.innerHTML = message;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
 async function requestAccess() {
   try {
     //we will call the server
@@ -339,17 +446,18 @@ function updatePos() {
   let colliding = false;
   if (playerContainer.length > 1) {
     colliding = playerContainer[0].checkCollision(playerContainer[1]);
+    if(colliding)
     console.log("Collision detected:", colliding);
   }
-
+ const dead= playerContainer[0].dead;
   // Forward and reverse acceleration
   if (!colliding || (colliding && keys.s)) {
     // Allow forward movement only if there is no collision
-    if (keys.w && !colliding) {
+    if (keys.w && !colliding&&!dead) {
       playerContainer[0].speed += playerContainer[0].acceleration;
     }
     // Always allow reverse movement (backward)
-    if (keys.s) {
+    if (keys.s&&!colliding&&!dead) {
       playerContainer[0].speed -= playerContainer[0].acceleration;
     }
   } else {
@@ -368,12 +476,12 @@ function updatePos() {
 
   // Turning (rotation) is always allowed
   if (!keys.s) {
-    if (keys.a) playerContainer[0].angle -= 0.02; // turn left
-    if (keys.d) playerContainer[0].angle += 0.02; // turn right
+    if (keys.a&&!colliding&&!dead) playerContainer[0].angle -= 0.02; // turn left
+    if (keys.d&&!colliding&&!dead) playerContainer[0].angle += 0.02; // turn right
   } else {
     // Reverse rotation if moving backward
-    if (keys.a) playerContainer[0].angle += 0.02; 
-    if (keys.d) playerContainer[0].angle -= 0.02; 
+    if (keys.a&&!colliding&&!dead) playerContainer[0].angle += 0.02; 
+    if (keys.d&&!colliding&&!dead) playerContainer[0].angle -= 0.02; 
   }
 
   // Calculate new position based on speed and angle

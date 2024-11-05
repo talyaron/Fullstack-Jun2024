@@ -40,6 +40,7 @@ var User = /** @class */ (function () {
         this.id = "id=" + crypto.randomUUID();
         this.pos = pos;
         this.angle = angle;
+        this.dead = false;
     }
     return User;
 }());
@@ -107,7 +108,13 @@ app.post("/api/movePlayer", function (req, res) {
             user.angle = angle;
             // console.log(`Player ${playerId} moved to new position:`, pos);
             //console.log(users); // Log the updated users array for debugging
-            res.send({ message: "Player position updated", playerId: playerId_1, pos: pos, angle: angle });
+            var dead = user.dead;
+            if (!dead) {
+                res.send({ message: "Player position updated", playerId: playerId_1, pos: pos, angle: angle });
+            }
+            else {
+                res.send({ message: "user is dead!", playerId: playerId_1, pos: pos, angle: angle, dead: dead });
+            }
         }
         else {
             // If no player is found with that id
@@ -117,6 +124,21 @@ app.post("/api/movePlayer", function (req, res) {
     catch (error) {
         console.error(error);
         res.status(500).send({ message: "Error processing move" });
+    }
+});
+app.post("/api/killUser", function (req, res) {
+    try {
+        var id_1 = req.body.id;
+        var userFound = users.find(function (user) { return id_1 === user.id; });
+        if (!userFound) {
+            res.send({ error: "user not found", message: "user not found :O" });
+            return;
+        }
+        userFound.dead = true;
+        res.send({ message: "user died" + userFound.id });
+    }
+    catch (error) {
+        console.error(error);
     }
 });
 app.get("/api/getUsers", function (req, res) {
