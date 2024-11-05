@@ -5,6 +5,7 @@ var body_parser_1 = require("body-parser");
 var app = express_1["default"]();
 var port = process.env.PORT || 3000;
 var userRoutes_1 = require("./routes/userRoutes");
+var userModel_1 = require("./models/userModel");
 app.use("/api/users", userRoutes_1["default"]);
 app.use(body_parser_1["default"].json());
 app.use(express_1["default"].static('public'));
@@ -15,12 +16,12 @@ app.post('/api/add-post', function (req, res) {
         return res.status(400).json({ error: "All fields (title, text, imageURL) are required" });
     }
     var id = crypto.randomUUID();
-    posts.push({ id: id, title: title, text: text, imageURL: imageURL });
-    console.log('Current posts:', posts);
+    userModel_1.posts.push({ id: id, title: title, text: text, imageURL: imageURL });
+    console.log('Current posts:', userModel_1.posts);
     res.status(201).json({ message: "Post added successfully" });
 });
 app.get('/api/get-posts', function (req, res) {
-    res.json({ posts: posts });
+    res.json({ posts: userModel_1.posts });
 });
 app.listen(port, function () {
     console.log("Server listening on port " + port);

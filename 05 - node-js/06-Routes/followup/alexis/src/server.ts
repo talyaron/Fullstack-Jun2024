@@ -5,6 +5,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 import userRoutes from './routes/userRoutes';
+import { posts } from './models/userModel';
 
 app.use("/api/users", userRoutes);
 
