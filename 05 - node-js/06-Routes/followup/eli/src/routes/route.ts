@@ -2,7 +2,7 @@ import  express  from "express";
 const router = express.Router();
 import { posts } from "../model/model";
 
-router.post("/api/add-post", (req: any, res: any) => {
+router.post("/add-post", (req: any, res: any) => {
     const { title, text, imageURL } = req.body;
   
     console.log("Received POST request:", req.body);
@@ -20,7 +20,7 @@ router.post("/api/add-post", (req: any, res: any) => {
   
     res.status(201).json({ message: "Post added successfully" });
   });
-  router.patch("/api/update-post", (req: any, res: any) => {
+  router.patch("/update-post", (req: any, res: any) => {
     const { pId, title } = req.body;
   
     console.log("Received POST request:", req.body);
@@ -40,7 +40,7 @@ router.post("/api/add-post", (req: any, res: any) => {
   });
   
   
-  router.delete("/api/delete-post", (req: any, res: any) => {
+  router.delete("/delete-post", (req: any, res: any) => {
       const { pId } = req.body;
     
       console.log("Received POST request:", req.body);
@@ -59,7 +59,7 @@ router.post("/api/add-post", (req: any, res: any) => {
       res.status(201).json({ message: "Post added successfully" });
     });
   
-router.get("/api/get-posts", (req, res) => {
+router.get("/get-posts", (req, res) => {
     res.json({ posts });
   });
   
