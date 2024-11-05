@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../dist/style.css">
-    <script src="./dist/post.js" defer></script>
+    <script src="./dist/login.js" defer></script>
 </head>
 <body>
     <div id="app">
-        <form id="post_form" onsubmit="post(event)">
-            <input type="text" id="title" placeholder="Title">
-            <input type="text" id="text" placeholder="Text">
-            <input type="file" id="image" accept="image/*" placeholder="Add Image">
+        <form id="login_form" onsubmit="login(event)">
+            <input type="text" id="username" placeholder="username">
+            <input type="text" id="password" placeholder="password">
             <button type="submit">Submit</button>
         </form>
+        <p>Don't have an account? <a href="../register/register.html">Register</a></p>
     </div>
 </body>
 </html>

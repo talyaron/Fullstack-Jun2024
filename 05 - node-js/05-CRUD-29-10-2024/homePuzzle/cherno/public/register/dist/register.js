@@ -34,36 +34,41 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-function post(event) {
+function register(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var user, data, response, error_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var data, response, _a, error_1;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    _a.trys.push([0, 3, , 4]);
+                    _b.trys.push([0, 3, , 4]);
                     event.preventDefault();
-                    user = localStorage.getItem('user');
-                    data = { id: crypto.randomUUID(), title: event.target.title.value, text: event.target.text.value, image: event.target.image.files[0] };
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/send-post', {
+                    data = { username: event.target.username.value, password: event.target.password.value };
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/register-user', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
                             },
-                            body: JSON.stringify({ data: data, user: user })
+                            body: JSON.stringify({ data: data })
                         })];
                 case 1:
-                    response = _a.sent();
+                    response = _b.sent();
+                    _a = checkUser;
                     return [4 /*yield*/, response.json()];
                 case 2:
-                    _a.sent();
-                    window.location.href = "http://localhost:3000/";
+                    _a.apply(void 0, [_b.sent()]);
                     return [3 /*break*/, 4];
                 case 3:
-                    error_1 = _a.sent();
+                    error_1 = _b.sent();
                     console.error(error_1);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
         });
     });
+}
+function checkUser(status) {
+    if (status.ifCreated)
+        window.location.href = "http://localhost:3000/login/login.html";
+    else
+        alert("User already exists");
 }
