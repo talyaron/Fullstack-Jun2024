@@ -46,7 +46,6 @@ button:hover {
 }
 
 .post {
-  display: none;
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -57,7 +56,9 @@ button:hover {
   text-align: center;
 }
 
-img {
-  width: 200px;
-  height: 200px;
-}/*# sourceMappingURL=main.css.map */
+.post img {
+  width: 50vh;
+  height: 50vh;
+  border-radius: 5px;
+  margin-top: 10px;
+}

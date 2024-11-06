@@ -43,7 +43,7 @@ body {
   height: 12%;
   font-size: 1rem;
 }
-#form #imageInputLabel {
+#form .imageInputLabel {
   width: 80%;
   height: 10%;
   margin: 0 auto;
@@ -54,7 +54,7 @@ body {
   align-items: center;
   background-color: rgba(255, 255, 255, 0.807);
 }
-#form #imageInputLabel:hover {
+#form .imageInputLabel:hover {
   height: calc(10% - 2px);
   font-size: 1.2rem;
   border-radius: 20%;
