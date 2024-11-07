@@ -5,47 +5,46 @@ interface Post {
   title: string;
   id: string;
 }
-interface PostUser{
-    post:Post;
-    user:User;
+interface PostUser {
+  post: Post;
+  user: User;
 }
 
- class User {
-    username: string;
-    password: string;
-    email: string;
-    phone: string;
-    id: string;
-  
-    constructor(
-      username: string,
-      phone: string,
-      email: string,
-      password: string
-    ) {
-      this.username = username;
-      this.password = password;
-      this.email = email;
-      this.phone = phone;
-      this.id = `id-${crypto.randomUUID()}`;
-    }
-  }
-  const newUser = new User(
-    "john_doe",
-    "654654236",
-    "john.doe@example.com",
-    "securePassword123"
-  );
-  const userConnect: User = newUser;
-  const allUsers: User[] = [];
+class User {
+  username: string;
+  password: string;
+  email: string;
+  phone: string;
+  id: string;
 
+  constructor(
+    username: string,
+    phone: string,
+    email: string,
+    password: string
+  ) {
+    this.username = username;
+    this.password = password;
+    this.email = email;
+    this.phone = phone;
+    this.id = `id-${crypto.randomUUID()}`;
+  }
+}
+const newUser = new User(
+  "john_doe",
+  "654654236",
+  "john.doe@example.com",
+  "securePassword123"
+);
+const userConnect: User = newUser;
+const allUsers: User[] = [];
 
 //first page- form upload post and see posts btn
 function renderForm() {
   try {
     const app = document.querySelector("#app");
     if (!app) throw new Error("not find app");
-
+    app.classList.remove("post-grid");
     app.innerHTML = ` 
     <section class="container">
         <form onsubmit="handleSubmit(event)">
@@ -154,13 +153,16 @@ function handleImage(id: string) {
 }
 async function updateImageOnServer(imageUrl: string, id: string) {
   try {
-    const response = await fetch("http://localhost:3000/api/posts/updateImage-post", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ imageUrl, id }), //data to send (to string format) )
-    });
+    const response = await fetch(
+      "http://localhost:3000/api/posts/updateImage-post",
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ imageUrl, id }), //data to send (to string format) )
+      }
+    );
     if (!response.ok) throw new Error("Failed to update post");
 
     const data = await response.json();
@@ -189,13 +191,16 @@ function handleEditText(id: string) {
 }
 async function updateTextOnServer(text: string, id: string) {
   try {
-    const response = await fetch("http://localhost:3000/api/posts/updateText-post", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text, id }), //data to send (to string format) )
-    });
+    const response = await fetch(
+      "http://localhost:3000/api/posts/updateText-post",
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text, id }), //data to send (to string format) )
+      }
+    );
     if (!response.ok) throw new Error("Failed to update post");
 
     const data = await response.json();
@@ -225,13 +230,16 @@ function handleEditTitle(id: string) {
 
 async function updateOnServer(title: string, id: string) {
   try {
-    const response = await fetch("http://localhost:3000/api/posts/updateTitle-post", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ title, id }), //data to send (to string format) )
-    });
+    const response = await fetch(
+      "http://localhost:3000/api/posts/updateTitle-post",
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title, id }), //data to send (to string format) )
+      }
+    );
     if (!response.ok) throw new Error("Failed to update post");
 
     const data = await response.json();
@@ -253,13 +261,16 @@ function handleDelete(id: string) {
 }
 async function DeleteOnServer(id: string) {
   try {
-    const response = await fetch("http://localhost:3000/api/posts/delete-post", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id }), //data to send (to string format) )
-    });
+    const response = await fetch(
+      "http://localhost:3000/api/posts/delete-post",
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }), //data to send (to string format) )
+      }
+    );
     if (!response.ok) throw new Error("Failed to delete post");
 
     const data = await response.json();
@@ -291,12 +302,12 @@ function renderFirstPage() {
     console.error(error);
   }
 }
-function registerPage(){
-    try {
-        const app = document.querySelector("#app");
-        if (!app) throw new Error("not find app");
-    
-        app.innerHTML = `
+function registerPage() {
+  try {
+    const app = document.querySelector("#app");
+    if (!app) throw new Error("not find app");
+
+    app.innerHTML = `
       <section class="body-back">
         <section class="container">
           <h1> Register:</h1>
@@ -319,72 +330,72 @@ function registerPage(){
         </section>
       </section>
       `;
-    } catch (error) {
-        console.error(error);
-      }
-    }
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-    function handelRegisterAfterLog(event: SubmitEvent) {
-        //register the user
-        try {
-          event.preventDefault();
-          const form = event.target as HTMLFormElement;
-          const formData = new FormData(form);
-          const username = String(formData.get("username"));
-          const phone = String(formData.get("phone"));
-          const email = String(formData.get("email"));
-          const password = String(formData.get("password"));
-      console.log('reg')
-          register(username, phone, email, password);
-      
-          //check user and get in
-          form.reset();
-        } catch (e) {
-          console.error(e);
-        }
-      }
-      function register(
-        username: string,
-        phone: string,
-        email: string,
-        password: string
-      ) {
-        //check the info
-        //register
-        try {
-          if (checkUsername(username)) {
-            const user = new User(username, phone, email, password);
-            allUsers.push(user);
-            console.log(allUsers);
-            const localStorageA = localStorage.getItem("allUsers");
-            const allUsersS: User[] = localStorageA ? JSON.parse(localStorageA) : [];
-            allUsersS.push(user);
-            localStorage.setItem("allUsers", JSON.stringify(allUsersS));
-            logInPage();
-      
-            const loginBtn = document.querySelector<HTMLFormElement>("#loginBtn");
-            if (!loginBtn) throw new Error("not find loginBtn");
-            loginBtn.addEventListener("submit", handelLoginAfterLog);
-          } else {
-            throw new Error("the user already exist");
-          }
-        } catch (error) {
-          console.error(error);
-        }
-      }
-      function checkUsername(username: string): boolean {
-        //check if the user name is already exist
-        const localStorageA = localStorage.getItem("allUsers");
-        const allUsersS: User[] = localStorageA ? JSON.parse(localStorageA) : [];
-        if (allUsersS.find((user) => user.username == username)) return false;
-        return true;
-      }
-function logInPage(){
-    try {
-        const app = document.querySelector("#app");
-        if (!app) throw new Error("not find app");
-    
-        app.innerHTML = `<section class="body-back">
+function handelRegisterAfterLog(event: SubmitEvent) {
+  //register the user
+  try {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const formData = new FormData(form);
+    const username = String(formData.get("username"));
+    const phone = String(formData.get("phone"));
+    const email = String(formData.get("email"));
+    const password = String(formData.get("password"));
+    console.log("reg");
+    register(username, phone, email, password);
+
+    //check user and get in
+    form.reset();
+  } catch (e) {
+    console.error(e);
+  }
+}
+function register(
+  username: string,
+  phone: string,
+  email: string,
+  password: string
+) {
+  //check the info
+  //register
+  try {
+    if (checkUsername(username)) {
+      const user = new User(username, phone, email, password);
+      allUsers.push(user);
+      console.log(allUsers);
+      const localStorageA = localStorage.getItem("allUsers");
+      const allUsersS: User[] = localStorageA ? JSON.parse(localStorageA) : [];
+      allUsersS.push(user);
+      localStorage.setItem("allUsers", JSON.stringify(allUsersS));
+      logInPage();
+
+      const loginBtn = document.querySelector<HTMLFormElement>("#loginBtn");
+      if (!loginBtn) throw new Error("not find loginBtn");
+      loginBtn.addEventListener("submit", handelLoginAfterLog);
+    } else {
+      throw new Error("the user already exist");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+function checkUsername(username: string): boolean {
+  //check if the user name is already exist
+  const localStorageA = localStorage.getItem("allUsers");
+  const allUsersS: User[] = localStorageA ? JSON.parse(localStorageA) : [];
+  if (allUsersS.find((user) => user.username == username)) return false;
+  return true;
+}
+function logInPage() {
+  try {
+    const app = document.querySelector("#app");
+    if (!app) throw new Error("not find app");
+
+    app.innerHTML = `<section class="body-back">
         <section class="container">
           <h1> Log In:</h1>
           <button class="back" id="backBtn" onclick="renderFirstPage()"> <--- </button>
@@ -398,49 +409,47 @@ function logInPage(){
               <button type="submit" >Log In</button>
           </form>
         </section>
-      </section> `
-    } catch (error) {
-        console.error(error);
-      }
-    }
+      </section> `;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
+function handelLoginAfterLog(event: SubmitEvent) {
+  //log the user
+  try {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const formData = new FormData(form);
+    const username = String(formData.get("username"));
+    const password = String(formData.get("password"));
+    console.log(username);
+    console.log(password);
+    checkUser(username, password);
 
-    function handelLoginAfterLog(event: SubmitEvent) {
-        //log the user
-        try {
-          event.preventDefault();
-          const form = event.target as HTMLFormElement;
-          const formData = new FormData(form);
-          const username = String(formData.get("username"));
-          const password = String(formData.get("password"));
-          console.log(username);
-          console.log(password);
-          checkUser(username, password);
-      
-          //check user and get in
-          form.reset();
-        } catch (e) {
-          console.error(e);
-        }
-      }
-  
-      function checkUser(username: string, password: string) {
-        try {
-          const localStorageA = localStorage.getItem("allUsers");
-          const allUsersS: User[] = localStorageA ? JSON.parse(localStorageA) : [];
-          const userN = allUsersS.find((user) => user.username == username);
-          if (!userN) throw new Error("u need to sign in");
-          if (userN?.password == password) {
-            userConnect.username = userN.username;
-            userConnect.password = userN.password;
-            userConnect.phone = userN.phone;
-            userConnect.email = userN.email;
-            userConnect.id = userN.id;
-            console.log(userConnect)
-            renderForm();
-          } else throw new Error("the password not right");
-        } catch (error) {
-          console.log(error);
-        }
-      }
+    //check user and get in
+    form.reset();
+  } catch (e) {
+    console.error(e);
+  }
+}
 
+function checkUser(username: string, password: string) {
+  try {
+    const localStorageA = localStorage.getItem("allUsers");
+    const allUsersS: User[] = localStorageA ? JSON.parse(localStorageA) : [];
+    const userN = allUsersS.find((user) => user.username == username);
+    if (!userN) throw new Error("u need to sign in");
+    if (userN?.password == password) {
+      userConnect.username = userN.username;
+      userConnect.password = userN.password;
+      userConnect.phone = userN.phone;
+      userConnect.email = userN.email;
+      userConnect.id = userN.id;
+      console.log(userConnect);
+      renderForm();
+    } else throw new Error("the password not right");
+  } catch (error) {
+    console.log(error);
+  }
+}
