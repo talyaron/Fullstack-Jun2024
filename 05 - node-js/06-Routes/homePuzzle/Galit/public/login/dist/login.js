@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 var loginForm = document.getElementById('login-form');
 loginForm.addEventListener('submit', function (event) { return __awaiter(_this, void 0, void 0, function () {
-    var formData, username, password, response;
+    var formData, username, password, response, errorData;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -52,13 +52,20 @@ loginForm.addEventListener('submit', function (event) { return __awaiter(_this, 
                     })];
             case 1:
                 response = _a.sent();
-                if (response.ok) {
-                    window.location.href = './index.html';
+                if (!response.ok) return [3 /*break*/, 2];
+                window.location.href = '../index.html';
+                return [3 /*break*/, 4];
+            case 2: return [4 /*yield*/, response.json()];
+            case 3:
+                errorData = _a.sent();
+                if (response.status === 401) {
+                    alert(errorData.message);
                 }
                 else {
                     alert('Login failed');
                 }
-                return [2 /*return*/];
+                _a.label = 4;
+            case 4: return [2 /*return*/];
         }
     });
 }); });

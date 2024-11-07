@@ -13,8 +13,13 @@ loginForm.addEventListener('submit', async (event) => {
     });
 
     if (response.ok) {
-        window.location.href = './index.html';
+        window.location.href = '../index.html';
     } else {
-        alert('Login failed');
+        const errorData = await response.json();
+        if (response.status === 401) {
+            alert(errorData.message); 
+        } else {
+            alert('Login failed');
+        }
     }
 });

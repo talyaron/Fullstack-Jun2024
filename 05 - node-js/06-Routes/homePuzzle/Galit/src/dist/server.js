@@ -9,6 +9,8 @@ var userRoute_1 = require("./routes/userRoute");
 var app = express_1["default"]();
 var port = process.env.PORT || 3000;
 var FileSessionStore = session_file_store_1["default"](express_session_1["default"]);
+app.use(body_parser_1["default"].json({ limit: '10mb' }));
+app.use(body_parser_1["default"].urlencoded({ limit: '10mb', extended: true }));
 app.use(body_parser_1["default"].json());
 app.use(express_1["default"].static('public'));
 app.use(express_session_1["default"]({

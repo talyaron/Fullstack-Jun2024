@@ -1,21 +1,27 @@
 :root {
   --primary-color: #3897f0;
-  --secondary-color: #2ecc71;
   --font-family: 'Arial, sans-serif';
+  --background-color: #fafafa;
+  --text-color: #333;
+  --input-border-color: #ddd;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   font-family: var(--font-family);
-  background-color: #fafafa;
-  margin: 0;
-  padding: 0;
+  background-color: var(--background-color);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
 
-.login-container {
+.container {
   background-color: #fff;
   padding: 2rem;
   border-radius: 8px;
@@ -25,36 +31,35 @@ body {
   text-align: center;
 }
 
-.login-container h2 {
-  font-family: 'Arial', sans-serif;
+.container h2 {
   font-weight: 500;
   color: var(--primary-color);
   margin-bottom: 1.5rem;
   font-size: 2rem;
 }
 
-.login-container .input-group {
+.form-group {
   margin-bottom: 1.2rem;
   text-align: left;
 }
 
-.login-container .input-group label {
+.form-group label {
   display: block;
   font-size: 0.9rem;
-  color: #333;
-  margin-bottom: 0.5rem;
+  color: var(--text-color);
+  margin-bottom: 0.3rem;
 }
 
-.login-container .input-group input {
+.form-group input {
   width: 100%;
   padding: 0.6rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--input-border-color);
   border-radius: 4px;
   font-size: 1rem;
-  background-color: #fafafa;
+  background-color: var(--background-color);
 }
 
-.login-container .btn {
+button[type="submit"] {
   background-color: var(--primary-color);
   color: #fff;
   padding: 0.7rem;
@@ -67,20 +72,21 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.login-container .btn:hover {
-  background-color: #3071d1;
+button[type="submit"]:hover {
+  background-color: #3079d1; 
 }
 
-.login-container p {
+p {
   margin-top: 1rem;
   font-size: 0.9rem;
+  color: var(--text-color);
 }
 
-.login-container p a {
+p a {
   color: var(--primary-color);
   text-decoration: none;
 }
 
-.login-container p a:hover {
+p a:hover {
   text-decoration: underline;
 }

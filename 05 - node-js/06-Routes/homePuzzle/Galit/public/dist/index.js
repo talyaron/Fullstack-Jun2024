@@ -1,3 +1,4 @@
+//// Logout button on index page //////
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -98,7 +99,7 @@ function handleSendPost(event) {
                         case 1:
                             _b.trys.push([1, 4, , 5]);
                             console.log('Sending post:', { title: title, text: text, imageBase64: imageBase64 });
-                            return [4 /*yield*/, fetch('http://localhost:3000/api/add-post', {
+                            return [4 /*yield*/, fetch('http://localhost:3000/api/posts/add-post', {
                                     method: 'POST',
                                     headers: { 'Content-Type': 'application/json' },
                                     body: JSON.stringify({ title: title, text: text, image: imageBase64 })
@@ -133,7 +134,7 @@ function fetchPosts() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/get-posts')];
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/posts/get-posts')];
                 case 1:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
@@ -270,57 +271,61 @@ function handleEditImage(id) {
 }
 function updatePost(id, updatedFields) {
     return __awaiter(this, void 0, void 0, function () {
-        var response, error_4;
+        var response, errorMessage, error_4;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch("http://localhost:3000/api/edit-post", {
+                    _a.trys.push([0, 5, , 6]);
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/posts/edit-post", {
                             method: 'PUT',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify(__assign({ id: id }, updatedFields))
                         })];
                 case 1:
                     response = _a.sent();
-                    if (!response.ok)
-                        throw new Error('Failed to update post');
-                    console.log("Post with ID " + id + " updated successfully, title: " + updatedFields.title + ", text: " + updatedFields.text + ", image: " + updatedFields.image);
-                    return [4 /*yield*/, fetchPosts()];
+                    if (!!response.ok) return [3 /*break*/, 3];
+                    return [4 /*yield*/, response.text()];
                 case 2:
-                    _a.sent();
-                    return [3 /*break*/, 4];
+                    errorMessage = _a.sent();
+                    console.error('Failed to update post. Server response:', errorMessage);
+                    throw new Error('Failed to update post');
                 case 3:
+                    console.log("Post with ID " + id + " updated successfully");
+                    return [4 /*yield*/, fetchPosts()];
+                case 4:
+                    _a.sent();
+                    return [3 /*break*/, 6];
+                case 5:
                     error_4 = _a.sent();
                     console.error('Error updating post:', error_4);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    return [3 /*break*/, 6];
+                case 6: return [2 /*return*/];
             }
         });
     });
 }
 function handleDeletePost(id) {
     return __awaiter(this, void 0, void 0, function () {
-        var response, _a, _b, _c, feedElement, postElement, error_5;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
+        var response, errorMessage, feedElement, postElement, error_5;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
                     console.log("Deleting post with ID:", id);
-                    _d.label = 1;
+                    _a.label = 1;
                 case 1:
-                    _d.trys.push([1, 5, , 6]);
-                    return [4 /*yield*/, fetch("http://localhost:3000/api/delete-post", {
+                    _a.trys.push([1, 5, , 6]);
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/posts/delete-post", {
                             method: 'DELETE',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ id: id })
                         })];
                 case 2:
-                    response = _d.sent();
+                    response = _a.sent();
                     if (!!response.ok) return [3 /*break*/, 4];
-                    _b = (_a = console).error;
-                    _c = ['Failed to delete post. Server response:'];
-                    return [4 /*yield*/, response.json()];
+                    return [4 /*yield*/, response.text()];
                 case 3:
-                    _b.apply(_a, _c.concat([_d.sent()]));
+                    errorMessage = _a.sent();
+                    console.error('Failed to delete post. Server response:', errorMessage);
                     throw new Error('Failed to delete post');
                 case 4:
                     console.log("Post with ID " + id + " deleted successfully");
@@ -334,7 +339,7 @@ function handleDeletePost(id) {
                     }
                     return [3 /*break*/, 6];
                 case 5:
-                    error_5 = _d.sent();
+                    error_5 = _a.sent();
                     console.error('Error deleting post:', error_5);
                     return [3 /*break*/, 6];
                 case 6: return [2 /*return*/];

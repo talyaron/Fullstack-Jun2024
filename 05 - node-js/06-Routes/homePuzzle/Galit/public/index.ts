@@ -1,3 +1,5 @@
+//// Logout button on index page //////
+
 document.getElementById("logout-button")?.addEventListener("click", async () => {
     try {
         const response = await fetch("/api/users/logout", { method: "POST" });
@@ -11,6 +13,7 @@ document.getElementById("logout-button")?.addEventListener("click", async () => 
     }
 });
 
+////// posts method ///// 
 
 interface Post {
     title: string;
@@ -41,7 +44,7 @@ async function handleSendPost(event: Event) {
         try {
             console.log('Sending post:', { title, text, imageBase64 });
 
-            const response = await fetch('http://localhost:3000/api/add-post', {
+            const response = await fetch('http://localhost:3000/api/posts/add-post', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ title, text, image: imageBase64 }),
@@ -63,7 +66,7 @@ async function handleSendPost(event: Event) {
 
 async function fetchPosts() {
     try {
-        const response = await fetch('http://localhost:3000/api/get-posts');
+        const response = await fetch('http://localhost:3000/api/posts/get-posts');
         const data = await response.json();
 
         const feedElement = document.getElementById("feed");
@@ -168,16 +171,19 @@ async function handleEditImage(id: string) {
 
 async function updatePost(id: string, updatedFields: Partial<Post>) {
     try {
-        const response = await fetch(`http://localhost:3000/api/edit-post`, {
+        const response = await fetch(`http://localhost:3000/api/posts/edit-post`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id, ...updatedFields }),
         });
 
-        if (!response.ok) throw new Error('Failed to update post');
+        if (!response.ok) {
+            const errorMessage = await response.text();
+            console.error('Failed to update post. Server response:', errorMessage);
+            throw new Error('Failed to update post');
+        }
 
-        console.log(`Post with ID ${id} updated successfully, title: ${updatedFields.title}, text: ${updatedFields.text}, image: ${updatedFields.image}`);
-
+        console.log(`Post with ID ${id} updated successfully`);
         await fetchPosts();
     } catch (error) {
         console.error('Error updating post:', error);
@@ -187,14 +193,15 @@ async function updatePost(id: string, updatedFields: Partial<Post>) {
 async function handleDeletePost(id: string) {
     console.log("Deleting post with ID:", id);
     try {
-        const response = await fetch(`http://localhost:3000/api/delete-post`, {
+        const response = await fetch(`http://localhost:3000/api/posts/delete-post`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id }),
         });
 
         if (!response.ok) {
-            console.error('Failed to delete post. Server response:', await response.json());
+            const errorMessage = await response.text();
+            console.error('Failed to delete post. Server response:', errorMessage);
             throw new Error('Failed to delete post');
         }
 

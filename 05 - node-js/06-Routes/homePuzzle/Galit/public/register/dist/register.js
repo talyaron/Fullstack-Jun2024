@@ -37,24 +37,36 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 var registerForm = document.getElementById('registration-form');
 registerForm.addEventListener('submit', function (event) { return __awaiter(_this, void 0, void 0, function () {
-    var formData, username, password, response;
+    var formData, username, email, password, confirmPassword, emailPattern, response;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 event.preventDefault();
                 formData = new FormData(registerForm);
                 username = formData.get('username');
+                email = formData.get('email');
                 password = formData.get('password');
+                confirmPassword = formData.get('confirm-password');
+                username = username.toLowerCase();
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match');
+                    return [2 /*return*/];
+                }
+                emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(email)) {
+                    alert('Please enter a valid email address');
+                    return [2 /*return*/];
+                }
                 return [4 /*yield*/, fetch('/api/users/register', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ username: username, password: password })
+                        body: JSON.stringify({ username: username, email: email, password: password })
                     })];
             case 1:
                 response = _a.sent();
                 if (response.ok) {
                     alert('Registration successful');
-                    window.location.href = '../login/login.html';
+                    window.location.href = '../index.html';
                 }
                 else {
                     alert('Registration failed');
