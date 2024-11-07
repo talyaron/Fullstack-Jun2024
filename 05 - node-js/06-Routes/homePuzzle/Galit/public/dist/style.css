@@ -57,8 +57,8 @@ button:hover {
 }
 
 .post img {
-  width: 10vh;
-  height: 10vh;
+  width: 50vh;
+  height: 50vh;
   border-radius: 5px;
   margin-top: 10px;
-}/*# sourceMappingURL=style.css.map */
+}
