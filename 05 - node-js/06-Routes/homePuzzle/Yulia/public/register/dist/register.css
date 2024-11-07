@@ -9,7 +9,22 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: 100vh;
+}
+
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.register-container h2 {
+  margin-bottom: 1rem;
+  color: #3498db;
+  font-size: 2rem;
+  text-align: center;
 }
 
 .register-form {
@@ -19,11 +34,6 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
-}
-
-.register-form h2 {
-  margin-bottom: 1.5rem;
-  color: #3498db;
 }
 
 .register-form .form-group {
@@ -57,11 +67,4 @@ body {
 }
 .register-form button:hover {
   background-color: #217dbb;
-}
-
-.register-form .secondary-button {
-  background-color: #2ecc71;
-}
-.register-form .secondary-button:hover {
-  background-color: #25a25a;
 }

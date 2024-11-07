@@ -44,11 +44,11 @@ document.addEventListener("DOMContentLoaded", function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        event.preventDefault(); // Prevent the default form submission behavior
+                        event.preventDefault();
                         usernameInput = document.getElementById("username");
                         passwordInput = document.getElementById("password");
-                        username = usernameInput.value;
-                        password = passwordInput.value;
+                        username = usernameInput.value.trim();
+                        password = passwordInput.value.trim();
                         // Call function to send data to the server
                         return [4 /*yield*/, loginUser(username, password)];
                     case 1:
@@ -67,25 +67,19 @@ function loginUser(username, password) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch("http://localhost:3000/api/login", {
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/users/login", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({ username: username, password: password })
                         })];
                 case 1:
                     response = _a.sent();
-                    if (!response.ok) {
-                        throw new Error("Failed to log in");
-                    }
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
-                    console.log(data.message);
-                    // Logic for a successful login
                     if (data.success) {
-                        // Store the username in local storage for display on the main page
                         localStorage.setItem("username", username);
-                        // Redirect to the main page
+                        localStorage.setItem("isUserLogin", "true");
                         window.location.href = "/";
                     }
                     else {

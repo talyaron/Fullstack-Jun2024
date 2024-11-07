@@ -3,6 +3,7 @@ interface Post {
   text: string;
   imageURL: string;
   id: string;
+  username: string;
   editTitle?: boolean;
   editText?: boolean;
   editImageURL?: boolean;
@@ -16,14 +17,20 @@ async function handleSendPost(event: Event) {
   const text = (form.elements.namedItem("text") as HTMLInputElement).value;
   const imageURL = (form.elements.namedItem("imageURL") as HTMLInputElement)
     .value;
+  const username = localStorage.getItem("username"); // Get the username from local storage
+
+  if (!username) {
+    alert("You need to be logged in to create a post.");
+    return;
+  }
 
   try {
-    console.log("Sending post:", { title, text, imageURL }); // Debug log
+    console.log("Sending post:", { title, text, imageURL, username }); // Debug log
 
     const response = await fetch("http://localhost:3000/api/posts/add-post", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title, text, imageURL }),
+      body: JSON.stringify({ title, text, imageURL, username }), // Send the post data to the server
     });
 
     if (!response.ok) throw new Error("Failed to add post");
@@ -38,6 +45,14 @@ async function handleSendPost(event: Event) {
 }
 
 async function fetchPosts() {
+  const isUserLoggedIn = localStorage.getItem("isUserLogin") === "true";
+  const currentUsername = localStorage.getItem("username");
+
+  if (!isUserLoggedIn || !currentUsername) {
+    console.log("User is not logged in or username not found. Posts are hidden.");
+    return;
+  }
+
   try {
     const response = await fetch("http://localhost:3000/api/posts/get-posts");
     if (!response.ok) throw new Error("Failed to fetch posts");
@@ -47,7 +62,9 @@ async function fetchPosts() {
     if (!feedElement) throw new Error("Feed element not found");
     if (data.posts.length === 0) return;
 
-    renderPosts(data.posts);
+    // Filter posts by the current user
+    const userPosts = data.posts.filter((post: Post) => post.username === currentUsername);
+    renderPosts(userPosts);
   } catch (error) {
     console.error("Error fetching posts:", error);
   }
@@ -76,20 +93,17 @@ function renderPosts(posts: Post[]) {
 }
 
 function renderPost(post: Post) {
-  try {
-    const html = `
-        <div class="post" id="post-${post.id}">
-            <h3 id="title-${post.id}">${post.title}</h3>
-            <button onclick="handleEditPost('${post.id}')">Edit</button>
-            <button onclick="handleDelete('${post.id}')">Delete</button>
-            <img src="${post.imageURL}" alt="Image" id="image-${post.id}" />
-            <p id="text-${post.id}">${post.text}</p>
-        </div>
-        `;
-    return html;
-  } catch (error) {
-    console.error("Error:", error);
-  }
+  const html = `
+    <div class="post" id="post-${post.id}">
+        <h3 id="title-${post.id}">${post.title}</h3>
+        <p><strong>Posted by:</strong> ${post.username}</p> 
+        <button onclick="handleEditPost('${post.id}')">Edit</button>
+        <button onclick="handleDelete('${post.id}')">Delete</button>
+        <img src="${post.imageURL}" alt="Image" id="image-${post.id}" />
+        <p id="text-${post.id}">${post.text}</p>
+    </div>
+  `;
+  return html;
 }
 
 function handleEditPost(id: string) {
@@ -165,11 +179,8 @@ async function handleDelete(id: string) {
         method: "DELETE",
       }
     );
-
     if (!response.ok) throw new Error("Failed to delete post on server");
-
     console.log("Post deleted successfully!");
-
     const postElement = document.getElementById(`post-${id}`);
     if (postElement) postElement.remove();
   } catch (error) {
@@ -196,3 +207,16 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.prepend(greetingElement); // Add the greeting at the top of the page
   }
 });
+
+function handleLogout() {
+  localStorage.removeItem("isUserLogin");
+  localStorage.removeItem("username");
+  window.location.href = "/login/login.html"; // Redirect to the login page
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const logoutButton = document.createElement("button");
+  logoutButton.textContent = "Logout";
+  logoutButton.onclick = handleLogout;
+  document.body.appendChild(logoutButton);
+}); // add the logout button to the page

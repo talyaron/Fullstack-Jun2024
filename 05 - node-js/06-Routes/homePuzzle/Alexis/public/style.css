@@ -1,0 +1,9 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+img {
+  max-width: 100%;
+}/*# sourceMappingURL=style.css.map */
