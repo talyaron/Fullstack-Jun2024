@@ -172,7 +172,7 @@ async function handleEditImage(id: string) {
 async function updatePost(id: string, updatedFields: Partial<Post>) {
     try {
         const response = await fetch(`http://localhost:3000/api/posts/edit-post`, {
-            method: 'PUT',
+            method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id, ...updatedFields }),
         });

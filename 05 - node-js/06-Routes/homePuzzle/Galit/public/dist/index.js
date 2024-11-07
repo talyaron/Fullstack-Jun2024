@@ -277,7 +277,7 @@ function updatePost(id, updatedFields) {
                 case 0:
                     _a.trys.push([0, 5, , 6]);
                     return [4 /*yield*/, fetch("http://localhost:3000/api/posts/edit-post", {
-                            method: 'PUT',
+                            method: 'PATCH',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify(__assign({ id: id }, updatedFields))
                         })];
