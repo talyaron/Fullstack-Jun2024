@@ -53,6 +53,7 @@ function renderForm() {
         var app = document.querySelector("#app");
         if (!app)
             throw new Error("not find app");
+        app.classList.remove("post-grid");
         app.innerHTML = " \n    <section class=\"container\">\n        <form onsubmit=\"handleSubmit(event)\">\n        <input type=\"text\" name=\"imageUrl\" placeholder=\"add imageUrl\">\n        <input type=\"text\" name=\"text\" placeholder=\"add text\">\n        <input type=\"text\" name=\"title\" placeholder=\"add title\">\n        <button class=\"btn btn-primary\" type=\"submit\">Send</button>\n    </form>\n    <button class=\"btn btn-primary\" onclick=\"renderAllPost()\"> see all post</button>\n        <button class=\"btn btn-primary\" onclick=\"renderFirstPage()\"> log out</button>\n    </section>";
     }
     catch (error) {
@@ -383,7 +384,7 @@ function handelRegisterAfterLog(event) {
         var phone = String(formData.get("phone"));
         var email = String(formData.get("email"));
         var password = String(formData.get("password"));
-        console.log('reg');
+        console.log("reg");
         register(username, phone, email, password);
         //check user and get in
         form.reset();
