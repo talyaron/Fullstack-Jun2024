@@ -1,9 +1,9 @@
 import { User, users } from "../../models/users/usersModel";
 import crypto from "crypto";
 
-export function createUser (req: any, res: any) {
+export function createUser(req: any, res: any) {
+  console.log("Received data on server:", req.body); // Debugging line
   const { username, password, email } = req.body;
-
   if (!username || !password) {
     return res
       .status(400)

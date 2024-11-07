@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 function handleSendPost(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var form, title, text, imageURL, response, error_1;
+        var form, title, text, imageURL, username, response, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -46,14 +46,19 @@ function handleSendPost(event) {
                     text = form.elements.namedItem("text").value;
                     imageURL = form.elements.namedItem("imageURL")
                         .value;
+                    username = localStorage.getItem("username");
+                    if (!username) {
+                        alert("You need to be logged in to create a post.");
+                        return [2 /*return*/];
+                    }
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, , 4]);
-                    console.log("Sending post:", { title: title, text: text, imageURL: imageURL }); // Debug log
+                    console.log("Sending post:", { title: title, text: text, imageURL: imageURL, username: username }); // Debug log
                     return [4 /*yield*/, fetch("http://localhost:3000/api/posts/add-post", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ title: title, text: text, imageURL: imageURL })
+                            body: JSON.stringify({ title: title, text: text, imageURL: imageURL, username: username })
                         })];
                 case 2:
                     response = _a.sent();
@@ -74,31 +79,40 @@ function handleSendPost(event) {
 }
 function fetchPosts() {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, feedElement, error_2;
+        var isUserLoggedIn, currentUsername, response, data, feedElement, userPosts, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch("http://localhost:3000/api/posts/get-posts")];
+                    isUserLoggedIn = localStorage.getItem("isUserLogin") === "true";
+                    currentUsername = localStorage.getItem("username");
+                    if (!isUserLoggedIn || !currentUsername) {
+                        console.log("User is not logged in or username not found. Posts are hidden.");
+                        return [2 /*return*/];
+                    }
+                    _a.label = 1;
                 case 1:
+                    _a.trys.push([1, 4, , 5]);
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/posts/get-posts")];
+                case 2:
                     response = _a.sent();
                     if (!response.ok)
                         throw new Error("Failed to fetch posts");
                     return [4 /*yield*/, response.json()];
-                case 2:
+                case 3:
                     data = _a.sent();
                     feedElement = document.getElementById("feed");
                     if (!feedElement)
                         throw new Error("Feed element not found");
                     if (data.posts.length === 0)
                         return [2 /*return*/];
-                    renderPosts(data.posts);
-                    return [3 /*break*/, 4];
-                case 3:
+                    userPosts = data.posts.filter(function (post) { return post.username === currentUsername; });
+                    renderPosts(userPosts);
+                    return [3 /*break*/, 5];
+                case 4:
                     error_2 = _a.sent();
                     console.error("Error fetching posts:", error_2);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
             }
         });
     });
@@ -122,13 +136,8 @@ function renderPosts(posts) {
     feedElement.innerHTML = htmlPosts;
 }
 function renderPost(post) {
-    try {
-        var html = "\n        <div class=\"post\" id=\"post-" + post.id + "\">\n            <h3 id=\"title-" + post.id + "\">" + post.title + "</h3>\n            <button onclick=\"handleEditPost('" + post.id + "')\">Edit</button>\n            <button onclick=\"handleDelete('" + post.id + "')\">Delete</button>\n            <img src=\"" + post.imageURL + "\" alt=\"Image\" id=\"image-" + post.id + "\" />\n            <p id=\"text-" + post.id + "\">" + post.text + "</p>\n        </div>\n        ";
-        return html;
-    }
-    catch (error) {
-        console.error("Error:", error);
-    }
+    var html = "\n    <div class=\"post\" id=\"post-" + post.id + "\">\n        <h3 id=\"title-" + post.id + "\">" + post.title + "</h3>\n        <p><strong>Posted by:</strong> " + post.username + "</p> \n        <button onclick=\"handleEditPost('" + post.id + "')\">Edit</button>\n        <button onclick=\"handleDelete('" + post.id + "')\">Delete</button>\n        <img src=\"" + post.imageURL + "\" alt=\"Image\" id=\"image-" + post.id + "\" />\n        <p id=\"text-" + post.id + "\">" + post.text + "</p>\n    </div>\n  ";
+    return html;
 }
 function handleEditPost(id) {
     var _this = this;
@@ -240,3 +249,14 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.prepend(greetingElement); // Add the greeting at the top of the page
     }
 });
+function handleLogout() {
+    localStorage.removeItem("isUserLogin");
+    localStorage.removeItem("username");
+    window.location.href = "/login/login.html"; // Redirect to the login page
+}
+document.addEventListener("DOMContentLoaded", function () {
+    var logoutButton = document.createElement("button");
+    logoutButton.textContent = "Logout";
+    logoutButton.onclick = handleLogout;
+    document.body.appendChild(logoutButton);
+}); // add the logout button to the page
