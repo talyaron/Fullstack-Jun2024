@@ -18,6 +18,8 @@ const database = 'fs-jun24';
 
 mongoose.connect(`${dbUrl}/${database}`).then(()=>{
     console.info("DB connected")
+}).catch((error:any) => {
+    console.error(error);
 });
 
 //routesD

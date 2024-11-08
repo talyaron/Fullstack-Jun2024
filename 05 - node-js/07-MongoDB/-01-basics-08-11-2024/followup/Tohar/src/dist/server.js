@@ -12,6 +12,8 @@ var dbUrl = "mongodb+srv://tal:k8w0S6ztTx3zowGW@cluster0.0hzknon.mongodb.net/";
 var database = 'fs-jun24';
 mongoose_1["default"].connect(dbUrl + "/" + database).then(function () {
     console.info("DB connected");
+})["catch"](function (error) {
+    console.error(error);
 });
 //routesD
 var postssRoutes_1 = require("./routes/postssRoutes");
