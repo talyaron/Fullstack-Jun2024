@@ -13,9 +13,11 @@ var User = /** @class */ (function () {
 }());
 exports["default"] = User;
 exports.users = [];
+//data structure
 exports.UserSchema = new mongoose_1.Schema({
     name: String,
     email: String,
     password: String
 });
-exports.UserModel = mongoose_1.model('User', exports.UserSchema);
+// model => collection
+exports.UserModel = mongoose_1.model('User', exports.UserSchema); // collection name is 'users' by default
