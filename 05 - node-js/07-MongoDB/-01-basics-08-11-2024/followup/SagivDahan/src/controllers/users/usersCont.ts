@@ -22,7 +22,6 @@ export const register = async (req: any, res: any) => {
 
         // users.push(newUser)
 
-        res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error', error });

@@ -55,8 +55,6 @@ exports.register = function (req, res) { return __awaiter(void 0, void 0, void 0
                 return [4 /*yield*/, newUser.save()];
             case 2:
                 _b.sent();
-                // users.push(newUser)
-                res.status(201).json({ message: 'User registered successfully' });
                 return [3 /*break*/, 4];
             case 3:
                 error_1 = _b.sent();
