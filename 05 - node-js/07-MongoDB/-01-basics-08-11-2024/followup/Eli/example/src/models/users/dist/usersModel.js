@@ -14,8 +14,18 @@ var User = /** @class */ (function () {
 exports["default"] = User;
 exports.users = [];
 exports.UserSchema = new mongoose_1.Schema({
-    name: String,
-    email: String,
-    password: String
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    }
 });
 exports.UserModel = mongoose_1.model('User', exports.UserSchema); // collection name is 'users' by default
