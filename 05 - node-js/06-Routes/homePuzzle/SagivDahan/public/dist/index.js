@@ -53,7 +53,7 @@ function sendPostToServer() {
                     _b.label = 1;
                 case 1:
                     _b.trys.push([1, 4, , 5]);
-                    return [4 /*yield*/, fetch(editingPostId ? "/api/update-post/" + id : "/api/add-post", {
+                    return [4 /*yield*/, fetch(editingPostId ? "/api/post/update-post/" + id : "/api/post/add-post", {
                             method: editingPostId ? "PUT" : "POST",
                             headers: {
                                 "Content-Type": "application/json"
@@ -133,7 +133,7 @@ function deletePost(postId, postElement) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 5, , 6]);
-                    return [4 /*yield*/, fetch("/api/delete-post/" + postId, {
+                    return [4 /*yield*/, fetch("/api/post/delete-post/" + postId, {
                             method: "DELETE"
                         })];
                 case 1:
@@ -170,7 +170,7 @@ function loadPosts() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch("/api/get-posts")];
+                    return [4 /*yield*/, fetch("/api/post/get-posts")];
                 case 1:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
