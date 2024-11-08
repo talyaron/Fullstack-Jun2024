@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -10,7 +11,7 @@ app.use(express.static("public"));
 
 //DB
 const dbUrl =
-  "mongodb+srv://tal:k8w0S6ztTx3zowGW@cluster0.0hzknon.mongodb.net/";
+  "mongodb+srv://tal:k8w0S6ztTx3zowGW@cluster0.0hzknon.mongodb.net";
 const database = "fs-jun24";
 
 mongoose

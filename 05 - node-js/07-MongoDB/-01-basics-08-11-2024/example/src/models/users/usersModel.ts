@@ -1,3 +1,5 @@
+import { Schema, model } from 'mongoose';
+
 export default class User {
     id: string;
     name: string;
@@ -13,3 +15,12 @@ export default class User {
 }
 
 export const users: User[] = [];
+
+export const UserSchema = new Schema({
+    name: String,
+    email: String,
+    password: String
+})
+
+export const UserModel = model('User', UserSchema);
+
