@@ -39,24 +39,33 @@ exports.__esModule = true;
 exports.register = void 0;
 var usersModel_1 = require("../../models/users/usersModel");
 exports.register = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, name, email, password, existingUser, newUser;
+    var _a, name, email, password, newUser, error_1;
     return __generator(this, function (_b) {
-        _a = req.body, name = _a.name, email = _a.email, password = _a.password;
-        if (!name || email || !password) {
-            return [2 /*return*/, res.status(400).json({ message: 'Username and password are required' })];
+        switch (_b.label) {
+            case 0:
+                _a = req.body, name = _a.name, email = _a.email, password = _a.password;
+                console.log(name, email, password);
+                if (!name || !email || !password) {
+                    return [2 /*return*/, res
+                            .status(400)
+                            .json({ message: "Username and password are required" })];
+                }
+                _b.label = 1;
+            case 1:
+                _b.trys.push([1, 3, , 4]);
+                newUser = new usersModel_1.UserModel({ name: name, email: email, password: password });
+                return [4 /*yield*/, newUser.save()];
+            case 2:
+                _b.sent();
+                // users.push(newUser)
+                res.status(201).json({ message: "User registered successfully" });
+                return [3 /*break*/, 4];
+            case 3:
+                error_1 = _b.sent();
+                console.error(error_1);
+                res.status(500).json({ message: "Internal server error", error: error_1 });
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
-        try {
-            existingUser = usersModel_1.users.find(function (user) { return user.name === name; });
-            if (existingUser) {
-                return [2 /*return*/, res.status(409).json({ message: 'Username already exists' })];
-            }
-            newUser = new usersModel_1["default"](name, email, password);
-            usersModel_1.users.push(newUser);
-            res.status(201).json({ message: 'User registered successfully' });
-        }
-        catch (error) {
-            res.status(500).json({ message: 'Internal server error', error: error });
-        }
-        return [2 /*return*/];
     });
 }); };

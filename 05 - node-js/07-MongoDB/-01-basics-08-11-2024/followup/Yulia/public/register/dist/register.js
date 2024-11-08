@@ -35,25 +35,26 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var _this = this;
-var form = document.getElementById('registration-form');
+var form = document.getElementById("registration-form");
 if (!form) {
-    throw new Error('Could not find registration form');
+    throw new Error("Could not find registration form");
 }
-form.addEventListener('submit', function (event) { return __awaiter(_this, void 0, void 0, function () {
-    var formData, username, password, response, result;
+form.addEventListener("submit", function (event) { return __awaiter(_this, void 0, void 0, function () {
+    var formData, name, email, password, response, result;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 event.preventDefault();
                 formData = new FormData(form);
-                username = formData.get('username');
-                password = formData.get('password');
-                return [4 /*yield*/, fetch('/api/users/register', {
-                        method: 'POST',
+                name = formData.get("username");
+                email = formData.get("email");
+                password = formData.get("password");
+                return [4 /*yield*/, fetch("/api/users/register", {
+                        method: "POST",
                         headers: {
-                            'Content-Type': 'application/json'
+                            "Content-Type": "application/json"
                         },
-                        body: JSON.stringify({ username: username, password: password })
+                        body: JSON.stringify({ name: name, email: email, password: password })
                     })];
             case 1:
                 response = _a.sent();

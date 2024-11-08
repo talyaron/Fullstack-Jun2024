@@ -1,8 +1,8 @@
 import { users } from "../../models/users/usersModel";
 
 export const getUser = (req: any, res: any) => {
-  const { username, password } = req.body;
-  const trimmedUsername = username.trim();
+  const { name, password } = req.body;
+  const trimmedUsername = name.trim();
   const trimmedPassword = password.trim();
 
   console.log("Received username:", trimmedUsername);
@@ -10,7 +10,7 @@ export const getUser = (req: any, res: any) => {
   console.log("Current users:", users);
 
   const user = users.find(
-    (u) => u.username === username.trim() && u.password === password.trim()
+    (u) => u.name === name.trim() && u.password === password.trim()
   );
 
   if (user) {
