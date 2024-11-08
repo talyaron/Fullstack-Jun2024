@@ -18,8 +18,8 @@ mongoose_1["default"]
     console.error(err);
 });
 //routesD
-var postssRoutes_1 = require("./routes/postssRoutes");
-app.use("/api/users", postssRoutes_1["default"]);
+var usersRoutes_1 = require("./routes/usersRoutes");
+app.use("/api/users", usersRoutes_1["default"]);
 app.listen(port, function () {
     console.log("Server listening on port " + port);
 });

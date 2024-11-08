@@ -1,6 +1,5 @@
 import express from "express";
 import mongoose from "mongoose";
-
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -10,8 +9,7 @@ app.use(express.json()); // takes the header of the request and if it is json it
 app.use(express.static("public"));
 
 //DB
-const dbUrl =
-  "mongodb+srv://tal:k8w0S6ztTx3zowGW@cluster0.0hzknon.mongodb.net";
+const dbUrl = "mongodb+srv://tal:k8w0S6ztTx3zowGW@cluster0.0hzknon.mongodb.net";
 const database = "fs-jun24";
 
 mongoose
@@ -24,7 +22,7 @@ mongoose
   });
 
 //routesD
-import usersRoutes from "./routes/postssRoutes";
+import usersRoutes from "./routes/usersRoutes";
 app.use("/api/users", usersRoutes);
 
 app.listen(port, () => {
