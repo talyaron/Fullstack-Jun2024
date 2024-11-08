@@ -1,7 +1,7 @@
 import multer from "multer";
 import path from "path";
 import fs from "fs";
-import { posts } from "../../models/postsModel";
+import { PostModel } from "../../models/postsModel";
 import { uploadsDir } from "../../server";
 import { UserModel } from "../../models/userModel";
 
@@ -38,15 +38,15 @@ export const addPost=async(req: any, res: any) =>{
     if (img) {
       console.log(`Received word: ${title} ${description}, Image: ${img}`);
       const fullBodyImg = `http://localhost:3000/uploads/${img}`; 
-        const newPost = {
+        const newPost =await new PostModel({
         id: `id=${crypto.randomUUID()}`,
         title,
         description,
         img: fullBodyImg,
         creatorId,
         creatorName,
-      }; 
-      posts.unshift(newPost);
+      }); 
+      await newPost.save();
 
       // Here you would typically save newPost to a database or an array
       console.log(newPost); // Log the new post for debugging
@@ -56,15 +56,15 @@ export const addPost=async(req: any, res: any) =>{
       console.log(
         `Received word: ${title} ${description}, Image: no image by creator id${creatorId}`
       );
-      const newPost = {
+      const newPost =await new PostModel({
         id: `id=${crypto.randomUUID()}`,
         title,
         description,
         img,
         creatorId,
         creatorName,
-      }; // Create a new post object
-      posts.unshift(newPost);
+      }); // Create a new post object
+      await newPost.save();
     }
   } catch (error: unknown) {
     if (error instanceof Error) {

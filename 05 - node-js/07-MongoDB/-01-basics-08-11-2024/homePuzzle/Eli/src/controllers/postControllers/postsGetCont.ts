@@ -1,4 +1,4 @@
-import { posts } from "../../models/postsModel";
+import { PostModel } from "../../models/postsModel";
 import { UserModel } from "../../models/userModel";
 
 export const getPosts=async(req: any, res: any)=> {
@@ -10,7 +10,8 @@ export const getPosts=async(req: any, res: any)=> {
       res.json({ error: "invalid key", throwAway: "bad key" });
       return;
     }
-    const postsOfAll = posts.map((post) => {
+    const postsFromDB = await PostModel.find();  // Fetch posts using PostModel
+    const postsOfAll = postsFromDB.map((post) => {
       if (post.creatorId === keyOfUser.id) {
         post.userMade = true;
       } else {

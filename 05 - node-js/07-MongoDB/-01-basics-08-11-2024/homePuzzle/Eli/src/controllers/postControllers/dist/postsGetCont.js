@@ -40,11 +40,11 @@ exports.getPosts = void 0;
 var postsModel_1 = require("../../models/postsModel");
 var userModel_1 = require("../../models/userModel");
 exports.getPosts = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var key, keyOfUser_1, postsOfAll, error_1;
+    var key, keyOfUser_1, postsFromDB, postsOfAll, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 2, , 3]);
+                _a.trys.push([0, 3, , 4]);
                 key = req.body.key;
                 return [4 /*yield*/, userModel_1.UserModel.findOne({ key: key })];
             case 1:
@@ -53,7 +53,10 @@ exports.getPosts = function (req, res) { return __awaiter(void 0, void 0, void 0
                     res.json({ error: "invalid key", throwAway: "bad key" });
                     return [2 /*return*/];
                 }
-                postsOfAll = postsModel_1.posts.map(function (post) {
+                return [4 /*yield*/, postsModel_1.PostModel.find()];
+            case 2:
+                postsFromDB = _a.sent();
+                postsOfAll = postsFromDB.map(function (post) {
                     if (post.creatorId === keyOfUser_1.id) {
                         post.userMade = true;
                     }
@@ -63,8 +66,8 @@ exports.getPosts = function (req, res) { return __awaiter(void 0, void 0, void 0
                     return post;
                 });
                 res.json({ postsOfAll: postsOfAll });
-                return [3 /*break*/, 3];
-            case 2:
+                return [3 /*break*/, 4];
+            case 3:
                 error_1 = _a.sent();
                 if (error_1 instanceof Error) {
                     res.status(500).json({ error: error_1.message });
@@ -72,8 +75,8 @@ exports.getPosts = function (req, res) { return __awaiter(void 0, void 0, void 0
                 else {
                     res.status(500).json({ error: "An unknown error occurred." });
                 }
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); }; ///

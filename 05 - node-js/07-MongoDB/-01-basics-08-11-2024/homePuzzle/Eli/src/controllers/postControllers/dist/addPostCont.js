@@ -58,7 +58,7 @@ exports.addPost = function (req, res) { return __awaiter(void 0, void 0, void 0,
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _b.trys.push([0, 2, , 3]);
+                _b.trys.push([0, 8, , 9]);
                 _a = req.body, title = _a.title, description = _a.description, key = _a.key;
                 img = req.file ? req.file.filename : "";
                 if (!title)
@@ -74,36 +74,44 @@ exports.addPost = function (req, res) { return __awaiter(void 0, void 0, void 0,
                 }
                 creatorId = postCreator.id;
                 creatorName = postCreator.name;
-                if (img) {
-                    console.log("Received word: " + title + " " + description + ", Image: " + img);
-                    fullBodyImg = "http://localhost:3000/uploads/" + img;
-                    newPost = {
+                if (!img) return [3 /*break*/, 4];
+                console.log("Received word: " + title + " " + description + ", Image: " + img);
+                fullBodyImg = "http://localhost:3000/uploads/" + img;
+                return [4 /*yield*/, new postsModel_1.PostModel({
                         id: "id=" + crypto.randomUUID(),
                         title: title,
                         description: description,
                         img: fullBodyImg,
                         creatorId: creatorId,
                         creatorName: creatorName
-                    };
-                    postsModel_1.posts.unshift(newPost);
-                    // Here you would typically save newPost to a database or an array
-                    console.log(newPost); // Log the new post for debugging
-                    res.json({ message: "Word and image uploaded successfully!", newPost: newPost });
-                }
-                else {
-                    console.log("Received word: " + title + " " + description + ", Image: no image by creator id" + creatorId);
-                    newPost = {
+                    })];
+            case 2:
+                newPost = _b.sent();
+                return [4 /*yield*/, newPost.save()];
+            case 3:
+                _b.sent();
+                // Here you would typically save newPost to a database or an array
+                console.log(newPost); // Log the new post for debugging
+                res.json({ message: "Word and image uploaded successfully!", newPost: newPost });
+                return [3 /*break*/, 7];
+            case 4:
+                console.log("Received word: " + title + " " + description + ", Image: no image by creator id" + creatorId);
+                return [4 /*yield*/, new postsModel_1.PostModel({
                         id: "id=" + crypto.randomUUID(),
                         title: title,
                         description: description,
                         img: img,
                         creatorId: creatorId,
                         creatorName: creatorName
-                    };
-                    postsModel_1.posts.unshift(newPost);
-                }
-                return [3 /*break*/, 3];
-            case 2:
+                    })];
+            case 5:
+                newPost = _b.sent();
+                return [4 /*yield*/, newPost.save()];
+            case 6:
+                _b.sent();
+                _b.label = 7;
+            case 7: return [3 /*break*/, 9];
+            case 8:
                 error_1 = _b.sent();
                 if (error_1 instanceof Error) {
                     res.status(500).json({ error: error_1.message });
@@ -111,8 +119,8 @@ exports.addPost = function (req, res) { return __awaiter(void 0, void 0, void 0,
                 else {
                     res.status(500).json({ error: "An unknown error occurred." });
                 }
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+                return [3 /*break*/, 9];
+            case 9: return [2 /*return*/];
         }
     });
 }); };

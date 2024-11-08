@@ -1,10 +1,11 @@
-import { posts } from "../../models/postsModel";
+import { PostModel } from "../../models/postsModel";
 
-export function updatePost(req: any, res: any) {
+export const updatePost=async(req: any, res: any)=> {
   try {
     const { id, title, desc, img } = req.body;
 
-    const foundPost = posts.find((post) => post.id === id);
+    const foundPost = await PostModel.findOne({id:id});
+
     if (!foundPost) {
       res.json({ error: "No such post found" });
       return;
@@ -21,7 +22,7 @@ export function updatePost(req: any, res: any) {
     if (img && foundPost.img !== img) {
       foundPost.img = img;
     }
-
+  await  foundPost.save();
     res.json({
       message: `Updated Post ${foundPost.id} ${foundPost.img} - ${img} `,
     });
