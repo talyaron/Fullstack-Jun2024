@@ -8,12 +8,10 @@ app.use(express_1["default"].json()); // takes the header of the request and if 
 //header -> req.body
 app.use(express_1["default"].static('public'));
 //DB
-var dbUrl = "mongodb+srv://tal:k8w0S6ztTx3zowGW@cluster0.0hzknon.mongodb.net/";
+var dbUrl = "mongodb+srv://adhcsvi1:sagiv123@cluster0.qyh2p.mongodb.net/";
 var database = 'fs-jun24';
 mongoose_1["default"].connect(dbUrl + "/" + database).then(function () {
     console.info("DB connected");
-})["catch"](function (err) {
-    console.error(err);
 });
 //routesD
 var postssRoutes_1 = require("./routes/postssRoutes");
