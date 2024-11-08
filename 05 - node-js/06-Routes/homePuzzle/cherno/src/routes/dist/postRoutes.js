@@ -1,0 +1,15 @@
+"use strict";
+exports.__esModule = true;
+var express_1 = require("express");
+var getPosts_1 = require("../controllers/post/getPosts");
+var sendPost_1 = require("../controllers/post/sendPost");
+var editPost_1 = require("../controllers/post/editPost");
+var deletePost_1 = require("../controllers/post/deletePost");
+var getUserPosts_1 = require("../controllers/post/getUserPosts");
+var router = express_1["default"].Router();
+router.get('/get', getPosts_1.getPosts);
+router.get('/get-user', getUserPosts_1.getUserPosts);
+router.post('/send', sendPost_1.sendPost);
+router.patch('/edit', editPost_1.editPost);
+router["delete"]('/delete', deletePost_1.deletePost);
+exports["default"] = router;

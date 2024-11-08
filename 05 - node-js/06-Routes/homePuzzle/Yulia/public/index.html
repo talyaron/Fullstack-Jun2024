@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instagram</title>
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="./dist/style.css">
     <script src="./dist/index.js" defer></script>
 </head>
@@ -11,7 +12,7 @@
 
     <button onclick="goToLogin()">Go to Login</button>
     <button onclick="goToRegister()">Go to Register</button>
-
+    <div id="greeting"></div>
     <h1>Upload New Post</h1>
     <form onsubmit="handleSendPost(event)">
         <input type="text" name="title" placeholder="Post title" required>
