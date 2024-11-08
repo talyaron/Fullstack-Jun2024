@@ -13,17 +13,17 @@ app.use(express.json()); // takes the header of the request and if it is json it
 app.use(express.static('public'));
 
 //DB
-const dbUrl = "mongodb+srv://tal:k8w0S6ztTx3zowGW@cluster0.0hzknon.mongodb.net/"
+const dbUrl = "mongodb+srv://tal:k8w0S6ztTx3zowGW@cluster0.0hzknon.mongodb.net"
 const database = 'fs-jun24';
 
 mongoose.connect(`${dbUrl}/${database}`).then(()=>{
     console.info("DB connected")
-}).catch((error:any) => {
-    console.error(error);
+}).catch((err)=>{
+    console.error(err)
 });
 
 //routesD
-import usersRoutes from './routes/postssRoutes';
+import usersRoutes from './routes/usersRoutes';
 app.use("/api/users", usersRoutes);
 
 

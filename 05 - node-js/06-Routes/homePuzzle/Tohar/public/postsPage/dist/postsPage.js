@@ -55,7 +55,7 @@ function handleCreatePost(event) {
                 case 1:
                     _a.trys.push([1, 3, , 4]);
                     console.log('Sending post:', { caption: caption, imageURL: imageURL });
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/add-post', {
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/post/create-post', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ caption: caption, imageURL: imageURL })
@@ -84,7 +84,7 @@ function fetchPosts() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/get-posts')];
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/post/get-posts')];
                 case 1:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
@@ -116,7 +116,6 @@ function renderPosts(posts) {
 ;
 function renderPost(post) {
     try {
-        // changeFileToImage();
         var html = "\n        <div class=\"post\" id=\"post\">\n            <img src=\"" + post.imageURL + "\" id=\"imageURL-" + post.id + "\" alt=\"inputImage\" />\n            <h3 id=\"caption-" + post.id + "\">" + post.caption + "</h3>\n            <button onclick=\"handleEditCaption('" + post.id + "')\" >Edit</button>\n            <button onclick=\"handlDeletePost('" + post.id + "')\">Delete</button>\n            <button onclick=\"handleEditImage('" + post.id + "')\">Change Image</button>\n            <div id=\"editImageInput\"></div>\n        </div>\n        ";
         return html;
     }
@@ -148,7 +147,7 @@ function fetchEditedCaption(id, caption) {
         var response, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch('http://localhost:3000/api/update-post', {
+                case 0: return [4 /*yield*/, fetch('http://localhost:3000/api/post/edit-caption/update-post', {
                         method: 'PATCH',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ id: id, caption: caption })
@@ -194,7 +193,7 @@ function fethcChangeImage(image, id) {
         var response, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch('http://localhost:3000/api/update-post-image', {
+                case 0: return [4 /*yield*/, fetch('http://localhost:3000/api/post/update-image', {
                         method: 'PATCH',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ image: image, id: id })
@@ -221,7 +220,7 @@ function handlDeletePost(id) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/delete-post', {
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/post/delete-post', {
                             method: 'DELETE',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ id: id })

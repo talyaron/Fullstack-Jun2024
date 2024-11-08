@@ -9,7 +9,8 @@ form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const formData = new FormData(form as HTMLFormElement);
-    const username = formData.get('username') as string;
+    const name = formData.get('username') as string;
+    const email = formData.get('email') as string;
     const password = formData.get('password') as string;
 
     const response = await fetch('/api/users/register', {
@@ -17,7 +18,7 @@ form.addEventListener('submit', async (event) => {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ name,email, password }),
     });
 
     const result = await response.json();
