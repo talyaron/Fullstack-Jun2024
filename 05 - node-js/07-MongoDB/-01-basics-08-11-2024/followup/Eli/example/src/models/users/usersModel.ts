@@ -16,9 +16,20 @@ export default class User {
 
 export const users: User[] = [];
 
-export const UerSchema=new Schema(
+export const UserSchema=new Schema(
 {
-    name:String,
-    email:String,
-    password:String,
+    name: {
+        type: String,
+        required: true
+    }, 
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    }
 });
+export const UserModel = model('User', UserSchema); // collection name is 'users' by default
