@@ -10,7 +10,7 @@ async function sendPostToServer() {
     const post = { id, title, description, username, imgUrl };
 
     try {
-        const response = await fetch(editingPostId ? `/api/update-post/${id}` : "/api/add-post", {
+        const response = await fetch(editingPostId ? `/api/post/update-post/${id}` : "/api/post/add-post", {
             method: editingPostId ? "PUT" : "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -87,7 +87,7 @@ document.getElementById("send")?.addEventListener("click", sendPostToServer);
 
 async function deletePost(postId: string, postElement: HTMLElement) {
     try {
-        const response = await fetch(`/api/delete-post/${postId}`, {
+        const response = await fetch(`/api/post/delete-post/${postId}`, {
             method: "DELETE",
         });
 
@@ -112,7 +112,7 @@ function removePostFromLocalStorage(postId: string) {
 
 async function loadPosts() {
     try {
-        const response = await fetch("/api/get-posts");
+        const response = await fetch("/api/post/get-posts");
         const data = await response.json();
         
         data.posts.forEach((post: any) => {
