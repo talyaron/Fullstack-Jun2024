@@ -20,7 +20,20 @@ body {
 
 .container {
     @include flex-center;
+    flex-direction: column;
     height: 100vh;
+}
+
+.register-container {
+    @include flex-center;
+    flex-direction: column;
+}
+
+.register-container h2 {
+    margin-bottom: 1rem;
+    color: $primary-color;
+    font-size: 2rem;
+    text-align: center;
 }
 
 .register-form {
@@ -30,11 +43,6 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
-}
-
-.register-form h2 {
-    margin-bottom: 1.5rem;
-    color: $primary-color;
 }
 
 .register-form .form-group {
@@ -68,13 +76,5 @@ body {
 
     &:hover {
         background-color: darken($primary-color, 10%);
-    }
-}
-
-.register-form .secondary-button {
-    background-color: $secondary-color;
-
-    &:hover {
-        background-color: darken($secondary-color, 10%);
     }
 }

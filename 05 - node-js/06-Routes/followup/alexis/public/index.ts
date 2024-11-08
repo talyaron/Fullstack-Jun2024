@@ -1,4 +1,4 @@
-interface Post {
+export interface Post {
     title: string;
     text: string;
     imageURL: string;
@@ -6,7 +6,6 @@ interface Post {
     editTitle?: boolean;
     editText?: boolean;
 }
-
 async function handleSendPost(event: Event) {
     event.preventDefault();
     const form = event.target as HTMLFormElement;

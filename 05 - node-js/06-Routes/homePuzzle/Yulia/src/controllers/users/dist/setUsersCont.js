@@ -4,6 +4,7 @@ exports.createUser = void 0;
 var usersModel_1 = require("../../models/users/usersModel");
 var crypto_1 = require("crypto");
 function createUser(req, res) {
+    console.log("Received data on server:", req.body); // Debugging line
     var _a = req.body, username = _a.username, password = _a.password, email = _a.email;
     if (!username || !password) {
         return res
