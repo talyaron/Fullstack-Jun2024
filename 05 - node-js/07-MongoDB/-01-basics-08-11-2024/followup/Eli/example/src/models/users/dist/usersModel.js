@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.UerSchema = exports.users = void 0;
+exports.UserModel = exports.UserSchema = exports.users = void 0;
 var mongoose_1 = require("mongoose");
 var User = /** @class */ (function () {
     function User(name, email, password) {
@@ -13,8 +13,19 @@ var User = /** @class */ (function () {
 }());
 exports["default"] = User;
 exports.users = [];
-exports.UerSchema = new mongoose_1.Schema({
-    name: String,
-    email: String,
-    password: String
+exports.UserSchema = new mongoose_1.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    }
 });
+exports.UserModel = mongoose_1.model('User', exports.UserSchema); // collection name is 'users' by default
