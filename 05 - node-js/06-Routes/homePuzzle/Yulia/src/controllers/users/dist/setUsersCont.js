@@ -4,16 +4,16 @@ exports.createUser = void 0;
 var usersModel_1 = require("../../models/users/usersModel");
 var crypto_1 = require("crypto");
 function createUser(req, res) {
-    console.log("Received data on server:", req.body); // Debugging line
-    var _a = req.body, username = _a.username, password = _a.password, email = _a.email;
-    if (!username || !password) {
+    var _a = req.body, name = _a.name, email = _a.email, password = _a.password;
+    console.log(name, email, password);
+    if (!name || !password) {
         return res
             .status(400)
             .json({ message: "Username and password are required" });
     }
     var newUser = {
         id: "Id-" + crypto_1["default"].randomUUID(),
-        username: username,
+        name: name,
         password: password,
         email: email
     };
