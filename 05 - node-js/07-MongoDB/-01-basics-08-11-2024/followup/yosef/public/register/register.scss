@@ -1,0 +1,64 @@
+$font-family: Arial, sans-serif;
+$background-color: #f4f4f4;
+$container-bg-color: #fff;
+$box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+$border-radius: 8px;
+$text-color: #333;
+$input-border-color: #ccc;
+$button-bg-color: #5cb85c;
+$button-hover-bg-color: #4cae4c;
+$button-text-color: #fff;
+
+body {
+    font-family: $font-family;
+    background-color: $background-color;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: $container-bg-color;
+    box-shadow: $box-shadow;
+    border-radius: $border-radius;
+}
+
+h2 {
+    text-align: center;
+    color: $text-color;
+}
+
+.form-group {
+    margin-bottom: 15px;
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        color: $text-color;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid $input-border-color;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: $button-bg-color;
+    color: $button-text-color;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+
+    &:hover {
+        background-color: $button-hover-bg-color;
+    }
+}
