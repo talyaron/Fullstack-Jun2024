@@ -1,9 +1,10 @@
 // postsRoute.ts
 
-import { Router } from 'express';
+import express from 'express';
 import { addPost, getPosts, updatePost, deletePost } from '../controller/postsController';
 
-const router = Router();
+
+const router = express.Router()
 
 router.post('/api/add-post', addPost);
 router.get('/api/get-posts', getPosts);

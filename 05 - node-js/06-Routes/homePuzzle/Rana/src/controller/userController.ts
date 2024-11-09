@@ -1,6 +1,7 @@
 // userController.ts
 
 import { Request, Response } from 'express';
+import { users } from '../models/userModel';
 
 export const registerUser = (req: Request, res: Response) => {
   const { fullName, email, password } = req.body;

@@ -1,9 +1,9 @@
 // userRoute.ts
 
-import { Router } from 'express';
+import express from 'express';
 import { registerUser, loginUser } from '../controller/userController';
 
-const router = Router();
+const router = express.Router()
 
 router.post('/api/register', registerUser);
 router.post('/api/login', loginUser);

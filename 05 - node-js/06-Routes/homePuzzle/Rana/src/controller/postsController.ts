@@ -1,14 +1,9 @@
 // postsController.ts
 
 import { Request, Response } from 'express';
+import { posts } from '../models/postsModel';
+import { randomUUID } from 'crypto';
 
-interface Post {
-  title: string;
-  text: string;
-  imageURL: string;
-}
-
-const posts: Post[] = [];
 
 export const addPost = (req: Request, res: Response) => {
   const { title, text, imageURL } = req.body;
