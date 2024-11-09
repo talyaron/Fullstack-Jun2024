@@ -30,7 +30,6 @@ async function handleSendPost1(event: Event) {
 
 async function handleUpdatePost(index: number, field: 'title' | 'text' | 'imageURL', value: string) {
   try {
-    
     const response = await fetch(`http://localhost:3000/api/update-post/${index}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -65,6 +64,7 @@ function updateLocalPost(index: number, field: 'title' | 'text' | 'imageURL', va
     
     element.textContent = value;
   }
+   fetchPosts();
 }
 
 async function handleDeletePost(index: number) {
@@ -131,6 +131,7 @@ async function fetchPosts() {
 
       feedElement.appendChild(postElement);
     });
+
   } catch (error) {
     console.error("Error fetching posts:", error);
   }
@@ -150,6 +151,7 @@ function makeEditable(elementId: string, index: number, field: 'title' | 'text' 
   input.className = 'edit-input';
   
   input.onblur = async () => {
+    input.onblur = null;
     await handleUpdatePost(index, field, input.value);
     if (field === 'imageURL') {
       (element as HTMLInputElement).value = input.value;

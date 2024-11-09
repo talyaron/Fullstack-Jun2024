@@ -24,6 +24,7 @@ export const getPosts = (req: Request, res: Response) => {
 export const updatePost = (req: Request, res: Response) => {
   const index = parseInt(req.params.index);
   const { title, text, imageURL } = req.body;
+ 
 
   if (isNaN(index) || index < 0 || index >= posts.length) {
     return res.status(400).json({ error: "Invalid index" });
