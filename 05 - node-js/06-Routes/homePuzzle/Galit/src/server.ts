@@ -1,7 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import session from 'express-session';
-import path from 'path';
 
 import FileStore from 'session-file-store';
 import postsRoute from './routes/postsRoute';
@@ -17,8 +16,7 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(
     session({
-        store: new FileSessionStore({ path: path.join(__dirname, 'sessions') }),
-        secret: 'your_secret_key',
+        secret: 'your_secret_key',   
         resave: false,
         saveUninitialized: false,
         cookie: { secure: false },
@@ -28,8 +26,8 @@ app.use(
 
 
 app.use('/api/posts', postsRoute);
-app.use('/api/users', userRoute);
 
+app.use('/api/users', userRoute);
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });

@@ -1,36 +1,29 @@
-const registerForm = document.getElementById('registration-form') as HTMLFormElement;
+const form = document.getElementById('registration-form');
+if (!form) {
+    throw new Error('Could not find registration form');
+}
 
-registerForm.addEventListener('submit', async (event) => {
+form.addEventListener('submit', async (event) => {
     event.preventDefault();
-    const formData = new FormData(registerForm);
-    let username = formData.get('username') as string;
+
+    const formData = new FormData(form as HTMLFormElement);
+    const name = formData.get('username') as string;
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
-    const confirmPassword = formData.get('confirm-password') as string;
-
-    username = username.toLowerCase();
-    if (password !== confirmPassword) {
-        alert('Passwords do not match');
-        return;
-    }
-
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-        alert('Please enter a valid email address');
-        return;
-    }
 
     const response = await fetch('/api/users/register', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, email, password })
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, password }),
     });
 
+    const result = await response.json();
     if (response.ok) {
-        alert('Registration successful');
-        window.location.href = '../index.html';
+        console.log(result.message);
+        window.location.href = '../index.html'; 
     } else {
-        alert('Registration failed');
+        console.error('Registration failed:', result.message);
     }
 });
-

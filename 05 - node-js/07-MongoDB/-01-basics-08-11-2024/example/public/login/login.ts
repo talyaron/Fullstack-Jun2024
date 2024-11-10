@@ -26,4 +26,4 @@ async function handleLogin(ev): Promise<void> {
     }
 }
 
-// Example usage:
+

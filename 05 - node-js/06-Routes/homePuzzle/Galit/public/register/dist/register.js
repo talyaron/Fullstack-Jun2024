@@ -35,41 +35,38 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var _this = this;
-var registerForm = document.getElementById('registration-form');
-registerForm.addEventListener('submit', function (event) { return __awaiter(_this, void 0, void 0, function () {
-    var formData, username, email, password, confirmPassword, emailPattern, response;
+var form = document.getElementById('registration-form');
+if (!form) {
+    throw new Error('Could not find registration form');
+}
+form.addEventListener('submit', function (event) { return __awaiter(_this, void 0, void 0, function () {
+    var formData, name, email, password, response, result;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 event.preventDefault();
-                formData = new FormData(registerForm);
-                username = formData.get('username');
+                formData = new FormData(form);
+                name = formData.get('username');
                 email = formData.get('email');
                 password = formData.get('password');
-                confirmPassword = formData.get('confirm-password');
-                username = username.toLowerCase();
-                if (password !== confirmPassword) {
-                    alert('Passwords do not match');
-                    return [2 /*return*/];
-                }
-                emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailPattern.test(email)) {
-                    alert('Please enter a valid email address');
-                    return [2 /*return*/];
-                }
                 return [4 /*yield*/, fetch('/api/users/register', {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ username: username, email: email, password: password })
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ name: name, email: email, password: password })
                     })];
             case 1:
                 response = _a.sent();
+                return [4 /*yield*/, response.json()];
+            case 2:
+                result = _a.sent();
                 if (response.ok) {
-                    alert('Registration successful');
+                    console.log(result.message);
                     window.location.href = '../index.html';
                 }
                 else {
-                    alert('Registration failed');
+                    console.error('Registration failed:', result.message);
                 }
                 return [2 /*return*/];
         }

@@ -1,52 +1,45 @@
-// controllers/userController.ts
-import { users } from '../models/userModel';
+import { users, User } from '../models/userModel';
 
-async function getUserByUsername(username: string) {
-    return users.find(user => user.username === username);
-}
+export const register = async (req: any, res: any) => {
+    const { name, email, password } = req.body;
 
-async function verifyPassword(inputPassword: string, storedPassword: string) {
-    return inputPassword === storedPassword;
-}
-
-export const registerUser = async (req: any, res: any) => {
-    const { username, password } = req.body;
-
-    if (users.some(user => user.username === username)) {
-        return res.status(409).json({ message: 'Username already exists' });
+    if (!name || !email || !password) {
+        return res.status(400).json({ message: 'Username, email, and password are required' });
     }
 
-    users.push({ username, password });
-    req.session.user = { username };
-    res.json({ message: 'Registered successfully' });
+    const existingUser = users.find((user) => user.email === email);
+    if (existingUser) {
+        return res.status(409).json({ message: 'Email already registered' });
+    }
+
+    const newUser = new User(name, email, password);
+    users.push(newUser);
+
+    res.status(201).json({ message: 'User registered successfully' });
 };
 
-export const loginUser = async (req: any, res: any) => {
-    const { username, password } = req.body;
-    const user = await getUserByUsername(username);
+export const login = async (req: any, res: any) => {
+    const { email, password } = req.body;
 
+    if (!email || !password) {
+        return res.status(400).json({ message: 'Email and password are required' });
+    }
+
+    const user = users.find((user) => user.email === email && user.password === password);
     if (!user) {
-        return res.status(401).json({ message: 'User not registered' });
+        return res.status(401).json({ message: 'Invalid email or password' });
     }
 
-    const passwordIsCorrect = await verifyPassword(password, user.password);
-    if (!passwordIsCorrect) {
-        return res.status(401).json({ message: 'Incorrect password' });
-    }
-
-    req.session.user = { username };
-    res.status(200).json({ message: 'Login successful' });
+    req.session.user = { email };
+    res.status(200).json({ message: 'Login successful', user: { name: user.username, email: user.email } });
 };
 
 
-export const logoutUser = (req: any, res: any) => {
-    req.session.destroy(() => res.json({ message: 'Logged out successfully' }));
+export const logout = (req: any, res: any) => {
+    req.session.destroy((err: Error | null) => {
+        if (err) {
+            return res.status(500).json({ message: 'Logout failed' });
+        }
+        res.status(200).json({ message: 'Logged out successfully' });
+    });
 };
-
-export const checkSession = (req: any, res: any) => {
-    if (req.session.user) {
-        res.status(200).json({ user: req.session.user });
-    } else {
-        res.status(401).json({ message: 'No active session' });
-    }
-}
