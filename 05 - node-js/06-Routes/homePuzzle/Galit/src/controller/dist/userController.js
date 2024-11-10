@@ -36,60 +36,46 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.logoutUser = exports.loginUser = exports.registerUser = void 0;
-// controllers/userController.ts
+exports.logout = exports.login = exports.register = void 0;
 var userModel_1 = require("../models/userModel");
-function getUserByUsername(username) {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            return [2 /*return*/, userModel_1.users.find(function (user) { return user.username === username; })];
-        });
-    });
-}
-function verifyPassword(inputPassword, storedPassword) {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            return [2 /*return*/, inputPassword === storedPassword];
-        });
-    });
-}
-exports.registerUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, username, password;
+exports.register = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, name, email, password, existingUser, newUser;
     return __generator(this, function (_b) {
-        _a = req.body, username = _a.username, password = _a.password;
-        if (userModel_1.users.some(function (user) { return user.username === username; })) {
-            return [2 /*return*/, res.status(409).json({ message: 'Username already exists' })];
+        _a = req.body, name = _a.name, email = _a.email, password = _a.password;
+        if (!name || !email || !password) {
+            return [2 /*return*/, res.status(400).json({ message: 'Username, email, and password are required' })];
         }
-        userModel_1.users.push({ username: username, password: password });
-        req.session.user = { username: username };
-        res.json({ message: 'Registered successfully' });
+        existingUser = userModel_1.users.find(function (user) { return user.email === email; });
+        if (existingUser) {
+            return [2 /*return*/, res.status(409).json({ message: 'Email already registered' })];
+        }
+        newUser = new userModel_1.User(name, email, password);
+        userModel_1.users.push(newUser);
+        res.status(201).json({ message: 'User registered successfully' });
         return [2 /*return*/];
     });
 }); };
-exports.loginUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, username, password, user, passwordIsCorrect;
+exports.login = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, email, password, user;
     return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                _a = req.body, username = _a.username, password = _a.password;
-                return [4 /*yield*/, getUserByUsername(username)];
-            case 1:
-                user = _b.sent();
-                if (!user) {
-                    return [2 /*return*/, res.status(401).json({ message: 'User not registered' })];
-                }
-                return [4 /*yield*/, verifyPassword(password, user.password)];
-            case 2:
-                passwordIsCorrect = _b.sent();
-                if (!passwordIsCorrect) {
-                    return [2 /*return*/, res.status(401).json({ message: 'Incorrect password' })];
-                }
-                req.session.user = { username: username };
-                res.status(200).json({ message: 'Login successful' });
-                return [2 /*return*/];
+        _a = req.body, email = _a.email, password = _a.password;
+        if (!email || !password) {
+            return [2 /*return*/, res.status(400).json({ message: 'Email and password are required' })];
         }
+        user = userModel_1.users.find(function (user) { return user.email === email && user.password === password; });
+        if (!user) {
+            return [2 /*return*/, res.status(401).json({ message: 'Invalid email or password' })];
+        }
+        req.session.user = { email: email };
+        res.status(200).json({ message: 'Login successful', user: { name: user.username, email: user.email } });
+        return [2 /*return*/];
     });
 }); };
-exports.logoutUser = function (req, res) {
-    req.session.destroy(function () { return res.json({ message: 'Logged out successfully' }); });
+exports.logout = function (req, res) {
+    req.session.destroy(function (err) {
+        if (err) {
+            return res.status(500).json({ message: 'Logout failed' });
+        }
+        res.status(200).json({ message: 'Logged out successfully' });
+    });
 };

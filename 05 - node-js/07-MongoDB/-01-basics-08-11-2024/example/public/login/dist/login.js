@@ -72,4 +72,3 @@ function handleLogin(ev) {
         });
     });
 }
-// Example usage:

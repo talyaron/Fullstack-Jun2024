@@ -4,11 +4,8 @@ import { addPost, getPosts, deletePost, editPost } from '../controller/postsCont
 const router = express.Router();
 
 router.post('/add-post', addPost);
-
 router.get('/get-posts', getPosts);
-
-router.delete('/delete-post', deletePost);
-
-router.put('/edit-post', editPost);
+router.delete('/delete-post/:id', deletePost);
+router.put('/edit-post/:id', editPost);
 
 export default router;

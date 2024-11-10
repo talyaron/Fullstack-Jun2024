@@ -49,7 +49,8 @@ function addPost(req, res) {
             }
             id = crypto_1.randomUUID();
             postsModel_1.posts.push({ id: id, title: title, text: text, image: image });
-            res.status(201).json({ message: "Post added successfully" });
+            console.log("Added post: " + id);
+            res.status(201).json({ message: "Post added successfully", id: id });
             return [2 /*return*/];
         });
     });
@@ -68,15 +69,15 @@ function deletePost(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var id, postIndex;
         return __generator(this, function (_a) {
-            id = req.body.id;
-            if (!id) {
-                return [2 /*return*/, res.status(400).json({ error: "Post ID is required" })];
-            }
+            id = req.params.id;
+            console.log("Deleting post with id: " + id);
             postIndex = postsModel_1.posts.findIndex(function (post) { return post.id === id; });
             if (postIndex === -1) {
+                console.log("Post with id " + id + " not found");
                 return [2 /*return*/, res.status(404).json({ error: "Post not found" })];
             }
             postsModel_1.posts.splice(postIndex, 1);
+            console.log("Post with id " + id + " deleted");
             res.status(200).json({ message: "Post deleted successfully" });
             return [2 /*return*/];
         });
@@ -85,14 +86,14 @@ function deletePost(req, res) {
 exports.deletePost = deletePost;
 function editPost(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, id, title, text, image, post;
+        var id, _a, title, text, image, post;
         return __generator(this, function (_b) {
-            _a = req.body, id = _a.id, title = _a.title, text = _a.text, image = _a.image;
-            if (!id) {
-                return [2 /*return*/, res.status(400).json({ error: "Post ID is required" })];
-            }
+            id = req.params.id;
+            _a = req.body, title = _a.title, text = _a.text, image = _a.image;
+            console.log("Editing post with id: " + id);
             post = postsModel_1.posts.find(function (post) { return post.id === id; });
             if (!post) {
+                console.log("Post with id " + id + " not found");
                 return [2 /*return*/, res.status(404).json({ error: "Post not found" })];
             }
             if (title !== undefined)
@@ -101,6 +102,7 @@ function editPost(req, res) {
                 post.text = text;
             if (image !== undefined)
                 post.image = image;
+            console.log("Post with id " + id + " updated");
             res.status(200).json({ message: "Post updated successfully" });
             return [2 /*return*/];
         });

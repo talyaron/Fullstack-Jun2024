@@ -34,38 +34,47 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
 var loginForm = document.getElementById('login-form');
-loginForm.addEventListener('submit', function (event) { return __awaiter(_this, void 0, void 0, function () {
-    var formData, username, password, response, errorData;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                event.preventDefault();
-                formData = new FormData(loginForm);
-                username = formData.get('username');
-                password = formData.get('password');
-                return [4 /*yield*/, fetch('/api/users/login', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ username: username, password: password })
-                    })];
-            case 1:
-                response = _a.sent();
-                if (!response.ok) return [3 /*break*/, 2];
-                window.location.href = '../index.html';
-                return [3 /*break*/, 4];
-            case 2: return [4 /*yield*/, response.json()];
-            case 3:
-                errorData = _a.sent();
-                if (response.status === 401) {
-                    alert(errorData.message);
-                }
-                else {
-                    alert('Login failed');
-                }
-                _a.label = 4;
-            case 4: return [2 /*return*/];
-        }
+if (loginForm) {
+    loginForm.addEventListener('submit', handleLogin);
+}
+function handleLogin(ev) {
+    return __awaiter(this, void 0, Promise, function () {
+        var form, formData, email, password, response, data, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    ev.preventDefault();
+                    form = ev.target;
+                    formData = new FormData(form);
+                    email = formData.get('email');
+                    password = formData.get('password');
+                    return [4 /*yield*/, fetch('/api/users/login', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            credentials: 'include',
+                            body: JSON.stringify({ email: email, password: password })
+                        })];
+                case 1:
+                    response = _a.sent();
+                    if (!response.ok) {
+                        throw new Error('Login failed');
+                    }
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    data = _a.sent();
+                    console.log('Login successful', data);
+                    window.location.href = '../index.html';
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_1 = _a.sent();
+                    console.error('Login failed', error_1);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
     });
-}); });
+}

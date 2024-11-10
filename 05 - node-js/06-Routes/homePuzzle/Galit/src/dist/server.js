@@ -14,7 +14,6 @@ app.use(body_parser_1["default"].urlencoded({ limit: '10mb', extended: true }));
 app.use(body_parser_1["default"].json());
 app.use(express_1["default"].static('public'));
 app.use(express_session_1["default"]({
-    store: new FileSessionStore(),
     secret: 'your_secret_key',
     resave: false,
     saveUninitialized: false,

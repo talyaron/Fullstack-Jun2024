@@ -1,25 +1,36 @@
-const loginForm = document.getElementById('login-form') as HTMLFormElement;
+const loginForm = document.getElementById('login-form');
+if (loginForm) {
+    loginForm.addEventListener('submit', handleLogin);
+}
 
-loginForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const formData = new FormData(loginForm);
-    const username = formData.get('username') as string;
-    const password = formData.get('password') as string;
+async function handleLogin(ev): Promise<void> {
+    try {
+        ev.preventDefault();
 
-    const response = await fetch('/api/users/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-    });
+        const form = ev.target;
+        const formData = new FormData(form);
+        const email = formData.get('email') as string;
+        const password = formData.get('password') as string;
 
-    if (response.ok) {
-        window.location.href = '../index.html';
-    } else {
-        const errorData = await response.json();
-        if (response.status === 401) {
-            alert(errorData.message); 
-        } else {
-            alert('Login failed');
+        const response = await fetch('/api/users/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',  
+            body: JSON.stringify({ email, password })
+        });
+
+        if (!response.ok) {
+            throw new Error('Login failed');
         }
+
+        const data = await response.json();
+        console.log('Login successful', data);
+
+        window.location.href = '../index.html';
+        
+    } catch (error) {
+        console.error('Login failed', error);
     }
-});
+}

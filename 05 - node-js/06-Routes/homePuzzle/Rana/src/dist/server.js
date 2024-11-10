@@ -12,8 +12,8 @@ app.use(cors_1["default"]());
 app.use(body_parser_1["default"].json());
 app.use(express_1["default"].static('public'));
 // שימוש בקבצי הנתיבים
-app.use(postsRoute_1["default"]);
-app.use(userRoute_1["default"]);
+app.use("/api", postsRoute_1["default"]);
+app.use("/api", userRoute_1["default"]);
 app.listen(port, function () {
     console.log("Server listening on port " + port);
 });

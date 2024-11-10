@@ -1,4 +1,3 @@
-import { Request, Response } from 'express';
 import User, {users} from '../../models/users/usersModel';
 
 export const register = async (req: any, res: any) => {

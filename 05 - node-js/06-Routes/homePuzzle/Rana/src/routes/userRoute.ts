@@ -1,6 +1,7 @@
 // userRoute.ts
 
-import express from 'express';
+
+const express = require("express");
 import { registerUser, loginUser } from '../controller/userController';
 
 const router = express.Router()
