@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.logoutUser = exports.loginUser = exports.registerUser = void 0;
+exports.checkSession = exports.logoutUser = exports.loginUser = exports.registerUser = void 0;
 // controllers/userController.ts
 var userModel_1 = require("../models/userModel");
 function getUserByUsername(username) {
@@ -92,4 +92,12 @@ exports.loginUser = function (req, res) { return __awaiter(void 0, void 0, void 
 }); };
 exports.logoutUser = function (req, res) {
     req.session.destroy(function () { return res.json({ message: 'Logged out successfully' }); });
+};
+exports.checkSession = function (req, res) {
+    if (req.session.user) {
+        res.status(200).json({ user: req.session.user });
+    }
+    else {
+        res.status(401).json({ message: 'No active session' });
+    }
 };

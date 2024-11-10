@@ -1,6 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import session from 'express-session';
+import path from 'path';
+
 import FileStore from 'session-file-store';
 import postsRoute from './routes/postsRoute';
 import userRoute from './routes/userRoute';
@@ -15,7 +17,7 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(
     session({
-        store: new FileSessionStore(),
+        store: new FileSessionStore({ path: path.join(__dirname, 'sessions') }),
         secret: 'your_secret_key',
         resave: false,
         saveUninitialized: false,

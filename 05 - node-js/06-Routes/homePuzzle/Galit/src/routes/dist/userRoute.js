@@ -6,4 +6,5 @@ var router = express_1["default"].Router();
 router.post('/register', userController_1.registerUser);
 router.post('/login', userController_1.loginUser);
 router.post('/logout', userController_1.logoutUser);
+router.get('/session', userController_1.checkSession);
 exports["default"] = router;

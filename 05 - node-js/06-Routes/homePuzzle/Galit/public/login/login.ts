@@ -23,3 +23,18 @@ loginForm.addEventListener('submit', async (event) => {
         }
     }
 });
+
+async function checkSession() {
+    try {
+        const response = await fetch('/api/users/session');
+        if (response.ok) {
+            window.location.href = '../index.html';
+        } else {
+            console.log('No active session');
+        }
+    } catch (error) {
+        console.error('Error checking session:', error);
+    }
+}
+
+checkSession();

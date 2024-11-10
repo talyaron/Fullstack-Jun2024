@@ -38,6 +38,15 @@ export const loginUser = async (req: any, res: any) => {
     res.status(200).json({ message: 'Login successful' });
 };
 
+
 export const logoutUser = (req: any, res: any) => {
     req.session.destroy(() => res.json({ message: 'Logged out successfully' }));
 };
+
+export const checkSession = (req: any, res: any) => {
+    if (req.session.user) {
+        res.status(200).json({ user: req.session.user });
+    } else {
+        res.status(401).json({ message: 'No active session' });
+    }
+}
