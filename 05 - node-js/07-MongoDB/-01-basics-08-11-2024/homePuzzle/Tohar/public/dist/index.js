@@ -77,9 +77,9 @@ function handleFormLogin(event) {
                     data = _a.sent();
                     if (response.ok) {
                         alert('Login successful');
-                        setTimeout(function () {
-                            window.location.href = "./postsPage/postsPage.html";
-                        }, 3000);
+                        // setTimeout(() => {
+                        //     window.location.href = "./postsPage/postsPage.html";
+                        // }, 3000)
                     }
                     else {
                         alert(data.message);
@@ -94,4 +94,24 @@ function navigataToSignup() {
     window.location.href = "./signup/signup.html";
 }
 ;
+// async function userExists(email: string) {
+//     try {
+//         const response = await fetch(`http://localhost:3000/api/user-exists?email=${encodeURIComponent(email)}`);
+//         const data = await response.json();
+//         return data.exists;
+//     } catch (error) {
+//         console.error("Error checking user existence:", error);
+//         return false;
+//     }
+// }
+// async function passwordNotCorrect(password: string) {
+//     try {
+//         const response = await fetch(`http://localhost:3000/api/get-user?password=${encodeURIComponent(password)}`);
+//         const data = await response.json();
+//         return data.passwordNotCorrect;
+//     } catch (error) {
+//         console.error("Error checking user existence:", error);
+//         return false;
+//     }
+// }
 renderLoginPage();

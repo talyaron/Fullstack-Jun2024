@@ -4,8 +4,6 @@ type Post = {
     id:string
 };
 
-
-
 function renderMainPage() {
     const html = `
     <h1>New Post</h1>
@@ -56,9 +54,6 @@ async function fetchPosts() {
 
         const response = await fetch('http://localhost:3000/api/post/get-posts');
         const data = await response.json();
-
-        // const feedElement = document.getElementById("feed");
-        // if (!feedElement) throw new Error("Feed element not found");
 
         renderPosts(data.posts);
     } catch (error) {
@@ -119,7 +114,7 @@ function handleEditCaption(id: string) {
 
 async function fetchEditedCaption(id: string, caption:string) {
     
-    const response = await fetch('http://localhost:3000/api/post/edit-caption/update-post', {
+    const response = await fetch('http://localhost:3000/api/post/edit-caption', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({id, caption}),
@@ -155,6 +150,7 @@ function handleEditImage(id: string) {
 };
 
 function changeImage(id: string) {
+    console.log('cd vs', id);
     const inputValue = (document.getElementById('imageInput') as HTMLInputElement).value;
     if(!inputValue) throw new Error('image input not found');
 
@@ -173,7 +169,7 @@ async function fethcChangeImage(image:string, id:string) {
 
     const data = await response.json();
     fetchPosts();
-}
+};
 
 
 async function handlDeletePost(id: string) {
@@ -186,7 +182,7 @@ async function handlDeletePost(id: string) {
         });
         console.log('in delete');
         if (!response.ok) {
-            console.error("Failed to update title:", response.statusText);
+            console.error("Failed to delete post:", response.statusText);
             return;
         }
         const data = await response.json();
