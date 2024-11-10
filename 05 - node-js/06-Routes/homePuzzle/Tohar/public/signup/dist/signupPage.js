@@ -78,7 +78,7 @@ function userExists(email) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch("http://localhost:3000/api/user-exists?email=" + encodeURIComponent(email))];
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/user/userExists?email=" + encodeURIComponent(email))];
                 case 1:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
@@ -101,7 +101,7 @@ function addUser(userName, phoneNumber, email, password) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/add-user', {
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/user/signupUser', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ userName: userName, phoneNumber: phoneNumber, email: email, password: password })

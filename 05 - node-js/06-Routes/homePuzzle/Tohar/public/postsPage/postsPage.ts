@@ -1,6 +1,12 @@
+type Post = {
+    caption: string,
+    imageURL: string, 
+    id:string
+};
+
+
 
 function renderMainPage() {
-
     const html = `
     <h1>New Post</h1>
     <form onsubmit="handleCreatePost(event)">
@@ -27,7 +33,7 @@ async function handleCreatePost(event: Event) {
     try {
         console.log('Sending post:', { caption, imageURL });
 
-        const response = await fetch('http://localhost:3000/api/add-post', {
+        const response = await fetch('http://localhost:3000/api/post/create-post', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ caption, imageURL }),
@@ -48,7 +54,7 @@ async function handleCreatePost(event: Event) {
 async function fetchPosts() {
     try {
 
-        const response = await fetch('http://localhost:3000/api/get-posts');
+        const response = await fetch('http://localhost:3000/api/post/get-posts');
         const data = await response.json();
 
         // const feedElement = document.getElementById("feed");
@@ -74,7 +80,6 @@ function renderPosts(posts: Post[]) {
 
 function renderPost(post: Post) {
     try {
-        // changeFileToImage();
 
         const html = `
         <div class="post" id="post">
@@ -86,8 +91,6 @@ function renderPost(post: Post) {
             <div id="editImageInput"></div>
         </div>
         `;
-
-        
         return html;
     } catch (error) {
         console.error('Error:', error);
@@ -116,7 +119,7 @@ function handleEditCaption(id: string) {
 
 async function fetchEditedCaption(id: string, caption:string) {
     
-    const response = await fetch('http://localhost:3000/api/update-post', {
+    const response = await fetch('http://localhost:3000/api/post/edit-caption/update-post', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({id, caption}),
@@ -161,7 +164,7 @@ function changeImage(id: string) {
 
 async function fethcChangeImage(image:string, id:string) {
     
-    const response = await fetch('http://localhost:3000/api/update-post-image', {
+    const response = await fetch('http://localhost:3000/api/post/update-image', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({image, id}),
@@ -179,7 +182,7 @@ async function fethcChangeImage(image:string, id:string) {
 
 async function handlDeletePost(id: string) {
     try {
-        const response = await fetch('http://localhost:3000/api/delete-post', {
+        const response = await fetch('http://localhost:3000/api/post/delete-post', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({id}),

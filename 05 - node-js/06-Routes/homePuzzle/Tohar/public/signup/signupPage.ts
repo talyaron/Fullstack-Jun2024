@@ -45,7 +45,7 @@ async function handleFormRegister(event: Event) {
 
     async function userExists(email: string) {
         try {
-            const response = await fetch(`http://localhost:3000/api/user-exists?email=${encodeURIComponent(email)}`);
+            const response = await fetch(`http://localhost:3000/api/user/userExists?email=${encodeURIComponent(email)}`);
             const data = await response.json();
             return data.exists;
         } catch (error) {
@@ -56,12 +56,11 @@ async function handleFormRegister(event: Event) {
 
     async function addUser(userName: string, phoneNumber: string, email: string, password: string) {
         try {
-            const response = await fetch('http://localhost:3000/api/add-user', {
+            const response = await fetch('http://localhost:3000/api/user/signupUser', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userName, phoneNumber, email, password}),
             });
-    
             if (!response.ok) throw new Error('Failed to add user');
     
             console.log('User added successfully!');

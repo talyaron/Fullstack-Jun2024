@@ -1,0 +1,203 @@
+#feed {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.post {
+  display: flex;
+  flex-direction: column;
+  width: 40vw;
+  height: 85vh;
+  margin: 1vw;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: rgb(215, 215, 225);
+  border: solid 2px black;
+}
+.post #text {
+  height: 20%;
+  width: 100%;
+  text-align: center;
+}
+.post #name {
+  height: 10%;
+  width: 100%;
+  margin: 0;
+}
+.post #bigText {
+  height: 80%;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+.post .imgWrap {
+  height: 70%;
+  width: 100%;
+}
+.post .imgWrap .img {
+  height: 100%;
+  width: 100%;
+}
+
+#pageTitle {
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  margin: 0 auto;
+  font-size: 4rem;
+  background: linear-gradient(45deg, #F58529, #DD2A7B, #8134B8, #515BD4);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  padding: 10px;
+  padding-bottom: 0;
+}
+
+#helloUser {
+  width: 20vw;
+  height: 5vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  font-size: 1.2rem;
+  color: white;
+  background-color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  border-bottom-right-radius: 8px;
+  border-top-right-radius: 8px;
+  animation: slideIn 0.4s ease forwards;
+}
+#helloUser h1 {
+  margin: 0;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+#viewSwitcher {
+  width: 20vw;
+  height: 5vh;
+  position: fixed;
+  left: 0;
+  top: 6vh;
+  font-size: 1.2rem;
+  color: white;
+  background-color: #333;
+  text-align: center;
+  line-height: 5vh;
+  cursor: pointer;
+  transition: top 0.5s ease, background-color 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  animation: slideIn 0.6s ease forwards;
+}
+#viewSwitcher:hover {
+  background-color: #444;
+  color: #55a1ff;
+}
+#viewSwitcher:active {
+  transform: scale(0.98);
+}
+#viewSwitcher:hover {
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+#logOut {
+  width: 20vw;
+  height: 5vh;
+  position: fixed;
+  left: 0;
+  top: 12vh;
+  font-size: 1.2rem;
+  color: white;
+  background-color: #333;
+  text-align: center;
+  line-height: 5vh;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.3);
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  animation: slideIn 0.8s ease forwards;
+}
+#logOut:hover {
+  background-color: #444;
+  color: #ff5555;
+}
+#logOut:active {
+  transform: scale(0.98);
+}
+#logOut:hover {
+  box-shadow: 0px -6px 12px rgba(0, 0, 0, 0.4);
+}
+
+#interactButtons {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 2vh;
+  position: relative;
+  justify-content: center;
+  top: -2vh;
+  margin: 0 auto;
+}
+#interactButtons .removeBtn, #interactButtons .updateBtn {
+  width: 40%;
+  margin-top: 0;
+  color: white;
+  font-weight: bold;
+  border: 1px solid black;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+#interactButtons .removeBtn {
+  background-color: #e74c3c;
+  border-bottom-right-radius: 60%;
+  border-left: 0;
+}
+#interactButtons .removeBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+  border-left: solid 1px black;
+}
+#interactButtons .removeBtn:active {
+  transform: scale(1);
+  box-shadow: none;
+}
+#interactButtons .updateBtn {
+  background-color: #f1c40f;
+  border-bottom-left-radius: 60%;
+  border-right: 0;
+}
+#interactButtons .updateBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+  border-right: solid 1px black;
+}
+#interactButtons .updateBtn:active {
+  transform: scale(1);
+  box-shadow: none;
+}
+
+@keyframes slideIn {
+  from {
+    left: -20vw;
+  }
+  to {
+    left: 0;
+  }
+}/*# sourceMappingURL=indexStyle.css.map */

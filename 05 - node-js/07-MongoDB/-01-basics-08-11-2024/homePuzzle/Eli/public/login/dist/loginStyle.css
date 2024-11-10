@@ -1,0 +1,99 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#formContainer {
+  width: 80vw;
+  height: 100vh;
+  margin: 0 auto;
+  overflow: hidden;
+}
+#formContainer span {
+  margin: 0 auto;
+  font-size: 1.2rem;
+}
+#formContainer form {
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 80%;
+  margin: 0 auto;
+  justify-content: space-evenly;
+  background-color: #5c9dd2;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  animation: scrollDown 3s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  position: relative;
+  top: -130vh;
+}
+#formContainer form input {
+  width: 80%;
+  height: 10%;
+  font-size: 2rem;
+  text-align: center;
+  margin: 0 auto;
+  border-radius: 20px;
+  border: solid 2px black;
+}
+#formContainer #submit:hover {
+  color: white;
+  scale: 1.2;
+  background-color: rgba(241, 241, 241, 0.696);
+  transition: all 0.3s;
+}
+#formContainer #checkbox-container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  width: 60%;
+  height: fit-content;
+}
+#formContainer #checkbox-container input[type=checkbox] {
+  width: 2vw;
+  height: 2vw;
+  font-size: 2rem;
+  margin-right: 10px;
+}
+#formContainer #checkbox-container span {
+  font-size: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+#formContainer button {
+  width: 80%;
+  height: 10%;
+  font-size: 2rem;
+  border-radius: 20px;
+  border: solid 5px #5c9dd2;
+  text-align: center;
+  position: relative;
+  bottom: -30vh;
+  left: 10%;
+  border-bottom-color: white;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  animation: scrollUp 3s ease-in;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+}
+#formContainer button:hover {
+  color: white;
+  scale: 1.2;
+  background-color: #1e85a5;
+  transition: all 0.3s;
+}
+
+@keyframes scrollUp {
+  100% {
+    bottom: -10vh;
+  }
+}
+@keyframes scrollDown {
+  100% {
+    top: 0;
+  }
+}

@@ -1,4 +1,4 @@
-import {model, Schema} from 'mongoose';
+import { model, Schema } from "mongoose";
 
 export default class User {
     id: string;
@@ -6,7 +6,7 @@ export default class User {
     email: string;
     password: string;
 
-    constructor( name: string, email: string, password: string) {
+    constructor(name: string, email: string, password: string) {
         this.id = crypto.randomUUID();
         this.name = name;
         this.email = email;
@@ -16,10 +16,22 @@ export default class User {
 
 export const users: User[] = [];
 
-export const userSchema = new Schema({
-    name: String,
-    email: String,
-    password: String,
-});
+//data structure
+export const UserSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    }, 
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    }
+})
 
-export const userModel = model('User', userSchema);
+// model => collection
+export const UserModel = model('User', UserSchema); // collection name is 'users' by default
