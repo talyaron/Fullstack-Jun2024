@@ -7,22 +7,29 @@ body {
   padding: 20px;
 }
 
-h1, h2 {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+.container {
+  background-color: #3596bd28;
+  width: 30vw;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.container h1 {
+  font-family: system-ui, sans-serif;
   font-size: 2rem;
   margin-bottom: 2rem;
   color: #00e5ad;
   text-align: center;
 }
-
-form {
+.container form {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 }
-
-input, button {
+.container form .input {
   border: 0;
   outline: 0;
   color: #3c4257;
@@ -42,8 +49,10 @@ input, button {
   transition-delay: 0s, 0s;
   margin: 0.3rem;
 }
-
-button {
+.container form .input:focus {
+  outline: none;
+}
+.container form .signupBtn {
   display: inline-block;
   outline: none;
   cursor: pointer;
@@ -65,35 +74,36 @@ button {
   text-align: center;
   transition: background 280ms cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-button:hover {
+.container form .signupBtn:hover {
   background: #00e5ad;
   color: white;
   transition-timing-function: ease-in-out;
 }
-
-#feed {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  margin-top: 2rem;
+.container form .loginNavBtn {
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 12px;
+  line-height: 20px;
+  height: 30px;
+  max-height: 30px;
+  background: none;
+  font-weight: 700;
+  border: 0;
+  border-radius: 0;
+  color: #00e5ad;
+  transition-timing-function: ease-in-out;
+  transition-duration: 150ms;
+  box-shadow: none;
+  margin-top: 0.5rem;
 }
-
-.post {
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 10px;
+.container form .termsWrapper {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
 }
-
-.post img {
-  width: 50vh;
-  height: 50vh;
-  border-radius: 5px;
-  margin-top: 10px;
+.container form .termsWrapper .agreeTerms {
+  font-family: system-ui, sans-serif;
+  font-size: 1rem;
+  color: #616161;
+  font-weight: 200;
 }

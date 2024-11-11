@@ -34,69 +34,28 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-function renderMainPage() {
-    var html = "\n    <h1>New Post</h1>\n    <form onsubmit=\"handleCreatePost(event)\">\n        <input type=\"text\" name=\"caption\" placeholder=\"Write a caption...\" required>\n        <input type=\"url\" name=\"imageURL\" placeholder=\"Enter image URL\" required>\n        <button type=\"submit\">Post</button>\n    </form>\n    ";
-    // <input type="file" name="image" id="imageUpload" name="imageUpload" accept="image/*">
-    document.querySelector('#main').innerHTML = html;
-}
 ;
-renderMainPage();
-function handleCreatePost(event) {
-    return __awaiter(this, void 0, void 0, function () {
-        var form, caption, imageURL, response, error_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    event.preventDefault();
-                    form = event.target;
-                    caption = form.elements.namedItem('caption').value;
-                    imageURL = form.elements.namedItem('imageURL').value;
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 3, , 4]);
-                    console.log('Sending post:', { caption: caption, imageURL: imageURL });
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/post/create-post', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ caption: caption, imageURL: imageURL })
-                        })];
-                case 2:
-                    response = _a.sent();
-                    if (!response.ok)
-                        throw new Error('Failed to add post');
-                    console.log('Post added successfully!');
-                    form.reset();
-                    fetchPosts();
-                    return [3 /*break*/, 4];
-                case 3:
-                    error_1 = _a.sent();
-                    console.error('Error sending post:', error_1);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
-            }
-        });
-    });
-}
 function fetchPosts() {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, error_2;
+        var response, data, feedElement, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/post/get-posts')];
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/get-posts')];
                 case 1:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
-                    // const feedElement = document.getElementById("feed");
-                    // if (!feedElement) throw new Error("Feed element not found");
+                    feedElement = document.getElementById("feed");
+                    if (!feedElement)
+                        throw new Error("Feed element not found");
                     renderPosts(data.posts);
                     return [3 /*break*/, 4];
                 case 3:
-                    error_2 = _a.sent();
-                    console.error("Error fetching posts:", error_2);
+                    error_1 = _a.sent();
+                    console.error("Error fetching posts:", error_1);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
@@ -116,14 +75,14 @@ function renderPosts(posts) {
 ;
 function renderPost(post) {
     try {
-        var html = "\n        <div class=\"post\" id=\"post\">\n            <img src=\"" + post.imageURL + "\" id=\"imageURL-" + post.id + "\" alt=\"inputImage\" />\n            <h3 id=\"caption-" + post.id + "\">" + post.caption + "</h3>\n            <button onclick=\"handleEditCaption('" + post.id + "')\" >Edit</button>\n            <button onclick=\"handlDeletePost('" + post.id + "')\">Delete</button>\n            <button onclick=\"handleEditImage('" + post.id + "')\">Change Image</button>\n            <div id=\"editImageInput-" + post.id + "\"></div>\n        </div>\n        ";
+        // changeFileToImage();
+        var html = "\n        <div class=\"post\">\n            <img src=\"" + post.imageURL + "\" alt=\"Image\" />\n            <h3 id=\"caption-" + post.id + "\">" + post.caption + "</h3>\n            <button onclick=\"handleEditCaption('" + post.id + "')\" >Edit</button>\n            <button onclick=\"handlDeletePost('" + post.id + "')\">Delete</button>\n            <button onclick=\"handlEditImage\">Change Image</button>\n            <p>" + post.caption + "</p>\n        </div>\n        ";
         return html;
     }
     catch (error) {
         console.error('Error:', error);
     }
 }
-;
 function handleEditCaption(id) {
     try {
         var captionElement_1 = document.getElementById("caption-" + id);
@@ -134,7 +93,7 @@ function handleEditCaption(id) {
         captionElement_1.addEventListener("blur", function (event) {
             var caption = captionElement_1.innerText;
             captionElement_1.contentEditable = 'false';
-            fetchEditedCaption(id, caption);
+            fetchEditedTitle(id, caption);
         });
     }
     catch (error) {
@@ -142,12 +101,12 @@ function handleEditCaption(id) {
     }
 }
 ;
-function fetchEditedCaption(id, caption) {
+function fetchEditedTitle(id, caption) {
     return __awaiter(this, void 0, void 0, function () {
         var response, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch('http://localhost:3000/api/post/edit-caption/update-post', {
+                case 0: return [4 /*yield*/, fetch('http://localhost:3000/api/update-post', {
                         method: 'PATCH',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ id: id, caption: caption })
@@ -168,55 +127,14 @@ function fetchEditedCaption(id, caption) {
     });
 }
 ;
-function handleEditImage(id) {
-    try {
-        var imageElement = document.getElementById("imageURL-" + id);
-        if (!imageElement)
-            throw new Error('image element not found');
-        var inputUrlElement = "\n        <input id=\"imageInput\" type=\"url\" name=\"editImageURL\" placeholder=\"Enter image URL\" require>\n        <button onclick=\"changeImage('" + id + "')\">Edit</button>\n        ";
-        document.querySelector("#editImageInput-" + id).innerHTML = inputUrlElement;
-    }
-    catch (error) {
-        console.error('Error:', error);
-    }
-}
-;
-function changeImage(id) {
-    var inputValue = document.getElementById('imageInput').value;
-    if (!inputValue)
-        throw new Error('image input not found');
-    document.querySelector("#editImageInput-" + id).innerHTML = '';
-    fethcChangeImage(inputValue, id);
-}
-function fethcChangeImage(image, id) {
+function handleDeletePost(id) {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch('http://localhost:3000/api/post/update-image', {
-                        method: 'PATCH',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ image: image, id: id })
-                    })];
-                case 1:
-                    response = _a.sent();
-                    return [4 /*yield*/, response.json()];
-                case 2:
-                    data = _a.sent();
-                    fetchPosts();
-                    return [2 /*return*/];
-            }
-        });
-    });
-}
-function handlDeletePost(id) {
-    return __awaiter(this, void 0, void 0, function () {
-        var response, data, error_3;
+        var response, data, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/post/delete-post', {
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/delete-post', {
                             method: 'DELETE',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ id: id })
@@ -235,8 +153,8 @@ function handlDeletePost(id) {
                     fetchPosts();
                     return [3 /*break*/, 4];
                 case 3:
-                    error_3 = _a.sent();
-                    console.error('Error:', error_3);
+                    error_2 = _a.sent();
+                    console.error('Error:', error_2);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
@@ -244,3 +162,4 @@ function handlDeletePost(id) {
     });
 }
 ;
+// module.exports = {renderPost, handleEditCaption, handleDeletePost}

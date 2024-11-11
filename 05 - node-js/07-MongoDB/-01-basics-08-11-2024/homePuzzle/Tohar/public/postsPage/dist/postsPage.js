@@ -90,8 +90,6 @@ function fetchPosts() {
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
-                    // const feedElement = document.getElementById("feed");
-                    // if (!feedElement) throw new Error("Feed element not found");
                     renderPosts(data.posts);
                     return [3 /*break*/, 4];
                 case 3:
@@ -116,7 +114,7 @@ function renderPosts(posts) {
 ;
 function renderPost(post) {
     try {
-        var html = "\n        <div class=\"post\" id=\"post\">\n            <img src=\"" + post.imageURL + "\" id=\"imageURL-" + post.id + "\" alt=\"inputImage\" />\n            <h3 id=\"caption-" + post.id + "\">" + post.caption + "</h3>\n            <button onclick=\"handleEditCaption('" + post.id + "')\" >Edit</button>\n            <button onclick=\"handlDeletePost('" + post.id + "')\">Delete</button>\n            <button onclick=\"handleEditImage('" + post.id + "')\">Change Image</button>\n            <div id=\"editImageInput-" + post.id + "\"></div>\n        </div>\n        ";
+        var html = "\n        <div class=\"post\" id=\"post\">\n            <img src=\"" + post.imageURL + "\" id=\"imageURL-" + post.id + "\" alt=\"inputImage\" />\n            <h3 id=\"caption-" + post.id + "\">" + post.caption + "</h3>\n            <button onclick=\"handleEditCaption('" + post.id + "')\" >Edit</button>\n            <button onclick=\"handlDeletePost('" + post.id + "')\">Delete</button>\n            <button onclick=\"handleEditImage('" + post.id + "')\">Change Image</button>\n            <div id=\"editImageInput\"></div>\n        </div>\n        ";
         return html;
     }
     catch (error) {
@@ -147,7 +145,7 @@ function fetchEditedCaption(id, caption) {
         var response, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch('http://localhost:3000/api/post/edit-caption/update-post', {
+                case 0: return [4 /*yield*/, fetch('http://localhost:3000/api/post/edit-caption', {
                         method: 'PATCH',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ id: id, caption: caption })
@@ -174,7 +172,7 @@ function handleEditImage(id) {
         if (!imageElement)
             throw new Error('image element not found');
         var inputUrlElement = "\n        <input id=\"imageInput\" type=\"url\" name=\"editImageURL\" placeholder=\"Enter image URL\" require>\n        <button onclick=\"changeImage('" + id + "')\">Edit</button>\n        ";
-        document.querySelector("#editImageInput-" + id).innerHTML = inputUrlElement;
+        document.querySelector('#editImageInput').innerHTML = inputUrlElement;
     }
     catch (error) {
         console.error('Error:', error);
@@ -182,10 +180,11 @@ function handleEditImage(id) {
 }
 ;
 function changeImage(id) {
+    console.log('cd vs', id);
     var inputValue = document.getElementById('imageInput').value;
     if (!inputValue)
         throw new Error('image input not found');
-    document.querySelector("#editImageInput-" + id).innerHTML = '';
+    document.querySelector('#editImageInput').innerHTML = '';
     fethcChangeImage(inputValue, id);
 }
 function fethcChangeImage(image, id) {
@@ -209,6 +208,7 @@ function fethcChangeImage(image, id) {
         });
     });
 }
+;
 function handlDeletePost(id) {
     return __awaiter(this, void 0, void 0, function () {
         var response, data, error_3;
@@ -225,7 +225,7 @@ function handlDeletePost(id) {
                     response = _a.sent();
                     console.log('in delete');
                     if (!response.ok) {
-                        console.error("Failed to update title:", response.statusText);
+                        console.error("Failed to delete post:", response.statusText);
                         return [2 /*return*/];
                     }
                     return [4 /*yield*/, response.json()];
