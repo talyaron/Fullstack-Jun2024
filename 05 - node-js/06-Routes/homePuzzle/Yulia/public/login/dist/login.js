@@ -35,24 +35,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var _this = this;
-// Add event listener when the DOM content is fully loaded
 document.addEventListener("DOMContentLoaded", function () {
     var form = document.querySelector("form");
     if (form) {
         form.addEventListener("submit", function (event) { return __awaiter(_this, void 0, void 0, function () {
-            var usernameInput, passwordInput, username, password;
+            var usernameInput, passwordInput, loginUsername, password;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         event.preventDefault();
                         usernameInput = document.getElementById("username");
                         passwordInput = document.getElementById("password");
-                        username = usernameInput.value.trim();
+                        loginUsername = usernameInput.value.trim();
                         password = passwordInput.value.trim();
-                        // Call function to send data to the server
-                        return [4 /*yield*/, loginUser(username, password)];
+                        return [4 /*yield*/, loginUser(loginUsername, password)];
                     case 1:
-                        // Call function to send data to the server
                         _a.sent();
                         return [2 /*return*/];
                 }
@@ -74,12 +71,15 @@ function loginUser(username, password) {
                         })];
                 case 1:
                     response = _a.sent();
+                    if (!response.ok) {
+                        throw new Error("Error: " + response.status + " " + response.statusText);
+                    }
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
                     if (data.success) {
-                        localStorage.setItem("username", username);
-                        localStorage.setItem("isUserLogin", "true");
+                        localStorage.setItem("loginUsername", username);
+                        localStorage.setItem("isUser", "true");
                         window.location.href = "/";
                     }
                     else {
@@ -89,7 +89,7 @@ function loginUser(username, password) {
                 case 3:
                     error_1 = _a.sent();
                     console.error("Error:", error_1);
-                    alert("An error occurred. Please try again.");
+                    alert("An error occurred while trying to log in.");
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }

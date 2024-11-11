@@ -5,18 +5,20 @@ async function handleRegister(event: Event) {
     .value;
   const password = (form.elements.namedItem("password") as HTMLInputElement)
     .value;
+  const confirmPassword = (form.elements.namedItem("confirmPassword") as HTMLInputElement).value;
+  const email = (form.elements.namedItem("email") as HTMLInputElement).value;
 
-  if (!username || !password) {
+  if (!username || !password || !confirmPassword || !email) {
     alert("Please fill in all fields.");
     return;
   }
 
   // Create user object
-  const newUser = { username, password, isUserLogin: false };
+  const newUser = { username, password, email, isUserLogin: false };
   console.log("User object to be sent:", newUser);
   try {
     // Send a POST request to the server
-    const response = await fetch("http://localhost:3000/api/users/register", {
+    const response = await fetch("http://localhost:3000/api/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

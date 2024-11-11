@@ -2,22 +2,24 @@ import { User, users } from "../../models/users/usersModel";
 import crypto from "crypto";
 
 export function createUser(req: any, res: any) {
-  const { name, email, password } = req.body;
-  console.log(name, email, password);
-  if (!name || !password) {
+  const { username, email, password } = req.body;
+  console.log(username, email, password);
+  if (!username || !password || !email) {
     return res
       .status(400)
-      .json({ message: "Username and password are required" });
+      .json({ message: "Username, password and email are required" });
   }
 
   const newUser: User = {
     id: `Id-${crypto.randomUUID()}`,
-    name,
+    username,
     password,
     email,
   };
 
   users.push(newUser);
+
+  console.log("New user:", newUser);
 
   res
     .status(201)

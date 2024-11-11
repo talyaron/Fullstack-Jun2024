@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _a;
 function handleRegister(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var form, username, password, newUser, response, data, existingUsers, error_1;
+        var form, username, password, confirmPassword, email, newUser, response, data, existingUsers, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -47,16 +47,18 @@ function handleRegister(event) {
                         .value;
                     password = form.elements.namedItem("password")
                         .value;
-                    if (!username || !password) {
+                    confirmPassword = form.elements.namedItem("confirmPassword").value;
+                    email = form.elements.namedItem("email").value;
+                    if (!username || !password || !confirmPassword || !email) {
                         alert("Please fill in all fields.");
                         return [2 /*return*/];
                     }
-                    newUser = { username: username, password: password, isUserLogin: false };
+                    newUser = { username: username, password: password, email: email, isUserLogin: false };
                     console.log("User object to be sent:", newUser);
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 4, , 5]);
-                    return [4 /*yield*/, fetch("http://localhost:3000/api/users/register", {
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/register", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json"

@@ -3,7 +3,8 @@ interface Post {
   text: string;
   imageURL: string;
   id: string;
-  username: string;
+  username: string; 
+  loginUsername: string;
   editTitle?: boolean;
   editText?: boolean;
   editImageURL?: boolean;
@@ -17,7 +18,7 @@ async function handleSendPost(event: Event) {
   const text = (form.elements.namedItem("text") as HTMLInputElement).value;
   const imageURL = (form.elements.namedItem("imageURL") as HTMLInputElement)
     .value;
-  const username = localStorage.getItem("username"); // Get the username from local storage
+  const username = localStorage.getItem("loginUsername"); // Get the login username from local storage
 
   if (!username) {
     alert("You need to be logged in to create a post.");
@@ -25,7 +26,7 @@ async function handleSendPost(event: Event) {
   }
 
   try {
-    console.log("Sending post:", { title, text, imageURL, username }); // Debug log
+    console.log("Sending post:", { title, text, username }); // Debug log
 
     const response = await fetch("http://localhost:3000/api/posts/add-post", {
       method: "POST",
@@ -46,7 +47,7 @@ async function handleSendPost(event: Event) {
 
 async function fetchPosts() {
   const isUserLoggedIn = localStorage.getItem("isUserLogin") === "true";
-  const currentUsername = localStorage.getItem("username");
+  const currentUsername = localStorage.getItem("loginUsername");
 
   if (!isUserLoggedIn || !currentUsername) {
     console.log("User is not logged in or username not found. Posts are hidden.");
@@ -54,15 +55,22 @@ async function fetchPosts() {
   }
 
   try {
-    const response = await fetch("http://localhost:3000/api/posts/get-posts");
-    if (!response.ok) throw new Error("Failed to fetch posts");
+    const response = await fetch(`http://localhost:3000/api/posts/get-posts?username=${currentUsername}`); 
+    if (!response.ok) {
+      console.error(`Failed to fetch posts. Status: ${response.status}`);
+      throw new Error("Failed to fetch posts");
+    }
+    
     const data = await response.json();
+    
+    if (!data.posts) {
+      throw new Error("Invalid response format. 'posts' field is missing.");
+    }
 
     const feedElement = document.getElementById("feed");
     if (!feedElement) throw new Error("Feed element not found");
     if (data.posts.length === 0) return;
 
-    // Filter posts by the current user
     const userPosts = data.posts.filter((post: Post) => post.username === currentUsername);
     renderPosts(userPosts);
   } catch (error) {
@@ -198,19 +206,21 @@ function goToRegister() {
 
 // Add event listener to display the username when the page loads
 document.addEventListener('DOMContentLoaded', () => {
-  const username = localStorage.getItem('username');
+  const username = localStorage.getItem('loginUsername');
   
   if (username) {
     // Create a greeting message and display it on the page
-    const greetingElement = document.createElement('div');
-    greetingElement.textContent = `Hi, ${username}`;
-    document.body.prepend(greetingElement); // Add the greeting at the top of the page
+    const greetingElement = document.getElementById("greeting");
+    if (greetingElement && username) {
+      greetingElement.textContent = `Hi, ${username}!`;
+      document.body.prepend(greetingElement); // Add the greeting at the top of the page
+    } 
   }
 });
 
 function handleLogout() {
   localStorage.removeItem("isUserLogin");
-  localStorage.removeItem("username");
+  localStorage.removeItem("loginUsername");
   window.location.href = "/login/login.html"; // Redirect to the login page
 }
 

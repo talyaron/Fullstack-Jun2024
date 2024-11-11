@@ -7,6 +7,13 @@ body {
     padding: 20px;
 }
 
+#greeting {
+    margin: 30px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #0095f6;
+}
+
 h1, h2 {
     text-align: center;
     color: #333;
@@ -26,6 +33,7 @@ input, button {
     border-radius: 5px;
     width: 100%;
     max-width: 300px;
+    
 }
 
 button {
@@ -58,7 +66,7 @@ button:hover {
 
 .post img {
     width: 50vh;
-height: 50vh;
+    height: 50vh;
     border-radius: 5px;
     margin-top: 10px;
 }
