@@ -5,7 +5,9 @@ async function handleRegister(event: Event) {
     .value;
   const password = (form.elements.namedItem("password") as HTMLInputElement)
     .value;
-  const confirmPassword = (form.elements.namedItem("confirmPassword") as HTMLInputElement).value;
+  const confirmPassword = (
+    form.elements.namedItem("confirm-password") as HTMLInputElement
+  ).value;
   const email = (form.elements.namedItem("email") as HTMLInputElement).value;
 
   if (!username || !password || !confirmPassword || !email) {
@@ -13,12 +15,17 @@ async function handleRegister(event: Event) {
     return;
   }
 
-  // Create user object
+  if (password !== confirmPassword) {
+    alert("Passwords do not match.");
+    return;
+  }
+
   const newUser = { username, password, email, isUserLogin: false };
   console.log("User object to be sent:", newUser);
+
   try {
-    // Send a POST request to the server
-    const response = await fetch("http://localhost:3000/api/register", {
+    // send user data to server
+    const response = await fetch("http://localhost:3000/api/users/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,7 +39,7 @@ async function handleRegister(event: Event) {
       throw new Error(data.message || "Registration failed.");
     }
 
-    // Save the user in local storage if the registration is successful
+    // save user to local storage if registration is successful
     const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
     existingUsers.push(newUser);
     localStorage.setItem("users", JSON.stringify(existingUsers));
@@ -43,7 +50,6 @@ async function handleRegister(event: Event) {
     alert(`Error: ${error.message}`);
   }
 }
-
 // Event listener for form submission
 document
   .getElementById("registerForm")

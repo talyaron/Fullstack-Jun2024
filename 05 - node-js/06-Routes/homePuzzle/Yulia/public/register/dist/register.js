@@ -47,10 +47,14 @@ function handleRegister(event) {
                         .value;
                     password = form.elements.namedItem("password")
                         .value;
-                    confirmPassword = form.elements.namedItem("confirmPassword").value;
+                    confirmPassword = form.elements.namedItem("confirm-password").value;
                     email = form.elements.namedItem("email").value;
                     if (!username || !password || !confirmPassword || !email) {
                         alert("Please fill in all fields.");
+                        return [2 /*return*/];
+                    }
+                    if (password !== confirmPassword) {
+                        alert("Passwords do not match.");
                         return [2 /*return*/];
                     }
                     newUser = { username: username, password: password, email: email, isUserLogin: false };
@@ -58,7 +62,7 @@ function handleRegister(event) {
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 4, , 5]);
-                    return [4 /*yield*/, fetch("http://localhost:3000/api/register", {
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/users/register", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json"

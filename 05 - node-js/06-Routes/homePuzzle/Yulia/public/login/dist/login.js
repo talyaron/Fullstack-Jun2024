@@ -79,7 +79,8 @@ function loginUser(username, password) {
                     data = _a.sent();
                     if (data.success) {
                         localStorage.setItem("loginUsername", username);
-                        localStorage.setItem("isUser", "true");
+                        localStorage.setItem("isUserLogin", "true");
+                        console.log("User logged in successfully:", username);
                         window.location.href = "/";
                     }
                     else {

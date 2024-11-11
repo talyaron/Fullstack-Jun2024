@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form");
   if (form) {
     form.addEventListener("submit", async (event) => {
-      event.preventDefault(); 
+      event.preventDefault();
       const usernameInput = document.getElementById(
         "username"
       ) as HTMLInputElement;
@@ -32,7 +32,8 @@ async function loginUser(username: string, password: string) {
 
     if (data.success) {
       localStorage.setItem("loginUsername", username);
-      localStorage.setItem("isUser", "true");
+      localStorage.setItem("isUserLogin", "true"); 
+      console.log("User logged in successfully:", username); 
       window.location.href = "/";
     } else {
       alert("Invalid username or password");

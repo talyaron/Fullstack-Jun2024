@@ -132,8 +132,10 @@ function loadPostsFromLocalStorage() {
 }
 function renderPosts(posts) {
     var feedElement = document.getElementById("feed");
-    if (!feedElement)
-        throw new Error("Feed element not found");
+    if (!feedElement) {
+        console.error("Feed element not found");
+        return;
+    }
     var htmlPosts = posts
         .map(function (post) { return renderPost(post); })
         .filter(function (post) { return post !== null; })
@@ -154,31 +156,31 @@ function handleEditPost(id) {
         if (!titleElement_1 || !textElement_1 || !imageElement) {
             throw new Error("Post elements not found");
         }
-        // make the title, text, and image URL editable
         titleElement_1.contentEditable = "true";
         textElement_1.contentEditable = "true";
-        titleElement_1.focus(); // focus on the title element
-        // add an input field for the image URL
         var imageInput_1 = document.createElement("input");
         imageInput_1.type = "text";
         imageInput_1.value = imageElement.src;
         imageInput_1.id = "image-input-" + id;
         imageElement.insertAdjacentElement("afterend", imageInput_1);
-        // blur event handler to save the changes
-        var onEditComplete = function () { return __awaiter(_this, void 0, void 0, function () {
-            var updatedPost, response, error_3;
+        var saveButton_1 = document.createElement("button");
+        saveButton_1.textContent = "Save";
+        saveButton_1.onclick = function () { return __awaiter(_this, void 0, void 0, function () {
+            var username, updatedPost, response, error_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        username = localStorage.getItem("loginUsername");
                         updatedPost = {
                             title: titleElement_1.innerText,
                             text: textElement_1.innerText,
-                            imageURL: imageInput_1.value
+                            imageURL: imageInput_1.value,
+                            username: username
                         };
-                        // end editing
                         titleElement_1.contentEditable = "false";
                         textElement_1.contentEditable = "false";
-                        imageInput_1.remove(); // delete the input field
+                        imageInput_1.remove();
+                        saveButton_1.remove();
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
@@ -201,10 +203,9 @@ function handleEditPost(id) {
                 }
             });
         }); };
-        // add blur event listeners to the title, text, and image URL elements
-        titleElement_1.addEventListener("blur", onEditComplete);
-        textElement_1.addEventListener("blur", onEditComplete);
-        imageInput_1.addEventListener("blur", onEditComplete);
+        var postElement = document.getElementById("post-" + id);
+        if (postElement)
+            postElement.appendChild(saveButton_1);
     }
     catch (error) {
         console.error("Error:", error);
@@ -245,25 +246,25 @@ function goToRegister() {
     window.location.href = "/register/register.html";
 }
 // Add event listener to display the username when the page loads
-document.addEventListener('DOMContentLoaded', function () {
-    var username = localStorage.getItem('loginUsername');
+document.addEventListener("DOMContentLoaded", function () {
+    var username = localStorage.getItem("loginUsername");
     if (username) {
-        // Create a greeting message and display it on the page
         var greetingElement = document.getElementById("greeting");
-        if (greetingElement && username) {
+        if (greetingElement) {
             greetingElement.textContent = "Hi, " + username + "!";
-            document.body.prepend(greetingElement); // Add the greeting at the top of the page
         }
+    }
+    // add a logout button if the user is logged in
+    var isUserLoggedIn = localStorage.getItem("isUserLogin") === "true";
+    if (isUserLoggedIn) {
+        var logoutButton = document.createElement("button");
+        logoutButton.textContent = "Logout";
+        logoutButton.onclick = handleLogout;
+        document.body.appendChild(logoutButton);
     }
 });
 function handleLogout() {
     localStorage.removeItem("isUserLogin");
     localStorage.removeItem("loginUsername");
-    window.location.href = "/login/login.html"; // Redirect to the login page
+    window.location.href = "/login/login.html";
 }
-document.addEventListener("DOMContentLoaded", function () {
-    var logoutButton = document.createElement("button");
-    logoutButton.textContent = "Logout";
-    logoutButton.onclick = handleLogout;
-    document.body.appendChild(logoutButton);
-}); // add the logout button to the page
