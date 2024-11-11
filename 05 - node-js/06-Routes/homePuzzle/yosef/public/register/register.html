@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../dist/style.css">
+    <link rel="stylesheet" href="./dist/register.css">
+    <script src="../dist/main.js" defer></script>
+    <script src="./dist/register.js" defer></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="register">
+    <h1>Register page</h1>
+    <h3>Create your account:</h3>
+    <form id="register-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <p id="check_name"></p>
+
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone" required>
+        <p id="check_phone"></p>
+
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required>
+        <p id="check_email"></p>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <p id="check_password"></p>
+        
+        <label for="confirm-password">Confirm Password:</label>
+        <input type="password" id="confirm-password" name="confirm-password" required>
+        <p id="check_confirm_password"></p>
+
+        <a href="../index.html">Already have an account? Login here.</a>
+        <br><br>
+        <input id="registerBtn" type="submit" value="Register" onclick="checkData(event)">
+        <button id="countinueBtn" onclick="continueBtn()">Countinue</button>
+    </form>
+    <p id="masseges_to_the_user"></p>
+    </div>
+</body>
+</html>
