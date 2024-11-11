@@ -73,11 +73,13 @@ button:hover {
 }
 
 #feed {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 1vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 2rem;
 }
-
+ 
 .post {
     background-color: white;
     border: 1px solid #ddd;

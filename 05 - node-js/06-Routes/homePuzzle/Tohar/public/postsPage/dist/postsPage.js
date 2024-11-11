@@ -116,7 +116,7 @@ function renderPosts(posts) {
 ;
 function renderPost(post) {
     try {
-        var html = "\n        <div class=\"post\" id=\"post\">\n            <img src=\"" + post.imageURL + "\" id=\"imageURL-" + post.id + "\" alt=\"inputImage\" />\n            <h3 id=\"caption-" + post.id + "\">" + post.caption + "</h3>\n            <button onclick=\"handleEditCaption('" + post.id + "')\" >Edit</button>\n            <button onclick=\"handlDeletePost('" + post.id + "')\">Delete</button>\n            <button onclick=\"handleEditImage('" + post.id + "')\">Change Image</button>\n            <div id=\"editImageInput\"></div>\n        </div>\n        ";
+        var html = "\n        <div class=\"post\" id=\"post\">\n            <img src=\"" + post.imageURL + "\" id=\"imageURL-" + post.id + "\" alt=\"inputImage\" />\n            <h3 id=\"caption-" + post.id + "\">" + post.caption + "</h3>\n            <button onclick=\"handleEditCaption('" + post.id + "')\" >Edit</button>\n            <button onclick=\"handlDeletePost('" + post.id + "')\">Delete</button>\n            <button onclick=\"handleEditImage('" + post.id + "')\">Change Image</button>\n            <div id=\"editImageInput-" + post.id + "\"></div>\n        </div>\n        ";
         return html;
     }
     catch (error) {
@@ -174,7 +174,7 @@ function handleEditImage(id) {
         if (!imageElement)
             throw new Error('image element not found');
         var inputUrlElement = "\n        <input id=\"imageInput\" type=\"url\" name=\"editImageURL\" placeholder=\"Enter image URL\" require>\n        <button onclick=\"changeImage('" + id + "')\">Edit</button>\n        ";
-        document.querySelector('#editImageInput').innerHTML = inputUrlElement;
+        document.querySelector("#editImageInput-" + id).innerHTML = inputUrlElement;
     }
     catch (error) {
         console.error('Error:', error);
@@ -185,7 +185,7 @@ function changeImage(id) {
     var inputValue = document.getElementById('imageInput').value;
     if (!inputValue)
         throw new Error('image input not found');
-    document.querySelector('#editImageInput').innerHTML = '';
+    document.querySelector("#editImageInput-" + id).innerHTML = '';
     fethcChangeImage(inputValue, id);
 }
 function fethcChangeImage(image, id) {

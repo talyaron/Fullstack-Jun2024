@@ -4,8 +4,6 @@ type Post = {
     id:string
 };
 
-
-
 function renderMainPage() {
     const html = `
     <h1>New Post</h1>
@@ -88,7 +86,7 @@ function renderPost(post: Post) {
             <button onclick="handleEditCaption('${post.id}')" >Edit</button>
             <button onclick="handlDeletePost('${post.id}')">Delete</button>
             <button onclick="handleEditImage('${post.id}')">Change Image</button>
-            <div id="editImageInput"></div>
+            <div id="editImageInput-${post.id}"></div>
         </div>
         `;
         return html;
@@ -146,7 +144,7 @@ function handleEditImage(id: string) {
         <button onclick="changeImage('${id}')">Edit</button>
         `
 
-        document.querySelector<HTMLDivElement>('#editImageInput')!.innerHTML = inputUrlElement;
+        document.querySelector<HTMLDivElement>(`#editImageInput-${id}`)!.innerHTML = inputUrlElement;
 
     } catch (error) {
         console.error('Error:', error);
@@ -158,7 +156,7 @@ function changeImage(id: string) {
     const inputValue = (document.getElementById('imageInput') as HTMLInputElement).value;
     if(!inputValue) throw new Error('image input not found');
 
-    document.querySelector<HTMLDivElement>('#editImageInput')!.innerHTML = '';
+    document.querySelector<HTMLDivElement>(`#editImageInput-${id}`)!.innerHTML = '';
 
     fethcChangeImage(inputValue, id);
 }
