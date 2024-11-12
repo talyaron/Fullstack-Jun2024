@@ -21,7 +21,7 @@ app.use(express_session_1["default"]({
     cookie: { secure: false }
 }));
 var dbUrl = "mongodb+srv://galitccga:q4wlV111QcHSFkDZ@cluster0.sevm84o.mongodb.net/Instagram-project";
-var database = 'Instagram-project';
+var database = 'InstagramProject';
 mongoose_1["default"].connect(dbUrl + "/" + database).then(function () {
     console.info("DB connected");
 })["catch"](function (err) {

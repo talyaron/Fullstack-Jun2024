@@ -38,20 +38,23 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.editPost = exports.deletePost = exports.getPosts = exports.addPost = void 0;
 var postsModel_1 = require("../models/postsModel");
-var crypto_1 = require("crypto");
 function addPost(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, title, text, image, id;
+        var _a, title, text, image, newPost;
         return __generator(this, function (_b) {
-            _a = req.body, title = _a.title, text = _a.text, image = _a.image;
-            if (!title || !text || !image) {
-                return [2 /*return*/, res.status(400).json({ error: "All fields (title, text, image) are required" })];
+            switch (_b.label) {
+                case 0:
+                    _a = req.body, title = _a.title, text = _a.text, image = _a.image;
+                    if (!title || !text || !image) {
+                        return [2 /*return*/, res.status(400).json({ error: "All fields (title, text, image) are required" })];
+                    }
+                    newPost = new postsModel_1.PostModel({ title: title, text: text, image: image });
+                    return [4 /*yield*/, newPost.save()];
+                case 1:
+                    _b.sent();
+                    res.status(201).json({ message: "Post added successfully" });
+                    return [2 /*return*/];
             }
-            id = crypto_1.randomUUID();
-            postsModel_1.posts.push({ id: id, title: title, text: text, image: image });
-            console.log("Added post: " + id);
-            res.status(201).json({ message: "Post added successfully", id: id });
-            return [2 /*return*/];
         });
     });
 }

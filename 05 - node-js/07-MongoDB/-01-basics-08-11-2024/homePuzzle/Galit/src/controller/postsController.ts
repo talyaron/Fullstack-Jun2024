@@ -1,4 +1,4 @@
-import { posts } from '../models/postsModel';
+import { PostModel, posts } from '../models/postsModel';
 import { randomUUID } from 'crypto';
 
 export async function addPost(req: any, res: any) {
@@ -8,10 +8,9 @@ export async function addPost(req: any, res: any) {
         return res.status(400).json({ error: "All fields (title, text, image) are required" });
     }
 
-    const id = randomUUID();
-    posts.push({ id, title, text, image });
-    console.log(`Added post: ${id}`); 
-    res.status(201).json({ message: "Post added successfully", id });
+const newPost = new PostModel({title, text, image})
+await newPost.save()
+    res.status(201).json({ message: "Post added successfully"});
 }
 
 export async function getPosts(req: any, res: any) {
