@@ -1,3 +1,14 @@
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -248,10 +259,10 @@ function updatePost(id, updatedFields) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 5, , 6]);
-                    return [4 /*yield*/, fetch("http://localhost:3000/api/posts/edit-post/" + id, {
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/posts/edit-post", {
                             method: 'PUT',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(updatedFields)
+                            body: JSON.stringify(__assign({ id: id }, updatedFields))
                         })];
                 case 1:
                     response = _a.sent();
@@ -285,7 +296,8 @@ function handleDeletePost(id) {
                     console.log("Attempting to delete post with id: " + id);
                     return [4 /*yield*/, fetch("http://localhost:3000/api/posts/delete-post", {
                             method: 'DELETE',
-                            headers: { 'Content-Type': 'application/json' }
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ id: id })
                         })];
                 case 1:
                     response = _b.sent();

@@ -126,13 +126,14 @@ function deletePost(req, res) {
 exports.deletePost = deletePost;
 function editPost(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var id, _a, title, text, image, updatedFields, updatedPost, error_4;
+        var _a, id, title, text, image, updatedFields, updatedPost, error_4;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _b.trys.push([0, 2, , 3]);
-                    id = req.body.id;
-                    _a = req.body, title = _a.title, text = _a.text, image = _a.image;
+                    _a = req.body, id = _a.id, title = _a.title, text = _a.text, image = _a.image;
+                    _b.label = 1;
+                case 1:
+                    _b.trys.push([1, 3, , 4]);
                     console.log("Editing post with id: " + id);
                     updatedFields = {};
                     if (title !== undefined)
@@ -142,7 +143,7 @@ function editPost(req, res) {
                     if (image !== undefined)
                         updatedFields.image = image;
                     return [4 /*yield*/, postsModel_1.PostModel.findByIdAndUpdate(id, updatedFields, { "new": true })];
-                case 1:
+                case 2:
                     updatedPost = _b.sent();
                     if (!updatedPost) {
                         console.log("Post with id " + id + " not found");
@@ -150,13 +151,13 @@ function editPost(req, res) {
                     }
                     console.log("Post with id " + id + " updated");
                     res.status(200).json({ message: "Post updated successfully", post: updatedPost });
-                    return [3 /*break*/, 3];
-                case 2:
+                    return [3 /*break*/, 4];
+                case 3:
                     error_4 = _b.sent();
                     console.error('Error updating post:', error_4);
                     res.status(500).json({ error: "Internal server error" });
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     });

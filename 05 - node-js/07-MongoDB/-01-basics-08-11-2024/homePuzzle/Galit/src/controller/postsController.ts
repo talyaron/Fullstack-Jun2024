@@ -51,19 +51,18 @@ export async function deletePost(req: any, res: any) {
 }
 
 export async function editPost(req: any, res: any) {
+    const { id, title, text, image } = req.body;
+
     try {
-    const { id } = req.body;
-    const { title, text, image } = req.body;
-
-
         console.log(`Editing post with id: ${id}`);
-
+        
         const updatedFields: Partial<{ title: string; text: string; image: string }> = {};
         if (title !== undefined) updatedFields.title = title;
         if (text !== undefined) updatedFields.text = text;
         if (image !== undefined) updatedFields.image = image;
 
         const updatedPost = await PostModel.findByIdAndUpdate(id, updatedFields, { new: true });
+        
         if (!updatedPost) {
             console.log(`Post with id ${id} not found`);
             return res.status(404).json({ error: "Post not found" });
@@ -76,3 +75,4 @@ export async function editPost(req: any, res: any) {
         res.status(500).json({ error: "Internal server error" });
     }
 }
+

@@ -149,11 +149,11 @@ async function handleEditImage(id: string) {
 
 async function updatePost(id: string, updatedFields: Partial<Post>) {
     try {
-        const response = await fetch(`http://localhost:3000/api/posts/edit-post/${id}`, {
+        const response = await fetch(`http://localhost:3000/api/posts/edit-post`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updatedFields),
-        });
+            body: JSON.stringify({ id, ...updatedFields }), 
+                });
 
         if (!response.ok) {
             const errorMessage = await response.text();
@@ -173,8 +173,8 @@ async function handleDeletePost(id: string) {
 
         const response = await fetch(`http://localhost:3000/api/posts/delete-post`, {
             method: 'DELETE',
-            headers: {'Content-Type': 'application/json'}
-            
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({id}),
         });
 
         if (!response.ok) {
