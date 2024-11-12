@@ -20,8 +20,7 @@ app.use(express_session_1["default"]({
     saveUninitialized: false,
     cookie: { secure: false }
 }));
-var dbUrl = "mongodb+srv://tal:k8w0S6ztTx3zowGW@cluster0.0hzknon.mongodb.net";
-// const dbUrl = "mongodb+srv://galitccga:q4wlV111QcHSFkDZ@cluster0.sevm84o.mongodb.net/Instagram-project";
+var dbUrl = "mongodb+srv://galitccga:q4wlV111QcHSFkDZ@cluster0.sevm84o.mongodb.net"; //cluster
 var database = 'instagram';
 mongoose_1["default"].connect(dbUrl + "/" + database).then(function () {
     console.info("DB connected");

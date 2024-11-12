@@ -24,8 +24,8 @@ mongoose.connect(`${dbUrl}/${database}`).then(()=>{
 });
 
 //routesD
-import usersRoutes from './routes/usersRoutes';
-app.use("/api/users", usersRoutes);
+import usersRoute from './routes/usersRoutes';
+app.use("/api/users", usersRoute);
 
 
 app.listen(port, () => {
