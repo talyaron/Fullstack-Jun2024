@@ -20,7 +20,7 @@ app.use(express_session_1["default"]({
     saveUninitialized: false,
     cookie: { secure: false }
 }));
-var dbUrl = "mongodb+srv://galitccga:q4wlV111QcHSFkDZ@cluster0.sevm84o.mongodb.net;;
+var dbUrl = "mongodb+srv://galitccga:q4wlV111QcHSFkDZ@cluster0.sevm84o.mongodb.net";
 var database = 'instagram';
 mongoose_1["default"].connect(dbUrl + "/" + database).then(function () {
     console.info("DB connected");

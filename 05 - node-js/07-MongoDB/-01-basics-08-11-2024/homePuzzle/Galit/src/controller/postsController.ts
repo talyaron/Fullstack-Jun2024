@@ -1,5 +1,4 @@
-import { PostModel, posts } from '../models/postsModel';
-import { randomUUID } from 'crypto';
+import { PostModel } from '../models/postsModel';
 
 export async function addPost(req: any, res: any) {
     try {
@@ -32,35 +31,48 @@ export async function getPosts(req: any, res: any) {
 }
 
 export async function deletePost(req: any, res: any) {
-    const { id } = req.params;
-    console.log(`Deleting post with id: ${id}`);
+    const { id } = req.body;
+    try {
+        console.log(`Deleting post with id: ${id}`);
 
-    const postIndex = posts.findIndex(post => post.id === id);
-    if (postIndex === -1) {
-        console.log(`Post with id ${id} not found`);
-        return res.status(404).json({ error: "Post not found" });
+        const post = await PostModel.findById(id);
+        if (!post) {
+            console.log(`Post with id ${id} not found`);
+            return res.status(401).json({ error: "Post not found" });
+        }
+
+        await PostModel.findByIdAndDelete(id);
+        console.log(`Post with id ${id} deleted`);
+        res.status(200).json({ message: "Post deleted successfully" });
+    } catch (error) {
+        console.error('Error deleting post:', error);
+        res.status(500).json({ error: "Internal server error" });
     }
-
-    posts.splice(postIndex, 1);
-    console.log(`Post with id ${id} deleted`);
-    res.status(200).json({ message: "Post deleted successfully" });
 }
 
 export async function editPost(req: any, res: any) {
-    const { id } = req.params;
+    try {
+    const { id } = req.body;
     const { title, text, image } = req.body;
-    console.log(`Editing post with id: ${id}`);
 
-    const post = posts.find(post => post.id === id);
-    if (!post) {
-        console.log(`Post with id ${id} not found`);
-        return res.status(404).json({ error: "Post not found" });
+
+        console.log(`Editing post with id: ${id}`);
+
+        const updatedFields: Partial<{ title: string; text: string; image: string }> = {};
+        if (title !== undefined) updatedFields.title = title;
+        if (text !== undefined) updatedFields.text = text;
+        if (image !== undefined) updatedFields.image = image;
+
+        const updatedPost = await PostModel.findByIdAndUpdate(id, updatedFields, { new: true });
+        if (!updatedPost) {
+            console.log(`Post with id ${id} not found`);
+            return res.status(404).json({ error: "Post not found" });
+        }
+
+        console.log(`Post with id ${id} updated`);
+        res.status(200).json({ message: "Post updated successfully", post: updatedPost });
+    } catch (error) {
+        console.error('Error updating post:', error);
+        res.status(500).json({ error: "Internal server error" });
     }
-
-    if (title !== undefined) post.title = title;
-    if (text !== undefined) post.text = text;
-    if (image !== undefined) post.image = image;
-
-    console.log(`Post with id ${id} updated`);
-    res.status(200).json({ message: "Post updated successfully" });
 }

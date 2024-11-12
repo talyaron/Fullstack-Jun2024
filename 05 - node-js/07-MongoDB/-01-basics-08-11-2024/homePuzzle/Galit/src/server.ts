@@ -23,7 +23,7 @@ app.use(
     })
 );
 
-const dbUrl = "mongodb+srv://galitccga:q4wlV111QcHSFkDZ@cluster0.sevm84o.mongodb.net;
+const dbUrl = "mongodb+srv://galitccga:q4wlV111QcHSFkDZ@cluster0.sevm84o.mongodb.net";
 const database = 'instagram';
 
 mongoose.connect(`${dbUrl}/${database}`).then(()=>{

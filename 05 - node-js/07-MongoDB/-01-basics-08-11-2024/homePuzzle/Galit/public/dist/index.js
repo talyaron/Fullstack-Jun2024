@@ -150,7 +150,7 @@ function renderPosts(posts) {
     feedElement.innerHTML = htmlPosts;
 }
 function renderPost(post) {
-    return "\n        <div class=\"post\" id=\"post-" + post.id + "\">\n            <h3 id=\"title-" + post.id + "\">" + post.title + "</h3>\n            <img src=\"" + post.image + "\" alt=\"Image\" id=\"image-" + post.id + "\" />\n            <p id=\"text-" + post.id + "\">" + post.text + "</p>\n            <button onclick=\"handleEditTitle('" + post.id + "')\">Edit Title</button>\n            <button onclick=\"handleEditText('" + post.id + "')\">Edit Text</button>\n            <button onclick=\"handleEditImage('" + post.id + "')\">Edit Image</button>\n            <button onclick=\"handleDeletePost('" + post.id + "')\">Delete</button>\n        </div>\n    ";
+    return "\n        <div class=\"post\" id=\"post-" + post._id + "\">\n            <h3 id=\"title-" + post._id + "\">" + post.title + "</h3>\n            <img src=\"" + post.image + "\" alt=\"Image\" id=\"image-" + post._id + "\" />\n            <p id=\"text-" + post._id + "\">" + post.text + "</p>\n            <button onclick=\"handleEditTitle('" + post._id + "')\">Edit Title</button>\n            <button onclick=\"handleEditText('" + post._id + "')\">Edit Text</button>\n            <button onclick=\"handleEditImage('" + post._id + "')\">Edit Image</button>\n            <button onclick=\"handleDeletePost('" + post._id + "')\">Delete</button>\n        </div>\n    ";
 }
 function handleEditTitle(id) {
     var _this = this;
@@ -283,8 +283,9 @@ function handleDeletePost(id) {
                 case 0:
                     _b.trys.push([0, 4, , 5]);
                     console.log("Attempting to delete post with id: " + id);
-                    return [4 /*yield*/, fetch("http://localhost:3000/api/posts/delete-post/" + id, {
-                            method: 'DELETE'
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/posts/delete-post", {
+                            method: 'DELETE',
+                            headers: { 'Content-Type': 'application/json' }
                         })];
                 case 1:
                     response = _b.sent();
@@ -296,6 +297,7 @@ function handleDeletePost(id) {
                     throw new Error('Failed to delete post');
                 case 3:
                     (_a = document.getElementById("post-" + id)) === null || _a === void 0 ? void 0 : _a.remove();
+                    console.log("Post with id " + id + " deleted from the DOM");
                     return [3 /*break*/, 5];
                 case 4:
                     error_5 = _b.sent();
