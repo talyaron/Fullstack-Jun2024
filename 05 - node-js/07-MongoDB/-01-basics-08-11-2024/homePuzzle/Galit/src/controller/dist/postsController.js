@@ -91,44 +91,74 @@ function getPosts(req, res) {
 exports.getPosts = getPosts;
 function deletePost(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var id, postIndex;
+        var id, post, error_3;
         return __generator(this, function (_a) {
-            id = req.params.id;
-            console.log("Deleting post with id: " + id);
-            postIndex = postsModel_1.posts.findIndex(function (post) { return post.id === id; });
-            if (postIndex === -1) {
-                console.log("Post with id " + id + " not found");
-                return [2 /*return*/, res.status(404).json({ error: "Post not found" })];
+            switch (_a.label) {
+                case 0:
+                    id = req.body.id;
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 4, , 5]);
+                    console.log("Deleting post with id: " + id);
+                    return [4 /*yield*/, postsModel_1.PostModel.findById(id)];
+                case 2:
+                    post = _a.sent();
+                    if (!post) {
+                        console.log("Post with id " + id + " not found");
+                        return [2 /*return*/, res.status(401).json({ error: "Post not found" })];
+                    }
+                    return [4 /*yield*/, postsModel_1.PostModel.findByIdAndDelete(id)];
+                case 3:
+                    _a.sent();
+                    console.log("Post with id " + id + " deleted");
+                    res.status(200).json({ message: "Post deleted successfully" });
+                    return [3 /*break*/, 5];
+                case 4:
+                    error_3 = _a.sent();
+                    console.error('Error deleting post:', error_3);
+                    res.status(500).json({ error: "Internal server error" });
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
             }
-            postsModel_1.posts.splice(postIndex, 1);
-            console.log("Post with id " + id + " deleted");
-            res.status(200).json({ message: "Post deleted successfully" });
-            return [2 /*return*/];
         });
     });
 }
 exports.deletePost = deletePost;
 function editPost(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var id, _a, title, text, image, post;
+        var _a, id, title, text, image, updatedFields, updatedPost, error_4;
         return __generator(this, function (_b) {
-            id = req.params.id;
-            _a = req.body, title = _a.title, text = _a.text, image = _a.image;
-            console.log("Editing post with id: " + id);
-            post = postsModel_1.posts.find(function (post) { return post.id === id; });
-            if (!post) {
-                console.log("Post with id " + id + " not found");
-                return [2 /*return*/, res.status(404).json({ error: "Post not found" })];
+            switch (_b.label) {
+                case 0:
+                    _a = req.body, id = _a.id, title = _a.title, text = _a.text, image = _a.image;
+                    _b.label = 1;
+                case 1:
+                    _b.trys.push([1, 3, , 4]);
+                    console.log("Editing post with id: " + id);
+                    updatedFields = {};
+                    if (title !== undefined)
+                        updatedFields.title = title;
+                    if (text !== undefined)
+                        updatedFields.text = text;
+                    if (image !== undefined)
+                        updatedFields.image = image;
+                    return [4 /*yield*/, postsModel_1.PostModel.findByIdAndUpdate(id, updatedFields, { "new": true })];
+                case 2:
+                    updatedPost = _b.sent();
+                    if (!updatedPost) {
+                        console.log("Post with id " + id + " not found");
+                        return [2 /*return*/, res.status(404).json({ error: "Post not found" })];
+                    }
+                    console.log("Post with id " + id + " updated");
+                    res.status(200).json({ message: "Post updated successfully", post: updatedPost });
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_4 = _b.sent();
+                    console.error('Error updating post:', error_4);
+                    res.status(500).json({ error: "Internal server error" });
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
-            if (title !== undefined)
-                post.title = title;
-            if (text !== undefined)
-                post.text = text;
-            if (image !== undefined)
-                post.image = image;
-            console.log("Post with id " + id + " updated");
-            res.status(200).json({ message: "Post updated successfully" });
-            return [2 /*return*/];
         });
     });
 }

@@ -1,9 +1,9 @@
 import { UserModel } from '../models/userModel';
 
 export const register = async (req: any, res: any) => {
-    const { name, email, password } = req.body;
+    const { username, email, password } = req.body;
 
-    if (!name || !email || !password) {
+    if (!username || !email || !password) {
         return res.status(400).json({ message: 'Username, email, and password are required' });
     }
 
@@ -13,10 +13,10 @@ export const register = async (req: any, res: any) => {
             return res.status(409).json({ message: 'Email already registered' });
         }
 
-        const newUser = new UserModel({ username: name, email, password });
-        await newUser.save();
+        const newUser = new UserModel({ username, email, password });
+        const userDB = await newUser.save();
 
-        res.status(201).json({ message: 'User registered successfully' });
+        res.status(201).json({ message: 'User registered successfully', user: userDB });
     } catch (error) {
         res.status(500).json({ message: 'Error registering user', error });
     }

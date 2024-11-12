@@ -15,7 +15,7 @@ interface Post {
     title: string;
     text: string;
     image: string;
-    id: string;
+    _id: string;
     editTitle?: boolean;
     editText?: boolean;
 }
@@ -82,14 +82,14 @@ function renderPosts(posts: Post[]) {
 
 function renderPost(post: Post) {
     return `
-        <div class="post" id="post-${post.id}">
-            <h3 id="title-${post.id}">${post.title}</h3>
-            <img src="${post.image}" alt="Image" id="image-${post.id}" />
-            <p id="text-${post.id}">${post.text}</p>
-            <button onclick="handleEditTitle('${post.id}')">Edit Title</button>
-            <button onclick="handleEditText('${post.id}')">Edit Text</button>
-            <button onclick="handleEditImage('${post.id}')">Edit Image</button>
-            <button onclick="handleDeletePost('${post.id}')">Delete</button>
+        <div class="post" id="post-${post._id}">
+            <h3 id="title-${post._id}">${post.title}</h3>
+            <img src="${post.image}" alt="Image" id="image-${post._id}" />
+            <p id="text-${post._id}">${post.text}</p>
+            <button onclick="handleEditTitle('${post._id}')">Edit Title</button>
+            <button onclick="handleEditText('${post._id}')">Edit Text</button>
+            <button onclick="handleEditImage('${post._id}')">Edit Image</button>
+            <button onclick="handleDeletePost('${post._id}')">Delete</button>
         </div>
     `;
 }
@@ -149,11 +149,11 @@ async function handleEditImage(id: string) {
 
 async function updatePost(id: string, updatedFields: Partial<Post>) {
     try {
-        const response = await fetch(`http://localhost:3000/api/posts/edit-post/${id}`, {
+        const response = await fetch(`http://localhost:3000/api/posts/edit-post`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updatedFields),
-        });
+            body: JSON.stringify({ id, ...updatedFields }), 
+                });
 
         if (!response.ok) {
             const errorMessage = await response.text();
@@ -171,8 +171,10 @@ async function handleDeletePost(id: string) {
     try {
         console.log(`Attempting to delete post with id: ${id}`); 
 
-        const response = await fetch(`http://localhost:3000/api/posts/delete-post/${id}`, {
+        const response = await fetch(`http://localhost:3000/api/posts/delete-post`, {
             method: 'DELETE',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({id}),
         });
 
         if (!response.ok) {
@@ -182,6 +184,7 @@ async function handleDeletePost(id: string) {
         }
 
         document.getElementById(`post-${id}`)?.remove(); 
+        console.log(`Post with id ${id} deleted from the DOM`);
     } catch (error) {
         console.error('Error deleting post:', error);
     }
