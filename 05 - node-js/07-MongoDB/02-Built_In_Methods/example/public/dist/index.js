@@ -34,51 +34,53 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-function handleSendPost(event) {
+function handleSendPet(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var form, title, text, imageURL, response, error_1;
+        var form, name, gender, imageURL, response, data, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     event.preventDefault();
                     form = event.target;
-                    title = form.elements.namedItem('title').value;
-                    text = form.elements.namedItem('text').value;
+                    name = form.elements.namedItem('name').value;
+                    gender = form.elements.namedItem('gender').value;
                     imageURL = form.elements.namedItem('imageURL').value;
                     _a.label = 1;
                 case 1:
-                    _a.trys.push([1, 3, , 4]);
-                    console.log('Sending post:', { title: title, text: text, imageURL: imageURL }); // Debug log
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/users/add-post', {
+                    _a.trys.push([1, 4, , 5]);
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/pets/add-pet', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ title: title, text: text, imageURL: imageURL })
+                            body: JSON.stringify({ name: name, gender: gender, imageURL: imageURL })
                         })];
                 case 2:
                     response = _a.sent();
                     if (!response.ok)
                         throw new Error('Failed to add post');
-                    console.log('Post added successfully!');
-                    form.reset();
-                    fetchPosts();
-                    return [3 /*break*/, 4];
+                    return [4 /*yield*/, response.json()];
                 case 3:
+                    data = _a.sent();
+                    console.log(data);
+                    form.reset();
+                    fetchPets();
+                    return [3 /*break*/, 5];
+                case 4:
                     error_1 = _a.sent();
                     console.error('Error sending post:', error_1);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
             }
         });
     });
 }
-function fetchPosts() {
+function fetchPets() {
     return __awaiter(this, void 0, void 0, function () {
         var response, data, feedElement, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/users/get-posts')];
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/pets/get-pets')];
                 case 1:
                     response = _a.sent();
                     if (!response.ok)
@@ -89,9 +91,9 @@ function fetchPosts() {
                     feedElement = document.getElementById("feed");
                     if (!feedElement)
                         throw new Error("Feed element not found");
-                    if (data.posts.length === 0)
+                    if (data.pets.length === 0)
                         return [2 /*return*/];
-                    renderPosts(data.posts);
+                    renderPets(data.pets);
                     return [3 /*break*/, 4];
                 case 3:
                     error_2 = _a.sent();
@@ -102,7 +104,7 @@ function fetchPosts() {
         });
     });
 }
-fetchPosts();
+fetchPets();
 function savePostsToLocalStorage(posts) {
     localStorage.setItem('posts', JSON.stringify(posts));
 }
@@ -121,20 +123,21 @@ function loadPostsFromLocalStorage() {
 //     posts.push(newPost);
 //     savePostsToLocalStorage(posts);
 //     form.reset();
-//     renderPosts();
+//     renderPets();
 // }
-function renderPosts(posts) {
+function renderPets(pets) {
     var feedElement = document.getElementById('feed');
     if (!feedElement)
         throw new Error('Feed element not found');
-    var htmlPosts = posts.map(function (post) {
-        return renderPost(post);
+    var htmlPets = pets.map(function (pet) {
+        return renderPet(pet);
     }).filter(function (post) { return post !== null; }).join('');
-    feedElement.innerHTML = htmlPosts;
+    feedElement.innerHTML = htmlPets;
 }
-function renderPost(post) {
+function renderPet(pet) {
     try {
-        var html = "\n        <div class=\"post\">\n            <h3 id=\"title-" + post.id + "\">" + post.title + "</h3><button onclick=\"handleEditTitle('" + post.id + "')\" >Edit</button><button>Delete</button>\n            <img src=\"" + post.imageURL + "\" alt=\"Image\" />\n            <p>" + post.text + "</p>\n        </div>\n        ";
+        console.log(pet);
+        var html = "\n        <div class=\"pet\">\n            <h3 id=\"title-" + pet.id + "\">" + pet.name + "</h3>\n            " + (pet.imageURL ? "<img src=\"" + pet.imageURL + "\" alt=\"Image\" />" : '') + "\n            <button onclick=\"handleEditTitle('" + pet.id + "')\" >Edit</button><button>Delete</button>\n            <p>" + pet.gender + "</p>\n        </div>\n        ";
         return html;
     }
     catch (error) {

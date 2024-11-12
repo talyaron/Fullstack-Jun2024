@@ -1,59 +1,58 @@
-interface Post {
-    title: string;
-    text: string;
+interface Pet {
+    name: string;
+    gender: string;
     imageURL: string;
     id: string;
-    editTitle?: boolean;
-    editText?: boolean;
 }
 
-async function handleSendPost(event: Event) {
+async function handleSendPet(event: Event) {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
 
-    const title = (form.elements.namedItem('title') as HTMLInputElement).value;
-    const text = (form.elements.namedItem('text') as HTMLInputElement).value;
+    const name = (form.elements.namedItem('name') as HTMLInputElement).value;
+    const gender = (form.elements.namedItem('gender') as HTMLInputElement).value;
     const imageURL = (form.elements.namedItem('imageURL') as HTMLInputElement).value;
 
     try {
-        console.log('Sending post:', { title, text, imageURL });  // Debug log
+        
 
-        const response = await fetch('http://localhost:3000/api/users/add-post', {
+        const response = await fetch('http://localhost:3000/api/pets/add-pet', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title, text, imageURL }),
+            body: JSON.stringify({ name, gender, imageURL }),
         });
 
         if (!response.ok) throw new Error('Failed to add post');
 
-        console.log('Post added successfully!');
+        const data = await response.json();
+        console.log(data);
 
         form.reset();
-        fetchPosts();
+        fetchPets();
 
     } catch (error) {
         console.error('Error sending post:', error);
     }
 }
 
-async function fetchPosts() {
+async function fetchPets() {
     try {
 
-        const response = await fetch('http://localhost:3000/api/users/get-posts');
-        if(!response.ok) throw new Error('Failed to fetch posts');
+        const response = await fetch('http://localhost:3000/api/pets/get-pets');
+        if (!response.ok) throw new Error('Failed to fetch posts');
         const data = await response.json();
 
         const feedElement = document.getElementById("feed");
         if (!feedElement) throw new Error("Feed element not found");
-        if (data.posts.length === 0) return;
+        if (data.pets.length === 0) return;
 
-        renderPosts(data.posts);
+        renderPets(data.pets);
     } catch (error) {
         console.error("Error fetching posts:", error);
     }
 }
 
-fetchPosts();
+fetchPets();
 
 
 function savePostsToLocalStorage(posts: any[]) {
@@ -79,31 +78,33 @@ function loadPostsFromLocalStorage(): any[] {
 //     savePostsToLocalStorage(posts);
 
 //     form.reset();
-//     renderPosts();
+//     renderPets();
 // }
 
-function renderPosts(posts: Post[]) {
+function renderPets(pets: Pet[]) {
 
     const feedElement = document.getElementById('feed');
     if (!feedElement) throw new Error('Feed element not found');
 
 
-    const htmlPosts = posts.map((post) => {
+    const htmlPets = pets.map((pet) => {
 
-        return renderPost(post);
+        return renderPet(pet);
 
     }).filter((post) => post !== null).join('');
 
-    feedElement.innerHTML = htmlPosts;
+    feedElement.innerHTML = htmlPets;
 }
 
-function renderPost(post: Post) {
+function renderPet(pet: Pet) {
     try {
+        console.log(pet)
         const html = `
-        <div class="post">
-            <h3 id="title-${post.id}">${post.title}</h3><button onclick="handleEditTitle('${post.id}')" >Edit</button><button>Delete</button>
-            <img src="${post.imageURL}" alt="Image" />
-            <p>${post.text}</p>
+        <div class="pet">
+            <h3 id="title-${pet.id}">${pet.name}</h3>
+            ${pet.imageURL ? `<img src="${pet.imageURL}" alt="Image" />` : ''}
+            <button onclick="handleEditTitle('${pet.id}')" >Edit</button><button>Delete</button>
+            <p>${pet.gender}</p>
         </div>
         `;
         return html;
@@ -121,12 +122,12 @@ function handleEditTitle(id: string) {
         titleElement.contentEditable = 'true';
         titleElement.focus();
         titleElement.addEventListener("blur", (event) => {
-            
-                const title = titleElement.innerText;
-                console.log("New title:", title);
-                titleElement.contentEditable = 'false';
 
-                //how to update the title in the server
+            const title = titleElement.innerText;
+            console.log("New title:", title);
+            titleElement.contentEditable = 'false';
+
+            //how to update the title in the server
         });
 
     } catch (error) {
