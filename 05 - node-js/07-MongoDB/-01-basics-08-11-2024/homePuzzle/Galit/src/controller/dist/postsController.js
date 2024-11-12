@@ -40,20 +40,27 @@ exports.editPost = exports.deletePost = exports.getPosts = exports.addPost = voi
 var postsModel_1 = require("../models/postsModel");
 function addPost(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, title, text, image, newPost;
+        var _a, title, text, image, newPost, postDB, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
+                    _b.trys.push([0, 2, , 3]);
                     _a = req.body, title = _a.title, text = _a.text, image = _a.image;
                     if (!title || !text || !image) {
                         return [2 /*return*/, res.status(400).json({ error: "All fields (title, text, image) are required" })];
                     }
+                    console.log(title, text);
                     newPost = new postsModel_1.PostModel({ title: title, text: text, image: image });
                     return [4 /*yield*/, newPost.save()];
                 case 1:
-                    _b.sent();
-                    res.status(201).json({ message: "Post added successfully" });
-                    return [2 /*return*/];
+                    postDB = _b.sent();
+                    res.status(201).json({ message: "Post added successfully", post: postDB });
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_1 = _b.sent();
+                    res.status(500).json({ error: "Internal server error" });
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
         });
     });
@@ -61,9 +68,23 @@ function addPost(req, res) {
 exports.addPost = addPost;
 function getPosts(req, res) {
     return __awaiter(this, void 0, void 0, function () {
+        var postsDB, error_2;
         return __generator(this, function (_a) {
-            res.json({ posts: postsModel_1.posts });
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, postsModel_1.PostModel.find()];
+                case 1:
+                    postsDB = _a.sent();
+                    res.status(200).json({ posts: postsDB });
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_2 = _a.sent();
+                    console.error('Error fetching posts:', error_2);
+                    res.status(500).json({ error: "Internal server error" });
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
         });
     });
 }

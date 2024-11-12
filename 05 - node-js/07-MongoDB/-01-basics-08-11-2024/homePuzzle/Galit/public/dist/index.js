@@ -77,7 +77,7 @@ function handleSendPost(event) {
             }
             reader = new FileReader();
             reader.onload = function (loadEvent) { return __awaiter(_this, void 0, void 0, function () {
-                var imageBase64, response, error_2;
+                var imageBase64, response, data, error_2;
                 var _a;
                 return __generator(this, function (_b) {
                     switch (_b.label) {
@@ -85,7 +85,7 @@ function handleSendPost(event) {
                             imageBase64 = (_a = loadEvent.target) === null || _a === void 0 ? void 0 : _a.result;
                             _b.label = 1;
                         case 1:
-                            _b.trys.push([1, 4, , 5]);
+                            _b.trys.push([1, 5, , 6]);
                             return [4 /*yield*/, fetch('http://localhost:3000/api/posts/add-post', {
                                     method: 'POST',
                                     headers: { 'Content-Type': 'application/json' },
@@ -95,16 +95,21 @@ function handleSendPost(event) {
                             response = _b.sent();
                             if (!response.ok)
                                 throw new Error('Failed to add post');
+                            console.log('Post added successfully');
+                            return [4 /*yield*/, response.json()];
+                        case 3:
+                            data = _b.sent();
+                            console.log(data);
                             form.reset();
                             return [4 /*yield*/, fetchPosts()];
-                        case 3:
-                            _b.sent();
-                            return [3 /*break*/, 5];
                         case 4:
+                            _b.sent();
+                            return [3 /*break*/, 6];
+                        case 5:
                             error_2 = _b.sent();
                             console.error('Error sending post:', error_2);
-                            return [3 /*break*/, 5];
-                        case 5: return [2 /*return*/];
+                            return [3 /*break*/, 6];
+                        case 6: return [2 /*return*/];
                     }
                 });
             }); };

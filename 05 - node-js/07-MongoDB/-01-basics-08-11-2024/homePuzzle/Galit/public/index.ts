@@ -45,6 +45,10 @@ async function handleSendPost(event: Event) {
             });
 
             if (!response.ok) throw new Error('Failed to add post');
+            console.log('Post added successfully');
+
+           const data = await response.json();
+           console.log(data)
 
             form.reset();
             await fetchPosts();
