@@ -3,7 +3,8 @@ interface Post {
   text: string;
   imageURL: string;
   id: string;
-  username: string;
+  username: string; 
+  loginUsername: string;
   editTitle?: boolean;
   editText?: boolean;
   editImageURL?: boolean;
@@ -17,7 +18,7 @@ async function handleSendPost(event: Event) {
   const text = (form.elements.namedItem("text") as HTMLInputElement).value;
   const imageURL = (form.elements.namedItem("imageURL") as HTMLInputElement)
     .value;
-  const username = localStorage.getItem("username"); // Get the username from local storage
+  const username = localStorage.getItem("loginUsername"); // Get the login username from local storage
 
   if (!username) {
     alert("You need to be logged in to create a post.");
@@ -25,7 +26,7 @@ async function handleSendPost(event: Event) {
   }
 
   try {
-    console.log("Sending post:", { title, text, imageURL, username }); // Debug log
+    console.log("Sending post:", { title, text, username }); // Debug log
 
     const response = await fetch("http://localhost:3000/api/posts/add-post", {
       method: "POST",
@@ -46,30 +47,42 @@ async function handleSendPost(event: Event) {
 
 async function fetchPosts() {
   const isUserLoggedIn = localStorage.getItem("isUserLogin") === "true";
-  const currentUsername = localStorage.getItem("username");
+  const currentUsername = localStorage.getItem("loginUsername");
 
   if (!isUserLoggedIn || !currentUsername) {
-    console.log("User is not logged in or username not found. Posts are hidden.");
+    console.log(
+      "User is not logged in or username not found. Posts are hidden."
+    );
     return;
   }
 
   try {
-    const response = await fetch("http://localhost:3000/api/posts/get-posts");
-    if (!response.ok) throw new Error("Failed to fetch posts");
+    const response = await fetch(
+      `http://localhost:3000/api/posts/get-posts?username=${currentUsername}`
+    );
+    if (!response.ok) {
+      console.error(`Failed to fetch posts. Status: ${response.status}`);
+      throw new Error("Failed to fetch posts");
+    }
+
     const data = await response.json();
+
+    if (!data.posts) {
+      throw new Error("Invalid response format. 'posts' field is missing.");
+    }
 
     const feedElement = document.getElementById("feed");
     if (!feedElement) throw new Error("Feed element not found");
     if (data.posts.length === 0) return;
 
-    // Filter posts by the current user
-    const userPosts = data.posts.filter((post: Post) => post.username === currentUsername);
+    const userPosts = data.posts.filter(
+      (post: Post) => post.username === currentUsername
+    );
     renderPosts(userPosts);
   } catch (error) {
     console.error("Error fetching posts:", error);
   }
 }
-
 fetchPosts();
 
 function savePostsToLocalStorage(posts: any[]) {
@@ -83,8 +96,10 @@ function loadPostsFromLocalStorage(): any[] {
 
 function renderPosts(posts: Post[]) {
   const feedElement = document.getElementById("feed");
-  if (!feedElement) throw new Error("Feed element not found");
-
+  if (!feedElement) {
+    console.error("Feed element not found");
+    return;
+  }
   const htmlPosts = posts
     .map((post) => renderPost(post))
     .filter((post) => post !== null)
@@ -120,30 +135,30 @@ function handleEditPost(id: string) {
       throw new Error("Post elements not found");
     }
 
-    // make the title, text, and image URL editable
     titleElement.contentEditable = "true";
     textElement.contentEditable = "true";
-    titleElement.focus(); // focus on the title element
 
-    // add an input field for the image URL
     const imageInput = document.createElement("input");
     imageInput.type = "text";
     imageInput.value = imageElement.src;
     imageInput.id = `image-input-${id}`;
     imageElement.insertAdjacentElement("afterend", imageInput);
 
-    // blur event handler to save the changes
-    const onEditComplete = async () => {
+    const saveButton = document.createElement("button");
+    saveButton.textContent = "Save";
+    saveButton.onclick = async () => {
+      const username = localStorage.getItem("loginUsername"); 
       const updatedPost = {
         title: titleElement.innerText,
         text: textElement.innerText,
         imageURL: imageInput.value,
+        username: username, 
       };
 
-      // end editing
       titleElement.contentEditable = "false";
       textElement.contentEditable = "false";
-      imageInput.remove(); // delete the input field
+      imageInput.remove();
+      saveButton.remove();
 
       try {
         const response = await fetch(
@@ -162,10 +177,8 @@ function handleEditPost(id: string) {
       }
     };
 
-    // add blur event listeners to the title, text, and image URL elements
-    titleElement.addEventListener("blur", onEditComplete);
-    textElement.addEventListener("blur", onEditComplete);
-    imageInput.addEventListener("blur", onEditComplete);
+    const postElement = document.getElementById(`post-${id}`);
+    if (postElement) postElement.appendChild(saveButton);
   } catch (error) {
     console.error("Error:", error);
   }
@@ -197,26 +210,29 @@ function goToRegister() {
 }
 
 // Add event listener to display the username when the page loads
-document.addEventListener('DOMContentLoaded', () => {
-  const username = localStorage.getItem('username');
-  
+document.addEventListener("DOMContentLoaded", () => {
+  const username = localStorage.getItem("loginUsername");
+
   if (username) {
-    // Create a greeting message and display it on the page
-    const greetingElement = document.createElement('div');
-    greetingElement.textContent = `Hi, ${username}`;
-    document.body.prepend(greetingElement); // Add the greeting at the top of the page
+    const greetingElement = document.getElementById("greeting");
+    if (greetingElement) {
+      greetingElement.textContent = `Hi, ${username}!`;
+    }
+  }
+
+  // add a logout button if the user is logged in
+  const isUserLoggedIn = localStorage.getItem("isUserLogin") === "true";
+  if (isUserLoggedIn) {
+    const logoutButton = document.createElement("button");
+    logoutButton.textContent = "Logout";
+    logoutButton.onclick = handleLogout;
+    document.body.appendChild(logoutButton);
   }
 });
 
 function handleLogout() {
   localStorage.removeItem("isUserLogin");
-  localStorage.removeItem("username");
-  window.location.href = "/login/login.html"; // Redirect to the login page
+  localStorage.removeItem("loginUsername");
+  window.location.href = "/login/login.html"; 
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const logoutButton = document.createElement("button");
-  logoutButton.textContent = "Logout";
-  logoutButton.onclick = handleLogout;
-  document.body.appendChild(logoutButton);
-}); // add the logout button to the page

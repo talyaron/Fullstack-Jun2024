@@ -1,21 +1,17 @@
-// Add event listener when the DOM content is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form");
-
   if (form) {
     form.addEventListener("submit", async (event) => {
-      event.preventDefault(); 
-      // Extract data from form inputs
+      event.preventDefault();
       const usernameInput = document.getElementById(
         "username"
       ) as HTMLInputElement;
       const passwordInput = document.getElementById(
         "password"
       ) as HTMLInputElement;
-      const username = usernameInput.value.trim();
+      const loginUsername = usernameInput.value.trim();
       const password = passwordInput.value.trim();
-      // Call function to send data to the server
-      await loginUser(username, password);
+      await loginUser(loginUsername, password);
     });
   }
 });
@@ -27,17 +23,23 @@ async function loginUser(username: string, password: string) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
     });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status} ${response.statusText}`);
+    }
+
     const data = await response.json();
 
     if (data.success) {
-      localStorage.setItem("username", username);
-      localStorage.setItem("isUserLogin", "true");
+      localStorage.setItem("loginUsername", username);
+      localStorage.setItem("isUserLogin", "true"); 
+      console.log("User logged in successfully:", username); 
       window.location.href = "/";
     } else {
       alert("Invalid username or password");
     }
   } catch (error) {
     console.error("Error:", error);
-    alert("An error occurred. Please try again.");
+    alert("An error occurred while trying to log in.");
   }
 }

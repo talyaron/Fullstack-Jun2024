@@ -1,20 +1,20 @@
 export interface User {
   id: string;
-  name: string;
+  username: string;
   password: string;
-  email?: string; 
+  email: string; 
 }
 
 export const users: User[] = [
   {
     id: "1",
-    name: "User1",
+    username: "User1",
     password: "password123",
     email: "user1@example.com",
   },
   {
     id: "2",
-    name: "User2",
+    username: "User2",
     password: "password456",
     email: "user2@example.com",
   },
