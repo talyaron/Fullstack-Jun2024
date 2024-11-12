@@ -25,7 +25,7 @@ app.use(
 
 
 const dbUrl = "mongodb+srv://galitccga:q4wlV111QcHSFkDZ@cluster0.sevm84o.mongodb.net/Instagram-project";
-const database = 'Instagram-project';
+const database = 'InstagramProject';
 
 mongoose.connect(`${dbUrl}/${database}`).then(()=>{
     console.info("DB connected")
