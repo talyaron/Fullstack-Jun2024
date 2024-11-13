@@ -18,3 +18,18 @@ export async function addPet(req: any, res: any) {
         res.status(500).json({ error: 'Failed to add post' });
     }
 }
+
+export async function deletePet(req: any, res: any) {
+    try {
+        const { id } = req.body;
+        if (!id) return res.status(400).json({ error: "ID is required" });
+
+        const pet = await PetModel.findByIdAndDelete(id);
+        if (!pet) return res.status(401).json({ error: "Pet not found" });
+
+        res.status(200).json({ message: "Pet deleted successfully" });
+    } catch (error) {
+        console.error('Error deleting pet:', error);
+        res.status(500).json({ error: 'Failed to delete pet' });
+    }
+}

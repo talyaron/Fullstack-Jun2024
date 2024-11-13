@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.addPet = void 0;
+exports.deletePet = exports.addPet = void 0;
 var petsModel_1 = require("../../models/pets/petsModel");
 function addPet(req, res) {
     return __awaiter(this, void 0, void 0, function () {
@@ -66,3 +66,31 @@ function addPet(req, res) {
     });
 }
 exports.addPet = addPet;
+function deletePet(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var id, pet, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    id = req.body.id;
+                    if (!id)
+                        return [2 /*return*/, res.status(400).json({ error: "ID is required" })];
+                    return [4 /*yield*/, petsModel_1.PetModel.findByIdAndDelete(id)];
+                case 1:
+                    pet = _a.sent();
+                    if (!pet)
+                        return [2 /*return*/, res.status(401).json({ error: "Pet not found" })];
+                    res.status(200).json({ message: "Pet deleted successfully" });
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_2 = _a.sent();
+                    console.error('Error deleting pet:', error_2);
+                    res.status(500).json({ error: 'Failed to delete pet' });
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.deletePet = deletePet;

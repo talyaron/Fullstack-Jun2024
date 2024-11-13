@@ -2,7 +2,7 @@ interface Pet {
     name: string;
     gender: string;
     imageURL: string;
-    id: string;
+    _id: string;
 }
 
 async function handleSendPet(event: Event) {
@@ -101,9 +101,10 @@ function renderPet(pet: Pet) {
         console.log(pet)
         const html = `
         <div class="pet">
-            <h3 id="title-${pet.id}">${pet.name}</h3>
+            <h3 id="title-${pet._id}">${pet.name}</h3>
             ${pet.imageURL ? `<img src="${pet.imageURL}" alt="Image" />` : ''}
-            <button onclick="handleEditTitle('${pet.id}')" >Edit</button><button>Delete</button>
+            <button onclick="handleEditTitle('${pet._id}')" >Edit</button>
+            <button onclick="handleDelete('${pet._id}')">Delete</button>
             <p>${pet.gender}</p>
         </div>
         `;
@@ -113,6 +114,28 @@ function renderPet(pet: Pet) {
 
     }
 }
+
+async function handleDelete(id: string) {
+    try {
+        console.log(id);
+
+        const response = await fetch(`http://localhost:3000/api/pets/delete-pet`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id }),
+        });
+
+        if (!response.ok) throw new Error('Failed to delete post');
+
+        const data = await response.json();
+        console.log(data);
+
+        fetchPets();
+        
+    } catch (error) {
+        console.error('Error:', error);
+        
+    }
 
 function handleEditTitle(id: string) {
     try {

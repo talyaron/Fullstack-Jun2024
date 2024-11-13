@@ -137,29 +137,61 @@ function renderPets(pets) {
 function renderPet(pet) {
     try {
         console.log(pet);
-        var html = "\n        <div class=\"pet\">\n            <h3 id=\"title-" + pet.id + "\">" + pet.name + "</h3>\n            " + (pet.imageURL ? "<img src=\"" + pet.imageURL + "\" alt=\"Image\" />" : '') + "\n            <button onclick=\"handleEditTitle('" + pet.id + "')\" >Edit</button><button>Delete</button>\n            <p>" + pet.gender + "</p>\n        </div>\n        ";
+        var html = "\n        <div class=\"pet\">\n            <h3 id=\"title-" + pet._id + "\">" + pet.name + "</h3>\n            " + (pet.imageURL ? "<img src=\"" + pet.imageURL + "\" alt=\"Image\" />" : '') + "\n            <button onclick=\"handleEditTitle('" + pet._id + "')\" >Edit</button>\n            <button onclick=\"handleDelete('" + pet._id + "')\">Delete</button>\n            <p>" + pet.gender + "</p>\n        </div>\n        ";
         return html;
     }
     catch (error) {
         console.error('Error:', error);
     }
 }
-function handleEditTitle(id) {
-    try {
-        console.log("Edit title:", id);
-        var titleElement_1 = document.getElementById("title-" + id);
-        if (!titleElement_1)
-            throw new Error('Title element not found');
-        titleElement_1.contentEditable = 'true';
-        titleElement_1.focus();
-        titleElement_1.addEventListener("blur", function (event) {
-            var title = titleElement_1.innerText;
-            console.log("New title:", title);
-            titleElement_1.contentEditable = 'false';
-            //how to update the title in the server
+function handleDelete(id) {
+    return __awaiter(this, void 0, void 0, function () {
+        function handleEditTitle(id) {
+            try {
+                console.log("Edit title:", id);
+                var titleElement_1 = document.getElementById("title-" + id);
+                if (!titleElement_1)
+                    throw new Error('Title element not found');
+                titleElement_1.contentEditable = 'true';
+                titleElement_1.focus();
+                titleElement_1.addEventListener("blur", function (event) {
+                    var title = titleElement_1.innerText;
+                    console.log("New title:", title);
+                    titleElement_1.contentEditable = 'false';
+                    //how to update the title in the server
+                });
+            }
+            catch (error) {
+                console.error('Error:', error);
+            }
+        }
+        var response, data, error_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    console.log(id);
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/pets/delete-pet", {
+                            method: 'DELETE',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ id: id })
+                        })];
+                case 1:
+                    response = _a.sent();
+                    if (!response.ok)
+                        throw new Error('Failed to delete post');
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    data = _a.sent();
+                    console.log(data);
+                    fetchPets();
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_3 = _a.sent();
+                    console.error('Error:', error_3);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
         });
-    }
-    catch (error) {
-        console.error('Error:', error);
-    }
+    });
 }
