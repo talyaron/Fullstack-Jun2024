@@ -11,7 +11,7 @@ app.use(express.static('public'));
 app.use("/api/post", postRoutes);
 
 //DB CONNETCTION
-const dbUrl = "mongodb+srv://adhcsvi1:sagiv123@cluster0.qyh2p.mongodb.net"
+const dbUrl = "mongodb+srv://adhcsvi1:sagiv123@cluster0.qyh2p.mongodb.net";
 const database = 'InstaClone';
 
 mongoose.connect(`${dbUrl}/${database}`).then(()=>{

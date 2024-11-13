@@ -39,12 +39,12 @@ exports.__esModule = true;
 exports.logout = exports.login = exports.register = void 0;
 var userModel_1 = require("../models/userModel");
 exports.register = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, name, email, password, existingUser, newUser, error_1;
+    var _a, username, email, password, existingUser, newUser, userDB, error_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _a = req.body, name = _a.name, email = _a.email, password = _a.password;
-                if (!name || !email || !password) {
+                _a = req.body, username = _a.username, email = _a.email, password = _a.password;
+                if (!username || !email || !password) {
                     return [2 /*return*/, res.status(400).json({ message: 'Username, email, and password are required' })];
                 }
                 _b.label = 1;
@@ -56,11 +56,11 @@ exports.register = function (req, res) { return __awaiter(void 0, void 0, void 0
                 if (existingUser) {
                     return [2 /*return*/, res.status(409).json({ message: 'Email already registered' })];
                 }
-                newUser = new userModel_1.UserModel({ username: name, email: email, password: password });
+                newUser = new userModel_1.UserModel({ username: username, email: email, password: password });
                 return [4 /*yield*/, newUser.save()];
             case 3:
-                _b.sent();
-                res.status(201).json({ message: 'User registered successfully' });
+                userDB = _b.sent();
+                res.status(201).json({ message: 'User registered successfully', user: userDB });
                 return [3 /*break*/, 5];
             case 4:
                 error_1 = _b.sent();
