@@ -1,34 +1,25 @@
 import express from 'express';
-import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import crypto from 'crypto';  // for generating post IDs
+import postRoutes from './routes/postRoutes';  // Import your post routes
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 3000;
 
-const posts: Array<{ title: string, text: string, imageURL: string, id:string }> = [];
+app.use(express.json());
+app.use(express.static('public'));  
 
-app.use(bodyParser.json());
-app.use(express.static('public'));
+const dbUrl = "mongodb+srv://alexisv:Preobra30@cluster0.fqmwt.mongodb.net";
+const database = 'fs-jun24';
 
-app.post('/api/add-post', (req: any, res: any) => {
-    const { title, text, imageURL } = req.body;
-    
-    console.log('Received POST request:', req.body);  
-
-    if (!title || !text || !imageURL) {
-        return res.status(400).json({ error: "All fields (title, text, imageURL) are required" });
-    }
-
-    const id = crypto.randomUUID();
-    posts.push({id, title, text, imageURL });
-
-    console.log('Current posts:', posts); 
-
-    res.status(201).json({ message: "Post added successfully" });
+mongoose.connect(`${dbUrl}/${database}`).then(() => {
+    console.info("DB connected");
+}).catch((err) => {
+    console.error("DB connection failed:", err);
 });
 
-app.get('/api/get-posts', (req, res) => {
-    res.json({ posts });
-});
+// Use the postRoutes for handling routes related to posts
+app.use("/api/posts", postRoutes);  
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);

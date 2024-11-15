@@ -36,46 +36,59 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.getUserDetails = void 0;
-var clientModel_1 = require("../models/clientModel");
-function getUserDetails(req, res) {
+exports.getPosts = exports.addPost = void 0;
+var postModels_1 = require("../models/postModels"); // Assuming you have a Post model
+// Add a new post
+function addPost(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, firstName, lastName, email, phone, yearOfBirth, user, error_1;
+        var _a, title, text, imageURL, post, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
                     _b.trys.push([0, 2, , 3]);
-                    _a = req.query, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, phone = _a.phone, yearOfBirth = _a.yearOfBirth;
-                    return [4 /*yield*/, clientModel_1.ClientModel.findOne({
-                            firstName: firstName,
-                            lastName: lastName,
-                            email: email,
-                            phone: phone,
-                            yearOfBirth: yearOfBirth
-                        })];
+                    _a = req.body, title = _a.title, text = _a.text, imageURL = _a.imageURL;
+                    post = new postModels_1.PostModel({
+                        title: title,
+                        text: text,
+                        imageURL: imageURL
+                    });
+                    return [4 /*yield*/, post.save()];
                 case 1:
-                    user = _b.sent();
-                    if (!user) {
-                        console.log("User not found");
-                        return [2 /*return*/, res.status(400).send({ error: "No user found" })];
-                    }
-                    return [2 /*return*/, res.status(200).send({
-                            message: "User found",
-                            user: {
-                                firstName: user.firstName,
-                                lastName: user.lastName,
-                                email: user.email,
-                                phone: user.phone,
-                                yearOfBirth: user.yearOfBirth
-                            }
-                        })];
+                    _b.sent(); // Save the post to the database
+                    res.status(201).json({ message: "Post created successfully!" });
+                    return [3 /*break*/, 3];
                 case 2:
                     error_1 = _b.sent();
-                    console.error("Error occurred while retrieving user details:", error_1);
-                    return [2 /*return*/, res.status(500).send({ error: "No data" })];
+                    console.error("Error creating post:", error_1);
+                    res.status(500).json({ error: "Failed to create post" });
+                    return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
         });
     });
 }
-exports.getUserDetails = getUserDetails;
+exports.addPost = addPost;
+// Get all posts
+function getPosts(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var posts, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, postModels_1.PostModel.find()];
+                case 1:
+                    posts = _a.sent();
+                    res.status(200).json({ posts: posts });
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_2 = _a.sent();
+                    console.error("Error fetching posts:", error_2);
+                    res.status(500).json({ error: "Failed to fetch posts" });
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.getPosts = getPosts;

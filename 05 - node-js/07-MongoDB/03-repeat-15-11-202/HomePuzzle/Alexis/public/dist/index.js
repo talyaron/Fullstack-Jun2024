@@ -92,7 +92,7 @@ function handleAddClient(ev) {
                 case 5:
                     infoUser = _a.sent();
                     userInfo = document.querySelector("#result");
-                    userInfo.innerHTML = "\n          <strong>Full Name:</strong> " + infoUser.firstName + " " + infoUser.lastName + "<br>\n          <strong>Email:</strong> " + infoUser.email + "<br>\n          <strong>Phone:</strong> " + infoUser.phone + "<br>\n          <strong>Year of Birth:</strong> " + infoUser.yearOfBirth + "\n        ";
+                    userInfo.innerHTML = "\n        <strong>Full Name:</strong> " + infoUser.user.firstName + " " + infoUser.user.lastName + "<br>\n        <strong>Email:</strong> " + infoUser.user.email + "<br>\n        <strong>Phone:</strong> " + infoUser.user.phone + "<br>\n        <strong>Year of Birth:</strong> " + infoUser.user.yearOfBirth + "\n      ";
                     console.log("User details fetched successfully.");
                     return [3 /*break*/, 7];
                 case 6:
@@ -101,7 +101,7 @@ function handleAddClient(ev) {
                 case 7: return [3 /*break*/, 9];
                 case 8:
                     error_1 = _a.sent();
-                    console.error("error");
+                    console.error("error", error_1);
                     return [3 /*break*/, 9];
                 case 9: return [2 /*return*/];
             }
@@ -109,5 +109,3 @@ function handleAddClient(ev) {
     });
 }
 exports.handleAddClient = handleAddClient;
-var form = document.getElementById("forma");
-form.addEventListener("submit", handleAddClient);

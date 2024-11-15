@@ -36,46 +36,35 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.getUserDetails = void 0;
-var clientModel_1 = require("../models/clientModel");
-function getUserDetails(req, res) {
+exports.addPost = void 0;
+var postModels_1 = require("../models/postModels");
+function addPost(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, firstName, lastName, email, phone, yearOfBirth, user, error_1;
+        var _a, title, text, imageURL, result, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
                     _b.trys.push([0, 2, , 3]);
-                    _a = req.query, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, phone = _a.phone, yearOfBirth = _a.yearOfBirth;
-                    return [4 /*yield*/, clientModel_1.ClientModel.findOne({
-                            firstName: firstName,
-                            lastName: lastName,
-                            email: email,
-                            phone: phone,
-                            yearOfBirth: yearOfBirth
+                    _a = req.body, title = _a.title, text = _a.text, imageURL = _a.imageURL;
+                    return [4 /*yield*/, postModels_1.ClientModel.create({
+                            title: title, text: text, imageURL: imageURL
                         })];
                 case 1:
-                    user = _b.sent();
-                    if (!user) {
-                        console.log("User not found");
-                        return [2 /*return*/, res.status(400).send({ error: "No user found" })];
+                    result = _b.sent();
+                    console.log(result);
+                    if (!result) {
+                        return [2 /*return*/, res.status(400).send({ error: "Couldn't create new post!" })];
                     }
-                    return [2 /*return*/, res.status(200).send({
-                            message: "User found",
-                            user: {
-                                firstName: user.firstName,
-                                lastName: user.lastName,
-                                email: user.email,
-                                phone: user.phone,
-                                yearOfBirth: user.yearOfBirth
-                            }
-                        })];
+                    return [2 /*return*/, res
+                            .status(201)
+                            .send({ message: "Post was created successfully!" })];
                 case 2:
                     error_1 = _b.sent();
-                    console.error("Error occurred while retrieving user details:", error_1);
-                    return [2 /*return*/, res.status(500).send({ error: "No data" })];
+                    console.error("error");
+                    return [2 /*return*/, res.status(500).send({ error: "Nothing" })];
                 case 3: return [2 /*return*/];
             }
         });
     });
 }
-exports.getUserDetails = getUserDetails;
+exports.addPost = addPost;
