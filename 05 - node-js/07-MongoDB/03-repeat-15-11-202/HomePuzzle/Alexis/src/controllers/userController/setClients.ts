@@ -19,6 +19,6 @@ export async function addClient(req: any, res: any) {
     return res.status(201).send({message:"Client was created successfully!"})
   } catch (error) {
     console.error("error");
-    return res.status(500).send({error:error.message})
+    return res.status(500).send({error:"Nothing"})
   }
 }
