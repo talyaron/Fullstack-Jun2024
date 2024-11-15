@@ -58,7 +58,7 @@ async function fetchPosts() {
 
   try {
     const response = await fetch(
-      `http://localhost:3000/api/posts/get-posts?username=${currentUsername}`
+      `http://localhost:3000/api/posts/get-posts`
     );
     if (!response.ok) {
       console.error(`Failed to fetch posts. Status: ${response.status}`);
@@ -66,6 +66,7 @@ async function fetchPosts() {
     }
 
     const data = await response.json();
+    console.log("Fetched posts:", data);
 
     if (!data.posts) {
       throw new Error("Invalid response format. 'posts' field is missing.");

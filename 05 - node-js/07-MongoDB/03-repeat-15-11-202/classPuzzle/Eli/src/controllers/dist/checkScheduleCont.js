@@ -36,37 +36,33 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.register = void 0;
-var Users_1 = require("../model/Users");
-exports.register = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, name, email, password, newUser, error_1;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                _a = req.body, name = _a.name, email = _a.email, password = _a.password;
-                console.log(name, email, password);
-                if (!name || !email || !password) {
-                    return [2 /*return*/, res.status(400).json({ message: 'Username and password are required' })];
-                }
-                _b.label = 1;
-            case 1:
-                _b.trys.push([1, 3, , 4]);
-                newUser = new Users_1.UserSchema({ name: name, email: email, password: password });
-                return [4 /*yield*/, newUser.save()];
-            case 2:
-                _b.sent();
-                // users.push(newUser)
-                res.status(201).json({ message: 'User registered successfully' });
-                return [3 /*break*/, 4];
-            case 3:
-                error_1 = _b.sent();
-                if (error_1.code === 11000) {
-                    return [2 /*return*/, res.status(409).json({ message: 'Username already exists' })];
-                }
-                console.error(error_1);
-                res.status(500).json({ message: 'Internal server error', error: error_1 });
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
-        }
+exports.checkSchedule = void 0;
+var serviceProviderModel_1 = require("../models/serviceProviderModel");
+function checkSchedule(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var _a, name, date, exactDate, allProvider, error_1;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _b.trys.push([0, 2, , 3]);
+                    _a = req.body, name = _a.name, date = _a.date;
+                    exactDate = new Date(date);
+                    return [4 /*yield*/, serviceProviderModel_1.ServiceProviderModel.find({ workDate: exactDate })];
+                case 1:
+                    allProvider = _b.sent();
+                    if (allProvider.length <= 0)
+                        return [2 /*return*/, res.json({ message: "no provider found" })];
+                    console.log(exactDate);
+                    res.json({ message: "here are your providers!", allProvider: allProvider });
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_1 = _b.sent();
+                    console.error(error_1);
+                    res.status(500).json({ message: 'Internal server error', error: error_1 });
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
     });
-}); };
+}
+exports.checkSchedule = checkSchedule;

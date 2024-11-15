@@ -12,8 +12,8 @@ app.use(express.json()); // takes the header of the request and if it is json it
 app.use(express.static("public")); // serve static files from the public folder
 
 const dbURI =
-  "mongodb+srv://ukaganovich:af8bGFKbkrHvgom9@cluster0.gl27q.mongodb.net";
-const database = 'posts.posts'; 
+  "mongodb+srv://ukaganovich:womyhuZG0NZi4NWc@cluster0.gl27q.mongodb.net";
+const database = 'posts'; 
 
 mongoose.connect(`${dbURI}/${database}`)
   .then(() => {

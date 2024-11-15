@@ -9,8 +9,8 @@ var port = process.env.PORT || 3000;
 app.use(express_1["default"].json()); // takes the header of the request and if it is json it will parse it into an object and attach it to the request object (req.body)
 //header -> req.body
 app.use(express_1["default"].static("public")); // serve static files from the public folder
-var dbURI = "mongodb+srv://ukaganovich:af8bGFKbkrHvgom9@cluster0.gl27q.mongodb.net";
-var database = 'posts.posts';
+var dbURI = "mongodb+srv://ukaganovich:womyhuZG0NZi4NWc@cluster0.gl27q.mongodb.net";
+var database = 'posts';
 mongoose_1["default"].connect(dbURI + "/" + database)
     .then(function () {
     console.log("Connected to the database");

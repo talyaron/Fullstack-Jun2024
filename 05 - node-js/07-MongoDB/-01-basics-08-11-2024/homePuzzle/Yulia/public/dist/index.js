@@ -92,7 +92,7 @@ function fetchPosts() {
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 4, , 5]);
-                    return [4 /*yield*/, fetch("http://localhost:3000/api/posts/get-posts?username=" + currentUsername)];
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/posts/get-posts")];
                 case 2:
                     response = _a.sent();
                     if (!response.ok) {
@@ -102,6 +102,7 @@ function fetchPosts() {
                     return [4 /*yield*/, response.json()];
                 case 3:
                     data = _a.sent();
+                    console.log("Fetched posts:", data);
                     if (!data.posts) {
                         throw new Error("Invalid response format. 'posts' field is missing.");
                     }
