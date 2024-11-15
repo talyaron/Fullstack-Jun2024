@@ -1,5 +1,4 @@
-import { Schema,model } from "mongoose";
-
+import {Schema, model} from 'mongoose';
 
 export const ClientSchema = new Schema({
     firstName:{
@@ -20,8 +19,6 @@ export const ClientSchema = new Schema({
     },
     yearOfBirth:Number,
     password:String
-    
-    
 })
 
-export const ClientModel = model("Client", ClientSchema);
+export const ClientModel = model("Client", ClientSchema); // the connection to the DB collection
