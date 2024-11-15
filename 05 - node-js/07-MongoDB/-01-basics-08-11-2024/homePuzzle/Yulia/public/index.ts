@@ -57,9 +57,7 @@ async function fetchPosts() {
   }
 
   try {
-    const response = await fetch(
-      `http://localhost:3000/api/posts/get-posts`
-    );
+    const response = await fetch(`http://localhost:3000/api/posts/get-posts`);
     if (!response.ok) {
       console.error(`Failed to fetch posts. Status: ${response.status}`);
       throw new Error("Failed to fetch posts");
@@ -68,15 +66,16 @@ async function fetchPosts() {
     const data = await response.json();
     console.log("Fetched posts:", data);
 
-    if (!data.posts) {
-      throw new Error("Invalid response format. 'posts' field is missing.");
-    }
-
     const feedElement = document.getElementById("feed");
     if (!feedElement) throw new Error("Feed element not found");
-    if (data.posts.length === 0) return;
 
-    const userPosts = data.posts.filter(
+    if (!Array.isArray(data.allPosts)) {
+      throw new Error(
+        "Invalid response format. 'allPosts' field is missing or not an array."
+      );
+    }
+
+    const userPosts = data.allPosts.filter(
       (post: Post) => post.username === currentUsername
     );
     renderPosts(userPosts);
@@ -85,15 +84,6 @@ async function fetchPosts() {
   }
 }
 fetchPosts();
-
-function savePostsToLocalStorage(posts: any[]) {
-  localStorage.setItem("posts", JSON.stringify(posts));
-}
-
-function loadPostsFromLocalStorage(): any[] {
-  const posts = localStorage.getItem("posts");
-  return posts ? JSON.parse(posts) : [];
-}
 
 function renderPosts(posts: Post[]) {
   const feedElement = document.getElementById("feed");

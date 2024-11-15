@@ -103,15 +103,13 @@ function fetchPosts() {
                 case 3:
                     data = _a.sent();
                     console.log("Fetched posts:", data);
-                    if (!data.posts) {
-                        throw new Error("Invalid response format. 'posts' field is missing.");
-                    }
                     feedElement = document.getElementById("feed");
                     if (!feedElement)
                         throw new Error("Feed element not found");
-                    if (data.posts.length === 0)
-                        return [2 /*return*/];
-                    userPosts = data.posts.filter(function (post) { return post.username === currentUsername; });
+                    if (!Array.isArray(data.allPosts)) {
+                        throw new Error("Invalid response format. 'allPosts' field is missing or not an array.");
+                    }
+                    userPosts = data.allPosts.filter(function (post) { return post.username === currentUsername; });
                     renderPosts(userPosts);
                     return [3 /*break*/, 5];
                 case 4:
@@ -124,13 +122,6 @@ function fetchPosts() {
     });
 }
 fetchPosts();
-function savePostsToLocalStorage(posts) {
-    localStorage.setItem("posts", JSON.stringify(posts));
-}
-function loadPostsFromLocalStorage() {
-    var posts = localStorage.getItem("posts");
-    return posts ? JSON.parse(posts) : [];
-}
 function renderPosts(posts) {
     var feedElement = document.getElementById("feed");
     if (!feedElement) {
