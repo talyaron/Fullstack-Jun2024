@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
   res.send('Welcome to the server!');
 });
 
-import clientRouter from './src/routes/ClientRoute';
+import clientRouter from './routes/ClientRoute';
 app.unsubscribe("/api/clients", clientRouter);
 
 app.listen(port, () => {
