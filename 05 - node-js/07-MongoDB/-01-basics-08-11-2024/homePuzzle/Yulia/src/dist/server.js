@@ -9,14 +9,15 @@ var port = process.env.PORT || 3000;
 app.use(express_1["default"].json()); // takes the header of the request and if it is json it will parse it into an object and attach it to the request object (req.body)
 //header -> req.body
 app.use(express_1["default"].static("public")); // serve static files from the public folder
-var dbURI = "mongodb+srv://ukaganovich:<db_password>@cluster0.gl27q.mongodb.net";
-var database = 'posts';
+var dbURI = "mongodb+srv://ukaganovich:af8bGFKbkrHvgom9@cluster0.gl27q.mongodb.net";
+var database = 'posts.posts';
 mongoose_1["default"].connect(dbURI + "/" + database)
     .then(function () {
     console.log("Connected to the database");
 })["catch"](function (err) {
     console.log("Failed to connect to the database", err);
 });
+console.log("Connecting to MongoDB with URI: ", dbURI);
 // routes
 app.use("/api/posts", postsRoutes_1["default"]); // all routes for posts will start with /api/posts
 app.use("/api/users", usersRoutes_1["default"]); // all routes for users will start with /api/users

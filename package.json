@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "sass-embedded": "^1.80.3"
+  },
+  "dependencies": {
+    "mongoose": "^8.8.1"
   }
 }
