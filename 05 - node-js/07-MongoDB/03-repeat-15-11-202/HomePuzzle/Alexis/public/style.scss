@@ -1,0 +1,84 @@
+// Define some color variables for consistency
+$primary-color: #4CAF50;
+$accent-color: #FF5722;
+$background-color: #f4f4f4;
+$text-color: #333;
+$border-color: #ddd;
+$focus-color: #2196F3;
+
+// Style the body and general layout
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: $background-color;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+// Center the form in the middle of the page
+form {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+// Style input fields
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"] {
+    font-size: 1rem;
+    padding: 0.8rem;
+    margin-bottom: 0.8rem;
+    border: 1px solid $border-color;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+        border-color: $focus-color;
+        outline: none;
+    }
+}
+
+// Style the button
+button {
+    background-color: $primary-color;
+    color: #fff;
+    font-size: 1rem;
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: $accent-color;
+    }
+
+    &:active {
+        background-color: darken($primary-color, 10%);
+    }
+}
+
+// Add some space between the labels and inputs
+input::placeholder {
+    color: $text-color;
+    opacity: 0.7;
+}
+
+// Media Query for responsive design
+@media (max-width: 600px) {
+    form {
+        padding: 1.5rem;
+        width: 90%;
+    }
+}
