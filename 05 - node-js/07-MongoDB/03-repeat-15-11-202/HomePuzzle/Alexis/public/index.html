@@ -9,7 +9,7 @@
 <body>
     <script src="./dist/index.js" defer></script>
 
-    <form onsubmit="handleAddClient(event)">
+    <form  id="forma" onsubmit="handleAddClient(event)">
         <input type="text" name="firstName" placeholder="First Name">
         <input type="text" name="lastName" placeholder="Last Name">
         <input type="email" name="email" placeholder="Email">
@@ -18,6 +18,6 @@
         <input type="text" name="password" placeholder="Password">
         <button>Add Client</button>
     </form>
-    <div class="result"></div>
+    <div id="result"></div>
 </body>
 </html>

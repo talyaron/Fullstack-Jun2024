@@ -19,11 +19,9 @@ export async function handleAddClient(ev: any) {
         email,
         phone,
         yearOfBirth,
-        password
+        password,
       }),
     });
-
-  
 
     if (response.ok) {
       const data = await response.json();
@@ -37,9 +35,29 @@ export async function handleAddClient(ev: any) {
         password,
       });
     }
-
-   
-  } catch (error) {
+      const info = await fetch(
+        "/api/users/get-user-details?firstName=${firstName}&lastName=${lastName}&email=${email}&phone=${phone}&yearOfBirth=${yearOfBirth}",
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      if (info.ok) {
+        const infoUser = await info.json();
+        const userInfo = document.querySelector("#result")! as HTMLElement;
+        userInfo.innerHTML = `
+          <strong>Full Name:</strong> ${infoUser.firstName} ${infoUser.lastName}<br>
+            <strong>Email:</strong> ${infoUser.email}
+    `;
+        console.log("great");
+      } else {
+        console.error("Failed to fetch user details:", info.statusText);
+      }
+    }
+  catch (error) {
     console.error("error");
   }
 }
+
+const form = document.getElementById("forma") as HTMLFormElement;
+form.addEventListener("submit", handleAddClient);

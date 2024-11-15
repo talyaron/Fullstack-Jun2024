@@ -39,11 +39,11 @@ exports.__esModule = true;
 exports.handleAddClient = void 0;
 function handleAddClient(ev) {
     return __awaiter(this, void 0, void 0, function () {
-        var formData, firstName, lastName, email, phone, date, yearOfBirth, password, response, data, error_1;
+        var formData, firstName, lastName, email, phone, date, yearOfBirth, password, response, data, info, infoUser, userInfo, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 4, , 5]);
+                    _a.trys.push([0, 8, , 9]);
                     ev.preventDefault();
                     formData = new FormData(ev.target);
                     firstName = formData.get("firstName");
@@ -81,14 +81,33 @@ function handleAddClient(ev) {
                         password: password
                     });
                     _a.label = 3;
-                case 3: return [3 /*break*/, 5];
+                case 3: return [4 /*yield*/, fetch("/api/users/get-user-details?firstName=${firstName}&lastName=${lastName}&email=${email}&phone=${phone}&yearOfBirth=${yearOfBirth}", {
+                        method: "GET",
+                        headers: { "Content-Type": "application/json" }
+                    })];
                 case 4:
+                    info = _a.sent();
+                    if (!info.ok) return [3 /*break*/, 6];
+                    return [4 /*yield*/, info.json()];
+                case 5:
+                    infoUser = _a.sent();
+                    userInfo = document.querySelector("#result");
+                    userInfo.innerHTML = "\n          <strong>Full Name:</strong> " + infoUser.firstName + " " + infoUser.lastName + "<br>\n            <strong>Email:</strong> " + infoUser.email + "\n    ";
+                    console.log("great");
+                    return [3 /*break*/, 7];
+                case 6:
+                    console.error("Failed to fetch user details:", info.statusText);
+                    _a.label = 7;
+                case 7: return [3 /*break*/, 9];
+                case 8:
                     error_1 = _a.sent();
                     console.error("error");
-                    return [3 /*break*/, 5];
-                case 5: return [2 /*return*/];
+                    return [3 /*break*/, 9];
+                case 9: return [2 /*return*/];
             }
         });
     });
 }
 exports.handleAddClient = handleAddClient;
+var form = document.getElementById("forma");
+form.addEventListener("submit", handleAddClient);

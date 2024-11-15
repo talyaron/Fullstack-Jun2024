@@ -1,13 +1,35 @@
+import { ClientModel } from "../models/clientModel";  // Import the model
 
+export async function getUserDetails(req: any, res: any) {
+  try {
+    const { firstName, lastName, email, phone, yearOfBirth, password } = req.body;
 
+    const user = await ClientModel.findOne({
+      firstName,
+      lastName,
+      email,
+      phone,
+      yearOfBirth,
+      password, 
+    });
 
-// export async function getUserDetails(req:any, res:any){
-//     try {
-      
-    
-//     } catch (error) {
-//         console.error(error);
-//     }
-    
-    
-//     }
+    if (!user) {
+      console.log("User not found");
+      return res.status(400).send({ error: "No user found" });
+    }
+
+    return res.status(200).send({
+      message: "User found",
+      user: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        phone: user.phone,
+        yearOfBirth: user.yearOfBirth,
+      },
+    });
+  } catch (error) {
+    console.error("Error occurred while retrieving user details:", error);
+    return res.status(500).send({ error: "No data" });
+  }
+}
