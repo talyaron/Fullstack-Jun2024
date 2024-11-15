@@ -1,10 +1,14 @@
-import express from 'express';
-import mongoose from 'mongoose';
+import express from 'express'
+import mongoose from "mongoose";  
+const app = express()
+const port = 3000;
 
-const app = express();
-const port = process.env.PORT || 3000;
+app.use(express.json());
+app.use(express.static('public'));
 
-
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
 
 // MongoDB connection
 const dbUrl = 'mongodb+srv://galitccga:q4wlV111QcHSFkDZ@cluster0.sevm84o.mongodb.net';
@@ -19,12 +23,10 @@ mongoose
     console.error('Error connecting to MongoDB:', error);
   });
 
-app.get('/', (req, res) => {
-  res.send('Welcome to the server!');
-});
 
-import clientRouter from './src/routes/ClientRoute';
-app.unsubscribe("/api/clients", clientRouter);
+
+import clientRouter from './routes/ClientRoute';
+app.use("/api/clients", clientRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
