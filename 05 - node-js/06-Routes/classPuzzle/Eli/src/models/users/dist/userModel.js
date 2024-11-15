@@ -1,6 +1,8 @@
 "use strict";
 exports.__esModule = true;
-exports.users = exports.User = void 0;
+exports.UserModel = exports.UserSchema = exports.users = void 0;
+var mongoose_1 = require("mongoose");
+defau;
 var User = /** @class */ (function () {
     function User(name, email, password, id) {
         this.name = name;
@@ -13,5 +15,20 @@ var User = /** @class */ (function () {
     };
     return User;
 }());
-exports.User = User;
 exports.users = [];
+exports.UserSchema = new exports.UserSchema({
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    }
+});
+exports.UserModel = mongoose_1.model('User', exports.UserSchema);

@@ -34,73 +34,94 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-function getHello() {
+;
+function renderMainPage() {
+    var html = "\n    <h1>New Post</h1>\n    <form onsubmit=\"handleCreatePost(event)\">\n        <input type=\"text\" name=\"caption\" placeholder=\"Write a caption...\" required>\n        <input type=\"url\" name=\"imageURL\" placeholder=\"Enter image URL\" required>\n        <button type=\"submit\">Post</button>\n    </form>\n    ";
+    document.querySelector('#main').innerHTML = html;
+}
+;
+renderMainPage();
+function handleCreatePost(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, message, messageElement, error_1;
+        var form, caption, imageURL, response, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 3, , 4]);
-                    //we will call the server
-                    console.time('fetching hello');
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/get-hello')];
+                    event.preventDefault();
+                    form = event.target;
+                    caption = form.elements.namedItem('caption').value;
+                    imageURL = form.elements.namedItem('imageURL').value;
+                    _a.label = 1;
                 case 1:
-                    response = _a.sent();
-                    console.log(response);
-                    return [4 /*yield*/, response.json()];
+                    _a.trys.push([1, 3, , 4]);
+                    console.log('Sending post:', { caption: caption, imageURL: imageURL });
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/add-post', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ caption: caption, imageURL: imageURL })
+                        })];
                 case 2:
-                    data = _a.sent();
-                    console.log(data);
-                    console.timeEnd('fetching hello');
-                    message = data.message;
-                    // const message = data.message;
-                    if (!message)
-                        throw new Error('No message found');
-                    messageElement = document.querySelector("#message");
-                    if (!messageElement)
-                        throw new Error('No message element found');
-                    messageElement.innerHTML = message;
+                    response = _a.sent();
+                    if (!response.ok)
+                        throw new Error('Failed to add post');
+                    console.log('Post added successfully!');
+                    form.reset();
+                    fetchPosts();
                     return [3 /*break*/, 4];
                 case 3:
                     error_1 = _a.sent();
-                    console.error(error_1);
+                    console.error('Error sending post:', error_1);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
         });
     });
 }
-getHello(); //calling the function
-function handleSendWord(ev) {
+function fetchPosts() {
     return __awaiter(this, void 0, void 0, function () {
-        var word, response, data, error_2;
+        var response, data, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    ev.preventDefault();
-                    word = ev.target.word.value;
-                    console.log(word);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/send-word', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ word: word }) //data to send (to string format) )
-                        })];
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/get-posts')];
                 case 1:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
-                    console.log(data);
+                    // const feedElement = document.getElementById("feed");
+                    // if (!feedElement) throw new Error("Feed element not found");
+                    renderPosts(data.posts);
                     return [3 /*break*/, 4];
                 case 3:
                     error_2 = _a.sent();
-                    console.error(error_2);
+                    console.error("Error fetching posts:", error_2);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
         });
     });
 }
+;
+function renderPosts(posts) {
+    var feedElement = document.getElementById('feed');
+    if (!feedElement)
+        throw new Error('Feed element not found');
+    var htmlPosts = posts.map(function (post) {
+        return renderPost(post);
+    }).filter(function (post) { return post !== null; }).join('');
+    feedElement.innerHTML = htmlPosts;
+}
+;
+function renderPost(post) {
+    try {
+        // changeFileToImage();
+        var html = "\n        <div class=\"post\" id=\"post\">\n            <img src=\"" + post.imageURL + "\" id=\"imageURL-" + post.id + "\" alt=\"inputImage\" />\n            <h3 id=\"caption-" + post.id + "\">" + post.caption + "</h3>\n            <button onclick=\"handleEditCaption('" + post.id + "')\" >Edit</button>\n            <button onclick=\"handlDeletePost('" + post.id + "')\">Delete</button>\n            <button onclick=\"handleEditImage('" + post.id + "')\">Change Image</button>\n            <div id=\"editImageInput\"></div>\n        </div>\n        ";
+        return html;
+    }
+    catch (error) {
+        console.error('Error:', error);
+    }
+}
+;

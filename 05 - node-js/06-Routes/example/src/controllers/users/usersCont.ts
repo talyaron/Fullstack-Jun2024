@@ -1,7 +1,6 @@
-import { Request, Response } from 'express';
 import User, {users} from '../../models/users/usersModel';
 
-export const register = async (req: Request, res: Response) => {
+export const register = async (req: any, res: any) => {
     const { name, email, password } = req.body;
 
     if (!name || email|| !password) {

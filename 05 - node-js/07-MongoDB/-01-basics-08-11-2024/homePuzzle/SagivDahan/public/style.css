@@ -1,0 +1,78 @@
+.body {
+  overflow-x: hidden;
+}
+
+.form {
+  position: relative;
+  left: 40%;
+  display: flex;
+  flex-direction: column;
+}
+.form input {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  width: 300px;
+  height: 50px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+#send {
+  margin-top: 20px;
+  position: relative;
+  left: 46.5%;
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.post {
+  text-align: center;
+  position: relative;
+  left: 40%;
+  top: 5%;
+  flex-wrap: wrap;
+  flex-direction: row;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 40px 0;
+  background-color: #f9f9f9;
+  width: 300px;
+  height: 400px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.post:hover {
+  transform: scale(1.02);
+}
+
+.post__title {
+  text-align: center;
+  font-size: 1.5em;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.post__description {
+  text-align: center;
+  font-size: 1em;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.post__username {
+  text-align: center;
+  font-size: 0.9em;
+  color: #007bff;
+}
+
+.post__image {
+  text-align: center;
+  width: 50px;
+  border-radius: 8px;
+  margin-top: 8px;
+}/*# sourceMappingURL=style.css.map */

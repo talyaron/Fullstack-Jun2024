@@ -251,7 +251,7 @@ async function updateOnServer(title: string, id: string) {
 
 function handleDelete(id: string) {
   try {
-    console.log("delete title:", id);
+    console.log("delete:", id);
     DeleteOnServer(id);
     renderAllPost();
     //how to update the title in the server

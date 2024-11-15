@@ -46,7 +46,7 @@ function handleSendPost(event) {
                     text = form.elements.namedItem("text").value;
                     imageURL = form.elements.namedItem("imageURL")
                         .value;
-                    username = localStorage.getItem("username");
+                    username = localStorage.getItem("loginUsername");
                     if (!username) {
                         alert("You need to be logged in to create a post.");
                         return [2 /*return*/];
@@ -54,7 +54,7 @@ function handleSendPost(event) {
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, , 4]);
-                    console.log("Sending post:", { title: title, text: text, imageURL: imageURL, username: username }); // Debug log
+                    console.log("Sending post:", { title: title, text: text, username: username }); // Debug log
                     return [4 /*yield*/, fetch("http://localhost:3000/api/posts/add-post", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
@@ -84,7 +84,7 @@ function fetchPosts() {
             switch (_a.label) {
                 case 0:
                     isUserLoggedIn = localStorage.getItem("isUserLogin") === "true";
-                    currentUsername = localStorage.getItem("username");
+                    currentUsername = localStorage.getItem("loginUsername");
                     if (!isUserLoggedIn || !currentUsername) {
                         console.log("User is not logged in or username not found. Posts are hidden.");
                         return [2 /*return*/];
@@ -92,14 +92,19 @@ function fetchPosts() {
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 4, , 5]);
-                    return [4 /*yield*/, fetch("http://localhost:3000/api/posts/get-posts")];
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/posts/get-posts?username=" + currentUsername)];
                 case 2:
                     response = _a.sent();
-                    if (!response.ok)
+                    if (!response.ok) {
+                        console.error("Failed to fetch posts. Status: " + response.status);
                         throw new Error("Failed to fetch posts");
+                    }
                     return [4 /*yield*/, response.json()];
                 case 3:
                     data = _a.sent();
+                    if (!data.posts) {
+                        throw new Error("Invalid response format. 'posts' field is missing.");
+                    }
                     feedElement = document.getElementById("feed");
                     if (!feedElement)
                         throw new Error("Feed element not found");
@@ -127,8 +132,10 @@ function loadPostsFromLocalStorage() {
 }
 function renderPosts(posts) {
     var feedElement = document.getElementById("feed");
-    if (!feedElement)
-        throw new Error("Feed element not found");
+    if (!feedElement) {
+        console.error("Feed element not found");
+        return;
+    }
     var htmlPosts = posts
         .map(function (post) { return renderPost(post); })
         .filter(function (post) { return post !== null; })
@@ -149,31 +156,31 @@ function handleEditPost(id) {
         if (!titleElement_1 || !textElement_1 || !imageElement) {
             throw new Error("Post elements not found");
         }
-        // make the title, text, and image URL editable
         titleElement_1.contentEditable = "true";
         textElement_1.contentEditable = "true";
-        titleElement_1.focus(); // focus on the title element
-        // add an input field for the image URL
         var imageInput_1 = document.createElement("input");
         imageInput_1.type = "text";
         imageInput_1.value = imageElement.src;
         imageInput_1.id = "image-input-" + id;
         imageElement.insertAdjacentElement("afterend", imageInput_1);
-        // blur event handler to save the changes
-        var onEditComplete = function () { return __awaiter(_this, void 0, void 0, function () {
-            var updatedPost, response, error_3;
+        var saveButton_1 = document.createElement("button");
+        saveButton_1.textContent = "Save";
+        saveButton_1.onclick = function () { return __awaiter(_this, void 0, void 0, function () {
+            var username, updatedPost, response, error_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        username = localStorage.getItem("loginUsername");
                         updatedPost = {
                             title: titleElement_1.innerText,
                             text: textElement_1.innerText,
-                            imageURL: imageInput_1.value
+                            imageURL: imageInput_1.value,
+                            username: username
                         };
-                        // end editing
                         titleElement_1.contentEditable = "false";
                         textElement_1.contentEditable = "false";
-                        imageInput_1.remove(); // delete the input field
+                        imageInput_1.remove();
+                        saveButton_1.remove();
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
@@ -196,10 +203,9 @@ function handleEditPost(id) {
                 }
             });
         }); };
-        // add blur event listeners to the title, text, and image URL elements
-        titleElement_1.addEventListener("blur", onEditComplete);
-        textElement_1.addEventListener("blur", onEditComplete);
-        imageInput_1.addEventListener("blur", onEditComplete);
+        var postElement = document.getElementById("post-" + id);
+        if (postElement)
+            postElement.appendChild(saveButton_1);
     }
     catch (error) {
         console.error("Error:", error);
@@ -240,23 +246,25 @@ function goToRegister() {
     window.location.href = "/register/register.html";
 }
 // Add event listener to display the username when the page loads
-document.addEventListener('DOMContentLoaded', function () {
-    var username = localStorage.getItem('username');
+document.addEventListener("DOMContentLoaded", function () {
+    var username = localStorage.getItem("loginUsername");
     if (username) {
-        // Create a greeting message and display it on the page
-        var greetingElement = document.createElement('div');
-        greetingElement.textContent = "Hi, " + username;
-        document.body.prepend(greetingElement); // Add the greeting at the top of the page
+        var greetingElement = document.getElementById("greeting");
+        if (greetingElement) {
+            greetingElement.textContent = "Hi, " + username + "!";
+        }
+    }
+    // add a logout button if the user is logged in
+    var isUserLoggedIn = localStorage.getItem("isUserLogin") === "true";
+    if (isUserLoggedIn) {
+        var logoutButton = document.createElement("button");
+        logoutButton.textContent = "Logout";
+        logoutButton.onclick = handleLogout;
+        document.body.appendChild(logoutButton);
     }
 });
 function handleLogout() {
     localStorage.removeItem("isUserLogin");
-    localStorage.removeItem("username");
-    window.location.href = "/login/login.html"; // Redirect to the login page
+    localStorage.removeItem("loginUsername");
+    window.location.href = "/login/login.html";
 }
-document.addEventListener("DOMContentLoaded", function () {
-    var logoutButton = document.createElement("button");
-    logoutButton.textContent = "Logout";
-    logoutButton.onclick = handleLogout;
-    document.body.appendChild(logoutButton);
-}); // add the logout button to the page

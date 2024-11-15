@@ -1,0 +1,11 @@
+"use strict";
+exports.__esModule = true;
+var express_1 = require("express");
+var loginUser_1 = require("../controllers/user/loginUser");
+var signupUser_1 = require("../controllers/user/signupUser");
+var userExists_1 = require("../controllers/user/userExists");
+var userRouter = express_1["default"].Router();
+userRouter.post('/signupUser', signupUser_1.signupUser);
+userRouter.post('/login', loginUser_1.loginUser);
+userRouter.get('/userExists', userExists_1.userExists);
+exports["default"] = userRouter;

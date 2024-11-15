@@ -1,15 +1,3 @@
-//// Logout button on index page //////
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -98,7 +86,6 @@ function handleSendPost(event) {
                             _b.label = 1;
                         case 1:
                             _b.trys.push([1, 4, , 5]);
-                            console.log('Sending post:', { title: title, text: text, imageBase64: imageBase64 });
                             return [4 /*yield*/, fetch('http://localhost:3000/api/posts/add-post', {
                                     method: 'POST',
                                     headers: { 'Content-Type': 'application/json' },
@@ -108,7 +95,6 @@ function handleSendPost(event) {
                             response = _b.sent();
                             if (!response.ok)
                                 throw new Error('Failed to add post');
-                            console.log('Post added successfully!');
                             form.reset();
                             return [4 /*yield*/, fetchPosts()];
                         case 3:
@@ -129,7 +115,7 @@ function handleSendPost(event) {
 }
 function fetchPosts() {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, feedElement, error_3;
+        var response, data, error_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -140,11 +126,6 @@ function fetchPosts() {
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
-                    feedElement = document.getElementById("feed");
-                    if (!feedElement)
-                        throw new Error("Feed element not found");
-                    if (data.posts.length === 0)
-                        return [2 /*return*/];
                     renderPosts(data.posts);
                     return [3 /*break*/, 4];
                 case 3:
@@ -160,9 +141,7 @@ function renderPosts(posts) {
     var feedElement = document.getElementById('feed');
     if (!feedElement)
         throw new Error('Feed element not found');
-    var htmlPosts = posts.map(function (post) {
-        return renderPost(post);
-    }).filter(function (post) { return post !== null; }).join('');
+    var htmlPosts = posts.map(function (post) { return renderPost(post); }).join('');
     feedElement.innerHTML = htmlPosts;
 }
 function renderPost(post) {
@@ -170,57 +149,48 @@ function renderPost(post) {
 }
 function handleEditTitle(id) {
     var _this = this;
-    try {
-        var titleElement_1 = document.getElementById("title-" + id);
-        if (!titleElement_1)
-            throw new Error('Title element not found');
-        titleElement_1.contentEditable = 'true';
-        titleElement_1.focus();
-        titleElement_1.addEventListener("blur", function () { return __awaiter(_this, void 0, void 0, function () {
-            var title;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        title = titleElement_1.innerText;
-                        titleElement_1.contentEditable = 'false';
-                        return [4 /*yield*/, updatePost(id, { title: title })];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        }); }, { once: true });
-    }
-    catch (error) {
-        console.error('Error:', error);
-    }
+    var titleElement = document.getElementById("title-" + id);
+    if (!titleElement)
+        return;
+    titleElement.contentEditable = 'true';
+    titleElement.focus();
+    titleElement.addEventListener("blur", function () { return __awaiter(_this, void 0, void 0, function () {
+        var title;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    title = titleElement.innerText;
+                    titleElement.contentEditable = 'false';
+                    return [4 /*yield*/, updatePost(id, { title: title })];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); }, { once: true });
 }
+// Edit text function
 function handleEditText(id) {
     var _this = this;
-    try {
-        var textElement_1 = document.getElementById("text-" + id);
-        if (!textElement_1)
-            throw new Error('Text element not found');
-        textElement_1.contentEditable = 'true';
-        textElement_1.focus();
-        textElement_1.addEventListener("blur", function () { return __awaiter(_this, void 0, void 0, function () {
-            var newText;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        newText = textElement_1.innerText;
-                        textElement_1.contentEditable = 'false';
-                        return [4 /*yield*/, updatePost(id, { text: newText })];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        }); }, { once: true });
-    }
-    catch (error) {
-        console.error('Error editing text:', error);
-    }
+    var textElement = document.getElementById("text-" + id);
+    if (!textElement)
+        return;
+    textElement.contentEditable = 'true';
+    textElement.focus();
+    textElement.addEventListener("blur", function () { return __awaiter(_this, void 0, void 0, function () {
+        var text;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    text = textElement.innerText;
+                    textElement.contentEditable = 'false';
+                    return [4 /*yield*/, updatePost(id, { text: text })];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); }, { once: true });
 }
 function handleEditImage(id) {
     return __awaiter(this, void 0, void 0, function () {
@@ -244,21 +214,18 @@ function handleEditImage(id) {
                     if (newImageFile) {
                         reader = new FileReader();
                         reader.onload = function (loadEvent) { return __awaiter(_this, void 0, void 0, function () {
-                            var newImageBase64;
+                            var image;
                             var _a;
                             return __generator(this, function (_b) {
                                 switch (_b.label) {
                                     case 0:
-                                        newImageBase64 = (_a = loadEvent.target) === null || _a === void 0 ? void 0 : _a.result;
-                                        if (!(typeof newImageBase64 === 'string')) return [3 /*break*/, 2];
-                                        return [4 /*yield*/, updatePost(id, { image: newImageBase64 })];
+                                        image = (_a = loadEvent.target) === null || _a === void 0 ? void 0 : _a.result;
+                                        if (!(typeof image === 'string')) return [3 /*break*/, 2];
+                                        return [4 /*yield*/, updatePost(id, { image: image })];
                                     case 1:
                                         _b.sent();
-                                        return [3 /*break*/, 3];
-                                    case 2:
-                                        console.error('Image data is not a valid string.');
-                                        _b.label = 3;
-                                    case 3: return [2 /*return*/];
+                                        _b.label = 2;
+                                    case 2: return [2 /*return*/];
                                 }
                             });
                         }); };
@@ -276,10 +243,10 @@ function updatePost(id, updatedFields) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 5, , 6]);
-                    return [4 /*yield*/, fetch("http://localhost:3000/api/posts/edit-post", {
-                            method: 'PATCH',
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/posts/edit-post/" + id, {
+                            method: 'PUT',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(__assign({ id: id }, updatedFields))
+                            body: JSON.stringify(updatedFields)
                         })];
                 case 1:
                     response = _a.sent();
@@ -289,9 +256,7 @@ function updatePost(id, updatedFields) {
                     errorMessage = _a.sent();
                     console.error('Failed to update post. Server response:', errorMessage);
                     throw new Error('Failed to update post');
-                case 3:
-                    console.log("Post with ID " + id + " updated successfully");
-                    return [4 /*yield*/, fetchPosts()];
+                case 3: return [4 /*yield*/, fetchPosts()];
                 case 4:
                     _a.sent();
                     return [3 /*break*/, 6];
@@ -305,44 +270,33 @@ function updatePost(id, updatedFields) {
     });
 }
 function handleDeletePost(id) {
+    var _a;
     return __awaiter(this, void 0, void 0, function () {
-        var response, errorMessage, feedElement, postElement, error_5;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var response, errorMessage, error_5;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    console.log("Deleting post with ID:", id);
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 5, , 6]);
-                    return [4 /*yield*/, fetch("http://localhost:3000/api/posts/delete-post", {
-                            method: 'DELETE',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ id: id })
+                    _b.trys.push([0, 4, , 5]);
+                    console.log("Attempting to delete post with id: " + id);
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/posts/delete-post/" + id, {
+                            method: 'DELETE'
                         })];
-                case 2:
-                    response = _a.sent();
-                    if (!!response.ok) return [3 /*break*/, 4];
+                case 1:
+                    response = _b.sent();
+                    if (!!response.ok) return [3 /*break*/, 3];
                     return [4 /*yield*/, response.text()];
-                case 3:
-                    errorMessage = _a.sent();
+                case 2:
+                    errorMessage = _b.sent();
                     console.error('Failed to delete post. Server response:', errorMessage);
                     throw new Error('Failed to delete post');
+                case 3:
+                    (_a = document.getElementById("post-" + id)) === null || _a === void 0 ? void 0 : _a.remove();
+                    return [3 /*break*/, 5];
                 case 4:
-                    console.log("Post with ID " + id + " deleted successfully");
-                    feedElement = document.getElementById("feed");
-                    postElement = document.getElementById("post-" + id);
-                    if (feedElement && postElement) {
-                        feedElement.removeChild(postElement);
-                    }
-                    if (feedElement && feedElement.children.length === 0) {
-                        feedElement.innerHTML = "<p>No posts available.</p>";
-                    }
-                    return [3 /*break*/, 6];
-                case 5:
-                    error_5 = _a.sent();
+                    error_5 = _b.sent();
                     console.error('Error deleting post:', error_5);
-                    return [3 /*break*/, 6];
-                case 6: return [2 /*return*/];
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
             }
         });
     });
