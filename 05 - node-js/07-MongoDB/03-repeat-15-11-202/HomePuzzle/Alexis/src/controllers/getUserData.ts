@@ -2,7 +2,7 @@ import { ClientModel } from "../models/clientModel";
 
 export async function getUserDetails(req: any, res: any) {
   try {
-    const { firstName, lastName, email, phone, yearOfBirth } = req.query; // Use req.query instead of req.body
+    const { firstName, lastName, email, phone, yearOfBirth } = req.query; 
 
     const user = await ClientModel.findOne({
       firstName,
