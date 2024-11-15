@@ -40,7 +40,7 @@ exports.getPost = void 0;
 var postModel_1 = require("../../models/postModel");
 function getPost(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var posts, allPosts_1, error_1;
+        var posts, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -48,7 +48,6 @@ function getPost(req, res) {
                     return [4 /*yield*/, postModel_1.PostModel.find()];
                 case 1:
                     posts = _a.sent();
-                    allPosts_1 = posts.map(function (post) { return post; });
                     return [2 /*return*/, res.send({ posts: posts })];
                 case 2:
                     error_1 = _a.sent();

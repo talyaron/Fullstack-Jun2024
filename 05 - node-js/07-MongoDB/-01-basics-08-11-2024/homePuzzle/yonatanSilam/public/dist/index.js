@@ -148,7 +148,7 @@ function displayPosts(posts) {
 }
 function renderPost(post) {
     try {
-        var html = "\n        <div class=\"post-card card\">\n            <h3 class=\"card-title\" id=\"title-" + post.id + "\">" + post.title + "</h3><button class=\"btn btn-primary\" onclick=\"handleEditTitle('" + post.id + "')\" >Edit</button><button onclick=\"handleDelete('" + post.id + "')\" class=\"btn btn-primary\">Delete</button>\n            <img id=\"image-" + post.id + "\" class=\"card-img-top\" onclick=\"handleImage('" + post.id + "')\" src=\"" + post.imageUrl + "\" alt=\"Image\" />\n            <div class=\"hidden\" id=\"imageUrl-" + post.id + "\">edit imageURl</div>\n            <p class=\"card-text\" id=\"text-" + post.id + "\" onclick=\"handleEditText('" + post.id + "')\"> " + post.text + " </p>\n        </div>\n        ";
+        var html = "\n        <div class=\"post-card card\">\n            <h3 class=\"card-title\" id=\"title-" + post._id + "\">" + post.title + "</h3><button class=\"btn btn-primary\" onclick=\"handleEditTitle('" + post._id + "')\" >Edit</button><button onclick=\"handleDelete('" + post._id + "')\" class=\"btn btn-primary\">Delete</button>\n            <img id=\"image-" + post._id + "\" class=\"card-img-top\" onclick=\"handleImage('" + post._id + "')\" src=\"" + post.imageUrl + "\" alt=\"Image\" />\n            <div class=\"hidden\" id=\"imageUrl-" + post._id + "\">edit imageURl</div>\n            <p class=\"card-text\" id=\"text-" + post._id + "\" onclick=\"handleEditText('" + post._id + "')\"> " + post.text + " </p>\n        </div>\n        ";
         return html;
     }
     catch (error) {
