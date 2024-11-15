@@ -1,8 +1,9 @@
 {
-  "name": "galit",
+  "name": "Sagiv",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "dev": "nodemon src/server.ts"
   },
@@ -11,13 +12,13 @@
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^5.0.0",
-    "@types/node": "^22.9.0",
+    "@types/node": "^22.8.4",
+    "express": "^4.21.1",
     "nodemon": "^3.1.7",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "express": "^4.21.1",
-    "mongoose": "^8.8.1"
+    "mongoose": "^8.8.0"
   }
 }

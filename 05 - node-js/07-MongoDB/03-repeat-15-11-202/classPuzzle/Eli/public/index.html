@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScheduleAppointment</title>
+    <link rel="stylesheet" href="./dist/indexStyle.css">
+    <script src="./dist/index.js" defer></script>
+</head>
+<body>
+    <form onsubmit="submitSchedule(event)" id="form">
+        <input type="text" name="name" id="name" placeholder="Enter your name!" required>
+        <input type="date" name="date" id="date" placeholder="choose the Date of your appointment">
+        <input type="submit" value="submit">
+    </form>
+    <div id="providers-container"></div>
+    <div id="sceduleFeed"></div>
+</body>
+</html>

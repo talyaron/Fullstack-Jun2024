@@ -1,14 +1,15 @@
 {
-  "name": "galit",
+  "name": "eli",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/server.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "description": "",
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/node": "^22.9.0",
