@@ -11,15 +11,6 @@ export async function handleAddClient(ev: any) {
     const password = formData.get("password");
 
 
-    const userInfo = document.querySelector("#result") as HTMLElement;
-    userInfo.innerHTML = `
-        <strong>Full Name:</strong> ${firstName} ${lastName}<br>
-        <strong>Email:</strong> ${email}<br>
-        <strong>Phone:</strong> ${phone}<br>
-        <strong>Year of Birth:</strong> ${yearOfBirth}
-      `;
-
-
     const response = await fetch("/api/users/add-client", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -35,7 +26,6 @@ export async function handleAddClient(ev: any) {
 
     if (response.ok) {
       const data = await response.json();
-    
       console.log(data);
       console.log({
         firstName,
@@ -46,6 +36,8 @@ export async function handleAddClient(ev: any) {
         password,
       });
     }
+
+
     const info = await fetch(
       `/api/users/get-user-details?firstName=${firstName}&lastName=${lastName}&email=${email}&phone=${phone}&yearOfBirth=${yearOfBirth}`,
       {
@@ -53,17 +45,21 @@ export async function handleAddClient(ev: any) {
         headers: { "Content-Type": "application/json" },
       }
     );
+
     if (info.ok) {
       const infoUser = await info.json();
- 
+      const userInfo = document.querySelector("#result") as HTMLElement;
+      userInfo.innerHTML = `
+        <strong>Full Name:</strong> ${infoUser.user.firstName} ${infoUser.user.lastName}<br>
+        <strong>Email:</strong> ${infoUser.user.email}<br>
+        <strong>Phone:</strong> ${infoUser.user.phone}<br>
+        <strong>Year of Birth:</strong> ${infoUser.user.yearOfBirth}
+      `;
       console.log("User details fetched successfully.");
     } else {
       console.error("Failed to fetch user details:", info.statusText);
     }
   } catch (error) {
-    console.error("error");
+    console.error("error", error);
   }
 }
-
-const form = document.getElementById("forma") as HTMLFormElement;
-form.addEventListener("submit", handleAddClient);

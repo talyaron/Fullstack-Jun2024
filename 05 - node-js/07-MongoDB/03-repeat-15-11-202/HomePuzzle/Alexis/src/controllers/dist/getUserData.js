@@ -37,22 +37,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.getUserDetails = void 0;
-var clientModel_1 = require("../models/clientModel"); // Import the model
+var clientModel_1 = require("../models/clientModel");
 function getUserDetails(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, firstName, lastName, email, phone, yearOfBirth, password, user, error_1;
+        var _a, firstName, lastName, email, phone, yearOfBirth, user, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
                     _b.trys.push([0, 2, , 3]);
-                    _a = req.body, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, phone = _a.phone, yearOfBirth = _a.yearOfBirth, password = _a.password;
+                    _a = req.query, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, phone = _a.phone, yearOfBirth = _a.yearOfBirth;
                     return [4 /*yield*/, clientModel_1.ClientModel.findOne({
                             firstName: firstName,
                             lastName: lastName,
                             email: email,
                             phone: phone,
-                            yearOfBirth: yearOfBirth,
-                            password: password
+                            yearOfBirth: yearOfBirth
                         })];
                 case 1:
                     user = _b.sent();
