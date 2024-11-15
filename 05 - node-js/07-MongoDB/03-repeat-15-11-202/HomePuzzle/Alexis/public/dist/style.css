@@ -1,70 +1,91 @@
-body {
-  font-family: "Arial", sans-serif;
-  background-color: #f4f4f4;
+/* Global Reset */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body and overall layout */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  padding: 20px;
 }
 
+/* Form container */
 form {
-  background-color: #fff;
+  background-color: white;
+  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
   width: 100%;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  max-width: 500px;
 }
 
+/* Form Heading */
+form h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Input fields */
 input[type=text],
 input[type=email],
 input[type=tel],
-input[type=date] {
-  font-size: 1rem;
-  padding: 0.8rem;
-  margin-bottom: 0.8rem;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  transition: border-color 0.3s ease;
+input[type=date],
+input[type=password] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
 }
+
 input[type=text]:focus,
 input[type=email]:focus,
 input[type=tel]:focus,
-input[type=date]:focus {
-  border-color: #2196F3;
+input[type=date]:focus,
+input[type=password]:focus {
+  border-color: #4CAF50;
   outline: none;
 }
 
+/* Submit button */
 button {
   background-color: #4CAF50;
-  color: #fff;
-  font-size: 1rem;
-  padding: 1rem;
+  color: white;
   border: none;
-  border-radius: 5px;
+  padding: 12px;
+  width: 100%;
+  border-radius: 4px;
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
+
 button:hover {
-  background-color: #FF5722;
-}
-button:active {
-  background-color: #3d8b40;
+  background-color: #45a049;
 }
 
-input::placeholder {
-  color: #333;
-  opacity: 0.7;
+/* Result section */
+#result {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #e8f5e9;
+  border-radius: 5px;
+  display: block;
 }
 
-@media (max-width: 600px) {
-  form {
-    padding: 1.5rem;
-    width: 90%;
-  }
+#result strong {
+  font-weight: bold;
+}
+
+#result p {
+  font-size: 14px;
+  margin-top: 5px;
 }

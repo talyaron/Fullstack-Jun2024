@@ -39,7 +39,7 @@ exports.__esModule = true;
 exports.handleAddClient = void 0;
 function handleAddClient(ev) {
     return __awaiter(this, void 0, void 0, function () {
-        var formData, firstName, lastName, email, phone, date, yearOfBirth, password, response, data, info, infoUser, userInfo, error_1;
+        var formData, firstName, lastName, email, phone, date, yearOfBirth, password, userInfo, response, data, info, infoUser, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -53,6 +53,8 @@ function handleAddClient(ev) {
                     date = formData.get("date");
                     yearOfBirth = new Date(date).getFullYear();
                     password = formData.get("password");
+                    userInfo = document.querySelector("#result");
+                    userInfo.innerHTML = "\n        <strong>Full Name:</strong> " + firstName + " " + lastName + "<br>\n        <strong>Email:</strong> " + email + "<br>\n        <strong>Phone:</strong> " + phone + "<br>\n        <strong>Year of Birth:</strong> " + yearOfBirth + "\n      ";
                     return [4 /*yield*/, fetch("/api/users/add-client", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
@@ -91,8 +93,6 @@ function handleAddClient(ev) {
                     return [4 /*yield*/, info.json()];
                 case 5:
                     infoUser = _a.sent();
-                    userInfo = document.querySelector("#result");
-                    userInfo.innerHTML = "\n          <strong>Full Name:</strong> " + infoUser.firstName + " " + infoUser.lastName + "<br>\n          <strong>Email:</strong> " + infoUser.email + "<br>\n          <strong>Phone:</strong> " + infoUser.phone + "<br>\n          <strong>Year of Birth:</strong> " + infoUser.yearOfBirth + "\n        ";
                     console.log("User details fetched successfully.");
                     return [3 /*break*/, 7];
                 case 6:
