@@ -1,0 +1,14 @@
+"use strict";
+exports.__esModule = true;
+exports.userRoutes = exports.router = void 0;
+var express_1 = require("express");
+var createUserCont_1 = require("../controllers/createUserCont");
+var getUserCont_1 = require("../controllers/getUserCont");
+var deleteUserCont_1 = require("../controllers/deleteUserCont");
+var updateUserCont_1 = require("../controllers/updateUserCont");
+exports.router = express_1["default"].Router();
+exports.router.post("/send-user", createUserCont_1.createUserCont);
+exports.router.get("/get-user", getUserCont_1.getUserCont);
+exports.router["delete"]("/delete-user", deleteUserCont_1.deleteUserCont);
+exports.router.patch("/update-user", updateUserCont_1.updateUserCont);
+exports.userRoutes = exports.router;
