@@ -36,28 +36,55 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.getPosts = void 0;
-var postsModel_1 = require("../../models/posts/postsModel");
-function getPosts(req, res) {
+exports.createUser = void 0;
+var User_1 = require("../model/users/User");
+function createUser(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var allPosts, error_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var _a, name, email, password, phone, existingPhone, existingEmail, existingName, newUser, error_1;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, postsModel_1.PostModel.find()];
+                    _b.trys.push([0, 5, , 6]);
+                    _a = req.body, name = _a.name, email = _a.email, password = _a.password, phone = _a.phone;
+                    if (!name || !email || !password || !phone) {
+                        return [2 /*return*/, res.status(400).json({ message: 'Missing some details.' })];
+                    }
+                    return [4 /*yield*/, User_1.UserModel.findOne({ phone: phone })];
                 case 1:
-                    allPosts = _a.sent();
-                    res.json({ allPosts: allPosts });
-                    return [3 /*break*/, 3];
+                    existingPhone = _b.sent();
+                    return [4 /*yield*/, User_1.UserModel.findOne({ email: email })];
                 case 2:
-                    error_1 = _a.sent();
-                    console.error("Error fetching posts:", error_1);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+                    existingEmail = _b.sent();
+                    return [4 /*yield*/, User_1.UserModel.findOne({ name: name })];
+                case 3:
+                    existingName = _b.sent();
+                    if (existingPhone) {
+                        return [2 /*return*/, res.status(400).json({ message: 'This phone number is already in use.' })];
+                    }
+                    if (existingEmail) {
+                        return [2 /*return*/, res.status(400).json({ message: 'This email is already in use.' })];
+                    }
+                    if (existingName) {
+                        return [2 /*return*/, res.status(400).json({ message: 'This name is already in use.' })];
+                    }
+                    return [4 /*yield*/, User_1.UserModel.create({ name: name, email: email, password: password, phone: phone })];
+                case 4:
+                    newUser = _b.sent();
+                    if (newUser) {
+                        console.log("User successfully created.");
+                        return [2 /*return*/, res.status(201).json({ message: 'User created successfully.' })];
+                    }
+                    else {
+                        return [2 /*return*/, res.status(500).json({ message: 'Error creating user.' })];
+                    }
+                    return [3 /*break*/, 6];
+                case 5:
+                    error_1 = _b.sent();
+                    console.error(error_1);
+                    return [3 /*break*/, 6];
+                case 6: return [2 /*return*/];
             }
         });
     });
 }
-exports.getPosts = getPosts;
-;
+exports.createUser = createUser;

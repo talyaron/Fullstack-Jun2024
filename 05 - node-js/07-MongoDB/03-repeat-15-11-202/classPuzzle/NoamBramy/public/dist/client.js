@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,29 +34,39 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
-exports.getPosts = void 0;
-var postsModel_1 = require("../../models/posts/postsModel");
-function getPosts(req, res) {
+function handleSendUser(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var allPosts, error_1;
+        var form, formData, name, email, password, phone, response, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, postsModel_1.PostModel.find()];
+                    event.preventDefault();
+                    form = event.target;
+                    formData = new FormData(form);
+                    name = formData.get('name');
+                    email = formData.get('email');
+                    password = formData.get('password');
+                    phone = formData.get('phone');
+                    return [4 /*yield*/, fetch('/api/users/send-user', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ name: name, email: email, password: password, phone: phone })
+                        })];
                 case 1:
-                    allPosts = _a.sent();
-                    res.json({ allPosts: allPosts });
+                    response = _a.sent();
+                    console.log(name, email, password, phone);
+                    if (!response.ok)
+                        throw new Error('Failed to create User data');
                     return [3 /*break*/, 3];
                 case 2:
                     error_1 = _a.sent();
-                    console.error("Error fetching posts:", error_1);
+                    console.error(error_1);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
         });
     });
 }
-exports.getPosts = getPosts;
-;
