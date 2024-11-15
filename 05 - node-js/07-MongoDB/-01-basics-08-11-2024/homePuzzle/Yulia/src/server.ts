@@ -12,8 +12,8 @@ app.use(express.json()); // takes the header of the request and if it is json it
 app.use(express.static("public")); // serve static files from the public folder
 
 const dbURI =
-  "mongodb+srv://ukaganovich:<db_password>@cluster0.gl27q.mongodb.net";
-const database = 'posts'; 
+  "mongodb+srv://ukaganovich:af8bGFKbkrHvgom9@cluster0.gl27q.mongodb.net";
+const database = 'posts.posts'; 
 
 mongoose.connect(`${dbURI}/${database}`)
   .then(() => {
@@ -22,7 +22,7 @@ mongoose.connect(`${dbURI}/${database}`)
   .catch((err) => {
     console.log("Failed to connect to the database", err);
   });
-
+console.log("Connecting to MongoDB with URI: ", dbURI);
 // routes
 app.use("/api/posts", postRouter); // all routes for posts will start with /api/posts
 app.use("/api/users", userRouter); // all routes for users will start with /api/users
