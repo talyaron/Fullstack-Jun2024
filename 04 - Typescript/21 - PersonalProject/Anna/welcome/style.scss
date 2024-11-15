@@ -1,0 +1,103 @@
+body{
+    background: linear-gradient(to right ,#8ABEFF,#5271ff,#5170FF);
+    color: #4D4D4D;
+    font-size: 18px;
+}
+
+
+@media screen and (min-width: 500px){
+    
+.welcome{
+    background-color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 300px;
+    height: 300px;
+    border-radius: 4px;
+    margin: 30vh auto 0 auto;
+    justify-content: center;
+    animation: fadeInAnimation 5s;
+
+    &__logo{
+        background-image: url('../IMAGE/logo.png');
+        background-repeat: no-repeat;
+        height: 50px;
+    }
+
+    &__title{
+        font-size: 22px;
+    }
+
+    &__options{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+
+        button{
+            width: 100px;
+            height: 40px;
+            border: 2px solid transparent;
+        }
+        #btn-0{
+            background-color: green;
+        }
+        #btn-1{
+            background-color: red;
+        }
+    }
+}
+}
+
+@media screen and (max-width: 500px){
+    
+    .welcome{
+        background-color: white;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        width: 150px;
+        height: 150px;
+        border-radius: 4px;
+        margin: 30vh auto 0 auto;
+        justify-content: center;
+        animation: fadeInAnimation 5s;
+    
+        &__title{
+            font-size: 14px;
+        }
+    
+        &__options{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 10px;
+    
+            button{
+                width: 50px;
+                height: 20px;
+                border: 2px solid transparent;
+                font-size: 8px;
+            }
+            #btn-0{
+                background-color: green;
+            }
+            #btn-1{
+                background-color: red;
+            }
+        }
+    }
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
