@@ -11,19 +11,19 @@ app.get('/', (req, res) => {
 })
 
 
-const dbUrl = "mongodb+srv://tal:k8w0S6ztTx3zowGW@cluster0.0hzknon.mongodb.net"
+const dbUrl = "mongodb+srv://alexisv:Preobra30@cluster0.fqmwt.mongodb.net"
 const database = 'fs-jun24';
 
 //connection
 mongoose.connect(`${dbUrl}/${database}`).then(()=>{
-    console.info("DB connected")
+    console.info("DB connected");
 }).catch((err)=>{
     console.error(err)
 });
 
 
 import clientsRouter from "./routes/userRoutes/clientRoutes";
-app.use("/api/clients", clientsRouter);
+app.use("/api/users", clientsRouter);
 
 
 

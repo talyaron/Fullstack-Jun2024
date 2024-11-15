@@ -40,18 +40,19 @@ exports.addClient = void 0;
 var clientModel_1 = require("../../models/userModels/clientModel");
 function addClient(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, firstName, lastName, email, phone, yearOfBirth, result, error_1;
+        var _a, firstName, lastName, email, phone, yearOfBirth, password, result, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
                     _b.trys.push([0, 2, , 3]);
-                    _a = req.body, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, phone = _a.phone, yearOfBirth = _a.yearOfBirth;
+                    _a = req.body, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, phone = _a.phone, yearOfBirth = _a.yearOfBirth, password = _a.password;
                     return [4 /*yield*/, clientModel_1.ClientModel.create({
                             firstName: firstName,
                             lastName: lastName,
                             email: email,
                             phone: phone,
-                            yearOfBirth: yearOfBirth
+                            yearOfBirth: yearOfBirth,
+                            password: password
                         })];
                 case 1:
                     result = _b.sent();
@@ -59,7 +60,9 @@ function addClient(req, res) {
                     if (!result) {
                         return [2 /*return*/, res.status(400).send({ error: "Couldn't create new client!" })];
                     }
-                    return [2 /*return*/, res.status(201).send({ message: "Client was created successfully!" })];
+                    return [2 /*return*/, res
+                            .status(201)
+                            .send({ message: "Client was created successfully!" })];
                 case 2:
                     error_1 = _b.sent();
                     console.error("error");

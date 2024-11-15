@@ -39,11 +39,11 @@ exports.__esModule = true;
 exports.handleAddClient = void 0;
 function handleAddClient(ev) {
     return __awaiter(this, void 0, void 0, function () {
-        var formData, firstName, lastName, email, phone, date, yearOfBirth, response, data, user, userInfo, data_1, error_1;
+        var formData, firstName, lastName, email, phone, date, yearOfBirth, password, response, data, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 7, , 8]);
+                    _a.trys.push([0, 4, , 5]);
                     ev.preventDefault();
                     formData = new FormData(ev.target);
                     firstName = formData.get("firstName");
@@ -52,7 +52,8 @@ function handleAddClient(ev) {
                     phone = formData.get("phone");
                     date = formData.get("date");
                     yearOfBirth = new Date(date).getFullYear();
-                    return [4 /*yield*/, fetch("/api/clients/add-client", {
+                    password = formData.get("password");
+                    return [4 /*yield*/, fetch("/api/add-client", {
                             method: "POST",
                             headers: { "Contenet-Type": "application/json" },
                             body: JSON.stringify({
@@ -60,38 +61,24 @@ function handleAddClient(ev) {
                                 lastName: lastName,
                                 email: email,
                                 phone: phone,
-                                yearOfBirth: yearOfBirth
+                                yearOfBirth: yearOfBirth,
+                                password: password
                             })
                         })];
                 case 1:
                     response = _a.sent();
-                    data = document.querySelector(".result");
-                    return [4 /*yield*/, fetch("/api/clients/get-user-details", {
-                            method: "GET",
-                            headers: { "Content-Type": "application/json" }
-                        })];
-                case 2:
-                    user = _a.sent();
-                    if (!user.ok) return [3 /*break*/, 4];
-                    return [4 /*yield*/, user.json()];
-                case 3:
-                    userInfo = _a.sent();
-                    console.log(userInfo);
-                    data.innerHTML = "" + userInfo;
-                    _a.label = 4;
-                case 4:
-                    if (!response.ok) return [3 /*break*/, 6];
+                    if (!response.ok) return [3 /*break*/, 3];
                     return [4 /*yield*/, response.json()];
-                case 5:
-                    data_1 = _a.sent();
-                    console.log(data_1);
-                    _a.label = 6;
-                case 6: return [3 /*break*/, 8];
-                case 7:
+                case 2:
+                    data = _a.sent();
+                    console.log(data);
+                    _a.label = 3;
+                case 3: return [3 /*break*/, 5];
+                case 4:
                     error_1 = _a.sent();
                     console.error("error");
-                    return [3 /*break*/, 8];
-                case 8: return [2 /*return*/];
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
             }
         });
     });
