@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User System</title>
+    <link rel="stylesheet" href="./dist/style.css">
+    <script src="./dist/client.js" defer></script>
+</head>
+<body>
+    <h1>Create User</h1>
+    <form onsubmit="handleSendUser(event)">
+        <input type="text" name="name" placeholder="userName" required>
+        <input type="email" name="email" placeholder="your email address." required>
+        <input type="password" name="password" placeholder="password" required>
+        <input type="tel" name="phone" placeholder="phone" required>
+        <button type="submit">Create Account</button>
+    </form>
+</body>
+</html>
