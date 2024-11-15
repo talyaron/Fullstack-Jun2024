@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client App</title>
+    <script src="./dist/index.js"> </script>
+</head>
+<body>
+    <form onsubmit="handleAddClient(event)">
+        <input type="text" name="firstName" placeholder="First name" required> 
+        <input type="text" name="lastName" placeholder="Last name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="tel" name="phone" placeholder="Phone" required>
+        <input type="date" name="date" placeholder="Date Of Birth" required>
+        <button type="submit">submit</button>
+     </form>
+</body>
+</html>
