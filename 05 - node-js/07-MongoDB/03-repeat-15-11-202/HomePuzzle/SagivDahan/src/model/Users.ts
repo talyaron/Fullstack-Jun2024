@@ -1,4 +1,20 @@
 import { model, Schema } from "mongoose";
+//User Class
+class User {
+    private username: string;
+    private email: string;
+    private password: string;
+    private isAdmin: boolean;
+    private phoneNumber: number;
+
+    constructor(name: string, email: string, password: string, isAdmin: boolean, phoneNumber: number) {
+        this.username = name;
+        this.email = email;
+        this.password = password;
+        this.isAdmin = isAdmin;
+        this.phoneNumber = phoneNumber;
+    }
+}
 
 //User Schema
 export const UserSchema = new Schema({

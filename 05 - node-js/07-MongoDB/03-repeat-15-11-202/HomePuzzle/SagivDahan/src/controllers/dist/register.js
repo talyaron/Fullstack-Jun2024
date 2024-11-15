@@ -51,10 +51,11 @@ exports.register = function (req, res) { return __awaiter(void 0, void 0, void 0
                 _b.label = 1;
             case 1:
                 _b.trys.push([1, 3, , 4]);
-                newUser = new Users_1.UserModel({ name: name, email: email, password: password });
+                newUser = new Users_1.UserSchema({ name: name, email: email, password: password });
                 return [4 /*yield*/, newUser.save()];
             case 2:
                 _b.sent();
+                // users.push(newUser)
                 res.status(201).json({ message: 'User registered successfully' });
                 return [3 /*break*/, 4];
             case 3:

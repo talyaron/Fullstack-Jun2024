@@ -1,8 +1,9 @@
-import { UserModel } from '../model/Users';
+import { Request, Response } from 'express';
+import { UserSchema } from '../model/Users';
 
 
 export const register = async (req: any, res: any) => {
-    const { name, email, password,  } = req.body;
+    const { name, email, password } = req.body;
     console.log(name, email, password)
 
     if (!name || !email || !password) {
@@ -10,8 +11,18 @@ export const register = async (req: any, res: any) => {
     }
 
     try {
-        const newUser = new UserModel({ name, email, password });
+        // const existingUser = users.find((user) => user.name === name);
+        // if (existingUser) {
+        //     return res.status(409).json({ message: 'Username already exists' });
+        // }
+
+
+        // const newUser = new User(name,email,  password );
+        const newUser = new UserSchema({ name, email, password });
         await newUser.save();
+
+        // users.push(newUser)
+
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error: any) {
         if (error.code === 11000) {
