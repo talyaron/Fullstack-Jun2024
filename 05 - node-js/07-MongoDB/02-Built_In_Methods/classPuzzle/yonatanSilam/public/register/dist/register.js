@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,44 +34,35 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
-exports.deletePost = void 0;
-var postModel_1 = require("../../models/postModel");
-function deletePost(req, res) {
-    return __awaiter(this, void 0, void 0, function () {
-        var id, error_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    id = req.body.id;
-                    if (!id)
-                        throw new Error("Missing title ");
-                    return [4 /*yield*/, postModel_1.PostModel.findByIdAndDelete(id)];
-                case 1:
-                    _a.sent();
-                    res.send({ message: "Post received", id: id });
-                    return [3 /*break*/, 3];
-                case 2:
-                    error_1 = _a.sent();
-                    console.error(error_1);
-                    res.status(400).send({ message: "Error: " + error_1.message });
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
-            }
-        });
-    });
+var _this = this;
+var form = document.getElementById('registration-form');
+if (!form) {
+    throw new Error('Could not find registration form');
 }
-exports.deletePost = deletePost;
-// export async function deletePets (req: any, res: any) {
-//   try {
-//       const { id } = req.body;
-//       if (!id) throw new Error("Missing title ");
-//       console.log(id)
-//       await PetModel.findByIdAndDelete(id)
-//       res.send({ message: "Post received",id });
-//     } catch (error) {
-//       console.error(error);
-//       res.status(400).send({ message: "Error: " + (error as Error).message });
-//     }
-//   }
+form.addEventListener('submit', function (event) { return __awaiter(_this, void 0, void 0, function () {
+    var formData, name, email, password, response, result;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                event.preventDefault();
+                formData = new FormData(form);
+                name = formData.get('username');
+                email = formData.get('email');
+                password = formData.get('password');
+                return [4 /*yield*/, fetch('/api/users/register', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ name: name, email: email, password: password })
+                    })];
+            case 1:
+                response = _a.sent();
+                return [4 /*yield*/, response.json()];
+            case 2:
+                result = _a.sent();
+                console.log(result);
+                return [2 /*return*/];
+        }
+    });
+}); });

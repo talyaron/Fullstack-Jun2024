@@ -5,7 +5,6 @@ export async function getPost (req: any, res: any) {
     // res.send({ allPosts });
     try {
       const posts = await PostModel.find();
-      const allPosts =posts.map(post=>post)
       return res.send({ posts });
 
       res.status(200).json({ message: 'User logged in successfully' });

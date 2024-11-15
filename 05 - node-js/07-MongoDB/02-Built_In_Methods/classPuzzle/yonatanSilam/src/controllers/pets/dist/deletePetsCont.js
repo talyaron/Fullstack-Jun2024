@@ -36,9 +36,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.deletePost = void 0;
-var postModel_1 = require("../../models/postModel");
-function deletePost(req, res) {
+exports.deletePets = void 0;
+var petsModel_1 = require("../../models/pets/petsModel");
+function deletePets(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var id, error_1;
         return __generator(this, function (_a) {
@@ -48,7 +48,8 @@ function deletePost(req, res) {
                     id = req.body.id;
                     if (!id)
                         throw new Error("Missing title ");
-                    return [4 /*yield*/, postModel_1.PostModel.findByIdAndDelete(id)];
+                    console.log(id);
+                    return [4 /*yield*/, petsModel_1.PetModel.findByIdAndDelete(id)];
                 case 1:
                     _a.sent();
                     res.send({ message: "Post received", id: id });
@@ -63,16 +64,4 @@ function deletePost(req, res) {
         });
     });
 }
-exports.deletePost = deletePost;
-// export async function deletePets (req: any, res: any) {
-//   try {
-//       const { id } = req.body;
-//       if (!id) throw new Error("Missing title ");
-//       console.log(id)
-//       await PetModel.findByIdAndDelete(id)
-//       res.send({ message: "Post received",id });
-//     } catch (error) {
-//       console.error(error);
-//       res.status(400).send({ message: "Error: " + (error as Error).message });
-//     }
-//   }
+exports.deletePets = deletePets;

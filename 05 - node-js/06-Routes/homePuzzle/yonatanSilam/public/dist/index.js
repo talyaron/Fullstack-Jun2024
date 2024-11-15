@@ -311,7 +311,7 @@ function updateOnServer(title, id) {
 }
 function handleDelete(id) {
     try {
-        console.log("delete title:", id);
+        console.log("delete:", id);
         DeleteOnServer(id);
         renderAllPost();
         //how to update the title in the server

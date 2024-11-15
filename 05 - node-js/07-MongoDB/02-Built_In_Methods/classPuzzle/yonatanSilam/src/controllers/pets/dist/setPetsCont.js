@@ -36,43 +36,33 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.deletePost = void 0;
-var postModel_1 = require("../../models/postModel");
-function deletePost(req, res) {
+exports.addPet = void 0;
+var petsModel_1 = require("../../models/pets/petsModel");
+function addPet(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var id, error_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var _a, name, gender, imageURL, newPet, error_1;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    id = req.body.id;
-                    if (!id)
-                        throw new Error("Missing title ");
-                    return [4 /*yield*/, postModel_1.PostModel.findByIdAndDelete(id)];
+                    _b.trys.push([0, 2, , 3]);
+                    _a = req.body, name = _a.name, gender = _a.gender, imageURL = _a.imageURL;
+                    console.log(name, gender, imageURL);
+                    if (!name || !gender || !imageURL) {
+                        return [2 /*return*/, res.status(400).json({ error: "All fields (name, text, imageURL) are required" })];
+                    }
+                    return [4 /*yield*/, petsModel_1.PetModel.create({ name: name, gender: gender, imageURL: imageURL })];
                 case 1:
-                    _a.sent();
-                    res.send({ message: "Post received", id: id });
+                    newPet = _b.sent();
+                    res.status(201).json({ message: "Post added successfully", pet: newPet });
                     return [3 /*break*/, 3];
                 case 2:
-                    error_1 = _a.sent();
-                    console.error(error_1);
-                    res.status(400).send({ message: "Error: " + error_1.message });
+                    error_1 = _b.sent();
+                    console.error('Error adding post:', error_1);
+                    res.status(500).json({ error: 'Failed to add post' });
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
         });
     });
 }
-exports.deletePost = deletePost;
-// export async function deletePets (req: any, res: any) {
-//   try {
-//       const { id } = req.body;
-//       if (!id) throw new Error("Missing title ");
-//       console.log(id)
-//       await PetModel.findByIdAndDelete(id)
-//       res.send({ message: "Post received",id });
-//     } catch (error) {
-//       console.error(error);
-//       res.status(400).send({ message: "Error: " + (error as Error).message });
-//     }
-//   }
+exports.addPet = addPet;
