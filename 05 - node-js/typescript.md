@@ -31,7 +31,7 @@ create a new file tsconfig.json in the root folder
 
 
 
-## Create a src folder
+## Create a src and public folders
 Create a src folder in the root folder
 create a new file index.ts in the src folder
 
@@ -49,5 +49,27 @@ To install express run the following commands
 ```npm i express```
 
 ```npm i -D @types/express```
+
+## Create server file
+create server.ts file and set the following code:
+```typescript
+import express from 'express'
+const app = express()
+const port = 3000;
+
+app.use(express.json());
+app.use(express.static('public'));
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
+```
+
+## Add mongoose
+```npm i mongoose```
 
 
