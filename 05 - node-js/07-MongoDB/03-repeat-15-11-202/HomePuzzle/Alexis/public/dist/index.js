@@ -81,7 +81,7 @@ function handleAddClient(ev) {
                         password: password
                     });
                     _a.label = 3;
-                case 3: return [4 /*yield*/, fetch("/api/users/get-user-details?firstName=${firstName}&lastName=${lastName}&email=${email}&phone=${phone}&yearOfBirth=${yearOfBirth}", {
+                case 3: return [4 /*yield*/, fetch("/api/users/get-user-details?firstName=" + firstName + "&lastName=" + lastName + "&email=" + email + "&phone=" + phone + "&yearOfBirth=" + yearOfBirth, {
                         method: "GET",
                         headers: { "Content-Type": "application/json" }
                     })];
@@ -92,8 +92,8 @@ function handleAddClient(ev) {
                 case 5:
                     infoUser = _a.sent();
                     userInfo = document.querySelector("#result");
-                    userInfo.innerHTML = "\n          <strong>Full Name:</strong> " + infoUser.firstName + " " + infoUser.lastName + "<br>\n            <strong>Email:</strong> " + infoUser.email + "\n    ";
-                    console.log("great");
+                    userInfo.innerHTML = "\n          <strong>Full Name:</strong> " + infoUser.firstName + " " + infoUser.lastName + "<br>\n          <strong>Email:</strong> " + infoUser.email + "<br>\n          <strong>Phone:</strong> " + infoUser.phone + "<br>\n          <strong>Year of Birth:</strong> " + infoUser.yearOfBirth + "\n        ";
+                    console.log("User details fetched successfully.");
                     return [3 /*break*/, 7];
                 case 6:
                     console.error("Failed to fetch user details:", info.statusText);

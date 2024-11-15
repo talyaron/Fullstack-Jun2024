@@ -35,26 +35,27 @@ export async function handleAddClient(ev: any) {
         password,
       });
     }
-      const info = await fetch(
-        "/api/users/get-user-details?firstName=${firstName}&lastName=${lastName}&email=${email}&phone=${phone}&yearOfBirth=${yearOfBirth}",
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      if (info.ok) {
-        const infoUser = await info.json();
-        const userInfo = document.querySelector("#result")! as HTMLElement;
-        userInfo.innerHTML = `
-          <strong>Full Name:</strong> ${infoUser.firstName} ${infoUser.lastName}<br>
-            <strong>Email:</strong> ${infoUser.email}
-    `;
-        console.log("great");
-      } else {
-        console.error("Failed to fetch user details:", info.statusText);
+    const info = await fetch(
+      `/api/users/get-user-details?firstName=${firstName}&lastName=${lastName}&email=${email}&phone=${phone}&yearOfBirth=${yearOfBirth}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
       }
+    );
+    if (info.ok) {
+      const infoUser = await info.json();
+      const userInfo = document.querySelector("#result") as HTMLElement;
+      userInfo.innerHTML = `
+          <strong>Full Name:</strong> ${infoUser.firstName} ${infoUser.lastName}<br>
+          <strong>Email:</strong> ${infoUser.email}<br>
+          <strong>Phone:</strong> ${infoUser.phone}<br>
+          <strong>Year of Birth:</strong> ${infoUser.yearOfBirth}
+        `;
+      console.log("User details fetched successfully.");
+    } else {
+      console.error("Failed to fetch user details:", info.statusText);
     }
-  catch (error) {
+  } catch (error) {
     console.error("error");
   }
 }
