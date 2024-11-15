@@ -10,7 +10,7 @@ export async function handleAddClient(ev: any) {
     const yearOfBirth = new Date(date).getFullYear();
     const password = formData.get("password");
 
-    const response = await fetch("/api/add-client", {
+    const response = await fetch("/api/users/add-client", {
       method: "POST",
       headers: { "Contenet-Type": "application/json" },
       body: JSON.stringify({
