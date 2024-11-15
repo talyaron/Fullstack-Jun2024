@@ -53,7 +53,7 @@ function handleAddClient(ev) {
                     date = formData.get("date");
                     yearOfBirth = new Date(date).getFullYear();
                     password = formData.get("password");
-                    return [4 /*yield*/, fetch("/api/add-client", {
+                    return [4 /*yield*/, fetch("/api/users/add-client", {
                             method: "POST",
                             headers: { "Contenet-Type": "application/json" },
                             body: JSON.stringify({
