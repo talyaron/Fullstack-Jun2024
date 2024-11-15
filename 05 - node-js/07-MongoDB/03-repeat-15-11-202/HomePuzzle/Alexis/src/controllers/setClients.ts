@@ -1,4 +1,4 @@
-import { ClientModel, ClientSchema } from "../../models/userModels/clientModel";
+import { ClientModel, ClientSchema } from "../models/clientModel";
 
 export async function addClient(req: any, res: any) {
   try {

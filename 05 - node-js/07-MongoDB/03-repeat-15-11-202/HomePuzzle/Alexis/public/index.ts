@@ -12,7 +12,7 @@ export async function handleAddClient(ev: any) {
 
     const response = await fetch("/api/users/add-client", {
       method: "POST",
-      headers: { "Contenet-Type": "application/json" },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         firstName,
         lastName,
@@ -23,23 +23,19 @@ export async function handleAddClient(ev: any) {
       }),
     });
 
-    // const data = document.querySelector(".result") as HTMLDivElement;
-    // const user = await fetch("/api/clients/get-user-details", {
-    //     method: "GET",
-    //     headers: { "Content-Type": "application/json" } 
-    // });
-    // data.innerHTML=`${user}`;
-
-      
-
-    // if (user.ok){
-    //     const userInfo = await user.json();
-    //     console.log(userInfo);
-    // }
+  
 
     if (response.ok) {
       const data = await response.json();
       console.log(data);
+      console.log({
+        firstName,
+        lastName,
+        email,
+        phone,
+        yearOfBirth,
+        password,
+      });
     }
 
    

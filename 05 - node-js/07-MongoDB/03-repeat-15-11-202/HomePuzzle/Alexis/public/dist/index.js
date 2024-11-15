@@ -55,7 +55,7 @@ function handleAddClient(ev) {
                     password = formData.get("password");
                     return [4 /*yield*/, fetch("/api/users/add-client", {
                             method: "POST",
-                            headers: { "Contenet-Type": "application/json" },
+                            headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({
                                 firstName: firstName,
                                 lastName: lastName,
@@ -72,6 +72,14 @@ function handleAddClient(ev) {
                 case 2:
                     data = _a.sent();
                     console.log(data);
+                    console.log({
+                        firstName: firstName,
+                        lastName: lastName,
+                        email: email,
+                        phone: phone,
+                        yearOfBirth: yearOfBirth,
+                        password: password
+                    });
                     _a.label = 3;
                 case 3: return [3 /*break*/, 5];
                 case 4:

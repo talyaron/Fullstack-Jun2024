@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.addClient = void 0;
-var clientModel_1 = require("../../models/userModels/clientModel");
+var clientModel_1 = require("../models/clientModel");
 function addClient(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var _a, firstName, lastName, email, phone, yearOfBirth, password, result, error_1;
