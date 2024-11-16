@@ -1,0 +1,67 @@
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.register {
+  bottom: 30%;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background_website_color);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.register #registerBtn {
+  display: flex;
+  margin: 0 auto;
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  background-color: var(--button_color);
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+@media (max-width: 600px) {
+  .register {
+    font-size: 1.2rem;
+  }
+}
+@media (min-width: 601px) and (max-width: 1200px) {
+  .register {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 1201px) {
+  .register {
+    font-size: 2rem;
+  }
+}
+
+#masseges_to_the_user {
+  color: red;
+}
+
+p {
+  font-size: 1rem;
+  color: red;
+}
+
+button {
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  background-color: var(--button_color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
