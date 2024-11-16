@@ -111,6 +111,11 @@ function addUser(userName, phoneNumber, email, password) {
                     if (!response.ok)
                         throw new Error('Failed to add user');
                     console.log('User added successfully!');
+                    alert('Register successful');
+                    localStorage.setItem("userData", JSON.stringify({ userName: userName, phoneNumber: phoneNumber, email: email, password: password }));
+                    setTimeout(function () {
+                        window.location.href = "../dashboard/dashboard.html";
+                    }, 3000);
                     return [3 /*break*/, 3];
                 case 2:
                     error_2 = _a.sent();

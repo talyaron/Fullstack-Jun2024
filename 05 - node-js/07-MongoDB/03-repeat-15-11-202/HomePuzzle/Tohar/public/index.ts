@@ -56,9 +56,9 @@ async function handleFormLogin(event: Event) {
 
     if (response.ok) {
         alert('Login successful');
-        // setTimeout(() => {
-        //     window.location.href = "./postsPage/postsPage.html";
-        // }, 3000)
+        setTimeout(() => {
+            window.location.href = "./dashboard/dashboard.html";
+        }, 3000)
         
     } else {
         alert(data.message);

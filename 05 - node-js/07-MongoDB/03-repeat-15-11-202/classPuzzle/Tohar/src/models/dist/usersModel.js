@@ -3,7 +3,6 @@ exports.__esModule = true;
 exports.userModel = exports.UserSchema = void 0;
 var mongoose_1 = require("mongoose");
 var User = /** @class */ (function () {
-    // appointements: Appointments[];
     function User(firstName, lastName, email, password, phoneNumber, isAdmin) {
         this.firstName = firstName;
         this.lastName = lastName;

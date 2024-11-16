@@ -64,6 +64,11 @@ async function handleFormRegister(event: Event) {
             if (!response.ok) throw new Error('Failed to add user');
     
             console.log('User added successfully!');
+            alert('Register successful');
+            localStorage.setItem("userData", JSON.stringify({ userName, phoneNumber, email, password}));
+            setTimeout(() => {
+                window.location.href = "../dashboard/dashboard.html";
+            }, 3000);
     
         } catch (error) {
             console.error('Error sending post:', error);

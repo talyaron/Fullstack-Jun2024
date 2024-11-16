@@ -76,9 +76,9 @@ function handleFormLogin(event) {
                     data = _a.sent();
                     if (response.ok) {
                         alert('Login successful');
-                        // setTimeout(() => {
-                        //     window.location.href = "./postsPage/postsPage.html";
-                        // }, 3000)
+                        setTimeout(function () {
+                            window.location.href = "./dashboard/dashboard.html";
+                        }, 3000);
                     }
                     else {
                         alert(data.message);
