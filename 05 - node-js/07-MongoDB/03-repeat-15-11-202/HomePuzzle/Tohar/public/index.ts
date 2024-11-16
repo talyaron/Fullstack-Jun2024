@@ -56,6 +56,7 @@ async function handleFormLogin(event: Event) {
 
     if (response.ok) {
         alert('Login successful');
+        saveFetchedUserToLocalStorage(data);
         setTimeout(() => {
             window.location.href = "./dashboard/dashboard.html";
         }, 3000)
@@ -68,6 +69,10 @@ async function handleFormLogin(event: Event) {
 function navigataToSignup() {
     window.location.href = "./signup/signup.html";
 };
+
+async function saveFetchedUserToLocalStorage (userData: any) {
+    localStorage.setItem("userData", JSON.stringify(userData));
+}
 
 renderLoginPage();
 

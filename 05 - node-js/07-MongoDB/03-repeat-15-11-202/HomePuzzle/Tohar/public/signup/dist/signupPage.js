@@ -43,34 +43,24 @@ function handleFormRegister(event) {
     return __awaiter(this, void 0, void 0, function () {
         var form, userName, email, password, phoneNumber, pswConfirm;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    event.preventDefault();
-                    form = event.target;
-                    userName = form.elements.namedItem('userName').value;
-                    email = form.elements.namedItem('email').value;
-                    password = form.elements.namedItem('password').value;
-                    phoneNumber = form.elements.namedItem('phone').value;
-                    pswConfirm = form.elements.namedItem('pswConfirm').value;
-                    console.log('Register', userName, email, password, phoneNumber, pswConfirm);
-                    if (!(password !== pswConfirm)) return [3 /*break*/, 1];
-                    alert('Passwords do not match! Please try again');
-                    return [3 /*break*/, 3];
-                case 1: return [4 /*yield*/, userExists(email)];
-                case 2:
-                    if (_a.sent()) {
-                        alert('Email already registered!');
-                    }
-                    else {
-                        addUser(userName, phoneNumber, email, password);
-                    }
-                    _a.label = 3;
-                case 3: return [2 /*return*/];
+            event.preventDefault();
+            form = event.target;
+            userName = form.elements.namedItem('userName').value;
+            email = form.elements.namedItem('email').value;
+            password = form.elements.namedItem('password').value;
+            phoneNumber = form.elements.namedItem('phone').value;
+            pswConfirm = form.elements.namedItem('pswConfirm').value;
+            console.log('Register', userName, email, password, phoneNumber, pswConfirm);
+            if (password !== pswConfirm) {
+                alert('Passwords do not match! Please try again');
             }
+            else {
+                addUser(userName, email, phoneNumber, password);
+            }
+            return [2 /*return*/];
         });
     });
 }
-;
 function userExists(email) {
     return __awaiter(this, void 0, void 0, function () {
         var response, data, error_1;
@@ -94,34 +84,39 @@ function userExists(email) {
         });
     });
 }
-function addUser(userName, phoneNumber, email, password) {
+function addUser(userName, email, phoneNumber, password) {
     return __awaiter(this, void 0, void 0, function () {
-        var response, error_2;
+        var response, data, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/user/signupUser', {
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/user/signup-user', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ userName: userName, phoneNumber: phoneNumber, email: email, password: password })
                         })];
                 case 1:
                     response = _a.sent();
-                    if (!response.ok)
-                        throw new Error('Failed to add user');
-                    console.log('User added successfully!');
-                    alert('Register successful');
-                    localStorage.setItem("userData", JSON.stringify({ userName: userName, phoneNumber: phoneNumber, email: email, password: password }));
-                    setTimeout(function () {
-                        window.location.href = "../dashboard/dashboard.html";
-                    }, 3000);
-                    return [3 /*break*/, 3];
+                    return [4 /*yield*/, response.json()];
                 case 2:
+                    data = _a.sent();
+                    if (response.ok) {
+                        alert('Signed up successful');
+                        localStorage.setItem("userData", JSON.stringify(data.newUser));
+                        setTimeout(function () {
+                            window.location.href = "../dashboard/dashboard.html";
+                        }, 1500);
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                    return [3 /*break*/, 4];
+                case 3:
                     error_2 = _a.sent();
                     console.error('Error sending post:', error_2);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     });

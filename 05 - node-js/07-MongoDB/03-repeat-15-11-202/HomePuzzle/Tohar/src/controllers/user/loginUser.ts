@@ -1,19 +1,19 @@
-import { users } from '../../models/userModel';
+import { userModel } from '../../models/userModel';
 
-export function loginUser(req:any, res:any) {
+export async function loginUser(req:any, res:any) {
     try {
             const {email, password } = req.body;
         
-            const user = users.find(user => user.email === email);
-            console.log(user);
-            if (!user) {   
+            const user = await userModel.findOne({ email: email});
+            if (user) {
+                if(user.password !== password) {
+                    return res.status(400).json({ message: 'Invalid password' });
+                } else {
+                res.json(user);
+                }
+            } else {
                 return res.status(400).json({ message: 'You are not registered, please sign up.' });
             }
-        
-            if(user.password !== password) {
-                return res.status(400).json({ message: 'Invalid password' });
-            };
-
         
         } catch (error) {
             console.error("Error in /api/login:", error);

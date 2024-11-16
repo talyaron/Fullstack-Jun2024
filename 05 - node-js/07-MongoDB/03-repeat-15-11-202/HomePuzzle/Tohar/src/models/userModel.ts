@@ -17,16 +17,20 @@ export const UserSchema = new Schema({
         type: 'string',
         required: true,
     },
-    password: {
-        type: 'string', 
-        required: true
-    },
     email: {
         type: 'string', 
         required: true,
     },
-    isAdmin: {
-        type: 'boolean', 
+    password: {
+        type: 'string', 
+        required: true
+    },
+    phoneNumber: {
+        type: 'string',
+        required: true, 
+    },
+    id: {
+        type: 'string', 
         required: true,
     }
 });

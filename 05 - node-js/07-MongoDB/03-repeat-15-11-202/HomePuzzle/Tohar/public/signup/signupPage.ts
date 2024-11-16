@@ -35,13 +35,12 @@ async function handleFormRegister(event: Event) {
         console.log('Register', userName, email, password, phoneNumber, pswConfirm)
         if (password !== pswConfirm) {
             alert('Passwords do not match! Please try again');   
-        } else if(await userExists(email)) {
-            alert('Email already registered!');
-        } 
-        else {
-            addUser(userName, phoneNumber, email, password);
-        }            
-    };
+        } else {
+            addUser(userName, email, phoneNumber, password);
+        }
+    }
+       
+
 
     async function userExists(email: string) {
         try {
@@ -54,21 +53,26 @@ async function handleFormRegister(event: Event) {
         }
     }
 
-    async function addUser(userName: string, phoneNumber: string, email: string, password: string) {
+    async function addUser(userName: string, email: string, phoneNumber: string, password: string) {
         try {
-            const response = await fetch('http://localhost:3000/api/user/signupUser', {
+            const response = await fetch('http://localhost:3000/api/user/signup-user', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userName, phoneNumber, email, password}),
             });
-            if (!response.ok) throw new Error('Failed to add user');
-    
-            console.log('User added successfully!');
-            alert('Register successful');
-            localStorage.setItem("userData", JSON.stringify({ userName, phoneNumber, email, password}));
-            setTimeout(() => {
-                window.location.href = "../dashboard/dashboard.html";
-            }, 3000);
+            
+            const data = await response.json();
+
+            if (response.ok) {
+                alert('Signed up successful');
+                localStorage.setItem("userData", JSON.stringify(data.newUser));
+                setTimeout(() => {
+                    window.location.href = "../dashboard/dashboard.html";
+                }, 1500);
+                
+            } else {
+                alert(data.message);
+            }
     
         } catch (error) {
             console.error('Error sending post:', error);

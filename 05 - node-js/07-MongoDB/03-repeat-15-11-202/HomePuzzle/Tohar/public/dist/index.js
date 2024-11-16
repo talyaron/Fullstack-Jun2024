@@ -76,6 +76,7 @@ function handleFormLogin(event) {
                     data = _a.sent();
                     if (response.ok) {
                         alert('Login successful');
+                        saveFetchedUserToLocalStorage(data);
                         setTimeout(function () {
                             window.location.href = "./dashboard/dashboard.html";
                         }, 3000);
@@ -93,4 +94,12 @@ function navigataToSignup() {
     window.location.href = "./signup/signup.html";
 }
 ;
+function saveFetchedUserToLocalStorage(userData) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            localStorage.setItem("userData", JSON.stringify(userData));
+            return [2 /*return*/];
+        });
+    });
+}
 renderLoginPage();
