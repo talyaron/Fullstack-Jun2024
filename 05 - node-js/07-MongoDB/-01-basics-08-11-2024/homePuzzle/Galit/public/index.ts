@@ -108,7 +108,6 @@ function handleEditTitle(id: string) {
     }, { once: true });
 }
 
-// Edit text function
 function handleEditText(id: string) {
     const textElement = document.getElementById(`text-${id}`);
     if (!textElement) return;

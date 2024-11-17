@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client App</title>
+    <link rel="stylesheet" href="./dist/style.css">
+    <script src="./dist/index.js" defer></script>
+</head>
+<body>
+    <a class="admin" href="./admin/admin.html">Admin</a>
+    <a class="clients" href="/">clients</a>
+
+    <div class="container">
+    <form onsubmit="handleAddClient(event)">
+        <input type="text" name="firstName" placeholder="First Name" required>
+        <input type="text" name="lastName" placeholder="Last Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="tel" name="phone" placeholder="Phone" required>
+        <input type="date" name="date" placeholder="Date of Birth" required>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="client-list"></div>
+    </div>
+</body>
+</html>

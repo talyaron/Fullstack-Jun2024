@@ -185,7 +185,6 @@ function handleEditTitle(id) {
         });
     }); }, { once: true });
 }
-// Edit text function
 function handleEditText(id) {
     var _this = this;
     var textElement = document.getElementById("text-" + id);
