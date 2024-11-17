@@ -36,30 +36,38 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.registerClient = void 0;
+exports.loginClient = void 0;
 var clientModel_1 = require("../../models/clientModel");
-function registerClient(req, res) {
+function loginClient(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, name, phoneNumber, password, error_1;
+        var _a, phoneNumber, password, foundUser, key, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _b.trys.push([0, 2, , 3]);
-                    _a = req.body, name = _a.name, phoneNumber = _a.phoneNumber, password = _a.password;
-                    if (!name || !phoneNumber || !password)
-                        throw new Error("one of the fields are empty");
-                    return [4 /*yield*/, clientModel_1.ClientModel.create({ name: name, phoneNumber: phoneNumber, password: password })];
+                    _b.trys.push([0, 3, , 4]);
+                    _a = req.body, phoneNumber = _a.phoneNumber, password = _a.password;
+                    return [4 /*yield*/, clientModel_1.ClientModel.findOne({ phoneNumber: phoneNumber, password: password })];
                 case 1:
-                    _b.sent();
-                    res.json({ message: "Account created sucssussfully" });
-                    return [3 /*break*/, 3];
+                    foundUser = _b.sent();
+                    // console.log(foundUser);
+                    if (!foundUser) {
+                        res.json({ message: "wrong password or phone number" });
+                        return [2 /*return*/];
+                    }
+                    key = crypto.randomUUID();
+                    foundUser.key = key;
+                    return [4 /*yield*/, foundUser.save()];
                 case 2:
+                    _b.sent();
+                    res.json({ message: "Log in success !", key: key });
+                    return [3 /*break*/, 4];
+                case 3:
                     error_1 = _b.sent();
                     console.error("error");
-                    return [2 /*return*/, res.status(500).send({ error: "something went wrong!" })];
-                case 3: return [2 /*return*/];
+                    return [2 /*return*/, res.status(500).send({ error: "something went Wrong!" })];
+                case 4: return [2 /*return*/];
             }
         });
     });
 }
-exports.registerClient = registerClient;
+exports.loginClient = loginClient;

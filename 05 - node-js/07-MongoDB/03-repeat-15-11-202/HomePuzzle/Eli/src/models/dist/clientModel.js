@@ -14,6 +14,9 @@ var clientSchema = new mongoose_1.Schema({
     password: {
         require: true,
         type: String
+    }, key: {
+        require: false,
+        type: String
     }
 });
 exports.ClientModel = mongoose_1.model("client", clientSchema);

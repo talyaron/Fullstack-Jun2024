@@ -36,30 +36,40 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.registerClient = void 0;
+exports.getClientInfo = void 0;
 var clientModel_1 = require("../../models/clientModel");
-function registerClient(req, res) {
+function getClientInfo(req, res) {
+    var _a;
     return __awaiter(this, void 0, void 0, function () {
-        var _a, name, phoneNumber, password, error_1;
+        var key, foundUser, name, phoneNumber, password, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _b.trys.push([0, 2, , 3]);
-                    _a = req.body, name = _a.name, phoneNumber = _a.phoneNumber, password = _a.password;
-                    if (!name || !phoneNumber || !password)
-                        throw new Error("one of the fields are empty");
-                    return [4 /*yield*/, clientModel_1.ClientModel.create({ name: name, phoneNumber: phoneNumber, password: password })];
+                    _b.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, req.body];
                 case 1:
-                    _b.sent();
-                    res.json({ message: "Account created sucssussfully" });
-                    return [3 /*break*/, 3];
+                    key = (_b.sent()).key;
+                    return [4 /*yield*/, clientModel_1.ClientModel.findOne({ key: key })];
                 case 2:
+                    foundUser = _b.sent();
+                    console.log(key, foundUser);
+                    if (!foundUser) {
+                        res.json({ message: "no user Found!" });
+                        return [2 /*return*/];
+                    }
+                    name = foundUser.name;
+                    phoneNumber = foundUser.phoneNumber;
+                    password = (_a = foundUser.password) === null || _a === void 0 ? void 0 : _a.length;
+                    console.log(name, phoneNumber, password);
+                    res.json({ message: "Log in success !", name: name, phoneNumber: phoneNumber, password: password });
+                    return [3 /*break*/, 4];
+                case 3:
                     error_1 = _b.sent();
                     console.error("error");
-                    return [2 /*return*/, res.status(500).send({ error: "something went wrong!" })];
-                case 3: return [2 /*return*/];
+                    return [2 /*return*/, res.status(500).send({ error: "something went Wrong!" })];
+                case 4: return [2 /*return*/];
             }
         });
     });
 }
-exports.registerClient = registerClient;
+exports.getClientInfo = getClientInfo;

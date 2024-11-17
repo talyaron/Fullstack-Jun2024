@@ -34,6 +34,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var localStorageDetail = localStorage.getItem("key");
+var key = localStorageDetail ? JSON.parse(localStorageDetail) : "";
 var reg = true;
 var formCElement = document.getElementById("formContainer");
 var formChecker = /** @class */ (function () {
@@ -79,22 +81,26 @@ function handClick(event) {
     changeContent();
 }
 function changeContent() {
+    if (key) {
+        getInfoFromServer(key);
+        return;
+    }
     if (reg) {
         formCElement.innerHTML = "  <form onsubmit=\"checkForm(event)\">\n        <input type=\"text\" name=\"fullName\" placeholder=\"Enter your full name\">\n        <input type=\"text\" name=\"phoneNumber\" placeholder=\"Enter your phone number\">\n        <input type=\"password\" name=\"password\" placeholder=\"Enter a password\">\n        <input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Register\" >\n    </form>";
     }
     else {
-        formCElement.innerHTML = "  <form onsubmit=\"checkForm(event)\">\n        <input type=\"text\" name=\"phoneNumber\" placeholder=\"Enter your phone number\">\n        <input type=\"password\" name=\"password\" placeholder=\"Enter a password\">\n        <input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Log in\">\n    </form>";
+        formCElement.innerHTML = "  <form onsubmit=\"checkForm(event)\">\n        <input type=\"text\" name=\"phoneNumber\" placeholder=\"Enter your phone number\">\n        <input type=\"password\" name=\"password\" placeholder=\"Enter your password\">\n        <input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Log in\">\n    </form>";
     }
 }
 var formTester = new formChecker();
 function checkForm(event) {
     event.preventDefault();
     var formData = new FormData(event.target);
-    var name = formData.get("fullName");
     var phoneNumber = formData.get("phoneNumber");
     var password = formData.get("password");
-    console.log(name, phoneNumber, password);
+    //console.log(name, phoneNumber, password);
     if (reg) {
+        var name = formData.get("fullName");
         var InvalidName = formTester.checkName(name);
         var InvalidPN = formTester.checkPhone(phoneNumber);
         var InvalidPassword = formTester.checkPassword(password);
@@ -104,10 +110,89 @@ function checkForm(event) {
             serverRegClient(name, phoneNumber, password);
         }
     }
+    else {
+        serverLogInClient(phoneNumber, password);
+    }
+}
+function getInfoFromServer(key) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, data, name, phoneNumber, password, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    console.log(key);
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/client/info-client", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ key: key })
+                        })];
+                case 1:
+                    response = _a.sent();
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    data = _a.sent();
+                    name = data.name;
+                    phoneNumber = data.phoneNumber;
+                    password = data.password;
+                    console.log(name, phoneNumber, password);
+                    if (name && phoneNumber && password) {
+                        console.log(data, "time to render your items!");
+                        renderInfo(name, phoneNumber, password);
+                    }
+                    else {
+                        // localStorage.removeItem("key");
+                        //changeContent();
+                    }
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_1 = _a.sent();
+                    console.error(error_1);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+function renderInfo(name, phoneNumber, password) {
+    formCElement.innerHTML = "  <form >\n  <h1> your name is : " + name + " </h1>\n  <h1> phone number : " + phoneNumber + "</h1>\n  <h1> password : " + "*".repeat(password) + " </h1>\n\n</form>";
+}
+function serverLogInClient(phoneNumber, password) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, data, key_1, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/client/login-client", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ phoneNumber: phoneNumber, password: password })
+                        })];
+                case 1:
+                    response = _a.sent();
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    data = _a.sent();
+                    key_1 = data.key;
+                    if (key_1) {
+                        console.log(data, "and your key is :", key_1);
+                        localStorage.setItem("key", JSON.stringify(key_1));
+                        getInfoFromServer(key_1);
+                    }
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_2 = _a.sent();
+                    console.error(error_2);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
 }
 function serverRegClient(name, phoneNumber, password) {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, error_1;
+        var response, data, error_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -125,8 +210,8 @@ function serverRegClient(name, phoneNumber, password) {
                     console.log(data);
                     return [3 /*break*/, 4];
                 case 3:
-                    error_1 = _a.sent();
-                    console.error(error_1);
+                    error_3 = _a.sent();
+                    console.error(error_3);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }

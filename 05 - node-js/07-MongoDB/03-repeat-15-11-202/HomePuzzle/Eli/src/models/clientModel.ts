@@ -12,6 +12,9 @@ const clientSchema = new Schema({
     password:{
         require:true,
         type:String,
+    }, key:{
+        require:false,
+        type:String,
     },
 });
 

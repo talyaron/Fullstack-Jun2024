@@ -2,6 +2,10 @@
 exports.__esModule = true;
 var express_1 = require("express");
 var clientRegCont_1 = require("../controllers/clientControllers/clientRegCont");
+var clientLoginCont_1 = require("../controllers/clientControllers/clientLoginCont");
+var clientGetInfoCont_1 = require("../controllers/clientControllers/clientGetInfoCont");
 var router = express_1["default"].Router();
 router.post("/register-client", clientRegCont_1.registerClient);
+router.post("/login-client", clientLoginCont_1.loginClient);
+router.post("/info-client", clientGetInfoCont_1.getClientInfo);
 exports["default"] = router;

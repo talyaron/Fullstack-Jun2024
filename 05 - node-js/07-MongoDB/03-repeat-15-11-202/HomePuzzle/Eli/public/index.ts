@@ -1,3 +1,5 @@
+const localStorageDetail = localStorage.getItem("key");
+const key = localStorageDetail ? JSON.parse(localStorageDetail) : "";
 
 let reg: boolean = true;
 
@@ -52,6 +54,10 @@ function handClick(event) {
 }
 
 function changeContent() {
+  if (key) {
+    getInfoFromServer(key);
+    return;
+  }
   if (reg) {
     formCElement.innerHTML = `  <form onsubmit="checkForm(event)">
         <input type="text" name="fullName" placeholder="Enter your full name">
@@ -62,7 +68,7 @@ function changeContent() {
   } else {
     formCElement.innerHTML = `  <form onsubmit="checkForm(event)">
         <input type="text" name="phoneNumber" placeholder="Enter your phone number">
-        <input type="password" name="password" placeholder="Enter a password">
+        <input type="password" name="password" placeholder="Enter your password">
         <input type="submit" name="submit" id="submit" value="Log in">
     </form>`;
   }
@@ -72,11 +78,11 @@ const formTester = new formChecker();
 function checkForm(event) {
   event.preventDefault();
   const formData = new FormData(event.target as HTMLFormElement);
-  const name = formData.get("fullName") as string;
   const phoneNumber = formData.get("phoneNumber") as string;
   const password = formData.get("password") as string;
-  console.log(name, phoneNumber, password);
+  //console.log(name, phoneNumber, password);
   if (reg) {
+    const name = formData.get("fullName") as string;
     const InvalidName = formTester.checkName(name);
     const InvalidPN = formTester.checkPhone(phoneNumber);
     const InvalidPassword = formTester.checkPassword(password);
@@ -85,19 +91,83 @@ function checkForm(event) {
       console.log("Account valid on client checking on server:");
       serverRegClient(name, phoneNumber, password);
     }
+  } else {
+    serverLogInClient(phoneNumber, password);
+  }
+}
+async function getInfoFromServer(key) {
+  try {
+    console.log(key);
+    const response = await fetch(
+      `http://localhost:3000/api/client/info-client`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ key }),
+      }
+    );
+
+    const data = await response.json();
+    const name = data.name;
+    const phoneNumber = data.phoneNumber;
+    const password = data.password;
+    console.log(name, phoneNumber, password);
+    if (name && phoneNumber && password) {
+      console.log(data, "time to render your items!");
+      renderInfo(name, phoneNumber, password);
+    } else {
+     // localStorage.removeItem("key");
+      //changeContent();
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function renderInfo(name, phoneNumber, password) {
+  formCElement.innerHTML = `  <form >
+  <h1> your name is : ${name} </h1>
+  <h1> phone number : ${phoneNumber}</h1>
+  <h1> password : ${"*".repeat(password)} </h1>
+
+</form>`;
+}
+async function serverLogInClient(phoneNumber, password) {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/client/login-client`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phoneNumber, password }),
+      }
+    );
+
+    const data = await response.json();
+    const key = data.key;
+    if (key) {
+      console.log(data, "and your key is :", key);
+      localStorage.setItem("key", JSON.stringify(key));
+      getInfoFromServer(key);
+    }
+  } catch (error) {
+    console.error(error);
   }
 }
 async function serverRegClient(name, phoneNumber, password) {
   try {
-    const response = await fetch(`http://localhost:3000/api/client/register-client`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, phoneNumber, password }),
-    });
+    const response = await fetch(
+      `http://localhost:3000/api/client/register-client`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, phoneNumber, password }),
+      }
+    );
 
     const data = await response.json();
     console.log(data);
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 }
