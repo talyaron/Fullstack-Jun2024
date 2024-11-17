@@ -48,7 +48,7 @@ function getPosts(req, res) {
                     return [4 /*yield*/, postsModel_1.PostModel.find()];
                 case 1:
                     allPosts = _a.sent();
-                    res.status(200).json(allPosts);
+                    res.json({ allPosts: allPosts });
                     return [3 /*break*/, 3];
                 case 2:
                     error_1 = _a.sent();

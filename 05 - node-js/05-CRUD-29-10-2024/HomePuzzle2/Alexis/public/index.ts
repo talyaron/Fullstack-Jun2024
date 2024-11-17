@@ -28,16 +28,10 @@ async function handleSendPost(event: Event) {
         return;
     }
 
-    const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
-    if (!urlPattern.test(imageUrl)) {
-        alert('Please enter a valid image URL');
-        return;
-    }
-
     try {
         console.log('Sending post:', { title, text, imageUrl });
 
-        const response = await fetch('http://localhost:3000/api/add-post', {
+        const response = await fetch('/api/posts/add-post', {  // Correct POST route
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ title, text, image: imageUrl }),
@@ -51,7 +45,6 @@ async function handleSendPost(event: Event) {
         console.log('Post added successfully!');
         form.reset();
         await fetchPosts();
-
     } catch (error) {
         alert(`Error sending post: ${error.message}`);
     }
@@ -59,7 +52,7 @@ async function handleSendPost(event: Event) {
 
 async function fetchPosts() {
     try {
-        const response = await fetch('http://localhost:3000/api/get-posts');
+        const response = await fetch('/api/posts/get-posts');  // Correct GET route
         const data = await response.json();
 
         const feedElement = document.getElementById("feed");
@@ -74,6 +67,7 @@ async function fetchPosts() {
         console.error("Error fetching posts:", error);
     }
 }
+
 
 function renderPosts(posts: Post[]) {
     const feedElement = document.getElementById('feed');

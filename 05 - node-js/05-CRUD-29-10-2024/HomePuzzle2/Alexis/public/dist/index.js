@@ -47,7 +47,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 function handleSendPost(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var form, title, text, imageUrl, urlPattern, response, errorData, error_1;
+        var form, title, text, imageUrl, response, errorData, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -69,16 +69,11 @@ function handleSendPost(event) {
                         alert('Image URL is required');
                         return [2 /*return*/];
                     }
-                    urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
-                    if (!urlPattern.test(imageUrl)) {
-                        alert('Please enter a valid image URL');
-                        return [2 /*return*/];
-                    }
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 6, , 7]);
                     console.log('Sending post:', { title: title, text: text, imageUrl: imageUrl });
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/add-post', {
+                    return [4 /*yield*/, fetch('/api/posts/add-post', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ title: title, text: text, image: imageUrl })
@@ -113,7 +108,7 @@ function fetchPosts() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/get-posts')];
+                    return [4 /*yield*/, fetch('/api/posts/get-posts')];
                 case 1:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];

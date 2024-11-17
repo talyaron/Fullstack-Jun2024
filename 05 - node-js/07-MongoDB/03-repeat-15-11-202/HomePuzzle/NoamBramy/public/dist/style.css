@@ -1,0 +1,123 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap");
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  background-color: #eef2f3;
+}
+
+#users {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f4f4f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 300px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.user:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.user .user-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+.user .user-email,
+.user .user-password,
+.user .user-phonenumber {
+  font-size: 1rem;
+  color: #555;
+  margin: 5px 0;
+}
+.user .update-button,
+.user .delete-button {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.user .update-button:not(:last-child),
+.user .delete-button:not(:last-child) {
+  margin-bottom: 10px;
+}
+.user .update-button {
+  background-color: #007bff;
+  color: #fff;
+}
+.user .update-button:hover {
+  background-color: #0056b3;
+}
+.user .delete-button {
+  background-color: #dc3545;
+  color: #fff;
+}
+.user .delete-button:hover {
+  background-color: #a71d2a;
+}
+
+form {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+form input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+form input:focus {
+  border-color: #007bff;
+}
+
+form button {
+  padding: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+form button:hover {
+  background-color: #218838;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}

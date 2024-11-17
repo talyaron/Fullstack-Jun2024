@@ -92,7 +92,7 @@ function fetchPosts() {
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 4, , 5]);
-                    return [4 /*yield*/, fetch("http://localhost:3000/api/posts/get-posts?username=" + currentUsername)];
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/posts/get-posts")];
                 case 2:
                     response = _a.sent();
                     if (!response.ok) {
@@ -102,15 +102,14 @@ function fetchPosts() {
                     return [4 /*yield*/, response.json()];
                 case 3:
                     data = _a.sent();
-                    if (!data.posts) {
-                        throw new Error("Invalid response format. 'posts' field is missing.");
-                    }
+                    console.log("Fetched posts:", data);
                     feedElement = document.getElementById("feed");
                     if (!feedElement)
                         throw new Error("Feed element not found");
-                    if (data.posts.length === 0)
-                        return [2 /*return*/];
-                    userPosts = data.posts.filter(function (post) { return post.username === currentUsername; });
+                    if (!Array.isArray(data.allPosts)) {
+                        throw new Error("Invalid response format. 'allPosts' field is missing or not an array.");
+                    }
+                    userPosts = data.allPosts.filter(function (post) { return post.username === currentUsername; });
                     renderPosts(userPosts);
                     return [3 /*break*/, 5];
                 case 4:
@@ -123,13 +122,6 @@ function fetchPosts() {
     });
 }
 fetchPosts();
-function savePostsToLocalStorage(posts) {
-    localStorage.setItem("posts", JSON.stringify(posts));
-}
-function loadPostsFromLocalStorage() {
-    var posts = localStorage.getItem("posts");
-    return posts ? JSON.parse(posts) : [];
-}
 function renderPosts(posts) {
     var feedElement = document.getElementById("feed");
     if (!feedElement) {

@@ -7,7 +7,6 @@ class User {
     private password: string;
     private phoneNumber: string;
     private isAdmin: boolean;
-    // appointements: Appointments[];
 
     constructor(firstName: string, lastName: string, email: string, password: string,
          phoneNumber: string, isAdmin: boolean) {
