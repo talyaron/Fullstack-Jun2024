@@ -1,0 +1,90 @@
+body {
+  background-color: antiquewhite;
+}
+#switch {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  margin: 0 auto;
+  margin-top: 2vh;
+  justify-content: space-evenly;
+  #outerShell {
+    border-radius: 20px;
+    width: 4rem;
+    height: 2rem;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), inset 0 2px 4px rgba(0, 0, 0, 0.2); // Added inner shadow
+    margin: 0.5vw;
+  
+    #innerShell {
+      border-radius: 20px;
+      width: 2rem;
+      height: 2rem;
+      background-color: rgb(52, 120, 246);
+      position: relative;
+      box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2); // Simple inner shadow for innerShell
+    }
+  }
+
+  h1 {
+    margin: 0;
+  }
+}
+form {
+  width: 30vw;
+  height: 40vh;
+  margin: 0 auto;
+  margin-top: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: rgb(240, 248, 255);
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  input {
+    width: 80%;
+    height: 10%;
+    margin: 0 auto;
+    border: 1px solid rgb(200, 200, 200);
+    border-radius: 10px;
+    padding: 0 10px;
+    font-size: 1rem;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  #submit {
+    background-color: rgb(100, 149, 237);
+    border: 1px solid rgb(70, 130, 180);
+    color: rgb(255, 255, 255);
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: rgb(70, 130, 180);
+      color: rgb(245, 245, 245);
+      scale: 1.1;
+    }
+  }
+}
+
+@keyframes mov {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: 50%;
+  }
+}
+@keyframes movBack {
+    0% {
+        left: 50%;
+    }
+    100% {
+ 
+      left: 0;
+    }
+  }
+  

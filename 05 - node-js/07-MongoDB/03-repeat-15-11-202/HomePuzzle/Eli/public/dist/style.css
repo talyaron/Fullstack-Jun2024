@@ -1,0 +1,85 @@
+body {
+  background-color: antiquewhite;
+}
+
+#switch {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  margin: 0 auto;
+  margin-top: 2vh;
+  justify-content: space-evenly;
+}
+#switch #outerShell {
+  border-radius: 20px;
+  width: 4rem;
+  height: 2rem;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin: 0.5vw;
+}
+#switch #outerShell #innerShell {
+  border-radius: 20px;
+  width: 2rem;
+  height: 2rem;
+  background-color: #3478f6;
+  position: relative;
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+#switch h1 {
+  margin: 0;
+}
+
+form {
+  width: 30vw;
+  height: 40vh;
+  margin: 0 auto;
+  margin-top: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: aliceblue;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+form input {
+  width: 80%;
+  height: 10%;
+  margin: 0 auto;
+  border: 1px solid #c8c8c8;
+  border-radius: 10px;
+  padding: 0 10px;
+  font-size: 1rem;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+form #submit {
+  background-color: cornflowerblue;
+  border: 1px solid steelblue;
+  color: white;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+form #submit:hover {
+  background-color: steelblue;
+  color: whitesmoke;
+  scale: 1.1;
+}
+
+@keyframes mov {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: 50%;
+  }
+}
+@keyframes movBack {
+  0% {
+    left: 50%;
+  }
+  100% {
+    left: 0;
+  }
+}
