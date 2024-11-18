@@ -2,33 +2,39 @@ import { AdminModel } from "../../model/admins/AdminModel";
 
 export async function addAdmin(req: any, res: any) {
     try {
-        const { firstName, lastName, email, phone, profession, role, yearOfBirth } = req.body;
+        const { AdminFirstName, AdminLastName, AdminEmail, AdminPhone, AdminProfession, AdminRole, AdminYearOfBirth } = req.body;
+
+        if (!AdminFirstName || !AdminLastName || !AdminEmail) {
+            return res.status(400).send({ error: "Missing required fields." });
+        }
 
         const result = await AdminModel.create({
-            firstName,
-            lastName,
-            email,
-            phone,
-            profession,
-            role,
-            yearOfBirth,
+            AdminFirstName,
+            AdminLastName,
+            AdminEmail,
+            AdminPhone,
+            AdminProfession,
+            AdminRole,
+            AdminYearOfBirth,
         });
 
         if (!result) {
-            return res.status(400).send({  });
+            return res.status(400).send({ error: "Failed to create admin." });
         }
 
-        return res.status(201).send({ });
+        return res.status(201).send({ message: "Admin added successfully", admin: result });
     } catch (error: any) {
-        console.error("Error in add Admin:", error);
+        console.error("Error in addAdmin:", error);
 
         if (error.code === 11000) {
-            return res.status(400).send({ });
+            const duplicateField = Object.keys(error.keyValue)[0];
+            return res.status(400).send({ error: `${duplicateField} already exists.` });
         }
 
         return res.status(500).send({ error: "Internal Server Error" });
     }
 }
+
 
 export async function getAdminById(req: any, res: any) {
     try {
@@ -69,20 +75,20 @@ export async function deleteAdmin(req: any, res: any) {
 }
 
 export async function editAdmin(req: any, res: any) {
-    const { id, firstName, lastName, email, phone, profession, role, yearOfBirth } = req.body;
+    const { id, AdminFirstName, AdminLastName, AdminEmail, AdminPhone, AdminProfession, AdminRole, AdminYearOfBirth } = req.body;
 
     try {
         console.log(`Editing admin with id: ${id}`);
         
-        const updatedAdminFields: Partial<{ firstName: string;  lastName: string; email: string; phone: string; profession : string; role: string; yearOfBirth: string; }> = {};
-        if (firstName !== undefined) updatedAdminFields.firstName = firstName;
-        if (lastName !== undefined) updatedAdminFields.lastName = lastName;
-        if (email !== undefined) updatedAdminFields.email = email;
-        if (phone !== undefined) updatedAdminFields.phone = phone;
-        if (profession !== undefined) updatedAdminFields.profession = profession;
-        if (role !== undefined) updatedAdminFields.role = role;
+        const updatedAdminFields: Partial<{ AdminFirstName: string;  AdminLastName: string; AdminEmail: string; AdminPhone: string; AdminProfession : string; AdminRole: string; AdminYearOfBirth: string; }> = {};
+        if (AdminFirstName !== undefined) updatedAdminFields.AdminFirstName = AdminFirstName;
+        if (AdminLastName !== undefined) updatedAdminFields.AdminLastName = AdminLastName;
+        if (AdminEmail !== undefined) updatedAdminFields.AdminEmail = AdminEmail;
+        if (AdminPhone !== undefined) updatedAdminFields.AdminPhone = AdminPhone;
+        if (AdminProfession !== undefined) updatedAdminFields.AdminProfession = AdminProfession;
+        if (AdminRole !== undefined) updatedAdminFields.AdminRole = AdminRole;
 
-        if (yearOfBirth !== undefined) updatedAdminFields.yearOfBirth = yearOfBirth;
+        if (AdminYearOfBirth !== undefined) updatedAdminFields.AdminYearOfBirth = AdminYearOfBirth;
 
         const updatedAdmin = await AdminModel.findByIdAndUpdate(id, updatedAdminFields, { new: true });
         

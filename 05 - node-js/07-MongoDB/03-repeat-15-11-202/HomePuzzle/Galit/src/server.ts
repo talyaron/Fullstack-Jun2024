@@ -28,6 +28,9 @@ mongoose
 import clientRouter from './routes/ClientRoute';
 app.use("/api/clients", clientRouter);
 
+import adminRouter from './routes/AdminRoute';
+app.use("/api/admins", adminRouter);
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

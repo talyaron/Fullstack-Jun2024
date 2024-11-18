@@ -39,12 +39,11 @@ exports.__esModule = true;
 var express_1 = require("express");
 var setClients_1 = require("../controllers/users/setClients");
 var ClientModel_1 = require("../model/users/ClientModel");
-var setClients_2 = require("../controllers/users/setClients");
 var router = express_1["default"].Router();
 router.post("/add-client", setClients_1.addClient);
 router.get("/:id", setClients_1.getClientById);
-router["delete"]('/delete-client', setClients_2.deleteClient);
-router.put('/edit-client', setClients_2.editClient);
+router["delete"]('/delete-client', setClients_1.deleteClient);
+router.put('/edit-client', setClients_1.editClient);
 router.get("/", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var clients, error_1;
     return __generator(this, function (_a) {
