@@ -1,6 +1,3 @@
-const localStorageDetail = localStorage.getItem("key");
-const key = localStorageDetail ? JSON.parse(localStorageDetail) : "";
-
 let reg: boolean = true;
 
 const formCElement = document.getElementById("formContainer") as HTMLElement;
@@ -40,11 +37,9 @@ regLogBtn.addEventListener(`click`, handClick);
 
 changeContent();
 
-function handClick(event) {
+function handClick(event?: any) {
   console.log("daada ");
   if (reg) {
-    regLogChild.style.animation = "";
-
     regLogChild.style.animation = "mov 0.3s forwards";
   } else {
     regLogChild.style.animation = "movBack 0.3s  forwards";
@@ -54,6 +49,8 @@ function handClick(event) {
 }
 
 function changeContent() {
+  const localStorageDetail = localStorage.getItem("key");
+  const key = localStorageDetail ? JSON.parse(localStorageDetail) : "";
   if (key) {
     getInfoFromServer(key);
     return;
@@ -108,29 +105,54 @@ async function getInfoFromServer(key) {
     );
 
     const data = await response.json();
-    const name = data.name;
-    const phoneNumber = data.phoneNumber;
-    const password = data.password;
+    const name = data.name as string;
+    const phoneNumber = data.phoneNumber as string;
+    const password = data.password as string;
+
     console.log(name, phoneNumber, password);
-    if (name && phoneNumber && password) {
+    if (!data.error) {
       console.log(data, "time to render your items!");
-      renderInfo(name, phoneNumber, password);
+      renderInfo(key, name, phoneNumber, password);
     } else {
-     // localStorage.removeItem("key");
-      //changeContent();
+      localStorage.removeItem("key");
+      changeContent();
     }
   } catch (error) {
     console.error(error);
   }
 }
 
-function renderInfo(name, phoneNumber, password) {
-  formCElement.innerHTML = `  <form >
-  <h1> your name is : ${name} </h1>
-  <h1> phone number : ${phoneNumber}</h1>
-  <h1> password : ${"*".repeat(password)} </h1>
+function renderInfo(key, name, phoneNumber, password) {
+  formCElement.innerHTML = `  <div id="clientInfo" >
+ <div class="row"> <h1> your name is :</h1><h1 id="cName"> ${name}<h1> </div>
+  <div class="row"> <h1> phone number :</h1> <h1 id="cPn">  ${phoneNumber}</h1> </div>
+ <div class="row"> <h1> password :</h1> <h1 id="cPass">  ${"*".repeat(password)} </h1></div>
+   <button id="update" onclick="editDetails()">update details</button> <button id="delete" onclick="deleteClient()">delete user</button>
+</div>`;
+}
+async function deleteClient() {
+  try {
+    const localStorageDetail = localStorage.getItem("key");
+    const key = localStorageDetail ? JSON.parse(localStorageDetail) : "";
+    const response = await fetch(
+      `http://localhost:3000/api/client/delete-client`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ key }),
+      }
+    );
 
-</form>`;
+    const data = await response.json();
+    if (!data.error) {
+      console.log("user deleted");
+      localStorage.removeItem("key");
+      changeContent();
+    }
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
 }
 async function serverLogInClient(phoneNumber, password) {
   try {
@@ -166,7 +188,25 @@ async function serverRegClient(name, phoneNumber, password) {
     );
 
     const data = await response.json();
+    handClick();
     console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function editDetails() {
+  try {
+    const upDateButton = document.getElementById("update") as HTMLButtonElement;
+    if (!upDateButton) throw new Error("no edit button found");
+    upDateButton.innerText="save";
+    const name = document.getElementById("cName") as HTMLElement;
+    const phone = document.getElementById("cPn") as HTMLElement;
+    const pass = document.getElementById("cPass") as HTMLElement;
+//////////////////////////dsdsdsdsd////////////////////////
+    name.contentEditable = 'true';
+    phone.contentEditable = 'true';
+    pass.contentEditable = 'true';
   } catch (error) {
     console.error(error);
   }

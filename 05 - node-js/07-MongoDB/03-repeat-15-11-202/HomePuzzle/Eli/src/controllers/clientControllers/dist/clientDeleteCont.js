@@ -36,35 +36,31 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.getClientInfo = void 0;
+exports.deleteClient = void 0;
 var clientModel_1 = require("../../models/clientModel");
-function getClientInfo(req, res) {
-    var _a;
+function deleteClient(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var key, foundUser, name, phoneNumber, password, error_1;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var key, deletedUser, actuallyDeleted, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
-                    _b.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, req.body];
-                case 1:
-                    key = (_b.sent()).key;
+                    _a.trys.push([0, 3, , 4]);
+                    key = req.body.key;
                     return [4 /*yield*/, clientModel_1.ClientModel.findOne({ key: key })];
-                case 2:
-                    foundUser = _b.sent();
-                    //  console.log(key,foundUser);
-                    if (!foundUser) {
-                        res.json({ message: "no user Found!", error: "notFound" });
-                        return [2 /*return*/];
+                case 1:
+                    deletedUser = _a.sent();
+                    if (!deletedUser) {
+                        throw new Error("no such user");
                     }
-                    name = foundUser.name;
-                    phoneNumber = foundUser.phoneNumber;
-                    password = (_a = foundUser.password) === null || _a === void 0 ? void 0 : _a.length;
-                    //  console.log(name,phoneNumber,password );
-                    res.json({ message: "Log in success !", name: name, phoneNumber: phoneNumber, password: password });
+                    console.log(deletedUser);
+                    return [4 /*yield*/, deletedUser.deleteOne()];
+                case 2:
+                    actuallyDeleted = _a.sent();
+                    console.log(actuallyDeleted);
+                    res.json({ message: "user deleted" });
                     return [3 /*break*/, 4];
                 case 3:
-                    error_1 = _b.sent();
+                    error_1 = _a.sent();
                     console.error("error");
                     return [2 /*return*/, res.status(500).send({ error: "something went Wrong!" })];
                 case 4: return [2 /*return*/];
@@ -72,4 +68,4 @@ function getClientInfo(req, res) {
         });
     });
 }
-exports.getClientInfo = getClientInfo;
+exports.deleteClient = deleteClient;
