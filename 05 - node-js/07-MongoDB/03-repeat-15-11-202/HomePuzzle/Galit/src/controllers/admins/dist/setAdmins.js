@@ -40,32 +40,36 @@ exports.editAdmin = exports.deleteAdmin = exports.getAdminById = exports.addAdmi
 var AdminModel_1 = require("../../model/admins/AdminModel");
 function addAdmin(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, firstName, lastName, email, phone, profession, role, yearOfBirth, result, error_1;
+        var _a, AdminFirstName, AdminLastName, AdminEmail, AdminPhone, AdminProfession, AdminRole, AdminYearOfBirth, result, error_1, duplicateField;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
                     _b.trys.push([0, 2, , 3]);
-                    _a = req.body, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, phone = _a.phone, profession = _a.profession, role = _a.role, yearOfBirth = _a.yearOfBirth;
+                    _a = req.body, AdminFirstName = _a.AdminFirstName, AdminLastName = _a.AdminLastName, AdminEmail = _a.AdminEmail, AdminPhone = _a.AdminPhone, AdminProfession = _a.AdminProfession, AdminRole = _a.AdminRole, AdminYearOfBirth = _a.AdminYearOfBirth;
+                    if (!AdminFirstName || !AdminLastName || !AdminEmail) {
+                        return [2 /*return*/, res.status(400).send({ error: "Missing required fields." })];
+                    }
                     return [4 /*yield*/, AdminModel_1.AdminModel.create({
-                            firstName: firstName,
-                            lastName: lastName,
-                            email: email,
-                            phone: phone,
-                            profession: profession,
-                            role: role,
-                            yearOfBirth: yearOfBirth
+                            AdminFirstName: AdminFirstName,
+                            AdminLastName: AdminLastName,
+                            AdminEmail: AdminEmail,
+                            AdminPhone: AdminPhone,
+                            AdminProfession: AdminProfession,
+                            AdminRole: AdminRole,
+                            AdminYearOfBirth: AdminYearOfBirth
                         })];
                 case 1:
                     result = _b.sent();
                     if (!result) {
-                        return [2 /*return*/, res.status(400).send({})];
+                        return [2 /*return*/, res.status(400).send({ error: "Failed to create admin." })];
                     }
-                    return [2 /*return*/, res.status(201).send({})];
+                    return [2 /*return*/, res.status(201).send({ message: "Admin added successfully", admin: result })];
                 case 2:
                     error_1 = _b.sent();
-                    console.error("Error in add Admin:", error_1);
+                    console.error("Error in addAdmin:", error_1);
                     if (error_1.code === 11000) {
-                        return [2 /*return*/, res.status(400).send({})];
+                        duplicateField = Object.keys(error_1.keyValue)[0];
+                        return [2 /*return*/, res.status(400).send({ error: duplicateField + " already exists." })];
                     }
                     return [2 /*return*/, res.status(500).send({ error: "Internal Server Error" })];
                 case 3: return [2 /*return*/];
@@ -136,30 +140,30 @@ function deleteAdmin(req, res) {
 exports.deleteAdmin = deleteAdmin;
 function editAdmin(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, id, firstName, lastName, email, phone, profession, role, yearOfBirth, updatedAdminFields, updatedAdmin, error_4;
+        var _a, id, AdminFirstName, AdminLastName, AdminEmail, AdminPhone, AdminProfession, AdminRole, AdminYearOfBirth, updatedAdminFields, updatedAdmin, error_4;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _a = req.body, id = _a.id, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, phone = _a.phone, profession = _a.profession, role = _a.role, yearOfBirth = _a.yearOfBirth;
+                    _a = req.body, id = _a.id, AdminFirstName = _a.AdminFirstName, AdminLastName = _a.AdminLastName, AdminEmail = _a.AdminEmail, AdminPhone = _a.AdminPhone, AdminProfession = _a.AdminProfession, AdminRole = _a.AdminRole, AdminYearOfBirth = _a.AdminYearOfBirth;
                     _b.label = 1;
                 case 1:
                     _b.trys.push([1, 3, , 4]);
                     console.log("Editing admin with id: " + id);
                     updatedAdminFields = {};
-                    if (firstName !== undefined)
-                        updatedAdminFields.firstName = firstName;
-                    if (lastName !== undefined)
-                        updatedAdminFields.lastName = lastName;
-                    if (email !== undefined)
-                        updatedAdminFields.email = email;
-                    if (phone !== undefined)
-                        updatedAdminFields.phone = phone;
-                    if (profession !== undefined)
-                        updatedAdminFields.profession = profession;
-                    if (role !== undefined)
-                        updatedAdminFields.role = role;
-                    if (yearOfBirth !== undefined)
-                        updatedAdminFields.yearOfBirth = yearOfBirth;
+                    if (AdminFirstName !== undefined)
+                        updatedAdminFields.AdminFirstName = AdminFirstName;
+                    if (AdminLastName !== undefined)
+                        updatedAdminFields.AdminLastName = AdminLastName;
+                    if (AdminEmail !== undefined)
+                        updatedAdminFields.AdminEmail = AdminEmail;
+                    if (AdminPhone !== undefined)
+                        updatedAdminFields.AdminPhone = AdminPhone;
+                    if (AdminProfession !== undefined)
+                        updatedAdminFields.AdminProfession = AdminProfession;
+                    if (AdminRole !== undefined)
+                        updatedAdminFields.AdminRole = AdminRole;
+                    if (AdminYearOfBirth !== undefined)
+                        updatedAdminFields.AdminYearOfBirth = AdminYearOfBirth;
                     return [4 /*yield*/, AdminModel_1.AdminModel.findByIdAndUpdate(id, updatedAdminFields, { "new": true })];
                 case 2:
                     updatedAdmin = _b.sent();

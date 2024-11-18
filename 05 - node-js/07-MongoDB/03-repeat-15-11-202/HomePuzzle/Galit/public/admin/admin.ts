@@ -3,26 +3,26 @@ async function handleAddAdmin(ev: any): Promise<void> {
         ev.preventDefault();
   
         const formData = new FormData(ev.target);
-        const firstName = formData.get("firstName") as string;
-        const lastName = formData.get("lastName") as string;
-        const email = formData.get("email") as string;
-        const phone = formData.get("phone") as string;
-        const profession = formData.get("profession") as string;
-        const role = formData.get("role") as string;
-        const date = formData.get("date") as string;
-        const yearOfBirth = new Date(date).getFullYear();
+        const AdminFirstName = formData.get("AdminFirstName") as string;
+        const AdminLastName = formData.get("AdminLastName") as string;
+        const AdminEmail = formData.get("AdminEmail") as string;
+        const AdminPhone = formData.get("AdminPhone") as string;
+        const AdminRole = formData.get("AdminRole") as string;
+        const AdminProfession = formData.get("AdminProfession") as string;
+        const date = formData.get("AdminDate") as string;
+        const AdminYearOfBirth = new Date(date).getFullYear();
   
         const response = await fetch("/api/admins/add-admin", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                firstName,
-                lastName,
-                email,
-                phone,
-                profession,
-                role,
-                yearOfBirth,
+                AdminFirstName,
+                AdminLastName,
+                AdminEmail,
+                AdminPhone,
+                AdminProfession,
+                AdminRole,
+                AdminYearOfBirth,
             }),
         });
   
@@ -69,13 +69,13 @@ async function handleAddAdmin(ev: any): Promise<void> {
                         ${admins
                             .map((admin: any) => `
                                 <tr id="admin-${admin._id}">
-                                    <td id="firstName-${admin._id}" onclick="handleEditAdminFirstName('${admin._id}')">${admin.firstName}</td>
-                                    <td id="lastName-${admin._id}" onclick="handleEditAdminLastName('${admin._id}')">${admin.lastName}</td>
-                                    <td id="email-${admin._id}" onclick="handleEditAdminEmail('${admin._id}')">${admin.email}</td>
-                                    <td id="phone-${admin._id}" onclick="handleEditAdminPhone('${admin._id}')">${admin.phone}</td>
-                                    <td id="profession-${admin._id}" onclick="handleEditAdminProfession('${admin._id}')">${admin.phone}</td>
-                                    <td id="role-${admin._id}" onclick="handleEditAdminRole('${admin._id}')">${admin.phone}</td>
-                                    <td id="yearOfBirth-${admin._id}" onclick="handleEditAdminYearOfBirth('${admin._id}')">${admin.yearOfBirth}</td>
+                                    <td id="AdminFirstName-${admin._id}" onclick="handleEditAdminFirstName('${admin._id}')">${admin.AdminFirstName}</td>
+                                    <td id="AdminLastName-${admin._id}" onclick="handleEditAdminLastName('${admin._id}')">${admin.AdminLastName}</td>
+                                    <td id="AdminEmail-${admin._id}" onclick="handleEditAdminEmail('${admin._id}')">${admin.AdminEmail}</td>
+                                    <td id="AdminPhone-${admin._id}" onclick="handleEditAdminPhone('${admin._id}')">${admin.AdminPhone}</td>
+                                    <td id="AdminProfession-${admin._id}" onclick="handleEditAdminProfession('${admin._id}')">${admin.AdminProfession}</td>
+                                    <td id="AdminRole-${admin._id}" onclick="handleEditAdminRole('${admin._id}')">${admin.AdminRole}</td>
+                                    <td id="AdminYearOfBirth-${admin._id}" onclick="handleEditAdminYearOfBirth('${admin._id}')">${admin.AdminYearOfBirth}</td>
                                     <td>
                                         <button class="delete-btn" onclick="handleDeleteAdmin('${admin._id}')">Delete</button>
                                         <button class="edit-btn" onclick="handleEditAdminField('${admin._id}')">Edit</button>
@@ -124,29 +124,29 @@ async function handleAddAdmin(ev: any): Promise<void> {
   }
   
   function handleEditAdminFirstName(id: string) {
-      handleEditAdminField(id, 'firstName');
+      handleEditAdminField(id, 'AdminFirstName');
   }
   
   function handleEditAdminLastName(id: string) {
-      handleEditAdminField(id, 'lastName');
+      handleEditAdminField(id, 'AdminLastName');
   }
   
   function handleEditAdminEmail(id: string) {
-      handleEditAdminField(id, 'email');
+      handleEditAdminField(id, 'AdminEmail');
   }
   
   function handleEditAdminPhone(id: string) {
-      handleEditAdminField(id, 'phone');
+      handleEditAdminField(id, 'AdminPhone');
   }
   function handleEditAdminProfession(id: string) {
-    handleEditAdminField(id, 'profession');
+    handleEditAdminField(id, 'AdminProfession');
 }
 function handleEditAdminRole(id: string) {
-    handleEditAdminField(id, 'role');
+    handleEditAdminField(id, 'AdminRole');
 }
   
   function handleEditAdminYearOfBirth(id: string) {
-      handleEditAdminField(id, 'yearOfBirth');
+      handleEditAdminField(id, 'AdminYearOfBirth');
   }
   
   async function updateAdmin(id: string, updatedFields: Partial<any>) {

@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,36 +34,50 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
-var express_1 = require("express");
-var setClients_1 = require("../controllers/users/setClients");
-var ClientModel_1 = require("../model/users/ClientModel");
-var router = express_1["default"].Router();
-router.post("/add-client", setClients_1.addClient);
-router.get("/:id", setClients_1.getClientById);
-router["delete"]('/delete-client', setClients_1.deleteClient);
-router.put('/edit-client', setClients_1.editClient);
-router.get("/", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var clients, error_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, ClientModel_1.ClientModel.find()];
-            case 1:
-                clients = _a.sent();
-                if (!clients || clients.length === 0) {
-                    return [2 /*return*/, res.status(404).send({ error: "No clients found" })];
-                }
-                res.status(200).send(clients);
-                return [3 /*break*/, 3];
-            case 2:
-                error_1 = _a.sent();
-                console.error(error_1);
-                res.status(500).send({ error: "Server error" });
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
+function handleAddClient(event) {
+    return __awaiter(this, void 0, void 0, function () {
+        var form, formData, firstName, lastName, email, phone, date, yearOfBirth, response, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 4, , 5]);
+                    event.preventDefault();
+                    form = event.target;
+                    formData = new FormData(form);
+                    firstName = formData.get("firstName");
+                    lastName = formData.get("lastName");
+                    email = formData.get("email");
+                    phone = formData.get("phone");
+                    date = formData.get("dateOfBirth");
+                    yearOfBirth = new Date(date).getFullYear();
+                    return [4 /*yield*/, fetch("/api/clients/add-client", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                firstName: firstName,
+                                lastName: lastName,
+                                email: email,
+                                phone: phone,
+                                yearOfBirth: yearOfBirth
+                            })
+                        })];
+                case 1:
+                    response = _a.sent();
+                    if (!response.ok) return [3 /*break*/, 3];
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    _a.sent();
+                    form.reset();
+                    _a.label = 3;
+                case 3: return [3 /*break*/, 5];
+                case 4:
+                    error_1 = _a.sent();
+                    console.error(error_1);
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
+            }
+        });
     });
-}); });
-exports["default"] = router;
+}

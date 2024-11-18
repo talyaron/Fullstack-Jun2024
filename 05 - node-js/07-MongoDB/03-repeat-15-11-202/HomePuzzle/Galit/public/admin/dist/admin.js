@@ -47,32 +47,32 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 function handleAddAdmin(ev) {
     return __awaiter(this, void 0, Promise, function () {
-        var formData, firstName, lastName, email, phone, profession, role, date, yearOfBirth, response, data, err_1;
+        var formData, AdminFirstName, AdminLastName, AdminEmail, AdminPhone, AdminRole, AdminProfession, date, AdminYearOfBirth, response, data, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 6, , 7]);
                     ev.preventDefault();
                     formData = new FormData(ev.target);
-                    firstName = formData.get("firstName");
-                    lastName = formData.get("lastName");
-                    email = formData.get("email");
-                    phone = formData.get("phone");
-                    profession = formData.get("profession");
-                    role = formData.get("role");
-                    date = formData.get("date");
-                    yearOfBirth = new Date(date).getFullYear();
+                    AdminFirstName = formData.get("AdminFirstName");
+                    AdminLastName = formData.get("AdminLastName");
+                    AdminEmail = formData.get("AdminEmail");
+                    AdminPhone = formData.get("AdminPhone");
+                    AdminRole = formData.get("AdminRole");
+                    AdminProfession = formData.get("AdminProfession");
+                    date = formData.get("AdminDate");
+                    AdminYearOfBirth = new Date(date).getFullYear();
                     return [4 /*yield*/, fetch("/api/admins/add-admin", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({
-                                firstName: firstName,
-                                lastName: lastName,
-                                email: email,
-                                phone: phone,
-                                profession: profession,
-                                role: role,
-                                yearOfBirth: yearOfBirth
+                                AdminFirstName: AdminFirstName,
+                                AdminLastName: AdminLastName,
+                                AdminEmail: AdminEmail,
+                                AdminPhone: AdminPhone,
+                                AdminProfession: AdminProfession,
+                                AdminRole: AdminRole,
+                                AdminYearOfBirth: AdminYearOfBirth
                             })
                         })];
                 case 1:
@@ -117,7 +117,7 @@ function fetchAllAdmins() {
                     container = document.getElementById("admin-list");
                     if (container) {
                         container.innerHTML = "\n                <table>\n                    <thead>\n                        <tr>\n                            <th>First Name</th>\n                            <th>Last Name</th>\n                            <th>Email</th>\n                            <th>Phone</th>\n                             <th>Profession</th>\n                              <th>Role</th>\n                            <th>Year of Birth</th>\n                            <th>Actions</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        " + admins
-                            .map(function (admin) { return "\n                                <tr id=\"admin-" + admin._id + "\">\n                                    <td id=\"firstName-" + admin._id + "\" onclick=\"handleEditAdminFirstName('" + admin._id + "')\">" + admin.firstName + "</td>\n                                    <td id=\"lastName-" + admin._id + "\" onclick=\"handleEditAdminLastName('" + admin._id + "')\">" + admin.lastName + "</td>\n                                    <td id=\"email-" + admin._id + "\" onclick=\"handleEditAdminEmail('" + admin._id + "')\">" + admin.email + "</td>\n                                    <td id=\"phone-" + admin._id + "\" onclick=\"handleEditAdminPhone('" + admin._id + "')\">" + admin.phone + "</td>\n                                    <td id=\"profession-" + admin._id + "\" onclick=\"handleEditAdminProfession('" + admin._id + "')\">" + admin.phone + "</td>\n                                    <td id=\"role-" + admin._id + "\" onclick=\"handleEditAdminRole('" + admin._id + "')\">" + admin.phone + "</td>\n                                    <td id=\"yearOfBirth-" + admin._id + "\" onclick=\"handleEditAdminYearOfBirth('" + admin._id + "')\">" + admin.yearOfBirth + "</td>\n                                    <td>\n                                        <button class=\"delete-btn\" onclick=\"handleDeleteAdmin('" + admin._id + "')\">Delete</button>\n                                        <button class=\"edit-btn\" onclick=\"handleEditAdminField('" + admin._id + "')\">Edit</button>\n\n                                        </td>\n                                </tr>\n                            "; })
+                            .map(function (admin) { return "\n                                <tr id=\"admin-" + admin._id + "\">\n                                    <td id=\"AdminFirstName-" + admin._id + "\" onclick=\"handleEditAdminFirstName('" + admin._id + "')\">" + admin.AdminFirstName + "</td>\n                                    <td id=\"AdminLastName-" + admin._id + "\" onclick=\"handleEditAdminLastName('" + admin._id + "')\">" + admin.AdminLastName + "</td>\n                                    <td id=\"AdminEmail-" + admin._id + "\" onclick=\"handleEditAdminEmail('" + admin._id + "')\">" + admin.AdminEmail + "</td>\n                                    <td id=\"AdminPhone-" + admin._id + "\" onclick=\"handleEditAdminPhone('" + admin._id + "')\">" + admin.AdminPhone + "</td>\n                                    <td id=\"AdminProfession-" + admin._id + "\" onclick=\"handleEditAdminProfession('" + admin._id + "')\">" + admin.AdminProfession + "</td>\n                                    <td id=\"AdminRole-" + admin._id + "\" onclick=\"handleEditAdminRole('" + admin._id + "')\">" + admin.AdminRole + "</td>\n                                    <td id=\"AdminYearOfBirth-" + admin._id + "\" onclick=\"handleEditAdminYearOfBirth('" + admin._id + "')\">" + admin.AdminYearOfBirth + "</td>\n                                    <td>\n                                        <button class=\"delete-btn\" onclick=\"handleDeleteAdmin('" + admin._id + "')\">Delete</button>\n                                        <button class=\"edit-btn\" onclick=\"handleEditAdminField('" + admin._id + "')\">Edit</button>\n\n                                        </td>\n                                </tr>\n                            "; })
                             .join("") + "\n                    </tbody>\n                </table>\n            ";
                     }
                     return [3 /*break*/, 4];
@@ -179,25 +179,25 @@ function handleEditAdminField(id, fieldName) {
     }
 }
 function handleEditAdminFirstName(id) {
-    handleEditAdminField(id, 'firstName');
+    handleEditAdminField(id, 'AdminFirstName');
 }
 function handleEditAdminLastName(id) {
-    handleEditAdminField(id, 'lastName');
+    handleEditAdminField(id, 'AdminLastName');
 }
 function handleEditAdminEmail(id) {
-    handleEditAdminField(id, 'email');
+    handleEditAdminField(id, 'AdminEmail');
 }
 function handleEditAdminPhone(id) {
-    handleEditAdminField(id, 'phone');
+    handleEditAdminField(id, 'AdminPhone');
 }
 function handleEditAdminProfession(id) {
-    handleEditAdminField(id, 'profession');
+    handleEditAdminField(id, 'AdminProfession');
 }
 function handleEditAdminRole(id) {
-    handleEditAdminField(id, 'role');
+    handleEditAdminField(id, 'AdminRole');
 }
 function handleEditAdminYearOfBirth(id) {
-    handleEditAdminField(id, 'yearOfBirth');
+    handleEditAdminField(id, 'AdminYearOfBirth');
 }
 function updateAdmin(id, updatedFields) {
     return __awaiter(this, void 0, void 0, function () {

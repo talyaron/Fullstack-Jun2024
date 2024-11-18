@@ -18,6 +18,7 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "express": "^4.21.1"
+    "express": "^4.21.1",
+    "mongoose": "^8.8.1"
   }
 }
