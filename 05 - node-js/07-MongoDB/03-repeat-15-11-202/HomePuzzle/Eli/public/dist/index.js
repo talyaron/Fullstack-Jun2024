@@ -255,19 +255,76 @@ function serverRegClient(name, phoneNumber, password) {
 }
 function editDetails() {
     try {
+        var localStorageDetail = localStorage.getItem("key");
+        var key = localStorageDetail ? JSON.parse(localStorageDetail) : "";
+        if (!key)
+            throw new Error("no key?!");
         var upDateButton = document.getElementById("update");
         if (!upDateButton)
             throw new Error("no edit button found");
-        upDateButton.innerText = "save";
         var name = document.getElementById("cName");
         var phone = document.getElementById("cPn");
         var pass = document.getElementById("cPass");
-        //////////////////////////dsdsdsdsd////////////////////////
-        name.contentEditable = 'true';
-        phone.contentEditable = 'true';
-        pass.contentEditable = 'true';
+        var oldName = name.innerText;
+        var oldPhone = phone.innerText;
+        var oldPass = pass.innerText;
+        if (upDateButton.innerText !== "save") {
+            upDateButton.innerText = "save";
+            name.contentEditable = "true";
+            phone.contentEditable = "true";
+            pass.contentEditable = "true";
+        }
+        else {
+            upDateButton.innerText = "update details";
+            name.contentEditable = "false";
+            phone.contentEditable = "false";
+            pass.contentEditable = "false";
+            var newName = name.innerText;
+            var newPhone = phone.innerText;
+            var newPass = pass.innerText;
+            console.log(newName, newPhone, newPass);
+            var inValidNewName = formTester.checkName(newName);
+            var inValidPhone = formTester.checkPhone(newPhone);
+            var inValidNewPass = formTester.checkPassword(newPass);
+            console.log(inValidNewName, inValidPhone);
+            if (!inValidNewName && !inValidPhone && !inValidNewPass) {
+                updateClient(key, newName, newPhone, newPass);
+            }
+        }
     }
     catch (error) {
         console.error(error);
     }
+}
+function updateClient(key, name, phoneNumber, password) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, data, error_5;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/client/update-client", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ key: key, name: name, phoneNumber: phoneNumber, password: password })
+                        })];
+                case 1:
+                    response = _a.sent();
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    data = _a.sent();
+                    if (key) {
+                        // console.log(data, "and your key is :", key);
+                        // localStorage.setItem("key", JSON.stringify(key));
+                        //  getInfoFromServer(key);
+                    }
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_5 = _a.sent();
+                    console.error(error_5);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
 }

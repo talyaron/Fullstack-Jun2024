@@ -126,7 +126,9 @@ function renderInfo(key, name, phoneNumber, password) {
   formCElement.innerHTML = `  <div id="clientInfo" >
  <div class="row"> <h1> your name is :</h1><h1 id="cName"> ${name}<h1> </div>
   <div class="row"> <h1> phone number :</h1> <h1 id="cPn">  ${phoneNumber}</h1> </div>
- <div class="row"> <h1> password :</h1> <h1 id="cPass">  ${"*".repeat(password)} </h1></div>
+ <div class="row"> <h1> password :</h1> <h1 id="cPass">  ${"*".repeat(
+   password
+ )} </h1></div>
    <button id="update" onclick="editDetails()">update details</button> <button id="delete" onclick="deleteClient()">delete user</button>
 </div>`;
 }
@@ -197,16 +199,66 @@ async function serverRegClient(name, phoneNumber, password) {
 
 function editDetails() {
   try {
+    const localStorageDetail = localStorage.getItem("key");
+    const key = localStorageDetail ? JSON.parse(localStorageDetail) : "";
+    if (!key) throw new Error("no key?!");
+
     const upDateButton = document.getElementById("update") as HTMLButtonElement;
     if (!upDateButton) throw new Error("no edit button found");
-    upDateButton.innerText="save";
+
     const name = document.getElementById("cName") as HTMLElement;
     const phone = document.getElementById("cPn") as HTMLElement;
     const pass = document.getElementById("cPass") as HTMLElement;
-//////////////////////////dsdsdsdsd////////////////////////
-    name.contentEditable = 'true';
-    phone.contentEditable = 'true';
-    pass.contentEditable = 'true';
+    const oldName = name.innerText;
+    const oldPhone = phone.innerText;
+    const oldPass = pass.innerText;
+
+    if (upDateButton.innerText !== "save") {
+      upDateButton.innerText = "save";
+      name.contentEditable = "true";
+      phone.contentEditable = "true";
+      pass.contentEditable = "true";
+    } else {
+      upDateButton.innerText = "update details";
+      name.contentEditable = "false";
+      phone.contentEditable = "false";
+      pass.contentEditable = "false";
+      const newName = name.innerText;
+      const newPhone = phone.innerText;
+      const newPass = pass.innerText;
+
+      console.log(newName, newPhone, newPass);
+
+      const inValidNewName = formTester.checkName(newName);
+      const inValidPhone = formTester.checkPhone(newPhone);
+      const inValidNewPass = formTester.checkPassword(newPass);
+      console.log(inValidNewName, inValidPhone, );
+      if (!inValidNewName && !inValidPhone&&!inValidNewPass ) {
+        updateClient(key, newName, newPhone, newPass);
+      }
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function updateClient(key, name, phoneNumber, password) {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/client/update-client`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ key,name,phoneNumber, password }),
+      }
+    );
+
+    const data = await response.json();
+    if (key) {
+     // console.log(data, "and your key is :", key);
+     // localStorage.setItem("key", JSON.stringify(key));
+    //  getInfoFromServer(key);
+    }
   } catch (error) {
     console.error(error);
   }
