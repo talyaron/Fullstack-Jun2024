@@ -1,6 +1,5 @@
 function main(){
   try{
-    console.log('3')
   const getUsersBtn= document.querySelector('#getUsers')
   if(!getUsersBtn)throw new Error('not find getUsers')
     getUsersBtn.addEventListener('click',getUsers)
@@ -42,7 +41,6 @@ async function handleAddClient(ev: any) {
 }
 async function getUsers() {
   try {
-    console.log('2')
     const response = await fetch("/api/users/get-users");
     if (!response.ok) throw new Error("Failed to fetch USERS");
 
