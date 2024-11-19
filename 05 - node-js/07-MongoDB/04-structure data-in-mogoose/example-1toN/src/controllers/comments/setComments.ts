@@ -3,14 +3,14 @@ import Comment from '../../model/comments/commentModel';
 
 export const addComment = async (req: Request, res: Response): Promise<undefined> => {
     try {
-        const { user, product, text, score} = req.body;
-        if (!user || !product || !text || !score) {
+        const { client, product, text, score} = req.body;
+        if (!client || !product || !text || !score) {
             res.status(400).json({ message: 'Please provide all the required fields' });
             return;
         }
 
         const newComment = new Comment({
-            user, 
+            client, 
             product, 
             text,
             score
