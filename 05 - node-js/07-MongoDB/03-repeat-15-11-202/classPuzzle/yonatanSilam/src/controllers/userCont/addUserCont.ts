@@ -19,6 +19,7 @@ export async function addUser(req: any, res: any) {
     return res.status(201).send({message:"Client was created successfully!"})
   } catch (error) {
     console.error("error");
+    console.log('here')
     return res.status(500).send({error})
   }
 }

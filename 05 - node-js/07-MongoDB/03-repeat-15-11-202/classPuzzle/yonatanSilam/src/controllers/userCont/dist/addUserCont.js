@@ -63,6 +63,7 @@ function addUser(req, res) {
                 case 2:
                     error_1 = _b.sent();
                     console.error("error");
+                    console.log('here');
                     return [2 /*return*/, res.status(500).send({ error: error_1 })];
                 case 3: return [2 /*return*/];
             }

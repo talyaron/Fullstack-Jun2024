@@ -36,6 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 function main() {
     try {
+        console.log('3');
         var getUsersBtn = document.querySelector('#getUsers');
         if (!getUsersBtn)
             throw new Error('not find getUsers');
@@ -98,11 +99,12 @@ function getUsers() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
+                    console.log('2');
                     return [4 /*yield*/, fetch("/api/users/get-users")];
                 case 1:
                     response = _a.sent();
                     if (!response.ok)
-                        throw new Error("Failed to fetch posts");
+                        throw new Error("Failed to fetch USERS");
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();

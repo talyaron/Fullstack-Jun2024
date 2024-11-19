@@ -48,8 +48,7 @@ function getUsers(req, res) {
                     return [4 /*yield*/, userModel_1.UserModel.find()];
                 case 1:
                     allUsers = _a.sent();
-                    res.send(allUsers);
-                    return [2 /*return*/, res.status(201).send({ message: "u get all users successfully!" })];
+                    return [2 /*return*/, res.status(201).send({ UserModel: allUsers, message: "u get all users successfully!" })];
                 case 2:
                     error_1 = _a.sent();
                     console.error("error");
