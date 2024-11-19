@@ -22,7 +22,7 @@ mongoose.connect(`${dbUrl}/${database}`).then(()=>{
 });
 
 //routes
-import clientsRouter from './routes/clientsRoutes/clientRoutes';
+import clientsRouter from './routes/clients/clientRoutes';
 app.use("/api/clients", clientsRouter);
 import productsRouter from './routes/products/productRoute';
 app.use("/api/products", productsRouter);
