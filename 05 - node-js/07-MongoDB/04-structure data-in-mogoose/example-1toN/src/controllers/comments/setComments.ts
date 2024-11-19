@@ -1,19 +1,19 @@
 import { Request, Response } from 'express';
 import Comment from '../../model/comments/commentModel';
 
-export const addComment = async (req: Request, res: Response):Promise<undefined> => {
+export const addComment = async (req: Request, res: Response): Promise<undefined> => {
     try {
-        const { postId, content, author } = req.body;
-        if(!postId || !content || !author) {
-             res.status(400).json({ message: 'Please provide all the required fields' });
-             return;
+        const { user, product, text, score} = req.body;
+        if (!user || !product || !text || !score) {
+            res.status(400).json({ message: 'Please provide all the required fields' });
+            return;
         }
 
         const newComment = new Comment({
-            postId,
-            content,
-            author,
-            createdAt: new Date(),
+            user, 
+            product, 
+            text,
+            score
         });
 
         const savedComment = await newComment.save();
