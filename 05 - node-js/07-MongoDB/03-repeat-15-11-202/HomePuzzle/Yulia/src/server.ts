@@ -4,10 +4,8 @@ import mongoose from "mongoose";
 
 const app = express();
 const port = 3000;
-
 app.use(express.json());
 app.use(express.static("public"));
-
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
@@ -15,7 +13,6 @@ app.get("/", (req, res) => {
 const dbURI =
   "mongodb+srv://ukaganovich:womyhuZG0NZi4NWc@cluster0.gl27q.mongodb.net";
 const database = "clients";
-
 mongoose
   .connect(`${dbURI}/${database}`)
   .then(() => {

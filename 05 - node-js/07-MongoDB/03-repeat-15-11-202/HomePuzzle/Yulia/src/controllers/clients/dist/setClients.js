@@ -59,7 +59,8 @@ function addClient(req, res) {
                     if (!client) {
                         return [2 /*return*/, res.status(400).json({ message: 'Client not created' })];
                     }
-                    return [2 /*return*/, res.status(200).json({ message: 'Client created' })];
+                    console.log('Client created', client);
+                    return [2 /*return*/, res.status(200).json(client)];
                 case 2:
                     error_1 = _b.sent();
                     console.error(error_1);
