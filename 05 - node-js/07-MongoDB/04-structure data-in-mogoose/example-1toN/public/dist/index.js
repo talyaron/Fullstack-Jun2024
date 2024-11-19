@@ -34,72 +34,47 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var User = /** @class */ (function () {
-    function User(userName, email, password, phoneNumber, id) {
-        id ? this.id = id : this.id = crypto.randomUUID();
-        this.userName = userName;
-        this.email = email;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-    }
-    ;
-    return User;
-}());
-;
-function renderLoginPage() {
-    var loginForm = "\n     <div class=\"container\">\n            <h1>Login</h1>\n            <form onsubmit=\"handleFormLogin(event)\">\n                <input type=\"email\" class=\"input\" id=\"email\" name=\"email\" required placeholder=\"Email\">\n                <input type=\"password\" class=\"input\" id=\"password\" name=\"password\" required placeholder=\"Password\">               \n                <button class=\"loginBtn\" id=\"loginButton\" type=\"submit\">Login</button>\n                <a class=\"signupBtn\" id=\"button\" onclick=\"navigataToSignup()\">SIGN UP</a>\n            </form>\n            \n        </div>\n    ";
-    var loginPageElement = document.querySelector('#loginPage');
-    if (!loginPageElement)
-        throw new Error('Login page not found');
-    loginPageElement.innerHTML = loginForm;
-}
-;
-function handleFormLogin(event) {
+function handleAddClient(ev) {
     return __awaiter(this, void 0, void 0, function () {
-        var form, email, password, response, data;
+        var formData, firstName, lastName, email, phone, date, yearOfBirth, response, data, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    event.preventDefault();
-                    form = event.target;
-                    email = form.elements.namedItem('email').value;
-                    password = form.elements.namedItem('password').value;
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/user/login', {
+                    _a.trys.push([0, 4, , 5]);
+                    ev.preventDefault();
+                    formData = new FormData(ev.target);
+                    firstName = formData.get("firstName");
+                    lastName = formData.get("lastName");
+                    email = formData.get("email");
+                    phone = formData.get("phone");
+                    date = formData.get("date");
+                    yearOfBirth = new Date(date).getFullYear();
+                    return [4 /*yield*/, fetch("/api/clients/add-client", {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ email: email, password: password })
+                            body: JSON.stringify({
+                                firstName: firstName,
+                                lastName: lastName,
+                                email: email,
+                                phone: phone,
+                                yearOfBirth: yearOfBirth
+                            })
                         })];
                 case 1:
                     response = _a.sent();
+                    if (!response.ok) return [3 /*break*/, 3];
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
-                    if (response.ok) {
-                        alert('Login successful');
-                        saveFetchedUserToLocalStorage(data);
-                        setTimeout(function () {
-                            window.location.href = "./dashboard/dashboard.html";
-                        }, 3000);
-                    }
-                    else {
-                        alert(data.message);
-                    }
-                    return [2 /*return*/];
+                    console.log(data);
+                    _a.label = 3;
+                case 3: return [3 /*break*/, 5];
+                case 4:
+                    err_1 = _a.sent();
+                    console.error(err_1);
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
             }
         });
     });
 }
-;
-function navigataToSignup() {
-    window.location.href = "./signup/signup.html";
-}
-;
-function saveFetchedUserToLocalStorage(userData) {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            localStorage.setItem("userData", JSON.stringify(userData));
-            return [2 /*return*/];
-        });
-    });
-}
-renderLoginPage();

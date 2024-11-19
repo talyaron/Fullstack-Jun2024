@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
+import userRouter from './routes/usersRouter';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -8,17 +9,18 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-//DB CONNETCTION
+app.use("/api/user", userRouter);
+
+app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+});
+
+
 const dbUrl = "mongodb+srv://adhcsvi1:sagiv123@cluster0.qyh2p.mongodb.net";
-const database = 'BookingApp';
+const database = 'booking';
 
 mongoose.connect(`${dbUrl}/${database}`).then(()=>{
     console.info("DB connected")
 }).catch((err)=>{
     console.error(err)
 });
-
-app.listen(port, () => {
-    console.log(`Server listening on: https://localhost:${port}`);
-});
-
