@@ -7,10 +7,7 @@ exports.orderSchema = new mongoose_1.Schema({
         require: true,
         type: String
     },
-    clientID: {
-        require: true,
-        type: String
-    },
+    clientID: { type: mongoose_1["default"].Schema.Types.ObjectId, ref: 'Client', required: true },
     productID: {
         require: true,
         type: String
