@@ -34,8 +34,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var localStorageDetail = localStorage.getItem("key");
-var key = localStorageDetail ? JSON.parse(localStorageDetail) : "";
 var reg = true;
 var formCElement = document.getElementById("formContainer");
 var formChecker = /** @class */ (function () {
@@ -71,7 +69,6 @@ changeContent();
 function handClick(event) {
     console.log("daada ");
     if (reg) {
-        regLogChild.style.animation = "";
         regLogChild.style.animation = "mov 0.3s forwards";
     }
     else {
@@ -81,6 +78,8 @@ function handClick(event) {
     changeContent();
 }
 function changeContent() {
+    var localStorageDetail = localStorage.getItem("key");
+    var key = localStorageDetail ? JSON.parse(localStorageDetail) : "";
     if (key) {
         getInfoFromServer(key);
         return;
@@ -136,13 +135,13 @@ function getInfoFromServer(key) {
                     phoneNumber = data.phoneNumber;
                     password = data.password;
                     console.log(name, phoneNumber, password);
-                    if (name && phoneNumber && password) {
+                    if (!data.error) {
                         console.log(data, "time to render your items!");
-                        renderInfo(name, phoneNumber, password);
+                        renderInfo(key, name, phoneNumber, password);
                     }
                     else {
-                        // localStorage.removeItem("key");
-                        //changeContent();
+                        localStorage.removeItem("key");
+                        changeContent();
                     }
                     return [3 /*break*/, 4];
                 case 3:
@@ -154,12 +153,47 @@ function getInfoFromServer(key) {
         });
     });
 }
-function renderInfo(name, phoneNumber, password) {
-    formCElement.innerHTML = "  <form >\n  <h1> your name is : " + name + " </h1>\n  <h1> phone number : " + phoneNumber + "</h1>\n  <h1> password : " + "*".repeat(password) + " </h1>\n\n</form>";
+function renderInfo(key, name, phoneNumber, password) {
+    formCElement.innerHTML = "  <div id=\"clientInfo\" >\n <div class=\"row\"> <h1> your name is :</h1><h1 id=\"cName\"> " + name + "<h1> </div>\n  <div class=\"row\"> <h1> phone number :</h1> <h1 id=\"cPn\">  " + phoneNumber + "</h1> </div>\n <div class=\"row\"> <h1> password :</h1> <h1 id=\"cPass\">  " + "*".repeat(password) + " </h1></div>\n   <button id=\"update\" onclick=\"editDetails()\">update details</button> <button id=\"delete\" onclick=\"deleteClient()\">delete user</button>\n</div>";
+}
+function deleteClient() {
+    return __awaiter(this, void 0, void 0, function () {
+        var localStorageDetail, key, response, data, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    localStorageDetail = localStorage.getItem("key");
+                    key = localStorageDetail ? JSON.parse(localStorageDetail) : "";
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/client/delete-client", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ key: key })
+                        })];
+                case 1:
+                    response = _a.sent();
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    data = _a.sent();
+                    if (!data.error) {
+                        console.log("user deleted");
+                        localStorage.removeItem("key");
+                        changeContent();
+                    }
+                    console.log(data);
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_2 = _a.sent();
+                    console.error(error_2);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
 }
 function serverLogInClient(phoneNumber, password) {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, key_1, error_2;
+        var response, data, key, error_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -174,16 +208,16 @@ function serverLogInClient(phoneNumber, password) {
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
-                    key_1 = data.key;
-                    if (key_1) {
-                        console.log(data, "and your key is :", key_1);
-                        localStorage.setItem("key", JSON.stringify(key_1));
-                        getInfoFromServer(key_1);
+                    key = data.key;
+                    if (key) {
+                        console.log(data, "and your key is :", key);
+                        localStorage.setItem("key", JSON.stringify(key));
+                        getInfoFromServer(key);
                     }
                     return [3 /*break*/, 4];
                 case 3:
-                    error_2 = _a.sent();
-                    console.error(error_2);
+                    error_3 = _a.sent();
+                    console.error(error_3);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
@@ -192,7 +226,7 @@ function serverLogInClient(phoneNumber, password) {
 }
 function serverRegClient(name, phoneNumber, password) {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, error_3;
+        var response, data, error_4;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -207,11 +241,87 @@ function serverRegClient(name, phoneNumber, password) {
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
+                    handClick();
                     console.log(data);
                     return [3 /*break*/, 4];
                 case 3:
-                    error_3 = _a.sent();
-                    console.error(error_3);
+                    error_4 = _a.sent();
+                    console.error(error_4);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+function editDetails() {
+    try {
+        var localStorageDetail = localStorage.getItem("key");
+        var key = localStorageDetail ? JSON.parse(localStorageDetail) : "";
+        if (!key)
+            throw new Error("no key?!");
+        var upDateButton = document.getElementById("update");
+        if (!upDateButton)
+            throw new Error("no edit button found");
+        var name = document.getElementById("cName");
+        var phone = document.getElementById("cPn");
+        var pass = document.getElementById("cPass");
+        var oldName = name.innerText;
+        var oldPhone = phone.innerText;
+        var oldPass = pass.innerText;
+        if (upDateButton.innerText !== "save") {
+            upDateButton.innerText = "save";
+            name.contentEditable = "true";
+            phone.contentEditable = "true";
+            pass.contentEditable = "true";
+        }
+        else {
+            upDateButton.innerText = "update details";
+            name.contentEditable = "false";
+            phone.contentEditable = "false";
+            pass.contentEditable = "false";
+            var newName = name.innerText;
+            var newPhone = phone.innerText;
+            var newPass = pass.innerText;
+            console.log(newName, newPhone, newPass);
+            var inValidNewName = formTester.checkName(newName);
+            var inValidPhone = formTester.checkPhone(newPhone);
+            var inValidNewPass = formTester.checkPassword(newPass);
+            console.log(inValidNewName, inValidPhone);
+            if (!inValidNewName && !inValidPhone && !inValidNewPass) {
+                updateClient(key, newName, newPhone, newPass);
+            }
+        }
+    }
+    catch (error) {
+        console.error(error);
+    }
+}
+function updateClient(key, name, phoneNumber, password) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, data, error_5;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/client/update-client", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ key: key, name: name, phoneNumber: phoneNumber, password: password })
+                        })];
+                case 1:
+                    response = _a.sent();
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    data = _a.sent();
+                    if (key) {
+                        // console.log(data, "and your key is :", key);
+                        // localStorage.setItem("key", JSON.stringify(key));
+                        //  getInfoFromServer(key);
+                    }
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_5 = _a.sent();
+                    console.error(error_5);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }

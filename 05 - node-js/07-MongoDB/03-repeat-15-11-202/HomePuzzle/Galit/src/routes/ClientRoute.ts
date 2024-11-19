@@ -1,7 +1,6 @@
 import express from "express";
-import { addClient, getClientById } from "../controllers/users/setClients";
+import { addClient, getClientById, editClient, deleteClient  } from "../controllers/users/setClients";
 import { ClientModel } from "../model/users/ClientModel";
-import { editClient, deleteClient } from "../controllers/users/setClients";
 
 const router = express.Router();
 

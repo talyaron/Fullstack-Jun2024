@@ -2,37 +2,37 @@ import {Schema, model} from 'mongoose'
 
 
 export interface Admin extends Document {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    profession: string;
-    role: string;
-    yearOfBirth: number;
+    AdminFirstName: string;
+    AdminLastName: string;
+    AdminEmail: string;
+    AdminPhone: string;
+    AdminProfession: string;
+    AdminRole: string;
+    AdminYearOfBirth: number;
 }
 
 export const AdminSchema = new Schema({
-    firstName:{
+    AdminFirstName:{
 type: String,
 required: true
     },
-    lastName:{
+    AdminLastName:{
         type: String,
         required: true
     },
-    email: {type:String,
+    AdminEmail: {type:String,
         unique: true
     },
-    phone: {type:String,
+    AdminPhone: {type:String,
         unique: true
     },
-    profession: {type:String,
+    AdminProfession: {type:String,
         unique: true
     },
-    role: {type:String,
+    AdminRole: {type:String,
         unique: true
     },
-    yearOfBirth: Number,
+    AdminYearOfBirth: Number,
     password: String
 })
 

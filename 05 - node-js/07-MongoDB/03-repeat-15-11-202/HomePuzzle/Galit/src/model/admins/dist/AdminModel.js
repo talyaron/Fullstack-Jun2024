@@ -3,27 +3,27 @@ exports.__esModule = true;
 exports.AdminModel = exports.AdminSchema = void 0;
 var mongoose_1 = require("mongoose");
 exports.AdminSchema = new mongoose_1.Schema({
-    firstName: {
+    AdminFirstName: {
         type: String,
         required: true
     },
-    lastName: {
+    AdminLastName: {
         type: String,
         required: true
     },
-    email: { type: String,
+    AdminEmail: { type: String,
         unique: true
     },
-    phone: { type: String,
+    AdminPhone: { type: String,
         unique: true
     },
-    profession: { type: String,
+    AdminProfession: { type: String,
         unique: true
     },
-    role: { type: String,
+    AdminRole: { type: String,
         unique: true
     },
-    yearOfBirth: Number,
+    AdminYearOfBirth: Number,
     password: String
 });
 exports.AdminModel = mongoose_1.model("Admin", exports.AdminSchema);

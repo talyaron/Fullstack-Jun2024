@@ -52,15 +52,15 @@ function getClientInfo(req, res) {
                     return [4 /*yield*/, clientModel_1.ClientModel.findOne({ key: key })];
                 case 2:
                     foundUser = _b.sent();
-                    console.log(key, foundUser);
+                    //  console.log(key,foundUser);
                     if (!foundUser) {
-                        res.json({ message: "no user Found!" });
+                        res.json({ message: "no user Found!", error: "notFound" });
                         return [2 /*return*/];
                     }
                     name = foundUser.name;
                     phoneNumber = foundUser.phoneNumber;
                     password = (_a = foundUser.password) === null || _a === void 0 ? void 0 : _a.length;
-                    console.log(name, phoneNumber, password);
+                    //  console.log(name,phoneNumber,password );
                     res.json({ message: "Log in success !", name: name, phoneNumber: phoneNumber, password: password });
                     return [3 /*break*/, 4];
                 case 3:
