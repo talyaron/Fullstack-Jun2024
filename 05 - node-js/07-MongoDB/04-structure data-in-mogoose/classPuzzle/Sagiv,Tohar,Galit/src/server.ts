@@ -1,7 +1,12 @@
 import express from 'express'
 import mongoose from "mongoose";  
+import commentsRouter from './routes/comments/commentsRoute';
+import productsRouter from './routes/products/productRoute';
+import clientsRouter from './routes/clientsRoutes/clientRoutes';
+import OrderRouter from './routes/Orders/OrderRouter'
 const app = express()
 const port = 3000;
+
 
 app.use(express.json());
 app.use(express.static('public'));
@@ -22,12 +27,11 @@ mongoose.connect(`${dbUrl}/${database}`).then(()=>{
 });
 
 //routes
-import clientsRouter from './routes/clients/clientRoutes';
+
 app.use("/api/clients", clientsRouter);
-import productsRouter from './routes/products/productRoute';
 app.use("/api/products", productsRouter);
-import commentsRouter from './routes/comments/commentsRoute';
 app.use("/api/comments", commentsRouter);
+app.use("api/orders", OrderRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

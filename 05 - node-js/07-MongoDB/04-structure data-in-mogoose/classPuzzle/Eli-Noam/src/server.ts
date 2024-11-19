@@ -22,12 +22,16 @@ mongoose.connect(`${dbUrl}/${database}`).then(()=>{
 });
 
 //routes
-import clientsRouter from './routes/clients/clientRoutes';
+import clientsRouter from './routes/clientsRoutes/clientRoutes';
 app.use("/api/clients", clientsRouter);
 import productsRouter from './routes/products/productRoute';
 app.use("/api/products", productsRouter);
 import commentsRouter from './routes/comments/commentsRoute';
 app.use("/api/comments", commentsRouter);
+import orderRouter from './routes/orders/orderRoutes';
+app.use("/api/orders", orderRouter);
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
