@@ -36,38 +36,32 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.addClient = void 0;
+exports.getClient = void 0;
 var clientModel_1 = require("../../models/clientModel");
-function addClient(req, res) {
+function getClient(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, firstName, lastName, email, phone, yearOfBirth, client, error_1;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var client, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
-                    _b.trys.push([0, 2, , 3]);
-                    _a = req.body, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, phone = _a.phone, yearOfBirth = _a.yearOfBirth;
-                    return [4 /*yield*/, clientModel_1.ClientModel.create({
-                            firstName: firstName,
-                            lastName: lastName,
-                            email: email,
-                            phone: phone,
-                            yearOfBirth: yearOfBirth
-                        })];
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, clientModel_1.ClientModel.findById(req.query._id)];
                 case 1:
-                    client = _b.sent();
-                    console.log(client);
+                    client = _a.sent();
+                    console.log("get client", client);
                     if (!client) {
-                        return [2 /*return*/, res.status(400).json({ message: 'Client not created' })];
+                        return [2 /*return*/, res.status(404).json({ error: "Client not found" })];
                     }
-                    console.log('Client created', client);
-                    return [2 /*return*/, res.status(200).json(client)];
+                    res.status(200).json(client);
+                    return [3 /*break*/, 3];
                 case 2:
-                    error_1 = _b.sent();
-                    console.error(error_1);
-                    return [2 /*return*/, res.status(500).json({ message: 'Server error' })];
+                    error_1 = _a.sent();
+                    console.error("Error fetching client:", error_1);
+                    res.status(500).json({ error: "Failed to fetch client" });
+                    return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
         });
     });
 }
-exports.addClient = addClient;
+exports.getClient = getClient;

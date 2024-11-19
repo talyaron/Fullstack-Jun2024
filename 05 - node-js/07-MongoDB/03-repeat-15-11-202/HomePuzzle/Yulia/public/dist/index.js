@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 function handleAddClient(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var form, formData, firstName, lastName, email, phone, date, yearOfBirth, response, error_1;
+        var form, formData, firstName, lastName, email, phone, date, yearOfBirth, response, clientData, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -68,7 +68,9 @@ function handleAddClient(event) {
                     if (!response.ok) return [3 /*break*/, 3];
                     return [4 /*yield*/, response.json()];
                 case 2:
-                    _a.sent();
+                    clientData = _a.sent();
+                    console.log(clientData);
+                    renderClientDetails(clientData);
                     form.reset();
                     _a.label = 3;
                 case 3: return [3 /*break*/, 5];
@@ -80,4 +82,11 @@ function handleAddClient(event) {
             }
         });
     });
+}
+function renderClientDetails(client) {
+    var clientDetails = document.getElementById("clientDetails");
+    var clientCard = document.createElement("div");
+    clientCard.className = "client-details__card";
+    clientCard.innerHTML = "\n      <p><strong>First Name:</strong> " + client.firstName + "</p>\n      <p><strong>Last Name:</strong> " + client.lastName + "</p>\n      <p><strong>Email:</strong> " + client.email + "</p>\n      <p><strong>Phone:</strong> " + client.phone + "</p>\n      <p><strong>Year of Birth:</strong> " + client.yearOfBirth + "</p>\n    ";
+    clientDetails.appendChild(clientCard);
 }

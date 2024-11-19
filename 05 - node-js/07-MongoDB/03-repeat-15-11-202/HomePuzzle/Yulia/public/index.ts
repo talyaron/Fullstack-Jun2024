@@ -1,3 +1,12 @@
+interface Client {
+    _id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    yearOfBirth: number;
+}
+
 async function handleAddClient(event: any) {
     try {
       event.preventDefault();
@@ -25,11 +34,33 @@ async function handleAddClient(event: any) {
       });
 
       if (response.ok) {
-        await response.json();
+        const clientData: Client = await response.json();
+
+        console.log(clientData);
+
+        renderClientDetails(clientData);
+
         form.reset();
       }
       
     } catch (error) {
         console.error(error);   
     }
+}
+
+function renderClientDetails(client: Client) {
+    const clientDetails = document.getElementById("clientDetails") as HTMLDivElement;
+
+    const clientCard = document.createElement("div");
+    clientCard.className = "client-details__card";
+
+    clientCard.innerHTML = `
+      <p><strong>First Name:</strong> ${client.firstName}</p>
+      <p><strong>Last Name:</strong> ${client.lastName}</p>
+      <p><strong>Email:</strong> ${client.email}</p>
+      <p><strong>Phone:</strong> ${client.phone}</p>
+      <p><strong>Year of Birth:</strong> ${client.yearOfBirth}</p>
+    `;
+
+    clientDetails.appendChild(clientCard);
 }

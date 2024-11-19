@@ -23,8 +23,8 @@ export async function addClient(req: any, res: any) {
         if (!client) {
             return res.status(400).json({ message: 'Client not created' });
         }
-        
-        return res.status(200).json({ message: 'Client created' });
+        console.log('Client created', client);
+        return res.status(200).json(client);
 
     } catch (error) {
         console.error(error);

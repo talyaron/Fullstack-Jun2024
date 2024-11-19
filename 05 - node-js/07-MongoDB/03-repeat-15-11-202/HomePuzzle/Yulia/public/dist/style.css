@@ -41,3 +41,33 @@ form button {
 form button:hover {
   background-color: #6b7f9e;
 }
+
+.client-details {
+  margin-top: 20px;
+  padding: 15px;
+  width: 100%;
+  max-width: 600px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.client-details__card {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+.client-details__card p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #333;
+}
+.client-details__card p strong {
+  font-weight: bold;
+  color: #555;
+}
+.client-details__card:last-child {
+  margin-bottom: 0;
+}
