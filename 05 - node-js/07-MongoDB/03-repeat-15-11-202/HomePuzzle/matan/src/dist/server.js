@@ -2,8 +2,9 @@
 exports.__esModule = true;
 var express_1 = require("express");
 var mongoose_1 = require("mongoose");
+var userRouter_1 = require("./routers/userRouter");
 var app = express_1["default"]();
-var port = 3001;
+var port = 3002;
 app.use(express_1["default"].json());
 app.use(express_1["default"].static("public"));
 app.get('/', function (req, res) {
@@ -16,7 +17,6 @@ mongoose_1["default"].connect(dbUrl + "/" + database).then(function () {
 })["catch"](function (err) {
     console.error(err);
 });
-var userRouter_1 = require("./routers/userRouter");
 app.use("/api/users", userRouter_1["default"]);
 app.listen(port, function () {
     console.log("Example app listening on port " + port);
