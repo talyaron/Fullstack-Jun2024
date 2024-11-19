@@ -8,8 +8,8 @@ interface IComment extends Document {
 }
 
 const CommentSchema: Schema = new Schema({
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, //foreign key to user
+    product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true }, //foreign key to product
     text: { type: String, required: true },
     score: { type: Number, required: true, min: 1, max: 5 },
     createdAt: { type: Date, default: Date.now }
