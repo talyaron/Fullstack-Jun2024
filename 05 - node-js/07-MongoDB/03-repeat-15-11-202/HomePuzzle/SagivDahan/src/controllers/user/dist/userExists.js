@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,72 +35,32 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var User = /** @class */ (function () {
-    function User(userName, email, password, phoneNumber, id) {
-        id ? this.id = id : this.id = crypto.randomUUID();
-        this.userName = userName;
-        this.email = email;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-    }
-    ;
-    return User;
-}());
-;
-function renderLoginPage() {
-    var loginForm = "\n     <div class=\"container\">\n            <h1>Login</h1>\n            <form onsubmit=\"handleFormLogin(event)\">\n                <input type=\"email\" class=\"input\" id=\"email\" name=\"email\" required placeholder=\"Email\">\n                <input type=\"password\" class=\"input\" id=\"password\" name=\"password\" required placeholder=\"Password\">               \n                <button class=\"loginBtn\" id=\"loginButton\" type=\"submit\">Login</button>\n                <a class=\"signupBtn\" id=\"button\" onclick=\"navigataToSignup()\">SIGN UP</a>\n            </form>\n            \n        </div>\n    ";
-    var loginPageElement = document.querySelector('#loginPage');
-    if (!loginPageElement)
-        throw new Error('Login page not found');
-    loginPageElement.innerHTML = loginForm;
-}
-;
-function handleFormLogin(event) {
+exports.__esModule = true;
+exports.userExists = void 0;
+var userModel_1 = require("../../models/userModel");
+function userExists(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var form, email, password, response, data;
+        var email, user;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    event.preventDefault();
-                    form = event.target;
-                    email = form.elements.namedItem('email').value;
-                    password = form.elements.namedItem('password').value;
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/user/login', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ email: email, password: password })
-                        })];
+                    email = req.query.email;
+                    if (!email) {
+                        return [2 /*return*/, res.status(400).json({ error: "Email is required" })];
+                    }
+                    return [4 /*yield*/, userModel_1.userModel.findOne({ email: email })];
                 case 1:
-                    response = _a.sent();
-                    return [4 /*yield*/, response.json()];
-                case 2:
-                    data = _a.sent();
-                    if (response.ok) {
-                        alert('Login successful');
-                        saveFetchedUserToLocalStorage(data);
-                        setTimeout(function () {
-                            window.location.href = "./dashboard/dashboard.html";
-                        }, 3000);
+                    user = _a.sent();
+                    if (user) {
+                        res.json({ exists: user });
                     }
                     else {
-                        alert(data.message);
+                        console.log('User does not exist');
                     }
                     return [2 /*return*/];
             }
         });
     });
 }
+exports.userExists = userExists;
 ;
-function navigataToSignup() {
-    window.location.href = "./signup/signup.html";
-}
-;
-function saveFetchedUserToLocalStorage(userData) {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            localStorage.setItem("userData", JSON.stringify(userData));
-            return [2 /*return*/];
-        });
-    });
-}
-renderLoginPage();
