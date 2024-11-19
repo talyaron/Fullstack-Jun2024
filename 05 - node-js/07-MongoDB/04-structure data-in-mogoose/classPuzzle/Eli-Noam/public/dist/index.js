@@ -34,37 +34,24 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-function main() {
-    try {
-        var getUsersBtn = document.querySelector('#getUsers');
-        if (!getUsersBtn)
-            throw new Error('not find getUsers');
-        getUsersBtn.addEventListener('click', getUsers);
-    }
-    catch (error) {
-        console.error(error);
-    }
-}
 function handleAddClient(ev) {
     return __awaiter(this, void 0, void 0, function () {
-        var form, formData, firstName, lastName, email, phone, date, yearOfBirth, response, data, err_1;
+        var formData, firstName, lastName, email, phone, date, yearOfBirth, response, data, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 4, , 5]);
                     ev.preventDefault();
-                    form = ev.target;
-                    formData = new FormData(form);
+                    formData = new FormData(ev.target);
                     firstName = formData.get("firstName");
                     lastName = formData.get("lastName");
                     email = formData.get("email");
                     phone = formData.get("phone");
                     date = formData.get("date");
                     yearOfBirth = new Date(date).getFullYear();
-                    form.reset();
-                    return [4 /*yield*/, fetch("/api/users/add-user", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
+                    return [4 /*yield*/, fetch("/api/clients/add-client", {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
                                 firstName: firstName,
                                 lastName: lastName,
@@ -87,32 +74,6 @@ function handleAddClient(ev) {
                     console.error(err_1);
                     return [3 /*break*/, 5];
                 case 5: return [2 /*return*/];
-            }
-        });
-    });
-}
-function getUsers() {
-    return __awaiter(this, void 0, void 0, function () {
-        var response, data, error_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch("/api/users/get-users")];
-                case 1:
-                    response = _a.sent();
-                    if (!response.ok)
-                        throw new Error("Failed to fetch USERS");
-                    return [4 /*yield*/, response.json()];
-                case 2:
-                    data = _a.sent();
-                    console.log(data);
-                    return [3 /*break*/, 4];
-                case 3:
-                    error_1 = _a.sent();
-                    console.error("Error:", error_1);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
             }
         });
     });
