@@ -57,9 +57,11 @@ async function fetchAllServices(): Promise<void> {
                                     <td id="name-${service._id}" onclick="handleEditServiceField('${service._id}', 'name')">${service.name}</td>
                                     <td id="description-${service._id}" onclick="handleEditServiceField('${service._id}', 'description')">${service.description}</td>
                                     <td id="duration-${service._id}" onclick="handleEditServiceField('${service._id}', 'duration')">${service.duration}</td>
-                                    <td id="price-${service._id}" onclick="handleEditServiceField('${service._id}', 'price')">${service.price.toFixed(2)}</td>
+                                    <td id="price-${service._id}" onclick="handleEditServiceField('${service._id}', 'price')">${service.price}</td>
                                     <td>
                                         <button class="delete-btn" onclick="handleDeleteService('${service._id}')">Delete</button>
+                                       <button class="edit-btn" onclick="handleEditService('${service._id}')">Edit</button>
+
                                     </td>
                                 </tr>
                             `

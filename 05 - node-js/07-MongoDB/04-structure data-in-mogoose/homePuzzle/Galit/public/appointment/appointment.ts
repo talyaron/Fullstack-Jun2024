@@ -9,7 +9,6 @@ async function handleAddAppointment(ev: any): Promise<void> {
         const date = formData.get("date") as string;
         const time = formData.get("time") as string;
         const status = formData.get("status") as string;
-        const price = formData.get("price") as string;
         const rating = formData.get("rating") as string;
         const review = formData.get("review") as string;
 
@@ -23,7 +22,6 @@ async function handleAddAppointment(ev: any): Promise<void> {
                 date,
                 time,
                 status,
-                price,
                 rating,
                 review,
             }),
@@ -64,7 +62,6 @@ async function fetchAllAppointments(): Promise<void> {
                             <th>Date</th>
                             <th>Time</th>
                             <th>Status</th>
-                            <th>Price</th>
                             <th>Rating</th>
                             <th>Review</th>
                             <th>Actions</th>
@@ -81,7 +78,6 @@ async function fetchAllAppointments(): Promise<void> {
                                     <td id="date-${appointment._id}" onclick="handleEditField('${appointment._id}', 'date')">${appointment.date}</td>
                                     <td id="time-${appointment._id}" onclick="handleEditField('${appointment._id}', 'time')">${appointment.time}</td>
                                     <td id="status-${appointment._id}" onclick="handleEditField('${appointment._id}', 'status')">${appointment.status}</td>
-                                    <td id="price-${appointment._id}" onclick="handleEditField('${appointment._id}', 'price')">${appointment.price}</td>
                                     <td id="rating-${appointment._id}" onclick="handleEditField('${appointment._id}', 'rating')">${appointment.rating}</td>
                                     <td id="review-${appointment._id}" onclick="handleEditField('${appointment._id}', 'review')">${appointment.review}</td>
                                     <td>

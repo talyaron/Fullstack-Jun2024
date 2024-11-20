@@ -31,6 +31,12 @@ app.use("/api/clients", clientRouter);
 import adminRouter from './routes/AdminRoute';
 app.use("/api/admins", adminRouter);
 
+import serviceRouter from './routes/ServiceRoute';
+app.use("/api/services", serviceRouter);
+
+import appointmentRouter from './routes/AppointmentRoute';
+app.use("/api/appointments", appointmentRouter);
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

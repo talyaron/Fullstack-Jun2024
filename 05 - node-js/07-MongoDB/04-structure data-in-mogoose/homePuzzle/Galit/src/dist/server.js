@@ -23,6 +23,10 @@ var ClientRoute_1 = require("./routes/ClientRoute");
 app.use("/api/clients", ClientRoute_1["default"]);
 var AdminRoute_1 = require("./routes/AdminRoute");
 app.use("/api/admins", AdminRoute_1["default"]);
+var ServiceRoute_1 = require("./routes/ServiceRoute");
+app.use("/api/services", ServiceRoute_1["default"]);
+var AppointmentRoute_1 = require("./routes/AppointmentRoute");
+app.use("/api/appointments", AppointmentRoute_1["default"]);
 app.listen(port, function () {
     console.log("Server is running on port " + port);
 });
