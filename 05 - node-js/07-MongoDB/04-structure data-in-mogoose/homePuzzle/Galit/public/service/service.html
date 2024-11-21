@@ -17,6 +17,10 @@
     <h1> Service </h1>
     <div class="container">
     <form onsubmit="handleAddService(event)">
+        <label for="admin">Select Service Provider:</label>
+        <select name="admin" id="admin" required>
+            <option value="">-- Select Service Provider --</option>
+        </select>
         <input type="text" name="name" placeholder="name" required>
         <input type="text" name="description" placeholder="description" required>
         <input type="number" name="duration" placeholder="duration (minutes)" required>

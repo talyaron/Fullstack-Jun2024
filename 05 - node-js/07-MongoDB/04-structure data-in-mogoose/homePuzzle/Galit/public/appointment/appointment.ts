@@ -50,7 +50,7 @@ async function fetchAllAppointments(): Promise<void> {
         }
         const appointments = await response.json();
 
-        const container = document.getElementById("appointments-list");
+        const container = document.getElementById("appointment-list");
         if (container) {
             container.innerHTML = `
                 <table>
@@ -158,6 +158,46 @@ async function handleDeleteAppointment(id: string) {
     }
 }
 
+async function populateDropdowns(): Promise<void> {
+    try {
+        const clientsResponse = await fetch('/api/clients');
+        const clients = await clientsResponse.json();
+        const clientSelect = document.getElementById('client') as HTMLSelectElement;
+        clients.forEach((client: any) => {
+            const option = document.createElement('option');
+            option.value = client._id; 
+            option.textContent = client.name; 
+            clientSelect.appendChild(option);
+        });
+
+        const adminsResponse = await fetch('/api/admins');
+        const admins = await adminsResponse.json();
+        const adminSelect = document.getElementById('admin') as HTMLSelectElement;
+        admins.forEach((admin: any) => {
+            const option = document.createElement('option');
+            option.value = admin._id; 
+            option.textContent = admin.name; 
+            adminSelect.appendChild(option);
+        });
+
+        const servicesResponse = await fetch('/api/services');
+        const services = await servicesResponse.json();
+        const serviceSelect = document.getElementById('service') as HTMLSelectElement;
+        services.forEach((service: any) => {
+            const option = document.createElement('option');
+            option.value = service._id; 
+            option.textContent = service.name;
+            serviceSelect.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error populating dropdowns:', error);
+    }
+}
+
 window.onload = () => {
+    populateDropdowns();
     fetchAllAppointments();
 };
+
+
+

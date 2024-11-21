@@ -1,5 +1,6 @@
 import { AppointmentModel } from "../../model/appointment/appointmentModel";
 
+
 export async function addAppointment(req: any, res: any) {
     try {
         const {  client,
@@ -11,7 +12,7 @@ export async function addAppointment(req: any, res: any) {
             rating,
             review,} = req.body;
 
-        if (!client || !service || !admin || !date || !time || !time) {
+        if (!client || !service || !admin || !date || !time ) {
             return res.status(400).send({ error: "Missing required fields." });
         }
 
@@ -121,4 +122,5 @@ export async function editAppointment(req: any, res: any) {
         res.status(500).json({ error: "Internal server error" });
     }
 }
+
 

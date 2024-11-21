@@ -115,7 +115,7 @@ function fetchAllAppointments() {
                     return [4 /*yield*/, response.json()];
                 case 2:
                     appointments = _a.sent();
-                    container = document.getElementById("appointments-list");
+                    container = document.getElementById("appointment-list");
                     if (container) {
                         container.innerHTML = "\n                <table>\n                    <thead>\n                        <tr>\n                            <th>Client</th>\n                            <th>Admin</th>\n                            <th>Service</th>\n                            <th>Date</th>\n                            <th>Time</th>\n                            <th>Status</th>\n                            <th>Rating</th>\n                            <th>Review</th>\n                            <th>Actions</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        " + appointments
                             .map(function (appointment) { return "\n                                <tr id=\"appointment-" + appointment._id + "\">\n                                    <td id=\"client-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'client')\">" + appointment.client + "</td>\n                                    <td id=\"admin-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'admin')\">" + appointment.admin + "</td>\n                                    <td id=\"service-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'service')\">" + appointment.service + "</td>\n                                    <td id=\"date-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'date')\">" + appointment.date + "</td>\n                                    <td id=\"time-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'time')\">" + appointment.time + "</td>\n                                    <td id=\"status-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'status')\">" + appointment.status + "</td>\n                                    <td id=\"rating-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'rating')\">" + appointment.rating + "</td>\n                                    <td id=\"review-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'review')\">" + appointment.review + "</td>\n                                    <td>\n                                        <button class=\"delete-btn\" onclick=\"handleDeleteAppointment('" + appointment._id + "')\">Delete</button>\n                                        <button class=\"edit-btn\" onclick=\"handleEditField('" + appointment._id + "')\">Edit</button>\n                                    </td>\n                                </tr>\n                            "; })
@@ -222,6 +222,63 @@ function handleDeleteAppointment(id) {
         });
     });
 }
+function populateDropdowns() {
+    return __awaiter(this, void 0, Promise, function () {
+        var clientsResponse, clients, clientSelect_1, adminsResponse, admins, adminSelect_1, servicesResponse, services, serviceSelect_1, error_4;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 7, , 8]);
+                    return [4 /*yield*/, fetch('/api/clients')];
+                case 1:
+                    clientsResponse = _a.sent();
+                    return [4 /*yield*/, clientsResponse.json()];
+                case 2:
+                    clients = _a.sent();
+                    clientSelect_1 = document.getElementById('client');
+                    clients.forEach(function (client) {
+                        var option = document.createElement('option');
+                        option.value = client._id;
+                        option.textContent = client.name;
+                        clientSelect_1.appendChild(option);
+                    });
+                    return [4 /*yield*/, fetch('/api/admins')];
+                case 3:
+                    adminsResponse = _a.sent();
+                    return [4 /*yield*/, adminsResponse.json()];
+                case 4:
+                    admins = _a.sent();
+                    adminSelect_1 = document.getElementById('admin');
+                    admins.forEach(function (admin) {
+                        var option = document.createElement('option');
+                        option.value = admin._id;
+                        option.textContent = admin.name;
+                        adminSelect_1.appendChild(option);
+                    });
+                    return [4 /*yield*/, fetch('/api/services')];
+                case 5:
+                    servicesResponse = _a.sent();
+                    return [4 /*yield*/, servicesResponse.json()];
+                case 6:
+                    services = _a.sent();
+                    serviceSelect_1 = document.getElementById('service');
+                    services.forEach(function (service) {
+                        var option = document.createElement('option');
+                        option.value = service._id;
+                        option.textContent = service.name;
+                        serviceSelect_1.appendChild(option);
+                    });
+                    return [3 /*break*/, 8];
+                case 7:
+                    error_4 = _a.sent();
+                    console.error('Error populating dropdowns:', error_4);
+                    return [3 /*break*/, 8];
+                case 8: return [2 /*return*/];
+            }
+        });
+    });
+}
 window.onload = function () {
+    populateDropdowns();
     fetchAllAppointments();
 };

@@ -56,13 +56,11 @@ router.get("/", function (req, res) { return __awaiter(void 0, void 0, void 0, f
                 if (!services || services.length === 0) {
                     return [2 /*return*/, res.status(404).send({ error: "No services found" })];
                 }
-                res.status(200).send(services);
-                return [3 /*break*/, 3];
+                return [2 /*return*/, res.status(200).send(services)];
             case 2:
                 error_1 = _a.sent();
                 console.error(error_1);
-                res.status(500).send({ error: "Server error" });
-                return [3 /*break*/, 3];
+                return [2 /*return*/, res.status(500).send({ error: "Server error" })];
             case 3: return [2 /*return*/];
         }
     });
