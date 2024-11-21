@@ -1,7 +1,7 @@
 import express from 'express';
-import { addComment } from '../../controllers/comments/setComments';
+import { addComment } from '../../controllers/reviews/setComments';
 
-import { getCommentByProductId } from '../../controllers/comments/getComments';
+import { getCommentByProductId } from '../../controllers/reviews/getComments';
 
 
 const router = express.Router();
