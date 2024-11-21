@@ -16,7 +16,7 @@ app.listen(port, () => {
 });
 
 
-const dbUrl = "mongodb+srv://toharkenin:SGPMKViHdfAEDEY1@cluster0.bbpiv.mongodb.net"
+const dbUrl = "mongodb+srv://toharkenin:Q9cij3M4GHk%409Sx@cluster0.bbpiv.mongodb.net"
 const database = 'booking';
 
 mongoose.connect(`${dbUrl}/${database}`).then(()=>{
