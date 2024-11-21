@@ -26,7 +26,7 @@ mongoose_1["default"].connect(dbUrl + "/" + database).then(function () {
 app.use("/api/clients", clientRoutes_1["default"]);
 app.use("/api/products", productRoute_1["default"]);
 app.use("/api/comments", commentsRoute_1["default"]);
-app.use("api/orders", OrderRouter_1["default"]);
+app.use("/api/orders", OrderRouter_1["default"]);
 app.listen(port, function () {
     console.log("Example app listening on port " + port);
 });
