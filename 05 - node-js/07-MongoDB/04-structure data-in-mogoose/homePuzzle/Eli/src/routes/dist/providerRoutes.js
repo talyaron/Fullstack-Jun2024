@@ -5,5 +5,5 @@ var providerCreateCont_1 = require("../controllers/serviceProvider/providerCreat
 var providerGetAllCont_1 = require("../controllers/serviceProvider/providerGetAllCont");
 var router = express_1["default"].Router();
 router.post("/register-provider", providerCreateCont_1.registerProvider);
-router.post("/get-providers", providerGetAllCont_1.getProviders);
+router.get("/get-providers", providerGetAllCont_1.getProviders);
 exports["default"] = router;

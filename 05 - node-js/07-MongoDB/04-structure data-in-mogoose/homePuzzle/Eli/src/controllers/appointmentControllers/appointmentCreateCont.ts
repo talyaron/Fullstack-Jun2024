@@ -1,6 +1,6 @@
 import { AppointmentModel } from "../../models/appointmentModel";
 
-export const addComment = async (req: any, res: any): Promise<undefined> => {
+export async function createAppointment(req: any, res: any) {
   try {
     const { client, serviceProvider, date, startTime, endTime } =
       req.body;

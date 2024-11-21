@@ -36,45 +36,49 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.addComment = void 0;
+exports.createAppointment = void 0;
 var appointmentModel_1 = require("../../models/appointmentModel");
-exports.addComment = function (req, res) { return __awaiter(void 0, void 0, Promise, function () {
-    var _a, client, serviceProvider, date, startTime, endTime, defaultStatus, defaultPrice, newComment, savedComment, error_1;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                _b.trys.push([0, 2, , 3]);
-                _a = req.body, client = _a.client, serviceProvider = _a.serviceProvider, date = _a.date, startTime = _a.startTime, endTime = _a.endTime;
-                if (!client || !serviceProvider || !date || !startTime || !endTime) {
-                    res
-                        .status(400)
-                        .json({ message: "Please provide all the required fields" });
+function createAppointment(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var _a, client, serviceProvider, date, startTime, endTime, defaultStatus, defaultPrice, newComment, savedComment, error_1;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _b.trys.push([0, 2, , 3]);
+                    _a = req.body, client = _a.client, serviceProvider = _a.serviceProvider, date = _a.date, startTime = _a.startTime, endTime = _a.endTime;
+                    if (!client || !serviceProvider || !date || !startTime || !endTime) {
+                        res
+                            .status(400)
+                            .json({ message: "Please provide all the required fields" });
+                        return [2 /*return*/];
+                    }
+                    defaultStatus = "pending";
+                    defaultPrice = 20;
+                    newComment = new appointmentModel_1.AppointmentModel({
+                        client: client,
+                        serviceProvider: serviceProvider,
+                        date: date,
+                        startTime: startTime,
+                        endTime: endTime,
+                        status: defaultStatus,
+                        price: defaultPrice
+                    });
+                    return [4 /*yield*/, newComment.save()];
+                case 1:
+                    savedComment = _b.sent();
+                    res.status(201).json(savedComment);
                     return [2 /*return*/];
-                }
-                defaultStatus = "pending";
-                defaultPrice = 20;
-                newComment = new appointmentModel_1.AppointmentModel({
-                    client: client,
-                    serviceProvider: serviceProvider,
-                    date: date,
-                    startTime: startTime,
-                    endTime: endTime,
-                    status: defaultStatus,
-                    price: defaultPrice
-                });
-                return [4 /*yield*/, newComment.save()];
-            case 1:
-                savedComment = _b.sent();
-                res.status(201).json(savedComment);
-                return [2 /*return*/];
-            case 2:
-                error_1 = _b.sent();
-                res.status(500).json({ message: "Failed to add comment", error: error_1 });
-                return [2 /*return*/];
-            case 3: return [2 /*return*/];
-        }
+                case 2:
+                    error_1 = _b.sent();
+                    res.status(500).json({ message: "Failed to add comment", error: error_1 });
+                    return [2 /*return*/];
+                case 3: return [2 /*return*/];
+            }
+        });
     });
-}); };
+}
+exports.createAppointment = createAppointment;
+;
 // - client: reference to the client
 // - serviceProvider: reference to the service provider
 // - date: date of the appointment

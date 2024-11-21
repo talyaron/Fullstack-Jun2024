@@ -21,6 +21,8 @@ import clientRoutes from "./routes/clientRoutes";
 app.use("/api/client", clientRoutes);
 import providerRoutes from "./routes/providerRoutes";
 app.use("/api/provider", providerRoutes);
+import appointmentRoutes from "./routes/appointmentRoutes";
+app.use("/api/appointment", appointmentRoutes);
 
 app.listen(port,()=>
 {

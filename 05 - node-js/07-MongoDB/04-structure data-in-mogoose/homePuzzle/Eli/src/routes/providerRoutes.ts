@@ -5,5 +5,5 @@ import { getProviders } from "../controllers/serviceProvider/providerGetAllCont"
 const router = express.Router();
 
 router.post("/register-provider", registerProvider);
-router.post("/get-providers",getProviders);
+router.get("/get-providers",getProviders);
 export default router;

@@ -17,6 +17,8 @@ var clientRoutes_1 = require("./routes/clientRoutes");
 app.use("/api/client", clientRoutes_1["default"]);
 var providerRoutes_1 = require("./routes/providerRoutes");
 app.use("/api/provider", providerRoutes_1["default"]);
+var appointmentRoutes_1 = require("./routes/appointmentRoutes");
+app.use("/api/appointment", appointmentRoutes_1["default"]);
 app.listen(port, function () {
     console.log("server listening on port " + port + " ");
 });
