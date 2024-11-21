@@ -36,38 +36,61 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.addUser = void 0;
+exports.getUserByEmail = exports.getUserById = void 0;
 var userModel_1 = require("../../models/userModel");
-function addUser(req, res) {
+function getUserById(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, firstName, lastName, email, phone, yearOfBirth, result, error_1;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var userId, user, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
-                    _b.trys.push([0, 2, , 3]);
-                    _a = req.body, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, phone = _a.phone, yearOfBirth = _a.yearOfBirth;
-                    return [4 /*yield*/, userModel_1.UserModel.create({
-                            firstName: firstName,
-                            lastName: lastName,
-                            email: email,
-                            phone: phone,
-                            yearOfBirth: yearOfBirth
-                        })];
-                case 1:
-                    result = _b.sent();
-                    console.log(result);
-                    if (!result) {
-                        return [2 /*return*/, res.status(400).send({ error: "Couldn't create new client!" })];
+                    _a.trys.push([0, 2, , 3]);
+                    userId = req.query.userId;
+                    if (!userId) {
+                        return [2 /*return*/, res.status(400).json({ message: 'userID is required' })];
                     }
-                    return [2 /*return*/, res.status(201).send({ message: "Client was created successfully!" })];
+                    return [4 /*yield*/, userModel_1.UserModel.findOne({ _id: userId })];
+                case 1:
+                    user = _a.sent();
+                    res.status(200).json({ user: user });
+                    return [3 /*break*/, 3];
                 case 2:
-                    error_1 = _b.sent();
-                    console.error("error");
-                    console.log('here');
-                    return [2 /*return*/, res.status(500).send({ error: error_1 })];
+                    error_1 = _a.sent();
+                    res.status(500).json({ message: error_1.message });
+                    return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
         });
     });
 }
-exports.addUser = addUser;
+exports.getUserById = getUserById;
+function getUserByEmail(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var email, user, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    email = req.query.email;
+                    if (!email) {
+                        return [2 /*return*/, res.status(400).json({ message: 'email is required' })];
+                    }
+                    return [4 /*yield*/, userModel_1.UserModel.findOne({ email: email })];
+                case 1:
+                    user = _a.sent();
+                    if (!user) {
+                        console.log('User is not exist'); // Log the message
+                        return [2 /*return*/, res.status(400).json({ message: 'user is not exist' })];
+                    }
+                    res.status(200).json({ user: user });
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_2 = _a.sent();
+                    res.status(500).json({ message: error_2.message });
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.getUserByEmail = getUserByEmail;

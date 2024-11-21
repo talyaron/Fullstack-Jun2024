@@ -2,11 +2,7 @@ import { Schema,model } from "mongoose";
 
 
 export const UserSchema = new Schema({
-    firstName:{
-        type:String,
-        required:true
-    },
-    lastName:{
+    name:{
         type:String,
         required:true
     },
@@ -20,10 +16,11 @@ export const UserSchema = new Schema({
         unique:true,
         required:true
     },
+    imageUrl:String,
     yearOfBirth:Number,
     password:String
     
     
 })
 
-export const UserModel = model("Client", UserSchema);
+export const UserModel = model("user", UserSchema);

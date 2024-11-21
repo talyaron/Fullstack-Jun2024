@@ -3,11 +3,7 @@ exports.__esModule = true;
 exports.UserModel = exports.UserSchema = void 0;
 var mongoose_1 = require("mongoose");
 exports.UserSchema = new mongoose_1.Schema({
-    firstName: {
-        type: String,
-        required: true
-    },
-    lastName: {
+    name: {
         type: String,
         required: true
     },
@@ -21,7 +17,8 @@ exports.UserSchema = new mongoose_1.Schema({
         unique: true,
         required: true
     },
+    imageUrl: String,
     yearOfBirth: Number,
     password: String
 });
-exports.UserModel = mongoose_1.model("Client", exports.UserSchema);
+exports.UserModel = mongoose_1.model("user", exports.UserSchema);
