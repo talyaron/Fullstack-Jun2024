@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client App</title>
+    <link rel="stylesheet" href="./dist/admin.css">
+    <script src="./dist/admin.js" defer></script>
+</head>
+<body>
+    <div class="navbar">
+
+    <a class="admin" href="/">Admin</a>
+    <a class="clients" href="../index.html">clients</a>
+    <a class="service" href="../service/service.html">service</a>
+    <a class="appointment" href="../appointment/appointment.html">Appointment</a>
+    </div>
+<h1> Admin </h1>
+    <div class="container">
+    <form onsubmit="handleAddAdmin(event)">
+        <input type="text" name="AdminFirstName" placeholder="First Name" required>
+        <input type="text" name="AdminLastName" placeholder="Last Name" required>
+        <input type="email" name="AdminEmail" placeholder="Email" required>
+        <input type="tel" name="AdminPhone" placeholder="Phone" required>
+        <input type="text" name="AdminProfession" placeholder="Profession" required>
+        <input type="text" name="AdminRole" placeholder="Role" required>
+        <input type="date" name="AdminDate" placeholder="Date of Birth" required>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="admin-list"></div>
+    </div>
+</body>
+</html>
