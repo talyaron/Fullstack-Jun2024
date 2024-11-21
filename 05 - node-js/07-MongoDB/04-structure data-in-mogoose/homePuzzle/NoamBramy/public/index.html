@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appointment Booking</title>
+  <link rel="stylesheet" href="./dist/style.css">
+  <script src="./dist/index.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Book an Appointment</h1>
+
+    <form id="appointmentForm">
+        <div class="form-group">
+          <label for="customer">Select Customer:</label>
+          <select id="customer" class="form-input"></select>
+        </div>
+      
+        <div class="form-group">
+          <label for="serviceProvider">Select Service Provider:</label>
+          <select id="serviceProvider" class="form-input"></select>
+        </div>
+      
+        <div class="form-group">
+          <label for="date">Select Date:</label>
+          <input type="date" id="date" class="form-input" />
+        </div>
+      
+        <div class="form-group">
+          <label for="time">Select Time:</label>
+          <select id="time" class="form-input"></select>
+        </div>
+      
+        <div class="form-group">
+          <label for="service">Service Name:</label>
+          <input type="text" id="service" class="form-input" placeholder="Enter service name" />
+        </div>
+      
+        <button type="submit" class="submit-btn">Book Appointment</button>
+      </form>  
+
+    <h2>Your Appointments</h2>
+    <div id="appointmentsList"></div>
+</div>
+
+</body>
+</html>

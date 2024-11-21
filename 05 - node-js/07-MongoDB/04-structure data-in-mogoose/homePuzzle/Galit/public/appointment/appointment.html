@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client App</title>
+    <link rel="stylesheet" href="./dist/appointment.css">
+    <script src="./dist/appointment.js" defer></script>
+</head>
+<body>
+    <div class="navbar">
+
+    <a class="admin" href="../admin/admin.html">Admin</a>
+    <a class="clients" href="../index.html">clients</a>
+    <a class="service" href="../service/service.html">service</a>
+    <a class="appointment" href="/">Appointment</a>
+</div>
+    <h1> Appointment </h1>
+
+    <div class="container">
+        <form onsubmit="handleAddAppointment(event)">
+            <label for="client">Select Client:</label>
+            <select name="client" id="client" required>
+                <option value="">-- Select Client --</option>
+            </select>
+        
+            <label for="admin">Select Service Provider:</label>
+            <select name="admin" id="admin" required>
+                <option value="">-- Select Service Provider --</option>
+            </select>
+        
+            <label for="service">Select Service:</label>
+            <select name="service" id="service" required>
+                <option value="">-- Select Service --</option>
+            </select>
+        
+            <input type="date" name="date" placeholder="date" required>
+            <input type="time" name="time" placeholder="time" required>
+            <select name="status" required>
+                <option value="">-- Select Status --</option>
+                <option value="pending">Pending</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="canceled">Canceled</option>
+            </select>
+            <input type="number" name="rating" placeholder="rating (1-5)">
+            <textarea name="review" placeholder="Leave a review"></textarea>
+        
+            <button type="submit">Submit</button>
+        </form>
+        <div id="appointment-list"></div>
+        
+    <div id="service-list"></div>
+    </div>
+</body>
+</html>

@@ -8,7 +8,8 @@ based on the previous puzzle, we need to create a new model for appointments. Th
     - client: reference to the client
     - serviceProvider: reference to the service provider
     - date: date of the appointment
-    - time: time of the appointment
+    - startTime: time of the appointment
+    - endTime: end time of the appointment
     - status: status of the appointment (pending, confirmed, canceled)
     - service: reference to the service
     - price: price of the service

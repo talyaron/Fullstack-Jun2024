@@ -1,0 +1,11 @@
+"use strict";
+exports.__esModule = true;
+var express_1 = require("express");
+var addAppointment_1 = require("../../controllers/appointment/addAppointment");
+var getAppointment_1 = require("../../controllers/appointment/getAppointment");
+var getSlots_1 = require("../../controllers/appointment/getSlots");
+var router = express_1["default"].Router();
+router.post('/add-appointments', addAppointment_1.addAppointment);
+router.get('/get-appointments', getAppointment_1.GetAppointment);
+router.get('/slots', getSlots_1.getAvailableSlots);
+exports["default"] = router;
