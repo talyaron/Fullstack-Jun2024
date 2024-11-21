@@ -1,4 +1,4 @@
-import Comment from "../../model/comments/commentModel";
+import Comment from "../../model/reviews/reviewModel";
 
 export async function getCommentByProductId(req: any, res: any) {
 

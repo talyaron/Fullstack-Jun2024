@@ -18,7 +18,8 @@ export const ClientSchema = new Schema({
         unique:true
     },
     yearOfBirth:Number,
-    password:String
+    password:String,
+    service:String
 })
 
 export const ClientModel = model("Client", ClientSchema); // the connection to the DB collection
