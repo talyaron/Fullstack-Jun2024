@@ -14,6 +14,7 @@ status: boolean;
 serviceId:string;
 rating:number;
 reviewId:string;
+
 }
 
 const appointmentSchema = new Schema<Appointment>({
