@@ -17,6 +17,7 @@ form {
     align-items: center;
     justify-content: center;
     height: 100vh;
+    gap: 15px;
 
     input,
     button {
@@ -39,42 +40,99 @@ form {
         font-weight: bold;
         cursor: pointer;
         text-align: center;
+        transition: background-color 0.3s ease;
 
         &:hover {
             background-color: #6b7f9e;
         }
     }
 }
-.client-details {
-    margin-top: 20px;
-    padding: 15px;
-    width: 100%;
+
+#clients {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
     max-width: 600px;
+    margin: 0 auto;
     background-color: #ffffff;
-    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.clients__client-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ccc;
     border-radius: 8px;
+    background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-    &__card {
-        margin-bottom: 15px;
-        padding: 10px;
-        border: 1px solid #ccc;
+.client-card__details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    p {
+        margin: 0;
+        font-size: 14px;
+    }
+
+    .client-card__label {
+        font-weight: bold;
+        margin-right: 5px;
+    }
+
+    .client-card__value {
+        font-weight: normal;
+        margin-left: 5px;
+    }
+}
+
+.client-card__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .client-card__button {
+        width: 80px;
+        height: 40px;
+        font-size: 14px;
+        font-weight: bold;
+        border: none;
         border-radius: 5px;
-        background-color: #f9f9f9;
+        cursor: pointer;
+        text-align: center;
+        transition: background-color 0.3s ease;
 
-        p {
-            margin: 5px 0;
-            font-size: 14px;
-            color: #333;
+        &--update {
+            background-color: #4f92ff;
+            color: white;
 
-            strong {
-                font-weight: bold;
-                color: #555;
+            &:hover {
+                background-color: #3e81e4;
             }
         }
 
-        &:last-child {
-            margin-bottom: 0;
+        &--delete {
+            background-color: #ff4d4f;
+            color: white;
+
+            &:hover {
+                background-color: #e43e3f;
+            }
+        }
+
+        &--save {
+            background-color: #34c759;
+            color: white;
+
+            &:hover {
+                background-color: #2ba84d;
+            }
         }
     }
 }

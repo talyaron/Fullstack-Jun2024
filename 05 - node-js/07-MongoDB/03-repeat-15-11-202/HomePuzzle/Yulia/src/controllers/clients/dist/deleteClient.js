@@ -36,55 +36,36 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.getAllClients = exports.getClient = void 0;
+exports.deleteClient = void 0;
 var clientModel_1 = require("../../models/clientModel");
-function getClient(req, res) {
+function deleteClient(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var client, error_1;
+        var _id, deletedClient, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, clientModel_1.ClientModel.findById(req.query._id)];
-                case 1:
-                    client = _a.sent();
-                    console.log("get client", client);
-                    if (!client) {
-                        return [2 /*return*/, res.status(404).json({ error: "Client not found" })];
+                    _id = req.body._id;
+                    if (!_id) {
+                        return [2 /*return*/, res.status(400).json({ message: "Client ID is required" })];
                     }
-                    res.status(200).json(client);
+                    return [4 /*yield*/, clientModel_1.ClientModel.findByIdAndDelete(_id)];
+                case 1:
+                    deletedClient = _a.sent();
+                    if (!deletedClient) {
+                        return [2 /*return*/, res.status(404).json({ message: "Client not found" })];
+                    }
+                    console.log("Client with ID " + _id + " deleted successfully.");
+                    res.status(200).json({ message: "Client deleted successfully" });
                     return [3 /*break*/, 3];
                 case 2:
                     error_1 = _a.sent();
-                    console.error("Error fetching client:", error_1);
-                    res.status(500).json({ error: "Failed to fetch client" });
+                    console.error("Error deleting client:", error_1);
+                    res.status(500).json({ message: "Server error" });
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
         });
     });
 }
-exports.getClient = getClient;
-function getAllClients(req, res) {
-    return __awaiter(this, void 0, void 0, function () {
-        var clients, error_2;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, clientModel_1.ClientModel.find()];
-                case 1:
-                    clients = _a.sent();
-                    res.status(200).json(clients);
-                    return [3 /*break*/, 3];
-                case 2:
-                    error_2 = _a.sent();
-                    console.error("Error fetching all clients:", error_2);
-                    res.status(500).json({ message: "Failed to fetch all clients" });
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
-            }
-        });
-    });
-}
-exports.getAllClients = getAllClients;
+exports.deleteClient = deleteClient;
