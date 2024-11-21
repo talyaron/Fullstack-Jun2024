@@ -19,6 +19,8 @@ mongoose.connect(`${dbUrl}/${database}`).then(()=>{
 
 import clientRoutes from "./routes/clientRoutes";
 app.use("/api/client", clientRoutes);
+import providerRoutes from "./routes/providerRoutes";
+app.use("/api/provider", providerRoutes);
 
 app.listen(port,()=>
 {

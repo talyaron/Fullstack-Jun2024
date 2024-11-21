@@ -9,10 +9,10 @@ const serviceProviderSchema = new Schema({
     require: true,
     type: String,
   },
-  workDate: {
-    require: true,
-    type: String,
-  },
+//   workDate: {
+//     require: true,//for now they work everyday of the week :) 
+//     type: String,
+//   },
   password: {
     require: true,
     type: String,

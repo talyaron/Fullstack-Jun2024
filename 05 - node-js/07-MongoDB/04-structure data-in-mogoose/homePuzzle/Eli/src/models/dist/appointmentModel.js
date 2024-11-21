@@ -1,8 +1,8 @@
 "use strict";
 exports.__esModule = true;
-exports.appointmentModel = exports.appointmentSchema = void 0;
+exports.AppointmentModel = exports.AppointmentSchema = void 0;
 var mongoose_1 = require("mongoose");
-exports.appointmentSchema = new mongoose_1.Schema({
+exports.AppointmentSchema = new mongoose_1.Schema({
     client: {
         type: mongoose_1["default"].Schema.Types.ObjectId, ref: 'Client', required: true
     },
@@ -27,7 +27,7 @@ exports.appointmentSchema = new mongoose_1.Schema({
     },
     price: {
         require: true,
-        type: String
+        type: Number
     },
     rating: {
         type: String
@@ -36,7 +36,7 @@ exports.appointmentSchema = new mongoose_1.Schema({
         type: String
     }
 });
-exports.appointmentModel = mongoose_1.model("appointment", exports.appointmentSchema);
+exports.AppointmentModel = mongoose_1.model("appointment", exports.AppointmentSchema);
 // - client: reference to the client
 // - serviceProvider: reference to the service provider
 // - date: date of the appointment

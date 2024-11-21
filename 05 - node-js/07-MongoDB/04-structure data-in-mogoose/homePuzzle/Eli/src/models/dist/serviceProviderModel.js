@@ -11,10 +11,10 @@ var serviceProviderSchema = new mongoose_1.Schema({
         require: true,
         type: String
     },
-    workDate: {
-        require: true,
-        type: String
-    },
+    //   workDate: {
+    //     require: true,//for now they work everyday of the week :) 
+    //     type: String,
+    //   },
     password: {
         require: true,
         type: String

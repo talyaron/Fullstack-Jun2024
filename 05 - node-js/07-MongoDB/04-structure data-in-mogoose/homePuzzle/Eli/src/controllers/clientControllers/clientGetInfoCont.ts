@@ -1,4 +1,3 @@
-import { error } from "console";
 import { ClientModel } from "../../models/clientModel";
 
 export async function getClientInfo(req: any, res: any) {

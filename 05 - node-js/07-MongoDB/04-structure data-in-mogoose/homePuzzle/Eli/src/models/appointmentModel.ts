@@ -1,6 +1,6 @@
 import mongoose,{model, Schema } from "mongoose";
 
-export const appointmentSchema =new Schema({
+export const AppointmentSchema =new Schema({
     client:{
         type: mongoose.Schema.Types.ObjectId, ref: 'Client', required: true 
     },
@@ -25,7 +25,7 @@ export const appointmentSchema =new Schema({
     },
     price:{
         require:true,
-        type:String,
+        type:Number,
     },
     rating:{
         type:String,
@@ -36,7 +36,7 @@ export const appointmentSchema =new Schema({
 });
 
 
-export const appointmentModel=model("appointment",appointmentSchema);
+export const AppointmentModel=model("appointment",AppointmentSchema);
 
 // - client: reference to the client
 // - serviceProvider: reference to the service provider
