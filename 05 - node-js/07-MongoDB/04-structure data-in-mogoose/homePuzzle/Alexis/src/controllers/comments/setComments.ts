@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Comment from '../../model/comments/commentModel';
+import Comment from '../../model/reviews/reviewModel';
 
 export const addComment = async (req: Request, res: Response): Promise<undefined> => {
     try {

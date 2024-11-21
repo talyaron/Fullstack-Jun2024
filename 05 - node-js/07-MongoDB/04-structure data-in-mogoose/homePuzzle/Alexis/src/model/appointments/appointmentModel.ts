@@ -1,14 +1,22 @@
 import { Schema, model, Document } from 'mongoose';
 
-interface IProduct extends Document {
+interface Appointment extends Document {
     name: string;
     price: number;
     description: string;
     category: string;
     inStock: boolean;
+clientId: string;
+serviceProviderId:string;
+startTime:Date;
+endTime:Date;
+status: boolean;
+serviceId:string;
+rating:number;
+reviewId:string;
 }
 
-const productSchema = new Schema<IProduct>({
+const appointmentSchema = new Schema<Appointment>({
     name: { type: String, required: true },
     price: { type: Number, required: true },
     description: { type: String, required: true },
@@ -16,6 +24,6 @@ const productSchema = new Schema<IProduct>({
     inStock: { type: Boolean, default: true }
 });
 
-const Product = model<IProduct>('Product', productSchema);
+const Appointment = model<Appointment>('Appointment', appointmentSchema);
 
-export default Product;
+export default Appointment;
