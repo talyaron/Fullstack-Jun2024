@@ -63,6 +63,8 @@ export async function login(req: any, res: any) {
     try {
         const { email, password } = req.body;
 
+        if (!email || !password) throw new Error("Please fill all fields");
+
         // Find user by email
         const user = await ClientModel.findOne({ email, password });
         if (!user) {
@@ -70,7 +72,7 @@ export async function login(req: any, res: any) {
         }
 
         //send cookie to client
-        res.cookie('user', user._id, { httpOnly: true, maxAge: 1000 * 60 * 15 });
+        res.cookie('user', user._id, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
 
         return res.status(200).send({ message: "Login successful" });
 
