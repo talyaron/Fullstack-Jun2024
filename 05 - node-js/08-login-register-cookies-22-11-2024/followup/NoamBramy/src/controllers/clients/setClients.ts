@@ -70,9 +70,10 @@ export async function login(req: any, res: any) {
         }
 
         //send cookie to client
-        res.cookie('userId', user._id);
-        res.cookie('email', email);
-        res.cookie('password', password);
+        res.cookie("userID", user._id, {httpOnly: true, maxAge: 1000 * 60 * 15})
+        res.cookie("userName", user.firstName, {httpOnly: true, maxAge: 1000 * 60 * 15})
+        res.cookie("userEmail", user.email, {httpOnly: true, maxAge: 1000 * 60 * 15})
+        res.cookie("userPhone", user.phone, {httpOnly: true, maxAge: 1000 * 60 * 15})
 
         return res.status(200).send({ message: "Login successful" });
 
