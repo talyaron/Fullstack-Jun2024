@@ -40,13 +40,13 @@ exports.editAppointment = exports.deleteAppointment = exports.getAppointmentById
 var appointmentModel_1 = require("../../model/appointment/appointmentModel");
 function addAppointment(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, client, admin, service, date, time, status, rating, review, result, error_1, duplicateField;
+        var _a, client, admin, service, date, endTime, startTime, status, rating, review, result, error_1, duplicateField;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
                     _b.trys.push([0, 2, , 3]);
-                    _a = req.body, client = _a.client, admin = _a.admin, service = _a.service, date = _a.date, time = _a.time, status = _a.status, rating = _a.rating, review = _a.review;
-                    if (!client || !service || !admin || !date || !time) {
+                    _a = req.body, client = _a.client, admin = _a.admin, service = _a.service, date = _a.date, endTime = _a.endTime, startTime = _a.startTime, status = _a.status, rating = _a.rating, review = _a.review;
+                    if (!client || !service || !admin || !date || !startTime || !endTime) {
                         return [2 /*return*/, res.status(400).send({ error: "Missing required fields." })];
                     }
                     return [4 /*yield*/, appointmentModel_1.AppointmentModel.create({
@@ -54,7 +54,8 @@ function addAppointment(req, res) {
                             admin: admin,
                             service: service,
                             date: date,
-                            time: time,
+                            startTime: startTime,
+                            endTime: endTime,
                             status: status,
                             rating: rating,
                             review: review
@@ -141,11 +142,11 @@ function deleteAppointment(req, res) {
 exports.deleteAppointment = deleteAppointment;
 function editAppointment(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, id, client, admin, service, date, time, status, rating, review, updatedAppointmentFields, updatedAppointment, error_4;
+        var _a, id, client, admin, service, date, startTime, endTime, status, rating, review, updatedAppointmentFields, updatedAppointment, error_4;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _a = req.body, id = _a.id, client = _a.client, admin = _a.admin, service = _a.service, date = _a.date, time = _a.time, status = _a.status, rating = _a.rating, review = _a.review;
+                    _a = req.body, id = _a.id, client = _a.client, admin = _a.admin, service = _a.service, date = _a.date, startTime = _a.startTime, endTime = _a.endTime, status = _a.status, rating = _a.rating, review = _a.review;
                     _b.label = 1;
                 case 1:
                     _b.trys.push([1, 3, , 4]);
@@ -159,8 +160,10 @@ function editAppointment(req, res) {
                         updatedAppointmentFields.service = service;
                     if (date !== undefined)
                         updatedAppointmentFields.date = date;
-                    if (time !== undefined)
-                        updatedAppointmentFields.time = time;
+                    if (startTime !== undefined)
+                        updatedAppointmentFields.startTime = startTime;
+                    if (endTime !== undefined)
+                        updatedAppointmentFields.startTime = endTime;
                     if (status !== undefined)
                         updatedAppointmentFields.status = status;
                     if (rating !== undefined)

@@ -47,7 +47,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 function handleAddAppointment(ev) {
     return __awaiter(this, void 0, Promise, function () {
-        var formData, client, admin, service, date, time, status, rating, review, response, data, err_1;
+        var formData, client, admin, service, date, startTime, endTime, status, rating, review, response, data, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -58,7 +58,8 @@ function handleAddAppointment(ev) {
                     admin = formData.get("admin");
                     service = formData.get("service");
                     date = formData.get("date");
-                    time = formData.get("time");
+                    startTime = formData.get("startTime");
+                    endTime = formData.get("endTime");
                     status = formData.get("status");
                     rating = formData.get("rating");
                     review = formData.get("review");
@@ -70,7 +71,8 @@ function handleAddAppointment(ev) {
                                 admin: admin,
                                 service: service,
                                 date: date,
-                                time: time,
+                                startTime: startTime,
+                                endTime: endTime,
                                 status: status,
                                 rating: rating,
                                 review: review
@@ -117,8 +119,8 @@ function fetchAllAppointments() {
                     appointments = _a.sent();
                     container = document.getElementById("appointment-list");
                     if (container) {
-                        container.innerHTML = "\n                <table>\n                    <thead>\n                        <tr>\n                            <th>Client</th>\n                            <th>Admin</th>\n                            <th>Service</th>\n                            <th>Date</th>\n                            <th>Time</th>\n                            <th>Status</th>\n                            <th>Rating</th>\n                            <th>Review</th>\n                            <th>Actions</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        " + appointments
-                            .map(function (appointment) { return "\n                                <tr id=\"appointment-" + appointment._id + "\">\n                                    <td id=\"client-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'client')\">" + appointment.client + "</td>\n                                    <td id=\"admin-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'admin')\">" + appointment.admin + "</td>\n                                    <td id=\"service-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'service')\">" + appointment.service + "</td>\n                                    <td id=\"date-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'date')\">" + appointment.date + "</td>\n                                    <td id=\"time-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'time')\">" + appointment.time + "</td>\n                                    <td id=\"status-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'status')\">" + appointment.status + "</td>\n                                    <td id=\"rating-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'rating')\">" + appointment.rating + "</td>\n                                    <td id=\"review-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'review')\">" + appointment.review + "</td>\n                                    <td>\n                                        <button class=\"delete-btn\" onclick=\"handleDeleteAppointment('" + appointment._id + "')\">Delete</button>\n                                        <button class=\"edit-btn\" onclick=\"handleEditField('" + appointment._id + "')\">Edit</button>\n                                    </td>\n                                </tr>\n                            "; })
+                        container.innerHTML = "\n                <table>\n                    <thead>\n                        <tr>\n                            <th>Client</th>\n                            <th>Admin</th>\n                            <th>Service</th>\n                            <th>Date</th>\n                            <th>Start Time</th>\n                            <th>End Time</th>\n                            <th>Status</th>\n                            <th>Rating</th>\n                            <th>Review</th>\n                            <th>Actions</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        " + appointments
+                            .map(function (appointment) { return "\n                                <tr id=\"appointment-" + appointment._id + "\">\n                                    <td id=\"client-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'client')\">" + appointment.client + "</td>\n                                    <td id=\"admin-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'admin')\">" + appointment.admin + "</td>\n                                    <td id=\"service-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'service')\">" + appointment.service + "</td>\n                                    <td id=\"date-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'date')\">" + appointment.date + "</td>\n                                    <td id=\"startTime-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'startTime')\">" + appointment.startTime + "</td>\n                                  <td id=\"endTime-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'endTime')\">" + appointment.endTime + "</td>\n                                    <td id=\"status-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'status')\">" + appointment.status + "</td>\n                                    <td id=\"rating-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'rating')\">" + appointment.rating + "</td>\n                                    <td id=\"review-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'review')\">" + appointment.review + "</td>\n                                    <td>\n                                        <button class=\"delete-btn\" onclick=\"handleDeleteAppointment('" + appointment._id + "')\">Delete</button>\n                                        <button class=\"edit-btn\" onclick=\"handleEditField('" + appointment._id + "')\">Edit</button>\n                                    </td>\n                                </tr>\n                            "; })
                             .join("") + "\n                    </tbody>\n                </table>\n            ";
                     }
                     return [3 /*break*/, 4];

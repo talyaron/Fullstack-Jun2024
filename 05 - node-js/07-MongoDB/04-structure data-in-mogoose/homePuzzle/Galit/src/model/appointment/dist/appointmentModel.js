@@ -13,8 +13,12 @@ exports.AppointmentSchema = new mongoose_1.Schema({
     },
     service: { type: String, required: true },
     date: { type: String, required: true },
-    time: {
-        type: String,
+    startTime: {
+        type: Number,
+        required: true
+    },
+    endTime: {
+        type: Number,
         required: true
     },
     status: {

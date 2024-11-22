@@ -7,7 +7,8 @@ async function handleAddAppointment(ev: any): Promise<void> {
         const admin = formData.get("admin") as string;
         const service = formData.get("service") as string;
         const date = formData.get("date") as string;
-        const time = formData.get("time") as string;
+        const startTime = formData.get("startTime") as string;
+        const endTime = formData.get("endTime") as string;
         const status = formData.get("status") as string;
         const rating = formData.get("rating") as string;
         const review = formData.get("review") as string;
@@ -20,7 +21,8 @@ async function handleAddAppointment(ev: any): Promise<void> {
                 admin,
                 service,
                 date,
-                time,
+                startTime,
+                endTime,
                 status,
                 rating,
                 review,
@@ -60,7 +62,8 @@ async function fetchAllAppointments(): Promise<void> {
                             <th>Admin</th>
                             <th>Service</th>
                             <th>Date</th>
-                            <th>Time</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
                             <th>Status</th>
                             <th>Rating</th>
                             <th>Review</th>
@@ -76,7 +79,8 @@ async function fetchAllAppointments(): Promise<void> {
                                     <td id="admin-${appointment._id}" onclick="handleEditField('${appointment._id}', 'admin')">${appointment.admin}</td>
                                     <td id="service-${appointment._id}" onclick="handleEditField('${appointment._id}', 'service')">${appointment.service}</td>
                                     <td id="date-${appointment._id}" onclick="handleEditField('${appointment._id}', 'date')">${appointment.date}</td>
-                                    <td id="time-${appointment._id}" onclick="handleEditField('${appointment._id}', 'time')">${appointment.time}</td>
+                                    <td id="startTime-${appointment._id}" onclick="handleEditField('${appointment._id}', 'startTime')">${appointment.startTime}</td>
+                                  <td id="endTime-${appointment._id}" onclick="handleEditField('${appointment._id}', 'endTime')">${appointment.endTime}</td>
                                     <td id="status-${appointment._id}" onclick="handleEditField('${appointment._id}', 'status')">${appointment.status}</td>
                                     <td id="rating-${appointment._id}" onclick="handleEditField('${appointment._id}', 'rating')">${appointment.rating}</td>
                                     <td id="review-${appointment._id}" onclick="handleEditField('${appointment._id}', 'review')">${appointment.review}</td>
