@@ -1,3 +1,3 @@
 # Relations between Collections
 ## Review
-  - [Summery Video](https://somup.com/cZXqFxJvXs)
+  - [Summary Video](https://somup.com/cZXqFxJvXs)

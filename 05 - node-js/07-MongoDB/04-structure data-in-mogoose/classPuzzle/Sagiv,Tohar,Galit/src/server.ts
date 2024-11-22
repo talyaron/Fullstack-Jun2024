@@ -31,7 +31,7 @@ mongoose.connect(`${dbUrl}/${database}`).then(()=>{
 app.use("/api/clients", clientsRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/comments", commentsRouter);
-app.use("api/orders", OrderRouter);
+app.use("/api/orders", OrderRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

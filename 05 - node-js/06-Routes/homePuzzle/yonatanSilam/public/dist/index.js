@@ -314,7 +314,6 @@ function handleDelete(id) {
         console.log("delete:", id);
         DeleteOnServer(id);
         renderAllPost();
-        //how to update the title in the server
     }
     catch (error) {
         console.error("Error:", error);

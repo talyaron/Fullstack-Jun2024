@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client App</title>
+    <link rel="stylesheet" href="./dist/service.css">
+    <script src="./dist/service.js" defer></script>
+</head>
+<body>
+    <div class="navbar">
+    <a class="admin" href="../admin/admin.html">Admin</a>
+    <a class="clients" href="../index.html">clients</a>
+    <a class="service" href="/">service</a>
+    <a class="appointment" href="../appointment/appointment.html">Appointment</a>
+    </div>
+    <h1> Service </h1>
+    <div class="container">
+    <form onsubmit="handleAddService(event)">
+        <input type="text" name="name" placeholder="name" required>
+        <input type="text" name="description" placeholder="description" required>
+        <input type="number" name="duration" placeholder="duration (minutes)" required>
+        <input type="number" name="price" placeholder="price" required>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="service-list"></div>
+    </div>
+</body>
+</html>
