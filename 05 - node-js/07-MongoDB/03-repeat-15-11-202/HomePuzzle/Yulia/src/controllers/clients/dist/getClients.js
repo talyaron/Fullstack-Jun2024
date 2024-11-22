@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.getClient = void 0;
+exports.getAllClients = exports.getClient = void 0;
 var clientModel_1 = require("../../models/clientModel");
 function getClient(req, res) {
     return __awaiter(this, void 0, void 0, function () {
@@ -65,3 +65,26 @@ function getClient(req, res) {
     });
 }
 exports.getClient = getClient;
+function getAllClients(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var clients, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, clientModel_1.ClientModel.find()];
+                case 1:
+                    clients = _a.sent();
+                    res.status(200).json(clients);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_2 = _a.sent();
+                    console.error("Error fetching all clients:", error_2);
+                    res.status(500).json({ message: "Failed to fetch all clients" });
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.getAllClients = getAllClients;
