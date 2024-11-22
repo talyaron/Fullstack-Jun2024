@@ -9,12 +9,9 @@ export const addAppointment = async (req: any, res: any) => {
         //     return res.status(400).json({ message: 'Please provide all required fields' });
         // }
 
-        const existingAppointment = await AppointmentModel.findOne({
-            serviceProvider,
-            date,
-            startTime,
-        });
-        if (existingAppointment) {
+        const _isSlotFree = await isSlotFree(startTime, endTime);
+        
+        if (_isSlotFree === false) {
             return res.status(400).json({ message: 'The service provider is not available at this time' });
         }
 
@@ -28,7 +25,7 @@ export const addAppointment = async (req: any, res: any) => {
             service,
             price,
         });
-        
+
 
         const savedAppointment = await newAppointment.save();
 
@@ -38,3 +35,15 @@ export const addAppointment = async (req: any, res: any) => {
         res.status(500).json({ message: 'Failed to create appointment' });
     }
 };
+
+
+export async function isSlotFree(startTime: number, endTime: number):Promise<boolean> {
+    try {
+        const appointments = await AppointmentModel.find({ startTime: { $lt: endTime }, endTime: { $gt: startTime } });
+        return appointments.length === 0;
+    } catch (error: any) {
+        console.log('Error creating appointment:', error.message);
+        return false;
+
+    }
+}

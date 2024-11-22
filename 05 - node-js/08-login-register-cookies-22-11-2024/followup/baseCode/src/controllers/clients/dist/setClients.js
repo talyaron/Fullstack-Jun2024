@@ -119,7 +119,6 @@ function login(req, res) {
                         return [2 /*return*/, res.status(400).send({ error: "Invalid email or password" })];
                     }
                     //send cookie to client
-                    res.cookie('user', user._id, { httpOnly: true, maxAge: 1000 * 60 * 15 });
                     return [2 /*return*/, res.status(200).send({ message: "Login successful" })];
                 case 2:
                     error_3 = _b.sent();

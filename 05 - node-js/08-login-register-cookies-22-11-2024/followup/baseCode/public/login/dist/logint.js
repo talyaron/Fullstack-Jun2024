@@ -34,9 +34,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-function handleRegister(ev) {
+function handleLogin(ev) {
     return __awaiter(this, void 0, Promise, function () {
-        var formData, firstName, lastName, email, password, phone, result, error_1;
+        var formData, password, email, result, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -45,33 +45,24 @@ function handleRegister(ev) {
                 case 1:
                     _a.trys.push([1, 3, , 4]);
                     formData = new FormData(ev.target);
-                    firstName = formData.get('firstName');
-                    lastName = formData.get('lastName');
-                    email = formData.get('email');
                     password = formData.get('password');
-                    phone = formData.get('phone');
-                    if (!firstName || !lastName || !email || !password || !phone) {
-                        alert('Please fill all fields');
-                        return [2 /*return*/];
-                    }
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/clients/register', {
+                    email = formData.get('email');
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/clients/login', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
                             },
-                            body: JSON.stringify({ firstName: firstName, lastName: lastName, email: email, password: password, phone: phone })
+                            body: JSON.stringify({ email: email, password: password })
                         })];
                 case 2:
                     result = _a.sent();
-                    if (result.ok) {
-                        alert('User registered successfully');
-                        window.location.href = '../login/login.html';
+                    if (result.status === 200) {
+                        window.location.href = '/products.html';
                     }
                     return [3 /*break*/, 4];
                 case 3:
                     error_1 = _a.sent();
-                    console.error('An error occurred during registration:', error_1);
-                    alert('An error occurred. Please try again.');
+                    console.error('An error occurred during login:', error_1);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }

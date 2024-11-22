@@ -36,23 +36,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.addAppointment = void 0;
+exports.isSlotFree = exports.addAppointment = void 0;
 var appointmentModel_1 = require("../../model/appointment/appointmentModel");
 exports.addAppointment = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, client, serviceProvider, date, startTime, endTime, status, service, price, existingAppointment, newAppointment, savedAppointment, error_1;
+    var _a, client, serviceProvider, date, startTime, endTime, status, service, price, _isSlotFree, newAppointment, savedAppointment, error_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _b.trys.push([0, 3, , 4]);
                 _a = req.body, client = _a.client, serviceProvider = _a.serviceProvider, date = _a.date, startTime = _a.startTime, endTime = _a.endTime, status = _a.status, service = _a.service, price = _a.price;
-                return [4 /*yield*/, appointmentModel_1.AppointmentModel.findOne({
-                        serviceProvider: serviceProvider,
-                        date: date,
-                        startTime: startTime
-                    })];
+                return [4 /*yield*/, isSlotFree(startTime, endTime)];
             case 1:
-                existingAppointment = _b.sent();
-                if (existingAppointment) {
+                _isSlotFree = _b.sent();
+                if (_isSlotFree === false) {
                     return [2 /*return*/, res.status(400).json({ message: 'The service provider is not available at this time' })];
                 }
                 newAppointment = new appointmentModel_1.AppointmentModel({
@@ -79,3 +75,24 @@ exports.addAppointment = function (req, res) { return __awaiter(void 0, void 0, 
         }
     });
 }); };
+function isSlotFree(startTime, endTime) {
+    return __awaiter(this, void 0, Promise, function () {
+        var appointments, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, appointmentModel_1.AppointmentModel.find({ startTime: { $lt: endTime }, endTime: { $gt: startTime } })];
+                case 1:
+                    appointments = _a.sent();
+                    return [2 /*return*/, appointments.length === 0];
+                case 2:
+                    error_2 = _a.sent();
+                    console.log('Error creating appointment:', error_2.message);
+                    return [2 /*return*/, false];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.isSlotFree = isSlotFree;

@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,47 +35,31 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-function handleRegister(ev) {
-    return __awaiter(this, void 0, Promise, function () {
-        var formData, firstName, lastName, email, password, phone, result, error_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    ev.preventDefault();
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 3, , 4]);
-                    formData = new FormData(ev.target);
-                    firstName = formData.get('firstName');
-                    lastName = formData.get('lastName');
-                    email = formData.get('email');
-                    password = formData.get('password');
-                    phone = formData.get('phone');
-                    if (!firstName || !lastName || !email || !password || !phone) {
-                        alert('Please fill all fields');
-                        return [2 /*return*/];
-                    }
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/clients/register', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ firstName: firstName, lastName: lastName, email: email, password: password, phone: phone })
-                        })];
-                case 2:
-                    result = _a.sent();
-                    if (result.ok) {
-                        alert('User registered successfully');
-                        window.location.href = '../login/login.html';
-                    }
-                    return [3 /*break*/, 4];
-                case 3:
-                    error_1 = _a.sent();
-                    console.error('An error occurred during registration:', error_1);
-                    alert('An error occurred. Please try again.');
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
-            }
-        });
+exports.__esModule = true;
+exports.setProduct = void 0;
+var productModel_1 = require("../../model/products/productModel");
+exports.setProduct = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, name, price, description, newProduct, savedProduct, error_1;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _b.trys.push([0, 2, , 3]);
+                _a = req.body, name = _a.name, price = _a.price, description = _a.description;
+                newProduct = new productModel_1["default"]({
+                    name: name,
+                    price: price,
+                    description: description
+                });
+                return [4 /*yield*/, newProduct.save()];
+            case 1:
+                savedProduct = _b.sent();
+                res.status(201).json(savedProduct);
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _b.sent();
+                res.status(500).json({ message: 'Error saving product', error: error_1 });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
     });
-}
+}); };
