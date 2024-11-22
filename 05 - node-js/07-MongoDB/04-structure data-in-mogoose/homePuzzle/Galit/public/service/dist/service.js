@@ -45,15 +45,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var _this = this;
 function handleAddService(ev) {
     return __awaiter(this, void 0, Promise, function () {
-        var formData, name, description, duration, price, response, data, err_1;
+        var formData, admin, name, description, duration, price, response, data, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 6, , 7]);
                     ev.preventDefault();
                     formData = new FormData(ev.target);
+                    admin = formData.get("admin");
                     name = formData.get("name");
                     description = formData.get("description");
                     duration = parseInt(formData.get("duration"), 10);
@@ -61,7 +63,7 @@ function handleAddService(ev) {
                     return [4 /*yield*/, fetch("/api/services/add-service", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ name: name, description: description, duration: duration, price: price })
+                            body: JSON.stringify({ admin: admin, name: name, description: description, duration: duration, price: price })
                         })];
                 case 1:
                     response = _a.sent();
@@ -104,8 +106,8 @@ function fetchAllServices() {
                     services = _a.sent();
                     container = document.getElementById("service-list");
                     if (container) {
-                        container.innerHTML = "\n                <table>\n                    <thead>\n                        <tr>\n                            <th>Name</th>\n                            <th>Description</th>\n                            <th>Duration</th>\n                            <th>Price</th>\n                            <th>Actions</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        " + services
-                            .map(function (service) { return "\n                                <tr id=\"service-" + service._id + "\">\n                                    <td id=\"name-" + service._id + "\" onclick=\"handleEditServiceField('" + service._id + "', 'name')\">" + service.name + "</td>\n                                    <td id=\"description-" + service._id + "\" onclick=\"handleEditServiceField('" + service._id + "', 'description')\">" + service.description + "</td>\n                                    <td id=\"duration-" + service._id + "\" onclick=\"handleEditServiceField('" + service._id + "', 'duration')\">" + service.duration + "</td>\n                                    <td id=\"price-" + service._id + "\" onclick=\"handleEditServiceField('" + service._id + "', 'price')\">" + service.price + "</td>\n                                    <td>\n                                        <button class=\"delete-btn\" onclick=\"handleDeleteService('" + service._id + "')\">Delete</button>\n                                       <button class=\"edit-btn\" onclick=\"handleEditService('" + service._id + "')\">Edit</button>\n\n                                    </td>\n                                </tr>\n                            "; })
+                        container.innerHTML = "\n                <table>\n                    <thead>\n                        <tr>\n                           <th>service provider</th>\n                            <th>Name</th>\n                            <th>Description</th>\n                            <th>Duration</th>\n                            <th>Price</th>\n                            <th>Actions</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        " + services
+                            .map(function (service) { return "\n                                <tr id=\"service-" + service._id + "\">\n                                  <td id=\"admin-" + service._id + "\" onclick=\"handleEditServiceField('" + service._id + "', 'name')\">\n                                     " + (service.admin ? service.admin.AdminFirstName + " " + service.admin.AdminLastName : 'Unknown Admin') + "</td>                              \n                                   <td id=\"name-" + service._id + "\" onclick=\"handleEditServiceField('" + service._id + "', 'name')\">" + service.name + "</td>\n                                    <td id=\"description-" + service._id + "\" onclick=\"handleEditServiceField('" + service._id + "', 'description')\">" + service.description + "</td>\n                                    <td id=\"duration-" + service._id + "\" onclick=\"handleEditServiceField('" + service._id + "', 'duration')\">" + service.duration + "</td>\n                                    <td id=\"price-" + service._id + "\" onclick=\"handleEditServiceField('" + service._id + "', 'price')\">" + service.price + "</td>\n                                    <td>\n                                        <button class=\"delete-btn\" onclick=\"handleDeleteService('" + service._id + "')\">Delete</button>\n                                       <button class=\"edit-btn\" onclick=\"handleEditService('" + service._id + "')\">Edit</button>\n\n                                    </td>\n                                </tr>\n                            "; })
                             .join("") + "\n                    </tbody>\n                </table>\n            ";
                     }
                     return [3 /*break*/, 4];
@@ -211,6 +213,45 @@ function handleDeleteService(id) {
         });
     });
 }
-window.onload = function () {
-    fetchAllServices();
-};
+function serviceDropdowns() {
+    return __awaiter(this, void 0, Promise, function () {
+        var adminsResponse, admins, adminSelect_1, error_4;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, fetch('/api/admins')];
+                case 1:
+                    adminsResponse = _a.sent();
+                    return [4 /*yield*/, adminsResponse.json()];
+                case 2:
+                    admins = _a.sent();
+                    adminSelect_1 = document.getElementById('admin');
+                    admins.forEach(function (admin) {
+                        var option = document.createElement('option');
+                        option.value = admin._id;
+                        option.textContent = admin.AdminFirstName + " " + admin.AdminLastName;
+                        adminSelect_1.appendChild(option);
+                    });
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_4 = _a.sent();
+                    console.error("Error fetching admins:", error_4);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+window.onload = function () { return __awaiter(_this, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                fetchAllServices();
+                return [4 /*yield*/, serviceDropdowns()];
+            case 1:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); };

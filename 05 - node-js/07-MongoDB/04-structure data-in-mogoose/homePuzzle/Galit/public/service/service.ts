@@ -3,6 +3,7 @@ async function handleAddService(ev: any): Promise<void> {
         ev.preventDefault();
 
         const formData = new FormData(ev.target);
+        const admin = formData.get("admin") as string;
         const name = formData.get("name") as string;
         const description = formData.get("description") as string;
         const duration = parseInt(formData.get("duration") as string, 10);
@@ -11,7 +12,7 @@ async function handleAddService(ev: any): Promise<void> {
         const response = await fetch("/api/services/add-service", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, description, duration, price }),
+            body: JSON.stringify({ admin, name, description, duration, price }),
         });
 
         if (response.ok) {
@@ -42,6 +43,7 @@ async function fetchAllServices(): Promise<void> {
                 <table>
                     <thead>
                         <tr>
+                           <th>service provider</th>
                             <th>Name</th>
                             <th>Description</th>
                             <th>Duration</th>
@@ -54,7 +56,9 @@ async function fetchAllServices(): Promise<void> {
                             .map(
                                 (service: any) => `
                                 <tr id="service-${service._id}">
-                                    <td id="name-${service._id}" onclick="handleEditServiceField('${service._id}', 'name')">${service.name}</td>
+                                  <td id="admin-${service._id}" onclick="handleEditServiceField('${service._id}', 'name')">
+                                     ${service.admin ? `${service.admin.AdminFirstName} ${service.admin.AdminLastName}` : 'Unknown Admin'}</td>                              
+                                   <td id="name-${service._id}" onclick="handleEditServiceField('${service._id}', 'name')">${service.name}</td>
                                     <td id="description-${service._id}" onclick="handleEditServiceField('${service._id}', 'description')">${service.description}</td>
                                     <td id="duration-${service._id}" onclick="handleEditServiceField('${service._id}', 'duration')">${service.duration}</td>
                                     <td id="price-${service._id}" onclick="handleEditServiceField('${service._id}', 'price')">${service.price}</td>
@@ -141,6 +145,23 @@ async function handleDeleteService(id: string): Promise<void> {
     }
 }
 
-window.onload = () => {
+async function serviceDropdowns(): Promise<void> {
+    try {
+        const adminsResponse = await fetch('/api/admins');
+        const admins = await adminsResponse.json();
+        const adminSelect = document.getElementById('admin') as HTMLSelectElement;
+
+        admins.forEach((admin: any) => {
+            const option = document.createElement('option');
+            option.value = admin._id; 
+            option.textContent = `${admin.AdminFirstName} ${admin.AdminLastName}`;
+            adminSelect.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error fetching admins:", error);
+    }
+}
+window.onload = async () => {
     fetchAllServices();
+    await serviceDropdowns(); 
 };

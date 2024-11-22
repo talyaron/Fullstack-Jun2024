@@ -5,7 +5,8 @@ export interface Appointment extends Document {
   admin: string;
   service: string;
   date: Date;
-  time: string;
+  startTime: string;
+  endTime: string;
   status: string;
   rating: string;
   review: string;
@@ -22,8 +23,12 @@ export const AppointmentSchema = new Schema({
   },
   service: { type: String, required: true },
   date: { type: String, required: true },
-  time: {
-    type: String,
+  startTime: {
+    type: Number,
+    required: true,
+  },
+  endTime: {
+    type: Number,
     required: true,
   },
   status: {

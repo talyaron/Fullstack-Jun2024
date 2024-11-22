@@ -1,17 +1,19 @@
 import { AppointmentModel } from "../../model/appointment/appointmentModel";
 
+
 export async function addAppointment(req: any, res: any) {
     try {
         const {  client,
             admin,
             service,
             date,
-            time,
+            endTime,
+            startTime,
             status,
             rating,
             review,} = req.body;
 
-        if (!client || !service || !admin || !date || !time || !time) {
+        if (!client || !service || !admin || !date || !startTime || !endTime) {
             return res.status(400).send({ error: "Missing required fields." });
         }
 
@@ -20,7 +22,8 @@ export async function addAppointment(req: any, res: any) {
                 admin,
                 service,
                 date,
-                time,
+                startTime,
+                endTime,
                 status,
                 rating,
                 review,
@@ -84,7 +87,7 @@ export async function deleteAppointment(req: any, res: any) {
 }
 
 export async function editAppointment(req: any, res: any) {
-    const { id,client, admin, service, date, time, status, rating, review,} = req.body;
+    const { id,client, admin, service, date, startTime, endTime, status, rating, review,} = req.body;
 
     try {
         console.log(`Editing appointment with id: ${id}`);
@@ -93,7 +96,8 @@ export async function editAppointment(req: any, res: any) {
             admin: string;
             service: string;
             date: string;
-            time: string;
+            startTime: string;
+            endTime: number;
             status: string;
             rating: number;
             review: string; }> = {};
@@ -101,7 +105,8 @@ export async function editAppointment(req: any, res: any) {
             if (admin !== undefined) updatedAppointmentFields.admin = admin;
             if (service !== undefined) updatedAppointmentFields.service = service;
             if (date !== undefined) updatedAppointmentFields.date = date;
-            if (time !== undefined) updatedAppointmentFields.time = time;
+            if (startTime !== undefined) updatedAppointmentFields.startTime = startTime;
+            if (endTime !== undefined) updatedAppointmentFields.startTime = endTime;
             if (status !== undefined) updatedAppointmentFields.status = status;
             if (rating !== undefined) updatedAppointmentFields.rating = rating;
             if (review !== undefined) updatedAppointmentFields.review = review;
@@ -121,4 +126,5 @@ export async function editAppointment(req: any, res: any) {
         res.status(500).json({ error: "Internal server error" });
     }
 }
+
 

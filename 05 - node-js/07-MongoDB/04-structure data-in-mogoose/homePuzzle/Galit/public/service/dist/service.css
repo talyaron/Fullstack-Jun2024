@@ -63,7 +63,7 @@ form input[type=text], form input[type=email], form input[type=tel], form input[
 }
 
 form button {
-  background-color: #af4c6f;
+  background-color: #8b4caf;
   color: white;
   font-size: 16px;
   cursor: pointer;
@@ -94,7 +94,7 @@ table th, table td {
 }
 
 table th {
-  background-color: #af4c6f;
+  background-color: #8b4caf;
   color: white;
   font-weight: bold;
 }
@@ -108,7 +108,7 @@ table tr:hover {
 }
 
 .delete-btn, .edit-btn {
-  background-color: #af4c6f;
+  background-color: #8b4caf;
   color: white;
   padding: 1vh;
   border-radius: 15px;

@@ -1,7 +1,9 @@
 import {Schema, model} from 'mongoose'
+import { Admin } from '../admins/AdminModel';
 
 
 export interface Service extends Document {
+    admin: Admin | string; 
     name: string;
     description: string;
     duration: string;
@@ -9,6 +11,11 @@ export interface Service extends Document {
 }
 
 export const ServiceSchema = new Schema({
+    admin: {
+        type: Schema.Types.ObjectId,
+        ref: 'Admin',
+        required: true,
+    },
     name:{
 type: String,
 required: true
@@ -17,10 +24,10 @@ required: true
         type: String,
         required: true
     },
-    duration: {type:String,
+    duration: {type:Number,
         required: true
     },
-    price: {type:String,
+    price: {type:Number,
         required: true
     },
 })

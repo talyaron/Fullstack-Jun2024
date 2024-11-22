@@ -1,5 +1,5 @@
 import express from "express";
-import { addService, getServiceById, editService, deleteService  } from "../controllers/service/setService";
+import { addService, getServiceById, editService, deleteService } from "../controllers/service/setService";
 import { ServiceModel } from "../model/service/serviceModel";
 
 const router = express.Router();
@@ -15,10 +15,10 @@ router.get("/", async (req: any, res: any) => {
         if (!services || services.length === 0) {
             return res.status(404).send({ error: "No services found" });
         }
-        res.status(200).send(services);
+        return res.status(200).send(services);
     } catch (error) {
         console.error(error);
-        res.status(500).send({ error: "Server error" });
+        return res.status(500).send({ error: "Server error" });
     }
 });
 

@@ -36,20 +36,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.editService = exports.deleteService = exports.getServiceById = exports.addService = void 0;
+exports.editService = exports.deleteService = exports.getAllServices = exports.getServiceById = exports.addService = void 0;
 var serviceModel_1 = require("../../model/service/serviceModel");
 function addService(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, name, description, duration, price, result, error_1, duplicateField;
+        var _a, admin, name, description, duration, price, result, error_1, duplicateField;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
                     _b.trys.push([0, 2, , 3]);
-                    _a = req.body, name = _a.name, description = _a.description, duration = _a.duration, price = _a.price;
-                    if (!name || !description || !duration || !price) {
+                    _a = req.body, admin = _a.admin, name = _a.name, description = _a.description, duration = _a.duration, price = _a.price;
+                    if (!admin || !name || !description || !duration || !price) {
                         return [2 /*return*/, res.status(400).send({ error: "Missing required fields." })];
                     }
                     return [4 /*yield*/, serviceModel_1.ServiceModel.create({
+                            admin: admin,
                             name: name,
                             description: description,
                             duration: duration,
@@ -58,12 +59,12 @@ function addService(req, res) {
                 case 1:
                     result = _b.sent();
                     if (!result) {
-                        return [2 /*return*/, res.status(400).send({ error: "Failed to create admin." })];
+                        return [2 /*return*/, res.status(400).send({ error: "Failed to create service." })];
                     }
-                    return [2 /*return*/, res.status(201).send({ message: "Admin added successfully", admin: result })];
+                    return [2 /*return*/, res.status(201).send({ message: "Service added successfully", service: result })];
                 case 2:
                     error_1 = _b.sent();
-                    console.error("Error in addAdmin:", error_1);
+                    console.error("Error in addService:", error_1);
                     if (error_1.code === 11000) {
                         duplicateField = Object.keys(error_1.keyValue)[0];
                         return [2 /*return*/, res.status(400).send({ error: duplicateField + " already exists." })];
@@ -83,7 +84,7 @@ function getServiceById(req, res) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     id = req.params.id;
-                    return [4 /*yield*/, serviceModel_1.ServiceModel.findById(id)];
+                    return [4 /*yield*/, serviceModel_1.ServiceModel.findById(id).populate('admin')];
                 case 1:
                     Service = _a.sent();
                     if (!Service) {
@@ -100,9 +101,36 @@ function getServiceById(req, res) {
     });
 }
 exports.getServiceById = getServiceById;
+function getAllServices(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var services, error_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, serviceModel_1.ServiceModel.find()
+                            .populate('admin', 'AdminFirstName AdminLastName')];
+                case 1:
+                    services = _a.sent();
+                    if (!services || services.length === 0) {
+                        return [2 /*return*/, res.status(404).send({ error: "No services found" })];
+                    }
+                    res.status(200).json(services);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_3 = _a.sent();
+                    console.error(error_3);
+                    res.status(500).send({ error: "Server error" });
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.getAllServices = getAllServices;
 function deleteService(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var id, Service, error_3;
+        var id, service, error_4;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -113,22 +141,20 @@ function deleteService(req, res) {
                     console.log("Deleting service with id: " + id);
                     return [4 /*yield*/, serviceModel_1.ServiceModel.findById(id)];
                 case 2:
-                    Service = _a.sent();
-                    if (!Service) {
+                    service = _a.sent();
+                    if (!service) {
                         console.log("Service with id " + id + " not found");
-                        return [2 /*return*/, res.status(401).json({ error: "Service not found" })];
+                        return [2 /*return*/, res.status(404).json({ error: "Service not found" })];
                     }
                     return [4 /*yield*/, serviceModel_1.ServiceModel.findByIdAndDelete(id)];
                 case 3:
                     _a.sent();
                     console.log("Service with id " + id + " deleted");
-                    res.status(200).json({ message: "Service deleted successfully" });
-                    return [3 /*break*/, 5];
+                    return [2 /*return*/, res.status(200).json({ message: "Service deleted successfully" })];
                 case 4:
-                    error_3 = _a.sent();
-                    console.error('Error deleting service:', error_3);
-                    res.status(500).json({ error: "Internal server error" });
-                    return [3 /*break*/, 5];
+                    error_4 = _a.sent();
+                    console.error('Error deleting service:', error_4);
+                    return [2 /*return*/, res.status(500).json({ error: "Internal server error" })];
                 case 5: return [2 /*return*/];
             }
         });
@@ -137,16 +163,18 @@ function deleteService(req, res) {
 exports.deleteService = deleteService;
 function editService(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, id, name, description, duration, price, updatedServiceFields, updatedService, error_4;
+        var _a, id, admin, name, description, duration, price, updatedServiceFields, updatedService, error_5;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _a = req.body, id = _a.id, name = _a.name, description = _a.description, duration = _a.duration, price = _a.price;
+                    _a = req.body, id = _a.id, admin = _a.admin, name = _a.name, description = _a.description, duration = _a.duration, price = _a.price;
                     _b.label = 1;
                 case 1:
                     _b.trys.push([1, 3, , 4]);
                     console.log("Editing service with id: " + id);
                     updatedServiceFields = {};
+                    if (admin !== undefined)
+                        updatedServiceFields.admin = admin;
                     if (name !== undefined)
                         updatedServiceFields.name = name;
                     if (description !== undefined)
@@ -163,13 +191,11 @@ function editService(req, res) {
                         return [2 /*return*/, res.status(404).json({ error: "Service not found" })];
                     }
                     console.log("Service with id " + id + " updated");
-                    res.status(200).json({ message: "Service updated successfully", Service: updatedService });
-                    return [3 /*break*/, 4];
+                    return [2 /*return*/, res.status(200).json({ message: "Service updated successfully", service: updatedService })];
                 case 3:
-                    error_4 = _b.sent();
-                    console.error('Error updating service:', error_4);
-                    res.status(500).json({ error: "Internal server error" });
-                    return [3 /*break*/, 4];
+                    error_5 = _b.sent();
+                    console.error('Error updating service:', error_5);
+                    return [2 /*return*/, res.status(500).json({ error: "Internal server error" })];
                 case 4: return [2 /*return*/];
             }
         });

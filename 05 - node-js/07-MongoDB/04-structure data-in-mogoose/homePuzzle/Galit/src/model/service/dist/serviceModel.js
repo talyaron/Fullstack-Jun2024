@@ -3,6 +3,11 @@ exports.__esModule = true;
 exports.ServiceModel = exports.ServiceSchema = void 0;
 var mongoose_1 = require("mongoose");
 exports.ServiceSchema = new mongoose_1.Schema({
+    admin: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: 'Admin',
+        required: true
+    },
     name: {
         type: String,
         required: true
@@ -11,10 +16,10 @@ exports.ServiceSchema = new mongoose_1.Schema({
         type: String,
         required: true
     },
-    duration: { type: String,
+    duration: { type: Number,
         required: true
     },
-    price: { type: String,
+    price: { type: Number,
         required: true
     }
 });
