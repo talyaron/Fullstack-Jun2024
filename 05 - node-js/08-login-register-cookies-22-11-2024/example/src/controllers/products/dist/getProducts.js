@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,38 +35,41 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-function handleLogin(ev) {
-    return __awaiter(this, void 0, Promise, function () {
-        var formData, password, email, result, error_1;
+exports.__esModule = true;
+exports.getProducts = exports.getMyProducts = void 0;
+var productModel_1 = require("../../model/products/productModel");
+function getMyProducts(req, res) {
+    try {
+        var user = req.cookies.user;
+        console.log(user);
+        res.json({ message: "Get all products", useId: user });
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Internal server error " + error.message + " " });
+    }
+}
+exports.getMyProducts = getMyProducts;
+function getProducts(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var products, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    ev.preventDefault();
-                    _a.label = 1;
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, productModel_1["default"].find()];
                 case 1:
-                    _a.trys.push([1, 3, , 4]);
-                    formData = new FormData(ev.target);
-                    password = formData.get('password');
-                    email = formData.get('email');
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/clients/login', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ email: email, password: password })
-                        })];
+                    products = _a.sent();
+                    res.status(200).send({ products: products });
+                    return [3 /*break*/, 3];
                 case 2:
-                    result = _a.sent();
-                    if (result.status === 200) {
-                        window.location.href = '../store/store.html';
-                    }
-                    return [3 /*break*/, 4];
-                case 3:
                     error_1 = _a.sent();
-                    console.error('An error occurred during login:', error_1);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    console.log(error_1);
+                    res.status(500).json({ message: "Internal server error " + error_1.message + " " });
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
         });
     });
 }
+exports.getProducts = getProducts;

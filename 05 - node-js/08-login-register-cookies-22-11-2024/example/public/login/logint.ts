@@ -14,7 +14,7 @@ async function handleLogin(ev:any): Promise<void> {
             body: JSON.stringify({ email, password })
         });
         if(result.status === 200){
-            window.location.href = '/products.html';
+            window.location.href = '../store/store.html';
         }
 
       
