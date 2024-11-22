@@ -1,3 +1,14 @@
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -69,7 +80,6 @@ function handleAddClient(event) {
                     return [4 /*yield*/, response.json()];
                 case 2:
                     clientData = _a.sent();
-                    console.log(clientData);
                     renderClientDetails(clientData);
                     form.reset();
                     _a.label = 3;
@@ -84,9 +94,157 @@ function handleAddClient(event) {
     });
 }
 function renderClientDetails(client) {
-    var clientDetails = document.getElementById("clientDetails");
+    var clientsContainer = document.getElementById("clients");
+    // Create ClientCard container
     var clientCard = document.createElement("div");
-    clientCard.className = "client-details__card";
-    clientCard.innerHTML = "\n      <p><strong>First Name:</strong> " + client.firstName + "</p>\n      <p><strong>Last Name:</strong> " + client.lastName + "</p>\n      <p><strong>Email:</strong> " + client.email + "</p>\n      <p><strong>Phone:</strong> " + client.phone + "</p>\n      <p><strong>Year of Birth:</strong> " + client.yearOfBirth + "</p>\n    ";
-    clientDetails.appendChild(clientCard);
+    clientCard.className = "clients__client-card";
+    // Create ClientDetails
+    var clientDetails = document.createElement("div");
+    clientDetails.className = "client-card__details";
+    clientDetails.innerHTML = "\n      <p><span class=\"client-card__label\">First Name:</span> <span class=\"client-card__value\">" + client.firstName + "</span></p>\n      <p><span class=\"client-card__label\">Last Name:</span> <span class=\"client-card__value\">" + client.lastName + "</span></p>\n      <p><span class=\"client-card__label\">Email:</span> <span class=\"client-card__value\">" + client.email + "</span></p>\n      <p><span class=\"client-card__label\">Phone:</span> <span class=\"client-card__value\">" + client.phone + "</span></p>\n      <p><span class=\"client-card__label\">Year of Birth:</span> <span class=\"client-card__value\">" + client.yearOfBirth + "</span></p>\n  ";
+    // Create Buttons
+    var buttonsContainer = document.createElement("div");
+    buttonsContainer.className = "client-card__buttons";
+    var updateButton = document.createElement("button");
+    updateButton.className = "client-card__button client-card__button--update";
+    updateButton.textContent = "Update";
+    updateButton.addEventListener("click", function () {
+        return handleUpdateClient(client, clientCard);
+    });
+    var deleteButton = document.createElement("button");
+    deleteButton.className = "client-card__button client-card__button--delete";
+    deleteButton.textContent = "Delete";
+    deleteButton.addEventListener("click", function () {
+        return handleDeleteClient(client._id, clientCard);
+    });
+    buttonsContainer.append(updateButton, deleteButton);
+    // Append everything to the card
+    clientCard.append(clientDetails, buttonsContainer);
+    // Add card to clients container
+    clientsContainer.appendChild(clientCard);
 }
+function handleDeleteClient(clientId, clientCard) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, _a, _b, _c, error_2;
+        return __generator(this, function (_d) {
+            switch (_d.label) {
+                case 0:
+                    _d.trys.push([0, 5, , 6]);
+                    return [4 /*yield*/, fetch("/api/clients/delete-client", {
+                            method: "DELETE",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({ _id: clientId })
+                        })];
+                case 1:
+                    response = _d.sent();
+                    if (!response.ok) return [3 /*break*/, 2];
+                    console.log("Client with ID " + clientId + " deleted successfully.");
+                    clientCard.remove(); // delete the card from the DOM
+                    return [3 /*break*/, 4];
+                case 2:
+                    _b = (_a = console).error;
+                    _c = ["Failed to delete client with ID " + clientId + ":"];
+                    return [4 /*yield*/, response.text()];
+                case 3:
+                    _b.apply(_a, _c.concat([_d.sent()]));
+                    _d.label = 4;
+                case 4: return [3 /*break*/, 6];
+                case 5:
+                    error_2 = _d.sent();
+                    console.error("Error deleting client:", error_2);
+                    return [3 /*break*/, 6];
+                case 6: return [2 /*return*/];
+            }
+        });
+    });
+}
+function loadAllClients() {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, clients, _a, _b, _c, error_3;
+        return __generator(this, function (_d) {
+            switch (_d.label) {
+                case 0:
+                    _d.trys.push([0, 6, , 7]);
+                    return [4 /*yield*/, fetch("/api/clients/get-all-clients", {
+                            method: "GET"
+                        })];
+                case 1:
+                    response = _d.sent();
+                    if (!response.ok) return [3 /*break*/, 3];
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    clients = _d.sent();
+                    clients.forEach(function (client) { return renderClientDetails(client); }); // render each client from the database to the DOM 
+                    return [3 /*break*/, 5];
+                case 3:
+                    _b = (_a = console).error;
+                    _c = ["Failed to fetch all clients:"];
+                    return [4 /*yield*/, response.text()];
+                case 4:
+                    _b.apply(_a, _c.concat([_d.sent()]));
+                    _d.label = 5;
+                case 5: return [3 /*break*/, 7];
+                case 6:
+                    error_3 = _d.sent();
+                    console.error("Error loading all clients:", error_3);
+                    return [3 /*break*/, 7];
+                case 7: return [2 /*return*/];
+            }
+        });
+    });
+}
+function handleUpdateClient(client, clientCard) {
+    return __awaiter(this, void 0, void 0, function () {
+        var clientDetails, saveButton, buttonsContainer;
+        var _this = this;
+        return __generator(this, function (_a) {
+            clientDetails = clientCard.querySelector(".client-card__details");
+            // change the client details to input fields
+            clientDetails.innerHTML = "\n    <label class=\"client-card__label\">First Name: \n      <input type=\"text\" name=\"firstName\" value=\"" + client.firstName + "\" class=\"client-card__input\" />\n    </label>\n    <label class=\"client-card__label\">Last Name: \n      <input type=\"text\" name=\"lastName\" value=\"" + client.lastName + "\" class=\"client-card__input\" />\n    </label>\n    <label class=\"client-card__label\">Email: \n      <input type=\"email\" name=\"email\" value=\"" + client.email + "\" class=\"client-card__input\" />\n    </label>\n    <label class=\"client-card__label\">Phone: \n      <input type=\"tel\" name=\"phone\" value=\"" + client.phone + "\" class=\"client-card__input\" />\n    </label>\n    <p class=\"client-card__label\">Year of Birth: \n      <span class=\"client-card__value\">" + client.yearOfBirth + "</span>\n    </p>\n  ";
+            saveButton = document.createElement("button");
+            saveButton.className = "client-card__button client-card__button--save";
+            saveButton.textContent = "Save";
+            // add event listener to the save button
+            saveButton.addEventListener("click", function () { return __awaiter(_this, void 0, void 0, function () {
+                var updatedClient, response, _a, _b, _c;
+                var _d, _e, _f, _g;
+                return __generator(this, function (_h) {
+                    switch (_h.label) {
+                        case 0:
+                            updatedClient = __assign(__assign({}, client), { firstName: ((_d = clientDetails.querySelector("input[name='firstName']")) === null || _d === void 0 ? void 0 : _d.value) || client.firstName, lastName: ((_e = clientDetails.querySelector("input[name='lastName']")) === null || _e === void 0 ? void 0 : _e.value) || client.lastName, email: ((_f = clientDetails.querySelector("input[name='email']")) === null || _f === void 0 ? void 0 : _f.value) || client.email, phone: ((_g = clientDetails.querySelector("input[name='phone']")) === null || _g === void 0 ? void 0 : _g.value) || client.phone });
+                            return [4 /*yield*/, fetch("/api/clients/update-client/" + client._id, {
+                                    method: "PATCH",
+                                    headers: { "Content-Type": "application/json" },
+                                    body: JSON.stringify(updatedClient)
+                                })];
+                        case 1:
+                            response = _h.sent();
+                            if (!response.ok) return [3 /*break*/, 2];
+                            console.log("Client with ID " + client._id + " updated successfully.");
+                            // update the client details in the DOM
+                            clientDetails.innerHTML = "\n        <p class=\"client-card__label\">First Name: \n          <span class=\"client-card__value\">" + updatedClient.firstName + "</span>\n        </p>\n        <p class=\"client-card__label\">Last Name: \n          <span class=\"client-card__value\">" + updatedClient.lastName + "</span>\n        </p>\n        <p class=\"client-card__label\">Email: \n          <span class=\"client-card__value\">" + updatedClient.email + "</span>\n        </p>\n        <p class=\"client-card__label\">Phone: \n          <span class=\"client-card__value\">" + updatedClient.phone + "</span>\n        </p>\n        <p class=\"client-card__label\">Year of Birth: \n          <span class=\"client-card__value\">" + client.yearOfBirth + "</span>\n        </p>\n      ";
+                            // remove the save button
+                            saveButton.remove();
+                            return [3 /*break*/, 4];
+                        case 2:
+                            _b = (_a = console).error;
+                            _c = ["Failed to update client:"];
+                            return [4 /*yield*/, response.text()];
+                        case 3:
+                            _b.apply(_a, _c.concat([_h.sent()]));
+                            _h.label = 4;
+                        case 4: return [2 /*return*/];
+                    }
+                });
+            }); });
+            buttonsContainer = clientCard.querySelector(".client-card__buttons");
+            buttonsContainer.appendChild(saveButton);
+            return [2 /*return*/];
+        });
+    });
+}
+document.addEventListener("DOMContentLoaded", function () {
+    loadAllClients(); // load all clients when the page loads
+});

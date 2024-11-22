@@ -10,7 +10,7 @@ app.use(express_1["default"].static("public"));
 app.get("/", function (req, res) {
     res.send("Hello World!");
 });
-var dbURI = "mongodb+srv://ukaganovich:womyhuZG0NZi4NWc@cluster0.gl27q.mongodb.net";
+var dbURI = "mongodb+srv://Yulia:1XZsJjMngOQqqtTF@cluster0.gl27q.mongodb.net";
 var database = "clients";
 mongoose_1["default"]
     .connect(dbURI + "/" + database)

@@ -11,7 +11,7 @@ app.get("/", (req, res) => {
 });
 
 const dbURI =
-  "mongodb+srv://ukaganovich:womyhuZG0NZi4NWc@cluster0.gl27q.mongodb.net";
+  "mongodb+srv://Yulia:1XZsJjMngOQqqtTF@cluster0.gl27q.mongodb.net";
 const database = "clients";
 mongoose
   .connect(`${dbURI}/${database}`)

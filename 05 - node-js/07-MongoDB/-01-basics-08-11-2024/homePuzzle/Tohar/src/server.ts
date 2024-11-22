@@ -18,11 +18,11 @@ app.listen(port, () => {
 });
 
 
-const dbUrl = "mongodb+srv://toharkenin:SGPMKViHdfAEDEY1@cluster0.bbpiv.mongodb.net"
+// const dbUrl = "mongodb+srv://toharkenin:SGPMKViHdfAEDEY1@cluster0.bbpiv.mongodb.net"
 const database = 'social-media';
 
-mongoose.connect(`${dbUrl}/${database}`).then(()=>{
-    console.info("DB connected")
-}).catch((err)=>{
-    console.error(err)
-});
+// mongoose.connect(`${dbUrl}/${database}`).then(()=>{
+//     console.info("DB connected")
+// }).catch((err)=>{
+//     console.error(err)
+// });
