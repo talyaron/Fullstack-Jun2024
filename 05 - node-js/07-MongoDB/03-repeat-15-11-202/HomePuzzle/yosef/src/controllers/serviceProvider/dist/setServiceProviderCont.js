@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,41 +35,40 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-function handleAddServiceProvider(ev) {
+exports.__esModule = true;
+exports.addServiceProvider = void 0;
+var serviceProviderModel_1 = require("../../model/serviceProvider/serviceProviderModel");
+function addServiceProvider(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var formData, serviceProviderName, phone, email, response, error_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var _a, serviceProviderName, phone, email, newServiceProvider, error_1;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    ev.preventDefault();
-                    formData = new FormData(ev.target);
-                    serviceProviderName = formData.get("serviceProvider");
-                    phone = formData.get("phone");
-                    email = formData.get("email");
-                    if (!serviceProviderName || !phone || !email)
-                        throw new Error("All fields are 23required");
-                    return [4 /*yield*/, fetch('/api/serviceProviders/add-service-provider', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                serviceProviderName: serviceProviderName,
-                                phone: phone,
-                                email: email
-                            })
+                    _b.trys.push([0, 2, , 3]);
+                    _a = req.body, serviceProviderName = _a.serviceProviderName, phone = _a.phone, email = _a.email;
+                    if (!serviceProviderName || !phone || !email) {
+                        return [2 /*return*/, res.status(400).json({ message: "All fields are required" })];
+                    }
+                    return [4 /*yield*/, serviceProviderModel_1.ServiceProviderModel.create({
+                            serviceProviderName: serviceProviderName,
+                            phone: phone,
+                            email: email
                         })];
                 case 1:
-                    response = _a.sent();
+                    newServiceProvider = _b.sent();
+                    console.log("we recived new service provider: " + newServiceProvider);
+                    if (!newServiceProvider) {
+                        return [2 /*return*/, res.status(400).json({ message: "Failed to create service provider" })];
+                    }
+                    res.json(newServiceProvider);
                     return [3 /*break*/, 3];
                 case 2:
-                    error_1 = _a.sent();
+                    error_1 = _b.sent();
                     console.error(error_1);
-                    alert("Error adding service provider: " + error_1.message);
-                    return [3 /*break*/, 3];
+                    return [2 /*return*/, res.status(500).send({ error: error_1.message })];
                 case 3: return [2 /*return*/];
             }
         });
     });
 }
+exports.addServiceProvider = addServiceProvider;

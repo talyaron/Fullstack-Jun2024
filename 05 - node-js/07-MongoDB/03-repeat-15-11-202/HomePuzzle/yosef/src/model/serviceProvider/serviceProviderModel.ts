@@ -13,14 +13,6 @@ export const ServiceProvider = new Schema({
         type:String,
         unique:true
     },
-    price:{
-        type:Number,
-        required:true
-    },
-    averageRating:{
-        type:Number,
-        default: 0
-    }
 })
 
 export const ServiceProviderModel = model("ServiceProvider", ServiceProvider); // the connection to the DB collection

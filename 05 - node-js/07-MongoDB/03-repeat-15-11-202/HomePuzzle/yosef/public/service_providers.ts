@@ -5,10 +5,8 @@ async function handleAddServiceProvider (ev: any){
         const serviceProviderName = formData.get("serviceProvider");
         const phone = formData.get("phone");
         const email = formData.get("email");
-        const price = formData.get("price");
-        const averageRating = formData.get("averageRating");
 
-        if (!serviceProviderName || !phone || !email || !price || ! averageRating)
+        if (!serviceProviderName || !phone || !email)
             throw new Error("All fields are 23required");
         
         // Send request to server
@@ -20,9 +18,7 @@ async function handleAddServiceProvider (ev: any){
             body: JSON.stringify({
                 serviceProviderName,
                 phone,
-                email,
-                price,
-                averageRating
+                email
             })
         });
     } catch (error) {

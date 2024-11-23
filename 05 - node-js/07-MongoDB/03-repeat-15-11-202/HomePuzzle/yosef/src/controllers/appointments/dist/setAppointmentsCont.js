@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,41 +35,45 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-function handleAddServiceProvider(ev) {
+exports.__esModule = true;
+exports.setAppointments = void 0;
+var appointmentsModel_1 = require("../../model/appointments/appointmentsModel");
+function setAppointments(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var formData, serviceProviderName, phone, email, response, error_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var _a, userId, serviceProviderId, date, startTime, endTime, status, service, price, rating, review, newAppointment, error_1;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    ev.preventDefault();
-                    formData = new FormData(ev.target);
-                    serviceProviderName = formData.get("serviceProvider");
-                    phone = formData.get("phone");
-                    email = formData.get("email");
-                    if (!serviceProviderName || !phone || !email)
-                        throw new Error("All fields are 23required");
-                    return [4 /*yield*/, fetch('/api/serviceProviders/add-service-provider', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                serviceProviderName: serviceProviderName,
-                                phone: phone,
-                                email: email
-                            })
+                    _b.trys.push([0, 2, , 3]);
+                    _a = req.body, userId = _a.userId, serviceProviderId = _a.serviceProviderId, date = _a.date, startTime = _a.startTime, endTime = _a.endTime, status = _a.status, service = _a.service, price = _a.price, rating = _a.rating, review = _a.review;
+                    if (!userId || !serviceProviderId || !date || !startTime || !endTime || !service || !price || !rating || !review)
+                        return [2 /*return*/, res.status(400).json({ message: 'Please provide all required fields' })];
+                    return [4 /*yield*/, appointmentsModel_1.AppointmentsModel.create({
+                            userId: userId,
+                            serviceProviderId: serviceProviderId,
+                            date: date,
+                            startTime: startTime,
+                            endTime: endTime,
+                            status: status,
+                            service: service,
+                            price: price,
+                            rating: rating,
+                            review: review
                         })];
                 case 1:
-                    response = _a.sent();
+                    newAppointment = _b.sent();
+                    if (!newAppointment)
+                        return [2 /*return*/, res.status(500).json({ message: 'Failed to create new appointment' })];
+                    console.log("server recived new Appointment : " + newAppointment);
+                    res.json(newAppointment);
                     return [3 /*break*/, 3];
                 case 2:
-                    error_1 = _a.sent();
+                    error_1 = _b.sent();
                     console.error(error_1);
-                    alert("Error adding service provider: " + error_1.message);
-                    return [3 /*break*/, 3];
+                    return [2 /*return*/, res.status(500).send({ error: error_1.message })];
                 case 3: return [2 /*return*/];
             }
         });
     });
 }
+exports.setAppointments = setAppointments;

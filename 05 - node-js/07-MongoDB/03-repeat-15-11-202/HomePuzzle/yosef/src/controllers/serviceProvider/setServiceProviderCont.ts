@@ -3,9 +3,9 @@ import { ServiceProviderModel } from "../../model/serviceProvider/serviceProvide
 
 export async function addServiceProvider(req: any, res: any){
     try {
-        const { serviceProviderName, phone, email, price, averageRating } = req.body;
+        const { serviceProviderName, phone, email } = req.body;
         
-        if (!serviceProviderName ||!phone ||!email ||!price) {
+        if (!serviceProviderName ||!phone ||!email) {
             return res.status(400).json({ message: "All fields are required" });
         }
 
@@ -13,8 +13,6 @@ export async function addServiceProvider(req: any, res: any){
             serviceProviderName,
             phone,
             email,
-            price,
-            averageRating
         });
 
         console.log("we recived new service provider: " + newServiceProvider)

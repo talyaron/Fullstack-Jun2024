@@ -11,7 +11,7 @@ app.get('/', function (req, res) {
 });
 //DB
 var dbUrl = "mongodb+srv://yosefib88:FYdIUMhMIwGscX4y@cluster0.b5vsm.mongodb.net";
-var database = 'Clients & Service Provider & Appoitments';
+var database = 'Clients&ServiceProvider&Appoitments';
 //connection
 mongoose_1["default"].connect(dbUrl + "/" + database).then(function () {
     console.info("DB connected");

@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 
 //DB
 const dbUrl = "mongodb+srv://yosefib88:FYdIUMhMIwGscX4y@cluster0.b5vsm.mongodb.net"
-const database = 'Clients & Service Provider & Appoitments';
+const database = 'Clients&ServiceProvider&Appoitments';
 
 //connection
 mongoose.connect(`${dbUrl}/${database}`).then(()=>{
