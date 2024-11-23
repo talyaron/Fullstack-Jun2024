@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Providers</title>
+    <script src="./dist/service_providers.js" defer></script>
+</head>
+<body>
+    <h1>Service Provider System</h1>
+    <form onsubmit="handleAddServiceProvider(event)"></form>
+      <input type="text" name="serviceProvider" placeholder="Enter Service Provider Name:"><br>
+       <input type="tel" name="phone" placeholder="Enter Your Phone Number"><br>
+       <input type="email" name="email" placeholder="Enter Your Email"><br>
+       <input type="text" name="price" placeholder="Price is:"><br>
+       <input type="text" name="averageRating" placeholder="Average Rating:"><br><br>
+       <button>Add Service Provider</button><br><br>
+        <button onclick="handleShowServiceProvider()">Show Service Provider</button>
+    </form>
+    <div id="show"></div>
+</body>
+</html>
