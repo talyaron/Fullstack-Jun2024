@@ -13,8 +13,8 @@ export async function setAppointments(req:any, res:any){
                 rating,
                 review } = req.body;
                 
-        if(!userId ||!serviceProviderId ||!date ||!startTime ||!endTime ||!service ||!price || !rating || !review)
-            return res.status(400).json({message: 'Please provide all required fields'});
+        // if(!userId || !serviceProviderId || !date || !startTime ||!endTime || !service || !price || !rating || !review)
+        //     return res.status(400).json({message: 'Please provide all required fields'});
     
 
         const newAppointment = await AppointmentsModel.create({

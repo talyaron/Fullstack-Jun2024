@@ -36,42 +36,33 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.setAppointments = void 0;
+exports.getAppointmentsByUserId = void 0;
 var appointmentsModel_1 = require("../../model/appointments/appointmentsModel");
-function setAppointments(req, res) {
+function getAppointmentsByUserId(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, userId, serviceProviderId, date, startTime, endTime, status, service, price, rating, review, newAppointment, error_1;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var userId, appointments, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
-                    _b.trys.push([0, 2, , 3]);
-                    _a = req.body, userId = _a.userId, serviceProviderId = _a.serviceProviderId, date = _a.date, startTime = _a.startTime, endTime = _a.endTime, status = _a.status, service = _a.service, price = _a.price, rating = _a.rating, review = _a.review;
-                    return [4 /*yield*/, appointmentsModel_1.AppointmentsModel.create({
-                            userId: userId,
-                            serviceProviderId: serviceProviderId,
-                            date: date,
-                            startTime: startTime,
-                            endTime: endTime,
-                            status: status,
-                            service: service,
-                            price: price,
-                            rating: rating,
-                            review: review
-                        })];
+                    _a.trys.push([0, 2, , 3]);
+                    userId = req.query.userId;
+                    if (!userId) {
+                        return [2 /*return*/, res.status(400).json({ message: 'userId is required' })];
+                    }
+                    return [4 /*yield*/, appointmentsModel_1.AppointmentsModel.find({ userId: userId }).populate('userId').populate('serviceProviderId').exec()];
                 case 1:
-                    newAppointment = _b.sent();
-                    if (!newAppointment)
-                        return [2 /*return*/, res.status(500).json({ message: 'Failed to create new appointment' })];
-                    console.log("server recived new Appointment : " + newAppointment);
-                    res.json(newAppointment);
+                    appointments = _a.sent();
+                    res.status(200).json({ appointments: appointments });
+                    console.log("by user id is work");
+                    console.log(appointments);
                     return [3 /*break*/, 3];
                 case 2:
-                    error_1 = _b.sent();
-                    console.error(error_1);
-                    return [2 /*return*/, res.status(500).send({ error: error_1.message })];
+                    error_1 = _a.sent();
+                    res.status(500).json({ message: error_1.message });
+                    return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
         });
     });
 }
-exports.setAppointments = setAppointments;
+exports.getAppointmentsByUserId = getAppointmentsByUserId;

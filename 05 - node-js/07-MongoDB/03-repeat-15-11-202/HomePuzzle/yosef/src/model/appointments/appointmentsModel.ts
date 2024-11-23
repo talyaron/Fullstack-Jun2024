@@ -1,8 +1,10 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
+import { ClientModel } from "../users/ClientModel";
+import { ServiceProviderModel } from "../serviceProvider/serviceProviderModel";
 
 export const AppointmentsSchema = new Schema({
-    userId: {type:Schema.Types.ObjectId, ref:"Client"},
-    serviceProviderId: {type:Schema.Types.ObjectId, ref:"ServiceProvider"},
+    userId:{type: mongoose.Schema.Types.ObjectId, ref: 'Client', required: true},
+    serviceProviderId:{type: mongoose.Schema.Types.ObjectId, ref: 'ServiceProvider' , required: true},
     date: {
         type: Date,
         required: true
@@ -37,5 +39,7 @@ export const AppointmentsSchema = new Schema({
     }
 })
 
-export const AppointmentsModel = model("Appointments", AppointmentsSchema);
+export const AppointmentsModel = mongoose.model("Appointments", AppointmentsSchema);
+
+export default AppointmentsModel;
 

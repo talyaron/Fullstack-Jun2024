@@ -12,7 +12,6 @@ export async function addClient(req: any, res: any) {
 
         //send request to DB
         const result_outPut = await ClientModel.create({
-            id: `id=${crypto.randomUUID()}`,
             firstName,
             lastName,
             email,

@@ -3,7 +3,6 @@ exports.__esModule = true;
 exports.ClientModel = exports.ClientSchema = void 0;
 var mongoose_1 = require("mongoose");
 exports.ClientSchema = new mongoose_1.Schema({
-    id: { type: String, required: true },
     firstName: {
         type: String,
         required: true
