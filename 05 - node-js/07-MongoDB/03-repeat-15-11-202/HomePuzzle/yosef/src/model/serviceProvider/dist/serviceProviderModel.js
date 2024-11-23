@@ -3,7 +3,6 @@ exports.__esModule = true;
 exports.ServiceProviderModel = exports.ServiceProvider = void 0;
 var mongoose_1 = require("mongoose");
 exports.ServiceProvider = new mongoose_1.Schema({
-    id: { type: String, required: true },
     serviceProviderName: {
         type: String,
         required: true

@@ -1,7 +1,6 @@
 import {Schema, model} from 'mongoose';
 
 export const ServiceProvider = new Schema({
-    id: { type: String, required: true },
     serviceProviderName:{
         type:String,
         required:true

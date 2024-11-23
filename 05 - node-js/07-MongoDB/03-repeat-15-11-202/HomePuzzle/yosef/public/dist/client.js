@@ -66,7 +66,7 @@ function handleAddClient(ev) {
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
-                    renderToTheDom(data._id, firstName, lastName, email, phone, yearOfBirth);
+                    renderToTheDom(data._id, data.firstName, data.lastName, data.email, data.phone, data.yearOfBirth);
                     console.log(data);
                     console.log("_idClient is:");
                     console.log(data._id);
@@ -171,6 +171,8 @@ function handleEditClient(event) {
                         email = prompt("Enter new email:");
                         phone = prompt("Enter new phone:");
                         yearOfBirth = prompt("Enter new year of birth:");
+                        if (!firstName || !lastName || !phone || !yearOfBirth || !email)
+                            return [2 /*return*/, console.error("All fields are required")];
                     }
                     return [4 /*yield*/, fetch("/api/clients/edit-client/" + id, {
                             method: 'PATCH',
