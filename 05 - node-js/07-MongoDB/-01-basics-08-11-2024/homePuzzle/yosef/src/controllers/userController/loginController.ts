@@ -20,7 +20,9 @@ export const loginUser = async (req: any, res: any) => {           /* הפונק
         
 /* אם הגענו לפה עם - סימן שהמייל שלו והסיסמה קיימים ונכונים */
         
-        res.status(200).json({ message: 'Login successful' });
+res.cookie('user', email_user._id,{httpOnly: true,maxAge: 1000 *10});        
+res.status(200).json({ message: 'Login successful' });
+        
 }catch
         {
             console.error('Error in loginController: ');

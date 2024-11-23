@@ -60,6 +60,7 @@ exports.loginUser = function (req, res) { return __awaiter(void 0, void 0, void 
                 if (!password_user)
                     return [2 /*return*/, res.status(400).json({ error: 'Password is incorrect' })];
                 /* אם הגענו לפה עם - סימן שהמייל שלו והסיסמה קיימים ונכונים */
+                res.cookie('user', email_user._id, { httpOnly: true, maxAge: 1000 * 10 });
                 res.status(200).json({ message: 'Login successful' });
                 return [3 /*break*/, 4];
             case 3:
