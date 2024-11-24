@@ -21,19 +21,18 @@ required: true
         required: true
     },
     AdminEmail: {type:String,
-        unique: true
+        required: true
     },
     AdminPhone: {type:String,
-        unique: true
+        required: true
     },
     AdminProfession: {type:String,
-        unique: true
+        required: true
     },
     AdminRole: {type:String,
-        unique: true
+        required: true
     },
-    AdminYearOfBirth: Number,
-    password: String
+    AdminYearOfBirth: Number
 })
 
 export const AdminModel = model<Admin>("Admin", AdminSchema);

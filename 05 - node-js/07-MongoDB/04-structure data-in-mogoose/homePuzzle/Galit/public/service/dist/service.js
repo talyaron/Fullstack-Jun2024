@@ -55,11 +55,11 @@ function handleAddService(ev) {
                     _a.trys.push([0, 6, , 7]);
                     ev.preventDefault();
                     formData = new FormData(ev.target);
-                    admin = formData.get("admin");
-                    name = formData.get("name");
-                    description = formData.get("description");
-                    duration = parseInt(formData.get("duration"), 10);
-                    price = parseFloat(formData.get("price"));
+                    admin = formData.get('admin');
+                    name = formData.get('name');
+                    description = formData.get('description');
+                    duration = parseInt(formData.get('duration'), 10);
+                    price = parseFloat(formData.get('price'));
                     return [4 /*yield*/, fetch("/api/services/add-service", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
@@ -90,32 +90,45 @@ function handleAddService(ev) {
 }
 function fetchAllServices() {
     return __awaiter(this, void 0, Promise, function () {
-        var response, services, container, error_1;
+        var servicesResponse, services, adminsResponse, admins, adminMap_1, container, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 3, , 4]);
+                    _a.trys.push([0, 5, , 6]);
                     return [4 /*yield*/, fetch("/api/services")];
                 case 1:
-                    response = _a.sent();
-                    if (!response.ok) {
+                    servicesResponse = _a.sent();
+                    if (!servicesResponse.ok) {
                         throw new Error("Failed to fetch services");
                     }
-                    return [4 /*yield*/, response.json()];
+                    return [4 /*yield*/, servicesResponse.json()];
                 case 2:
                     services = _a.sent();
+                    return [4 /*yield*/, fetch("/api/admins")];
+                case 3:
+                    adminsResponse = _a.sent();
+                    if (!adminsResponse.ok) {
+                        throw new Error("Failed to fetch admins");
+                    }
+                    return [4 /*yield*/, adminsResponse.json()];
+                case 4:
+                    admins = _a.sent();
+                    adminMap_1 = admins.reduce(function (map, admin) {
+                        map[admin._id] = admin.AdminFirstName + " " + admin.AdminLastName;
+                        return map;
+                    }, {});
                     container = document.getElementById("service-list");
                     if (container) {
-                        container.innerHTML = "\n                <table>\n                    <thead>\n                        <tr>\n                           <th>service provider</th>\n                            <th>Name</th>\n                            <th>Description</th>\n                            <th>Duration</th>\n                            <th>Price</th>\n                            <th>Actions</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        " + services
-                            .map(function (service) { return "\n                                <tr id=\"service-" + service._id + "\">\n                                  <td id=\"admin-" + service._id + "\" onclick=\"handleEditServiceField('" + service._id + "', 'name')\">\n                                     " + (service.admin ? service.admin.AdminFirstName + " " + service.admin.AdminLastName : 'Unknown Admin') + "</td>                              \n                                   <td id=\"name-" + service._id + "\" onclick=\"handleEditServiceField('" + service._id + "', 'name')\">" + service.name + "</td>\n                                    <td id=\"description-" + service._id + "\" onclick=\"handleEditServiceField('" + service._id + "', 'description')\">" + service.description + "</td>\n                                    <td id=\"duration-" + service._id + "\" onclick=\"handleEditServiceField('" + service._id + "', 'duration')\">" + service.duration + "</td>\n                                    <td id=\"price-" + service._id + "\" onclick=\"handleEditServiceField('" + service._id + "', 'price')\">" + service.price + "</td>\n                                    <td>\n                                        <button class=\"delete-btn\" onclick=\"handleDeleteService('" + service._id + "')\">Delete</button>\n                                       <button class=\"edit-btn\" onclick=\"handleEditService('" + service._id + "')\">Edit</button>\n\n                                    </td>\n                                </tr>\n                            "; })
+                        container.innerHTML = "\n                <table>\n                    <thead>\n                        <tr>\n                            <th>Service Provider</th>\n                            <th>Name</th>\n                            <th>Description</th>\n                            <th>Duration</th>\n                            <th>Price</th>\n                            <th>Actions</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        " + services
+                            .map(function (service) { return "\n                                <tr id=\"service-" + service._id + "\">\n                                    <td>" + (adminMap_1[service.admin] || 'N/A') + "</td>\n                                    <td id=\"name-" + service._id + "\" onclick=\"handleEditServiceField('" + service._id + "', 'name')\">" + service.name + "</td>\n                                    <td id=\"description-" + service._id + "\" onclick=\"handleEditServiceField('" + service._id + "', 'description')\">" + service.description + "</td>\n                                    <td id=\"duration-" + service._id + "\" onclick=\"handleEditServiceField('" + service._id + "', 'duration')\">" + service.duration + "</td>\n                                    <td id=\"price-" + service._id + "\" onclick=\"handleEditServiceField('" + service._id + "', 'price')\">" + service.price + "</td>\n                                    <td>\n                                        <button class=\"delete-btn\" onclick=\"handleDeleteService('" + service._id + "')\">Delete</button>\n                                        <button class=\"edit-btn\" onclick=\"handleEditService('" + service._id + "')\">Edit</button>\n                                    </td>\n                                </tr>\n                            "; })
                             .join("") + "\n                    </tbody>\n                </table>\n            ";
                     }
-                    return [3 /*break*/, 4];
-                case 3:
+                    return [3 /*break*/, 6];
+                case 5:
                     error_1 = _a.sent();
-                    console.error(error_1);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    console.error("Error fetching services:", error_1);
+                    return [3 /*break*/, 6];
+                case 6: return [2 /*return*/];
             }
         });
     });

@@ -8,8 +8,8 @@ export interface Appointment extends Document {
   startTime: string;
   endTime: string;
   status: string;
-  rating: string;
-  review: string;
+  rating?: string;
+  review?: string;
 }
 
 export const AppointmentSchema = new Schema({

@@ -12,18 +12,17 @@ exports.AdminSchema = new mongoose_1.Schema({
         required: true
     },
     AdminEmail: { type: String,
-        unique: true
+        required: true
     },
     AdminPhone: { type: String,
-        unique: true
+        required: true
     },
     AdminProfession: { type: String,
-        unique: true
+        required: true
     },
     AdminRole: { type: String,
-        unique: true
+        required: true
     },
-    AdminYearOfBirth: Number,
-    password: String
+    AdminYearOfBirth: Number
 });
 exports.AdminModel = mongoose_1.model("Admin", exports.AdminSchema);

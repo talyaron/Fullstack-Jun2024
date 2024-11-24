@@ -3,11 +3,11 @@ async function handleAddService(ev: any): Promise<void> {
         ev.preventDefault();
 
         const formData = new FormData(ev.target);
-        const admin = formData.get("admin") as string;
-        const name = formData.get("name") as string;
-        const description = formData.get("description") as string;
-        const duration = parseInt(formData.get("duration") as string, 10);
-        const price = parseFloat(formData.get("price") as string);
+        const admin = formData.get('admin') as string;
+        const name = formData.get('name') as string;
+        const description = formData.get('description') as string;
+        const duration = parseInt(formData.get('duration') as string, 10);
+        const price = parseFloat(formData.get('price') as string);
 
         const response = await fetch("/api/services/add-service", {
             method: "POST",
@@ -31,11 +31,22 @@ async function handleAddService(ev: any): Promise<void> {
 
 async function fetchAllServices(): Promise<void> {
     try {
-        const response = await fetch("/api/services");
-        if (!response.ok) {
+        const servicesResponse = await fetch("/api/services");
+        if (!servicesResponse.ok) {
             throw new Error("Failed to fetch services");
         }
-        const services = await response.json();
+        const services = await servicesResponse.json();
+
+        const adminsResponse = await fetch("/api/admins");
+        if (!adminsResponse.ok) {
+            throw new Error("Failed to fetch admins");
+        }
+        const admins = await adminsResponse.json();
+
+        const adminMap = admins.reduce((map: Record<string, string>, admin: any) => {
+            map[admin._id] = `${admin.AdminFirstName} ${admin.AdminLastName}`;
+            return map;
+        }, {});
 
         const container = document.getElementById("service-list");
         if (container) {
@@ -43,7 +54,7 @@ async function fetchAllServices(): Promise<void> {
                 <table>
                     <thead>
                         <tr>
-                           <th>service provider</th>
+                            <th>Service Provider</th>
                             <th>Name</th>
                             <th>Description</th>
                             <th>Duration</th>
@@ -56,16 +67,14 @@ async function fetchAllServices(): Promise<void> {
                             .map(
                                 (service: any) => `
                                 <tr id="service-${service._id}">
-                                  <td id="admin-${service._id}" onclick="handleEditServiceField('${service._id}', 'name')">
-                                     ${service.admin ? `${service.admin.AdminFirstName} ${service.admin.AdminLastName}` : 'Unknown Admin'}</td>                              
-                                   <td id="name-${service._id}" onclick="handleEditServiceField('${service._id}', 'name')">${service.name}</td>
+                                    <td>${adminMap[service.admin] || 'N/A'}</td>
+                                    <td id="name-${service._id}" onclick="handleEditServiceField('${service._id}', 'name')">${service.name}</td>
                                     <td id="description-${service._id}" onclick="handleEditServiceField('${service._id}', 'description')">${service.description}</td>
                                     <td id="duration-${service._id}" onclick="handleEditServiceField('${service._id}', 'duration')">${service.duration}</td>
                                     <td id="price-${service._id}" onclick="handleEditServiceField('${service._id}', 'price')">${service.price}</td>
                                     <td>
                                         <button class="delete-btn" onclick="handleDeleteService('${service._id}')">Delete</button>
-                                       <button class="edit-btn" onclick="handleEditService('${service._id}')">Edit</button>
-
+                                        <button class="edit-btn" onclick="handleEditService('${service._id}')">Edit</button>
                                     </td>
                                 </tr>
                             `
@@ -76,9 +85,10 @@ async function fetchAllServices(): Promise<void> {
             `;
         }
     } catch (error) {
-        console.error(error);
+        console.error("Error fetching services:", error);
     }
 }
+
 
 function handleEditServiceField(id: string, fieldName: string) {
     const element = document.getElementById(`${fieldName}-${id}`);

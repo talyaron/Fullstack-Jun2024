@@ -50,6 +50,7 @@ export async function addAppointment(req: any, res: any) {
 
 export async function getAppointmentById(req: any, res: any) {
     try {
+        
         const { id } = req.params;
         const Appointment = await AppointmentModel.findById(id);
 

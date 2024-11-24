@@ -12,6 +12,7 @@ async function handleAddAdmin(ev: any): Promise<void> {
         const date = formData.get("AdminDate") as string;
         const AdminYearOfBirth = new Date(date).getFullYear();
   
+  
         const response = await fetch("/api/admins/add-admin", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -39,7 +40,7 @@ async function handleAddAdmin(ev: any): Promise<void> {
     } catch (err) {
         console.error(err);
     }
-  }
+}
   
   async function fetchAllAdmins(): Promise<void> {
     try {

@@ -19,13 +19,12 @@ required: true
         required: true
     },
     email: {type:String,
-        unique: true
+        required: true
     },
     phone: {type:String,
-        unique: true
+        required: true
     },
-    yearOfBirth: Number,
-    password: String
+    yearOfBirth: Number
 })
 
 export const ClientModel = model<Client>("Client", ClientSchema);
