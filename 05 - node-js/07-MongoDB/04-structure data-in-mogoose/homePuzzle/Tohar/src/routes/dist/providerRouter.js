@@ -1,0 +1,11 @@
+"use strict";
+exports.__esModule = true;
+var express_1 = require("express");
+var addServiceToProvider_1 = require("../controllers/provider/addServiceToProvider");
+var createProvider_1 = require("../controllers/provider/createProvider");
+var getProviders_1 = require("../controllers/provider/getProviders");
+var providerRouter = express_1["default"].Router();
+providerRouter.get('/get-providers', getProviders_1.getProviders);
+providerRouter.post('/add-service-to-provider', addServiceToProvider_1.addServiceToProvider);
+providerRouter.post('/create-provider', createProvider_1.createProvider);
+exports["default"] = providerRouter;

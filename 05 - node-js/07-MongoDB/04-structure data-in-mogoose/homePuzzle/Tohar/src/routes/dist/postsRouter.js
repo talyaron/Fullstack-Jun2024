@@ -1,0 +1,15 @@
+"use strict";
+exports.__esModule = true;
+var express_1 = require("express");
+var createPost_1 = require("../controllers/post/createPost");
+var deletePost_1 = require("../controllers/post/deletePost");
+var editCaption_1 = require("../controllers/post/editCaption");
+var updateImage_1 = require("../controllers/post/updateImage");
+var getPosts_1 = require("../controllers/post/getPosts");
+var postRouter = express_1["default"].Router();
+postRouter.post('/create-post', createPost_1.createPost);
+postRouter.get('/get-posts', getPosts_1.getPosts);
+postRouter["delete"]('/delete-post', deletePost_1.deletePost);
+postRouter.patch('/edit-caption', editCaption_1.editCaption);
+postRouter.patch('/update-image', updateImage_1.updateImage);
+exports["default"] = postRouter;
