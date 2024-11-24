@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../dist/style.css">
+    <link rel="stylesheet" href="./dist/index.css">
+    <!-- <link rel="stylesheet" href="../userMenu/userMenu.html"> -->
+    <script src="../dist/main.js" defer></script>
+    <script src="./dist/index.js" defer></script>
+    <title>Document</title>
+    <!-- <script src="../userMenu/userMenu.html"></script> -->
+</head>
+<body>
+ <div class="login">
+        <h1>Login</h1>
+        <p>By Yosef Ibrahim*</p>
+    <form id="loginForm" autocomplete="off">
+        <label for="email">Email:</label>
+        <input  type="email" id="email" name="email" autocomplete="new-email" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" autocomplete="new-password" required><br><br>
+    
+        <input id="button1" type="submit" onclick="check_login(event)" value="Login">
+        <br>
+        <button id="button2" onclick="register()">Register</button>
+        <p id="masseges_to_the_user"></p>
+    </form>
+</div>
+</body>
+</html>

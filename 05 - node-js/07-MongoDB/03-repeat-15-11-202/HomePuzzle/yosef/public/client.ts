@@ -24,7 +24,7 @@ async function handleAddClient(ev: any) {
 
         if(response.ok){
             const data = await response.json();
-            renderToTheDom(data._id ,firstName, lastName, email, phone, yearOfBirth);
+            renderToTheDom(data._id ,data.firstName, data.lastName, data.email, data.phone, data.yearOfBirth);
             console.log(data);
             console.log("_idClient is:");
             console.log(data._id)
@@ -105,6 +105,10 @@ async function handleEditClient(event: any){
             const email = prompt("Enter new email:");
             const phone = prompt("Enter new phone:");
             const yearOfBirth = prompt("Enter new year of birth:");
+
+            if (!firstName || !lastName || !phone || !yearOfBirth || !email)
+                return console.error("All fields are required");
+                
     }
     const response = await fetch(`/api/clients/edit-client/${id}`, {
         method: 'PATCH',
