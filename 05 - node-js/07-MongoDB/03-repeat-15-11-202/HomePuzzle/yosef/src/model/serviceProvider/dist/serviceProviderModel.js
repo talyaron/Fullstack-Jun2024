@@ -14,14 +14,6 @@ exports.ServiceProvider = new mongoose_1.Schema({
     email: {
         type: String,
         unique: true
-    },
-    price: {
-        type: Number,
-        required: true
-    },
-    averageRating: {
-        type: Number,
-        "default": 0
     }
 });
 exports.ServiceProviderModel = mongoose_1.model("ServiceProvider", exports.ServiceProvider); // the connection to the DB collection

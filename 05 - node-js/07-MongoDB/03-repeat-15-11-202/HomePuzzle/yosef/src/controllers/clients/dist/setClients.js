@@ -47,7 +47,6 @@ function addClient(req, res) {
                     _b.trys.push([0, 2, , 3]);
                     _a = req.body, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, phone = _a.phone, yearOfBirth = _a.yearOfBirth;
                     return [4 /*yield*/, ClientModel_1.ClientModel.create({
-                            id: "id=" + crypto.randomUUID(),
                             firstName: firstName,
                             lastName: lastName,
                             email: email,

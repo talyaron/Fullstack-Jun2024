@@ -47,91 +47,112 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 function handleAddAppointment(ev) {
     return __awaiter(this, void 0, Promise, function () {
-        var formData, client, admin, service, date, startTime, endTime, status, rating, review, response, data, err_1;
+        var form, formData, appointment, response, data, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 6, , 7]);
+                    _a.trys.push([0, 4, , 5]);
                     ev.preventDefault();
-                    formData = new FormData(ev.target);
-                    client = formData.get("client");
-                    admin = formData.get("admin");
-                    service = formData.get("service");
-                    date = formData.get("date");
-                    startTime = formData.get("startTime");
-                    endTime = formData.get("endTime");
-                    status = formData.get("status");
-                    rating = formData.get("rating");
-                    review = formData.get("review");
+                    form = ev.target;
+                    formData = new FormData(form);
+                    appointment = {
+                        client: formData.get("client"),
+                        admin: formData.get("admin"),
+                        service: formData.get("service"),
+                        date: formData.get("date"),
+                        startTime: formData.get("startTime"),
+                        endTime: formData.get("endTime"),
+                        status: formData.get("status"),
+                        rating: formData.get("rating"),
+                        review: formData.get("review")
+                    };
                     return [4 /*yield*/, fetch("/api/appointments/add-appointment", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({
-                                client: client,
-                                admin: admin,
-                                service: service,
-                                date: date,
-                                startTime: startTime,
-                                endTime: endTime,
-                                status: status,
-                                rating: rating,
-                                review: review
-                            })
+                            body: JSON.stringify(appointment)
                         })];
                 case 1:
                     response = _a.sent();
-                    if (!response.ok) return [3 /*break*/, 4];
+                    if (!response.ok)
+                        throw new Error("Failed to add appointment");
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
                     console.log("Appointment added:", data);
-                    ev.target.reset();
+                    form.reset();
                     return [4 /*yield*/, fetchAllAppointments()];
                 case 3:
                     _a.sent();
                     return [3 /*break*/, 5];
-                case 4: throw new Error("Failed to add appointment");
-                case 5: return [3 /*break*/, 7];
-                case 6:
+                case 4:
                     err_1 = _a.sent();
-                    console.error(err_1);
-                    return [3 /*break*/, 7];
-                case 7: return [2 /*return*/];
+                    console.error("Error adding appointment:", err_1);
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
             }
         });
     });
 }
 function fetchAllAppointments() {
     return __awaiter(this, void 0, Promise, function () {
-        var response, appointments, container, error_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var _a, appointmentsResponse, adminsResponse, clientsResponse, servicesResponse, appointments, admins, clients, services, adminMap, clientMap, serviceMap, error_1;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch("/api/appointments")];
+                    _b.trys.push([0, 6, , 7]);
+                    return [4 /*yield*/, Promise.all([
+                            fetch("/api/appointments"),
+                            fetch("/api/admins"),
+                            fetch("/api/clients"),
+                            fetch("/api/services"),
+                        ])];
                 case 1:
-                    response = _a.sent();
-                    if (!response.ok) {
-                        throw new Error("Failed to fetch appointments");
+                    _a = _b.sent(), appointmentsResponse = _a[0], adminsResponse = _a[1], clientsResponse = _a[2], servicesResponse = _a[3];
+                    if (!appointmentsResponse.ok || !adminsResponse.ok || !clientsResponse.ok || !servicesResponse.ok) {
+                        throw new Error("Failed to fetch required data");
                     }
-                    return [4 /*yield*/, response.json()];
+                    return [4 /*yield*/, appointmentsResponse.json()];
                 case 2:
-                    appointments = _a.sent();
-                    container = document.getElementById("appointment-list");
-                    if (container) {
-                        container.innerHTML = "\n                <table>\n                    <thead>\n                        <tr>\n                            <th>Client</th>\n                            <th>Admin</th>\n                            <th>Service</th>\n                            <th>Date</th>\n                            <th>Start Time</th>\n                            <th>End Time</th>\n                            <th>Status</th>\n                            <th>Rating</th>\n                            <th>Review</th>\n                            <th>Actions</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        " + appointments
-                            .map(function (appointment) { return "\n                                <tr id=\"appointment-" + appointment._id + "\">\n                                    <td id=\"client-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'client')\">" + appointment.client + "</td>\n                                    <td id=\"admin-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'admin')\">" + appointment.admin + "</td>\n                                    <td id=\"service-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'service')\">" + appointment.service + "</td>\n                                    <td id=\"date-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'date')\">" + appointment.date + "</td>\n                                    <td id=\"startTime-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'startTime')\">" + appointment.startTime + "</td>\n                                  <td id=\"endTime-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'endTime')\">" + appointment.endTime + "</td>\n                                    <td id=\"status-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'status')\">" + appointment.status + "</td>\n                                    <td id=\"rating-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'rating')\">" + appointment.rating + "</td>\n                                    <td id=\"review-" + appointment._id + "\" onclick=\"handleEditField('" + appointment._id + "', 'review')\">" + appointment.review + "</td>\n                                    <td>\n                                        <button class=\"delete-btn\" onclick=\"handleDeleteAppointment('" + appointment._id + "')\">Delete</button>\n                                        <button class=\"edit-btn\" onclick=\"handleEditField('" + appointment._id + "')\">Edit</button>\n                                    </td>\n                                </tr>\n                            "; })
-                            .join("") + "\n                    </tbody>\n                </table>\n            ";
-                    }
-                    return [3 /*break*/, 4];
+                    appointments = _b.sent();
+                    return [4 /*yield*/, adminsResponse.json()];
                 case 3:
-                    error_1 = _a.sent();
-                    console.error(error_1);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    admins = _b.sent();
+                    return [4 /*yield*/, clientsResponse.json()];
+                case 4:
+                    clients = _b.sent();
+                    return [4 /*yield*/, servicesResponse.json()];
+                case 5:
+                    services = _b.sent();
+                    adminMap = admins.reduce(function (map, admin) {
+                        map[admin._id] = admin.AdminFirstName + " " + admin.AdminLastName;
+                        return map;
+                    }, {});
+                    clientMap = clients.reduce(function (map, client) {
+                        map[client._id] = client.firstName + " " + client.lastName;
+                        return map;
+                    }, {});
+                    serviceMap = services.reduce(function (map, service) {
+                        map[service._id] = service.name;
+                        return map;
+                    }, {});
+                    renderAppointments(appointments, adminMap, clientMap, serviceMap);
+                    return [3 /*break*/, 7];
+                case 6:
+                    error_1 = _b.sent();
+                    console.error("Error fetching appointments:", error_1);
+                    return [3 /*break*/, 7];
+                case 7: return [2 /*return*/];
             }
         });
     });
+}
+function renderAppointments(appointments, adminMap, clientMap, serviceMap) {
+    var container = document.getElementById("appointment-list");
+    if (!container)
+        return;
+    container.innerHTML = "\n        <table>\n            <thead>\n                <tr>\n                    <th>Client</th>\n                    <th>Admin</th>\n                    <th>Service</th>\n                    <th>Date</th>\n                    <th>Start Time</th>\n                    <th>End Time</th>\n                    <th>Status</th>\n                    <th>Rating</th>\n                    <th>Review</th>\n                    <th>Actions</th>\n                </tr>\n            </thead>\n            <tbody>\n                " + appointments
+        .map(function (appointment) { return "\n                        <tr id=\"appointment-" + appointment._id + "\">\n                            <td>" + (clientMap[appointment.client] || "N/A") + "</td>\n                            <td>" + (adminMap[appointment.admin] || "N/A") + "</td>\n                            <td>" + (serviceMap[appointment.service] || "N/A") + "</td>\n                            <td>" + appointment.date + "</td>\n                            <td>" + appointment.startTime + "</td>\n                            <td>" + appointment.endTime + "</td>\n                            <td>" + appointment.status + "</td>\n                            <td>" + appointment.rating + "</td>\n                            <td>" + appointment.review + "</td>\n                            <td>\n                                <button class=\"edit-btn\" onclick=\"handleEditField('" + appointment._id + "')\">Edit</button>\n                                <button class=\"delete-btn\" onclick=\"handleDeleteAppointment('" + appointment._id + "')\">Delete</button>\n                            </td>\n                        </tr>\n                    "; })
+        .join("") + "\n            </tbody>\n        </table>\n    ";
 }
 function handleEditField(id, fieldName) {
     var _this = this;
@@ -146,7 +167,7 @@ function handleEditField(id, fieldName) {
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    value = element.innerText;
+                    value = element.innerText.trim();
                     element.contentEditable = "false";
                     return [4 /*yield*/, updateAppointment(id, (_a = {}, _a[fieldName] = value, _a))];
                 case 1:
@@ -157,12 +178,12 @@ function handleEditField(id, fieldName) {
     }); }, { once: true });
 }
 function updateAppointment(id, updatedFields) {
-    return __awaiter(this, void 0, void 0, function () {
-        var response, errorMessage, error_2;
+    return __awaiter(this, void 0, Promise, function () {
+        var response, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 5, , 6]);
+                    _a.trys.push([0, 3, , 4]);
                     return [4 /*yield*/, fetch("/api/appointments/edit-appointment", {
                             method: "PUT",
                             headers: { "Content-Type": "application/json" },
@@ -170,34 +191,29 @@ function updateAppointment(id, updatedFields) {
                         })];
                 case 1:
                     response = _a.sent();
-                    if (!!response.ok) return [3 /*break*/, 3];
-                    return [4 /*yield*/, response.text()];
+                    if (!response.ok)
+                        throw new Error("Failed to update appointment");
+                    return [4 /*yield*/, fetchAllAppointments()];
                 case 2:
-                    errorMessage = _a.sent();
-                    console.error("Failed to update appointment. Server response:", errorMessage);
-                    throw new Error("Failed to update appointment");
-                case 3: return [4 /*yield*/, fetchAllAppointments()];
-                case 4:
                     _a.sent();
-                    return [3 /*break*/, 6];
-                case 5:
+                    return [3 /*break*/, 4];
+                case 3:
                     error_2 = _a.sent();
                     console.error("Error updating appointment:", error_2);
-                    return [3 /*break*/, 6];
-                case 6: return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     });
 }
 function handleDeleteAppointment(id) {
     var _a;
-    return __awaiter(this, void 0, void 0, function () {
-        var response, errorMessage, error_3;
+    return __awaiter(this, void 0, Promise, function () {
+        var response, error_3;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _b.trys.push([0, 4, , 5]);
-                    console.log("Attempting to delete appointment with id: " + id);
+                    _b.trys.push([0, 2, , 3]);
                     return [4 /*yield*/, fetch("/api/appointments/delete-appointment", {
                             method: "DELETE",
                             headers: { "Content-Type": "application/json" },
@@ -205,79 +221,67 @@ function handleDeleteAppointment(id) {
                         })];
                 case 1:
                     response = _b.sent();
-                    if (!!response.ok) return [3 /*break*/, 3];
-                    return [4 /*yield*/, response.text()];
-                case 2:
-                    errorMessage = _b.sent();
-                    console.error("Failed to delete appointment. Server response:", errorMessage);
-                    throw new Error("Failed to delete appointment");
-                case 3:
+                    if (!response.ok)
+                        throw new Error("Failed to delete appointment");
                     (_a = document.getElementById("appointment-" + id)) === null || _a === void 0 ? void 0 : _a.remove();
-                    console.log("Appointment with id " + id + " deleted from the DOM");
-                    return [3 /*break*/, 5];
-                case 4:
+                    return [3 /*break*/, 3];
+                case 2:
                     error_3 = _b.sent();
                     console.error("Error deleting appointment:", error_3);
-                    return [3 /*break*/, 5];
-                case 5: return [2 /*return*/];
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
         });
     });
 }
 function populateDropdowns() {
     return __awaiter(this, void 0, Promise, function () {
-        var clientsResponse, clients, clientSelect_1, adminsResponse, admins, adminSelect_1, servicesResponse, services, serviceSelect_1, error_4;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var _a, clientsResponse, adminsResponse, servicesResponse, clients, admins, services, error_4;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    _a.trys.push([0, 7, , 8]);
-                    return [4 /*yield*/, fetch('/api/clients')];
+                    _b.trys.push([0, 5, , 6]);
+                    return [4 /*yield*/, Promise.all([
+                            fetch("/api/clients"),
+                            fetch("/api/admins"),
+                            fetch("/api/services"),
+                        ])];
                 case 1:
-                    clientsResponse = _a.sent();
+                    _a = _b.sent(), clientsResponse = _a[0], adminsResponse = _a[1], servicesResponse = _a[2];
+                    if (!clientsResponse.ok || !adminsResponse.ok || !servicesResponse.ok) {
+                        throw new Error("Failed to populate dropdowns");
+                    }
                     return [4 /*yield*/, clientsResponse.json()];
                 case 2:
-                    clients = _a.sent();
-                    clientSelect_1 = document.getElementById('client');
-                    clients.forEach(function (client) {
-                        var option = document.createElement('option');
-                        option.value = client._id;
-                        option.textContent = client.name;
-                        clientSelect_1.appendChild(option);
-                    });
-                    return [4 /*yield*/, fetch('/api/admins')];
-                case 3:
-                    adminsResponse = _a.sent();
+                    clients = _b.sent();
                     return [4 /*yield*/, adminsResponse.json()];
-                case 4:
-                    admins = _a.sent();
-                    adminSelect_1 = document.getElementById('admin');
-                    admins.forEach(function (admin) {
-                        var option = document.createElement('option');
-                        option.value = admin._id;
-                        option.textContent = admin.name;
-                        adminSelect_1.appendChild(option);
-                    });
-                    return [4 /*yield*/, fetch('/api/services')];
-                case 5:
-                    servicesResponse = _a.sent();
+                case 3:
+                    admins = _b.sent();
                     return [4 /*yield*/, servicesResponse.json()];
-                case 6:
-                    services = _a.sent();
-                    serviceSelect_1 = document.getElementById('service');
-                    services.forEach(function (service) {
-                        var option = document.createElement('option');
-                        option.value = service._id;
-                        option.textContent = service.name;
-                        serviceSelect_1.appendChild(option);
-                    });
-                    return [3 /*break*/, 8];
-                case 7:
-                    error_4 = _a.sent();
-                    console.error('Error populating dropdowns:', error_4);
-                    return [3 /*break*/, 8];
-                case 8: return [2 /*return*/];
+                case 4:
+                    services = _b.sent();
+                    populateSelect("client", clients, "firstName");
+                    populateSelect("admin", admins, "AdminFirstName");
+                    populateSelect("service", services, "name");
+                    return [3 /*break*/, 6];
+                case 5:
+                    error_4 = _b.sent();
+                    console.error("Error populating dropdowns:", error_4);
+                    return [3 /*break*/, 6];
+                case 6: return [2 /*return*/];
             }
         });
+    });
+}
+function populateSelect(selectId, items, textField) {
+    var select = document.getElementById(selectId);
+    if (!select)
+        return;
+    items.forEach(function (item) {
+        var option = document.createElement("option");
+        option.value = item._id;
+        option.textContent = item[textField];
+        select.appendChild(option);
     });
 }
 window.onload = function () {

@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 function handleAddServiceProvider(ev) {
     return __awaiter(this, void 0, void 0, function () {
-        var formData, serviceProviderName, phone, email, price, averageRating, response, error_1;
+        var formData, serviceProviderName, phone, email, response, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -46,9 +46,7 @@ function handleAddServiceProvider(ev) {
                     serviceProviderName = formData.get("serviceProvider");
                     phone = formData.get("phone");
                     email = formData.get("email");
-                    price = formData.get("price");
-                    averageRating = formData.get("averageRating");
-                    if (!serviceProviderName || !phone || !email || !price || !averageRating)
+                    if (!serviceProviderName || !phone || !email)
                         throw new Error("All fields are 23required");
                     return [4 /*yield*/, fetch('/api/serviceProviders/add-service-provider', {
                             method: 'POST',
@@ -58,9 +56,7 @@ function handleAddServiceProvider(ev) {
                             body: JSON.stringify({
                                 serviceProviderName: serviceProviderName,
                                 phone: phone,
-                                email: email,
-                                price: price,
-                                averageRating: averageRating
+                                email: email
                             })
                         })];
                 case 1:

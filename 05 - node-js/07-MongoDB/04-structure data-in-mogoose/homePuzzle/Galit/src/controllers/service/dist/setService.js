@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -103,19 +114,28 @@ function getServiceById(req, res) {
 exports.getServiceById = getServiceById;
 function getAllServices(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var services, error_3;
+        var services, formattedServices, error_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     return [4 /*yield*/, serviceModel_1.ServiceModel.find()
-                            .populate('admin', 'AdminFirstName AdminLastName')];
+                            .populate({
+                            path: 'admin',
+                            select: 'AdminFirstName AdminLastName'
+                        })];
                 case 1:
                     services = _a.sent();
                     if (!services || services.length === 0) {
                         return [2 /*return*/, res.status(404).send({ error: "No services found" })];
                     }
-                    res.status(200).json(services);
+                    formattedServices = services.map(function (service) {
+                        var admin = service.admin
+                            ? ((service.admin.AdminFirstName || 'Unknown') + " " + (service.admin.AdminLastName || '')).trim()
+                            : 'Unknown Admin';
+                        return __assign(__assign({}, service.toObject()), { admin: admin });
+                    });
+                    res.status(200).json(formattedServices);
                     return [3 /*break*/, 3];
                 case 2:
                     error_3 = _a.sent();

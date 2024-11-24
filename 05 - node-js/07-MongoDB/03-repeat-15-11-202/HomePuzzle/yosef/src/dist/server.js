@@ -11,7 +11,7 @@ app.get('/', function (req, res) {
 });
 //DB
 var dbUrl = "mongodb+srv://yosefib88:FYdIUMhMIwGscX4y@cluster0.b5vsm.mongodb.net";
-var database = 'Clients & Service Provider & Appoitments';
+var database = 'Clients&ServiceProvider&Appoitments';
 //connection
 mongoose_1["default"].connect(dbUrl + "/" + database).then(function () {
     console.info("DB connected");
@@ -23,6 +23,8 @@ var clientRoutes_1 = require("./routes/clientsRoutes/clientRoutes");
 app.use("/api/clients", clientRoutes_1["default"]);
 var serviceProviderRoutes_1 = require("./routes/serviceProvider/serviceProviderRoutes");
 app.use("/api/serviceProviders", serviceProviderRoutes_1["default"]);
+var appointmentsRoute_1 = require("./routes/appointments/appointmentsRoute");
+app.use("/api/appointments", appointmentsRoute_1["default"]);
 app.listen(port, function () {
     console.log("Example app listening on port " + port);
 });

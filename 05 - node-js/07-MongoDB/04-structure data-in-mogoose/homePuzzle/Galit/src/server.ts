@@ -6,9 +6,9 @@ const port = 3000;
 app.use(express.json());
 app.use(express.static('public'));
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+// app.get('/', (req, res) => {
+//   res.send('Hello World!')
+// })
 
 // MongoDB connection
 const dbUrl = 'mongodb+srv://galitccga:q4wlV111QcHSFkDZ@cluster0.sevm84o.mongodb.net';
@@ -34,8 +34,8 @@ app.use("/api/admins", adminRouter);
 import serviceRouter from './routes/ServiceRoute';
 app.use("/api/services", serviceRouter);
 
-import appointmentRouter from './routes/AppointmentRoute';
-app.use("/api/appointments", appointmentRouter);
+import AppointmentRouter from './routes/AppointmentRoute';
+app.use("/api/appointments", AppointmentRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

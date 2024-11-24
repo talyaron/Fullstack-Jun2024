@@ -12,12 +12,11 @@ exports.ClientSchema = new mongoose_1.Schema({
         required: true
     },
     email: { type: String,
-        unique: true
+        required: true
     },
     phone: { type: String,
-        unique: true
+        required: true
     },
-    yearOfBirth: Number,
-    password: String
+    yearOfBirth: Number
 });
 exports.ClientModel = mongoose_1.model("Client", exports.ClientSchema);

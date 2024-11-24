@@ -3,7 +3,7 @@ import { Admin } from '../admins/AdminModel';
 
 
 export interface Service extends Document {
-    admin: Admin | string; 
+    admin: Admin | null; 
     name: string;
     description: string;
     duration: string;

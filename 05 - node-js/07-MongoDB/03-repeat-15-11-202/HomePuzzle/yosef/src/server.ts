@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 
 //DB
 const dbUrl = "mongodb+srv://yosefib88:FYdIUMhMIwGscX4y@cluster0.b5vsm.mongodb.net"
-const database = 'Clients & Service Provider & Appoitments';
+const database = 'Clients&ServiceProvider&Appoitments';
 
 //connection
 mongoose.connect(`${dbUrl}/${database}`).then(()=>{
@@ -28,6 +28,10 @@ app.use("/api/clients", clientsRouter);
 import serviceProviderRouter from './routes/serviceProvider/serviceProviderRoutes';
 app.use("/api/serviceProviders", serviceProviderRouter);
 
+import appointmentsRouter from './routes/appointments/appointmentsRoute';
+app.use("/api/appointments", appointmentsRouter);
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+

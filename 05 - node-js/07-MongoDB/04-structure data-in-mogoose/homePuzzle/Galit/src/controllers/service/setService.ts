@@ -52,13 +52,24 @@ export async function getServiceById(req: any, res: any) {
 export async function getAllServices(req: any, res: any) {
     try {
         const services = await ServiceModel.find()
-            .populate('admin', 'AdminFirstName AdminLastName')
+            .populate({
+                path: 'admin',
+                select: 'AdminFirstName AdminLastName',
+            });
 
         if (!services || services.length === 0) {
             return res.status(404).send({ error: "No services found" });
         }
 
-        res.status(200).json(services); 
+        const formattedServices = services.map(service => {
+            const admin = service.admin 
+                ? `${service.admin.AdminFirstName || 'Unknown'} ${service.admin.AdminLastName || ''}`.trim()
+                : 'Unknown Admin';
+
+            return { ...service.toObject(), admin };
+        });
+
+        res.status(200).json(formattedServices); 
     } catch (error) {
         console.error(error);
         res.status(500).send({ error: "Server error" });
