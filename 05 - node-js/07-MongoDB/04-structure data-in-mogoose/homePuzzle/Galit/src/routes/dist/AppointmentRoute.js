@@ -36,9 +36,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
+var appointmentModel_1 = require("../model/appointment/appointmentModel");
 var express_1 = require("express");
 var setAppointment_1 = require("../controllers/appointment/setAppointment");
-var appointmentModel_1 = require("../model/appointment/appointmentModel");
 var router = express_1["default"].Router();
 router.post("/add-appointment", setAppointment_1.addAppointment);
 router.get("/:id", setAppointment_1.getAppointmentById);

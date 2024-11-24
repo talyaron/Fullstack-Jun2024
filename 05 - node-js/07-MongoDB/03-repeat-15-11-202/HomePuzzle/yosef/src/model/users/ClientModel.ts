@@ -1,7 +1,6 @@
 import {Schema, model} from 'mongoose';
 
 export const ClientSchema = new Schema({
-    id: { type: String, required: true },
     firstName:{
         type:String,
         required:true

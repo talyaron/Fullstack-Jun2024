@@ -10,6 +10,7 @@ async function handleAddClient(ev: any): Promise<void> {
         const date = formData.get("date") as string;
         const yearOfBirth = new Date(date).getFullYear();
   
+  
         const response = await fetch("/api/clients/add-client", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -35,7 +36,8 @@ async function handleAddClient(ev: any): Promise<void> {
     } catch (err) {
         console.error(err);
     }
-  }
+}
+
   
   async function fetchAllClients(): Promise<void> {
     try {

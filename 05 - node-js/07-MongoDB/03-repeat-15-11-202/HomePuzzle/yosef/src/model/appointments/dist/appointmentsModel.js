@@ -3,8 +3,8 @@ exports.__esModule = true;
 exports.AppointmentsModel = exports.AppointmentsSchema = void 0;
 var mongoose_1 = require("mongoose");
 exports.AppointmentsSchema = new mongoose_1.Schema({
-    userId: { type: mongoose_1.Schema.Types.ObjectId, ref: "Client" },
-    serviceProviderId: { type: mongoose_1.Schema.Types.ObjectId, ref: "ServiceProvider" },
+    userId: { type: mongoose_1["default"].Schema.Types.ObjectId, ref: 'Client', required: true },
+    serviceProviderId: { type: mongoose_1["default"].Schema.Types.ObjectId, ref: 'ServiceProvider', required: true },
     date: {
         type: Date,
         required: true
@@ -38,4 +38,5 @@ exports.AppointmentsSchema = new mongoose_1.Schema({
         type: String
     }
 });
-exports.AppointmentsModel = mongoose_1.model("Appointments", exports.AppointmentsSchema);
+exports.AppointmentsModel = mongoose_1["default"].model("Appointments", exports.AppointmentsSchema);
+exports["default"] = exports.AppointmentsModel;

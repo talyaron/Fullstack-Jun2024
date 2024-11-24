@@ -28,6 +28,10 @@ app.use("/api/clients", clientsRouter);
 import serviceProviderRouter from './routes/serviceProvider/serviceProviderRoutes';
 app.use("/api/serviceProviders", serviceProviderRouter);
 
+import appointmentsRouter from './routes/appointments/appointmentsRoute';
+app.use("/api/appointments", appointmentsRouter);
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+

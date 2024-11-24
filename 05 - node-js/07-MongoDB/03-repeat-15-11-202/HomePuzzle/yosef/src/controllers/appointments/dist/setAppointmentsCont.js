@@ -46,8 +46,6 @@ function setAppointments(req, res) {
                 case 0:
                     _b.trys.push([0, 2, , 3]);
                     _a = req.body, userId = _a.userId, serviceProviderId = _a.serviceProviderId, date = _a.date, startTime = _a.startTime, endTime = _a.endTime, status = _a.status, service = _a.service, price = _a.price, rating = _a.rating, review = _a.review;
-                    if (!userId || !serviceProviderId || !date || !startTime || !endTime || !service || !price || !rating || !review)
-                        return [2 /*return*/, res.status(400).json({ message: 'Please provide all required fields' })];
                     return [4 /*yield*/, appointmentsModel_1.AppointmentsModel.create({
                             userId: userId,
                             serviceProviderId: serviceProviderId,

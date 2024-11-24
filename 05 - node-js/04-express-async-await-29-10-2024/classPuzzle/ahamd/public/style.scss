@@ -1,0 +1,52 @@
+$primary-color: #3498db;
+$background-color: #f0f4f7;
+$button-color: #2ecc71;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: $background-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  text-align: center;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: $primary-color;
+  margin-bottom: 1rem;
+}
+
+button {
+  background-color: $button-color;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: darken($button-color, 10%);
+  }
+}
+
+#randomNumberDisplay {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: #333;
+}
