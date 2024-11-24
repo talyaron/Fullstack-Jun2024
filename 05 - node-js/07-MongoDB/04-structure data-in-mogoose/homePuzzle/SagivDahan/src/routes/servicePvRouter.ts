@@ -1,10 +1,7 @@
 import express from 'express';
+import { getMyAppointments } from '../controllers/providers/getMyAppointments';
 const spvRouter = express.Router();
 
-spvRouter.post('/signup-provider', signupUser);
-spvRouter.post('/login-provider', loginUser);
-spvRouter.post('/get-service-provider', getUser);
-spvRouter.get('/sp-exists', userExists);
-spvRouter.post('/addService', addService)
+spvRouter.get('/appointments/:providerId', getMyAppointments);
 
 export default spvRouter;
