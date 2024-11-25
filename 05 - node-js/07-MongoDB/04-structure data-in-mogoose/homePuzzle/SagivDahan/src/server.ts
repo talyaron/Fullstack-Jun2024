@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import userRouter from './routes/usersRouter';
-import servicePvRouter from './routes/servicePvRouter'
+import appointmentsRouter from './routes/appointmentsRouter';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -11,12 +11,11 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 app.use("/api/user", userRouter);
-app.use("/api/provider",servicePvRouter);
+app.use("/api/appointment",appointmentsRouter);
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 });
-
 
 const dbUrl = "mongodb+srv://adhcsvi1:sagiv123@cluster0.qyh2p.mongodb.net";
 const database = 'booking';

@@ -10,5 +10,4 @@ userRouter.post('/signup-user', signupUser_1.signupUser);
 userRouter.post('/login', loginUser_1.loginUser);
 userRouter.post('/get-user', getUser_1.getUser);
 userRouter.get('/userExists', userExists_1.userExists);
-userRouter.post('/create-appointment', createAppointment);
 exports["default"] = userRouter;

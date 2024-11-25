@@ -11,6 +11,5 @@ userRouter.post('/signup-user', signupUser);
 userRouter.post('/login', loginUser);
 userRouter.post('/get-user', getUser);
 userRouter.get('/userExists', userExists);
-userRouter.post('/create-appointment', createAppointment);
 
 export default userRouter;

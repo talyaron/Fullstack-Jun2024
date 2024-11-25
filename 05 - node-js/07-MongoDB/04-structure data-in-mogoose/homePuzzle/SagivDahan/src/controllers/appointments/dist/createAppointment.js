@@ -36,42 +36,38 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.signupUser = void 0;
-var userModel_1 = require("../../models/userModel");
-var crypto_1 = require("crypto");
-function signupUser(req, res) {
-    return __awaiter(this, void 0, void 0, function () {
-        var _a, userName, email, password, phoneNumber, user, id, newUser, error_1;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0:
-                    _b.trys.push([0, 5, , 6]);
-                    _a = req.body, userName = _a.userName, email = _a.email, password = _a.password, phoneNumber = _a.phoneNumber;
-                    if (!userName || !email || !password || !phoneNumber) {
-                        return [2 /*return*/, res.status(400).json({ error: "All fields are required" })];
-                    }
-                    return [4 /*yield*/, userModel_1.userModel.findOne({ email: email })];
-                case 1:
-                    user = _b.sent();
-                    if (!user) return [3 /*break*/, 2];
-                    return [2 /*return*/, res.status(400).json({ message: 'Email already registered!' })];
-                case 2:
-                    id = crypto_1.randomBytes(16).toString("hex");
-                    userModel_1.users.push({ userName: userName, email: email, password: password, phoneNumber: phoneNumber, id: id });
-                    newUser = new userModel_1.userModel({ userName: userName, email: email, password: password, phoneNumber: phoneNumber, id: id });
-                    return [4 /*yield*/, newUser.save()];
-                case 3:
-                    _b.sent();
-                    res.status(201).json({ message: "User added successfully", newUser: newUser });
-                    _b.label = 4;
-                case 4: return [3 /*break*/, 6];
-                case 5:
-                    error_1 = _b.sent();
-                    res.status(500).json({ error: "An error occurred while adding the user" });
-                    return [3 /*break*/, 6];
-                case 6: return [2 /*return*/];
-            }
-        });
+exports.createAppointment = void 0;
+var appointmentsModel_1 = require("../../models/appointmentsModel");
+exports.createAppointment = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, date, startTime, endTime, service, price, clientId, providerId, status, rating, review, newAppointment, error_1;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _b.trys.push([0, 2, , 3]);
+                _a = req.body, date = _a.date, startTime = _a.startTime, endTime = _a.endTime, service = _a.service, price = _a.price, clientId = _a.clientId, providerId = _a.providerId, status = _a.status, rating = _a.rating, review = _a.review;
+                newAppointment = new appointmentsModel_1.AppointmentsModel({
+                    date: date,
+                    startTime: startTime,
+                    endTime: endTime,
+                    service: service,
+                    price: price,
+                    clientId: clientId,
+                    providerId: providerId,
+                    status: status,
+                    rating: rating,
+                    review: review
+                });
+                return [4 /*yield*/, newAppointment.save()];
+            case 1:
+                _b.sent();
+                res.status(201).send(newAppointment);
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _b.sent();
+                console.error(error_1);
+                res.status(500).send({ error: 'Failed to create appointment' });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
     });
-}
-exports.signupUser = signupUser;
+}); };

@@ -47,6 +47,18 @@ exports.appointmentsSchema = new mongoose_1.Schema({
     providerId: {
         type: String,
         required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    rating: {
+        type: Number,
+        min: 1,
+        max: 5
+    },
+    review: {
+        type: String
     }
 });
 exports.AppointmentsModel = mongoose_1.model('Appointments', exports.appointmentsSchema);

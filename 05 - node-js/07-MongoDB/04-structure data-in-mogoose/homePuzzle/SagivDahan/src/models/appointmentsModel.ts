@@ -10,6 +10,8 @@ type Appointments = {
     serviceId: string;
     clientId: string;
     providerId: string;
+    rating?: number;
+    review?: string;
 };
 
 
@@ -58,7 +60,19 @@ export const appointmentsSchema = new Schema({
     providerId: {
         type: String,
         required: true, 
-    }
+    },
+    price: {
+        type: Number,
+        required: true,
+    },
+    rating: {
+        type: Number,
+        min: 1,
+        max: 5,
+    },
+    review: {
+        type: String,
+    },
 });
 
 export const AppointmentsModel = model('Appointments', appointmentsSchema);
