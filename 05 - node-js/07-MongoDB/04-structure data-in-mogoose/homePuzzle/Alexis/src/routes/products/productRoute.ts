@@ -1,5 +1,5 @@
 import express from 'express';
-import { addProduct } from '../../controllers/appointments/setProducts';
+import { addProduct } from '../../controllers/appointments/setAppointment';
 
 
 
