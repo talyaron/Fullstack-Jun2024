@@ -4,14 +4,20 @@ exports.AppointmentModel = exports.AppointmentSchema = void 0;
 var mongoose_1 = require("mongoose");
 exports.AppointmentSchema = new mongoose_1.Schema({
     client: {
-        type: String,
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: 'Client',
         required: true
     },
     admin: {
-        type: String,
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: 'Admin',
         required: true
     },
-    service: { type: String, required: true },
+    service: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: 'Service',
+        required: true
+    },
     date: { type: String, required: true },
     startTime: {
         type: Number,

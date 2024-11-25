@@ -6,9 +6,7 @@ const port = 3000;
 app.use(express.json());
 app.use(express.static('public'));
 
-// app.get('/', (req, res) => {
-//   res.send('Hello World!')
-// })
+
 
 // MongoDB connection
 const dbUrl = 'mongodb+srv://galitccga:q4wlV111QcHSFkDZ@cluster0.sevm84o.mongodb.net';
