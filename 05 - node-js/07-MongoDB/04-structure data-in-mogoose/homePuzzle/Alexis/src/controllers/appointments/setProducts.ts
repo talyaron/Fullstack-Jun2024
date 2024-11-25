@@ -1,22 +1,36 @@
-import { Request, Response } from 'express';
-import Product from '../../model/appointments/appointmentModel';
+import { Request, Response } from "express";
+import AppointmentModel from "../../model/appointments/appointmentModel";
 
-export const addProduct = async (req: Request, res: Response) => {
-    try {
-        const { name, price, description, category, inStock } = req.body;
+export const addAppointment = async (req: Request, res: Response) => {
+  try {
+    const {
+      name,
+      price,
+      description,
+      category,
+      inStock,
+      clientId,
+      serviceProviderId,
+      startTime,
+      endTime,
+      status,
+      serviceId,
+      rating,
+      reviewId,
+    } = req.body;
 
-        const newProduct = new Product({
-            name,
-            price,
-            description,
-            category,
-            inStock,
-        });
+    const newAppointment = new AppointmentModel({
+      name,
+      price,
+      description,
+      category,
+      inStock,
+    });
 
-        const savedProduct = await newProduct.save();
+    const savedAppointment = await newAppointment.save();
 
-        res.status(201).json({ message: 'Product saved', savedProduct });
-    } catch (error) {
-        res.status(500).json({ message: 'Error saving product', error });
-    }
+    res.status(201).json({ message: "Appointment saved", savedAppointment });
+  } catch (error) {
+    res.status(500).json({ message: "Error saving product", error });
+  }
 };

@@ -36,32 +36,30 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.addAppointment = void 0;
-var appointmentModel_1 = require("../../model/appointments/appointmentModel");
-exports.addAppointment = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, name, price, description, category, inStock, clientId, serviceProviderId, startTime, endTime, status, serviceId, rating, reviewId, newAppointment, savedAppointment, error_1;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                _b.trys.push([0, 2, , 3]);
-                _a = req.body, name = _a.name, price = _a.price, description = _a.description, category = _a.category, inStock = _a.inStock, clientId = _a.clientId, serviceProviderId = _a.serviceProviderId, startTime = _a.startTime, endTime = _a.endTime, status = _a.status, serviceId = _a.serviceId, rating = _a.rating, reviewId = _a.reviewId;
-                newAppointment = new appointmentModel_1["default"]({
-                    name: name,
-                    price: price,
-                    description: description,
-                    category: category,
-                    inStock: inStock
-                });
-                return [4 /*yield*/, newAppointment.save()];
-            case 1:
-                savedAppointment = _b.sent();
-                res.status(201).json({ message: "Appointment saved", savedAppointment: savedAppointment });
-                return [3 /*break*/, 3];
-            case 2:
-                error_1 = _b.sent();
-                res.status(500).json({ message: "Error saving product", error: error_1 });
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
+exports.addServiceProvider = void 0;
+var serviceProvidersModel_1 = require("../../model/servicePrividers/serviceProvidersModel");
+function addServiceProvider(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var _a, id, firstName, lastName, serviceId, result, error_1;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _b.trys.push([0, 2, , 3]);
+                    _a = req.body, id = _a.id, firstName = _a.firstName, lastName = _a.lastName, serviceId = _a.serviceId;
+                    return [4 /*yield*/, serviceProvidersModel_1.ServiceProviderModel.create({
+                            id: id, firstName: firstName, lastName: lastName, serviceId: serviceId
+                        })];
+                case 1:
+                    result = _b.sent();
+                    console.log(result);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_1 = _b.sent();
+                    console.error(error_1);
+                    return [2 /*return*/, res.status(500).send({ error: error_1.message })];
+                case 3: return [2 /*return*/];
+            }
+        });
     });
-}); };
+}
+exports.addServiceProvider = addServiceProvider;
