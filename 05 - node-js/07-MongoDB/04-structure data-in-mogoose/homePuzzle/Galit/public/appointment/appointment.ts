@@ -2,34 +2,32 @@ async function handleAddAppointment(ev: Event): Promise<void> {
     try {
         ev.preventDefault();
 
-        const form = ev.target as HTMLFormElement;
-        const formData = new FormData(form);
-
-        const appointment = {
-            client: formData.get("client") as string,
-            admin: formData.get("admin") as string,
-            service: formData.get("service") as string,
-            date: formData.get("date") as string,
-            startTime: formData.get("startTime") as string,
-            endTime: formData.get("endTime") as string,
-            status: formData.get("status") as string,
-            rating: formData.get("rating") as string,
-            review: formData.get("review") as string,
-        };
+        const formData = new FormData(ev.target as HTMLFormElement);
+        const client = formData.get("client") as string;
+        const admin = formData.get("admin") as string;
+        const service = formData.get("service") as string;
+        const date = formData.get("date") as string;
+        const startTime = formData.get("startTime") as string;
+        const endTime = formData.get("endTime") as string;
+        const status = formData.get("status") as string;
+        const rating = formData.get("rating") as string;
+        const review = formData.get("review") as string;
 
         const response = await fetch("/api/appointments/add-appointment", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(appointment),
+            body: JSON.stringify({ client, admin, service, date, startTime, endTime, status, rating, review }),
         });
 
-        if (!response.ok) throw new Error("Failed to add appointment");
+        if (response.ok) {
+            const data = await response.json();
+            console.log("Appointment added:", data);
 
-        const data = await response.json();
-        console.log("Appointment added:", data);
-
-        form.reset();
-        await fetchAllAppointments();
+            (ev.target as HTMLFormElement).reset();
+            await fetchAllAppointments();
+        } else {
+            throw new Error("Failed to add appointment");
+        }
     } catch (err) {
         console.error("Error adding appointment:", err);
     }
@@ -37,20 +35,24 @@ async function handleAddAppointment(ev: Event): Promise<void> {
 
 async function fetchAllAppointments(): Promise<void> {
     try {
-        const [appointmentsResponse, adminsResponse, clientsResponse, servicesResponse] = await Promise.all([
-            fetch("/api/appointments"),
-            fetch("/api/admins"),
-            fetch("/api/clients"),
-            fetch("/api/services"),
-        ]);
-
-        if (!appointmentsResponse.ok || !adminsResponse.ok || !clientsResponse.ok || !servicesResponse.ok) {
-            throw new Error("Failed to fetch required data");
-        }
+        const appointmentsResponse = await fetch("/api/appointments");
+        if (!appointmentsResponse.ok) throw new Error("Failed to fetch appointments");
 
         const appointments = await appointmentsResponse.json();
+
+        const adminsResponse = await fetch("/api/admins");
+        if (!adminsResponse.ok) throw new Error("Failed to fetch admins");
+
         const admins = await adminsResponse.json();
+
+        const clientsResponse = await fetch("/api/clients");
+        if (!clientsResponse.ok) throw new Error("Failed to fetch clients");
+
         const clients = await clientsResponse.json();
+
+        const servicesResponse = await fetch("/api/services");
+        if (!servicesResponse.ok) throw new Error("Failed to fetch services");
+
         const services = await servicesResponse.json();
 
         const adminMap = admins.reduce((map: Record<string, string>, admin: any) => {
@@ -101,8 +103,8 @@ function renderAppointments(
             </thead>
             <tbody>
                 ${appointments
-                    .map((appointment
-                        : any) => `
+                    .map(
+                        (appointment: any) => `
                         <tr id="appointment-${appointment._id}">
                             <td>${clientMap[appointment.client] || "N/A"}</td>
                             <td>${adminMap[appointment.admin] || "N/A"}</td>
@@ -114,49 +116,16 @@ function renderAppointments(
                             <td>${appointment.rating}</td>
                             <td>${appointment.review}</td>
                             <td>
-                                <button class="edit-btn" onclick="handleEditField('${appointment._id}')">Edit</button>
-                                <button class="delete-btn" onclick="handleDeleteAppointment('${appointment._id}')">Delete</button>
+                                <button onclick="handleEditAppointment('${appointment._id}')">Edit</button>
+                                <button onclick="handleDeleteAppointment('${appointment._id}')">Delete</button>
                             </td>
                         </tr>
-                    `)
+                    `
+                    )
                     .join("")}
             </tbody>
         </table>
     `;
-}
-
-function handleEditField(id: string, fieldName: string): void {
-    const element = document.getElementById(`${fieldName}-${id}`);
-    if (!element) return;
-
-    element.contentEditable = "true";
-    element.focus();
-
-    element.addEventListener(
-        "blur",
-        async () => {
-            const value = element.innerText.trim();
-            element.contentEditable = "false";
-            await updateAppointment(id, { [fieldName]: value });
-        },
-        { once: true }
-    );
-}
-
-async function updateAppointment(id: string, updatedFields: Partial<any>): Promise<void> {
-    try {
-        const response = await fetch(`/api/appointments/edit-appointment`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id, ...updatedFields }),
-        });
-
-        if (!response.ok) throw new Error("Failed to update appointment");
-
-        await fetchAllAppointments();
-    } catch (error) {
-        console.error("Error updating appointment:", error);
-    }
 }
 
 async function handleDeleteAppointment(id: string): Promise<void> {
@@ -175,7 +144,7 @@ async function handleDeleteAppointment(id: string): Promise<void> {
     }
 }
 
-async function populateDropdowns(): Promise<void> {
+async function populateAppointmentDropdowns(): Promise<void> {
     try {
         const [clientsResponse, adminsResponse, servicesResponse] = await Promise.all([
             fetch("/api/clients"),
@@ -191,15 +160,15 @@ async function populateDropdowns(): Promise<void> {
         const admins = await adminsResponse.json();
         const services = await servicesResponse.json();
 
-        populateSelect("client", clients, "firstName");
-        populateSelect("admin", admins, "AdminFirstName");
-        populateSelect("service", services, "name");
+        populateDropdown("client", clients, "firstName");
+        populateDropdown("admin", admins, "AdminFirstName");
+        populateDropdown("service", services, "name");
     } catch (error) {
         console.error("Error populating dropdowns:", error);
     }
 }
 
-function populateSelect(selectId: string, items: any[], textField: string): void {
+function populateDropdown(selectId: string, items: any[], textField: string): void {
     const select = document.getElementById(selectId) as HTMLSelectElement;
     if (!select) return;
 
@@ -212,6 +181,6 @@ function populateSelect(selectId: string, items: any[], textField: string): void
 }
 
 window.onload = () => {
-    populateDropdowns();
+    populateAppointmentDropdowns();
     fetchAllAppointments();
 };

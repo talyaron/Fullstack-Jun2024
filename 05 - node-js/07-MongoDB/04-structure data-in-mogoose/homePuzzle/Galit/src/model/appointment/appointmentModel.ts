@@ -1,9 +1,12 @@
 import { Schema, model } from "mongoose";
+import { Admin } from '../admins/AdminModel';
+import { Service } from '../service/serviceModel'
+import { Client } from "../users/ClientModel";
 
 export interface Appointment extends Document {
-  client: string;
-  admin: string;
-  service: string;
+  client: Client| null;
+  admin: Admin | null;
+  service: Service | null;
   date: Date;
   startTime: string;
   endTime: string;
@@ -13,15 +16,21 @@ export interface Appointment extends Document {
 }
 
 export const AppointmentSchema = new Schema({
-    client: {
-    type: String,
-    required: true,
+    client:{
+      type: Schema.Types.ObjectId,
+      ref: 'Client',
+      required: true,
   },
-  admin: {
-    type: String,
+  admin:{
+    type: Schema.Types.ObjectId,
+    ref: 'Admin',
     required: true,
-  },
-  service: { type: String, required: true },
+},
+  service:{
+    type: Schema.Types.ObjectId,
+    ref: 'Service',
+    required: true,
+},
   date: { type: String, required: true },
   startTime: {
     type: Number,

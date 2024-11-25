@@ -1,21 +1,13 @@
 import { AppointmentModel } from "../model/appointment/appointmentModel";
-
 import express from "express";
-import {
-  addAppointment,
-  getAppointmentById,
-  editAppointment,
-  deleteAppointment,
-} from "../controllers/appointment/setAppointment";
+
+import {addAppointment, getAppointmentById,editAppointment,deleteAppointment} from "../controllers/appointment/setAppointment";
 
 const router = express.Router();
 
 router.post("/add-appointment", addAppointment);
-
 router.get("/:id", getAppointmentById);
-
 router.delete("/delete-appointment", deleteAppointment);
-
 router.put("/edit-appointment", editAppointment);
 
 router.get("/", async (req: any, res: any) => {
