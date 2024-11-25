@@ -18,8 +18,13 @@ export const addAppointment = async (req: Request, res: Response) => {
       rating,
       reviewId,
     } = req.body;
+const _available = await available(startTime, endTime);
 
-    const newAppointment = new AppointmentModel({
+if (_available === false){
+  return res.status(400).json({message:'This time is not available for this service provider'})
+}
+
+const newAppointment = new AppointmentModel({
       name,
       price,
       description,
@@ -34,3 +39,16 @@ export const addAppointment = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error saving product", error });
   }
 };
+
+export async function available(startTime: number, endTime: number){
+  try{
+    const appointments = await appointmentModel.find({
+      startTime:{$lt: endTime}, endTime:{$gt: startTime}
+    });
+    return appointments.length === 0;
+  }
+  catch(error:any){
+    console.log('Error creating appointment:',error.message);
+    return false;
+  }
+}
