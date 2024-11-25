@@ -36,28 +36,30 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.setProduct = void 0;
-var productModel_1 = require("../../model/products/productModel");
-exports.setProduct = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, name, price, description, newProduct, savedProduct, error_1;
+exports.addAppointment = void 0;
+var appointmentModel_1 = require("../../model/appointments/appointmentModel");
+exports.addAppointment = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, name, price, description, category, inStock, clientId, serviceProviderId, startTime, endTime, status, serviceId, rating, reviewId, newAppointment, savedAppointment, error_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _b.trys.push([0, 2, , 3]);
-                _a = req.body, name = _a.name, price = _a.price, description = _a.description;
-                newProduct = new productModel_1["default"]({
+                _a = req.body, name = _a.name, price = _a.price, description = _a.description, category = _a.category, inStock = _a.inStock, clientId = _a.clientId, serviceProviderId = _a.serviceProviderId, startTime = _a.startTime, endTime = _a.endTime, status = _a.status, serviceId = _a.serviceId, rating = _a.rating, reviewId = _a.reviewId;
+                newAppointment = new appointmentModel_1["default"]({
                     name: name,
                     price: price,
-                    description: description
+                    description: description,
+                    category: category,
+                    inStock: inStock
                 });
-                return [4 /*yield*/, newProduct.save()];
+                return [4 /*yield*/, newAppointment.save()];
             case 1:
-                savedProduct = _b.sent();
-                res.status(201).json(savedProduct);
+                savedAppointment = _b.sent();
+                res.status(201).json({ message: "Appointment saved", savedAppointment: savedAppointment });
                 return [3 /*break*/, 3];
             case 2:
                 error_1 = _b.sent();
-                res.status(500).json({ message: 'Error saving product', error: error_1 });
+                res.status(500).json({ message: "Error saving product", error: error_1 });
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }

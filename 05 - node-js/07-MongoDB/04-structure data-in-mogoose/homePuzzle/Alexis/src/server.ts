@@ -11,8 +11,8 @@ app.get('/', (req, res) => {
 })
 
 //DB
-const dbUrl = "mongodb+srv://tal:k8w0S6ztTx3zowGW@cluster0.0hzknon.mongodb.net"
-const database = 'fs-jun24';
+const dbUrl = "mongodb+srv://alexisv1199:vivalexxxa@cluster0.pdw7k.mongodb.net/"
+const database = 'fs';
 
 //connection
 mongoose.connect(`${dbUrl}/${database}`).then(()=>{
@@ -28,7 +28,8 @@ import productsRouter from './routes/products/productRoute';
 app.use("/api/products", productsRouter);
 import commentsRouter from './routes/comments/commentsRoute';
 app.use("/api/comments", commentsRouter);
-
+import serviceProviderRouter from '.routes/serviceProviderRoute/serviceProviderRoute'
+app.use("/api/serviceProviders", serviceProviderRouter)
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })

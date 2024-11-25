@@ -64,16 +64,12 @@ function signupUser(req, res) {
                     _b.sent();
                     res.status(201).json({ message: "User added successfully", newUser: newUser });
                     _b.label = 4;
-                case 4:
-                    ;
-                    return [3 /*break*/, 6];
+                case 4: return [3 /*break*/, 6];
                 case 5:
                     error_1 = _b.sent();
                     res.status(500).json({ error: "An error occurred while adding the user" });
                     return [3 /*break*/, 6];
-                case 6:
-                    ;
-                    return [2 /*return*/];
+                case 6: return [2 /*return*/];
             }
         });
     });

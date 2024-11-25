@@ -1,49 +1,38 @@
-import { model, Schema } from 'mongoose';
+import { Schema, model } from 'mongoose';
 
 type User = {
-    id: string;
-    firstName: string;
-    lastName: string;
+    userName: string;
     email: string;
     password: string;
-    phoneNumber: number;
-    isProvider: boolean;
-    services: string[];
+    phoneNumber: string;
+    id: string;
 };
 
 export const users: User[] = [];
 
-export const UserSchema = new Schema({
-    id: {
-        type: String, 
-        required: true,
-    },
-    firstName: {
-        type: String,
-        required: true,
-    },
-    lastName: {
+const userSchema = new Schema<User>({
+    userName: {
         type: String,
         required: true,
     },
     email: {
-        type: String, 
+        type: String,
         required: true,
+        unique: true,
     },
     password: {
-        type: String, 
-        required: true
+        type: String,
+        required: true,
     },
     phoneNumber: {
-        type: Number,
-        required: true, 
+        type: String,
+        required: true,
     },
-    isProvider: {
-        type: Boolean,
+    id: {
+        type: String,
+        required: true,
+        unique: true,
     },
-    services: {
-        type: Array,
-    }
 });
 
-export const userModel = model('User', UserSchema);
+export const userModel = model<User>('User', userSchema);

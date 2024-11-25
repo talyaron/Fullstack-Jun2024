@@ -11,8 +11,8 @@ app.get('/', (req, res) => {
 })
 
 //DB
-const dbUrl = "mongodb+srv://alexisv:Vivalexxxa@cluster0.fqmwt.mongodb.net/"
-const database = 'fs-jun24';
+const dbUrl = "mongodb+srv://alexisv:vivalexxxa@cluster0.fqmwt.mongodb.net/"
+const database = 'fs';
 
 //connection
 mongoose.connect(`${dbUrl}/${database}`).then(()=>{

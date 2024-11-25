@@ -25,6 +25,6 @@ const appointmentSchema = new Schema<Appointment>({
     inStock: { type: Boolean, default: true }
 });
 
-const Appointment = model<Appointment>('Appointment', appointmentSchema);
+export const AppointmentModel = model<Appointment>('Appointment', appointmentSchema);
 
-export default Appointment;
+export default AppointmentModel;
