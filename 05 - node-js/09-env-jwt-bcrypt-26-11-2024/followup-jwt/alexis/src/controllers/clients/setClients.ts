@@ -1,6 +1,6 @@
 import { ClientModel } from "../../model/clients/ClientModel";
 import jwt from "jwt-simple";
-export const secret = 'Alexis';
+export const secret = "Alexis";
 
 export async function addClient(req: any, res: any) {
   try {
@@ -67,7 +67,10 @@ export async function login(req: any, res: any) {
     console.log(secret);
     const token = jwt.encode(user, secret);
     console.log(token);
-    res.cookie("user", token, { httponly: true, maxAge: 1000 });
+    res.cookie("user", token, { httponly: true, maxAge: 10000000000000 });
+
+    const kontek = jwt.decode( token, secret);
+    console.log(kontek);
 
     //send cookie to client
     res.cookie("user", user, {
