@@ -1,7 +1,7 @@
 import { ClientModel } from "../../model/clients/ClientModel";
 import jwt from 'jwt-simple';
 
-const secret = '123456';
+const secret:string = '123456';
 
 export async function addClient(req: any, res: any) {
     try {
@@ -74,7 +74,7 @@ export async function login(req: any, res: any) {
         }
 
         //encode user id and role in token
-   
+        var token = jwt.encode([user._id, 'role=user'], secret);
 
         //send cookie to client
         res.cookie('user', user, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
