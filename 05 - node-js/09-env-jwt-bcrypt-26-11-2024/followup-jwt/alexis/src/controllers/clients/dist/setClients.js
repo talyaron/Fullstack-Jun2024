@@ -40,6 +40,8 @@ exports.login = exports.register = exports.addClient = exports.secret = void 0;
 var ClientModel_1 = require("../../model/clients/ClientModel");
 var jwt_simple_1 = require("jwt-simple");
 exports.secret = "Alexis";
+var bcrypt = require("bcrypt");
+var saltRounds = 10;
 function addClient(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var _a, firstName, password, lastName, email, phone, result, error_1;
@@ -108,18 +110,27 @@ function register(req, res) {
 exports.register = register;
 function login(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, email, password, user, token, kontek, error_3;
+        var _a, email, password, user, match, token, kontek, error_3;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _b.trys.push([0, 2, , 3]);
+                    _b.trys.push([0, 3, , 4]);
                     _a = req.body, email = _a.email, password = _a.password;
                     if (!email || !password)
                         throw new Error("Please fill all fields");
-                    return [4 /*yield*/, ClientModel_1.ClientModel.findOne({ email: email, password: password })];
+                    return [4 /*yield*/, ClientModel_1.ClientModel.findOne({ email: email })];
                 case 1:
                     user = _b.sent();
                     if (!user) {
+                        return [2 /*return*/, res.status(400).send({ error: "Invalid email or password" })];
+                    }
+                    if (!user.password)
+                        throw new Error("Invalid email or password");
+                    return [4 /*yield*/, bcrypt.compare(password, user.password)];
+                case 2:
+                    match = _b.sent();
+                    console.log("is match", match);
+                    if (!match) {
                         return [2 /*return*/, res.status(400).send({ error: "Invalid email or password" })];
                     }
                     //encode user id and role in token
@@ -135,14 +146,14 @@ function login(req, res) {
                     //   maxAge: 1000 * 60 * 60 * 24 * 7,
                     // });
                     return [2 /*return*/, res.status(200).send({ message: "Login successful" })];
-                case 2:
+                case 3:
                     error_3 = _b.sent();
                     if ((error_3.code = "11000")) {
                         res.status(400).send({ error: "user already exists" });
                     }
                     console.error(error_3);
                     return [2 /*return*/, res.status(500).send({ error: error_3.message })];
-                case 3: return [2 /*return*/];
+                case 4: return [2 /*return*/];
             }
         });
     });

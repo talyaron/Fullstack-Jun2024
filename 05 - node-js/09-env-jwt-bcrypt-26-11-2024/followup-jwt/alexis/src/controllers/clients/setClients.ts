@@ -1,6 +1,8 @@
 import { ClientModel } from "../../model/clients/ClientModel";
 import jwt from "jwt-simple";
 export const secret = "Alexis";
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 export async function addClient(req: any, res: any) {
   try {
@@ -58,8 +60,15 @@ export async function login(req: any, res: any) {
     if (!email || !password) throw new Error("Please fill all fields");
 
     // Find user by email
-    const user = await ClientModel.findOne({ email, password });
+    const user = await ClientModel.findOne({ email });
     if (!user) {
+      return res.status(400).send({ error: "Invalid email or password" });
+    }
+    if (!user.password) throw new Error("Invalid email or password");
+
+    const match = await bcrypt.compare(password, user.password);
+    console.log("is match", match);
+    if (!match) {
       return res.status(400).send({ error: "Invalid email or password" });
     }
 
@@ -69,7 +78,7 @@ export async function login(req: any, res: any) {
     console.log(token);
     res.cookie("user", token, { httponly: true, maxAge: 10000000000000 });
 
-    const kontek = jwt.decode( token, secret);
+    const kontek = jwt.decode(token, secret);
     console.log(kontek);
 
     // //send cookie to client
