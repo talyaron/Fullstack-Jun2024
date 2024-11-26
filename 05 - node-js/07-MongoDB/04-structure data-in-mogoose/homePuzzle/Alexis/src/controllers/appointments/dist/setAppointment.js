@@ -63,7 +63,7 @@ exports.addAppointment = function (req, res) { return __awaiter(void 0, void 0, 
                 return [4 /*yield*/, newAppointment.save()];
             case 2:
                 savedAppointment = _b.sent();
-                res.status(201).json({ message: "Appointment saved", savedAppointment: savedAppointment });
+                res.status(201).json({ message: "Appointment saved", savedAppointment: savedAppointment, ok: true });
                 return [3 /*break*/, 4];
             case 3:
                 error_1 = _b.sent();

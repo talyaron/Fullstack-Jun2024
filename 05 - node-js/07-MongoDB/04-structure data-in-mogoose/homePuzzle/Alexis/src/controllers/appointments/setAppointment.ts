@@ -36,7 +36,7 @@ const newAppointment = new AppointmentModel({
 
     const savedAppointment = await newAppointment.save();
 
-    res.status(201).json({ message: "Appointment saved", savedAppointment });
+    res.status(201).json({ message: "Appointment saved", savedAppointment, ok:true});
   } catch (error) {
     res.status(500).json({ message: "Error saving product", error });
   }
