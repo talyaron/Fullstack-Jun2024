@@ -39,8 +39,9 @@ exports.__esModule = true;
 exports.login = exports.register = exports.addClient = exports.secret = void 0;
 var ClientModel_1 = require("../../model/clients/ClientModel");
 var jwt_simple_1 = require("jwt-simple");
-var saltRounds = 10;
-exports.secret = "1234";
+var bcrypt_1 = require("bcrypt");
+var saltRounds = process.env.SALT_BCRYPT || 10;
+exports.secret = process.env.SECRET_JWT || "secret";
 function addClient(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var _a, firstName, password, lastName, email, phone, result, error_1;
@@ -76,34 +77,35 @@ function addClient(req, res) {
 exports.addClient = addClient;
 function register(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, firstName, lastName, email, password, phone, error_2;
+        var _a, firstName, lastName, email, password, phone, hashedPassword, error_2;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _b.trys.push([0, 2, , 3]);
+                    _b.trys.push([0, 3, , 4]);
                     _a = req.body, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, password = _a.password, phone = _a.phone;
                     if (!firstName || !lastName || !email || !password || !phone) {
                         throw new Error('Please fill all fields');
                     }
-                    //hash password
+                    return [4 /*yield*/, bcrypt_1["default"].hash(password, saltRounds)];
+                case 1:
+                    hashedPassword = _b.sent();
                     //send request to DB
                     return [4 /*yield*/, ClientModel_1.ClientModel.create({
                             firstName: firstName,
                             lastName: lastName,
                             email: email,
-                            password: password,
+                            password: hashedPassword,
                             phone: phone
                         })];
-                case 1:
-                    //hash password
+                case 2:
                     //send request to DB
                     _b.sent();
                     return [2 /*return*/, res.status(201).send({ message: "User registered successfully" })];
-                case 2:
+                case 3:
                     error_2 = _b.sent();
                     console.error(error_2);
                     return [2 /*return*/, res.status(500).send({ error: error_2.message })];
-                case 3: return [2 /*return*/];
+                case 4: return [2 /*return*/];
             }
         });
     });
@@ -111,11 +113,11 @@ function register(req, res) {
 exports.register = register;
 function login(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, email, password, user, token, error_3;
+        var _a, email, password, user, match, token, error_3;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _b.trys.push([0, 2, , 3]);
+                    _b.trys.push([0, 3, , 4]);
                     _a = req.body, email = _a.email, password = _a.password;
                     if (!email || !password)
                         throw new Error("Please fill all fields");
@@ -127,18 +129,25 @@ function login(req, res) {
                     }
                     if (!user.password)
                         throw new Error("Invalid email or password");
+                    return [4 /*yield*/, bcrypt_1["default"].compare(password, user.password)];
+                case 2:
+                    match = _b.sent();
+                    console.log("is match", match);
+                    if (!match) {
+                        return [2 /*return*/, res.status(400).send({ error: "Invalid email or password" })];
+                    }
                     token = jwt_simple_1["default"].encode({ id: user._id, role: "user" }, exports.secret);
                     //send cookie to client
                     res.cookie('user', token, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
                     return [2 /*return*/, res.status(200).send({ message: "Login successful" })];
-                case 2:
+                case 3:
                     error_3 = _b.sent();
                     if (error_3.code = "11000") {
                         res.status(400).send({ error: "user already exists" });
                     }
                     console.error(error_3);
                     return [2 /*return*/, res.status(500).send({ error: error_3.message })];
-                case 3: return [2 /*return*/];
+                case 4: return [2 /*return*/];
             }
         });
     });

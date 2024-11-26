@@ -1,0 +1,1 @@
+Add to yor project defenses against hackers. Use JWT, Bcrypt and environment variables (dotenv).
