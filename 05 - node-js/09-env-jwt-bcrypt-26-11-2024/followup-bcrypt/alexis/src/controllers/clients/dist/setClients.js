@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.login = exports.register = exports.addClient = exports.secret = void 0;
 var ClientModel_1 = require("../../model/clients/ClientModel");
+var jwt_simple_1 = require("jwt-simple");
 exports.secret = "Alexis";
 var bcrypt = require("bcrypt");
 var saltRounds = 10;
@@ -76,19 +77,15 @@ function addClient(req, res) {
 exports.addClient = addClient;
 function register(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, firstName, lastName, email, password, phone, hashPassword, error_2;
+        var _a, firstName, lastName, email, password, phone, error_2;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _b.trys.push([0, 3, , 4]);
+                    _b.trys.push([0, 2, , 3]);
                     _a = req.body, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, password = _a.password, phone = _a.phone;
                     if (!firstName || !lastName || !email || !password || !phone) {
                         throw new Error("Please fill all fields");
                     }
-                    return [4 /*yield*/, bcrypt.hash(password, saltRounds)];
-                case 1:
-                    hashPassword = _b.sent();
-                    console.log("pass", hashPassword);
                     //send request to DB
                     return [4 /*yield*/, ClientModel_1.ClientModel.create({
                             firstName: firstName,
@@ -97,15 +94,15 @@ function register(req, res) {
                             password: password,
                             phone: phone
                         })];
-                case 2:
+                case 1:
                     //send request to DB
                     _b.sent();
                     return [2 /*return*/, res.status(201).send({ message: "User registered successfully" })];
-                case 3:
+                case 2:
                     error_2 = _b.sent();
                     console.error(error_2);
                     return [2 /*return*/, res.status(500).send({ error: error_2.message })];
-                case 4: return [2 /*return*/];
+                case 3: return [2 /*return*/];
             }
         });
     });
@@ -113,7 +110,7 @@ function register(req, res) {
 exports.register = register;
 function login(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, email, password, user, match, error_3;
+        var _a, email, password, user, match, token, kontek, error_3;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -136,13 +133,13 @@ function login(req, res) {
                     if (!match) {
                         return [2 /*return*/, res.status(400).send({ error: "Invalid email or password" })];
                     }
-                    // //encode user id and role in token
-                    // console.log(secret);
-                    // const token = jwt.encode(user, secret);
-                    // console.log(token);
-                    // res.cookie("user", token, { httponly: true, maxAge: 10000000000000 });
-                    // const kontek = jwt.decode(token, secret);
-                    // console.log(kontek);
+                    //encode user id and role in token
+                    console.log(exports.secret);
+                    token = jwt_simple_1["default"].encode(user, exports.secret);
+                    console.log(token);
+                    res.cookie("user", token, { httponly: true, maxAge: 10000000000000 });
+                    kontek = jwt_simple_1["default"].decode(token, exports.secret);
+                    console.log(kontek);
                     // //send cookie to client
                     // res.cookie("user", user, {
                     //   httpOnly: true,
