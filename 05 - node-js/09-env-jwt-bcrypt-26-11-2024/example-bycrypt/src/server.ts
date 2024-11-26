@@ -1,6 +1,8 @@
 import express from 'express'
 import mongoose from "mongoose";
-import cookieParser from 'cookie-parser';  
+import cookieParser from 'cookie-parser'; 
+import 'dotenv/config';
+
 const app = express()
 const port = 3000;
 
@@ -13,7 +15,7 @@ app.get('/', (req, res) => {
 })
 
 //DB
-const dbUrl = "mongodb+srv://tal:k8w0S6ztTx3zowGW@cluster0.0hzknon.mongodb.net"
+const dbUrl = process.env.DB_URL;
 const database = 'fs-jun24';
 
 //connection

@@ -1,9 +1,11 @@
 import { ClientModel } from "../../model/clients/ClientModel";
 import jwt from 'jwt-simple';
 import bcrypt from 'bcrypt';
-const saltRounds = 10;
+const saltRounds = process.env.SALT_BCRYPT || 10;
 
-export const secret = "1234"
+
+export const secret = process.env.SECRET_JWT || "secret"
+
 
 export async function addClient(req: any, res: any) {
     try {
@@ -49,14 +51,14 @@ export async function register(req: any, res: any) {
         }
 
         //hash password
-      
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
 
         //send request to DB
         await ClientModel.create({
             firstName,
             lastName,
             email,
-            password,
+            password: hashedPassword,
             phone
         })
 
@@ -83,7 +85,12 @@ export async function login(req: any, res: any) {
         if (!user.password) throw new Error("Invalid email or password");
 
         //compare password
-       
+        const match = await bcrypt.compare(password, user.password);
+        console.log("is match", match)
+        if (!match) {
+            return res.status(400).send({ error: "Invalid email or password" });
+        }
+
 
 
         //encode user id and role in token
