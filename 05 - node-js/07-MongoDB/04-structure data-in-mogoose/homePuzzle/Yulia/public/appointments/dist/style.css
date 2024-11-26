@@ -1,0 +1,68 @@
+@charset "UTF-8";
+/* Общие стили */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+header {
+  background-color: #4f92ff;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+main {
+  padding: 2rem;
+}
+
+/* Стили для формы */
+.appointment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.appointment-form__input, .appointment-form__button {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.appointment-form__button {
+  background-color: #34c759;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.appointment-form__button:hover {
+  background-color: #28a745;
+}
+
+/* Стили для списка назначений */
+.appointments {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.appointments__card {
+  padding: 1rem;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.appointments__card__button {
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+.appointments__card__button:hover {
+  background-color: #e43e3f;
+}

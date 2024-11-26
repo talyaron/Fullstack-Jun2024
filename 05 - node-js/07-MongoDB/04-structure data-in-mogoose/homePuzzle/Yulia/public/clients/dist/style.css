@@ -1,0 +1,124 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f5f5f5;
+  height: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 15px;
+}
+form input,
+form button {
+  width: 300px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+form input {
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+}
+form button {
+  border: 1px solid #92a2cb;
+  background-color: #92a2cb;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+form button:hover {
+  background-color: #6b7f9e;
+}
+
+#clients {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.clients__client-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.client-card__details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.client-card__details p {
+  margin: 0;
+  font-size: 14px;
+}
+.client-card__details .client-card__label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+.client-card__details .client-card__value {
+  font-weight: normal;
+  margin-left: 5px;
+}
+
+.client-card__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.client-card__buttons .client-card__button {
+  width: 80px;
+  height: 40px;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+.client-card__buttons .client-card__button--update {
+  background-color: #4f92ff;
+  color: white;
+}
+.client-card__buttons .client-card__button--update:hover {
+  background-color: #3e81e4;
+}
+.client-card__buttons .client-card__button--delete {
+  background-color: #ff4d4f;
+  color: white;
+}
+.client-card__buttons .client-card__button--delete:hover {
+  background-color: #e43e3f;
+}
+.client-card__buttons .client-card__button--save {
+  background-color: #34c759;
+  color: white;
+}
+.client-card__buttons .client-card__button--save:hover {
+  background-color: #2ba84d;
+}
