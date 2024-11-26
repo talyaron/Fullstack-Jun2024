@@ -28,7 +28,7 @@ export async function signupUser(req: any, res: any) {
         const newUser = new userModel({
             userName,
             email,
-            password: hashedPassword, // שדה זה חייב להיות מוגדר במודל כ-String
+            password: hashedPassword, 
             phoneNumber,
             id
         });
