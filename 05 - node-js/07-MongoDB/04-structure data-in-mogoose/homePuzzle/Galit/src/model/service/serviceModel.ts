@@ -17,8 +17,8 @@ export const ServiceSchema = new Schema({
         required: true,
     },
     name:{
-type: String,
-required: true
+     type: String,
+     required: true
     },
     description:{
         type: String,

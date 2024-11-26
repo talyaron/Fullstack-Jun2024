@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./dist/index.js" defer></script>
+</head>
+<body>
+    <h1>Client Management System</h1>
+    <form onsubmit="handleAddClient(event)">
+        <input type="text" name="firstName" placeholder="First Name" required><br>
+        <input type="text" name="lastName" placeholder="Family Name" required><br>
+        <input type="email" name="email" placeholder="Email"><br>
+        <input type="tel" name="phone" placeholder="Phone number"><br><br>
+        <label for="">תאריך לידה שלך בבקשה</label><br>
+        <input type="date" name="date" placeholder="Date of Birth"><br><br>
+        <button>ADD Client</button>
+        <button onclick="handleShowClients()">Show Clients</button>
+    </form>
+    <div id="show"></div>
+</body>
+</html>

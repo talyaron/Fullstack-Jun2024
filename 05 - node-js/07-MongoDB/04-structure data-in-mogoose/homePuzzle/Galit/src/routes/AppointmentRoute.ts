@@ -1,6 +1,5 @@
-import { AppointmentModel } from "../model/appointment/appointmentModel";
 import express from "express";
-
+import { AppointmentModel } from "../model/appointment/appointmentModel";
 import {addAppointment, getAppointmentById,editAppointment,deleteAppointment} from "../controllers/appointment/setAppointment";
 
 const router = express.Router();

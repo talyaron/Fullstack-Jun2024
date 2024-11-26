@@ -3,15 +3,15 @@ async function handleAddAppointment(ev: Event): Promise<void> {
         ev.preventDefault();
 
         const formData = new FormData(ev.target as HTMLFormElement);
-        const client = formData.get("client") as string;
-        const admin = formData.get("admin") as string;
-        const service = formData.get("service") as string;
-        const date = formData.get("date") as string;
-        const startTime = formData.get("startTime") as string;
-        const endTime = formData.get("endTime") as string;
-        const status = formData.get("status") as string;
-        const rating = formData.get("rating") as string;
-        const review = formData.get("review") as string;
+        const client = formData.get('client') as string;
+        const admin = formData.get('admin') as string;
+        const service = formData.get('service') as string;
+        const date = formData.get('date') as string;
+        const startTime = formData.get('startTime') as string;
+        const endTime = formData.get('endTime') as string;
+        const status = formData.get('status') as string;
+        const rating = formData.get('rating') as string;
+        const review = formData.get('review') as string;
 
         const response = await fetch("/api/appointments/add-appointment", {
             method: "POST",

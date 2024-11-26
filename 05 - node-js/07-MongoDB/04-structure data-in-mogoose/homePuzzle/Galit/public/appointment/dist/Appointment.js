@@ -43,15 +43,15 @@ function handleAddAppointment(ev) {
                     _a.trys.push([0, 6, , 7]);
                     ev.preventDefault();
                     formData = new FormData(ev.target);
-                    client = formData.get("client");
-                    admin = formData.get("admin");
-                    service = formData.get("service");
-                    date = formData.get("date");
-                    startTime = formData.get("startTime");
-                    endTime = formData.get("endTime");
-                    status = formData.get("status");
-                    rating = formData.get("rating");
-                    review = formData.get("review");
+                    client = formData.get('client');
+                    admin = formData.get('admin');
+                    service = formData.get('service');
+                    date = formData.get('date');
+                    startTime = formData.get('startTime');
+                    endTime = formData.get('endTime');
+                    status = formData.get('status');
+                    rating = formData.get('rating');
+                    review = formData.get('review');
                     return [4 /*yield*/, fetch("/api/appointments/add-appointment", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },

@@ -46,7 +46,7 @@ function addAppointment(req, res) {
                 case 0:
                     _b.trys.push([0, 2, , 3]);
                     _a = req.body, client = _a.client, admin = _a.admin, service = _a.service, date = _a.date, endTime = _a.endTime, startTime = _a.startTime, status = _a.status, rating = _a.rating, review = _a.review;
-                    if (!client || !service || !admin || !date || !startTime || !endTime) {
+                    if (!client || !service || !admin || !date || !startTime || !endTime || !status) {
                         return [2 /*return*/, res.status(400).send({ error: "Missing required fields." })];
                     }
                     return [4 /*yield*/, appointmentModel_1.AppointmentModel.create({
