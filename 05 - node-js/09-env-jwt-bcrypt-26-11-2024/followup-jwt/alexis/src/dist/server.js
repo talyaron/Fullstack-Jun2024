@@ -22,7 +22,7 @@ mongoose_1["default"].connect(dbUrl + "/" + database).then(function () {
 });
 //routes
 var clientRoutes_1 = require("./routes/clients/clientRoutes");
-app.use("/api/clients", clientRoutes_1["default"]);
+app.use("/api/clients/", clientRoutes_1["default"]);
 var productRoute_1 = require("./routes/products/productRoute");
 app.use("/api/products", productRoute_1["default"]);
 var commentsRoute_1 = require("./routes/comments/commentsRoute");

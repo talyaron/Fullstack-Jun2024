@@ -17,7 +17,11 @@ async function handleLogin(ev:any): Promise<void> {
             window.location.href = '../store/store.html';
         }
 
-      
+        const data = await result.json();
+        console.log(data);
+        const {error} = data;
+        if(error) throw new Error(error);
+              
     } catch (error) {
         console.error('An error occurred during login:', error);
        
