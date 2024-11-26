@@ -72,11 +72,11 @@ export async function login(req: any, res: any) {
     const kontek = jwt.decode( token, secret);
     console.log(kontek);
 
-    //send cookie to client
-    res.cookie("user", user, {
-      httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 7,
-    });
+    // //send cookie to client
+    // res.cookie("user", user, {
+    //   httpOnly: true,
+    //   maxAge: 1000 * 60 * 60 * 24 * 7,
+    // });
 
     return res.status(200).send({ message: "Login successful" });
   } catch (error: any) {

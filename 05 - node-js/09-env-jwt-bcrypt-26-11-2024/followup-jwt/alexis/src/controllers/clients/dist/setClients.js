@@ -129,11 +129,11 @@ function login(req, res) {
                     res.cookie("user", token, { httponly: true, maxAge: 10000000000000 });
                     kontek = jwt_simple_1["default"].decode(token, exports.secret);
                     console.log(kontek);
-                    //send cookie to client
-                    res.cookie("user", user, {
-                        httpOnly: true,
-                        maxAge: 1000 * 60 * 60 * 24 * 7
-                    });
+                    // //send cookie to client
+                    // res.cookie("user", user, {
+                    //   httpOnly: true,
+                    //   maxAge: 1000 * 60 * 60 * 24 * 7,
+                    // });
                     return [2 /*return*/, res.status(200).send({ message: "Login successful" })];
                 case 2:
                     error_3 = _b.sent();
