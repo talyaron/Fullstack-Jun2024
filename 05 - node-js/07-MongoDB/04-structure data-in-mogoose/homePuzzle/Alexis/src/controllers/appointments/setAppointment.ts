@@ -27,6 +27,8 @@ if (_available === false){
 const newAppointment = new AppointmentModel({
       name,
       price,
+      startTime,
+      endTime,
       description,
       category,
       inStock,

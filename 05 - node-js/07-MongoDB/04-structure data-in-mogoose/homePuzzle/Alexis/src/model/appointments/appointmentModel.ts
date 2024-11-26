@@ -1,23 +1,18 @@
 import { Schema, model, Document } from 'mongoose';
 
-interface Appointment extends Document {
-    name: string;
-    price: number;
-    description: string;
-    category: string;
-    inStock: boolean;
-clientId: string;
-serviceProviderId:string;
-startTime:Date;
-endTime:Date;
-status: boolean;
-serviceId:string;
-rating:number;
-reviewId:string;
 
-}
 
-const appointmentSchema = new Schema<Appointment>({
+const AppointmentSchema = new Schema({
+    clientId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Client'
+    },
+    serviceProviderId: {
+        type: Schema.Types.ObjectId;
+        ref: 'serviceProvider';
+    },
+    startTime: { type: Number, required: true },
+    endTime: { type: Number, required: true },
     name: { type: String, required: true },
     price: { type: Number, required: true },
     description: { type: String, required: true },
@@ -25,6 +20,6 @@ const appointmentSchema = new Schema<Appointment>({
     inStock: { type: Boolean, default: true }
 });
 
-export const AppointmentModel = model<Appointment>('Appointment', appointmentSchema);
+export const AppointmentModel = model('Appointment', AppointmentSchema);
 
 export default AppointmentModel;
