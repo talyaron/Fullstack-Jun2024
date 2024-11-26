@@ -18,7 +18,10 @@ exports.AppointmentSchema = new mongoose_1.Schema({
         ref: 'Service',
         required: true
     },
-    date: { type: String, required: true },
+    date: {
+        type: String,
+        required: true
+    },
     startTime: {
         type: Number,
         required: true

@@ -13,7 +13,7 @@ export async function addAppointment(req: any, res: any) {
             rating,
             review,} = req.body;
 
-        if (!client || !service || !admin || !date || !startTime || !endTime) {
+        if (!client || !service || !admin || !date || !startTime || !endTime || !status) {
             return res.status(400).send({ error: "Missing required fields." });
         }
 
