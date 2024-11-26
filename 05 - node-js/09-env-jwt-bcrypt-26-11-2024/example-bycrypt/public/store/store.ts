@@ -12,7 +12,7 @@ interface Product {
 function renderProduct(product: Product) {
     return `
     <div class="product-card">
-        <img src="/api/placeholder/400/320" alt="${product.name}" class="product-card__image">
+        <img src="https://picsum.photos/200/300" alt="${product.name}" class="product-card__image">
         <div class="product-card__info">
             <span class="product-card__category">${product.category}</span>
             <h2 class="product-card__title">${product.name}</h2>

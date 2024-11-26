@@ -1,5 +1,8 @@
 import { ClientModel } from "../../model/clients/ClientModel";
 import jwt from 'jwt-simple';
+import bcrypt from 'bcrypt';
+const saltRounds = 10;
+
 export const secret = "1234"
 
 export async function addClient(req: any, res: any) {
@@ -12,6 +15,8 @@ export async function addClient(req: any, res: any) {
             phone,
         } = req.body;
         console.log(phone)
+
+
 
         //send request to DB
         const result = await ClientModel.create({
@@ -43,6 +48,9 @@ export async function register(req: any, res: any) {
             throw new Error('Please fill all fields');
         }
 
+        //hash password
+      
+
         //send request to DB
         await ClientModel.create({
             firstName,
@@ -67,10 +75,16 @@ export async function login(req: any, res: any) {
         if (!email || !password) throw new Error("Please fill all fields");
 
         // Find user by email
-        const user = await ClientModel.findOne({ email, password });
+        const user = await ClientModel.findOne({ email });
         if (!user) {
             return res.status(400).send({ error: "Invalid email or password" });
         }
+
+        if (!user.password) throw new Error("Invalid email or password");
+
+        //compare password
+       
+
 
         //encode user id and role in token
         const token = jwt.encode({ id: user._id, role: "user" }, secret);
