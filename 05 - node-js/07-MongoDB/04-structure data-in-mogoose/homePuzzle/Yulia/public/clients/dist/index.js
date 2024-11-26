@@ -246,5 +246,26 @@ function handleUpdateClient(client, clientCard) {
     });
 }
 document.addEventListener("DOMContentLoaded", function () {
+    var header = document.createElement("div");
+    header.className = "navigation";
+    var buttons = [
+        { text: "Go to Appointments", link: "/appointments" },
+        { text: "Go to Services", link: "/services" },
+        { text: "Go to Service Providers", link: "/service-providers" },
+    ];
+    buttons.forEach(function (buttonData) {
+        var button = document.createElement("button");
+        button.className = "navigation__button";
+        button.textContent = buttonData.text;
+        button.addEventListener("click", function () {
+            window.location.href = buttonData.link; // Redirect to the respective page
+        });
+        header.appendChild(button);
+    });
+    // Add the navigation header to the page
+    var root = document.body;
+    root.insertBefore(header, root.firstChild); // Insert navigation at the top
+});
+document.addEventListener("DOMContentLoaded", function () {
     loadAllClients(); // load all clients when the page loads
 });

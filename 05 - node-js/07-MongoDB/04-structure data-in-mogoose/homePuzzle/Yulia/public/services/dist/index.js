@@ -48,7 +48,7 @@ form.addEventListener("submit", function (e) { return __awaiter(_this, void 0, v
                 service = {
                     name: formData.get("name"),
                     description: formData.get("description"),
-                    price: formData.get("price")
+                    price: parseFloat(formData.get("price"))
                 };
                 _d.label = 1;
             case 1:
@@ -90,6 +90,28 @@ form.addEventListener("submit", function (e) { return __awaiter(_this, void 0, v
 function renderService(service) {
     var serviceCard = document.createElement("div");
     serviceCard.className = "services__card";
-    serviceCard.innerHTML = "\n    <p><strong>Name:</strong> " + service.name + "</p>\n    <p><strong>Description:</strong> " + service.description + "</p>\n    <p><strong>Price:</strong> " + service.price + "</p>\n  ";
+    serviceCard.innerHTML = "\n    <p><strong>Service Name:</strong> " + service.name + "</p>\n    <p><strong>Description:</strong> " + service.description + "</p>\n    <p><strong>Price:</strong> $" + service.price.toFixed(2) + "</p>\n  ";
     servicesContainer.appendChild(serviceCard);
 }
+// Navigation buttons
+document.addEventListener("DOMContentLoaded", function () {
+    var header = document.createElement("div");
+    header.className = "navigation";
+    var buttons = [
+        { text: "Go to Clients", link: "/clients" },
+        { text: "Go to Appointments", link: "/appointments" },
+        { text: "Go to Service Providers", link: "/service-providers" },
+    ];
+    buttons.forEach(function (buttonData) {
+        var button = document.createElement("button");
+        button.className = "navigation__button";
+        button.textContent = buttonData.text;
+        button.addEventListener("click", function () {
+            window.location.href = buttonData.link;
+        });
+        header.appendChild(button);
+    });
+    // Add the navigation header to the page
+    var root = document.body;
+    root.insertBefore(header, root.firstChild);
+});

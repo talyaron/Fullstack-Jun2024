@@ -11,7 +11,7 @@ body {
   height: 100%;
 }
 
-#service-providers {
+#services {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -23,13 +23,14 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-#service-provider-form {
+#service-form {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
-#service-provider-form input,
-#service-provider-form button {
+#service-form input,
+#service-form textarea,
+#service-form button {
   width: 100%;
   padding: 10px;
   border-radius: 5px;
@@ -37,7 +38,7 @@ body {
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
-#service-provider-form button {
+#service-form button {
   background-color: #34c759;
   color: white;
   font-weight: bold;
@@ -45,6 +46,6 @@ body {
   text-align: center;
   transition: background-color 0.3s ease;
 }
-#service-provider-form button:hover {
+#service-form button:hover {
   background-color: #2ba84d;
 }

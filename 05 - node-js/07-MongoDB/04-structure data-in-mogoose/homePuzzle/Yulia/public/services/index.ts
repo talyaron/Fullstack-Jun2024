@@ -9,7 +9,7 @@ form.addEventListener("submit", async (e) => {
   const service = {
     name: formData.get("name") as string,
     description: formData.get("description") as string,
-    price: formData.get("price") as string,
+    price: parseFloat(formData.get("price") as string),
   };
 
   try {
@@ -40,10 +40,38 @@ function renderService(service: any) {
   serviceCard.className = "services__card";
 
   serviceCard.innerHTML = `
-    <p><strong>Name:</strong> ${service.name}</p>
+    <p><strong>Service Name:</strong> ${service.name}</p>
     <p><strong>Description:</strong> ${service.description}</p>
-    <p><strong>Price:</strong> ${service.price}</p>
+    <p><strong>Price:</strong> $${service.price.toFixed(2)}</p>
   `;
 
   servicesContainer.appendChild(serviceCard);
 }
+
+// Navigation buttons
+document.addEventListener("DOMContentLoaded", () => {
+  const header = document.createElement("div");
+  header.className = "navigation";
+
+  const buttons = [
+    { text: "Go to Clients", link: "/clients" },
+    { text: "Go to Appointments", link: "/appointments" },
+    { text: "Go to Service Providers", link: "/service-providers" },
+  ];
+
+  buttons.forEach((buttonData) => {
+    const button = document.createElement("button");
+    button.className = "navigation__button";
+    button.textContent = buttonData.text;
+
+    button.addEventListener("click", () => {
+      window.location.href = buttonData.link;
+    });
+
+    header.appendChild(button);
+  });
+
+  // Add the navigation header to the page
+  const root = document.body;
+  root.insertBefore(header, root.firstChild);
+});

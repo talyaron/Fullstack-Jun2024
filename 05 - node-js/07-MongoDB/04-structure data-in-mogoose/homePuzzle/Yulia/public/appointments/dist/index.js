@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 var form = document.getElementById("appointment-form");
 var appointmentsContainer = document.getElementById("appointments");
-// form event listener
+// Handle form submission
 form.addEventListener("submit", function (e) { return __awaiter(_this, void 0, void 0, function () {
     var formData, appointment, response, newAppointment, _a, _b, _c, error_1;
     return __generator(this, function (_d) {
@@ -46,13 +46,14 @@ form.addEventListener("submit", function (e) { return __awaiter(_this, void 0, v
                 e.preventDefault();
                 formData = new FormData(form);
                 appointment = {
-                    client: formData.get("client-id"),
-                    serviceProvider: formData.get("service-provider-id"),
-                    service: formData.get("service-id"),
+                    client: formData.get("client"),
+                    serviceProvider: formData.get("serviceProvider"),
                     date: formData.get("date"),
-                    startTime: formData.get("start-time"),
-                    endTime: formData.get("end-time"),
-                    price: formData.get("price")
+                    startTime: formData.get("startTime"),
+                    endTime: formData.get("endTime"),
+                    status: formData.get("status"),
+                    service: formData.get("service"),
+                    price: parseFloat(formData.get("price"))
                 };
                 _d.label = 1;
             case 1:
@@ -90,55 +91,32 @@ form.addEventListener("submit", function (e) { return __awaiter(_this, void 0, v
         }
     });
 }); });
-// render appointments
+// Render appointment
 function renderAppointment(appointment) {
-    var _this = this;
     var appointmentCard = document.createElement("div");
     appointmentCard.className = "appointments__card";
-    appointmentCard.innerHTML = "\n    <p><strong>Client ID:</strong> " + appointment.client + "</p>\n    <p><strong>Service Provider ID:</strong> " + appointment.serviceProvider + "</p>\n    <p><strong>Service ID:</strong> " + appointment.service + "</p>\n    <p><strong>Date:</strong> " + appointment.date + "</p>\n    <p><strong>Start Time:</strong> " + appointment.startTime + "</p>\n    <p><strong>End Time:</strong> " + appointment.endTime + "</p>\n    <p><strong>Price:</strong> " + appointment.price + "</p>\n    <button class=\"appointments__card__button\" data-id=\"" + appointment._id + "\">Delete</button>\n  ";
-    var deleteButton = appointmentCard.querySelector(".appointments__card__button");
-    deleteButton.addEventListener("click", function () { return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, handleDeleteAppointment(appointment._id, appointmentCard)];
-                case 1:
-                    _a.sent();
-                    return [2 /*return*/];
-            }
-        });
-    }); });
+    appointmentCard.innerHTML = "\n    <p><strong>Client:</strong> " + appointment.client + "</p>\n    <p><strong>Service Provider:</strong> " + appointment.serviceProvider + "</p>\n    <p><strong>Date:</strong> " + appointment.date + "</p>\n    <p><strong>Start Time:</strong> " + appointment.startTime + "</p>\n    <p><strong>End Time:</strong> " + appointment.endTime + "</p>\n    <p><strong>Status:</strong> " + appointment.status + "</p>\n    <p><strong>Service:</strong> " + appointment.service + "</p>\n    <p><strong>Price:</strong> $" + appointment.price.toFixed(2) + "</p>\n  ";
     appointmentsContainer.appendChild(appointmentCard);
 }
-// fetch appointments
-function handleDeleteAppointment(id, card) {
-    return __awaiter(this, void 0, void 0, function () {
-        var response, _a, _b, _c, error_2;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
-                case 0:
-                    _d.trys.push([0, 5, , 6]);
-                    return [4 /*yield*/, fetch("/api/appointments/" + id, {
-                            method: "DELETE"
-                        })];
-                case 1:
-                    response = _d.sent();
-                    if (!response.ok) return [3 /*break*/, 2];
-                    card.remove();
-                    return [3 /*break*/, 4];
-                case 2:
-                    _b = (_a = console).error;
-                    _c = ["Failed to delete appointment:"];
-                    return [4 /*yield*/, response.text()];
-                case 3:
-                    _b.apply(_a, _c.concat([_d.sent()]));
-                    _d.label = 4;
-                case 4: return [3 /*break*/, 6];
-                case 5:
-                    error_2 = _d.sent();
-                    console.error("Error:", error_2);
-                    return [3 /*break*/, 6];
-                case 6: return [2 /*return*/];
-            }
+// Navigation buttons
+document.addEventListener("DOMContentLoaded", function () {
+    var header = document.createElement("div");
+    header.className = "navigation";
+    var buttons = [
+        { text: "Go to Clients", link: "/clients" },
+        { text: "Go to Service Providers", link: "/service-providers" },
+        { text: "Go to Services", link: "/services" },
+    ];
+    buttons.forEach(function (buttonData) {
+        var button = document.createElement("button");
+        button.className = "navigation__button";
+        button.textContent = buttonData.text;
+        button.addEventListener("click", function () {
+            window.location.href = buttonData.link;
         });
+        header.appendChild(button);
     });
-}
+    // Add the navigation header to the page
+    var root = document.body;
+    root.insertBefore(header, root.firstChild);
+});

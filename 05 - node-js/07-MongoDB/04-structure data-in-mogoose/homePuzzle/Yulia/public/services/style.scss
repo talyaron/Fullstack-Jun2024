@@ -11,7 +11,7 @@ body {
     height: 100%;
 }
 
-#service-providers {
+#services {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -23,12 +23,13 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-#service-provider-form {
+#service-form {
     display: flex;
     flex-direction: column;
     gap: 15px;
 
     input,
+    textarea,
     button {
         width: 100%;
         padding: 10px;

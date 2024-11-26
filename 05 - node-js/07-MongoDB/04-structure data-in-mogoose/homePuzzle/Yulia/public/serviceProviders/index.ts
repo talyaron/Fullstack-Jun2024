@@ -54,3 +54,31 @@ function renderServiceProvider(serviceProvider: any) {
 
   serviceProvidersContainer.appendChild(serviceProviderCard);
 }
+
+// Navigation buttons
+document.addEventListener("DOMContentLoaded", () => {
+  const header = document.createElement("div");
+  header.className = "navigation";
+
+  const buttons = [
+    { text: "Go to Clients", link: "/clients" },
+    { text: "Go to Appointments", link: "/appointments" },
+    { text: "Go to Services", link: "/services" },
+  ];
+
+  buttons.forEach((buttonData) => {
+    const button = document.createElement("button");
+    button.className = "navigation__button";
+    button.textContent = buttonData.text;
+
+    button.addEventListener("click", () => {
+      window.location.href = buttonData.link;
+    });
+
+    header.appendChild(button);
+  });
+
+  // Add the navigation header to the page
+  const root = document.body;
+  root.insertBefore(header, root.firstChild);
+});

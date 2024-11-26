@@ -2,20 +2,21 @@ const form = document.getElementById("appointment-form") as HTMLFormElement;
 const appointmentsContainer = document.getElementById(
   "appointments"
 ) as HTMLDivElement;
- 
-// form event listener
+
+// Handle form submission
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const formData = new FormData(form);
   const appointment = {
-    client: formData.get("client-id") as string,
-    serviceProvider: formData.get("service-provider-id") as string,
-    service: formData.get("service-id") as string,
+    client: formData.get("client") as string,
+    serviceProvider: formData.get("serviceProvider") as string,
     date: formData.get("date") as string,
-    startTime: formData.get("start-time") as string,
-    endTime: formData.get("end-time") as string,
-    price: formData.get("price") as string,
+    startTime: formData.get("startTime") as string,
+    endTime: formData.get("endTime") as string,
+    status: formData.get("status") as string,
+    service: formData.get("service") as string,
+    price: parseFloat(formData.get("price") as string),
   };
 
   try {
@@ -40,45 +41,49 @@ form.addEventListener("submit", async (e) => {
   form.reset();
 });
 
-// render appointments
+// Render appointment
 function renderAppointment(appointment: any) {
   const appointmentCard = document.createElement("div");
   appointmentCard.className = "appointments__card";
 
   appointmentCard.innerHTML = `
-    <p><strong>Client ID:</strong> ${appointment.client}</p>
-    <p><strong>Service Provider ID:</strong> ${appointment.serviceProvider}</p>
-    <p><strong>Service ID:</strong> ${appointment.service}</p>
+    <p><strong>Client:</strong> ${appointment.client}</p>
+    <p><strong>Service Provider:</strong> ${appointment.serviceProvider}</p>
     <p><strong>Date:</strong> ${appointment.date}</p>
     <p><strong>Start Time:</strong> ${appointment.startTime}</p>
     <p><strong>End Time:</strong> ${appointment.endTime}</p>
-    <p><strong>Price:</strong> ${appointment.price}</p>
-    <button class="appointments__card__button" data-id="${appointment._id}">Delete</button>
+    <p><strong>Status:</strong> ${appointment.status}</p>
+    <p><strong>Service:</strong> ${appointment.service}</p>
+    <p><strong>Price:</strong> $${appointment.price.toFixed(2)}</p>
   `;
-
-  const deleteButton = appointmentCard.querySelector(
-    ".appointments__card__button"
-  ) as HTMLButtonElement;
-  deleteButton.addEventListener("click", async () => {
-    await handleDeleteAppointment(appointment._id, appointmentCard);
-  });
 
   appointmentsContainer.appendChild(appointmentCard);
 }
 
-// fetch appointments
-async function handleDeleteAppointment(id: string, card: HTMLDivElement) {
-  try {
-    const response = await fetch(`/api/appointments/${id}`, {
-      method: "DELETE",
+// Navigation buttons
+document.addEventListener("DOMContentLoaded", () => {
+  const header = document.createElement("div");
+  header.className = "navigation";
+
+  const buttons = [
+    { text: "Go to Clients", link: "/clients" },
+    { text: "Go to Service Providers", link: "/service-providers" },
+    { text: "Go to Services", link: "/services" },
+  ];
+
+  buttons.forEach((buttonData) => {
+    const button = document.createElement("button");
+    button.className = "navigation__button";
+    button.textContent = buttonData.text;
+
+    button.addEventListener("click", () => {
+      window.location.href = buttonData.link;
     });
 
-    if (response.ok) {
-      card.remove();
-    } else {
-      console.error("Failed to delete appointment:", await response.text());
-    }
-  } catch (error) {
-    console.error("Error:", error);
-  }
-}
+    header.appendChild(button);
+  });
+
+  // Add the navigation header to the page
+  const root = document.body;
+  root.insertBefore(header, root.firstChild);
+});

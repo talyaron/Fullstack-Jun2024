@@ -122,3 +122,28 @@ form button:hover {
 .client-card__buttons .client-card__button--save:hover {
   background-color: #2ba84d;
 }
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 15px;
+  background-color: #f4f4f4;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #ccc;
+}
+.navigation__button {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  background-color: #4f92ff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.navigation__button:hover {
+  background-color: #3e81e4;
+}

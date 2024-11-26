@@ -93,3 +93,25 @@ function renderServiceProvider(serviceProvider) {
     serviceProviderCard.innerHTML = "\n    <p><strong>Name:</strong> " + serviceProvider.name + "</p>\n    <p><strong>Email:</strong> " + serviceProvider.email + "</p>\n    <p><strong>Phone:</strong> " + serviceProvider.phone + "</p>\n  ";
     serviceProvidersContainer.appendChild(serviceProviderCard);
 }
+// Navigation buttons
+document.addEventListener("DOMContentLoaded", function () {
+    var header = document.createElement("div");
+    header.className = "navigation";
+    var buttons = [
+        { text: "Go to Clients", link: "/clients" },
+        { text: "Go to Appointments", link: "/appointments" },
+        { text: "Go to Services", link: "/services" },
+    ];
+    buttons.forEach(function (buttonData) {
+        var button = document.createElement("button");
+        button.className = "navigation__button";
+        button.textContent = buttonData.text;
+        button.addEventListener("click", function () {
+            window.location.href = buttonData.link;
+        });
+        header.appendChild(button);
+    });
+    // Add the navigation header to the page
+    var root = document.body;
+    root.insertBefore(header, root.firstChild);
+});
