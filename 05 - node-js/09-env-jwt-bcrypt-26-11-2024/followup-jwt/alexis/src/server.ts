@@ -23,9 +23,10 @@ mongoose.connect(`${dbUrl}/${database}`).then(()=>{
     console.error(err)
 });
 
+
 //routes
 import clientsRouter from './routes/clients/clientRoutes';
-app.use("/api/clients", clientsRouter);
+app.use("/api/clients/", clientsRouter);
 import productsRouter from './routes/products/productRoute';
 app.use("/api/products", productsRouter);
 import commentsRouter from './routes/comments/commentsRoute';
