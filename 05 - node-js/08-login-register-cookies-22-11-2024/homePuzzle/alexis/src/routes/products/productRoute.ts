@@ -1,5 +1,6 @@
 import express from 'express';
 import { addProduct } from '../../controllers/products/setProducts';
+import { getMyProducts, getProducts } from '../../controllers/products/getProducts';
 
 
 

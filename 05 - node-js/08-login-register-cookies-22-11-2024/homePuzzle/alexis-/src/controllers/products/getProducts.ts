@@ -1,6 +1,6 @@
 import Product from "../../model/products/productModel";
 
-export function getMyProducts(req: any, res: any) {
+export async function getMyProducts(req: any, res: any) {
     try {
         const { user } = req.cookies;
         console.log(user);

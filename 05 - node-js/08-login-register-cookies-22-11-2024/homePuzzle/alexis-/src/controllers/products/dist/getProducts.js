@@ -39,15 +39,21 @@ exports.__esModule = true;
 exports.getProducts = exports.getMyProducts = void 0;
 var productModel_1 = require("../../model/products/productModel");
 function getMyProducts(req, res) {
-    try {
-        var user = req.cookies.user;
-        console.log(user);
-        res.json({ message: "Get all products", useId: user });
-    }
-    catch (error) {
-        console.log(error);
-        res.status(500).json({ message: "Internal server error " + error.message + " " });
-    }
+    return __awaiter(this, void 0, void 0, function () {
+        var user;
+        return __generator(this, function (_a) {
+            try {
+                user = req.cookies.user;
+                console.log(user);
+                res.json({ message: "Get all products", useId: user });
+            }
+            catch (error) {
+                console.log(error);
+                res.status(500).json({ message: "Internal server error " + error.message + " " });
+            }
+            return [2 /*return*/];
+        });
+    });
 }
 exports.getMyProducts = getMyProducts;
 function getProducts(req, res) {
