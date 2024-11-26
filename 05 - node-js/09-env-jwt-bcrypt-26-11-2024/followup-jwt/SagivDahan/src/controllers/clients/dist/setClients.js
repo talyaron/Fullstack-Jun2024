@@ -42,7 +42,7 @@ var jwt_simple_1 = require("jwt-simple");
 exports.secret = 'idanchanban';
 function addClient(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, firstName, password, lastName, email, phone, result, token, decode, error_1;
+        var _a, firstName, password, lastName, email, phone, result, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -58,10 +58,6 @@ function addClient(req, res) {
                         })];
                 case 1:
                     result = _b.sent();
-                    token = jwt_simple_1["default"].encode(result, exports.secret);
-                    console.log(token);
-                    console.log(result);
-                    decode = jwt_simple_1["default"].decode(token, exports.secret);
                     if (!result) {
                         return [2 /*return*/, res.status(400).send({ error: "Couldn't create new user" })];
                     }
@@ -111,7 +107,7 @@ function register(req, res) {
 exports.register = register;
 function login(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, email, password, user, error_3;
+        var _a, email, password, user, token, decoded, error_3;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -125,9 +121,12 @@ function login(req, res) {
                     if (!user) {
                         return [2 /*return*/, res.status(400).send({ error: "Invalid email or password" })];
                     }
-                    //encode user id and role in token
+                    token = jwt_simple_1["default"].encode(user, exports.secret);
+                    console.log("encode token:", token);
                     //send cookie to client
                     res.cookie('user', user, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
+                    decoded = jwt_simple_1["default"].decode(token, exports.secret);
+                    console.log("decode:", decoded);
                     return [2 /*return*/, res.status(200).send({ message: "Login successful" })];
                 case 2:
                     error_3 = _b.sent();

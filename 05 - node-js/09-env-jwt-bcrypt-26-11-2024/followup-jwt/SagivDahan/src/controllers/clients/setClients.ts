@@ -24,11 +24,6 @@ export async function addClient(req: any, res: any) {
             phone,
         })
 
-        const token = jwt.encode(result, secret);
-        console.log(token);
-        console.log(result)
-
-        const decode = jwt.decode(token, secret);
         if (!result) {
             return res.status(400).send({ error: "Couldn't create new user" })
         }
@@ -80,11 +75,17 @@ export async function login(req: any, res: any) {
         }
 
         //encode user id and role in token
-   
+        const token = jwt.encode(user, secret);
+        console.log("encode token:", token);
 
         //send cookie to client
         res.cookie('user', user, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
 
+
+        //decode
+
+        const decoded = jwt.decode(token, secret);
+        console.log("decode:", decoded)
         return res.status(200).send({ message: "Login successful" });
 
     } catch (error: any) {
