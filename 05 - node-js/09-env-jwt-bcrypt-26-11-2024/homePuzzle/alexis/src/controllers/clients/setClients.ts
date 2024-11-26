@@ -78,7 +78,7 @@ export async function login(req: any, res: any) {
     console.log(secret);
     const token = jwt.encode(user, secret);
     console.log(token);
-    res.cookie("user", token, { httponly: true, maxAge: 1000 * 60 * 15 });
+    res.cookie("user", token, { httponly: true, maxAge: 10000000000000 });
 
     // res.cookie("user", user._id, { httpOnly: true, maxAge: 1000 * 60 * 15 });
 

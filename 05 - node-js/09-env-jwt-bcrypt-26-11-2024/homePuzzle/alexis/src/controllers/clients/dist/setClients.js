@@ -139,7 +139,7 @@ function login(req, res) {
                     console.log(exports.secret);
                     token = jwt_simple_1["default"].encode(user, exports.secret);
                     console.log(token);
-                    res.cookie("user", token, { httponly: true, maxAge: 1000 * 60 * 15 });
+                    res.cookie("user", token, { httponly: true, maxAge: 10000000000000 });
                     // res.cookie("user", user._id, { httpOnly: true, maxAge: 1000 * 60 * 15 });
                     return [2 /*return*/, res.status(200).send({ message: "Login successful" })];
                 case 3:
