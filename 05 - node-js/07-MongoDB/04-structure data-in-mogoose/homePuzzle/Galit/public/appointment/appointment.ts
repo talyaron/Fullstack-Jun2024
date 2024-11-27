@@ -35,7 +35,7 @@ async function handleAddAppointment(ev: Event): Promise<void> {
 
 async function fetchAllAppointments(): Promise<void> {
     try {
-        const appointmentsResponse = await fetch("/api/appointments");
+        const appointmentsResponse = await fetch("/api/appointments/all-appointments");
         if (!appointmentsResponse.ok) throw new Error("Failed to fetch appointments");
 
         const appointments = await appointmentsResponse.json();
