@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post("/register-client", registerClient);
 router.post("/login-client", loginClient);
-router.post("/info-client", getClientInfo);
-router.post("/delete-client", deleteClient);
+router.get("/info-client", getClientInfo);
+router.get("/delete-client", deleteClient);
 router.post("/update-client",updateClient)
 export default router;

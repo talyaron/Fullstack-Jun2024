@@ -9,7 +9,7 @@ var clientUpdateCont_1 = require("../controllers/clientControllers/clientUpdateC
 var router = express_1["default"].Router();
 router.post("/register-client", clientRegCont_1.registerClient);
 router.post("/login-client", clientLoginCont_1.loginClient);
-router.post("/info-client", clientGetInfoCont_1.getClientInfo);
-router.post("/delete-client", clientDeleteCont_1.deleteClient);
+router.get("/info-client", clientGetInfoCont_1.getClientInfo);
+router.get("/delete-client", clientDeleteCont_1.deleteClient);
 router.post("/update-client", clientUpdateCont_1.updateClient);
 exports["default"] = router;

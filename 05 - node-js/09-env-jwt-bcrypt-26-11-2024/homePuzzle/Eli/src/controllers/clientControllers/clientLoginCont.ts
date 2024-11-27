@@ -2,8 +2,8 @@ import { ClientModel } from "../../models/clientModel";
 import jwt from 'jwt-simple';
 import bcrypt from 'bcrypt';
 import 'dotenv/config';
+import { secret } from "./clientRegCont";
 
-const secret=process.env.JWT_SECRET||"4i3hjawdbhjo";
 
 export async function loginClient(req: any, res: any) {
   try {
@@ -27,7 +27,7 @@ export async function loginClient(req: any, res: any) {
 
     res.cookie('user', token, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
 
-    return res.status(200).send({ message: "Login successful" ,response:"ok"});
+    return res.status(200).send({ message: "Login successful" ,ok: true});
 
   } catch (error) {
     console.error("error");

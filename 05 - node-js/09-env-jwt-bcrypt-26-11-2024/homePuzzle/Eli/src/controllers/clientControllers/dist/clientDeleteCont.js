@@ -38,32 +38,40 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.deleteClient = void 0;
 var clientModel_1 = require("../../models/clientModel");
+var jwt_simple_1 = require("jwt-simple");
+require("dotenv/config");
+var clientRegCont_1 = require("./clientRegCont");
 function deleteClient(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var key, deletedUser, actuallyDeleted, error_1;
+        var user, decoded, deletedUser, actuallyDeleted, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 3, , 4]);
-                    key = req.body.key;
-                    return [4 /*yield*/, clientModel_1.ClientModel.findOne({ key: key })];
+                    _a.trys.push([0, 4, , 5]);
+                    return [4 /*yield*/, req.cookies];
                 case 1:
+                    user = (_a.sent()).user;
+                    console.log(user);
+                    decoded = jwt_simple_1["default"].decode(user, clientRegCont_1.secret);
+                    console.log(decoded);
+                    return [4 /*yield*/, clientModel_1.ClientModel.findOne({ key: decoded._id })];
+                case 2:
                     deletedUser = _a.sent();
                     if (!deletedUser) {
                         throw new Error("no such user");
                     }
                     console.log(deletedUser);
                     return [4 /*yield*/, deletedUser.deleteOne()];
-                case 2:
+                case 3:
                     actuallyDeleted = _a.sent();
                     console.log(actuallyDeleted);
                     res.json({ message: "user deleted" });
-                    return [3 /*break*/, 4];
-                case 3:
+                    return [3 /*break*/, 5];
+                case 4:
                     error_1 = _a.sent();
                     console.error("error");
                     return [2 /*return*/, res.status(500).send({ error: "something went Wrong!" })];
-                case 4: return [2 /*return*/];
+                case 5: return [2 /*return*/];
             }
         });
     });

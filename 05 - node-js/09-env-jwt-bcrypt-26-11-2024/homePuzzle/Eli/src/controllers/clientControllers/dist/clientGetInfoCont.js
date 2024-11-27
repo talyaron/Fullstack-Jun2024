@@ -40,21 +40,20 @@ exports.getClientInfo = void 0;
 var clientModel_1 = require("../../models/clientModel");
 var jwt_simple_1 = require("jwt-simple");
 require("dotenv/config");
-var secret = process.env.JWT_SECRET || "4i3hjawdbhjo";
+var clientRegCont_1 = require("./clientRegCont");
 function getClientInfo(req, res) {
     var _a;
     return __awaiter(this, void 0, void 0, function () {
-        var key, user, decoded, foundUser, name, phoneNumber, password, error_1;
+        var user, decoded, foundUser, name, phoneNumber, password, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
                     _b.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, req.body];
+                    return [4 /*yield*/, req.cookies];
                 case 1:
-                    key = (_b.sent()).key;
-                    user = req.cookies.user;
+                    user = (_b.sent()).user;
                     console.log(user);
-                    decoded = jwt_simple_1["default"].decode(user, secret);
+                    decoded = jwt_simple_1["default"].decode(user, clientRegCont_1.secret);
                     console.log(decoded);
                     return [4 /*yield*/, clientModel_1.ClientModel.findOne({ key: decoded._id })];
                 case 2:
@@ -72,7 +71,7 @@ function getClientInfo(req, res) {
                     return [3 /*break*/, 4];
                 case 3:
                     error_1 = _b.sent();
-                    console.error("error");
+                    console.error("error", error_1);
                     return [2 /*return*/, res.status(500).send({ error: "something went Wrong!" })];
                 case 4: return [2 /*return*/];
             }
