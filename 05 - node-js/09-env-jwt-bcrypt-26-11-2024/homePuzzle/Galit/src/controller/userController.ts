@@ -1,45 +1,64 @@
-import { users, User } from '../models/userModel';
+import { Request, Response } from 'express';
+import bcrypt from 'bcrypt';
+import jwt from 'jwt-simple';
+import { UserModel } from '../models/userModel';
 
-export const register = async (req: any, res: any) => {
-    const { name, email, password } = req.body;
+const secret = process.env.JWT_SECRET || 'default_secret_key';
+const saltRounds = Number(process.env.SALT_ROUNDS) || 10;
 
-    if (!name || !email || !password) {
-        return res.status(400).json({ message: 'Username, email, and password are required' });
+
+export const register = async (req: Request, res: Response): Promise<void> => {
+    const { username, email, password } = req.body;
+
+    if (!username || !email || !password) {
+        res.status(400).json({ message: 'All fields are required' });
+        return;
     }
 
-    const existingUser = users.find((user) => user.email === email);
-    if (existingUser) {
-        return res.status(409).json({ message: 'Email already registered' });
+    try {
+        const existingUser = await UserModel.findOne({ email });
+        if (existingUser) {
+            res.status(409).json({ message: 'Email already registered' });
+            return;
+        }
+
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+        const newUser = new UserModel({ username, email, password: hashedPassword });
+        await newUser.save();
+
+        res.status(201).json({ message: 'User registered successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error during registration'});
     }
-
-    const newUser = new User(name, email, password);
-    users.push(newUser);
-
-    res.status(201).json({ message: 'User registered successfully' });
 };
 
-export const login = async (req: any, res: any) => {
+
+export const login = async (req: Request, res: Response): Promise<void> => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-        return res.status(400).json({ message: 'Email and password are required' });
+        res.status(400).json({ message: 'Email and password are required' });
+        return;
     }
 
-    const user = users.find((user) => user.email === email && user.password === password);
-    if (!user) {
-        return res.status(401).json({ message: 'Invalid email or password' });
-    }
+    try {
+        const user = await UserModel.findOne({ email });
+        if (!user || !(await bcrypt.compare(password, user.password))) {
+            res.status(401).json({ message: 'Invalid credentials' });
+            return;
+        }
 
-    req.session.user = { email };
-    res.status(200).json({ message: 'Login successful', user: { name: user.username, email: user.email } });
+        const token = jwt.encode({ id: user._id, email: user.email }, secret);
+
+        res.status(200).json({ message: 'Login successful', token });
+    } catch (error) {
+        res.status(500).json({ message: 'Error during login', error });
+    }
 };
 
 
-export const logout = (req: any, res: any) => {
-    req.session.destroy((err: Error | null) => {
-        if (err) {
-            return res.status(500).json({ message: 'Logout failed' });
-        }
-        res.status(200).json({ message: 'Logged out successfully' });
-    });
+export const logout = (req: Request, res: Response): void => {
+    res.clearCookie('user');
+    res.status(200).json({ message: 'Logged out successfully' });
 };

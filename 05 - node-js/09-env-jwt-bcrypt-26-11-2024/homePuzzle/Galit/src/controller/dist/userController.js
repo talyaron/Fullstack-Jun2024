@@ -37,45 +37,87 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.logout = exports.login = exports.register = void 0;
+var bcrypt_1 = require("bcrypt");
+var jwt_simple_1 = require("jwt-simple");
 var userModel_1 = require("../models/userModel");
-exports.register = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, name, email, password, existingUser, newUser;
+var secret = process.env.JWT_SECRET || 'default_secret_key';
+var saltRounds = Number(process.env.SALT_ROUNDS) || 10;
+exports.register = function (req, res) { return __awaiter(void 0, void 0, Promise, function () {
+    var _a, username, email, password, existingUser, hashedPassword, newUser, error_1;
     return __generator(this, function (_b) {
-        _a = req.body, name = _a.name, email = _a.email, password = _a.password;
-        if (!name || !email || !password) {
-            return [2 /*return*/, res.status(400).json({ message: 'Username, email, and password are required' })];
+        switch (_b.label) {
+            case 0:
+                _a = req.body, username = _a.username, email = _a.email, password = _a.password;
+                if (!username || !email || !password) {
+                    res.status(400).json({ message: 'All fields are required' });
+                    return [2 /*return*/];
+                }
+                _b.label = 1;
+            case 1:
+                _b.trys.push([1, 5, , 6]);
+                return [4 /*yield*/, userModel_1.UserModel.findOne({ email: email })];
+            case 2:
+                existingUser = _b.sent();
+                if (existingUser) {
+                    res.status(409).json({ message: 'Email already registered' });
+                    return [2 /*return*/];
+                }
+                return [4 /*yield*/, bcrypt_1["default"].hash(password, saltRounds)];
+            case 3:
+                hashedPassword = _b.sent();
+                newUser = new userModel_1.UserModel({ username: username, email: email, password: hashedPassword });
+                return [4 /*yield*/, newUser.save()];
+            case 4:
+                _b.sent();
+                res.status(201).json({ message: 'User registered successfully' });
+                return [3 /*break*/, 6];
+            case 5:
+                error_1 = _b.sent();
+                res.status(500).json({ message: 'Error during registration' });
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
         }
-        existingUser = userModel_1.users.find(function (user) { return user.email === email; });
-        if (existingUser) {
-            return [2 /*return*/, res.status(409).json({ message: 'Email already registered' })];
-        }
-        newUser = new userModel_1.User(name, email, password);
-        userModel_1.users.push(newUser);
-        res.status(201).json({ message: 'User registered successfully' });
-        return [2 /*return*/];
     });
 }); };
-exports.login = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, email, password, user;
-    return __generator(this, function (_b) {
-        _a = req.body, email = _a.email, password = _a.password;
-        if (!email || !password) {
-            return [2 /*return*/, res.status(400).json({ message: 'Email and password are required' })];
+exports.login = function (req, res) { return __awaiter(void 0, void 0, Promise, function () {
+    var _a, email, password, user, _b, token, error_2;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
+            case 0:
+                _a = req.body, email = _a.email, password = _a.password;
+                if (!email || !password) {
+                    res.status(400).json({ message: 'Email and password are required' });
+                    return [2 /*return*/];
+                }
+                _c.label = 1;
+            case 1:
+                _c.trys.push([1, 5, , 6]);
+                return [4 /*yield*/, userModel_1.UserModel.findOne({ email: email })];
+            case 2:
+                user = _c.sent();
+                _b = !user;
+                if (_b) return [3 /*break*/, 4];
+                return [4 /*yield*/, bcrypt_1["default"].compare(password, user.password)];
+            case 3:
+                _b = !(_c.sent());
+                _c.label = 4;
+            case 4:
+                if (_b) {
+                    res.status(401).json({ message: 'Invalid credentials' });
+                    return [2 /*return*/];
+                }
+                token = jwt_simple_1["default"].encode({ id: user._id, email: user.email }, secret);
+                res.status(200).json({ message: 'Login successful', token: token });
+                return [3 /*break*/, 6];
+            case 5:
+                error_2 = _c.sent();
+                res.status(500).json({ message: 'Error during login', error: error_2 });
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
         }
-        user = userModel_1.users.find(function (user) { return user.email === email && user.password === password; });
-        if (!user) {
-            return [2 /*return*/, res.status(401).json({ message: 'Invalid email or password' })];
-        }
-        req.session.user = { email: email };
-        res.status(200).json({ message: 'Login successful', user: { name: user.username, email: user.email } });
-        return [2 /*return*/];
     });
 }); };
 exports.logout = function (req, res) {
-    req.session.destroy(function (err) {
-        if (err) {
-            return res.status(500).json({ message: 'Logout failed' });
-        }
-        res.status(200).json({ message: 'Logged out successfully' });
-    });
+    res.clearCookie('user');
+    res.status(200).json({ message: 'Logged out successfully' });
 };

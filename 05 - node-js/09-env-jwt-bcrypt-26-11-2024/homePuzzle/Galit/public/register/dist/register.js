@@ -37,38 +37,51 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 var form = document.getElementById('registration-form');
 if (!form) {
-    throw new Error('Could not find registration form');
+    throw new Error('Registration form not found');
 }
 form.addEventListener('submit', function (event) { return __awaiter(_this, void 0, void 0, function () {
-    var formData, name, email, password, response, result;
+    var formData, username, email, password, confirmPassword, response, result, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 event.preventDefault();
                 formData = new FormData(form);
-                name = formData.get('username');
+                username = formData.get('username');
                 email = formData.get('email');
                 password = formData.get('password');
+                confirmPassword = formData.get('confirm-password');
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match');
+                    return [2 /*return*/];
+                }
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 4, , 5]);
                 return [4 /*yield*/, fetch('/api/users/register', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({ name: name, email: email, password: password })
+                        body: JSON.stringify({ username: username, email: email, password: password })
                     })];
-            case 1:
+            case 2:
                 response = _a.sent();
                 return [4 /*yield*/, response.json()];
-            case 2:
+            case 3:
                 result = _a.sent();
                 if (response.ok) {
-                    console.log(result.message);
-                    window.location.href = '../index.html';
+                    alert(result.message);
+                    window.location.href = '../login/login.html';
                 }
                 else {
-                    console.error('Registration failed:', result.message);
+                    alert("Registration failed: " + result.message);
                 }
-                return [2 /*return*/];
+                return [3 /*break*/, 5];
+            case 4:
+                error_1 = _a.sent();
+                console.error('Error during registration:', error_1);
+                return [3 /*break*/, 5];
+            case 5: return [2 /*return*/];
         }
     });
 }); });
