@@ -1,13 +1,11 @@
 import { ClientModel } from "../../models/clientModel";
 import jwt from 'jwt-simple';
 import 'dotenv/config';
-
-const secret=process.env.JWT_SECRET||"4i3hjawdbhjo";
-
+import { secret } from "./clientRegCont";
+ 
 export async function getClientInfo(req: any, res: any) {
   try {
-    const { key } =await req.body;
-    const { user } = req.cookies;
+    const { user } = await req.cookies;
     console.log(user);
     //decode the token
     const decoded = jwt.decode(user, secret);
@@ -27,7 +25,7 @@ export async function getClientInfo(req: any, res: any) {
 
     res.json({ message: "Log in success !",name,phoneNumber,password });
   } catch (error) {
-    console.error("error");
+    console.error("error",error);
     return res.status(500).send({ error: "something went Wrong!" });
   }
 }

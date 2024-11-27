@@ -49,8 +49,7 @@ function handClick(event?: any) {
 }
 
 function changeContent() {
-  const localStorageDetail = localStorage.getItem("key");
-  const key = localStorageDetail ? JSON.parse(localStorageDetail) : "";
+
   if (reg) {
     formCElement.innerHTML = `  <form onsubmit="checkForm(event)">
         <input type="text" name="fullName" placeholder="Enter your full name">
@@ -91,10 +90,7 @@ function checkForm(event) {
 async function getInfoFromServer() {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/client/info-client`,
-      {
-        method: "GET",
-      }
+      `http://localhost:3000/api/client/info-client`
     );
 
     const data = await response.json();
@@ -105,7 +101,7 @@ async function getInfoFromServer() {
     console.log(name, phoneNumber, password);
     if (!data.error) {
       console.log(data, "time to render your items!");
-      renderInfo( name, phoneNumber, password);
+      renderInfo(name, phoneNumber, password);
     } else {
       changeContent();
     }
@@ -114,12 +110,12 @@ async function getInfoFromServer() {
   }
 }
 
-function renderInfo( name, phoneNumber, password) {
+function renderInfo(name, phoneNumber, password) {
   formCElement.innerHTML = `  <div id="clientInfo" >
  <div class="row"> <h1> your name is :</h1><h1 id="cName"> ${name}<h1> </div>
   <div class="row"> <h1> phone number :</h1> <h1 id="cPn">  ${phoneNumber}</h1> </div>
  <div class="row"> <h1> password :</h1> <h1 id="cPass">  ${"*".repeat(
-   password
+   8
  )} </h1></div>
    <button id="update" onclick="editDetails()">update details</button> <button id="delete" onclick="deleteClient()">delete user</button>
 </div>`;
@@ -129,16 +125,13 @@ async function deleteClient() {
     const localStorageDetail = localStorage.getItem("key");
     const key = localStorageDetail ? JSON.parse(localStorageDetail) : "";
     const response = await fetch(
-      `http://localhost:3000/api/client/delete-client`,
-      {
-        method: "DELETE",
-      }
+      `http://localhost:3000/api/client/delete-client`
     );
 
     const data = await response.json();
     if (!data.error) {
       console.log("user deleted");
-     // localStorage.removeItem("key");
+      // localStorage.removeItem("key");
       changeContent();
     }
     console.log(data);
@@ -158,12 +151,12 @@ async function serverLogInClient(phoneNumber, password) {
     );
 
     const data = await response.json();
-    if (!data.error) {
+    if (data.ok) {
       //  localStorage.setItem("key", JSON.stringify(key));
       getInfoFromServer();
-      console.log("aaaaa")
+      console.log("aaaaa");
     }
-    console.log(data, );
+    console.log(data);
   } catch (error) {
     console.error(error);
   }
@@ -189,9 +182,7 @@ async function serverRegClient(name, phoneNumber, password) {
 
 function editDetails() {
   try {
-    const localStorageDetail = localStorage.getItem("key");
-    const key = localStorageDetail ? JSON.parse(localStorageDetail) : "";
-    if (!key) throw new Error("no key?!");
+ 
 
     const upDateButton = document.getElementById("update") as HTMLButtonElement;
     if (!upDateButton) throw new Error("no edit button found");
@@ -224,7 +215,7 @@ function editDetails() {
       const inValidNewPass = formTester.checkPassword(newPass);
       console.log(inValidNewName, inValidPhone);
       if (!inValidNewName && !inValidPhone && !inValidNewPass) {
-        updateClient(key, newName, newPhone, newPass);
+        updateClient( newName, newPhone, newPass);
       }
     }
   } catch (error) {
@@ -232,23 +223,24 @@ function editDetails() {
   }
 }
 
-async function updateClient(key, name, phoneNumber, password) {
+async function updateClient( name, phoneNumber, password) {
   try {
     const response = await fetch(
       `http://localhost:3000/api/client/update-client`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ key, name, phoneNumber, password }),
+        body: JSON.stringify({ name, phoneNumber, password }),
       }
     );
 
     const data = await response.json();
-    if (key) {
-      // console.log(data, "and your key is :", key);
-      // localStorage.setItem("key", JSON.stringify(key));
-      //  getInfoFromServer(key);
-    }
+    console.log(data);
+    // if () {
+    //   // console.log(data, "and your key is :", key);
+    //   // localStorage.setItem("key", JSON.stringify(key));
+    //   //  getInfoFromServer(key);
+    // }
   } catch (error) {
     console.error(error);
   }

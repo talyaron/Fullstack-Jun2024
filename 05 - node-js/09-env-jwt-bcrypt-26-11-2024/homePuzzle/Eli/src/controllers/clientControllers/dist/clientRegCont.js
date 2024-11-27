@@ -36,11 +36,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.registerClient = void 0;
+exports.registerClient = exports.secret = void 0;
 var clientModel_1 = require("../../models/clientModel");
 var bcrypt_1 = require("bcrypt");
 require("dotenv/config");
-var secret = process.env.JWT_SECRET || "4i3hjawdbhjo";
+exports.secret = process.env.JWT_SECRET || "4i3hjawdbhjo";
 var saltRounds = parseInt(process.env.SALTROUNDS || "", 10);
 function registerClient(req, res) {
     return __awaiter(this, void 0, void 0, function () {

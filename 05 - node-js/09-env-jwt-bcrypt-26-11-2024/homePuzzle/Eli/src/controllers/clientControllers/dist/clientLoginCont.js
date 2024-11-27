@@ -41,7 +41,7 @@ var clientModel_1 = require("../../models/clientModel");
 var jwt_simple_1 = require("jwt-simple");
 var bcrypt_1 = require("bcrypt");
 require("dotenv/config");
-var secret = process.env.JWT_SECRET || "4i3hjawdbhjo";
+var clientRegCont_1 = require("./clientRegCont");
 function loginClient(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var _a, phoneNumber, password, foundUser, match, token, error_1;
@@ -68,9 +68,9 @@ function loginClient(req, res) {
                         res.json({ message: "wrong password or phone number" });
                         return [2 /*return*/];
                     }
-                    token = jwt_simple_1["default"].encode({ id: foundUser._id, role: "user" }, secret);
+                    token = jwt_simple_1["default"].encode({ id: foundUser._id, role: "user" }, clientRegCont_1.secret);
                     res.cookie('user', token, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
-                    return [2 /*return*/, res.status(200).send({ message: "Login successful", response: "ok" })];
+                    return [2 /*return*/, res.status(200).send({ message: "Login successful", ok: true })];
                 case 3:
                     error_1 = _b.sent();
                     console.error("error");

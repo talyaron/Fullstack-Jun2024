@@ -3,7 +3,7 @@ import jwt from 'jwt-simple';
 import bcrypt from 'bcrypt';
 import 'dotenv/config';
 
-const secret=process.env.JWT_SECRET||"4i3hjawdbhjo";
+export const secret=process.env.JWT_SECRET||"4i3hjawdbhjo";
 const saltRounds = parseInt(process.env.SALTROUNDS||"", 10);
 
 export async function registerClient(req: any, res: any) {
