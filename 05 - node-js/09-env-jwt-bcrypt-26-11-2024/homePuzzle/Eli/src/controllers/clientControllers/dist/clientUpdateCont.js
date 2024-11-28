@@ -47,7 +47,7 @@ function updateClient(req, res) {
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _b.trys.push([0, 5, , 6]);
+                    _b.trys.push([0, 4, , 5]);
                     _a = req.body, name = _a.name, phoneNumber = _a.phoneNumber, password = _a.password;
                     user = req.cookies.user;
                     console.log(user);
@@ -70,21 +70,13 @@ function updateClient(req, res) {
                     // {
                     //     await clientByKey.updateOne({ password});
                     // }
-                    return [4 /*yield*/, clientByKey.save()];
-                case 4:
-                    //no password change for now
-                    // if(clientByKey.password!==password)
-                    // {
-                    //     await clientByKey.updateOne({ password});
-                    // }
-                    _b.sent();
                     res.json({ message: "Account created sucssussfully" });
-                    return [3 /*break*/, 6];
-                case 5:
+                    return [3 /*break*/, 5];
+                case 4:
                     error_1 = _b.sent();
                     console.error("error");
                     return [2 /*return*/, res.status(500).send({ error: "something went wrong!" })];
-                case 6: return [2 /*return*/];
+                case 5: return [2 /*return*/];
             }
         });
     });
