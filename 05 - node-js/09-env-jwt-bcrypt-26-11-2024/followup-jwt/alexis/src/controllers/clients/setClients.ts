@@ -75,11 +75,11 @@ export async function login(req: any, res: any) {
       return res.status(400).send({ error: "Invalid email or password" });
     }
 
-    // //encode user id and role in token
-    // console.log(secret);
-    // const token = jwt.encode(user, secret);
-    // console.log(token);
-    // res.cookie("user", token, { httponly: true, maxAge: 10000000000000 });
+    //encode user id and role in token
+    console.log(secret);
+    const token = jwt.encode(user, secret);
+    console.log(token);
+    res.cookie("user", token, { httponly: true, maxAge: 10000000000000 });
     // const kontek = jwt.decode(token, secret);
     // console.log(kontek);
 
