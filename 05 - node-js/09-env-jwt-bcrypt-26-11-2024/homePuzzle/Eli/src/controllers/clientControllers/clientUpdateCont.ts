@@ -22,7 +22,6 @@ export async function updateClient(req: any, res: any) {
     // {
     //     await clientByKey.updateOne({ password});
     // }
-    await clientByKey.save();
     res.json({ message: "Account created sucssussfully" });
   } catch (error) {
     console.error("error");

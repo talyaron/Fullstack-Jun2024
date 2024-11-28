@@ -36,49 +36,56 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.updateClient = void 0;
-var clientModel_1 = require("../../models/clientModel");
-var jwt_simple_1 = require("jwt-simple");
-require("dotenv/config");
-var clientRegCont_1 = require("./clientRegCont");
-function updateClient(req, res) {
+exports.getProducts = exports.getMyProducts = void 0;
+var productModel_1 = require("../../model/products/productModel");
+var purchaseModel_1 = require("../../model/purchase/purchaseModel");
+function getMyProducts(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, name, phoneNumber, password, user, decoded, clientByKey, error_1;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var user, products, pros, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
-                    _b.trys.push([0, 4, , 5]);
-                    _a = req.body, name = _a.name, phoneNumber = _a.phoneNumber, password = _a.password;
+                    _a.trys.push([0, 2, , 3]);
                     user = req.cookies.user;
-                    console.log(user);
-                    return [4 /*yield*/, jwt_simple_1["default"].decode(user, clientRegCont_1.secret)];
+                    return [4 /*yield*/, purchaseModel_1.PurchaseModel.find({ clientId: user }).populate('productId')];
                 case 1:
-                    decoded = _b.sent();
-                    console.log(decoded);
-                    return [4 /*yield*/, clientModel_1.ClientModel.findOne({ key: decoded.id })];
+                    products = _a.sent();
+                    console.log(products);
+                    pros = products.map(function (pro) { return pro.productId; });
+                    console.log(pros);
+                    res.status(200).send({ pros: pros });
+                    return [3 /*break*/, 3];
                 case 2:
-                    clientByKey = _b.sent();
-                    if (!clientByKey)
-                        throw new Error("no such client!");
-                    if (!name || !phoneNumber || !password)
-                        throw new Error("one of the fields are empty");
-                    return [4 /*yield*/, clientByKey.updateOne({ name: name, phoneNumber: phoneNumber })];
-                case 3:
-                    _b.sent();
-                    //no password change for now
-                    // if(clientByKey.password!==password)
-                    // {
-                    //     await clientByKey.updateOne({ password});
-                    // }
-                    res.json({ message: "Account created sucssussfully" });
-                    return [3 /*break*/, 5];
-                case 4:
-                    error_1 = _b.sent();
-                    console.error("error");
-                    return [2 /*return*/, res.status(500).send({ error: "something went wrong!" })];
-                case 5: return [2 /*return*/];
+                    error_1 = _a.sent();
+                    console.log(error_1);
+                    res.status(500).json({ message: "Internal server error " + error_1.message + " " });
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
         });
     });
 }
-exports.updateClient = updateClient;
+exports.getMyProducts = getMyProducts;
+function getProducts(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var products, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, productModel_1["default"].find()];
+                case 1:
+                    products = _a.sent();
+                    res.status(200).send({ products: products });
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_2 = _a.sent();
+                    console.log(error_2);
+                    res.status(500).json({ message: "Internal server error " + error_2.message + " " });
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.getProducts = getProducts;

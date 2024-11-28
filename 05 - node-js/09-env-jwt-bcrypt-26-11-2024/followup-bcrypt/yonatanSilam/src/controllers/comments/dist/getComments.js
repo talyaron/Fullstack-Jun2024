@@ -36,49 +36,31 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.updateClient = void 0;
-var clientModel_1 = require("../../models/clientModel");
-var jwt_simple_1 = require("jwt-simple");
-require("dotenv/config");
-var clientRegCont_1 = require("./clientRegCont");
-function updateClient(req, res) {
+exports.getCommentByProductId = void 0;
+var commentModel_1 = require("../../model/comments/commentModel");
+function getCommentByProductId(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, name, phoneNumber, password, user, decoded, clientByKey, error_1;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var productId, comments, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
-                    _b.trys.push([0, 4, , 5]);
-                    _a = req.body, name = _a.name, phoneNumber = _a.phoneNumber, password = _a.password;
-                    user = req.cookies.user;
-                    console.log(user);
-                    return [4 /*yield*/, jwt_simple_1["default"].decode(user, clientRegCont_1.secret)];
+                    _a.trys.push([0, 2, , 3]);
+                    productId = req.query.productId;
+                    if (!productId) {
+                        return [2 /*return*/, res.status(400).json({ message: 'productId is required' })];
+                    }
+                    return [4 /*yield*/, commentModel_1["default"].find({ product: productId }).populate('client').populate('product').exec()];
                 case 1:
-                    decoded = _b.sent();
-                    console.log(decoded);
-                    return [4 /*yield*/, clientModel_1.ClientModel.findOne({ key: decoded.id })];
+                    comments = _a.sent();
+                    res.status(200).json({ comments: comments });
+                    return [3 /*break*/, 3];
                 case 2:
-                    clientByKey = _b.sent();
-                    if (!clientByKey)
-                        throw new Error("no such client!");
-                    if (!name || !phoneNumber || !password)
-                        throw new Error("one of the fields are empty");
-                    return [4 /*yield*/, clientByKey.updateOne({ name: name, phoneNumber: phoneNumber })];
-                case 3:
-                    _b.sent();
-                    //no password change for now
-                    // if(clientByKey.password!==password)
-                    // {
-                    //     await clientByKey.updateOne({ password});
-                    // }
-                    res.json({ message: "Account created sucssussfully" });
-                    return [3 /*break*/, 5];
-                case 4:
-                    error_1 = _b.sent();
-                    console.error("error");
-                    return [2 /*return*/, res.status(500).send({ error: "something went wrong!" })];
-                case 5: return [2 /*return*/];
+                    error_1 = _a.sent();
+                    res.status(500).json({ message: error_1.message });
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
         });
     });
 }
-exports.updateClient = updateClient;
+exports.getCommentByProductId = getCommentByProductId;

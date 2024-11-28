@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,50 +34,47 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
-exports.updateClient = void 0;
-var clientModel_1 = require("../../models/clientModel");
-var jwt_simple_1 = require("jwt-simple");
-require("dotenv/config");
-var clientRegCont_1 = require("./clientRegCont");
-function updateClient(req, res) {
+function handleAddClient(ev) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, name, phoneNumber, password, user, decoded, clientByKey, error_1;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var formData, firstName, lastName, email, phone, date, yearOfBirth, response, data, err_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
-                    _b.trys.push([0, 4, , 5]);
-                    _a = req.body, name = _a.name, phoneNumber = _a.phoneNumber, password = _a.password;
-                    user = req.cookies.user;
-                    console.log(user);
-                    return [4 /*yield*/, jwt_simple_1["default"].decode(user, clientRegCont_1.secret)];
+                    _a.trys.push([0, 4, , 5]);
+                    ev.preventDefault();
+                    formData = new FormData(ev.target);
+                    firstName = formData.get("firstName");
+                    lastName = formData.get("lastName");
+                    email = formData.get("email");
+                    phone = formData.get("phone");
+                    date = formData.get("date");
+                    yearOfBirth = new Date(date).getFullYear();
+                    return [4 /*yield*/, fetch("/api/clients/add-client", {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                firstName: firstName,
+                                lastName: lastName,
+                                email: email,
+                                phone: phone,
+                                yearOfBirth: yearOfBirth
+                            })
+                        })];
                 case 1:
-                    decoded = _b.sent();
-                    console.log(decoded);
-                    return [4 /*yield*/, clientModel_1.ClientModel.findOne({ key: decoded.id })];
+                    response = _a.sent();
+                    if (!response.ok) return [3 /*break*/, 3];
+                    return [4 /*yield*/, response.json()];
                 case 2:
-                    clientByKey = _b.sent();
-                    if (!clientByKey)
-                        throw new Error("no such client!");
-                    if (!name || !phoneNumber || !password)
-                        throw new Error("one of the fields are empty");
-                    return [4 /*yield*/, clientByKey.updateOne({ name: name, phoneNumber: phoneNumber })];
-                case 3:
-                    _b.sent();
-                    //no password change for now
-                    // if(clientByKey.password!==password)
-                    // {
-                    //     await clientByKey.updateOne({ password});
-                    // }
-                    res.json({ message: "Account created sucssussfully" });
-                    return [3 /*break*/, 5];
+                    data = _a.sent();
+                    console.log(data);
+                    _a.label = 3;
+                case 3: return [3 /*break*/, 5];
                 case 4:
-                    error_1 = _b.sent();
-                    console.error("error");
-                    return [2 /*return*/, res.status(500).send({ error: "something went wrong!" })];
+                    err_1 = _a.sent();
+                    console.error(err_1);
+                    return [3 /*break*/, 5];
                 case 5: return [2 /*return*/];
             }
         });
     });
 }
-exports.updateClient = updateClient;

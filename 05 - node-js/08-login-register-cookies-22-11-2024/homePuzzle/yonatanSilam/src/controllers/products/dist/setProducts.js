@@ -36,49 +36,30 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.updateClient = void 0;
-var clientModel_1 = require("../../models/clientModel");
-var jwt_simple_1 = require("jwt-simple");
-require("dotenv/config");
-var clientRegCont_1 = require("./clientRegCont");
-function updateClient(req, res) {
-    return __awaiter(this, void 0, void 0, function () {
-        var _a, name, phoneNumber, password, user, decoded, clientByKey, error_1;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0:
-                    _b.trys.push([0, 4, , 5]);
-                    _a = req.body, name = _a.name, phoneNumber = _a.phoneNumber, password = _a.password;
-                    user = req.cookies.user;
-                    console.log(user);
-                    return [4 /*yield*/, jwt_simple_1["default"].decode(user, clientRegCont_1.secret)];
-                case 1:
-                    decoded = _b.sent();
-                    console.log(decoded);
-                    return [4 /*yield*/, clientModel_1.ClientModel.findOne({ key: decoded.id })];
-                case 2:
-                    clientByKey = _b.sent();
-                    if (!clientByKey)
-                        throw new Error("no such client!");
-                    if (!name || !phoneNumber || !password)
-                        throw new Error("one of the fields are empty");
-                    return [4 /*yield*/, clientByKey.updateOne({ name: name, phoneNumber: phoneNumber })];
-                case 3:
-                    _b.sent();
-                    //no password change for now
-                    // if(clientByKey.password!==password)
-                    // {
-                    //     await clientByKey.updateOne({ password});
-                    // }
-                    res.json({ message: "Account created sucssussfully" });
-                    return [3 /*break*/, 5];
-                case 4:
-                    error_1 = _b.sent();
-                    console.error("error");
-                    return [2 /*return*/, res.status(500).send({ error: "something went wrong!" })];
-                case 5: return [2 /*return*/];
-            }
-        });
+exports.setProduct = void 0;
+var productModel_1 = require("../../model/products/productModel");
+exports.setProduct = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, name, price, description, newProduct, savedProduct, error_1;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _b.trys.push([0, 2, , 3]);
+                _a = req.body, name = _a.name, price = _a.price, description = _a.description;
+                newProduct = new productModel_1["default"]({
+                    name: name,
+                    price: price,
+                    description: description
+                });
+                return [4 /*yield*/, newProduct.save()];
+            case 1:
+                savedProduct = _b.sent();
+                res.status(201).json(savedProduct);
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _b.sent();
+                res.status(500).json({ message: 'Error saving product', error: error_1 });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
     });
-}
-exports.updateClient = updateClient;
+}); };
