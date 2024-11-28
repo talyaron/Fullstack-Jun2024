@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 //DB
-const dbUrl = "mongodb+srv://dancherno9:kjYUm3eCBAraSVOW@cluster0.lrej6.mongodb.net"
+const dbUrl = ""
 const database = 'apointme';
 
 //connection
