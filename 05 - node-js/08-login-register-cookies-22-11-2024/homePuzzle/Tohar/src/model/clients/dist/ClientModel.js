@@ -19,7 +19,9 @@ exports.ClientSchema = new mongoose_1.Schema({
         type: String,
         unique: true
     },
-    yearOfBirth: Number,
-    password: String
+    password: {
+        type: String,
+        unique: true
+    }
 });
 exports.ClientModel = mongoose_1.model("Client", exports.ClientSchema); // the connection to the DB collection

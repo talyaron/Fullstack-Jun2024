@@ -40,7 +40,7 @@ exports.getUserPurchases = exports.getUserCartProducts = void 0;
 var purchaseModel_1 = require("../../model/purchase/purchaseModel");
 function getUserCartProducts(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var user, error_1;
+        var user, userPurchases, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -53,7 +53,11 @@ function getUserCartProducts(req, res) {
                             status: "in-cart"
                         }).populate("productId")];
                 case 1:
-                    _a.sent();
+                    userPurchases = _a.sent();
+                    if (!userPurchases || userPurchases.length === 0) {
+                        return [2 /*return*/, res.status(404).json({ message: "No products found for this user" })];
+                    }
+                    ;
                     res.status(200).json({ message: "Fetching Cart Products" });
                     return [3 /*break*/, 3];
                 case 2:
@@ -72,7 +76,7 @@ exports.getUserCartProducts = getUserCartProducts;
 ;
 function getUserPurchases(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var user, error_2;
+        var user, userPurchases, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -85,8 +89,12 @@ function getUserPurchases(req, res) {
                             status: "purchased"
                         }).populate("productId")];
                 case 1:
-                    _a.sent();
+                    userPurchases = _a.sent();
                     res.status(200).json({ message: "Fetching Purchased Products" });
+                    if (!userPurchases || userPurchases.length === 0) {
+                        return [2 /*return*/, res.status(404).json({ message: "No products found for this user" })];
+                    }
+                    ;
                     return [3 /*break*/, 3];
                 case 2:
                     error_2 = _a.sent();
