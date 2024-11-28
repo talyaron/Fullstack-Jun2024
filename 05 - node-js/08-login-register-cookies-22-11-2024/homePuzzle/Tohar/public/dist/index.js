@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 function handleAddClient(ev) {
     return __awaiter(this, void 0, void 0, function () {
-        var formData, firstName, lastName, email, phone, date, yearOfBirth, response, data, err_1;
+        var formData, firstName, lastName, password, email, phone, date, yearOfBirth, response, data, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -45,6 +45,7 @@ function handleAddClient(ev) {
                     formData = new FormData(ev.target);
                     firstName = formData.get("firstName");
                     lastName = formData.get("lastName");
+                    password = formData.get("password");
                     email = formData.get("email");
                     phone = formData.get("phone");
                     date = formData.get("date");
@@ -57,7 +58,7 @@ function handleAddClient(ev) {
                                 lastName: lastName,
                                 email: email,
                                 phone: phone,
-                                yearOfBirth: yearOfBirth
+                                password: password
                             })
                         })];
                 case 1:

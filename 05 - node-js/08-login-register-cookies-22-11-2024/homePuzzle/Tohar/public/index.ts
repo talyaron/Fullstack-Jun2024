@@ -4,6 +4,7 @@ async function handleAddClient(ev: any) {
         const formData = new FormData(ev.target);
         const firstName = formData.get("firstName");
         const lastName = formData.get("lastName");
+        const password = formData.get("password");
         const email = formData.get("email");
         const phone = formData.get("phone");
         const date = formData.get("date") as string;
@@ -17,7 +18,7 @@ async function handleAddClient(ev: any) {
                 lastName,
                 email,
                 phone,
-                yearOfBirth
+                password,
             })
         })
 

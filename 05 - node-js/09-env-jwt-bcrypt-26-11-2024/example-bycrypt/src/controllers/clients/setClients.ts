@@ -53,6 +53,7 @@ export async function register(req: any, res: any) {
         //hash password
         const hashedPassword = await bcrypt.hash(password, saltRounds);
 
+
         //send request to DB
         await ClientModel.create({
             firstName,
@@ -85,11 +86,13 @@ export async function login(req: any, res: any) {
         if (!user.password) throw new Error("Invalid email or password");
 
         //compare password
+
         const match = await bcrypt.compare(password, user.password);
         console.log("is match", match)
         if (!match) {
             return res.status(400).send({ error: "Invalid email or password" });
         }
+
 
 
 
