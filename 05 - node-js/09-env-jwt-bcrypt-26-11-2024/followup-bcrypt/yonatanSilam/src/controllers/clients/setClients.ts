@@ -49,7 +49,7 @@ export async function register(req: any, res: any) {
         }
 
         //hash password
-
+        const hashPassword =await bcrypt.hash(password, saltRounds);
 
 
         //send request to DB
@@ -57,7 +57,7 @@ export async function register(req: any, res: any) {
             firstName,
             lastName,
             email,
-            password,
+            password:hashPassword,
             phone
         })
 
@@ -78,14 +78,15 @@ export async function login(req: any, res: any) {
         // Find user by email
         const user = await ClientModel.findOne({ email });
         if (!user) {
-            return res.status(400).send({ error: "Invalid email or password" });
+            return res.status(400).send({ error: "Invalid email or password1" });
         }
 
-        if (!user.password) throw new Error("Invalid email or password");
+        if (!user.password) throw new Error("Invalid email or password2");
 
         //compare password
-
-
+       
+        const match = await bcrypt.compare(password, user.password);
+        if(!match) throw new Error("Invalid email or password3");
 
         //encode user id and role in token
         const token = jwt.encode({ id: user._id, role: "user" }, secret);
@@ -96,9 +97,7 @@ export async function login(req: any, res: any) {
         return res.status(200).send({ message: "Login successful" });
 
     } catch (error: any) {
-        if (error.code = "11000") {
-            res.status(400).send({ error: "user already exists" })
-        }
+
         console.error(error);
         return res.status(500).send({ error: error.message });
     }
