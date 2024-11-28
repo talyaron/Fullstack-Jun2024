@@ -1,0 +1,90 @@
+
+$primary-color: #3897f0;
+$secondary-color: #2ecc71;
+$font-family: 'Arial, sans-serif';
+
+
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    font-family: $font-family;
+    background-color: #fafafa;
+    margin: 0;
+    padding: 0;
+    @include flex-center;
+    height: 100vh;
+}
+
+// Login Container
+.login-container {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 350px;
+    text-align: center;
+    
+    h2 {
+        font-family: 'Arial', sans-serif;
+        font-weight: 500;
+        color: $primary-color;
+        margin-bottom: 1.5rem;
+        font-size: 2rem;
+    }
+
+    .input-group {
+        margin-bottom: 1.2rem;
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            color: #333;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: #fafafa;
+        }
+    }
+
+    .btn {
+        background-color: $primary-color;
+        color: #fff;
+        padding: 0.7rem;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 1rem;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: darken($primary-color, 10%);
+        }
+    }
+
+    p {
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        
+        a {
+            color: $primary-color;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
