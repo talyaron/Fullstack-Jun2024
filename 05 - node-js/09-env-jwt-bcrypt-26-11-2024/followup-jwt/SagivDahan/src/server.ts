@@ -4,7 +4,6 @@ import cookieParser from 'cookie-parser';
 const app = express()
 const port = 3000;
 
-export const secret = 'idanchanban';
 
 app.use(express.json());
 app.use(express.static('public'));
@@ -15,7 +14,7 @@ app.get('/', (req, res) => {
 })
 
 //DB
-const dbUrl = "mongodb+srv://tal:k8w0S6ztTx3zowGW@cluster0.0hzknon.mongodb.net"
+const dbUrl = "mongodb+srv://tal:k8w0S6ztTx3zowGW@cluster0.0hzknon.mongodb.net";
 const database = 'fs-jun24';
 
 //connection

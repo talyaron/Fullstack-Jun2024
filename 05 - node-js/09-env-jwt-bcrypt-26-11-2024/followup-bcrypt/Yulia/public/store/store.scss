@@ -1,0 +1,237 @@
+// Variables
+$primary-color: #3498db;
+$secondary-color: #2ecc71;
+$background-color: #f9f9f9;
+$text-color: #333;
+$card-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+$max-width: 1200px;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin container {
+  max-width: $max-width;
+  margin: 0 auto;
+}
+
+@mixin transition($property: all) {
+  transition: $property 0.3s ease;
+}
+
+// Reset
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// Base styles
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: $background-color;
+  color: $text-color;
+  line-height: 1.6;
+}
+
+// Header
+header {
+  background-color: white;
+  box-shadow: $card-shadow;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  nav {
+    @include container;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: $primary-color;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+
+  a {
+    text-decoration: none;
+    color: $text-color;
+    @include transition(color);
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+}
+
+// Hero section
+.hero {
+  height: 60vh;
+  background-color: $primary-color;
+  color: white;
+  @include flex-center;
+  text-align: center;
+  padding: 2rem;
+
+  &-content {
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+// Buttons
+.cta-button {
+  background-color: $secondary-color;
+  color: white;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  @include transition(background-color);
+
+  &:hover {
+    background-color: darken($secondary-color, 10%);
+  }
+}
+
+// Products section
+.products {
+  @include container;
+  margin: 4rem auto;
+  padding: 0 2rem;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.product-card {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: $card-shadow;
+  @include transition(transform);
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  &__image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .product-info {
+    padding: 1.5rem;
+
+    h3 {
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+.price {
+  color: $primary-color;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0.5rem 0;
+}
+
+.add-to-cart {
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  @include transition(background-color);
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}
+
+// Footer
+footer {
+  background-color: $text-color;
+  color: white;
+  padding: 2rem;
+  margin-top: 4rem;
+
+  .footer-content {
+    @include container;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+}
+
+.footer-section {
+  h4 {
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    list-style: none;
+
+    li {
+      margin-bottom: 0.5rem;
+
+      a {
+        color: #ccc;
+        text-decoration: none;
+        @include transition(color);
+
+        &:hover {
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+// Media queries
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  .hero-content {
+    h1 {
+      font-size: 2rem;
+    }
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
