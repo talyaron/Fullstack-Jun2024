@@ -36,10 +36,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.login = exports.register = exports.addClient = exports.secret = void 0;
+exports.login = exports.register = exports.addClient = void 0;
 var ClientModel_1 = require("../../model/clients/ClientModel");
-var jwt_simple_1 = require("jwt-simple");
-exports.secret = '1234';
 function addClient(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var _a, firstName, password, lastName, email, phone, result, error_1;
@@ -122,7 +120,7 @@ function login(req, res) {
                     if (!user) {
                         return [2 /*return*/, res.status(400).send({ error: "Invalid email or password" })];
                     }
-                    token = jwt_simple_1["default"].encode({ id: user.id, role: "user" }, exports.secret);
+                    token = jwt.encode({ id: user.id, role: "user" }, secret);
                     console.log('before coding', { id: user.id, role: "user" });
                     console.log(token);
                     //send cookie to client

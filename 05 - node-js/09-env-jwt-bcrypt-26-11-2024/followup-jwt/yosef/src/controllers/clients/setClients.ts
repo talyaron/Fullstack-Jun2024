@@ -1,6 +1,5 @@
 import { ClientModel } from "../../model/clients/ClientModel";
-import jwt from 'jwt-simple';
-export const secret = '1234';
+
 
 
 export async function addClient(req: any, res: any) {

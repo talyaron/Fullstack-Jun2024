@@ -87,7 +87,7 @@ function fetchAllAppointments() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 9, , 10]);
-                    return [4 /*yield*/, fetch("/api/appointments")];
+                    return [4 /*yield*/, fetch("/api/appointments/all-appointments")];
                 case 1:
                     appointmentsResponse = _a.sent();
                     if (!appointmentsResponse.ok)
