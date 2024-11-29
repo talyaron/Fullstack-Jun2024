@@ -36,8 +36,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.login = exports.register = exports.addClient = void 0;
+exports.login = exports.register = exports.addClient = exports.jwt_secret = void 0;
+require("dotenv/config");
 var ClientModel_1 = require("../../model/clients/ClientModel");
+var jwt_simple_1 = require("jwt-simple");
+exports.jwt_secret = process.env.JWT_CODE || "secret";
+var bcrypt_1 = require("bcrypt");
+var saltRounds = process.env.SALT_ROUND || 10;
 function addClient(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var _a, firstName, password, lastName, email, phone, result, error_1;
@@ -73,32 +78,40 @@ function addClient(req, res) {
 exports.addClient = addClient;
 function register(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, firstName, lastName, email, password, phone, error_2;
+        var _a, firstName, lastName, email, password, phone, hashPassword, error_2;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _b.trys.push([0, 2, , 3]);
+                    _b.trys.push([0, 3, , 4]);
                     _a = req.body, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, password = _a.password, phone = _a.phone;
                     if (!firstName || !lastName || !email || !password || !phone) {
                         throw new Error('Please fill all fields');
                     }
+                    if (!saltRounds)
+                        throw new Error('Please set SALT_ROUNDS environment variable');
+                    return [4 /*yield*/, bcrypt_1["default"].hash(password, saltRounds)];
+                case 1:
+                    hashPassword = _b.sent();
+                    console.log("the hashed password: " + hashPassword);
                     //send request to DB
                     return [4 /*yield*/, ClientModel_1.ClientModel.create({
                             firstName: firstName,
                             lastName: lastName,
                             email: email,
-                            password: password,
+                            password: hashPassword,
                             phone: phone
                         })];
-                case 1:
+                case 2:
                     //send request to DB
                     _b.sent();
+                    console.log("Register successful");
+                    console.log("the user registration is : " + firstName, lastName, email, hashPassword, phone);
                     return [2 /*return*/, res.status(201).send({ message: "User registered successfully" })];
-                case 2:
+                case 3:
                     error_2 = _b.sent();
                     console.error(error_2);
                     return [2 /*return*/, res.status(500).send({ error: error_2.message })];
-                case 3: return [2 /*return*/];
+                case 4: return [2 /*return*/];
             }
         });
     });
@@ -106,34 +119,44 @@ function register(req, res) {
 exports.register = register;
 function login(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, email, password, user, token, error_3;
+        var _a, email, password, user, isMatch, token, error_3;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _b.trys.push([0, 2, , 3]);
+                    _b.trys.push([0, 3, , 4]);
                     _a = req.body, email = _a.email, password = _a.password;
                     if (!email || !password)
                         throw new Error("Please fill all fields");
-                    return [4 /*yield*/, ClientModel_1.ClientModel.findOne({ email: email, password: password })];
+                    return [4 /*yield*/, ClientModel_1.ClientModel.findOne({ email: email })];
                 case 1:
                     user = _b.sent();
                     if (!user) {
-                        return [2 /*return*/, res.status(400).send({ error: "Invalid email or password" })];
+                        return [2 /*return*/, res.status(400).send({ error: "from clientModel Invalid email or password" })];
                     }
-                    token = jwt.encode({ id: user.id, role: "user" }, secret);
+                    if (!user.password)
+                        throw new Error("Please fill all fields");
+                    return [4 /*yield*/, bcrypt_1["default"].compare(password, user.password)];
+                case 2:
+                    isMatch = _b.sent();
+                    if (!isMatch)
+                        return [2 /*return*/, res.status(400).send({ error: "bcrypt: Invalid email or password" })];
+                    if (!exports.jwt_secret)
+                        throw new Error("Please fill all fields");
+                    token = jwt_simple_1["default"].encode({ id: user.id, role: "user" }, exports.jwt_secret);
                     console.log('before coding', { id: user.id, role: "user" });
                     console.log(token);
                     //send cookie to client
                     res.cookie('user', token, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
+                    //send cookie to client
                     return [2 /*return*/, res.status(200).send({ message: "Login successful" })];
-                case 2:
+                case 3:
                     error_3 = _b.sent();
                     if (error_3.code = "11000") {
                         res.status(400).send({ error: "user already exists" });
                     }
                     console.error(error_3);
                     return [2 /*return*/, res.status(500).send({ error: error_3.message })];
-                case 3: return [2 /*return*/];
+                case 4: return [2 /*return*/];
             }
         });
     });
