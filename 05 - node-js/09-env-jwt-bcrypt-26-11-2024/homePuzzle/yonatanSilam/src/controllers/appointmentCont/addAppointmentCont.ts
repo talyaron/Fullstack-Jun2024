@@ -1,4 +1,3 @@
-import { after } from "node:test";
 import appointmentModel, { IAppointment } from "../../models/appointmentModel";
 
 export async function addAppointment(req: any, res: any) {
@@ -12,6 +11,7 @@ export async function addAppointment(req: any, res: any) {
     );
     if (!overLapAM)
       return res.status(400).send({ error: "the aM is occupied" });
+    
     const result = await appointmentModel.create({
       userID,
       serviceProviderID,

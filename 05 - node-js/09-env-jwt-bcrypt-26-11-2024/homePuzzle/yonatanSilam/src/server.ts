@@ -1,6 +1,7 @@
 import express from 'express'
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';  
+import 'dotenv/config'
 
 const app = express()
 const port = 3000;
@@ -15,9 +16,9 @@ app.get('/', (req, res) => {
 })
 
 
-const dbUrl = "mongodb+srv://yonatans02424:NB0YtPMbc0p8GkDS@cluster0.zsbrf.mongodb.net"
+const dbUrl = process.env.DB_URL;
 
-const database = 'homePuzzle-appointment';
+const database = process.env.DATABASE;
 
 //connection
 mongoose.connect(`${dbUrl}/${database}`).then(()=>{
