@@ -1,0 +1,13 @@
+"use strict";
+exports.__esModule = true;
+var express_1 = require("express");
+var userRegisterCont_1 = require("../controllers/userControllers/userRegisterCont");
+var userLogOutCont_1 = require("../controllers/userControllers/userLogOutCont");
+var userLoginCont_1 = require("../controllers/userControllers/userLoginCont");
+var userCheckKeyCont_1 = require("../controllers/userControllers/userCheckKeyCont");
+var router = express_1["default"].Router();
+router.post('/register-user', userRegisterCont_1.registerUser);
+router.post('/log-out', userLogOutCont_1.userLogOut);
+router.post("/account-login", userLoginCont_1.accountLogin);
+router.post("/check-key", userCheckKeyCont_1.checkKey);
+exports["default"] = router;

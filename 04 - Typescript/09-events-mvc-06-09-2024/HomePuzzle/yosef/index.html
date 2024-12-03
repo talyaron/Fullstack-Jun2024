@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./dist/index.js" defer></script>
+    <link rel="stylesheet" href="./dist/style.css">
+</head>
+<body onload="main2()">
+    <h1 style="font-weight: bold;font-family: 'Courier New', Courier, monospace;text-align: center;">ספריית סרטים מבית היוצר של יוסף</h1>
+    <form id="the_form">
+        <label style="font-weight: bold;">Name:</label>
+        <input type="text" name="title" id="title">
+        <br><br>
+        <label style="font-weight: bold;">Year:</label>
+        <select name="year" id="year">
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+            <option value="2021">2021</option>
+            <option value="2020">2020</option>
+            <option value="2019">2019</option>
+            <option value="2018">2018</option>
+            <option value="2017">2017</option>
+            <option value="2016">2016</option>
+            <option value="2015">2015</option>
+            <option value="2014">2014</option>
+        </select>
+        <br><br>
+        <label style="font-weight: bold;">Director:</label>
+        <input type="text" name="director" id="director">
+        <br><br>
+        <label style="font-weight: bold;">Rating:</label>
+        <select name="rating" id="rating">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        <br><br>
+        <label style="font-weight: bold;">Image URL:</label>
+        <input type="url" name="imageUrl" style="width: 100%; max-width: 600px; id="imageURL">
+        <br><br>
+        <button type="submit" style="font-weight: bold;">Add Movie</button>
+
+    </form>
+    <br>
+    <button style="font-weight: bold;" type="button" onclick="sortMovies()">Sort By Rating</button>
+    <div id="the_movies"></div>
+</body>
+</html>

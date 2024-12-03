@@ -1,0 +1,11 @@
+"use strict";
+exports.__esModule = true;
+var express_1 = require("express");
+var setAppointmentsCont_1 = require("../../controllers/appointments/setAppointmentsCont");
+var getAllapointmentsCont_1 = require("../../controllers/appointments/getAllapointmentsCont");
+var getApointmentsByUserId_1 = require("../../controllers/appointments/getApointmentsByUserId");
+var router = express_1["default"].Router();
+router.post("/add-appointments", setAppointmentsCont_1.setAppointments);
+router.get("/get-Allappointments", getAllapointmentsCont_1.getAllAppointments);
+router.get("/get-appointmentsByUserId", getApointmentsByUserId_1.getAppointmentsByUserId);
+exports["default"] = router;

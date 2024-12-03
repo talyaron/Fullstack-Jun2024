@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Service Providers</title>
+    <link rel="stylesheet" href="./dist/style.css" />
+</head>
+
+<body>
+    <header>
+        <h1>Manage Service Providers</h1>
+    </header>
+    <main>
+        <form id="service-provider-form">
+            <input type="text" name="name" placeholder="Provider Name" required />
+            <input type="email" name="email" placeholder="Email" required />
+            <input type="tel" name="phone" placeholder="Phone Number" required />
+            <button type="submit">Create Provider</button>
+        </form>
+        <div id="service-providers"></div>
+    </main>
+    <script src="./dist/index.js" type="module"></script>
+</body>
+
+</html>

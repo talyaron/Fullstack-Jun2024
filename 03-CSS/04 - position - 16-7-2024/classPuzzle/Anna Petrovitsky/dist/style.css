@@ -1,0 +1,41 @@
+.border {
+  position: relative;
+  margin: 150px auto;
+  border: 1px solid black;
+  width: 500px;
+  height: 500px;
+  transform: rotate(20deg);
+}
+
+.box {
+  width: 175px;
+  height: 175px;
+}
+
+#first {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  background-color: red;
+}
+
+#second {
+  position: absolute;
+  left: 275px;
+  top: 50px;
+  background-color: orange;
+}
+
+#third {
+  position: absolute;
+  left: 50px;
+  top: 275px;
+  background-color: yellow;
+}
+
+#four {
+  position: absolute;
+  left: 275px;
+  top: 275px;
+  background-color: green;
+}

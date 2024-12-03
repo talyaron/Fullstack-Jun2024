@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram</title>
+    <link rel="stylesheet" href="./dist/main.css">
+    <script src="./dist/main.js" defer></script>
+</head>
+<body>
+    <button onclick="logoff()">Log Off</button>
+    <h1 id="welcome">Welcome to Yosef - Instegram</h1>
+    <form onsubmit="handleSendPost(event)">
+        <input type="text" name="title" placeholder="כותרת הפוסט בבקשה" required>
+        <input type="text" name="text" placeholder="על מה אתה חושב?" required>
+        <input type="url" name="imageURL" placeholder="Enter image URL" required>
+        <button type="submit">תן בראש</button>
+    </form>
+    
+    <h2>פוסטים שלך</h2>
+    <div id="feed"></div>
+</body>
+</html>

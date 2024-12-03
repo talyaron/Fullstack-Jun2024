@@ -1,0 +1,2 @@
+1) Build routes, model for Order, and a controllers. one controller would be for creating a new order. the second controller would be for getting all orders of a user.
+for simplicity every order would use one product.

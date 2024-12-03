@@ -1,0 +1,15 @@
+body
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+
+    #button
+    {
+        width: 20vw;
+        height: 20vh;
+        margin: 40vh;
+    }
+}

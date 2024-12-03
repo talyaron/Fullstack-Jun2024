@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Puzzle</title>
+    <link rel="stylesheet" href="./dist/style.css">
+</head>
+<body>
+    <script src="./dist/index.js" defer></script>
+
+    <form  id="forma" onsubmit="handleAddClient(event)">
+        <input type="text" name="firstName" placeholder="First Name">
+        <input type="text" name="lastName" placeholder="Last Name">
+        <input type="email" name="email" placeholder="Email">
+        <input type="tel" name="phone" placeholder="Phone">
+        <input type="date" name="date" placeholder="Date of Birth">
+        <input type="text" name="password" placeholder="Password">
+        <button>Add Client</button>
+    </form>
+    <div id="result"></div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+body {
+  direction: rtl;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+}
+
+.article {
+  width: 35%;
+  background-color: rgb(2, 8, 44);
+  border: 19px solid black;
+  height: 40%;
+}
+.article_title, .article_secondtitle, .article_date {
+  color: white;
+}
+.article_title {
+  background-color: rgb(138, 4, 4);
+}
+
+.chat {
+  background-color: gray;
+  width: 20%;
+}
+.chat .main_title {
+  background-color: red;
+  color: white;
+  text-align: center;
+  font-size: 2rem;
+}
+.chat_main {
+  background-color: aliceblue;
+  color: black;
+  border-radius: 20px 10px;
+}
+.chat_imgtitle {
+  display: flex;
+  gap: 20px;
+}
+.chat_imgtitle h6 {
+  font-size: 15px;
+  color: red;
+}
+.chat_time {
+  color: red;
+  text-align: end;
+}/*# sourceMappingURL=style.css.map */

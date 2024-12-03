@@ -1,0 +1,320 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f2f5;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: white;
+  color: black;
+  width: calc(100vw - 250px);
+  height: 80px;
+  margin-left: 250px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.header__search {
+  width: 200px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.header__right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 100px;
+}
+.header__profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.header__welcome {
+  font-size: 16px;
+  color: #333;
+}
+
+.nav {
+  width: 250px;
+  height: 100vh;
+  background-color: #3377FF;
+  color: white;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  overflow-y: auto;
+}
+.nav__logo {
+  margin-bottom: -250px;
+  position: relative;
+  bottom: 190px;
+  width: 200px;
+}
+.nav__item {
+  padding: 20px 30px;
+  margin: 15px 0;
+  font-size: 18px;
+  border-bottom: 1px solid white;
+}
+.nav__item:hover {
+  background-color: #0056b3;
+  cursor: pointer;
+}
+
+.nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.user {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  margin-bottom: 20px;
+  margin-left: 270px;
+}
+.user__info {
+  flex: 1;
+  margin-right: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+  border-left: 5px solid #006ae4;
+}
+.user h3 {
+  font-size: 22px;
+  color: #333;
+  font-weight: 700;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 10px;
+}
+.user p {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+.user__logo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  border: 3px solid #3377FF;
+}
+.user__progress {
+  flex: 1;
+  margin-right: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #f8f9fa;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+.user__progress-image {
+  width: 300px;
+}
+.user__messages {
+  flex: 1;
+  margin-right: 0;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+}
+.user__messages h3 {
+  font-size: 20px;
+  color: #333;
+  font-weight: 700;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #f0f2f5;
+  padding-bottom: 10px;
+}
+.user__messages p {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+.user__messages p:not(:last-child) {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f0f2f5;
+}
+.user h3 {
+  font-size: 18px;
+  color: #333;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.dashboard__content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
+  margin-left: 270px;
+  margin-top: 20px;
+}
+.dashboard__courses {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.dashboard__courses-list {
+  list-style-type: none;
+  padding: 0;
+}
+.dashboard__courses-item {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #333;
+}
+.dashboard__students {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.dashboard__students-list {
+  list-style-type: none;
+  padding: 0;
+}
+.dashboard__students-item {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #333;
+}
+.dashboard__scrollable {
+  max-height: 150px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+.dashboard__scrollable::-webkit-scrollbar {
+  width: 6px;
+}
+.dashboard__scrollable::-webkit-scrollbar-thumb {
+  background-color: #3377FF;
+  border-radius: 3px;
+}
+.dashboard__scrollable::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+.dashboard__calendar {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  grid-column: span 2;
+}
+.dashboard__calendar h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #333;
+  font-weight: 700;
+}
+.dashboard__calendar ul {
+  list-style-type: none;
+  padding: 0;
+}
+.dashboard__calendar ul li {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 480px) {
+  .header {
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    margin-left: 0;
+  }
+  .header__right {
+    margin-right: 0;
+  }
+
+  .nav {
+    width: 50vw;
+    height: auto;
+    position: relative;
+  }
+  .nav__logo {
+    display: none;
+  }
+
+  .user {
+    flex-direction: column;
+    margin-left: 0;
+  }
+  .user__info, .user__progress, .user__messages {
+    margin-right: 0;
+  }
+
+  .dashboard__content {
+    grid-template-columns: 1fr;
+    margin-left: 0;
+  }
+}
+@media (max-width: 768px) {
+  .header {
+    width: 100%;
+    height: 60px;
+    margin-left: 0;
+  }
+
+  .nav {
+    width: 100vw;
+    position: relative;
+  }
+  .nav__logo {
+    display: none;
+  }
+
+  .user {
+    margin-left: 0;
+  }
+  .user__info, .user__progress, .user__messages {
+    flex: 1;
+  }
+
+  .dashboard__content {
+    grid-template-columns: 1fr;
+    margin-left: 0;
+  }
+}
+@media (max-width: 1024px) {
+  .header {
+    width: 100%;
+    margin-left: 0;
+    height: 70px;
+  }
+
+  .nav {
+    width: 100vw;
+    height: auto;
+    position: relative;
+  }
+  .nav__logo {
+    display: none;
+  }
+
+  .user {
+    margin-left: 0;
+  }
+
+  .dashboard__content {
+    grid-template-columns: 1fr;
+    margin-left: 0;
+  }
+}
+@media (min-width: 1025px) {
+  .nav__logo {
+    display: block;
+  }
+}

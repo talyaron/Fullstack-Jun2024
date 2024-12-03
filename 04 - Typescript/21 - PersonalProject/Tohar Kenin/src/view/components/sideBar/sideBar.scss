@@ -1,0 +1,68 @@
+aside {
+    border-right: 0.08rem solid #E6EFF5;
+    height: 100vh;
+
+    .logo {
+        grid-column: 1;
+        grid-row: 1;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        
+        &__name {
+            color: #54387F;
+            font-family: 'Mont', sans-serif;
+            font-size: 25px;
+            font-weight: 900;
+            line-height: 31.95px;
+            text-align: left;
+        }
+
+        &__img {
+            width: 4rem;
+            margin: 1rem 0 1rem 1rem ;
+        }
+    }
+
+    .menu {
+
+        .menu-item {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            text-decoration: none;
+            margin-left: 1.5rem;
+
+            &__icon{
+                width: 1.3rem;
+            }
+
+            &__text {
+                font-size: 16px;
+                font-weight: 500;
+                line-height: 19.36px;
+                text-align: left;
+                color: #B1B1B1;
+                margin-left: 1rem;
+            }
+
+            
+
+            .current-page-sign {
+                background-color:  var(--primary-color);
+                width: 0.3rem;
+                height: 2.5rem;
+                border-top-right-radius: 20px;
+                border-bottom-right-radius: 20px;
+                position: absolute;
+                left: 0;
+            }
+
+            .current {
+                color: var(--primary-color);
+            }
+        }
+    }
+}
+
+

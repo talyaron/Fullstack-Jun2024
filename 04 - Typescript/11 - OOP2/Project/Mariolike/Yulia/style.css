@@ -1,0 +1,43 @@
+@charset "UTF-8";
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-image: url("./img/background.avif");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.mario {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  background-image: url("./img/mario.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition: left 0.3s ease, top 0.3s ease;
+  /* Плавное движение */
+}
+
+.mashroom {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-image: url("./img/mashroom.webp");
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition: left 0.3s ease, top 0.3s ease;
+  /* Плавное движение */
+}
+
+.game-over {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  color: red;
+  font-family: Arial, sans-serif;
+}/*# sourceMappingURL=style.css.map */

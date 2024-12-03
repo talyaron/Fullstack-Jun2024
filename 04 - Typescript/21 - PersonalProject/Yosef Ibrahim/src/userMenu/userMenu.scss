@@ -1,0 +1,169 @@
+.navbarContainer{
+    display: grid;
+    max-width: 1200px; 
+    margin: 0 auto; // מרכז את הדף
+    padding: 0 20px; // רווח צדדי
+    box-sizing: border-box; // כלול רפידות ורוחב גבול בחישוב הרוחב הכולל
+    grid-template-columns: 20% 80%;
+    
+
+    grid-template-columns: 20% 80%;
+    font: 1em sans-serif;
+
+    .navbar{
+
+        max-width: 100%;
+        overflow: hidden; // מונע מהאלמנטים לחרוג
+        padding: 20px;
+        background-color:  var(--button_color);
+        display: grid;
+        .logo{
+            img{
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        nav{
+          font-size: 2rem;  
+          list-style-type: none;
+
+          a{
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+       
+            &:hover{
+                background-color: darkgray;
+                transition: background-color 0.3s ease-in-out;
+            } 
+            
+            @media (max-width: 700px) {
+    
+                    font-size: 0.5em; /* הקטנת גודל טקסט למסמארטפונים */
+        
+
+                }
+
+            
+            }
+          }
+        }           
+    }
+
+    .headerDashbord{
+       
+        display: grid;
+        gap: 10px;
+        padding-right: 40px;
+
+        @media (max-width: 700px) {
+            
+                gap: 5px; 
+
+        }
+
+        .header {
+            max-width: 100%;
+            overflow: hidden; 
+            background-color: rgb(226, 202, 202);
+            display: flex;
+            height: 90px;
+            justify-content: center;
+            align-items: center;
+        
+            form {
+                display: flex;
+                align-items: center;
+                justify-content: center; // מרכז את התוכן
+                padding: 10px;
+                gap: 10px;
+                width: 100%;
+                margin: 10px;
+                font-size: 1.5em;
+                flex-wrap: wrap; 
+        
+                input {
+                    padding: 10px;
+                    margin: 10px;
+                    border-radius: 5px;
+                    border: none;
+                    outline: none;
+                }
+        
+                button {
+                    padding: 10px;
+                    margin: 10px;
+                    border-radius: 5px;
+                    border: none;
+                    background-color: var(--button_color);
+                    color: white;
+                    cursor: pointer; 
+                }
+        
+                p {
+                    font: 1em sans-serif;
+                    margin: 0; 
+                    flex: 1; 
+                    @media (max-width: 700px) {
+    
+                        display: none !important;
+            
+    
+                    }
+                }
+        
+                img {
+                    height: 60px;
+                    padding: 10px;
+                    flex: 0 0 auto; // מונע מהתמונה להצטמצם
+                    @media (max-width: 700px) {
+    
+                        display: none !important;
+            
+    
+                    }
+                }
+            }
+        }
+        
+    .dashbord{
+        background-color: rgb(236, 221, 221);
+        height: 450px;
+        padding: 10px;
+
+        h2{
+            font-size: 2vw; /* גודל הגופן משתנה בהתאם לרוחב החלון */
+            max-width: 100%; 
+            word-wrap: break-word; /* שבירת מילים אם יש צורך */
+        }
+
+        button{
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: var(--button_color);
+            color: white;
+            cursor: pointer;
+        }
+
+        img{
+            width: 20%;
+            height: auto;
+            margin: 10px;
+        }
+
+}
+    }
+
+    @media (max-width: 700px) {
+        .navbar {
+            grid-template-columns: 1fr; // לשים הכל בעמודה אחת
+            font-size: 0.8em; // הקטנת גודל טקסט
+        }
+    
+        .header {
+            flex-direction: column; 
+    }
+    }
+    

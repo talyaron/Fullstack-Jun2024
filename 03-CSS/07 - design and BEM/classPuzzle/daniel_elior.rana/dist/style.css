@@ -1,0 +1,28 @@
+.articles {
+  display: flex;
+  gap: 20px;
+  width: 100vw;
+}
+.articles .card {
+  display: flex;
+  padding: 12px;
+  background-color: #eaeaea;
+  flex: 1;
+}
+.articles .card__img {
+  height: 200px;
+  width: 200px;
+}
+.articles .card__content {
+  align-items: end;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: end;
+}
+.articles .card__content h2 {
+  font-size: 20px;
+  background-color: red;
+  width: 50%;
+  padding: 12px 24px;
+}

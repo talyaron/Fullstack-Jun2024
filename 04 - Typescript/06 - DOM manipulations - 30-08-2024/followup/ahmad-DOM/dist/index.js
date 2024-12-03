@@ -1,0 +1,17 @@
+var strings = ["Hello", "world", "this", "is", "colorful"];
+var colors = ['color1', "color2", "color3", "color4", "color5"];
+var container = document.querySelector('#string-container');
+function main() {
+    if (container) {
+        strings.forEach(function (str, index) {
+            var span = document.createElement('span');
+            span.className = colors[index % colors.length]; // Apply color class
+            span.textContent = str + " "; // Add the string and a space
+            container.appendChild(span);
+        });
+    }
+    else {
+        console.error('Container element not found');
+    }
+}
+main();

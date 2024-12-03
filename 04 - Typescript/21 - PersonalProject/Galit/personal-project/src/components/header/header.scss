@@ -1,0 +1,109 @@
+header {
+    position: fixed; 
+    top: 0;
+    left: 21vh;
+    width: 85%;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    background-color: #3377FF; 
+    padding: 1rem 2rem;
+    z-index: 200; 
+    border-radius: 8px;
+
+    #search-box {
+        margin-bottom: 1rem;
+        padding: 10px;
+        border: none; 
+        border-radius: 50px;
+        font-size: 1rem;
+        width: 40vh;
+        height: 6.5vh; 
+        box-sizing: border-box;
+        background-color: #FBFBFD;
+        display: flex;
+        align-items: center; 
+    }
+
+    .student-image {
+        height: 10vh;  
+        width: 10vh;
+        border-radius: 50%;
+        object-fit: cover;  
+        margin-left: auto;  
+    }
+
+    #search-box input {
+        width: 100%;
+        height: 100%;
+        padding: 0.5rem 1.5rem; 
+        border-radius: 50px;
+        border: none;
+        outline: none;
+        font-size: 1.1rem;
+        background-color: transparent; 
+        color: #4D4D4D;
+    }
+
+    #search-box input::placeholder {
+        color: #A0A0A0; 
+    }
+
+    #search-box input:focus {
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+        outline: none;
+    }
+}
+
+
+//// tablet ////
+@media (max-width: 1024px) {
+    header {
+        left: 15vh;
+        width: 75%;
+        padding: 0.8rem 1.5rem; 
+    }
+
+    #search-box {
+        width: 30vh;
+        height: 5.5vh;
+    }
+
+    header img {
+        height: 3rem; 
+    }
+
+    #search-box input {
+        font-size: 0.9rem;
+    }
+    header img {
+       width: 6vh;
+       height: 6vh;
+       border-radius: 50%;
+       margin-right: 2vh;
+            }
+}
+
+/// Phone ///
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        left: 0;
+        padding: 0.5rem;
+        position: fixed;
+    }
+
+    #search-box {
+        width: 80vw;
+        height: 5vh;
+        margin-bottom: 1rem;
+    }
+
+    header img {
+display: none;
+    }
+}

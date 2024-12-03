@@ -1,0 +1,57 @@
+#the-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+#the-form input,
+#the-form button {
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+#the-form button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+#the-form button:hover {
+  background-color: #0056b3;
+}
+
+.movie {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+.movie img {
+  max-width: 150px;
+  height: auto;
+  display: block;
+  margin-bottom: 1rem;
+}
+.movie h3 {
+  margin-top: 0;
+}
+.movie p {
+  margin: 0.5rem 0;
+}
+.movie button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  background-color: #dc3545;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.movie button:hover {
+  background-color: #c82333;
+}

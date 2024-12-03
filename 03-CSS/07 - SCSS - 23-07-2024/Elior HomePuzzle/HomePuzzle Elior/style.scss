@@ -1,0 +1,125 @@
+.ynetlogo {
+    display: flex;
+    justify-content: center;
+}
+
+.menubartitles {
+    color: black;
+    display: flex;
+    font-size: large;
+    margin-right: 2vh;
+    gap: 3vh;   
+    text-align: right;
+}
+
+.menubar {
+    color: rgb(255, 255, 255);
+    font-size: larger;
+    justify-content: flex-end;
+    display: flex;
+    gap: 10vh;
+    background-color: rgb(214, 37, 37);
+    padding: 0.2vh 5vh;
+}
+
+.articlemivzakim {
+    padding: 30px;
+    justify-content: center;
+    margin-top: 3vh;
+    background-color: rgb(226, 236, 236);
+    display: flex;
+    gap: 50px;
+}
+
+.mivzakimcard {
+    background-color: rgb(255, 255, 255);
+    width: 300px;
+    height: 150px;
+
+    h1 {
+        text-align: right;
+        font-size: large;
+        padding: px5;
+        background-color: red;
+        color: rgb(255, 255, 255);
+    }
+}
+
+.firstsection {
+    .img {
+        float: left;
+        margin-top: 2vh;
+        margin-left: 30vh;
+    }
+
+    h1 {
+        font-size: 4vh;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        max-width: 450vh;
+        margin-right: 55vh;
+        text-shadow: 1px 1px 1px #000000; 
+    }
+
+    h2, h3 {
+        justify-content: center;
+        font-size: large;
+        align-items: center;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        max-width: 450vh;
+        margin-right: 55vh;
+    }
+
+    h3 {
+        font-size: 1.6vh;
+        margin-top: 5vh;
+    }
+
+    footer {
+        color: rgb(29, 31, 31);
+        margin-top: 5vh;
+        justify-content: center;
+        font-size: large;
+        align-items: center;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        max-width: 450px;
+        margin-right: 55vh;
+    }
+}
+
+.articlenews {
+    font-size: medium;
+    margin-right: 85vh;
+    margin-top: 10vh;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    justify-content: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+.newscard1 img, .newscard2 img, .newscard3 img, .newscard4 img {
+    float: right;
+}
+
+.newscard3 img {
+    width: 27vh;
+
+    }
+    .newscard4 img {
+        width: 27vh;
+        height: 13vh;
+    }
+}
+
+.newscard1, .newscard3, .newscard2, .newscard4 {
+    background-color: rgb(173, 5, 5);
+    width: 1000px;
+    height: 150px;
+}
+
+.newscard2, .newscard4 {
+    background-color: blue;
+}
+

@@ -1,0 +1,17 @@
+"use strict";
+exports.__esModule = true;
+exports.postRoutes = exports.router = void 0;
+var express_1 = require("express");
+var posts_1 = require("../model/posts/posts");
+var getPost_1 = require("../controllers/getPost");
+var sendPost_1 = require("../controllers/sendPost");
+var uploadImage_1 = require("../controllers/uploadImage");
+var deletePost_1 = require("../controllers/deletePost");
+var updatePost_1 = require("../controllers/updatePost");
+exports.router = express_1["default"].Router();
+exports.router.get('/get-posts', getPost_1.getPost);
+exports.router.post("/send-form", sendPost_1.sendPost);
+exports.router.put('/update-post/:id', updatePost_1.updatePost);
+exports.router["delete"]('/delete-post/:id', deletePost_1.deletePost);
+exports.router.post('/upload-image', posts_1.upload.single('image'), uploadImage_1.uploadImage);
+exports.postRoutes = exports.router;

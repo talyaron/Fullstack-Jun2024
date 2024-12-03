@@ -1,0 +1,30 @@
+#balloon {
+  width: 100%;
+  height: 100%;
+  background-color: #cd3030;
+  background-image: url(./balloon.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  animation: moveRight 2s;
+  background-position: center;
+}
+
+@keyframes moveRight {
+  0% {
+    left: 0;
+    top: 0;
+  }
+  20% {
+    left: 10vw;
+    top: 20vh;
+  }
+  50% {
+    left: 50vw;
+    top: 50vh;
+  }
+  100% {
+    left: 80vw;
+    top: 10vh;
+  }
+}

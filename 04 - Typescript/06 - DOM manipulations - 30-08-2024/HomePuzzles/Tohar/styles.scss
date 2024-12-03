@@ -1,0 +1,29 @@
+body {
+    font-family: "Inter", sans-serif;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 2rem 3rem 2rem 3rem;
+
+    .navbarItem {
+        color: rgb(83, 83, 83);
+        font-size: 0.9rem;
+        font-weight: 300;
+
+        &:hover {
+            color: #000;
+            cursor: pointer;
+        }
+    }
+}
+
+.computersList{
+
+    img{
+        width: 2rem;
+    }
+}
+

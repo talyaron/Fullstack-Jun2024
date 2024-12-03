@@ -1,0 +1,29 @@
+#circle{
+    width: 100px;
+    height: 20px;
+    background-color: red;
+    border-radius: 5px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    left:100px;
+
+    animation-name: moveDown;
+    animation-duration: 650ms;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(.46,-1.86,.77,1.98);
+    animation-delay: 2s;
+   
+}
+
+@keyframes moveDown {
+    0%{
+        left: 100px;
+      
+    } 100%{
+        left: 320px;
+       
+    }
+}

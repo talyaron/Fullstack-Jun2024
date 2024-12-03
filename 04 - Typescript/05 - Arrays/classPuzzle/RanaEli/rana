@@ -1,0 +1,14 @@
+// concat :
+.פונקציה שמטרתה לחבר (לשרשר) בין שני מחרוזות, מערכים או יותר
+
+let str1 = "Hello";
+let str2 = "Rana";
+let result = str1.concat(str2);
+console.log(result);     // Output: "HelloRana"
+
+
+או
+let array1 = [1, 2, 3];
+let array2 = [4, 5, 6];
+let result = array1.concat(array2);
+console.log(result); // [1, 2, 3, 4, 5, 6]

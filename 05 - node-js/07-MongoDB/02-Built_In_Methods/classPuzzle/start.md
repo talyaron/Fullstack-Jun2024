@@ -1,0 +1,1 @@
+create for route for delete, including rerender new array of pets (from db)

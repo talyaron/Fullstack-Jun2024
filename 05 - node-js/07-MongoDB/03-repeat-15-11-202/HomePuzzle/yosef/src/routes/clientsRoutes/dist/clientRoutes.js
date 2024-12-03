@@ -1,0 +1,13 @@
+"use strict";
+exports.__esModule = true;
+var express_1 = require("express");
+var setClients_1 = require("../../controllers/clients/setClients");
+var getAllClients_1 = require("../../controllers/clients/getAllClients");
+var deleteClient_1 = require("../../controllers/clients/deleteClient");
+var editClient_1 = require("../../controllers/clients/editClient");
+var router = express_1["default"].Router();
+router.post("/add-client", setClients_1.addClient);
+router.get("/get-all-clients", getAllClients_1.getAllClients);
+router["delete"]("/delete-client/:id", deleteClient_1.deleteClient);
+router.patch("/edit-client/:id", editClient_1.editeClient);
+exports["default"] = router;

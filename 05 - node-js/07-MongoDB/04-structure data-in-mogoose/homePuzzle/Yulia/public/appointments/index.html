@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Appointments</title>
+    <link rel="stylesheet" href="./dist/style.css" />
+</head>
+
+<body>
+    <header>
+        <h1>Manage Appointments</h1>
+    </header>
+    <main>
+        <form id="appointment-form">
+            <input type="text" id="client-id" placeholder="Client ID" required />
+            <input type="text" id="service-provider-id" placeholder="Service Provider ID" required />
+            <input type="text" id="service-id" placeholder="Service ID" required />
+            <input type="date" id="date" required />
+            <input type="time" id="start-time" required />
+            <input type="time" id="end-time" required />
+            <input type="text" id="price" placeholder="Price" required />
+            <button type="submit">Create Appointment</button>
+        </form>
+        <div id="appointments"></div>
+    </main>
+    <script src="./dist/index.js" type="module"></script>
+</body>
+
+</html>

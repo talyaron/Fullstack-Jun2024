@@ -1,0 +1,99 @@
+html {
+  font-family: sans-serif;
+}
+html input {
+  margin-bottom: 1rem;
+  padding: 10px;
+  border: 1px solid #4D4D4D;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 35vh;
+  height: 3.5vh;
+  box-sizing: border-box;
+}
+
+.head {
+  position: absolute;
+  top: 28%;
+  left: 45%;
+  z-index: 1;
+}
+
+.register__banner {
+  position: absolute;
+  top: 20%;
+  left: 25%;
+  height: 700px;
+  width: 1000px;
+  background-color: #E3EDFF;
+  border-radius: 20%;
+}
+.register__inputs {
+  display: flex;
+  flex-direction: column;
+}
+.register__inputs__name {
+  position: absolute;
+  top: 40%;
+  left: 40%;
+}
+.register__inputs__phone {
+  position: absolute;
+  top: 45%;
+  left: 40%;
+}
+.register__inputs__email {
+  position: absolute;
+  top: 50%;
+  left: 40%;
+}
+.register__inputs__password {
+  position: absolute;
+  top: 55%;
+  left: 40%;
+}
+.register__inputs__password2 {
+  position: absolute;
+  top: 60%;
+  left: 40%;
+}
+.register__inputs__p {
+  position: absolute;
+  top: 30%;
+  left: 41%;
+}
+.register__checkbox {
+  position: absolute;
+  top: 65%;
+  left: 32.5%;
+}
+.register__accept {
+  font-family: sans-serif;
+  font-size: 1.3rem;
+  position: absolute;
+  top: 64%;
+  left: 43%;
+}
+
+#register-btn {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  background-color: #3377FF;
+  width: 30vh;
+  height: 6.5vh;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: absolute;
+  top: 70%;
+  left: 41%;
+}
+
+#register-btn:hover {
+  background-color: #99BBFF;
+}
+
+#register-btn:active {
+  background-color: #99BBFF;
+}

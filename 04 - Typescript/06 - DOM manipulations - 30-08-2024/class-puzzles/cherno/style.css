@@ -1,0 +1,9 @@
+#movies {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  padding: 2rem;
+}
+#movies .movie-card img {
+  width: 40vw;
+}/*# sourceMappingURL=style.css.map */

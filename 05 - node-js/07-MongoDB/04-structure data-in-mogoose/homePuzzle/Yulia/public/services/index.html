@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Services</title>
+    <link rel="stylesheet" href="./dist/style.css" />
+</head>
+
+<body>
+    <header>
+        <h1>Manage Services</h1>
+    </header>
+    <main>
+        <form id="service-form">
+            <input type="text" name="name" placeholder="Service Name" required />
+            <textarea name="description" placeholder="Description" required></textarea>
+            <input type="number" name="price" placeholder="Price" required />
+            <button type="submit">Create Service</button>
+        </form>
+        <div id="services"></div>
+    </main>
+    <script src="./dist/index.js" type="module"></script>
+</body>
+
+</html>

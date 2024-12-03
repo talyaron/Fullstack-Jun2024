@@ -1,0 +1,59 @@
+#computers{
+    display: flex;
+   flex-direction: column;
+   gap:10px;
+
+   .computer-item{
+       display: flex;
+      flex-direction: column;
+      border-radius: 10px;
+       box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
+       width: 300px;
+       &__info{
+           padding: 10px;
+           display: flex;
+           flex-direction: column;
+           gap: 10px;
+       }
+       &__title{
+           font-size: 20px;
+           font-weight: bold;
+       }
+       %__price{
+           font-size: 16px;
+           font-weight: bold;
+       }
+       img{
+           width: 100%;
+         
+           border-radius: 50%;
+       }
+       .sale{
+              background-color: red;
+              color: white;
+              padding: 5px;
+              border-radius: 5px;
+       }
+   }
+}
+#navbar{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f1f1f1;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
+    .logo{
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .nav{
+        display: flex;
+        gap: 10px;
+        a{
+            text-decoration: none;
+            color: black;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    }
+}

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form</title>
+    <script type="module" src="/src/main.ts" defer></script>
+  </head>
+  <body >
+    <div id="formContainer">
+    <Form id="form" onsubmit="main(event)">
+      <h3>enter your email address</h3>
+      <input type="text" name="email" id="email">
+      <p id="emailDesc"></p>
+      <h3>enter your phone number </h3>
+      <input type="text" name="phoneNum" id="phoneNum">
+      <p id="phoneNumDesc"></p>
+
+      <h3>enter a password</h3>
+      <input type="password" name="password" id="password">
+      <p id="passwordDesc"></p>
+
+      <h3></h3>
+      <input type="submit" value="submit" >
+    </Form>
+  </div>
+  </body>
+</html>

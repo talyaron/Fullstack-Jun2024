@@ -1,0 +1,12 @@
+#galgal {
+  width: 100px;
+  height: 100px;
+  background-image: url(https://online.toyota.com.ph/medias/PC457-0A001-PC4570A001-ALLOY-WHEEL-17-.png-1626661307199-TMP-2890Wx1690H?context=bWFzdGVyfHJvb3R8MTY2MzAxNXxpbWFnZS9wbmd8YUdNd0wyZzFZaTg0T0RBd09UVTNORE14T0RNNEwxQkRORFUzTFRCQk1EQXhYMUJETkRVM01FRXdNREZmUVV4TVQxa2dWMGhGUlV3Z01UZGZMbkJ1WjE4eE5qSTJOall4TXpBM01UazVYMVJOVUMweU9Ea3dWM2d4Tmprd1NBfDU4MzllODI3ZGE1MmQ3Njc1ZDg5MzVlNWU0MGVjZGM4N2RiMTFjMjY4OWQ1OWU0MTk4ZmViZTlkMzliZjk5MDg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  top: 0;
+  left: 0;
+  background-color: black;
+}

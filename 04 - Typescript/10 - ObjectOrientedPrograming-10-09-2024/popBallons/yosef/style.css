@@ -1,0 +1,20 @@
+@charset "UTF-8";
+body {
+  background-color: rgb(235, 175, 133);
+}
+
+#box img {
+  width: 10%;
+  height: 10%;
+  animation: floatUp 5s ease-in-out forwards; /* 3 שניות, התפוגגות חלקה */
+}
+@keyframes floatUp {
+  0% {
+    transform: translateY(400%); /* מתחיל ממקום נמוך */
+    opacity: 1; /* בהתחלה הבלון נראה */
+  }
+  100% {
+    transform: translateY(-1000%); /* עובר למקום גבוה למעלה */
+    opacity: 0; /* הבלון נעלם כשהוא מתרחק */
+  }
+}/*# sourceMappingURL=style.css.map */

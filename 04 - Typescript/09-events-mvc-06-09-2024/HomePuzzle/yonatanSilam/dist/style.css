@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#the-form {
+  margin: 1rem;
+  gap: 1rem;
+  display: flex;
+  border: 1px solid black;
+  padding: 1rem;
+  width: fit-content;
+  align-items: center;
+}
+
+.gold {
+  background-color: gold;
+}
+
+.red {
+  background-color: red;
+}
+
+#allComp {
+  display: grid;
+  grid-template-columns: repeat(5, 300px);
+  grid-template-rows: auto;
+  margin: 1rem;
+  justify-content: center;
+}
+
+.oneComp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid black;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.deleteBtn {
+  background-color: black;
+  color: white;
+  width: 5rem;
+  height: 1rem;
+}
+
+.none {
+  display: none;
+}

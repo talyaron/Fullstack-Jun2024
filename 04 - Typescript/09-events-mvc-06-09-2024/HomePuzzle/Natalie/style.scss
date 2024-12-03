@@ -1,0 +1,11 @@
+.movies{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .5rem;
+    grid-template-rows: repeat(9, 200px);
+
+    .box{
+        background-color: red;
+
+    }
+}

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./src/style.css">
+    <title>Vite + TS</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-custom">
+        <div class="container">
+            <a class="navbar-brand" href="#">Galit's website</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#info">Info</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#progress">Course Progress</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#study-plan">Study Plan</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#form-check">Projects to do</a>
+                  </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#notes">Notes</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#game-container">Game</a>
+                  </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="info" class="container mt-5">
+        <div class="PersonalIntroduction">
+            <h1 id="name"></h1>
+            <p id="content"></p>
+            <p id="learned"></p>
+            <a id="git"></a>
+            <img id="image" alt="Personal Introduction Image" class="img-fluid" />
+        </div>
+    </div>
+    <br/>
+    <div id="progress" class="container mt-5">
+        <h2>Course Progress</h2>
+        <div class="progress">
+            <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+        </div>
+        <p id="progress-text" class="mt-2">0 out of 76 completed</p>
+    </div>
+
+    <div id="study-plan" class="container mt-5">
+        <h2>Study Plan</h2>
+        <div class="row mb-3 border-bottom">
+            <div class="col-6 fw-bold">Subject</div>
+            <div class="col-6 fw-bold">Dates</div>
+        </div>
+
+        <div class="row mb-2 border-bottom">
+            <div class="col-6">NodeJS - Express - Mongoose</div>
+            <div class="col-6">8.11.24 - 20.12.24</div>
+        </div>
+        <div class="row mb-2 border-bottom">
+            <div class="col-6">React</div>
+            <div class="col-6">24.12.24 - 21.02.25</div>
+        </div>
+        <div class="row mb-2 border-bottom">
+            <div class="col-6">SQL</div>
+            <div class="col-6">25.02.25 - 4.03.25</div>
+        </div>
+        <div class="row mb-2 border-bottom">
+            <div class="col-6">Final Project</div>
+            <div class="col-6">7.03.25 - 4.04.25</div>
+        </div>
+        <div class="row mb-2 border-bottom">
+            <div class="col-6">React Native</div>
+            <div class="col-6">8.04.25 - 22.04.25</div>
+        </div>
+    </div>
+    <br/>   
+    <h3>Projects to do</h3>
+    <div id="form-check" class="form-check">
+      <input class="form-check-input" type="checkbox" value="">
+      <label class="form-check-label" for="flexCheckDefault">
+        Vite project
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="">
+      <label class="form-check-label" for="flexCheckChecked">
+        NodeJS
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="">
+      <label class="form-check-label" for="flexCheckChecked">
+        Express
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="">
+      <label class="form-check-label" for="flexCheckChecked">
+        SQL
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="">
+      <label class="form-check-label" for="flexCheckChecked">
+        Final Project
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="">
+      <label class="form-check-label" for="flexCheckChecked">
+        React Native
+      </label>
+    </div>
+    <div id="notes" class="container mt-5">
+        <h1>Notes</h1>
+        <form id="notes-form">
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" class="form-control" id="title" placeholder="Enter note title" required />
+            </div>
+            <div class="form-group">
+                <label for="note">Note:</label>
+                <textarea class="form-control" id="note" rows="5" placeholder="Enter your note here" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Note</button>
+        </form>
+        <div id="notesList" class="row mt-3"></div>
+    </div>
+    <div id="game-container">
+      <h3>Game</h3>
+      <img id="game-image" src="./public/images/Galit4.png" alt="Moveable Image" width="80">
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

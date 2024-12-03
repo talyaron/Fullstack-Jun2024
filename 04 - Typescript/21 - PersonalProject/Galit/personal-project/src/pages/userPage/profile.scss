@@ -1,0 +1,56 @@
+@import '../../components/button/button.scss';
+@import '../../components/input/input.scss';
+@import '../../components/header/header.scss';
+@import '../../components/navbar/navbar.scss';
+@import '../../components/smallContainer/smallContainer.scss';
+
+body {
+    background-color: #FBFBFD;
+}
+.profile-container {
+    padding: 20px;
+    .logo {
+        width: 12vh;
+        height: auto;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 35vh;
+        align-items: flex-start;
+
+        .form-group {
+            width: 100%;
+
+            label {
+                display: block; 
+                font-weight: bold;
+            }
+
+            .input {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+    }
+}
+
+
+
+//// Tablet ////
+@media (max-width: 1024px) {
+    .profile-update-form {
+        padding: 10px;
+        margin-top: 100vh; 
+    }
+}
+
+//// Phone ////
+@media (max-width: 768px) {
+    .profile-update-form {
+        padding: 10px;
+        margin-top: 400vh; 
+        width: 100vh;
+    }
+}

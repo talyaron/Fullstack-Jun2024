@@ -1,0 +1,37 @@
+@import '../../components/button/button.scss';
+@import '../../components/input/input.scss';
+@import '../../components/header/header.scss';
+@import '../../components/navbar/navbar.scss';
+@import '../../components/smallContainer/smallContainer.scss';
+
+body {
+    background-color: #FBFBFD;
+}
+.settings-container {
+    padding: 20px;
+    .logo {
+        width: 12vh;
+        height: auto;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 35vh;
+        align-items: flex-start;
+
+        .form-group {
+            width: 100%;
+
+            label {
+                display: block; 
+                font-weight: bold;
+            }
+
+            .input {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+    }
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details Form</title>
+    <script src="./dist/index.js" defer></script>
+</head>
+<body>
+    <h1>Add User</h1>
+    <form id="user-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required><br>
+
+        <label for="image">Image URL:</label>
+        <input type="url" id="image" name="image" required><br>
+
+        <button type="submit">Add User</button>
+    </form>
+
+    <h2>User List</h2>
+    <div id="user-list"></div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+.pet {
+  width: 10rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.pet img {
+  width: 100%;
+}

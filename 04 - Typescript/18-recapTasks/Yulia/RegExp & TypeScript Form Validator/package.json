@@ -1,0 +1,19 @@
+{
+  "name": "regexp---typescript-form-validator",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.3",
+    "vite": "^5.4.8"
+  },
+  "dependencies": {
+    "@types/validator": "^13.12.2",
+    "validator": "^13.12.0"
+  }
+}

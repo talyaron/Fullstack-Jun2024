@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>movies_form</title>
+    <link rel="stylesheet" href="./dist/style.css">
+    <script src="./dist/index.js" defer></script>
+</head>
+<body onload="main()">
+    <form id="all-form">
+        <input type="text" name="title" id="title" placeholder="title">
+        <input type="text" name="author" id="author" placeholder="author">
+        <input type="number" name="year" min="100" id="year" placeholder="year">
+        <input type="number" min=1 max=10 name="rating" id="rating" placeholder="rating 0-10">
+        <input type="url" name="imageUrl" placeholder="imageUrl">
+        <button type="submit">Add movie</button>
+    </form>
+
+    <div id="movie-list"></div>
+
+    
+</body>
+</html>

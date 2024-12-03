@@ -1,0 +1,21 @@
+body{
+width: 100vw;
+height: 100vh;
+display: flex;
+text-align: start;
+justify-content: center;
+align-items: center;
+color: navy;
+background-color: beige ;
+flex-direction: column;
+}
+h1{
+margin-bottom: 5vw;
+}
+input{
+  width: 15vw;
+  height: 5vh;
+} button{
+  width: fit-content;
+  height: fit-content;
+}

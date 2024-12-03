@@ -1,0 +1,14 @@
+#the_movies {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
+}
+
+.movie {
+  border: 1px solid red;
+  text-align: center;
+}
+.movie img {
+  width: 10rem;
+  height: 10rem;
+}

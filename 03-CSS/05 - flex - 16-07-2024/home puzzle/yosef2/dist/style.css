@@ -1,0 +1,6 @@
+.frame {
+  background: aqua;
+}
+.frame .inframe {
+  background: black;
+}

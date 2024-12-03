@@ -1,0 +1,16 @@
+#movies
+{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem; 
+    padding: 2rem; 
+    
+
+    .movie-card
+    {
+        img
+        {
+            width: 40vw;
+        }
+    }
+}
