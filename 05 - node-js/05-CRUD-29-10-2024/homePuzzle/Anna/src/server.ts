@@ -3,42 +3,41 @@ const app = express()
 const port = process.env.PORT || 3000
 
 
-
 app.use(express.json()); //middleware to get data from the body
 app.use(express.static('public')) //middleware
 
 
 
-//route
-app.get('/api/get-hello', (req, res)=>{
 
-    try{
-        // setTimeout(() => {
-        res.send({message: "Hello from express"});
-        // }, 3000);
-    } catch(error){
-        console.error(error);
-    }
-})
 
-const words: string[] = [];
-// route to send something to the server
-app.post("/api/send-word", (req:any, res:any) => {
+
+interface Post {
+    title : string,
+    des : string,
+    img: string
+}
+const posts: Post [] = [];
+app.post("/api/send-posts",(req : any,res : any) =>{
     try {
-        const data = req.body;
+        const postData = req.body;
+        if(!postData.dataTitle) throw new Error("Title not found");
+        if(!postData.dataDes) throw new Error("Des not found");
+        posts.push({title: postData.dataTitle, des: postData.dataDes,img: postData.dataImg});
+        res.send({message: "Post add seccusefuly",posts})
 
-        if(!data.word) throw new Error("No word found");
-        words.push(data.word);
-
-        console.log(data);
-        res.send({message: "Word received", words});
     } catch (error) {
         console.error(error);
         res.status(500).send({message: "Error"});   
     }
 });
 
-
+app.get("/api/get-posts",(req : any,res : any)=>{
+    try {
+        res.send({existPost:'Post sent to client',posts});
+    } catch (error) {
+        console.error(error);
+    }
+})
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)

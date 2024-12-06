@@ -5,31 +5,28 @@ var app = express_1["default"]();
 var port = process.env.PORT || 3000;
 app.use(express_1["default"].json()); //middleware to get data from the body
 app.use(express_1["default"].static('public')); //middleware
-//route
-app.get('/api/get-hello', function (req, res) {
+var posts = [];
+app.post("/api/send-posts", function (req, res) {
     try {
-        // setTimeout(() => {
-        res.send({ message: "Hello from express" });
-        // }, 3000);
-    }
-    catch (error) {
-        console.error(error);
-    }
-});
-var words = [];
-// route to send something to the server
-app.post("/api/send-word", function (req, res) {
-    try {
-        var data = req.body;
-        if (!data.word)
-            throw new Error("No word found");
-        words.push(data.word);
-        console.log(data);
-        res.send({ message: "Word received", words: words });
+        var postData = req.body;
+        if (!postData.dataTitle)
+            throw new Error("Title not found");
+        if (!postData.dataDes)
+            throw new Error("Des not found");
+        posts.push({ title: postData.dataTitle, des: postData.dataDes, img: postData.dataImg });
+        res.send({ message: "Post add seccusefuly", posts: posts });
     }
     catch (error) {
         console.error(error);
         res.status(500).send({ message: "Error" });
+    }
+});
+app.get("/api/get-posts", function (req, res) {
+    try {
+        res.send({ existPost: 'Post sent to client', posts: posts });
+    }
+    catch (error) {
+        console.error(error);
     }
 });
 app.listen(port, function () {
