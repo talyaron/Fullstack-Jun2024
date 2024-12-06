@@ -34,11 +34,11 @@ async function handleClick() {
         const data = await response.json();
         console.log(response);
         console.log(data);
-        const {randNum} = data;
-        if(!randNum) throw new Error("No random num is found");
+        const {number} = data;
+        if(!number) throw new Error("No random num is found");
         const randMeesage = document.querySelector("#rand") as HTMLDivElement;
         if(!randMeesage) throw new Error("element not found");
-        randMeesage.innerHTML = randNum;
+        randMeesage.innerHTML = number;
     } catch (error) {
         console.error(error);
     }

@@ -77,7 +77,7 @@ if (!btn)
 btn.addEventListener("click", handleClick);
 function handleClick() {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, randNum, randMeesage, error_2;
+        var response, data, number, randMeesage, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -90,13 +90,13 @@ function handleClick() {
                     data = _a.sent();
                     console.log(response);
                     console.log(data);
-                    randNum = data.randNum;
-                    if (!randNum)
+                    number = data.number;
+                    if (!number)
                         throw new Error("No random num is found");
                     randMeesage = document.querySelector("#rand");
                     if (!randMeesage)
                         throw new Error("element not found");
-                    randMeesage.innerHTML = randNum;
+                    randMeesage.innerHTML = number;
                     return [3 /*break*/, 4];
                 case 3:
                     error_2 = _a.sent();

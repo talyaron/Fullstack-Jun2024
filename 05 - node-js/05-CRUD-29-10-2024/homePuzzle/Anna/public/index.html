@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./dist/style.css">
+    <script src="./dist/indesx.js" defer></script>
+</head>
+<body onload="handleAllPosts()">
+    <h1>Hi all</h1>
+    <a href="register/register.html">Register</a>
+    <div id="posts"></div>
+    
+    <form onsubmit="handlePost(event)">
+        <label for="title">Post Title:</label><br>
+        <input id="title" type="text" name="word" placeholder="add Title"><br>
+        <label for="des">Post Description:</label><br>
+        <input id="des" type="text" name="Des" placeholder="add Des"><br>
+        <label for="imageInput">Select an image:</label><br>
+        <input id="imageInput" type="text" name="imageInput" placeholder="add image"><br>
+        <button type="submit">Send</button>
+    </form>
+</body>
+</html>
