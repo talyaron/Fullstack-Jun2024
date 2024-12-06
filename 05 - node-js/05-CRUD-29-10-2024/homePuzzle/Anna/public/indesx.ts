@@ -74,7 +74,7 @@ async function getPosts() {
         const data = await response.json();
         console.log(data.existPost.posts);
         const post : Post[] = data.posts;
-        console.log(post);
+        console.log(`This is the get array post ${post}`);
         savePostLocalStorage("posts",data.posts);
         
         const postElement = document.querySelector("#posts") as HTMLDivElement;

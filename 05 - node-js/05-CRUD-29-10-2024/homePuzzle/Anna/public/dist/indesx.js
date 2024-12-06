@@ -134,7 +134,7 @@ function getPosts() {
                     data = _a.sent();
                     console.log(data.existPost.posts);
                     post = data.posts;
-                    console.log(post);
+                    console.log("This is the get array post " + post);
                     savePostLocalStorage("posts", data.posts);
                     postElement = document.querySelector("#posts");
                     if (!postElement)

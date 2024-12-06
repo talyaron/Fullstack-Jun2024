@@ -36,8 +36,8 @@ app.get('/api/get-hello', function (req, res) {
 });
 app.get('/api/get-rand', function (req, res) {
     try {
-        var randNum = Math.ceil(Math.random() * (1000 - 1) + 1);
-        res.send({ number: randNum });
+        var randNum = Math.random() * (1000 - 1) + 1;
+        res.send({ randNum: randNum });
     }
     catch (error) {
         console.error(error);
