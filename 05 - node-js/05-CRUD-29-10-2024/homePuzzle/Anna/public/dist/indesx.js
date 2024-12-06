@@ -70,31 +70,23 @@ function getHello() {
         });
     });
 }
-//getHello(); //calling the function
-function handlePost(ev) {
+getHello(); //calling the function
+function handleSendWord(ev) {
     return __awaiter(this, void 0, void 0, function () {
-        var Title, des, img, dataTitle, dataDes, dataImg, response, data, error_2;
+        var word, response, data, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 4, , 5]);
+                    _a.trys.push([0, 3, , 4]);
                     ev.preventDefault();
-                    console.log(ev);
-                    Title = document.querySelector("#title");
-                    des = document.querySelector("#des");
-                    img = document.querySelector("#imageInput");
-                    if (!Title || !des)
-                        throw new Error("Element not found");
-                    dataTitle = Title.value;
-                    dataDes = des.value;
-                    dataImg = img.value;
-                    console.log(dataTitle, dataDes, dataImg);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/send-posts', {
+                    word = ev.target.word.value;
+                    console.log(word);
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/send-word', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
                             },
-                            body: JSON.stringify({ dataTitle: dataTitle, dataDes: dataDes, dataImg: dataImg })
+                            body: JSON.stringify({ word: word }) //data to send (to string format) )
                         })];
                 case 1:
                     response = _a.sent();
@@ -102,100 +94,12 @@ function handlePost(ev) {
                 case 2:
                     data = _a.sent();
                     console.log(data);
-                    Title.value = "";
-                    des.value = "";
-                    img.value = "";
-                    return [4 /*yield*/, getPosts()];
+                    return [3 /*break*/, 4];
                 case 3:
-                    _a.sent();
-                    return [3 /*break*/, 5];
-                case 4:
                     error_2 = _a.sent();
                     console.error(error_2);
-                    return [3 /*break*/, 5];
-                case 5: return [2 /*return*/];
-            }
-        });
-    });
-}
-function getPosts() {
-    return __awaiter(this, void 0, void 0, function () {
-        var response, data, post, postElement, lastIndex, newestPost, postContainer, error_3;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/get-posts')];
-                case 1:
-                    response = _a.sent();
-                    console.log(response);
-                    return [4 /*yield*/, response.json()];
-                case 2:
-                    data = _a.sent();
-                    console.log(data.existPost.posts);
-                    post = data.posts;
-                    console.log("This is the get array post " + post);
-                    savePostLocalStorage("posts", data.posts);
-                    postElement = document.querySelector("#posts");
-                    if (!postElement)
-                        throw new Error("Element not found");
-                    lastIndex = post.length - 1;
-                    newestPost = post[lastIndex];
-                    if (newestPost) {
-                        postContainer = document.createElement("div");
-                        postContainer.classList.add("post");
-                        postContainer.innerHTML = renderPosts(newestPost);
-                        postElement.appendChild(postContainer);
-                    }
-                    else
-                        throw new Error("Post not found");
-                    return [3 /*break*/, 4];
-                case 3:
-                    error_3 = _a.sent();
-                    console.error(error_3);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
-            }
-        });
-    });
-}
-function renderPosts(post) {
-    return "\n                <img src=\"" + post.img + "\" alt=\"post Imgae\">\n                <h1>" + post.title + "</h1>\n                <h4>" + post.des + "</h4>";
-}
-function savePostLocalStorage(name, posts) {
-    localStorage.setItem(name, JSON.stringify(posts));
-}
-function getPostLocalStorage(name) {
-    var localPost = localStorage.getItem(name);
-    var localPosts = [];
-    if (localPost) {
-        localPosts = JSON.parse(localPost);
-    }
-    return localPosts;
-}
-function handleAllPosts() {
-    return __awaiter(this, void 0, void 0, function () {
-        var response, data, getLocalStorage, postElement;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch('http://localhost:3000/api/get-posts')];
-                case 1:
-                    response = _a.sent();
-                    console.log(response);
-                    return [4 /*yield*/, response.json()];
-                case 2:
-                    data = _a.sent();
-                    console.log(data);
-                    getLocalStorage = getPostLocalStorage("posts");
-                    console.log(getPostLocalStorage("posts"));
-                    postElement = document.querySelector("#posts");
-                    getLocalStorage.forEach(function (post) {
-                        var postContainer = document.createElement("div");
-                        postContainer.classList.add("post");
-                        postContainer.innerHTML = renderPosts(post);
-                        postElement.appendChild(postContainer);
-                    });
-                    return [2 /*return*/];
             }
         });
     });
