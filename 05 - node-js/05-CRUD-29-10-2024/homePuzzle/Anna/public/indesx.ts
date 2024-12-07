@@ -47,8 +47,8 @@ async function handlePost(ev){
             body: JSON.stringify({dataTitle,dataDes,dataImg})
         });
 
-        const data = await response.json();
-        console.log(data);
+        
+       
 
         Title.value = "";
         des.value = "";
@@ -72,9 +72,9 @@ async function getPosts() {
         console.log(response);
         const data = await response.json();
         console.log(data.existPost.posts);
-        const post : Post[] = data.posts;
+        const post : Post[] =data.posts;
         console.log(post);
-        savePostLocalStorage("posts",data.posts);
+       //savePostLocalStorage("posts",post);
         
         const postElement = document.querySelector("#posts") as HTMLDivElement;
 
@@ -119,10 +119,6 @@ function getPostLocalStorage(name : string){
 }
 
 async function handleAllPosts() {
-    const response = await fetch('http://localhost:3000/api/get-posts');
-    console.log(response);
-    const data = await response.json();
-    console.log(data);
     const getLocalStorage = getPostLocalStorage("posts");
     console.log(getPostLocalStorage("posts"));
     const postElement = document.querySelector("#posts") as HTMLDivElement;

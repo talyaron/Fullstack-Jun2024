@@ -34,52 +34,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-function getHello() {
+function handlePost(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, message, messageElement, error_1;
+        var Title, des, img, dataTitle, dataDes, dataImg, id, response, data, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 3, , 4]);
-                    //we will call the server
-                    console.time('fetching hello');
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/get-hello')];
-                case 1:
-                    response = _a.sent();
-                    console.log(response);
-                    return [4 /*yield*/, response.json()];
-                case 2:
-                    data = _a.sent();
-                    console.log(data);
-                    console.timeEnd('fetching hello');
-                    message = data.message;
-                    // const message = data.message;
-                    if (!message)
-                        throw new Error('No message found');
-                    messageElement = document.querySelector("#message");
-                    if (!messageElement)
-                        throw new Error('No message element found');
-                    messageElement.innerHTML = message;
-                    return [3 /*break*/, 4];
-                case 3:
-                    error_1 = _a.sent();
-                    console.error(error_1);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
-            }
-        });
-    });
-}
-//getHello(); //calling the function
-function handlePost(ev) {
-    return __awaiter(this, void 0, void 0, function () {
-        var Title, des, img, dataTitle, dataDes, dataImg, response, error_2;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 3, , 4]);
-                    ev.preventDefault();
-                    console.log(ev);
+                    _a.trys.push([0, 4, , 5]);
+                    event.preventDefault();
+                    console.log(event);
                     Title = document.querySelector("#title");
                     des = document.querySelector("#des");
                     img = document.querySelector("#imageInput");
@@ -88,35 +51,39 @@ function handlePost(ev) {
                     dataTitle = Title.value;
                     dataDes = des.value;
                     dataImg = img.value;
-                    console.log(dataTitle, dataDes, dataImg);
+                    id = "id-" + crypto.randomUUID();
                     return [4 /*yield*/, fetch('http://localhost:3000/api/send-posts', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
                             },
-                            body: JSON.stringify({ dataTitle: dataTitle, dataDes: dataDes, dataImg: dataImg })
+                            body: JSON.stringify({ dataTitle: dataTitle, dataDes: dataDes, dataImg: dataImg, id: id })
                         })];
                 case 1:
                     response = _a.sent();
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    data = _a.sent();
+                    //console.log(data);
                     Title.value = "";
                     des.value = "";
                     img.value = "";
                     return [4 /*yield*/, getPosts()];
-                case 2:
-                    _a.sent();
-                    return [3 /*break*/, 4];
                 case 3:
-                    error_2 = _a.sent();
-                    console.error(error_2);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    _a.sent();
+                    return [3 /*break*/, 5];
+                case 4:
+                    error_1 = _a.sent();
+                    console.error(error_1);
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
             }
         });
     });
 }
 function getPosts() {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, post, postElement, lastIndex, newestPost, postContainer, error_3;
+        var response, data, UserPosts, allPosts, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -128,37 +95,49 @@ function getPosts() {
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
-                    console.log(data.existPost.posts);
-                    post = data.posts;
-                    console.log(post);
-                    postElement = document.querySelector("#posts");
-                    if (!postElement)
-                        throw new Error("Element not found");
-                    lastIndex = post.length - 1;
-                    newestPost = post[lastIndex];
-                    if (newestPost) {
-                        postContainer = document.createElement("div");
-                        postContainer.classList.add("post");
-                        postContainer.innerHTML = renderPosts(newestPost);
-                        postElement.appendChild(postContainer);
-                    }
-                    else
-                        throw new Error("Post not found");
+                    console.log(data.existPost);
+                    console.log(data.posts);
+                    UserPosts = [];
+                    allPosts = getPostLocalStorage("UserPosts");
+                    renderPosts(data.posts);
                     return [3 /*break*/, 4];
                 case 3:
-                    error_3 = _a.sent();
-                    console.error(error_3);
+                    error_2 = _a.sent();
+                    console.log(error_2);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
         });
     });
 }
-function renderPosts(post) {
-    return "\n                <img src=\"" + post.img + "\" alt=\"post Imgae\">\n                <h1>" + post.title + "</h1>\n                <h4>" + post.des + "</h4>";
-}
-function savePostLocalStorage(name, posts) {
+getPosts();
+function savelocalStorage(name, posts) {
+    localStorage.clear();
     localStorage.setItem(name, JSON.stringify(posts));
+}
+function renderPosts(posts) {
+    try {
+        var postContainer = document.getElementById('posts');
+        if (!postContainer)
+            throw new Error('Feed element not found');
+        var htmlPosts = posts.map(function (post) {
+            return renderPost(post);
+        }).join('');
+        postContainer.innerHTML = htmlPosts;
+    }
+    catch (error) {
+        console.error(error);
+    }
+}
+function renderPost(post) {
+    try {
+        var html = "\n        <div class=\"post\">\n            <h2 id=\"title-" + post.id + "\">" + post.title + "</h2>\n            <p>" + post.des + "</p>\n            <button onclick=\"handleEditPost('" + post.id + "')\">EDIT</button>\n            <button>DELETE</button>\n            <img src=\"" + post.img + "\" alt=\"" + post.title + "\" />\n        </div>";
+        return html;
+    }
+    catch (error) {
+        console.log(error);
+        return '';
+    }
 }
 function getPostLocalStorage(name) {
     var localPost = localStorage.getItem(name);
@@ -170,17 +149,55 @@ function getPostLocalStorage(name) {
 }
 function handleAllPosts() {
     return __awaiter(this, void 0, void 0, function () {
-        var getLocalStorage, postElement;
+        var getLocalStorage;
         return __generator(this, function (_a) {
-            getLocalStorage = getPostLocalStorage("posts");
-            console.log(getPostLocalStorage("posts"));
-            postElement = document.querySelector("#posts");
-            getLocalStorage.forEach(function (post) {
-                var postContainer = document.createElement("div");
-                postContainer.classList.add("post");
-                postContainer.innerHTML = renderPosts(post);
-                postElement.appendChild(postContainer);
-            });
+            getLocalStorage = getPostLocalStorage("UserPosts");
+            console.log(getLocalStorage);
+            renderPosts(getLocalStorage);
+            return [2 /*return*/];
+        });
+    });
+}
+function handleEditPost(id) {
+    return __awaiter(this, void 0, void 0, function () {
+        var titleElement_1;
+        var _this = this;
+        return __generator(this, function (_a) {
+            try {
+                console.log('Edit title id:', id);
+                titleElement_1 = document.querySelector("#title-" + id);
+                if (!titleElement_1)
+                    throw new Error("Title element not found");
+                titleElement_1.contentEditable = "true";
+                titleElement_1.focus();
+                titleElement_1.addEventListener("blur", function () { return __awaiter(_this, void 0, void 0, function () {
+                    var title, allPosts, response, data;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                title = titleElement_1.innerText;
+                                console.log("New Title:", title);
+                                titleElement_1.contentEditable = 'false';
+                                allPosts = getPostLocalStorage("UserPosts");
+                                return [4 /*yield*/, fetch('http://localhost:3000/api/edit-posts', {
+                                        method: "PATCH",
+                                        headers: { "Content-Type": "application/json" },
+                                        body: JSON.stringify({ id: id, title: title, allPosts: allPosts })
+                                    })];
+                            case 1:
+                                response = _a.sent();
+                                return [4 /*yield*/, response.json()];
+                            case 2:
+                                data = _a.sent();
+                                console.log(data);
+                                return [2 /*return*/];
+                        }
+                    });
+                }); });
+            }
+            catch (error) {
+                console.error(error);
+            }
             return [2 /*return*/];
         });
     });

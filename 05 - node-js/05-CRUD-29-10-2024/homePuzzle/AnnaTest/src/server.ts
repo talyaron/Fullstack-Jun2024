@@ -33,7 +33,7 @@ app.post("/api/send-posts",(req : any,res : any) =>{
 
 app.get("/api/get-posts",(req : any,res : any)=>{
     try {
-        res.send({posts});
+        res.send({existPost: "posts send to client",posts});
     } catch (error) {
         console.error(error);
     }

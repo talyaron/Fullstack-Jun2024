@@ -23,7 +23,7 @@ app.post("/api/send-posts", function (req, res) {
 });
 app.get("/api/get-posts", function (req, res) {
     try {
-        res.send({ posts: posts });
+        res.send({ existPost: "posts send to client", posts: posts });
     }
     catch (error) {
         console.error(error);
