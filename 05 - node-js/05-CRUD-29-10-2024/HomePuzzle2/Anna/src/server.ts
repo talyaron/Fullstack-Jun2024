@@ -68,6 +68,7 @@ app.patch("/api/edit-text",(req : any,res :any) =>{
         console.error(error);
     }
 });
+
 app.get("/api/get-posts",(req : any,res : any)=>{
     try {
         console.log('Currect posts',posts)
@@ -86,6 +87,24 @@ app.delete("/api/delete-posts",(req : any,res : any) =>{
     }
     posts.splice(deletedIndex,1);
     res.json("Post deleted from the server");
+});
+
+app.patch("/api/editImg-posts",(req : any,res :any) =>{
+    try {
+        const {id,newImg} = req.body;
+        if(!id) throw new Error("post not found");
+        const post = posts.find((post) => post.id === id);
+        if(!post){
+            console.log("post not found",id);
+            return res.status(404).json({ success: false, message: `Post with id ${id} not found.` });
+        }
+        post.img = newImg;
+        console.log('Updated post:',post,newImg);
+        res.send({message:"Img updated successfully",posts});
+
+    } catch (error) {
+        console.error(error);
+    }
 });
 
 app.listen(port, () => {

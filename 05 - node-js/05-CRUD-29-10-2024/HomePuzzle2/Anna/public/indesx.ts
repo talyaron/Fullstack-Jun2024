@@ -85,6 +85,9 @@ function renderPost(post : Post){
             <button onclick="handleEditTitle('${post.id}')">EDIT TITLE</button>
             <button onclick="handleEditText('${post.id}')">EDIT TEXT</button>
             <button onclick="handleDeletePost('${post.id}')">DELETE</button>
+            <button onclick="handleEditImg('${post.id}')">Edit Photo</button>
+            <input id="editImg-${post.id}" class="hide" type="text"  placeholder="add image" >
+            <button id="updateImg-${post.id}" class="hide" > Update photo </button>
             <img src="${post.img}" alt="${post.title}" />
         </div>`;
         return html;
@@ -170,5 +173,31 @@ async function handleDeletePost(id: string) {
         getPosts();
     } catch (error) {
         
+    }
+}
+
+
+
+async function handleEditImg(id:string){
+    try {
+        if(!id) throw new Error("Post not found");
+        const imgInput = document.querySelector(`#editImg-${id}`) as HTMLInputElement;
+        imgInput.style.display = "block";
+        const updateImgBtn = document.querySelector(`#updateImg-${id}`) as HTMLButtonElement;
+        updateImgBtn.style.display = "block";
+        updateImgBtn.addEventListener("click",async()=>{
+            const newImg = imgInput.value;
+            const response = await fetch('http://localhost:3000/api/editImg-posts', {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id, newImg }),
+            });
+            const data = await response.json();
+            console.log(data);
+            getPosts();
+        })
+
+    } catch (error) {
+        console.error(error);
     }
 }

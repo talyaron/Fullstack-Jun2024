@@ -78,6 +78,24 @@ app["delete"]("/api/delete-posts", function (req, res) {
     posts.splice(deletedIndex, 1);
     res.json("Post deleted from the server");
 });
+app.patch("/api/editImg-posts", function (req, res) {
+    try {
+        var _a = req.body, id_3 = _a.id, newImg = _a.newImg;
+        if (!id_3)
+            throw new Error("post not found");
+        var post = posts.find(function (post) { return post.id === id_3; });
+        if (!post) {
+            console.log("post not found", id_3);
+            return res.status(404).json({ success: false, message: "Post with id " + id_3 + " not found." });
+        }
+        post.img = newImg;
+        console.log('Updated post:', post, newImg);
+        res.send({ message: "Img updated successfully", posts: posts });
+    }
+    catch (error) {
+        console.error(error);
+    }
+});
 app.listen(port, function () {
     console.log("Example app listening on port " + port);
 });

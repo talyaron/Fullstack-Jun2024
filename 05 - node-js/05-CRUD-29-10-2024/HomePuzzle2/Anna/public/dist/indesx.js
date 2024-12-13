@@ -131,7 +131,7 @@ function renderPosts(posts) {
 }
 function renderPost(post) {
     try {
-        var html = "\n        <div class=\"post\">\n            <h2 id=\"title-" + post.id + "\">" + post.title + "</h2>\n            <p id=\"p-" + post.id + "\">" + post.des + "</p>\n            <button onclick=\"handleEditTitle('" + post.id + "')\">EDIT TITLE</button>\n            <button onclick=\"handleEditText('" + post.id + "')\">EDIT TEXT</button>\n            <button onclick=\"handleDeletePost('" + post.id + "')\">DELETE</button>\n            <img src=\"" + post.img + "\" alt=\"" + post.title + "\" />\n        </div>";
+        var html = "\n        <div class=\"post\">\n            <h2 id=\"title-" + post.id + "\">" + post.title + "</h2>\n            <p id=\"p-" + post.id + "\">" + post.des + "</p>\n            <button onclick=\"handleEditTitle('" + post.id + "')\">EDIT TITLE</button>\n            <button onclick=\"handleEditText('" + post.id + "')\">EDIT TEXT</button>\n            <button onclick=\"handleDeletePost('" + post.id + "')\">DELETE</button>\n            <button onclick=\"handleEditImg('" + post.id + "')\">Edit Photo</button>\n            <input id=\"editImg-" + post.id + "\" class=\"hide\" type=\"text\"  placeholder=\"add image\" >\n            <button id=\"updateImg-" + post.id + "\" class=\"hide\" > Update photo </button>\n            <img src=\"" + post.img + "\" alt=\"" + post.title + "\" />\n        </div>";
         return html;
     }
     catch (error) {
@@ -266,6 +266,48 @@ function handleDeletePost(id) {
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
+        });
+    });
+}
+function handleEditImg(id) {
+    return __awaiter(this, void 0, void 0, function () {
+        var imgInput_1, updateImgBtn;
+        var _this = this;
+        return __generator(this, function (_a) {
+            try {
+                if (!id)
+                    throw new Error("Post not found");
+                imgInput_1 = document.querySelector("#editImg-" + id);
+                imgInput_1.style.display = "block";
+                updateImgBtn = document.querySelector("#updateImg-" + id);
+                updateImgBtn.style.display = "block";
+                updateImgBtn.addEventListener("click", function () { return __awaiter(_this, void 0, void 0, function () {
+                    var newImg, response, data;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                newImg = imgInput_1.value;
+                                return [4 /*yield*/, fetch('http://localhost:3000/api/editImg-posts', {
+                                        method: "PATCH",
+                                        headers: { "Content-Type": "application/json" },
+                                        body: JSON.stringify({ id: id, newImg: newImg })
+                                    })];
+                            case 1:
+                                response = _a.sent();
+                                return [4 /*yield*/, response.json()];
+                            case 2:
+                                data = _a.sent();
+                                console.log(data);
+                                getPosts();
+                                return [2 /*return*/];
+                        }
+                    });
+                }); });
+            }
+            catch (error) {
+                console.error(error);
+            }
+            return [2 /*return*/];
         });
     });
 }
