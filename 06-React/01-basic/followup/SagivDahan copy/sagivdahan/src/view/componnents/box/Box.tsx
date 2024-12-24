@@ -7,7 +7,9 @@ interface Props{
 
 const Box:FC<Props> = ({text}) => {
   return (
-    <div className={styles.box}>{text}</div>
+    <div className={styles.box}>
+      <textarea name="input" id="textinput"></textarea>
+    </div>
   )
 }
 
