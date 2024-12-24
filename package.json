@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "dotenv": "^16.4.5",
-    "mongoose": "^8.8.1"
+    "mongoose": "^8.8.1",
+    "sass": "^1.83.0"
   }
 }
