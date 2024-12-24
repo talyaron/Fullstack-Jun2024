@@ -9,12 +9,11 @@ function App() {
   const [] = useState(0)
 
   return (
-    <div>
-<img  src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png" alt="google" />  
- <button id='button' onClick={calculator}>1+2</button>
-    <Box title='eeeee'text='eeeeeeeeeeeeeeee' date='12/12/2024'/>
+    <div className='container'>
+      
+    <Box img='https://images.squarespace-cdn.com/content/v1/5bccf44aaadd343d1754394a/9a97d007-27d9-4c9e-9e20-cdf042970488/how+to+look+like+a+powerful+woman.jpg' title='eeeee'text='eeeeeeeeeeeeeeee' date='12/12/2024'/>
 
-    <Box title='woooo' text='woooooooooooooooooo' date='11/11/2011' />
+    <Box img='https://images.squarespace-cdn.com/content/v1/5bccf44aaadd343d1754394a/9a97d007-27d9-4c9e-9e20-cdf042970488/how+to+look+like+a+powerful+woman.jpg' title='woooo' text='woooooooooooooooooo' date='11/11/2011' />
     </div>
   )
 }
