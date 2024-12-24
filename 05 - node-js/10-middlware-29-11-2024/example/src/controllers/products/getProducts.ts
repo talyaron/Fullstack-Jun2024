@@ -6,11 +6,9 @@ import { PurchaseModel } from "../../model/purchase/purchaseModel";
 
 export async function getMyProducts(req: any, res: any) {
     try {
-        const { user } = req.cookies;
-        console.log(user);
-        //decode the token
-        const decoded = jwt.decode(user, secret);
-        console.log(decoded);
+       const user = req.user;
+
+       if(!user) throw new Error("User not found");
 
 
         const _products = await PurchaseModel.find({ clientId: decoded.id }).populate('productId');
