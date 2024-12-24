@@ -1,9 +1,12 @@
 import styles from "./Box.module.scss"
+import { FC } from "react";
 
-const Box=() =>{
+interface Props{
+    text:string;
+}
+const Box:FC<Props>=({text}) =>{
   return (
-    <div className={styles.box}>
-      Box
+    <div className={styles.box}>{text}
     </div>
   );
 }

@@ -14,6 +14,7 @@ for scss install the following package:
 * All tags must be closed.
 * Instead of class, we use className.
 * Inline CSS is written in camelCase.
+* Events are written in camelCase.
 
 ## React Components
 start a new component by writing rafce and press tab.
