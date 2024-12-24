@@ -39,8 +39,8 @@ exports.__esModule = true;
 exports.addUser = exports.secret = void 0;
 var userModel_1 = require("../../models/userModel");
 var bcrypt_1 = require("bcrypt");
-var saltRounds = 10;
-exports.secret = 'silam';
+var saltRounds = process.env.SALT_BCRYPT;
+exports.secret = String(process.env.SECRET_JWT);
 function addUser(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var _a, name, password, email, phone, imageUrl, yearOfBirth, hashPassword, result, error_1;
@@ -48,6 +48,8 @@ function addUser(req, res) {
             switch (_b.label) {
                 case 0:
                     _b.trys.push([0, 3, , 4]);
+                    if (!saltRounds)
+                        throw new Error('add salt');
                     _a = req.body, name = _a.name, password = _a.password, email = _a.email, phone = _a.phone, imageUrl = _a.imageUrl, yearOfBirth = _a.yearOfBirth;
                     return [4 /*yield*/, bcrypt_1["default"].hash(password, saltRounds)];
                 case 1:

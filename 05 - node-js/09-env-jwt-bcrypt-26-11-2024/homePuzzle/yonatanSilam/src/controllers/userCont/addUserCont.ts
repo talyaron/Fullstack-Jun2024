@@ -1,13 +1,13 @@
 import { UserModel } from "../../models/userModel";
-import jwt from 'jwt-simple';
 import bcrypt from 'bcrypt';
-const saltRounds = 10;
+const saltRounds = process.env.SALT_BCRYPT;
 
 
-export const secret:string ='silam';
+export const secret:string =String(process.env.SECRET_JWT);
 
 export async function addUser(req: any, res: any) {
   try {
+    if(!saltRounds)throw new Error('add salt')
     const { name,password, email, phone,imageUrl, yearOfBirth } = req.body;
     const hashPassword =await bcrypt.hash(password, saltRounds);
 

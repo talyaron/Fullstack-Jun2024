@@ -1,0 +1,234 @@
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f9f9f9;
+  max-width: 400px;
+  margin: 2rem auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+form input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+form input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+}
+form input[type=date]::-webkit-calendar-picker-indicator {
+  filter: invert(50%);
+  cursor: pointer;
+}
+form button {
+  padding: 0.8rem 1.2rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+form button:hover {
+  background: #0056b3;
+}
+form button:focus {
+  outline: none;
+  box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+}
+
+.user-card {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 0 auto;
+  font-family: "Arial", sans-serif;
+}
+.user-card .user-avatar {
+  flex-shrink: 0;
+}
+.user-card .user-avatar img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid #dee2e6;
+}
+.user-card .user-info {
+  margin-left: 20px;
+  color: #343a40;
+}
+.user-card .user-info .user-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.user-card .user-info .user-phone {
+  font-size: 1rem;
+  color: #495057;
+  margin-bottom: 5px;
+}
+.user-card .user-info .user-birth {
+  font-size: 0.9rem;
+  color: #868e96;
+}
+.user-card .delete-btn {
+  background-color: #ff6b6b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 5px;
+}
+.user-card .delete-btn:hover {
+  background-color: #fa5252;
+}
+.user-card .delete-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(250, 82, 82, 0.3);
+}
+.user-card .delete-btn:active {
+  background-color: #f03e3e;
+}
+
+#getUsers {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+#getUsers:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+#getUsers:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.4);
+}
+#getUsers:active {
+  background-color: #004085;
+  transform: translateY(0);
+}
+#getUsers:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.welcome-page {
+  text-align: center;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+.welcome-page h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+.welcome-page p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+.welcome-page .button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 20vw;
+  min-width: 200px;
+}
+.welcome-page .button-container .btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+.welcome-page .button-container .btn.user-btn {
+  background-color: #74b9ff;
+  color: #ffffff;
+}
+.welcome-page .button-container .btn.user-btn:hover {
+  background-color: #0984e3;
+  transform: scale(1.05);
+}
+.welcome-page .button-container .btn.provider-btn {
+  background-color: #55efc4;
+  color: #2d3436;
+}
+.welcome-page .button-container .btn.provider-btn:hover {
+  background-color: #00b894;
+  transform: scale(1.05);
+}
+
+.auth-page {
+  text-align: center;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.auth-page h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+.auth-page p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+.auth-page .button-container {
+  display: flex;
+  gap: 20px;
+}
+.auth-page .button-container .btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+.auth-page .button-container .btn.reg-btn {
+  background-color: #fab1a0;
+  color: #ffffff;
+}
+.auth-page .button-container .btn.reg-btn:hover {
+  background-color: #e17055;
+  transform: scale(1.05);
+}
+.auth-page .button-container .btn.login-btn {
+  background-color: #ffeaa7;
+  color: #2d3436;
+}
+.auth-page .button-container .btn.login-btn:hover {
+  background-color: #fdcb6e;
+  transform: scale(1.05);
+}
