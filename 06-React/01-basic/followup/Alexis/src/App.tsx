@@ -1,19 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Box from './view/components/box/box'
-
+import { useState } from "react";
+import pink from "./assets/pink.jpeg";
+import sky from "./assets/sky.jpeg";
+import "./App.css";
+import styles from "./view/components/box/box.module.scss"
+import Box from "./view/components/box/box";
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-    I AM GROOT!
-          <img src='https://i.ebayimg.com/00/s/MTQwMFgxNDAw/z/WKQAAOSwmCVkKEKz/$_57.JPG?set_id=880000500F' className="logo" alt="Baby Groot" />
-        <Box text="hey"/>
+      <div className={styles.block}>
+        <h6 className={styles.header}>Favourites</h6>
+        <div className={styles.article}>
+          <Box img={pink} text="Pink is literally the best color(no doubts)!" description="20:11 Thursday" />
+
+          <Box img={sky} text="The sky was so pretty we had to report" description="15:15 Tuesday"/>
+        </div>
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

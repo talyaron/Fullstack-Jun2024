@@ -1,14 +1,18 @@
-import styles from './box.module.scss'
+import styles from './Box.module.scss'
 import { FC } from 'react';
 import React from 'react'
 
 interface Props{
     text:string;
+    img:string;
+    description:string;
 }
-const Box:FC<Props> = ({text}) => {
+const Box:FC<Props> = ({img, text, description}) => {
   return (
     <div className={styles.box}>
-      {text}
+     <img src={img} alt={text} className={styles.image} />
+      <p>{text}</p>
+<p className={styles.desc}>{description}</p>
     </div>
   )
 }
