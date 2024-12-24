@@ -12,9 +12,9 @@ function App() {
     <div>
 <img  src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png" alt="google" />  
  <button id='button' onClick={calculator}>1+2</button>
-    <Box />
+    <Box text='eeeee'/>
 
-    <Box />
+    <Box text='woooo' />
     </div>
   )
 }
