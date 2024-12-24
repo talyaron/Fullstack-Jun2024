@@ -1,0 +1,41 @@
+body {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  background-color: white;
+  color: black;
+  margin: 0;
+  padding: 0;
+}
+
+.box {
+  border-bottom: 1px solid #ddd;
+  padding: 20px 0;
+  margin: 0 20px;
+}
+
+.box h2 {
+  font-size: 1.5rem; 
+  color: #000;
+  margin: 0;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.box p {
+  font-size: 1rem;
+  color: #555;
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+.box .meta {
+  font-size: 0.875rem;
+  color: #888;
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  align-items: center; 
+}
+
+.box .meta span {
+  white-space: nowrap; 
+}
