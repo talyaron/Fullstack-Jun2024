@@ -1,10 +1,38 @@
-.box{
-    padding: 5%;
-    border-radius: 5px;
-    background-color: pink;
-    color: white;
-    cursor: pointer;
-    :hover{
-        box-shadow: inset;
-    }
+body {
+  margin: 0;
+}
+.block {
+  display: flex;
+  flex-direction: column;
+}
+.header {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   padding-left: 5%;
+   margin: 0;
+}
+.box {
+  display: flex;
+  flex-direction: column;
+  padding: 5%;
+
+  color: pink;
+  cursor: pointer;
+
+  .image {
+    width: 350px;
+    height: auto;
+  }
+}
+.article {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: auto;
+}
+.desc {
+  color: lightgray;
+  font-size: 0.7rem;
+}
+p {
+  margin: 0.01rem;
 }
