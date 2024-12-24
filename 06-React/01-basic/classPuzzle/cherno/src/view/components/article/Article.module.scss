@@ -1,0 +1,27 @@
+.article{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 2rem;
+
+    &_image{
+        width: 100%;
+    }
+
+    &_title{
+        font-size: 24px;
+        margin-bottom: 1rem;
+        text-align: left;
+    }
+    
+    &_content{
+        font-size: 18px;
+        margin-bottom: 2rem;
+        text-align: left;
+    }
+    
+    &_stamp{
+        font-size: 14px;
+        color: #888;
+    }
+}
