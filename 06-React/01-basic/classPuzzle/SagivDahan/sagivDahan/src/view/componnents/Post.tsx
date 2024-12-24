@@ -9,10 +9,10 @@ interface Post{
 
 const Post:FC<Post> = ({headTitle, imageUrl, postDesctiption}) => {
   return (
-    <div className={styles.box}>
-    <img src={imageUrl} alt="image"/>
-    <h1 className='title'>{headTitle}</h1>
-    <p className='postDesctiption'>{postDesctiption}</p>
+    <div className={styles.post}>
+    <img src={imageUrl} className={styles.post__image} alt="image"/>
+    <h1 className={styles.post__title}>{headTitle}</h1>
+    <p className={styles.post__description}>{postDesctiption}</p>
     </div>
   )
 }
