@@ -42,6 +42,7 @@ function App() { // this is a functional component
         <input type="color" onChange={handleChangeColor} />
       </div>
     </>
+    
   )
 }
 
