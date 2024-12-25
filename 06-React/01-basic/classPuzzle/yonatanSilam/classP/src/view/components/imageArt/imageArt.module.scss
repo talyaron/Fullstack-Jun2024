@@ -1,0 +1,21 @@
+img{
+    width: 500px;
+    height: 300px;
+}
+.art{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    color: black;
+    margin: 0.2rem;
+    width: 500px;
+    text-align: start;
+
+}
+.title{
+    font-size: medium;
+}
+.time{
+    font-size: small;
+    color: gray;
+}
