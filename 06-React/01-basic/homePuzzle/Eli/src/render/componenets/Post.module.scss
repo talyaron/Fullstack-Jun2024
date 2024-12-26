@@ -1,0 +1,43 @@
+.poster
+{
+    border: solid black 1px;
+    width: 60vw;
+}
+.post
+{
+    border: solid black 1px;
+    width: 60vw;
+    margin-top: 1vw;
+}
+h1{
+    margin: .1vw;
+}
+.row{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+}
+.column{
+    display: flex;
+    flex-direction: column;
+}
+.button{
+    width: 5vw;
+    height: 5vw;
+   position: relative;
+   bottom: -5vw;
+}
+img{
+    width: 5vw;
+    height: 5vw;
+    border-radius: 50%;
+    border: solid black 1px;
+
+}
+input{
+    width: 20vw;
+    height: 10vw;
+    margin: 1vw;
+
+}
