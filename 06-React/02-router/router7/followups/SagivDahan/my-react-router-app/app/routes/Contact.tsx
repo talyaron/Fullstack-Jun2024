@@ -1,13 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { Link, Outlet } from 'react-router'
 
 const contact = () => {
   return (
     <>
-     <div>contact</div>
-     <Link to='/'>To Home</Link>
+     <Link to='dashboard/profile/profile'>To profile</Link>
+     <Outlet></Outlet>
     </>
-   
   )
 }
 
