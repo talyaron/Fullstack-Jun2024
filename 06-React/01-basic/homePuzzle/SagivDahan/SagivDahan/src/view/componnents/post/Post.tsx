@@ -18,11 +18,11 @@ const Post:FC<PostInterface> = ({date, fullName, username, text, imageUrl}) => {
         <p className={styles.post__name}>{fullName}</p>
         <p className={styles.post__username}>{username}</p>
         <p className={styles.post__text}>{text}</p>
-        <img src={imageUrl} alt='image' className={styles.post__img}/>
+        {imageUrl && <img src={imageUrl} alt="Post" className={styles.post__img} />}
       </div>
     </div>
     </> 
-  )
-}
+  );
+};
 
 export default Post
