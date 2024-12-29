@@ -6,22 +6,10 @@ export function Welcome() {
   return (
     <main className="flex items-center justify-center pt-16 pb-4">
       <Link to="/connectUs">hey thereeee</Link>
-      <h1></h1>
-      <Link to="/dashbord" >I Am Your Dash Bord</Link>
+     
       <div className="flex-1 flex flex-col items-center gap-16 min-h-0">
+         <Link to="/dashbord" style={{fontSize: '2rem',background: 'yellow'}}className="dashbord">I Am Your Dash Bord</Link>
         <header className="flex flex-col items-center gap-9">
-          <div className="w-[500px] max-w-[100vw] p-4">
-            <img
-              src={logoLight}
-              alt="React Router"
-              className="block w-full dark:hidden"
-            />
-            <img
-              src={logoDark}
-              alt="React Router"
-              className="hidden w-full dark:block"
-            />
-          </div>
         </header>
         <div className="max-w-[300px] w-full space-y-6 px-4">
           <nav className="rounded-3xl border border-gray-200 p-6 dark:border-gray-700 space-y-4">

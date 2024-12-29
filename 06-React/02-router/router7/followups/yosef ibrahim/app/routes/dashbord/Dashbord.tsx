@@ -10,10 +10,14 @@ const Dashbord = () => {
     }}>
       <h1>The main dashbord</h1>
       <br /><br />
+      <div style={{margin: '2rem', display: 'grid'}}>
       <Link to="" style={{backgroundColor:'yellow'}}>Cart new new 2029</Link>
+      <br /><br />
       <Link to="chatBot" style={{backgroundColor:'pink'}}>Chat Bot 2025</Link>
+      
       <br /><br />
       <Outlet></Outlet>
+      </div>
     </div>
   )
 }
