@@ -1,0 +1,39 @@
+body{
+    background-color: #000000;
+}
+.post{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+    &__banner{
+        border: 0.10px solid white;
+        background-color: #080808;
+        width: 600px;
+        height: 300px;
+    }
+    &__date{
+        position: relative;
+        left: 38%;
+    }
+    &__name{
+        font-size: large;
+        font-weight: bold;
+        position: relative;
+        top: -12%;
+        left: -38%;
+    }
+    &__username{
+        position: relative;
+        top: -16%;
+        left: -39%;
+        font-size: 0.8rem;
+    }
+    &__text{
+        position: relative;
+        top: -10%;
+    }
+    &__img{
+        width: 400px;
+        height: 400px;
+    }
+}
