@@ -1,21 +1,21 @@
 import './App.css'
 import Feed, { feed } from './view/componnet/feed/Feed'
+import Storie from './view/componnet/storie/Storie'
 
 function App() {
 
 const array: feed[] = [
-  { content: 'Hello there!' },
-  { content: 'bye' },
-  { content: 'wow man!' },
-  { content: 'i love you!' },
-  
-  // add more feeds here
+  { content: 'Hello there!' , like:0},
+  { content: 'bye', like:0 },
+  { content: 'wow man!', like:0},
+  { content: 'i love you!', like:0},
   ]
+  
 
   return (
     <div className="App">
-      {array.map((item) => (
-        <Feed content={item.content} />
+      {array.map((item, index) => (
+        <Feed key={index} content={item.content} like={item.like}/>
       ))}
     </div>
   )
