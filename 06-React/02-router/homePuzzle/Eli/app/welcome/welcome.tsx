@@ -15,7 +15,7 @@ export function Welcome() {
   
   return (
     <>
-      <Link to="/chat" className="absolute top-4 right-4 text-blue-700 dark:text-blue-500">chat</Link>
+      <Link to="/chat/default" className="absolute top-4 right-4 text-blue-700 dark:text-blue-500">chat</Link>
        <Post pfp={user.pfp} name={user.name} onSubmit={handleSubmit} />
       <div id="postsContainer">
         {posts.map((post, index) => (
