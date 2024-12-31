@@ -1,15 +1,19 @@
 import React from 'react'
-import type { Route } from '../+types/root'
+import type { Route } from './+types/chat';
+import { useParams } from 'react-router';
+import { users } from '~/model/modelDataBase';
 
-async function loader({params}:Route.LoaderArgs) {
-  const chatName= params.chatName;
-  return{ chatName} ;
-}
+
+
 const PersonalMessages = ({loaderData}:Route.ComponentProps) => {
-  if(loaderData!==undefined)
+  if(loaderData===undefined) return;
+    const { chatName } = useParams<{ chatName: string }>();
+   const userFound =users.find(user=>user.name===chatName)
+   if(userFound)
   return (
     <div>
-      <h1> messages from : {loaderData}</h1>
+      <h1> messages from : {chatName}</h1>
+      <p> {userFound.msgs}</p>
     </div>
   )
 }
