@@ -1,6 +1,6 @@
 
 import { FC, useState, useRef } from "react";
-import styles from './Feed.module.scss'
+import styles from './Feed.module.scss';
 import profilePic from '../../../assets/pics/profile_pic.png'
 import addPic from '../../../assets/pics/addPic.png'
 import addLocation from '../../../assets/pics/addLocation.png'
