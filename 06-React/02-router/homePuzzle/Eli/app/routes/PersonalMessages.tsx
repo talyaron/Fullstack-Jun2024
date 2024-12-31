@@ -1,15 +1,15 @@
 import React from 'react'
-import type { Route } from '../+types/root'
+import type { Route } from './+types/chat';
+import { useParams } from 'react-router';
 
-async function loader({params}:Route.LoaderArgs) {
-  const chatName= params.chatName;
-  return{ chatName} ;
-}
+
+
 const PersonalMessages = ({loaderData}:Route.ComponentProps) => {
-  if(loaderData!==undefined)
+  if(loaderData===undefined) return;
+    const { chatName } = useParams<{ chatName: string }>();
   return (
     <div>
-      <h1> messages from : {loaderData}</h1>
+      <h1> messages from : {chatName}</h1>
     </div>
   )
 }

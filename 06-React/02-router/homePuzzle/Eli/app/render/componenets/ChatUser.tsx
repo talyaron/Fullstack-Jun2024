@@ -1,6 +1,6 @@
 import React from 'react'
 import  styles  from "./ChatUser.module.scss";
-import { Link } from 'react-router';
+import { Link, Outlet } from 'react-router';
 import PersonalMessages from '~/routes/PersonalMessages';
 interface ChatUserProps {
   name: string;
@@ -16,6 +16,7 @@ const ChatUser = ({ name, pfp }: ChatUserProps) => {
       <h1>{name}</h1>
     </div>
     </Link>
+  
   );
 };
 
