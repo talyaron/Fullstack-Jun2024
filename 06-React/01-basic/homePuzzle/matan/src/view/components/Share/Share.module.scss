@@ -1,0 +1,22 @@
+.button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+  
+  .icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+  }
+  
+  .text {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  

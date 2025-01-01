@@ -1,0 +1,23 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.app {
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+
+  h1 {
+    margin: 20px 0;
+    font-size: 2.5em;
+    color: #333;
+    
+  }
+}
+
+
+
+
+

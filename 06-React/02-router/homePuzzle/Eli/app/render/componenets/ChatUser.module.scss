@@ -1,0 +1,33 @@
+.user {
+  width: 20%;
+  height: 15%;
+  display: flex;
+  flex-direction: row;
+  border: 1px blue solid;
+  margin: 0.5vw;
+  user-select: none;
+  align-items: center;
+  cursor: pointer;
+  img {
+    width: 5vw;
+    height: 5vw;
+    border-radius: 50%;
+  }
+  h1 {
+    margin: 0;
+  }
+  link {
+    color: black;
+    &:visited {
+      color: black;
+    }
+  }
+}
+.chatBox {
+  width: 50vw;
+  height: 20vh;
+  position: absolute;
+    left: 20vw;
+    height: 20vw;
+  border: solid black 2px;
+}

@@ -1,0 +1,51 @@
+.feed {
+  background-color: black;
+  margin: 2rem;
+}
+
+.test {
+  display: none;
+}
+
+.icons {
+  background-color: black;
+}
+
+#try {
+  display: none;
+}
+
+.post {
+  color: white;
+  font-size: 7rem;
+  white-space: pre-wrap;
+}
+
+.like {
+  width: 5rem;
+  height: 5rem;
+  font-size: 3rem;
+  color: white;
+  cursor: pointer;
+}
+.like:hover {
+  color: red;
+}
+.like:active {
+  color: green;
+}
+.like:focus {
+  color: yellow;
+}
+.like:visited {
+  color: blue;
+}
+
+.input {
+  width: 50%;
+  padding: 1rem;
+  margin: 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: lightgray;
+}
