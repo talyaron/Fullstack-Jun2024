@@ -5,14 +5,14 @@ import React from "react";
 const About = () =>{
     return(
     <>
-    <h3>About</h3>
-    <ul>
-        <li><Link to="profile">Profile</Link>
-        <ol><li><Link to="settings">Settings</Link></li></ol></li>
+    
+    <h1>About:</h1>
+    <ol>
+        <li><Link to="profile">Profile</Link></li>
         <br />
         <li><Link to="apps">Apps</Link></li>
         
-    </ul>
+    </ol>
     <Outlet />
     </>
     );
