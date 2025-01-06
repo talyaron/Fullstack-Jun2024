@@ -1,0 +1,25 @@
+.catList {
+    text-align: center;
+  }
+  
+  .catList ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .catList img {
+    width: 200px;
+    margin: 10px;
+    border-radius: 8px;
+    transition: transform 0.3s;
+  }
+  
+  .catList img:hover {
+    transform: scale(1.1);
+  }
+  
+  .catDetails img {
+    width: 400px;
+    border-radius: 12px;
+  }
+  

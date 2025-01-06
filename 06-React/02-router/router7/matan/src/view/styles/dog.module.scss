@@ -1,0 +1,25 @@
+.dogList {
+    text-align: center;
+  }
+  
+  .dogList ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .dogList img {
+    width: 200px;
+    margin: 10px;
+    border-radius: 8px;
+    transition: transform 0.3s;
+  }
+  
+  .dogList img:hover {
+    transform: scale(1.1);
+  }
+  
+  .dogDetails img {
+    width: 400px;
+    border-radius: 12px;
+  }
+  
