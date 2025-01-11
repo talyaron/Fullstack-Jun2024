@@ -1,0 +1,23 @@
+.title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    font-family: 'Arial', sans-serif;
+}
+  
+.mainTitle {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+  
+.subTitle {
+    font-size: 0.9em;
+    color: gray;
+}
+  
+.postTime {
+    font-size: 0.8em;
+    color: gray;
+}
