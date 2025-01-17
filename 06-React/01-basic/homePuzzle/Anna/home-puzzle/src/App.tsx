@@ -1,11 +1,8 @@
 
 import './App.css'
-import Title from './View/componense/Title/Title'
-import PostInfo from './View/componense/PostInfo/PostInfo'
-import ProfileImg from './View/componense/ProfileImg/ProfileImg'
-import useState from 'react'
+import Article from './View/componense/Article/Article'
 
-interface ArticleProps{
+export interface ArticleProps{
   proImg : string,
   subTitle : string,
   postTime : string,
@@ -15,7 +12,8 @@ interface ArticleProps{
 }
 
 const articles : ArticleProps [] = [
-  { proImg : "https://us4-cdn.inside-graph.com/custom/1-CAR_Avatar_icon.svg?1736437326100" , 
+  { 
+    proImg : "https://us4-cdn.inside-graph.com/custom/1-CAR_Avatar_icon.svg?1736437326100" , 
     title : "Tank Must de Cartier watch", 
     subTitle :"@annaPetro",
     postTime  : "1",
@@ -46,16 +44,7 @@ function App() {
   return (
     <>
     {articles.map((art,index) =>
-      <div className='container'>
-      <div className='header'>
-        <ProfileImg key ={index} img={art.proImg}></ProfileImg>
-        <Title key={index} title={art.title} subTitle={art.subTitle} postTime={art.postTime}></Title>
-      </div>
-      <div className='body'>
-        <PostInfo key={index} text={art.post}
-        img= {art.postImg} ></PostInfo>
-      </div>
-      </div> 
+      <Article  key={index} article={art} ></Article>
   )}
     </>
   )
