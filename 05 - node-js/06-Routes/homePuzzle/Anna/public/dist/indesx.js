@@ -52,7 +52,7 @@ function handlePost(event) {
                     dataDes = des.value;
                     dataImg = img.value;
                     id = "id-" + crypto.randomUUID();
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/send-posts', {
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/users/send-posts', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -88,7 +88,7 @@ function getPosts() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/get-posts')];
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/users/get-posts')];
                 case 1:
                     response = _a.sent();
                     console.log(response);
@@ -179,7 +179,7 @@ function handleEditTitle(id) {
                                 console.log("New Title:", title);
                                 titleElement_1.contentEditable = 'false';
                                 allPosts = getPostLocalStorage("UserPosts");
-                                return [4 /*yield*/, fetch('http://localhost:3000/api/edit-title', {
+                                return [4 /*yield*/, fetch('http://localhost:3000/api/users/edit-title', {
                                         method: "PATCH",
                                         headers: { "Content-Type": "application/json" },
                                         body: JSON.stringify({ id: id, title: title, allPosts: allPosts })
@@ -221,7 +221,7 @@ function handleEditText(id) {
                                 des = textElement_1.innerText.trim();
                                 console.log("New Description:", des);
                                 textElement_1.contentEditable = 'false';
-                                return [4 /*yield*/, fetch('http://localhost:3000/api/edit-text', {
+                                return [4 /*yield*/, fetch('http://localhost:3000/api/users/edit-text', {
                                         method: "PATCH",
                                         headers: { "Content-Type": "application/json" },
                                         body: JSON.stringify({ id: id, des: des })
@@ -252,7 +252,7 @@ function handleDeletePost(id) {
                     _a.trys.push([0, 2, , 3]);
                     if (!id)
                         throw new Error("Post not found");
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/delete-posts', {
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/users/delete-posts', {
                             method: "DELETE",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({ id: id })
@@ -287,7 +287,7 @@ function handleEditImg(id) {
                         switch (_a.label) {
                             case 0:
                                 newImg = imgInput_1.value;
-                                return [4 /*yield*/, fetch('http://localhost:3000/api/editImg-posts', {
+                                return [4 /*yield*/, fetch('http://localhost:3000/api/users/editImg-posts', {
                                         method: "PATCH",
                                         headers: { "Content-Type": "application/json" },
                                         body: JSON.stringify({ id: id, newImg: newImg })

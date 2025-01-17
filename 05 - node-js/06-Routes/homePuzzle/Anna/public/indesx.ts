@@ -19,7 +19,7 @@ async function handlePost(event){
         const dataDes = des.value;
         const dataImg = img.value;
         const id = `id-${crypto.randomUUID()}`
-        const response = await fetch('http://localhost:3000/api/send-posts',{
+        const response = await fetch('http://localhost:3000/api/users/send-posts',{
             method: 'POST',
             headers:{
                 'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ async function handlePost(event){
 
 async function getPosts() {
     try {
-        const response = await fetch('http://localhost:3000/api/get-posts');
+        const response = await fetch('http://localhost:3000/api/users/get-posts');
         console.log(response);
         const data = await response.json();
         console.log(data.existPost);
@@ -125,7 +125,7 @@ async function handleEditTitle(id : string) {
             console.log("New Title:", title);
             titleElement.contentEditable = 'false';
             const allPosts = getPostLocalStorage("UserPosts");
-            const response = await fetch('http://localhost:3000/api/edit-title', {
+            const response = await fetch('http://localhost:3000/api/users/edit-title', {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id, title, allPosts }),
@@ -148,7 +148,7 @@ async function handleEditText(id : string){
             const des = textElement.innerText.trim();
             console.log("New Description:", des);
             textElement.contentEditable = 'false';
-            const response = await fetch('http://localhost:3000/api/edit-text', {
+            const response = await fetch('http://localhost:3000/api/users/edit-text', {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id, des }),
@@ -164,7 +164,7 @@ async function handleEditText(id : string){
 async function handleDeletePost(id: string) {
     try {
         if(!id) throw new Error("Post not found");
-        const response = await fetch('http://localhost:3000/api/delete-posts',{
+        const response = await fetch('http://localhost:3000/api/users/delete-posts',{
             method: "DELETE",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({id}),
@@ -187,7 +187,7 @@ async function handleEditImg(id:string){
         updateImgBtn.style.display = "block";
         updateImgBtn.addEventListener("click",async()=>{
             const newImg = imgInput.value;
-            const response = await fetch('http://localhost:3000/api/editImg-posts', {
+            const response = await fetch('http://localhost:3000/api/users/editImg-posts', {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id, newImg }),

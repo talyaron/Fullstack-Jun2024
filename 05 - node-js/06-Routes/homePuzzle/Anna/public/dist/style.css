@@ -111,6 +111,22 @@ form button:hover {
   transition: transform 0.2s ease-in-out;
 }
 
+.post button {
+  background-color: #3897f0;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  margin: 5px 2px;
+  transition: background-color 0.3s ease;
+}
+
+.post button:hover {
+  background-color: #2878c7;
+}
+
 .hide {
   display: none;
 }
