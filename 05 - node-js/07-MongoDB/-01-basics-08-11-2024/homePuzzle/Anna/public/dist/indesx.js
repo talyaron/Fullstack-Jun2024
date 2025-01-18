@@ -61,10 +61,11 @@ function handlePost(event) {
                         })];
                 case 1:
                     response = _a.sent();
+                    console.log(dataTitle, dataDes, dataImg);
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
-                    //console.log(data);
+                    console.log(data);
                     Title.value = "";
                     des.value = "";
                     img.value = "";
@@ -131,7 +132,7 @@ function renderPosts(posts) {
 }
 function renderPost(post) {
     try {
-        var html = "\n        <div class=\"post\">\n            <h2 id=\"title-" + post.id + "\">" + post.title + "</h2>\n            <p id=\"p-" + post.id + "\">" + post.des + "</p>\n            <button onclick=\"handleEditTitle('" + post.id + "')\">EDIT TITLE</button>\n            <button onclick=\"handleEditText('" + post.id + "')\">EDIT TEXT</button>\n            <button onclick=\"handleDeletePost('" + post.id + "')\">DELETE</button>\n            <button onclick=\"handleEditImg('" + post.id + "')\">Edit Photo</button>\n            <input id=\"editImg-" + post.id + "\" class=\"hide\" type=\"text\"  placeholder=\"add image\" >\n            <button id=\"updateImg-" + post.id + "\" class=\"hide\" > Update photo </button>\n            <img src=\"" + post.img + "\" alt=\"" + post.title + "\" />\n        </div>";
+        var html = "\n        <div class=\"post\" id=" + post._id + ">\n            <h2 id=\"title-" + post._id + "\">" + post.title + "</h2>\n            <p id=\"p-" + post._id + "\">" + post.des + "</p>\n            <button onclick=\"handleEditTitle('" + post._id + "')\">EDIT TITLE</button>\n            <button onclick=\"handleEditText('" + post._id + "')\">EDIT TEXT</button>\n            <button onclick=\"handleDeletePost('" + post._id + "')\">DELETE</button>\n            <button onclick=\"handleEditImg('" + post._id + "')\">Edit Photo</button>\n            <input id=\"editImg-" + post._id + "\" class=\"hide\" type=\"text\"  placeholder=\"add image\" >\n            <button id=\"updateImg-" + post._id + "\" class=\"hide\" > Update photo </button>\n            <img src=\"" + post.img + "\" alt=\"" + post.title + "\" />\n        </div>";
         return html;
     }
     catch (error) {
@@ -171,18 +172,18 @@ function handleEditTitle(id) {
                 titleElement_1.contentEditable = "true";
                 titleElement_1.focus();
                 titleElement_1.addEventListener("blur", function () { return __awaiter(_this, void 0, void 0, function () {
-                    var title, allPosts, response, data;
+                    var newtitle, allPosts, response, data;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
-                                title = titleElement_1.innerText.trim();
-                                console.log("New Title:", title);
+                                newtitle = titleElement_1.innerText.trim();
+                                console.log("New Title:", newtitle);
                                 titleElement_1.contentEditable = 'false';
                                 allPosts = getPostLocalStorage("UserPosts");
                                 return [4 /*yield*/, fetch('http://localhost:3000/api/users/edit-title', {
                                         method: "PATCH",
                                         headers: { "Content-Type": "application/json" },
-                                        body: JSON.stringify({ id: id, title: title, allPosts: allPosts })
+                                        body: JSON.stringify({ id: id, title: newtitle, allPosts: allPosts })
                                     })];
                             case 1:
                                 response = _a.sent();

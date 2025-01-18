@@ -2,7 +2,7 @@ interface Post {
     title : string,
     des : string,
     img: string
-    id : string
+    _id : string
 }
 
 async function handlePost(event){
@@ -26,9 +26,9 @@ async function handlePost(event){
             },
             body: JSON.stringify({dataTitle,dataDes,dataImg,id})
         });
-        //console.log(dataTitle,dataDes,dataImg);
+        console.log(dataTitle,dataDes,dataImg);
         const data = await response.json();
-        //console.log(data);
+        console.log(data);
         
         Title.value = "";
         des.value = "";
@@ -79,15 +79,15 @@ function renderPosts(posts : Post []){
 function renderPost(post : Post){
     try {
         const html =  `
-        <div class="post">
-            <h2 id="title-${post.id}">${post.title}</h2>
-            <p id="p-${post.id}">${post.des}</p>
-            <button onclick="handleEditTitle('${post.id}')">EDIT TITLE</button>
-            <button onclick="handleEditText('${post.id}')">EDIT TEXT</button>
-            <button onclick="handleDeletePost('${post.id}')">DELETE</button>
-            <button onclick="handleEditImg('${post.id}')">Edit Photo</button>
-            <input id="editImg-${post.id}" class="hide" type="text"  placeholder="add image" >
-            <button id="updateImg-${post.id}" class="hide" > Update photo </button>
+        <div class="post" id=${post._id}>
+            <h2 id="title-${post._id}">${post.title}</h2>
+            <p id="p-${post._id}">${post.des}</p>
+            <button onclick="handleEditTitle('${post._id}')">EDIT TITLE</button>
+            <button onclick="handleEditText('${post._id}')">EDIT TEXT</button>
+            <button onclick="handleDeletePost('${post._id}')">DELETE</button>
+            <button onclick="handleEditImg('${post._id}')">Edit Photo</button>
+            <input id="editImg-${post._id}" class="hide" type="text"  placeholder="add image" >
+            <button id="updateImg-${post._id}" class="hide" > Update photo </button>
             <img src="${post.img}" alt="${post.title}" />
         </div>`;
         return html;
@@ -121,14 +121,14 @@ async function handleEditTitle(id : string) {
         titleElement.contentEditable = `true`;
         titleElement.focus();
         titleElement.addEventListener("blur", async () => {
-            const title = titleElement.innerText.trim();
-            console.log("New Title:", title);
+            const newtitle = titleElement.innerText.trim();
+            console.log("New Title:", newtitle);
             titleElement.contentEditable = 'false';
             const allPosts = getPostLocalStorage("UserPosts");
             const response = await fetch('http://localhost:3000/api/users/edit-title', {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ id, title, allPosts }),
+                body: JSON.stringify({ id, title: newtitle, allPosts }),
             });
             const data = await response.json();
             console.log("Server Response:", data);
